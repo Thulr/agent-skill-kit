@@ -51,7 +51,7 @@ language-specific bindings, `errors.md` for error response copy, and
   offsets on mutable lists.
 - **Explicit versioning** *(design, audit)* — version in path or header; never
   implicit. Deprecation window ≥ documented support period.
-- **Hyrum-aware contracts** *(audit, design)* — assume integrators depend on
+- **Observable-behavior contracts** *(audit, design)* — assume integrators depend on
   every observable; lock what you intend, leave room for what you don't.
 - **Paste-runnable examples** *(audit)* — every example in docs runs with one
   substitution; tested in CI.

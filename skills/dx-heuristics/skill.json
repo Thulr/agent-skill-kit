@@ -6,8 +6,10 @@
   "status": "draft",
   "maintainers": ["justin"],
   "tags": [
-    "dx", "developer-experience", "api", "sdk", "cli",
-    "docs", "errors", "contributor", "migration"
+    "dx", "developer-experience",
+    "api", "sdk", "cli", "docs", "errors",
+    "setup", "inner-loop", "contributor",
+    "auth", "migration", "plugin", "ide", "perf", "telemetry"
   ],
   "inspired_by": [
     {
@@ -153,6 +155,62 @@
       "year": 2016,
       "contribution": "Consent must be freely given, specific, informed, and unambiguous; withdrawable. Frames telemetry opt-in requirements.",
       "playbooks": ["telemetry"]
+    },
+    {
+      "name": "Diátaxis Documentation Framework",
+      "author": "Daniele Procida",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Four orthogonal documentation modes (tutorials, how-to guides, reference, explanation) that should never be mixed in one page.",
+      "playbooks": ["docs"]
+    },
+    {
+      "name": "Don't Make Me Think",
+      "author": "Steve Krug",
+      "kind": "book",
+      "year": 2000,
+      "contribution": "Users scan, don't read; F-pattern scanning; signposting; minimize cognitive load — applied to docs IA.",
+      "playbooks": ["docs"]
+    },
+    {
+      "name": "Language Server Protocol Specification",
+      "author": "Microsoft",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Uniform editor-integration contract: speak LSP and you get autocomplete, diagnostics, hover, and jump-to-def across modern editors.",
+      "playbooks": ["ide"]
+    },
+    {
+      "name": "The Pragmatic Programmer",
+      "author": "Andrew Hunt, David Thomas",
+      "kind": "book",
+      "year": 1999,
+      "contribution": "Power editing; tool fluency; the IDE is part of the SDK surface.",
+      "playbooks": ["ide"]
+    },
+    {
+      "name": "Systems Performance",
+      "author": "Brendan Gregg",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "The USE method (utilization, saturation, errors); profile before optimizing; methodology for diagnosing performance problems.",
+      "playbooks": ["perf"]
+    },
+    {
+      "name": "Response Times: The 3 Important Limits",
+      "author": "Jakob Nielsen",
+      "kind": "article",
+      "year": 1993,
+      "contribution": "The 0.1s / 1s / 10s thresholds for user-perceived latency: instant feel, train-of-thought, attention loss.",
+      "playbooks": ["perf"]
+    },
+    {
+      "name": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "kind": "book",
+      "year": 2017,
+      "contribution": "Latency framing: percentile matters (p50 hides the tail); average vs p99; head-of-line blocking.",
+      "playbooks": ["perf"]
     }
   ]
 }

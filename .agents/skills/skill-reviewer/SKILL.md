@@ -68,6 +68,12 @@ Block or fix a draft when:
 - risky workflows lack evals or safety boundaries
 - sensitive domains overclaim expertise or omit escalation boundaries
 - copyrighted source material is reproduced or closely paraphrased
+- workflow, registries, templates, or load-bearing markers have drifted out
+  of sync (see Internal Consistency in the rubric) — e.g., a new mode/branch
+  in the workflow with no matching downstream wiring (context loading,
+  dispatch, or template selection), a menu that lists options not in the
+  CSV, a load-bearing comment naming a heading that no longer exists, or a
+  doc hardcoding a count/list that should iterate a registry
 
 ## Reference Map
 

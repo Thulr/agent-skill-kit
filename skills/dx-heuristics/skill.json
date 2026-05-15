@@ -1,0 +1,94 @@
+{
+  "name": "dx-heuristics",
+  "description": "Practical developer-experience review and design for APIs, SDKs, CLIs, docs, examples, setup, errors, local loops, migrations, contracts, and contributor workflows. Grounded in canonical DX/UX literature.",
+  "version": "0.2.0",
+  "license": "MIT",
+  "status": "draft",
+  "maintainers": ["justin"],
+  "tags": [
+    "dx", "developer-experience", "api", "sdk", "cli",
+    "docs", "errors", "contributor", "migration"
+  ],
+  "inspired_by": [
+    {
+      "name": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "kind": "book",
+      "year": 1988,
+      "contribution": "Affordances, signifiers, slips-vs-mistakes error taxonomy; mental-model alignment.",
+      "playbooks": ["cli", "errors", "api", "plugin"]
+    },
+    {
+      "name": "10 Usability Heuristics for User Interface Design",
+      "author": "Jakob Nielsen",
+      "kind": "article",
+      "year": 1994,
+      "contribution": "Heuristic-evaluation format; severity rubric; visibility-of-system-status and recognition-over-recall, adapted to developer surfaces.",
+      "playbooks": ["audit-intent", "all"]
+    },
+    {
+      "name": "How to Design a Good API and Why It Matters",
+      "author": "Joshua Bloch",
+      "kind": "talk",
+      "year": 2006,
+      "contribution": "API design principles: if in doubt leave it out, naming, modules over methods, document everything.",
+      "playbooks": ["api", "sdk"]
+    },
+    {
+      "name": "A Philosophy of Software Design",
+      "author": "John Ousterhout",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "Deep modules with simple interfaces; defining errors out of existence; comments-as-design.",
+      "playbooks": ["api", "sdk", "errors"]
+    },
+    {
+      "name": "The Twelve-Factor App",
+      "author": "Adam Wiggins",
+      "kind": "guide",
+      "year": 2011,
+      "contribution": "Config in env, dev/prod parity, logs as event streams — operational DX baseline.",
+      "playbooks": ["setup", "inner-loop", "telemetry"]
+    },
+    {
+      "name": "Command Line Interface Guidelines",
+      "author": "clig.dev contributors",
+      "kind": "guide",
+      "year": 2022,
+      "contribution": "Concrete CLI conventions: help, flags, output, exit codes, TTY detection.",
+      "playbooks": ["cli", "contributor"]
+    },
+    {
+      "name": "Observability Engineering",
+      "author": "Charity Majors, Liz Fong-Jones, George Miranda",
+      "kind": "book",
+      "year": 2022,
+      "contribution": "Debuggability as a first-class surface: high-cardinality context, traceability, sampling.",
+      "playbooks": ["errors", "inner-loop", "debug-intent"]
+    },
+    {
+      "name": "Accelerate",
+      "author": "Nicole Forsgren, Jez Humble, Gene Kim",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "DORA metrics: lead time, deployment frequency, MTTR, change failure rate — make inner-loop quality measurable.",
+      "playbooks": ["inner-loop", "contributor"]
+    },
+    {
+      "name": "Stripe API Design Guidelines",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Public-facing reference for HTTP API conventions: versioning, errors, pagination, idempotency.",
+      "playbooks": ["api"]
+    },
+    {
+      "name": "Hyrum's Law",
+      "author": "Hyrum Wright",
+      "kind": "essay",
+      "year": 2010,
+      "contribution": "Every observable behavior of an interface is depended on. Frames stable-contract reasoning.",
+      "playbooks": ["api", "sdk", "migration"]
+    }
+  ]
+}

@@ -11,158 +11,209 @@ Run from the repository root:
 bash skills/dx-heuristics/evals/run-static-checks.sh
 ```
 
-The static check verifies that the skill:
-
-- declares `name: dx-heuristics` in `SKILL.md` frontmatter
-- describes concrete triggers for APIs, SDKs, CLIs, docs, setup, errors,
-  local dev, build/test workflows, migrations, contracts, and contributors
-- routes bare activation through `references/use-case-registry.csv`
-- has a non-side-effectful bare-activation rule
-- includes scoring, severity, heuristics, diagnostics, anti-patterns, and
-  edge-case coverage in `references/dx-heuristics-framework.md`
-- provides an artifact template for structured DX audits
+The static check verifies file presence, skill.json shape, SKILL.md
+cleanliness (no source-author leak), CSV registry integrity, and every
+playbook's structure and word count.
 
 ## Behavioral Eval Protocol
 
-Run each behavioral case in a fresh agent session with only this skill available
-or explicitly loaded. Do not provide extra repository context unless the case
-includes it. Record the response and score it against the pass/fail criteria.
+Run each behavioral case in a fresh agent session with only this skill
+available or explicitly loaded. Do not provide extra repository context unless
+the case includes it. Record the response and score it against the pass/fail
+criteria.
 
-Passing all cases means the agent:
+Passing a case means the agent:
 
 - activates the skill for realistic DX prompts
 - asks at most one blocker question when scope is missing
 - does not inspect files, call networks, or write files from vague invocation
+- routes through `intent-router.csv` → `intents/<intent>.csv` → one playbook
 - names a target developer persona
-- gives a current score, target score, ordered findings, concrete fixes, and
-  verification evidence when reviewing a concrete surface
+- emits output in the intent's template shape
+
+---
 
 ## Case 1: Bare Activation Menu
 
-**Prompt**
+**Prompt:** `Use dx-heuristics.`
 
-```text
-Use dx-heuristics.
-```
+**Expected:**
 
-**Expected behavior**
+- Loads `references/intent-router.csv` only.
+- Shows the intent menu (audit / design / debug / edge-pass).
+- Waits for the user to choose.
 
-- Presents a concise mode or use-case menu.
-- Waits for the user to choose a surface or mode.
-- Does not inspect files, run commands, call network tools, or produce a fake
-  audit.
+**Fail if:** inspects files, runs commands, calls network tools, or invents an audit.
 
-**Fail if**
+---
 
-- It starts reviewing the repository without permission.
-- It gives a DX score without a target surface.
-- It asks multiple setup questions instead of offering a menu.
+## Case 2: Concrete CLI Audit
 
-## Case 2: Concrete CLI Review
+**Prompt:** A CLI `--help` block followed by "review this CLI help output for DX."
 
-**Prompt**
+**Expected:**
 
-```text
-Review this CLI help output for DX. New users cannot figure out how to run a
-local smoke test.
+- Routes to (audit, cli).
+- Loads `playbooks/cli.md` plus listed core_refs.
+- Names target developer (first-time user or contributor).
+- Scores current DX 0–10; target 10.
+- Findings table with severity 0–4, fix, verification.
+- Output follows `templates/audit-report.md` shape.
 
-$ acme --help
-Usage: acme [command]
+**Fail if:** loads multiple playbooks; rewrites copy without severity; omits verification.
 
-Commands:
-  init       Create config
-  run        Run tasks
-  check      Validate project
+---
 
-Options:
-  --profile  Profile name
-  --json     JSON output
-```
+## Case 3: API Error Message
 
-**Expected behavior**
+**Prompt:** `The API returns "bad request" when the payload is wrong. Is that fine?`
 
-- Identifies the target developer as first-time user, contributor, or both.
-- Scores current DX and sets target score to 10/10.
-- Reviews command naming, missing examples, expected output, smoke-test
-  discoverability, and failure recovery.
-- Orders findings by severity.
-- Gives concrete CLI/help text changes and a verification plan.
+**Expected:**
 
-**Fail if**
+- Routes to (debug, errors) or (audit, errors).
+- Loads `playbooks/errors.md`.
+- Names target developer (integrator).
+- Recommends cause-specific validation, expected shape, remediation, request id, tests.
+- Output follows debug-runbook or audit-report template.
 
-- It only rewrites copy without assigning severity.
-- It omits verification evidence.
-- It recommends adding docs while leaving `acme --help` unable to reveal the
-  smoke-test path.
+**Fail if:** says "bad request" is acceptable; gives generic advice without a concrete error shape; omits verification.
 
-## Case 3: Actionable API Error
-
-**Prompt**
-
-```text
-The API returns "bad request" when the payload is wrong. Is that fine?
-```
-
-**Expected behavior**
-
-- Treats the prompt as an actionable failure-state DX issue.
-- Explains why the current message is insufficient for recovery.
-- Recommends cause-specific validation messages with expected shape, invalid
-  field, remediation, request or correlation id where appropriate, and tests.
-- Asks for details only if needed to choose between compatible response shapes.
-
-**Fail if**
-
-- It says "bad request" is acceptable because HTTP 400 is standard.
-- It gives generic advice without a concrete error response shape.
-- It omits test or verification guidance.
+---
 
 ## Case 4: Ambiguous Private-System Request
 
-**Prompt**
+**Prompt:** `DX review our onboarding flow and tell me what to fix.`
 
-```text
-DX review our onboarding flow and tell me what to fix.
-```
+**Expected:**
 
-**Expected behavior**
+- Asks one blocker question: which intent (audit/design/debug) and/or which surface (setup/docs/cli...).
+- Does not inspect private systems, files, or networks before scope is set.
 
-- Asks one blocker question to identify the surface or evidence to inspect.
-- Does not inspect private systems, files, browser targets, or network resources
-  before the user provides scope.
-- Offers likely surfaces such as README, quickstart, local setup, CLI help,
-  SDK/API docs, examples, tests, or contributor workflow.
+**Fail if:** begins tool use; asks long questionnaire; invents findings.
 
-**Fail if**
+---
 
-- It begins tool use without knowing the review surface.
-- It asks a long questionnaire before establishing the first review target.
-- It invents findings without evidence.
+## Case 5: Contributor Workflow Audit
 
-## Case 5: Contributor Workflow Review
+**Prompt:** A short contributor-onboarding step list, "Review for DX."
 
-**Prompt**
+**Expected:**
 
-```text
-Review this contributor workflow for DX:
+- Routes to (audit, contributor).
+- Loads `playbooks/contributor.md`.
+- Names contributor as target developer.
+- Flags missing test command, success criteria, tribal knowledge, PR evidence, fresh-machine path.
+- Output follows audit-report template.
 
-1. Clone the repo.
-2. Run npm install.
-3. Ask a maintainer for the test command.
-4. Open a PR when it looks right.
-```
+**Fail if:** only addresses test command; omits scores; no verification.
 
-**Expected behavior**
+---
 
-- Identifies contributor as the target developer.
-- Flags missing explicit test command, missing success criteria, tribal
-  knowledge, PR evidence expectations, and local setup verification.
-- Includes an edge-case pass for fresh machines, Node/package-manager version
-  skew, missing credentials, and flaky dependencies.
-- Recommends concrete README/script/PR-template changes.
+## Case 6: API Design
 
-**Fail if**
+**Prompt:** `We're designing a new HTTP API for billing events. What should we get right up front?`
 
-- It only says "document the test command" and misses the broader local loop.
-- It omits current and target DX scores.
-- It does not include a way to verify the contributor path improved.
+**Expected:**
+
+- Routes to (design, api).
+- Loads `playbooks/api.md`.
+- Output follows `templates/design-doc.md` shape: good-shaped pattern (sample endpoint + error envelope + idempotency key), heuristics applied, anti-patterns avoided, acceptance criteria.
+
+**Fail if:** uses audit template (severity findings) for a design task; omits the good-shaped pattern.
+
+---
+
+## Case 7: Auth Debug
+
+**Prompt:** `Users keep reporting that auth fails after we rotate their API keys. What's wrong?`
+
+**Expected:**
+
+- Routes to (debug, auth).
+- Loads `playbooks/auth.md`.
+- Output follows `templates/debug-runbook.md`: hypotheses ranked with evidence, diagnostic steps, fix candidates, prevention.
+
+**Fail if:** jumps to a fix without ranking hypotheses; omits prevention section.
+
+---
+
+## Case 8: Pre-Ship Edge Pass
+
+**Prompt:** `Run a pre-1.0 risk pass on our CLI before we release.`
+
+**Expected:**
+
+- Routes to (edge-pass, cli) — may include multiple edge-pass surfaces.
+- Output follows `templates/edge-checklist.md`: risk inventory across all categories with severity and verification, blockers list, re-run trigger.
+
+**Fail if:** misses categories; omits re-run trigger.
+
+---
+
+## Case 9: Intent Ambiguity
+
+**Prompt:** `Look at our SDK.`
+
+**Expected:**
+
+- Asks one question: audit / design / debug? Offers intent menu from intent-router.csv.
+- Does not inspect anything yet.
+
+**Fail if:** picks an intent on its own; starts inspection.
+
+---
+
+## Case 10: Surface Ambiguity
+
+**Prompt:** `Audit our developer experience.`
+
+**Expected:**
+
+- Recognizes intent (audit) but asks for surface.
+- Offers surface menu from `references/intents/audit.csv`.
+
+**Fail if:** picks a surface on its own; inspects without scope.
+
+---
+
+## Case 11: Load Discipline
+
+**Prompt:** A CLI snippet with "audit this." (clear (audit, cli))
+
+**Expected:**
+
+- Loads `intent-router.csv`, `intents/audit.csv`, `playbooks/cli.md`, and the row's core_refs.
+- Does NOT load other playbooks (no api.md, errors.md, etc.).
+- May load `templates/audit-report.md` for output shape.
+
+**Verification:** monitor file reads if possible. If not automatable, treat as a manual review case — re-read the agent's session log and confirm only the expected files were read.
+
+**Fail if:** loads unrelated playbooks "for context."
+
+---
+
+## Case 12: IDE Surface (new-coverage smoke test)
+
+**Prompt:** `How can we improve the autocomplete UX for our SDK in VS Code?`
+
+**Expected:**
+
+- Routes to (audit, ide) or (design, ide).
+- Loads `playbooks/ide.md`.
+- Output cites `ide.md` heuristics (type-info shipped with SDK, hover-doc parity, etc.).
+
+**Fail if:** routes to sdk only and ignores ide playbook.
+
+---
+
+## Case 13: Plugin Surface (new-coverage smoke test)
+
+**Prompt:** `Design an extension API for our CLI so third parties can add subcommands.`
+
+**Expected:**
+
+- Routes to (design, plugin).
+- Loads `playbooks/plugin.md`.
+- Output follows design-doc template, cites plugin heuristics (named extension points, explicit lifecycle, failure isolation).
+
+**Fail if:** routes to cli only and ignores plugin playbook.

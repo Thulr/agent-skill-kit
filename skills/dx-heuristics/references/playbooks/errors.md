@@ -75,8 +75,8 @@ typed-exception design.
   `request_id` or `trace_id` that is surfaced to the caller and logged on the
   server side. Support can retrieve the context without a repro.
 - **No-blame wording** *(audit)* — error copy describes the system state, not
-  what the user did wrong. Norman's slip/mistake distinction: most errors are
-  slips, not malice.
+  what the user did wrong. Most errors are slips (correct execution in the wrong
+  context), not malice.
 - **Deterministic messages** *(audit, debug)* — the same root cause produces
   the same wording every time. Canonical copy enables alerting, log search,
   and runbook matching.

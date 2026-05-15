@@ -22,6 +22,14 @@ available or explicitly loaded. Do not provide extra repository context unless
 the case includes it. Record the response and score it against the pass/fail
 criteria.
 
+**These are manual review cases by design.** They test conversational
+behavior — routing, ambiguity handling, file-load discipline — that has no
+single deterministic output, so automated grading would be brittle. The
+static check (`evals/run-static-checks.sh`) handles structural and schema
+gates in CI; behavioral cases are scored by a human reading the agent's
+session log. Trigger-rate accuracy is measured separately by the
+description-optimization loop (`evals/trigger-evals.json`).
+
 Passing a case means the agent:
 
 - activates the skill for realistic DX prompts
@@ -217,3 +225,122 @@ Passing a case means the agent:
 - Output follows design-doc template, cites plugin heuristics (named extension points, explicit lifecycle, failure isolation).
 
 **Fail if:** routes to cli only and ignores plugin playbook.
+
+---
+
+# Negative cases — should not trigger
+
+The skill should *not* activate (or should defer) for prompts that share
+keywords with DX work but want a different competence. For each negative
+case, "pass" means the skill either recognizes the mismatch and declines to
+invoke, or isn't invoked at all. These cases protect against keyword-overlap
+false positives.
+
+---
+
+## Case N1: General code style review
+
+**Prompt:** `Review this React component for code style issues — naming, indentation, prop types.` (followed by a JSX snippet)
+
+**Expected:**
+
+- Skill recognizes this is general code review on internal code, not DX review.
+- Either declines or asks whether the component is part of a developer-facing surface.
+
+**Fail if:** loads a playbook and produces a DX audit on internal code style.
+
+---
+
+## Case N2: Marketing copy audit
+
+**Prompt:** `Audit the copy on our marketing homepage hero section — we sell developer tools but the page targets economic buyers, not devs.`
+
+**Expected:**
+
+- Skill recognizes the audience isn't developers despite the keyword "audit"
+  and the developer-tools product context.
+- Declines or asks whether developer audience is involved.
+
+**Fail if:** runs audit intent on marketing copy aimed at non-developers.
+
+---
+
+## Case N3: Concept explanation
+
+**Prompt:** `Explain how OAuth2 PKCE flow works — I'm writing a one-pager for our security team.`
+
+**Expected:**
+
+- Skill recognizes this is educational content, not a DX review.
+- Defers; does not load `auth.md` playbook to produce a "review."
+
+**Fail if:** opens auth.md and produces a DX audit of a non-existent flow.
+
+---
+
+## Case N4: End-user product UX
+
+**Prompt:** `Our consumer signup form has a 60% drop-off rate. Help me reduce friction.`
+
+**Expected:**
+
+- Skill recognizes the target audience is end-users, not developers, despite
+  the "friction" keyword.
+- Declines; suggests a general UX skill if one is available.
+
+**Fail if:** treats end-users as a developer persona and runs `setup` or `docs` playbook.
+
+---
+
+## Case N5: Internal code refactor
+
+**Prompt:** `Refactor this function to use early returns instead of nested if statements.` (followed by a function body)
+
+**Expected:**
+
+- Skill recognizes this is internal refactoring, not DX surface review.
+- Declines.
+
+**Fail if:** invokes the audit intent on internal-only code.
+
+---
+
+## Case N6: Technology comparison
+
+**Prompt:** `Write a decision doc comparing GraphQL vs REST for our backend team.`
+
+**Expected:**
+
+- Skill recognizes this is research / decision support, not surface review.
+- Declines.
+
+**Fail if:** opens api.md and produces a comparison report framed as a DX audit.
+
+---
+
+## Case N7: Production performance debugging
+
+**Prompt:** `Our reporting query is slow in production at 2pm. Help me trace what's causing it.`
+
+**Expected:**
+
+- Skill recognizes this is operational debugging of a running system, not
+  developer-perceived perf (install, cold start, build, test).
+- Either declines or asks whether the goal is developer-facing perf — only
+  the latter is in scope.
+
+**Fail if:** opens perf.md and applies DX heuristics to a production query plan.
+
+---
+
+## Case N8: End-user accessibility
+
+**Prompt:** `Audit our checkout page for WCAG 2.1 AA compliance.`
+
+**Expected:**
+
+- Skill recognizes accessibility for end-users isn't a developer surface,
+  despite the "audit" keyword.
+- Declines.
+
+**Fail if:** routes audit through any DX playbook for an end-user a11y review.

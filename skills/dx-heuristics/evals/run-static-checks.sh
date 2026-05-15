@@ -5,6 +5,7 @@ skill_dir="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
 intent_router="$skill_dir/references/intent-router.csv"
+playbook_dir="$skill_dir/references/playbooks"
 
 failures=0
 
@@ -39,6 +40,33 @@ check_file "$skill_dir/templates/design-doc.md"
 check_file "$skill_dir/templates/debug-runbook.md"
 check_file "$skill_dir/templates/edge-checklist.md"
 
+# ----- Discover playbooks (source of truth) -----
+# Auto-deriving from the playbook directory means adding a new surface is
+# just: drop a playbook file + add CSV rows. No script edits.
+
+all_surfaces=""
+if [[ -d "$playbook_dir" ]]; then
+  for pb in "$playbook_dir"/*.md; do
+    [[ -f "$pb" ]] || continue
+    all_surfaces+="$(basename "$pb" .md) "
+  done
+fi
+
+valid_surfaces=" "
+for s in $all_surfaces; do
+  valid_surfaces+="$s "
+done
+
+# Derive intent markers (intent + "-intent" suffix, plus "all") from the router
+valid_markers=" all "
+if [[ -f "$intent_router" ]]; then
+  while IFS=, read -r intent _; do
+    [[ "$intent" == "intent" ]] && continue
+    [[ -z "$intent" ]] && continue
+    valid_markers+="${intent}-intent "
+  done < "$intent_router"
+fi
+
 # ----- skill.json gates -----
 
 if [[ -f "$skill_json" ]]; then
@@ -57,16 +85,29 @@ if [[ -f "$skill_json" ]]; then
 fi
 
 # ----- SKILL.md cleanliness (source-safety) -----
+# Last-name tokens too generic to use alone as a leak-detection key. When the
+# author's last token is one of these (or the author is a single word, e.g.
+# an org name), match the full author string instead of just the last token.
+
+author_stoplist=" Foundation Council Parliament Committee Group Working contributors "
 
 if [[ -f "$skill_md" ]] && [[ -f "$skill_json" ]]; then
   while IFS= read -r author; do
+    [[ -n "$author" ]] || continue
     last="${author##* }"
-    if grep -q "$last" "$skill_md"; then
-      fail "SKILL.md leaks source author: $last (from inspired_by)"
+    if [[ "$author_stoplist" == *" $last "* ]] || [[ "$author" == "$last" ]]; then
+      if grep -qF -- "$author" "$skill_md"; then
+        fail "SKILL.md leaks source author: $author (from inspired_by)"
+      fi
+    else
+      if grep -qw -- "$last" "$skill_md"; then
+        fail "SKILL.md leaks source author last name: $last (from inspired_by)"
+      fi
     fi
   done < <(jq -r '.inspired_by[].author' "$skill_json")
   while IFS= read -r title; do
-    if grep -qF "$title" "$skill_md"; then
+    [[ -n "$title" ]] || continue
+    if grep -qF -- "$title" "$skill_md"; then
       fail "SKILL.md leaks source title: $title (from inspired_by)"
     fi
   done < <(jq -r '.inspired_by[].name' "$skill_json")
@@ -81,12 +122,13 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'bare activation' 'show the intent menu' "$skill_md"
+  check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
+  check_pattern 'three lenses' 'three lenses' "$skill_md"
 fi
 
 # ----- Intent router structure -----
 
 if [[ -f "$intent_router" ]]; then
-  # Robust row count: count data rows by intent prefixes (ignores trailing newline issues)
   rows=$(grep -cE '^(audit|design|debug|edge-pass),' "$intent_router")
   (( rows == 4 )) || fail "intent-router.csv: expected 4 data rows, got $rows"
   check_pattern 'audit intent' '^audit,' "$intent_router"
@@ -95,65 +137,48 @@ if [[ -f "$intent_router" ]]; then
   check_pattern 'edge-pass intent' '^edge-pass,' "$intent_router"
 fi
 
-# ----- cli playbook gates (vertical slice) -----
+# ----- Playbook structure gates (every playbook on disk) -----
 
-cli_pb="$skill_dir/references/playbooks/cli.md"
-if [[ -f "$cli_pb" ]]; then
-  for section in '^# CLI Playbook' '^## Scope' '^## Grounding' \
-                 '^## Good signals' '^## Common failures' '^## Heuristics' \
-                 '^## Quick diagnostic' '^## Cross-references'; do
-    check_pattern "cli.md section ${section#^## }" "$section" "$cli_pb"
-  done
-  wc=$(wc -w < "$cli_pb")
-  (( wc >= 400 && wc <= 1500 )) || fail "cli.md word count $wc outside 400-1500"
-else
-  fail "missing file: $cli_pb"
+if [[ -z "$all_surfaces" ]]; then
+  fail "no playbooks found in $playbook_dir"
 fi
 
-# ----- All playbook gates -----
-
-playbook_dir="$skill_dir/references/playbooks"
-expected_playbooks=(api sdk cli docs errors setup inner-loop contributor auth migration plugin ide perf telemetry)
-
-for surface in "${expected_playbooks[@]}"; do
+for surface in $all_surfaces; do
   pb="$playbook_dir/$surface.md"
-  if [[ ! -f "$pb" ]]; then
-    fail "missing playbook: $pb"
-    continue
-  fi
   for section in '^## Scope' '^## Grounding' '^## Good signals' \
                  '^## Common failures' '^## Heuristics' \
                  '^## Quick diagnostic' '^## Cross-references'; do
     grep -Eq -- "$section" "$pb" || fail "$surface.md missing section ${section#^## }"
   done
-  # Heuristics section must tag at least one intent
-  awk -v surface="$surface" '
+  awk '
     /^## Heuristics/{f=1;next}
     /^## /{f=0}
     f && /\((audit|design|debug)/{found=1}
     END{ if(!found) exit 1 }
   ' "$pb" || fail "$surface.md: # Heuristics has no intent tags like (audit), (design), or (debug)"
-  # Word count
   wc=$(wc -w < "$pb")
   if (( wc < 400 || wc > 1500 )); then
     fail "$surface.md word count $wc outside 400-1500"
   fi
 done
 
-# ----- Registry integrity -----
+# H1 title sanity for cli.md (regression guard for the canonical example)
+cli_pb="$playbook_dir/cli.md"
+if [[ -f "$cli_pb" ]]; then
+  check_pattern 'cli.md H1 title' '^# CLI Playbook' "$cli_pb"
+fi
+
+# ----- Registry integrity (CSV → file) -----
 
 for intent in audit design debug edge-pass; do
   csv="$skill_dir/references/intents/$intent.csv"
   [[ -f "$csv" ]] || { fail "missing intent CSV: $csv"; continue; }
-  # Use Python csv module to correctly handle quoted fields with embedded commas
   while IFS='|' read -r pb refs; do
-    # Check playbook column (semicolon-separated paths)
     IFS=';' read -ra parts <<< "$pb"
     for p in "${parts[@]}"; do
       full="$skill_dir/$p"
       [[ -f "$full" ]] || fail "$intent.csv references missing playbook: $p"
     done
-    # Check core_refs column (semicolon-separated paths)
     IFS=';' read -ra rparts <<< "$refs"
     for r in "${rparts[@]}"; do
       full="$skill_dir/$r"
@@ -171,11 +196,26 @@ PYEOF
 )
 done
 
+# ----- Orphan-playbook check (file → CSV) -----
+# Every playbook on disk must be referenced by at least one intent CSV.
+# Catches "I created a new playbook file but forgot to wire it in."
+
+for surface in $all_surfaces; do
+  pb_path="references/playbooks/${surface}.md"
+  ref_count=0
+  for intent in audit design debug edge-pass; do
+    csv="$skill_dir/references/intents/$intent.csv"
+    [[ -f "$csv" ]] || continue
+    if grep -qF -- "$pb_path" "$csv"; then
+      ref_count=$((ref_count + 1))
+    fi
+  done
+  (( ref_count > 0 )) || fail "playbook $surface.md is not referenced by any intent CSV (orphan)"
+done
+
 # ----- skill.json playbooks-field gate -----
 
 if [[ -f "$skill_json" ]]; then
-  valid_markers=" audit-intent design-intent debug-intent edge-pass-intent all "
-  valid_surfaces=" api sdk cli docs errors setup inner-loop contributor auth migration plugin ide perf telemetry "
   while IFS= read -r p; do
     if [[ "$valid_surfaces" == *" $p "* ]] || [[ "$valid_markers" == *" $p "* ]]; then
       continue

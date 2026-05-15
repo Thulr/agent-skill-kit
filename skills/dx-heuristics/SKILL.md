@@ -40,14 +40,20 @@ debug an avoidable setup issue, that is a DX problem.
 4. **Identify the target developer persona** from
    `references/core/personas.md`: first-time user, integrator, contributor,
    maintainer, operator, migration user.
-5. **Apply the playbook.** Use the playbook's heuristics tagged for this
+5. **Dispatch sub-agents (default for `audit` and `edge-pass`).** Run the
+   three lenses (first-time integrator, maintainer, adversarial debugger)
+   in parallel rather than sequentially in one head. See "Subagent
+   dispatch" below for prompts; fall back to sequential lenses only if
+   sub-agents are unavailable.
+6. **Apply the playbook.** Use the playbook's heuristics tagged for this
    intent. For `audit`, score the surface 0–10 using
    `references/core/score-rubric.md`; for `design`, name the good-shaped
    pattern; for `debug`, rank hypotheses before naming fixes; for
-   `edge-pass`, scan all categories in the playbook.
-6. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
+   `edge-pass`, scan all categories in the playbook. If sub-agents ran,
+   synthesize their findings here.
+7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
    every finding or risk.
-7. **Emit output** in the intent's `default_template` from the intent
+8. **Emit output** in the intent's `default_template` from the intent
    router row. Audit → `templates/audit-report.md`. Design →
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
@@ -73,36 +79,37 @@ Every output includes:
   (design), prevention (debug), re-run trigger (edge-pass).
 - Verification — how to prove the recommended change had the intended effect.
 
-## Subagent suitability
+## Subagent dispatch
 
-Use subagents only when permitted and useful for independent perspectives:
+Independent perspectives anchor on different concerns and catch issues a
+single pass misses. **Default for `audit` and `edge-pass`.** Strongly
+preferred for `design` when comparing tradeoffs. Optional for `debug` when
+ranking hypotheses. Skip for tiny copy edits, deterministic command
+checks, or tasks requiring secrets or live production access.
 
-- **First-time integrator:** follows only public docs/examples and reports
-  unclear steps.
-- **Maintainer:** checks compatibility, package boundaries, migration cost,
-  and long-term support burden.
-- **Adversarial debugger:** starts from likely failures and checks whether
-  errors, logs, and docs lead to recovery.
+Dispatch one sub-agent per lens — **first-time integrator**, **maintainer**,
+**adversarial debugger** — in parallel rather than sequentially in one
+head. Load `references/subagent-dispatch.md` for the per-lens persona
+prompts, the dispatch template, and the synthesis step. The three lenses
+each produce a finding list; the synthesizing pass deduplicates, preserves
+disagreements as open questions, and emits the template-shaped output.
 
-Fallback: run the same three lenses sequentially.
-
-Do not use subagents for tiny copy edits, deterministic command checks, or
-tasks requiring secrets/live production access.
-
-## Memory
-
-This skill does not store user identity facts. If repeated operational memory
-would help, store only non-secret local defaults (last reviewed surface,
-preferred report format) in `~/.local/share/dx-heuristics/memory.md`.
+Fall back to running the three lenses sequentially only when sub-agents
+are unavailable — the discipline of switching lens between passes matters
+more than the parallelism.
 
 ## Reference map
 
 - `references/intent-router.csv` — level-1 router (intent).
 - `references/intents/<intent>.csv` — level-2 router (surface) per intent.
-- `references/playbooks/<surface>.md` — 14 cited, surface-specific playbooks.
-- `references/core/severity-rubric.md` — shared severity scale (0–4).
-- `references/core/score-rubric.md` — shared DX score (0–10).
+- `references/playbooks/<surface>.md` — surface-specific playbooks (one per
+  surface listed in the intent CSVs).
+- `references/subagent-dispatch.md` — three-lens prompts and synthesis.
+- `references/core/{severity,score}-rubric.md` — shared 0–4 and 0–10 scales.
 - `references/core/personas.md` — target developer persona list.
 - `templates/*.md` — four intent-specific output templates.
-- `evals/activation-cases.md` — activation and scenario eval cases.
+- `evals/activation-cases.md` — activation and behavioral cases (positive
+  and negative).
+- `evals/run-static-checks.sh` — structural and schema gates run in CI.
+- `evals/trigger-evals.json` — queries for the description-optimization loop.
 - `skill.json` — provenance, grounding sources, version, status.

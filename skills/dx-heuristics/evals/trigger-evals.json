@@ -1,0 +1,22 @@
+[
+  {"query": "ok our cli's --help output is dense af, our team keeps complaining new joiners can't figure out what --region vs --zone vs --cluster actually does. can you take a pass at the help layout and tell me what to tighten? the cli is called 'flask-deploy' if that matters", "should_trigger": true},
+  {"query": "we're shipping a 1.0 of a public SDK for our payments API in python and node next quarter. what are the top api contracts / surface decisions i should pin down before 1.0 so we don't end up with a hyrum's-law nightmare a year in?", "should_trigger": true},
+  {"query": "users keep reporting they retry our webhooks because our endpoint sometimes returns HTTP 200 with a body like {error: 'invalid signature'}. our PM says 'isn't that fine, the body says error?' how do i explain why it's not?", "should_trigger": true},
+  {"query": "before we cut 2.0 of our grpc billing service, can you sanity-check that we have a deprecation window for the v1 paths and that our migration docs mention what an integrator has to do? we have like 30 enterprise customers on v1 still", "should_trigger": true},
+  {"query": "i have this onboarding doc for new contributors to our open-source repo (about 8 steps from clone to first PR). can you tell me where new people will get stuck? we keep losing first-time contributors", "should_trigger": true},
+  {"query": "customer keeps hitting `auth failed` after they rotate api keys in our dashboard. they swear they're using the new key. what should we look at?", "should_trigger": true},
+  {"query": "i want to redesign the error envelope for our REST API. right now half the endpoints return {error: 'string'} and the other half return {code, message, details}. what shape should it take if i want clients to handle retries and idempotency cleanly?", "should_trigger": true},
+  {"query": "review this terraform module's variable docs and outputs — i want to know if a developer who's never seen this module before could use it without reading the source", "should_trigger": true},
+  {"query": "our developers complain that pnpm install takes 45s, the rollup build is 2m, and the jest tests are 8m. before we throw budget at it, what's worth investing in first from a dx perspective?", "should_trigger": true},
+  {"query": "design the plugin api for our cli so third parties can register subcommands without forking the binary. similar shape to how kubectl plugins work or how npx scripts get wired", "should_trigger": true},
+  {"query": "explain what JWT is and how RS256 differs from HS256, i'm writing a one-pager for our security team", "should_trigger": false},
+  {"query": "rewrite this paragraph in our help center to be friendlier and less corporate: 'Our refund policy requires customers to submit requests within 14 calendar days of the original transaction.'", "should_trigger": false},
+  {"query": "refactor this typescript function to use early returns instead of nested if statements — function exportInvoices(items, opts) { /* 30 lines */ }", "should_trigger": false},
+  {"query": "what's the best way to compare graphql versus rest in a tech-decision document for our cto? i need pros and cons for each", "should_trigger": false},
+  {"query": "design a new homepage hero section for our marketing site, should be a clear value prop. we sell developer tools but the hero is for general buyers, not devs", "should_trigger": false},
+  {"query": "review my python script `import_orders.py` for style and pep8 issues", "should_trigger": false},
+  {"query": "our user-facing signup flow at example.com/signup has a 60% drop-off rate, help me reduce friction. it's a 4-step form", "should_trigger": false},
+  {"query": "what's the difference between an internal vs external rest api in our microservices arch? trying to understand the boundaries", "should_trigger": false},
+  {"query": "audit the accessibility of our checkout page for WCAG 2.1 AA compliance, here's the page html", "should_trigger": false},
+  {"query": "the production database is hot at 2pm every day on our reporting query, help me trace what's causing it. it's postgres 14 with pgbouncer", "should_trigger": false}
+]

@@ -4,32 +4,46 @@ A collection of [Agent Skills](https://agentskills.io) grounded in real books, p
 
 An *informed heuristic* uses domain knowledge to estimate more accurately than a blind rule of thumb. Every skill here cites its source so you can check the work.
 
-## Install
+## Skills
 
-From GitHub (replace `owner/repo` once this repository is published):
+### dx-heuristics
+
+Practical developer-experience review, design, debugging, and edge-case pass for any surface a developer has to install, call, debug, extend, test, or maintain — APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, and telemetry.
+
+Grounded in canonical DX/UX literature (Norman's *Design of Everyday Things*, Nielsen's heuristics, Bloch's *How to Design a Good API*, and more — full provenance in [`skills/dx-heuristics/skill.json`](./skills/dx-heuristics/skill.json)). Routes by intent (`audit` / `design` / `debug` / `edge-pass`) and surface, then dispatches three parallel reviewer lenses (first-time integrator, maintainer, adversarial debugger) so feedback isn't single-perspective.
+
+Install just this skill:
 
 ```bash
-npx skills add owner/informed-skills
+npx skills add Thulr/informed-skills --skill dx-heuristics
+```
+
+## Install
+
+From GitHub:
+
+```bash
+npx skills add Thulr/informed-skills
 ```
 
 Install specific skills or target agents:
 
 ```bash
-npx skills add owner/informed-skills --list
-npx skills add owner/informed-skills --skill my-skill --skill other-skill
-npx skills add owner/informed-skills -a claude-code -a cursor -y
+npx skills add Thulr/informed-skills --list
+npx skills add Thulr/informed-skills --skill dx-heuristics --skill other-skill
+npx skills add Thulr/informed-skills -a claude-code -a cursor -y
 ```
 
 From a subdirectory URL (single skill):
 
 ```bash
-npx skills add https://github.com/owner/informed-skills/tree/main/skills/my-skill
+npx skills add https://github.com/Thulr/informed-skills/tree/main/skills/dx-heuristics
 ```
 
 Local checkout:
 
 ```bash
-git clone https://github.com/owner/informed-skills.git
+git clone https://github.com/Thulr/informed-skills.git
 cd informed-skills
 npx skills add . --list
 npx skills add .

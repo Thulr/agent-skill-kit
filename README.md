@@ -40,6 +40,7 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 | Path | Purpose |
 |------|---------|
 | `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
+| `skills/example-minimal/` | Optional starter you can delete once real skills exist |
 | `skills/.experimental/<name>/` | Work-in-progress or caveat-heavy skills (still discovered by `npx skills`) |
 | `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |
 

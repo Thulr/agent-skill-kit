@@ -1,0 +1,44 @@
+<!-- Load-bearing section: Acceptance criteria -->
+# DX Design: <surface>
+
+## Goal
+- Target developer: <persona from references/core/personas.md>
+- Intended outcome: <task they should accomplish>
+- Constraints: <compatibility, security, performance, release timing>
+- Playbook(s) applied: <e.g., api.md, errors.md>
+
+## Good-shaped pattern
+
+<The concrete shape this surface should take — paste-ready snippet, type
+signature, schema, or example interaction. Not abstract principles; the actual
+thing.>
+
+## Heuristics applied
+
+| Heuristic | Why it applies | How this design satisfies it |
+| --- | --- | --- |
+| <named heuristic from playbook> | <one line> | <specific design choice> |
+
+## Anti-patterns avoided
+
+- <Named anti-pattern>: <how this design dodges it>
+
+## Acceptance criteria
+
+Testable conditions that prove the design met its goal. Each line should be
+checkable by reading the artifact or running a command.
+
+- [ ] <criterion>
+- [ ] <criterion>
+
+## Edge cases handled
+
+- <Edge case>: <intended behavior>
+
+## Open trade-offs
+
+- <Trade-off>: <chosen path and rationale>
+
+## Out of scope
+
+- <Things deliberately not solved here>

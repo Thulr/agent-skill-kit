@@ -1,0 +1,10 @@
+surface,name,when_to_use,playbook,core_refs
+fresh-machine,Fresh-machine path,"Verify the experience on a machine with no prior cache or state","references/playbooks/setup.md;references/playbooks/inner-loop.md","references/core/severity-rubric.md"
+env-skew,Environment skew,"OS, shell, architecture, package manager, runtime version variance","references/playbooks/setup.md;references/playbooks/inner-loop.md","references/core/severity-rubric.md"
+creds,Credentials and permissions,"Missing tokens, expired credentials, insufficient scopes, offline mode","references/playbooks/auth.md;references/playbooks/errors.md","references/core/severity-rubric.md"
+partial-setup,Partial setup,"One service running and another not; missing codegen; stale fixtures","references/playbooks/setup.md;references/playbooks/inner-loop.md","references/core/severity-rubric.md"
+version-skew,Version skew,"Docs, SDK, server, schema, examples, generated code drift","references/playbooks/migration.md;references/playbooks/docs.md","references/core/severity-rubric.md"
+destructive,Destructive operations,"Data migration, irreversible side effect, secret in log","references/playbooks/migration.md;references/playbooks/cli.md","references/core/severity-rubric.md"
+external-deps,External dependencies,"Network flake, vendor outage, nondeterministic fixture","references/playbooks/inner-loop.md;references/playbooks/errors.md","references/core/severity-rubric.md"
+back-compat,Backward compatibility,"Existing users; deprecated paths still working","references/playbooks/migration.md;references/playbooks/api.md","references/core/severity-rubric.md"
+contributor-path,Contributor path,"Local setup, tests, PR evidence, release notes from a fresh fork","references/playbooks/contributor.md;references/playbooks/inner-loop.md","references/core/severity-rubric.md"

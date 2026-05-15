@@ -89,6 +89,70 @@
       "year": 2010,
       "contribution": "Every observable behavior of an interface is depended on. Frames stable-contract reasoning.",
       "playbooks": ["api", "sdk", "migration"]
+    },
+    {
+      "name": "Application Security Verification Standard (ASVS)",
+      "author": "OWASP Foundation",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Standard checklist for authentication, session, and access control; concrete requirements per security level.",
+      "playbooks": ["auth"]
+    },
+    {
+      "name": "Digital Identity Guidelines: Authentication and Lifecycle Management (SP 800-63B)",
+      "author": "NIST",
+      "kind": "guide",
+      "year": 2017,
+      "contribution": "Authenticator assurance levels, lifecycle requirements, password and token handling rules.",
+      "playbooks": ["auth"]
+    },
+    {
+      "name": "Stripe API Key Management",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational patterns for token scoping, rotation, revocation UX, and test-vs-live key separation.",
+      "playbooks": ["auth"]
+    },
+    {
+      "name": "The Essence of Software",
+      "author": "Daniel Jackson",
+      "kind": "book",
+      "year": 2021,
+      "contribution": "Concept design: software is composed of concepts that interact; extensions have their own concept lifecycle.",
+      "playbooks": ["plugin"]
+    },
+    {
+      "name": "Design Patterns: Elements of Reusable Object-Oriented Software",
+      "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+      "kind": "book",
+      "year": 1994,
+      "contribution": "Named patterns for extension-point design: composite, observer, strategy applied to plugin contracts.",
+      "playbooks": ["plugin"]
+    },
+    {
+      "name": "VS Code Extension API",
+      "author": "Microsoft",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Concrete patterns for declarative extension points, contribution points, activation events, and lifecycle.",
+      "playbooks": ["plugin"]
+    },
+    {
+      "name": "Privacy by Design: The 7 Foundational Principles",
+      "author": "Ann Cavoukian",
+      "kind": "essay",
+      "year": 2009,
+      "contribution": "Privacy by default; user control and visibility; embed privacy into design — operational frame for telemetry consent.",
+      "playbooks": ["telemetry"]
+    },
+    {
+      "name": "GDPR Article 7 — Conditions for Consent",
+      "author": "European Parliament and Council",
+      "kind": "guide",
+      "year": 2016,
+      "contribution": "Consent must be freely given, specific, informed, and unambiguous; withdrawable. Frames telemetry opt-in requirements.",
+      "playbooks": ["telemetry"]
     }
   ]
 }

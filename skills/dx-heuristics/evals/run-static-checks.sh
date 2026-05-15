@@ -110,6 +110,80 @@ else
   fail "missing file: $cli_pb"
 fi
 
+# ----- All playbook gates -----
+
+playbook_dir="$skill_dir/references/playbooks"
+expected_playbooks=(api sdk cli docs errors setup inner-loop contributor auth migration plugin ide perf telemetry)
+
+for surface in "${expected_playbooks[@]}"; do
+  pb="$playbook_dir/$surface.md"
+  if [[ ! -f "$pb" ]]; then
+    fail "missing playbook: $pb"
+    continue
+  fi
+  for section in '^## Scope' '^## Grounding' '^## Good signals' \
+                 '^## Common failures' '^## Heuristics' \
+                 '^## Quick diagnostic' '^## Cross-references'; do
+    grep -Eq -- "$section" "$pb" || fail "$surface.md missing section ${section#^## }"
+  done
+  # Heuristics section must tag at least one intent
+  awk -v surface="$surface" '
+    /^## Heuristics/{f=1;next}
+    /^## /{f=0}
+    f && /\((audit|design|debug)/{found=1}
+    END{ if(!found) exit 1 }
+  ' "$pb" || fail "$surface.md: # Heuristics has no intent tags like (audit), (design), or (debug)"
+  # Word count
+  wc=$(wc -w < "$pb")
+  if (( wc < 400 || wc > 1500 )); then
+    fail "$surface.md word count $wc outside 400-1500"
+  fi
+done
+
+# ----- Registry integrity -----
+
+for intent in audit design debug edge-pass; do
+  csv="$skill_dir/references/intents/$intent.csv"
+  [[ -f "$csv" ]] || { fail "missing intent CSV: $csv"; continue; }
+  # Use Python csv module to correctly handle quoted fields with embedded commas
+  while IFS='|' read -r pb refs; do
+    # Check playbook column (semicolon-separated paths)
+    IFS=';' read -ra parts <<< "$pb"
+    for p in "${parts[@]}"; do
+      full="$skill_dir/$p"
+      [[ -f "$full" ]] || fail "$intent.csv references missing playbook: $p"
+    done
+    # Check core_refs column (semicolon-separated paths)
+    IFS=';' read -ra rparts <<< "$refs"
+    for r in "${rparts[@]}"; do
+      full="$skill_dir/$r"
+      [[ -f "$full" ]] || fail "$intent.csv references missing core_ref: $r"
+    done
+  done < <(python3 - "$csv" <<'PYEOF'
+import csv, sys
+with open(sys.argv[1], newline='') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        pb = row.get('playbook', '').strip()
+        refs = row.get('core_refs', '').strip()
+        print(f"{pb}|{refs}")
+PYEOF
+)
+done
+
+# ----- skill.json playbooks-field gate -----
+
+if [[ -f "$skill_json" ]]; then
+  valid_markers=" audit-intent design-intent debug-intent edge-pass-intent all "
+  valid_surfaces=" api sdk cli docs errors setup inner-loop contributor auth migration plugin ide perf telemetry "
+  while IFS= read -r p; do
+    if [[ "$valid_surfaces" == *" $p "* ]] || [[ "$valid_markers" == *" $p "* ]]; then
+      continue
+    fi
+    fail "skill.json inspired_by.playbooks has unknown value: $p"
+  done < <(jq -r '.inspired_by[].playbooks[]' "$skill_json")
+fi
+
 # ----- Result -----
 
 if (( failures > 0 )); then

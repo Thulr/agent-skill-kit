@@ -12,9 +12,13 @@
 Grouped by category. Each row gets a severity (0-4 from severity-rubric.md) and a verification.
 
 ### Fresh-machine path
-| Risk | Severity | Status | Verification |
-| --- | --- | --- | --- |
-| Missing cache, no prior state | <0-4> | <ok/risk/blocker> | <command or check> |
+
+One block per risk. Repeat the shape for the categories below.
+
+#### <Risk title, e.g. "Missing cache, no prior state">
+- Severity:  <0-4>
+- Status:    <ok / risk / blocker>
+- Verify:    <command or check>
 
 ### Environment skew
 - OS / shell / architecture / package manager / runtime version variance.

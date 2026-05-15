@@ -10,9 +10,12 @@
 
 ## Hypotheses (ranked)
 
-| # | Hypothesis | Evidence for | Evidence against | Likelihood |
-| - | --- | --- | --- | --- |
-| 1 | <cause> | <signal> | <counter-signal> | high/med/low |
+One block per hypothesis, highest likelihood first.
+
+### Hypothesis 1 — likelihood: <high / med / low>
+- Cause:             <cause>
+- Evidence for:      <signal>
+- Evidence against:  <counter-signal>
 
 ## Diagnostic steps
 
@@ -23,9 +26,13 @@ Ordered, narrowest-first. Each step should disconfirm at least one hypothesis.
 
 ## Fix candidates
 
-| Fix | Hypothesis addressed | Cost | Blast radius |
-| --- | --- | --- | --- |
-| <change> | <#> | <small/med/large> | <local/surface/system> |
+One block per candidate.
+
+### Fix candidate 1
+- Change:        <the specific change>
+- Addresses:     hypothesis <#>
+- Cost:          <small / med / large>
+- Blast radius:  <local / surface / system>
 
 ## Recommended action
 

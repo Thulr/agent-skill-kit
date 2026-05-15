@@ -32,7 +32,13 @@ honest. Lens 2 isn't influenced by lens 1's findings.
 
 ## Dispatch template
 
-For each lens, dispatch a sub-agent with this shape:
+Spawn three sub-agents (one per lens) and run them in parallel. In hosts
+that do not auto-dispatch sub-agents (e.g., Codex), use explicit verbs:
+"spawn three agents," "delegate this in parallel," or "use a sub-agent
+for the first-time integrator lens." Do not expect the main agent to
+infer delegation from the word "dispatch" alone.
+
+For each spawned sub-agent, use this prompt shape:
 
 > Review the following [surface] from the [persona] perspective.
 >
@@ -83,3 +89,43 @@ write down "switching to maintainer lens" before the second pass — the
 discipline of changing lens matters more than the parallelism. Sequential
 is slower and slightly more anchored, but still beats a single
 undifferentiated review.
+
+## Multi-surface fan-out (audit intent only)
+
+When the user picks `all` as the surface for an `audit`, fan out one
+sub-agent **per surface** listed in `references/intents/audit.csv` (api,
+sdk, cli, docs, errors, setup, inner-loop, contributor, auth, migration,
+plugin, ide, perf, telemetry). The orchestrator does **not** load the
+playbooks itself — each spawned surface agent loads only its own
+playbook.
+
+### Each surface sub-agent
+
+- Loads `references/playbooks/<surface>.md` and the core refs from its
+  CSV row.
+- Runs the three lenses **sequentially inside itself** — do not spawn
+  further sub-agents (nested delegation is unreliable across hosts like
+  Codex). Switch persona explicitly between passes.
+- Identifies the target developer persona for that surface.
+- Returns a per-surface finding list plus a 0–10 score from
+  `references/core/score-rubric.md` and a one-line "biggest gap" summary.
+
+### Orchestrator synthesis
+
+After all 14 surface sub-agents return:
+
+1. **Rank findings cross-surface** by severity, highest first.
+2. **Surface the worst-offending surfaces** in a per-surface score table.
+3. **Project-wide path to 10/10** — top 3 fixes that lift overall DX
+   most, not per-surface polish.
+4. **Emit `templates/audit-report-multi.md`** rather than the
+   single-surface template. Append each surface's full report at the
+   end for reference.
+
+### When to skip multi-surface mode
+
+- Narrow questions ("review my CLI help text") — one playbook is enough.
+- Scoped audits where the user named ≤ 3 surfaces explicitly — dispatch
+  those surfaces only, not all 14.
+- Tasks requiring secrets or live production access for some surfaces —
+  exclude those surfaces from the fan-out.

@@ -33,18 +33,21 @@ debug an avoidable setup issue, that is a DX problem.
    one of: `audit`, `design`, `debug`, `edge-pass`. Ambiguous → ask once.
 2. **Pick surface.** Load the intent's CSV from
    `references/intents/<intent>.csv`. Match the prompt to one or more
-   surfaces. Ambiguous → ask once with the surface menu from the CSV.
+   surfaces, or `all` (audit only) for multi-surface fan-out — see
+   `references/subagent-dispatch.md`. Ambiguous → ask once with the
+   surface menu from the CSV.
 3. **Load grounded context.** Load only the files listed in the chosen CSV
    row: one playbook from `references/playbooks/<surface>.md` plus the
    `core_refs` listed. Do not load other playbooks.
 4. **Identify the target developer persona** from
    `references/core/personas.md`: first-time user, integrator, contributor,
    maintainer, operator, migration user.
-5. **Dispatch sub-agents (default for `audit` and `edge-pass`).** Run the
-   three lenses (first-time integrator, maintainer, adversarial debugger)
-   in parallel rather than sequentially in one head. See "Subagent
-   dispatch" below for prompts; fall back to sequential lenses only if
-   sub-agents are unavailable.
+5. **Spawn sub-agents in parallel (default for `audit` and
+   `edge-pass`).** Single-surface: delegate one lens per agent —
+   first-time integrator, maintainer, adversarial debugger. Audit + `all`:
+   delegate one surface per agent; each runs the three lenses sequentially
+   inside itself. See "Subagent dispatch" below; fall back to sequential
+   execution only if the host has no delegation primitive.
 6. **Apply the playbook.** Use the playbook's heuristics tagged for this
    intent. For `audit`, score the surface 0–10 using
    `references/core/score-rubric.md`; for `design`, name the good-shaped
@@ -60,14 +63,12 @@ debug an avoidable setup issue, that is a DX problem.
 
 ## Modes
 
-- **Guided Draft (default):** ask only the questions needed to define
-  audience, surface, and success criteria. One optionized question at a time,
-  3–4 likely choices plus a freeform path. Record the decision, then proceed.
-- **Autopilot:** proceed from available context and state assumptions when
+- **Guided Draft (default):** one optionized question at a time, 3–4
+  likely choices plus a freeform path.
+- **Autopilot:** proceed from available context; state assumptions when
   the task is clear and low-risk.
 - **Grill Me:** open-ended questions, one at a time, when audience,
-  constraints, rollout, or compatibility trade-offs materially change the
-  result.
+  constraints, or trade-offs materially change the result.
 
 ## Output requirements
 
@@ -87,16 +88,19 @@ preferred for `design` when comparing tradeoffs. Optional for `debug` when
 ranking hypotheses. Skip for tiny copy edits, deterministic command
 checks, or tasks requiring secrets or live production access.
 
-Dispatch one sub-agent per lens — **first-time integrator**, **maintainer**,
-**adversarial debugger** — in parallel rather than sequentially in one
-head. Load `references/subagent-dispatch.md` for the per-lens persona
-prompts, the dispatch template, and the synthesis step. The three lenses
-each produce a finding list; the synthesizing pass deduplicates, preserves
+Spawn three sub-agents — one per lens: **first-time integrator**,
+**maintainer**, **adversarial debugger** — and run them in parallel, not
+sequentially in one head. Some hosts do not auto-dispatch; instruct the
+main agent explicitly ("spawn three agents to do X" / "delegate this in
+parallel") rather than expecting it to infer the dispatch. Load
+`references/subagent-dispatch.md` for the per-lens persona prompts, the
+dispatch template, and the synthesis step. The three lenses each produce
+a finding list; the synthesizing pass deduplicates, preserves
 disagreements as open questions, and emits the template-shaped output.
 
-Fall back to running the three lenses sequentially only when sub-agents
-are unavailable — the discipline of switching lens between passes matters
-more than the parallelism.
+Fall back to running the three lenses sequentially only when the host has
+no delegation primitive — the discipline of switching lens between passes
+matters more than the parallelism.
 
 ## Reference map
 

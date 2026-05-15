@@ -15,9 +15,11 @@ thing.>
 
 ## Heuristics applied
 
-| Heuristic | Why it applies | How this design satisfies it |
-| --- | --- | --- |
-| <named heuristic from playbook> | <one line> | <specific design choice> |
+One block per heuristic.
+
+### <named heuristic from playbook>
+- Why it applies:               <one line>
+- How this design satisfies it: <specific design choice>
 
 ## Anti-patterns avoided
 

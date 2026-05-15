@@ -14,9 +14,14 @@
 
 ## Findings
 
-| Severity | Location | Heuristic | Finding | Fix | Verification |
-| --- | --- | --- | --- | --- | --- |
-| <0-4> | <file/API/CLI/doc/line> | <named heuristic from playbook> | <what fails> | <specific change> | <how to prove> |
+One block per finding. Repeat as needed.
+
+### Finding 1 — severity <0-4>
+- Location:   <file / API / CLI / doc / line>
+- Heuristic:  <named heuristic from playbook>
+- Problem:    <what fails>
+- Fix:        <specific change>
+- Verify:     <how to prove the fix worked>
 
 ## Path to 10/10
 

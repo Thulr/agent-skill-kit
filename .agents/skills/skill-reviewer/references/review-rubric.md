@@ -53,10 +53,14 @@ markers stay aligned as the skill evolves. Catches drift introduced by partial
 edits — the most common failure mode when a skill adds a new mode or refactors
 a template.
 
-- **Workflow paths have output mappings.** Every routing branch the workflow
-  describes maps to a template selection. A new mode that updates dispatch
-  but leaves the output-template step unchanged will silently emit the wrong
-  template.
+- **Workflow paths are wired end-to-end.** Every routing branch (intent,
+  surface, mode, special meta-values like `all`) is honored by every
+  downstream step that varies on it — grounding/context loading, dispatch,
+  output template. A new mode that updates one step but not the others
+  creates a silent gap: the workflow accepts `surface=all`, a later step
+  says "load the chosen CSV row" with no `all` branch, and the agent
+  improvises or emits the wrong template. Walk every workflow step and
+  confirm each routing branch is handled.
 - **Menu options match the registry.** When the workflow says "ask with the
   menu from `<registry>.csv`," every option the workflow accepts (including
   special meta-values like `all`) is either a row in that CSV or explicitly

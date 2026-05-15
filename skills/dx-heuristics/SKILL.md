@@ -38,10 +38,11 @@ debug an avoidable setup issue, that is a DX problem.
    menu, adding `all` as an option for audit intent.
 3. **Load grounded context.** Load only the files listed in the chosen CSV
    row: one playbook from `references/playbooks/<surface>.md` plus the
-   `core_refs` listed. Do not load other playbooks.
+   `core_refs` listed. Do not load other playbooks. Skip this step when
+   surface = `all` — each spawned surface agent loads its own playbook
+   in step 5.
 4. **Identify the target developer persona** from
-   `references/core/personas.md`: first-time user, integrator, contributor,
-   maintainer, operator, migration user.
+   `references/core/personas.md`.
 5. **Spawn sub-agents in parallel (default for `audit` and
    `edge-pass`).** Single-surface: delegate one lens per agent —
    first-time integrator, maintainer, adversarial debugger. Audit + `all`:
@@ -56,9 +57,8 @@ debug an avoidable setup issue, that is a DX problem.
    synthesize their findings here.
 7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
    every finding or risk.
-8. **Emit output** in the intent's `default_template` from the intent
-   router row. Audit → `templates/audit-report.md` (override to
-   `templates/audit-report-multi.md` when surface = `all`). Design →
+8. **Emit output.** Audit → `templates/audit-report.md` (or
+   `audit-report-multi.md` for surface = `all`). Design →
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
 

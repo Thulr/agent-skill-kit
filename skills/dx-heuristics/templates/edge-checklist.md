@@ -9,7 +9,7 @@
 
 ## Risk inventory
 
-Grouped by category. Each row gets a severity (0-4 from severity-rubric.md) and a verification.
+Grouped by category. Each risk block gets a severity (0-4 from severity-rubric.md) and a verification.
 
 ### Fresh-machine path
 

@@ -92,12 +92,12 @@ undifferentiated review.
 
 ## Multi-surface fan-out (audit intent only)
 
-When the user picks `all` as the surface for an `audit`, fan out one
-sub-agent **per surface** listed in `references/intents/audit.csv` (api,
-sdk, cli, docs, errors, setup, inner-loop, contributor, auth, migration,
-plugin, ide, perf, telemetry). The orchestrator does **not** load the
-playbooks itself — each spawned surface agent loads only its own
-playbook.
+When the user picks `all` as the surface for an `audit`, iterate the
+rows of `references/intents/audit.csv` and fan out one sub-agent **per
+surface row** — do not hardcode the surface list here; the CSV is the
+source of truth and surfaces may be added or renamed. The orchestrator
+does **not** load the playbooks itself — each spawned surface agent
+loads only its own playbook.
 
 ### Each surface sub-agent
 
@@ -112,7 +112,7 @@ playbook.
 
 ### Orchestrator synthesis
 
-After all 14 surface sub-agents return:
+After all surface sub-agents return:
 
 1. **Rank findings cross-surface** by severity, highest first.
 2. **Surface the worst-offending surfaces** in a per-surface score table.
@@ -126,6 +126,6 @@ After all 14 surface sub-agents return:
 
 - Narrow questions ("review my CLI help text") — one playbook is enough.
 - Scoped audits where the user named ≤ 3 surfaces explicitly — dispatch
-  those surfaces only, not all 14.
+  those surfaces only, not the full CSV set.
 - Tasks requiring secrets or live production access for some surfaces —
   exclude those surfaces from the fan-out.

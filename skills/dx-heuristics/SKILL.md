@@ -34,8 +34,8 @@ debug an avoidable setup issue, that is a DX problem.
 2. **Pick surface.** Load the intent's CSV from
    `references/intents/<intent>.csv`. Match the prompt to one or more
    surfaces, or `all` (audit only) for multi-surface fan-out — see
-   `references/subagent-dispatch.md`. Ambiguous → ask once with the
-   surface menu from the CSV.
+   `references/subagent-dispatch.md`. Ambiguous → ask once with the CSV
+   menu, adding `all` as an option for audit intent.
 3. **Load grounded context.** Load only the files listed in the chosen CSV
    row: one playbook from `references/playbooks/<surface>.md` plus the
    `core_refs` listed. Do not load other playbooks.
@@ -57,7 +57,8 @@ debug an avoidable setup issue, that is a DX problem.
 7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
    every finding or risk.
 8. **Emit output** in the intent's `default_template` from the intent
-   router row. Audit → `templates/audit-report.md`. Design →
+   router row. Audit → `templates/audit-report.md` (override to
+   `templates/audit-report-multi.md` when surface = `all`). Design →
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
 
@@ -75,10 +76,10 @@ debug an avoidable setup issue, that is a DX problem.
 Every output includes:
 
 - Target developer persona.
-- Playbook(s) applied (for traceability to grounded sources).
+- Playbook(s) applied.
 - Intent-specific load-bearing section: findings (audit), acceptance criteria
   (design), prevention (debug), re-run trigger (edge-pass).
-- Verification — how to prove the recommended change had the intended effect.
+- Verification — how to prove the change worked.
 
 ## Subagent dispatch
 

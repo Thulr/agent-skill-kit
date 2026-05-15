@@ -46,6 +46,34 @@ Score each category as pass, fix, or block.
 - Validation instructions are realistic and runnable.
 - Templates do not contain unresolved placeholders in published/reviewed status.
 
+## Internal Consistency
+
+Cross-check that runtime instructions, registries, templates, and load-bearing
+markers stay aligned as the skill evolves. Catches drift introduced by partial
+edits — the most common failure mode when a skill adds a new mode or refactors
+a template.
+
+- **Workflow paths have output mappings.** Every routing branch the workflow
+  describes maps to a template selection. A new mode that updates dispatch
+  but leaves the output-template step unchanged will silently emit the wrong
+  template.
+- **Menu options match the registry.** When the workflow says "ask with the
+  menu from `<registry>.csv`," every option the workflow accepts (including
+  special meta-values like `all`) is either a row in that CSV or explicitly
+  added to the menu instructions.
+- **Load-bearing markers match section headers.** A `<!-- Load-bearing
+  section: X -->` comment in a template names a real `## X` heading in that
+  same file. Renaming the heading without updating the marker (or vice
+  versa) breaks downstream parsing.
+- **No hardcoded counts or item lists derived from registries.** References,
+  dispatch docs, and templates iterate the CSV/registry rather than naming a
+  fixed count ("all 14 surfaces") or inline list ("api, sdk, cli, ..."). These
+  drift the next time a row is added or renamed.
+- **Descriptive intros survive structural refactors.** After a refactor
+  (e.g., tables → blocks, renamed sections, removed columns), intro
+  sentences and inline references describe the new structure. "Each row gets
+  a severity…" must not survive a row-to-block conversion.
+
 ## Status Decision
 
 - **Block**: unsafe, source-reproducing, structurally invalid, or not a skill.

@@ -19,9 +19,10 @@ Lowest → highest. Score from `references/core/score-rubric.md`.
 <One short paragraph: the highest-impact DX gaps across the project and
 the single intervention that lifts overall DX the most.>
 
-## Top cross-surface findings
+## Findings
 
-Ranked by severity, highest first. One block per finding; up to 10.
+Cross-surface findings ranked by severity, highest first. One block per
+finding; up to 10.
 
 ### Finding 1 — severity <0-4> — surface: <surface>
 - Location:   <file / API / CLI / doc / line>

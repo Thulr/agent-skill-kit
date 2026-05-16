@@ -1,0 +1,11 @@
+layer,sub_surface,what_it_covers,playbook
+legibility,instruction-surface,"AGENTS.md, CLAUDE.md, .cursor/rules, .windsurf/rules, copilot-instructions",playbooks/instruction-surface.md
+legibility,specs,"Spec Kit, BMAD, PRDs, ADRs, runbooks, natural-language-as-code",playbooks/specs.md
+legibility,docs-index,"llms.txt, llms-full.txt, docs/ tree, repo map (AST + PageRank)",playbooks/docs-index.md
+action,skills,"SKILL.md bundles, progressive disclosure, trigger words, skills vs commands",playbooks/skills.md
+action,tools,"MCP servers, typed function tools, plugins, tool descriptions as public API",playbooks/tools.md
+action,sandbox,"Docker / container / remote sandbox, network egress, secret scope, isolation modes",playbooks/sandbox.md
+control,gates,"PreToolUse/PostToolUse hooks, approval tiers (free/ask/forbidden), lint/format-on-write",playbooks/gates.md
+control,telemetry,"Traces, append-only event histories, OpenTelemetry, run metadata, .traj-style artifacts",playbooks/telemetry.md
+control,evals,"Offline regression + online monitoring + adversarial cases; eval-on-prompt-change",playbooks/evals.md
+control,governance,"Provenance (SLSA), attestations, ownership, audit trail, model routing, cost tracking",playbooks/governance.md

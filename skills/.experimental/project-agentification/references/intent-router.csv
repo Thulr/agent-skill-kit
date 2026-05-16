@@ -1,0 +1,5 @@
+intent,when_to_pick,output_template,scoring_rubric_loaded
+assess,"Score this repo's agent-readiness; where are we on Level 1-5; AGENTS.md/skills/harness audit",templates/assess-report.md,core/maturity-rubric.md
+harden,"Close this failure mode / add a gate / add an approval tier / mitigate this threat",templates/harden-recommendation.md,core/severity-rubric.md
+scaffold,"Generate AGENTS.md / SKILL.md / hook / manifest from our observed failures",templates/scaffold-bundle.md,core/severity-rubric.md
+diagnose,"Agent failed on PR/session/task; why did it trip; root-cause this regression",templates/diagnose-runbook.md,core/severity-rubric.md

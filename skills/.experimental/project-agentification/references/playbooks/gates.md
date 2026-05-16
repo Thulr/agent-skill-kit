@@ -116,6 +116,22 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
 - **H4.** Document failing commands alongside working ones in AGENTS.md using the format:
   `command → expected failure → workaround → status`. Agents that find documented dead ends skip
   re-discovering them.
+- **H5.** **A deny-list / pattern-matching hook ships with its negative-case test fixture as one
+  scaffold artifact, not two.** Generate test rows for every variant of every flag in the pattern:
+  split short flags (`-r -f` vs `-rf`), long-form aliases (`--recursive`, `--force`), `=` forms
+  (`--force-with-lease=ref`), `--` option terminator, transparent wrappers (`sudo`, `time`, `env`,
+  `command`, `git -C path`), and env-var prefixes (`FOO=bar cmd …`). The hook landing without
+  tests is the regression vector logged at `docs/agent-failures.md` entry 7 of any repo that has
+  tracked this. The post-write auditor (workflow step 8.5) treats this heuristic as `applied`
+  only when both the hook and its test fixture are in the diff and the fixture covers the variant
+  matrix.
+- **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**
+  Regex deny-lists have a long bypass tail: refspec forms (`git push -f origin HEAD:main`),
+  `+`-refspec force-updates (`git push origin +main` with no `-f` flag), option terminators
+  (`rm -rf -- /etc`), and long-form aliases are all common idioms that don't hit a string regex.
+  Tokenize, split pipelines on `;` / `&&` / `||` / `|` / `&`, unwrap wrappers, then inspect argv.
+  Regex is acceptable only for the trivial cases (single flag, single target form) and even there
+  the test fixture from H5 is required.
 
 ### diagnose
 

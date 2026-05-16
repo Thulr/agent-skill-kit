@@ -98,7 +98,13 @@ in each lane.
 Skills share canonical schemas for `skill.json`, `trigger-evals.json`, and
 `evals/activation-cases.md`. When a schema changes, migrate every skill in
 the same PR. Static checks in each skill's `run-static-checks.sh` enforce
-the shape; do not let "I'll migrate the others later" land.
+**every documented field of the shape** (presence, type, allowed values),
+not just the fields the writer remembered — the Copilot review of PR #5
+caught the canonical `trigger-evals.json` schema documenting a `version`
+field that none of the validators checked. Do not let "I'll migrate the
+others later" land. If this rule drifts a second time, move to a single
+source of truth: commit a JSON Schema file under `schemas/` and have every
+`run-static-checks.sh` validate against it.
 
 ### Rule 3 — `example-minimal` is the template contract (log entry 3)
 Whatever published skills are required to have, `example-minimal` must

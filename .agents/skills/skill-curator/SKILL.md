@@ -1,6 +1,8 @@
 ---
 name: skill-curator
 description: Use when researching books, movies, talks, articles, or notes as source material and turning them into draft source-inspired public skills. Also use when choosing how many routing layers a curated skill needs (flat, single-layer, or two-level routing).
+metadata:
+  internal: true
 ---
 
 # Skill Curator

@@ -3,6 +3,8 @@ name: example-minimal
 description: >-
   Template skill demonstrating this repository layout. Copy or delete after
   adding real skills; run `npx skills init <name>` for a fresh starter.
+metadata:
+  internal: true
 ---
 
 # Example minimal skill

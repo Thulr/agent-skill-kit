@@ -54,9 +54,19 @@ symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific a
 - **H1.** Auto-init producing bloated boilerplate → delete the file and hand-author from a list of
   observed agent failures, referencing `references/empirical-warnings.md#W1` in a comment at the
   top of `AGENTS.md`.
-- **H2.** `CLAUDE.md` and `AGENTS.md` content drift → run
-  `ln -sf AGENTS.md CLAUDE.md && ln -sf ../AGENTS.md .github/copilot-instructions.md` at repo
-  root; add a CI step that asserts `CLAUDE.md` is a symlink to abort drift silently.
+- **H2.** `CLAUDE.md` / `.github/copilot-instructions.md` content drift → **all three actions
+  required as a single unit; partial application is the failure mode** (see
+  `docs/agent-failures.md` entry 5 in any repo that has tracked this miss):
+  1. `ln -sf AGENTS.md CLAUDE.md` at repo root.
+  2. `ln -sf ../AGENTS.md .github/copilot-instructions.md`.
+  3. A CI / static-check step that asserts both files are symlinks pointing at the correct
+     target and that the target resolves — fails the build on divergence. Step 1 + 2 without
+     step 3 decays the moment a contributor "fixes" a symlink to a regular file. The post-write
+     auditor (workflow step 8.5) treats this heuristic as `applied` only when all three are
+     present.
+  Add a one-line declaration to `AGENTS.md` so future agents do not try to "fix" the divergence
+  by editing `CLAUDE.md` directly: *"`CLAUDE.md` is a symlink to `AGENTS.md`. Edit `AGENTS.md`
+  only."*
 - **H3.** Agent re-explores repo on every task despite instruction file presence → add a
   "trust these instructions" clause at line 1 of `AGENTS.md`: *"Trust the instructions here;
   only search further if you find an explicit gap."*

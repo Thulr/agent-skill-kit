@@ -11,6 +11,14 @@ This file is hand-curated from observed agent failures recorded in
 empirical-warnings doc). Every load-bearing rule below traces back to a log entry
 or a recurring real failure; if you want to add a rule, log the failure first.
 
+> **`CLAUDE.md` and `.github/copilot-instructions.md` are symlinks to this file.**
+> They exist so Claude Code and Copilot pick up the same hand-curated instructions
+> as any AGENTS.md-aware harness (Codex, Cursor, Aider, Windsurf). Edit `AGENTS.md`
+> only — the symlinks update automatically. `scripts/check-instruction-surface.sh`
+> (run in `just check` and CI) fails the build if either symlink is missing or
+> divergent. Pattern from `vercel/next.js`; W8 in the project-agentification
+> empirical-warnings doc covers the drift risk.
+
 ## Layout
 
 See [README.md §Layout](./README.md#layout) for the canonical table. The three

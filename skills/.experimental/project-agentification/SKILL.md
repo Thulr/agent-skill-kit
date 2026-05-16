@@ -32,10 +32,12 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Pick sub-surface(s).** Load `references/layer-router.csv`. Match the prompt to one or more sub-surfaces. For `assess`, `all` is a valid sub-surface choice that fans out across the whole sub-surface list. Ambiguous → ask once with the menu.
 3. **Load grounded context.** Load the playbook(s) for the chosen sub-surfaces, `references/empirical-warnings.md`, and **`references/core/severity-rubric.md` always** (every finding carries a severity per step 7). For `assess`, also load `references/core/maturity-rubric.md` (the `additional_rubric` column in `intent-router.csv` names the assess-only addition).
 4. **For `scaffold`: collect observed failures.** Ask the user for 3–5 concrete agent failures observed on this repo before generating any file. Refuse to scaffold if fewer than 3 are stated (empirical warning W1 — the hard floor is 3, not 1).
+4.5. **For `scaffold` / `harden` touching `instruction-surface` or `gates`: collect harness inventory.** Ask the user which harnesses are in use on this repo: Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or AGENTS.md-compatible-only (Jules, Amp, etc.). **Do not infer scope from filesystem signals alone** — the presence of `.claude/` tells you Claude Code is used, not that it is the only one. Default to producing per-harness equivalents for every harness named; absence-of-dotfile is not absence-of-use.
 5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per sub-surface, four lenses sequentially inside.
 6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed sub-surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
 7. **Apply severity** (0–4) to every finding using `references/core/severity-rubric.md`.
 8. **For `scaffold`: present write-to-disk confirmation.** List `{path, action}` pairs; wait for user reply (`all` / `none` / specific list). Write only confirmed files. Report what was written, skipped, and what to validate.
+8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen sub-surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
 9. **Emit output.** Use the intent-specific template:
    - `assess` → `templates/assess-report.md`
    - `harden` → `templates/harden-recommendation.md`
@@ -60,14 +62,18 @@ Every output includes:
 
 ## Lens dispatch
 
-Independent perspectives anchor on different concerns and catch issues a single pass misses. **Four lenses, dispatched in parallel:**
+Independent perspectives anchor on different concerns and catch issues a single pass misses. **Four pre-write lenses, dispatched in parallel at step 5:**
 
 - **cold-context-agent** — does a fresh-context LLM trip on this?
 - **maintainer** — is the agent surface itself drifting?
 - **adversarial** — injection, exfiltration, tool abuse, sandbox escape?
 - **auditor** — can a human reconstruct what the agent did and why?
 
-Load `references/lenses.md` for the per-lens persona prompts, the dispatch template, and the synthesis step. Hosts without a delegation primitive: run the four lenses sequentially in the same head, switching role between passes. Skip dispatch for tiny copy edits, deterministic command checks, or tasks requiring privileged context.
+**One post-write dispatch, at step 8.5 (`scaffold` only):**
+
+- **post-write auditor** — fresh-context sub-agent that compares the chosen playbook(s) to the actual diff and reports every unapplied `harden` heuristic. Catches execution misses the pre-write lenses cannot see because nothing was on disk yet.
+
+Load `references/lenses.md` for the per-lens persona prompts, the dispatch template, and the synthesis step. Hosts without a delegation primitive: run the lenses sequentially in the same head, switching role between passes. Skip dispatch for tiny copy edits, deterministic command checks, or tasks requiring privileged context.
 
 ## Empirical warnings
 

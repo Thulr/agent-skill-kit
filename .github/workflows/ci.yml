@@ -11,6 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check instruction-surface symlinks
+        shell: bash
+        run: bash scripts/check-instruction-surface.sh
+
       - name: Run skill static checks
         shell: bash
         run: |

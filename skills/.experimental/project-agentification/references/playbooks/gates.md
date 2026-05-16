@@ -23,6 +23,27 @@ Aider's auto-lint and auto-test and Factory.ai's linter-as-direction pattern bot
 Copilot's custom-instructions guidance adds a complementary requirement: explicitly document which
 commands work and which do not, including errors encountered and workarounds taken.
 
+### Per-harness gate primitives
+
+Different harnesses expose different enforcement points. **Scaffold per-harness equivalents for every harness in the step 4.5 inventory** — not just the one whose dotfile happens to exist.
+
+| Harness | Hard-block primitive (forbidden) | Approval primitive (ask-first) | Reactive primitive (lint-on-write) | Notes |
+|---|---|---|---|---|
+| **Claude Code** | `PreToolUse` hook exit 2 (`.claude/settings.json` + `.claude/hooks/*`) | `PreToolUse` hook structured payload | `PostToolUse` hook on `Write`/`Edit` | Only harness with a native non-bypassable hard-block at the harness layer. |
+| **Cursor** | None native — prose-only (`alwaysApply: true` in `.cursor/rules/*.mdc`) → ~70% (W3) | Same — prose-only | None native; relies on file-watcher / pre-commit | Compensate with CI gates + pre-commit hooks. |
+| **Codex** | Sandbox policy (filesystem allow-list, network egress allow-list) + `--ask-for-approval` tiering | `--ask-for-approval` modes (`untrusted` / `on-failure` / `on-request` / `never`) | None native; relies on Codex shell tool calls in the wrapped run | Hard-block is sandbox-layer, not harness-layer; the `~/.codex/config.toml` plus per-repo `AGENTS.md` define it. |
+| **Aider** | None native — prose + `--read-only` files | `--auto-commits false` (manual approval per commit) | `--lint-cmd` and `--test-cmd` run after every edit cycle | Lint-as-direction is Aider's strongest primitive. |
+| **Copilot** (IDE / coding agent) | None native — CI-only (branch protection + required checks) | None native (PR review is the approval point) | None native; relies on workflow `actions/*` checks | Push enforcement entirely into CI. `.github/copilot-instructions.md` is prose-only. |
+| **Windsurf** | None native (W3) — `.windsurf/rules/*.md` with `trigger: always_on` is prose | None native | None native | 12 k-char workspace rule cap; behave like Cursor for enforcement purposes. |
+| **AGENTS.md-only** (Jules, Amp, etc.) | None — prose-only | None | None | CI is the only structural enforcement; treat the harness layer as advisory. |
+
+**Implication.** A `forbidden`-tier rule like *"never force-push to main"* needs:
+- Claude Code: `PreToolUse` hook (exit 2).
+- Codex: sandbox network/process policy + an `AGENTS.md` line that the wrapped shell enforces.
+- Cursor / Windsurf / Aider / Copilot / AGENTS.md-only: **CI branch protection** is the load-bearing gate; the rule in prose alone is ~70%.
+
+Every harness needs its own row in the scaffold's gate enumeration. If the user inventoried Cursor and Codex but not Claude Code, do not write `.claude/hooks/*` — write the Codex sandbox config and the CI gate.
+
 ## Why it matters for agents
 
 - **Prose achieves ~70% compliance; hooks enforce at 100%.** "CLAUDE.md instructions get followed
@@ -81,6 +102,11 @@ commands work and which do not, including errors encountered and workarounds tak
 - **Do not scaffold gates from generic templates.** Each gate must be traceable to a named action
   class in the three-tier table; a hardcoded `rm` pattern without a tier assignment is security
   theater, not a gate strategy.
+- **Require the step 4.5 harness inventory.** Without it, the scaffold defaults to whichever
+  harness's dotfile happens to exist — repeating the failure logged at
+  `docs/agent-failures.md` entry 6 (`.claude/` present, Claude-only hook produced, other harnesses
+  punted on). Refuse to scaffold gates until the inventory is collected; then produce equivalents
+  per the per-harness primitives table above for every harness named.
 - **H1.** Fill the three-tier table first: enumerate every action class the agent will take,
   assign a tier, identify which forbidden or ask-first actions lack a hook. Gaps are the backlog.
 - **H2.** Wire PostToolUse format-on-write before PreToolUse blocks — low-risk, immediate output

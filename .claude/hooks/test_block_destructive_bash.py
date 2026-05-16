@@ -110,6 +110,52 @@ CASES = [
     # ----- Home subdirectories (preserve original behavior) -----
     ("rm -rf ~/Downloads", True, "rm under ~"),
     ("rm -rf $HOME/Documents", True, "rm under $HOME"),
+
+    # ----- Round-2 bypasses (Codex bot, PR #5; failure-log entry 8) -----
+
+    # Wrapper option values: sudo -u user, doas -u user, etc.
+    ("sudo -u root rm -rf /etc", True, "sudo -u root rm"),
+    ("sudo --user=root rm -rf /etc", True, "sudo --user= rm"),
+    ("sudo --user root rm -rf /etc", True, "sudo --user separate-value rm"),
+    ("doas -u root git push -f origin main", True, "doas -u user push"),
+    ("sudo -g wheel -u root rm -rf /etc", True, "sudo multiple value-flags"),
+
+    # Git global options with separate values.
+    ("git --work-tree /workspace push -f origin main", True, "git --work-tree push"),
+    ("git --git-dir /repo.git push -f origin main", True, "git --git-dir push"),
+    ("git --work-tree=/workspace push -f origin main", True, "git --work-tree= push"),
+    ("git --namespace ns push -f origin main", True, "git --namespace push"),
+
+    # Path traversal.
+    ("rm -rf /tmp/../etc", True, "rm path traversal /tmp/../etc"),
+    ("rm -rf /var/../etc", True, "rm path traversal /var/../etc"),
+    ("rm -rf /tmp/safe/../../etc", True, "rm path traversal two levels"),
+    ("rm -rf /etc/.", True, "rm with /etc/. (canonicalizes)"),
+    ("rm -rf /etc//foo", True, "rm with double-slash"),
+
+    # ${HOME} brace expansion.
+    ("rm -rf ${HOME}/Documents", True, "rm under ${HOME}"),
+    ("rm -rf ${HOME}", True, "rm of ${HOME}"),
+
+    # Real newlines as command separators.
+    ("echo ok\nrm -rf /etc", True, "newline-separated rm"),
+    ("cd /tmp\ngit push -f origin main", True, "newline-separated push"),
+    ("ls\nrm -rf /etc\necho done", True, "newline in middle"),
+
+    # Command substitution.
+    ("echo $(rm -rf /etc)", True, "rm inside $()"),
+    ("echo `rm -rf /etc`", True, "rm inside backticks"),
+    ("diff <(rm -rf /etc) /dev/null", True, "rm inside <()"),
+    ("echo $(echo $(rm -rf /etc))", True, "rm inside nested $()"),
+    ("echo $(git push -f origin main)", True, "push inside $()"),
+
+    # ----- Round-2 negatives: must remain allowed -----
+    ("rm -rf /tmp/../tmp/build", False, "traversal stays in /tmp"),
+    ("rm -rf ${HOME}/no-such-thing-here", True, "rm under ${HOME} still blocked"),
+    ("git --work-tree /workspace push origin feature", False, "--work-tree to feature"),
+    ("sudo -u root ls /etc", False, "sudo -u root ls (non-rm)"),
+    ("echo $(ls)", False, "ls inside $()"),
+    ("echo ok\nls", False, "newline-separated ls"),
 ]
 
 

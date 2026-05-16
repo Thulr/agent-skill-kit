@@ -5,39 +5,42 @@ Reads the tool-use payload from stdin. Exits 2 to block with a message
 the model will see; exits 0 to allow. Any other non-zero exit is treated
 as a hook error.
 
-Parses Bash commands via shlex (POSIX mode + punctuation_chars), splits
-the pipeline on shell operators (`;`, `&&`, `||`, `|`, `&`), and inspects
-each segment argv-by-argv. This catches forms a regex-on-string approach
-silently allows:
-  - Refspec force-pushes: `git push -f origin HEAD:main`
-  - `+`-refspec force-updates: `git push origin +main` (no force flag)
-  - `--force-with-lease=ref` / `--force-if-includes` long forms.
-  - `rm -- /etc` (option terminator) and `rm -r -f /etc` (split flags).
-  - `rm --recursive --force /etc` (long-form flags).
-  - Wrapper prefixes: `sudo rm -rf /etc`, `time rm -rf /etc`.
-  - Compound statements: `cd /tmp && rm -rf /etc`.
+Implementation shape:
+  - Real newlines are pre-processed into `;` outside quotes (multi-line
+    commands count as compound statements, not single segments).
+  - Command substitutions (`$(...)`, backticks, `<(...)`, `>(...)`) are
+    extracted and recursively checked as their own commands.
+  - `shlex` tokenizes the result with `punctuation_chars=True`; the
+    pipeline splits on `;`, `&&`, `||`, `|`, `&`.
+  - Each pipeline segment is unwrapped: env-var prefixes (`FOO=bar cmd`),
+    transparent wrappers (`sudo`, `time`, `env`, `command`), and per-
+    wrapper value-taking flags (`sudo -u root cmd`) are consumed before
+    the executable is identified.
+  - For `rm`, target paths are canonicalized via `os.path.normpath` so
+    traversal forms like `/tmp/../etc` resolve to `/etc` before the
+    protected-dir check; `~`, `$HOME`, and `${HOME}` are all recognized.
+  - For `git`, global options with separate-token values (`-C`, `-c`,
+    `--work-tree`, `--git-dir`, `--namespace`, `--super-prefix`,
+    `--config-env`, `--exec-path`) consume the next token so the
+    subcommand dispatch still finds `push` / `branch`.
 
 Blocked patterns (see AGENTS.md §Forbidden actions):
   - `git push` with `--force` / `-f` / `--force-with-lease[=…]` /
     `--force-if-includes`, OR a `+refspec`, targeting `main` / `master`.
   - `git branch -D main` / `git branch -D master`.
-  - `rm -r` (or `-R` / `--recursive`) of `/`, protected system dirs,
-    `~` / `$HOME`, or anything under them. `-f` not required — `-r`
-    alone still recurses.
-
-If a blocked command is genuinely intended, run it manually in a terminal
-outside the agent session.
+  - `rm -r` (or `-R` / `--recursive`, in any order, separable, with or
+    without `-f` / `--force`, with or without `--` terminator) of `/`,
+    protected system dirs, `~` / `$HOME` / `${HOME}`, or anywhere under
+    them. Path traversal forms (`/tmp/../etc`) are canonicalized first.
 """
 
 import json
+import os
 import shlex
 import sys
 
 PROTECTED_GIT_BRANCHES = frozenset(["main", "master"])
 
-# Top-level directory components that should never be the target of `rm -r`.
-# The "/" entry is for `rm -r /` itself (the root). Any path whose first
-# component matches one of these is blocked.
 PROTECTED_TOP_DIRS = frozenset(
     [
         "/bin", "/boot", "/etc", "/lib", "/opt", "/sbin", "/sys",
@@ -46,27 +49,129 @@ PROTECTED_TOP_DIRS = frozenset(
     ]
 )
 
-# Wrappers that are transparent to the actual command (e.g., `sudo rm -rf /`
-# is still a destructive `rm`). After matching one of these, we skip its
-# own flags (including `--`) and re-resolve the executable.
 TRANSPARENT_WRAPPERS = frozenset(
     ["sudo", "doas", "command", "exec", "time", "nice", "ionice", "env"]
+)
+
+# Per-wrapper flags that consume a following token as their value (long forms
+# with `=` are handled separately). Conservative: only include flags actually
+# documented by the wrapper. Unknown wrappers fall back to one-token-per-flag.
+WRAPPER_VALUE_FLAGS = {
+    "sudo": frozenset(
+        [
+            "-u", "-g", "-h", "-p", "-r", "-t", "-U", "-D", "-C", "-G",
+            "--user", "--group", "--host", "--prompt", "--role",
+            "--type", "--other-user", "--chdir", "--close-from",
+            "--group-list",
+        ]
+    ),
+    "doas": frozenset(["-u", "-C"]),
+    "env": frozenset(["-u", "--unset", "-S", "--split-string"]),
+    "nice": frozenset(["-n", "--adjustment"]),
+    "ionice": frozenset(["-c", "-n", "-p", "-P", "-u"]),
+}
+
+# Top-level `git` options that take a following token as their value.
+# Long forms with `=` are handled inline.
+GIT_VALUE_FLAGS = frozenset(
+    [
+        "-C", "-c",
+        "--work-tree", "--git-dir", "--namespace", "--super-prefix",
+        "--config-env", "--exec-path", "--list-cmds",
+    ]
 )
 
 PIPELINE_SEPARATORS = frozenset([";", "&", "&&", "|", "||"])
 
 
+# ---------------------------------------------------------------------------
+# Pre-tokenization passes: newline normalization + command-substitution
+# extraction. Both run before shlex sees the command so the lexer doesn't
+# lose information.
+# ---------------------------------------------------------------------------
+
+
+def replace_unquoted_newlines(command):
+    """Replace real newlines (and \\r) with `; ` outside of quoted strings.
+
+    Bash treats a line break between commands as semantically equivalent to
+    `;`. Without this pass, `whitespace_split=True` strips the newline and
+    runs the two commands together as a single segment (a bypass).
+    """
+    out = []
+    in_single = False
+    in_double = False
+    escape = False
+    for c in command:
+        if escape:
+            out.append(c)
+            escape = False
+            continue
+        if c == "\\":
+            out.append(c)
+            escape = True
+            continue
+        if c == "'" and not in_double:
+            in_single = not in_single
+            out.append(c)
+        elif c == '"' and not in_single:
+            in_double = not in_double
+            out.append(c)
+        elif (c == "\n" or c == "\r") and not in_single and not in_double:
+            out.append(";")
+            out.append(" ")
+        else:
+            out.append(c)
+    return "".join(out)
+
+
+def extract_command_substitutions(command):
+    """Extract one level of `$(...)`, `<(...)`, `>(...)`, and `` `...` `` bodies.
+
+    Returns a list of inner strings (without the wrapping syntax). Nested
+    `$(...)` is handled via paren-depth tracking; backticks don't nest
+    meaningfully so we just match to the next backtick.
+
+    Callers should recursively `check_command` each returned body; deeper
+    nesting unfolds through that recursion.
+    """
+    subs = []
+    i = 0
+    n = len(command)
+    while i < n:
+        c = command[i]
+        # $( <( >(
+        if c in "$<>" and i + 1 < n and command[i + 1] == "(":
+            depth = 1
+            start = i + 2
+            j = start
+            while j < n:
+                if command[j] == "(":
+                    depth += 1
+                elif command[j] == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if depth == 0:
+                subs.append(command[start:j])
+                i = j + 1
+                continue
+        # backticks
+        elif c == "`":
+            j = command.find("`", i + 1)
+            if j != -1:
+                subs.append(command[i + 1 : j])
+                i = j + 1
+                continue
+        i += 1
+    return subs
+
+
 def split_pipeline(command):
     """Tokenize and split a command on shell pipeline operators.
 
-    Returns a list of token lists, one per pipeline segment. Quoting is
-    handled by shlex; `punctuation_chars=True` makes `;`, `&`, `|` emit
-    as their own tokens (runs like `&&` and `||` come out as a single
-    token).
-
-    On a shlex parse error (unbalanced quotes etc.), falls back to a
-    whitespace split of the whole command so we still attempt detection
-    instead of failing open.
+    Caller is expected to have already run `replace_unquoted_newlines`.
     """
     try:
         lexer = shlex.shlex(command, posix=True, punctuation_chars=True)
@@ -92,8 +197,13 @@ def split_pipeline(command):
     return segments
 
 
+# ---------------------------------------------------------------------------
+# Executable resolution: walk past env-var prefixes and transparent wrappers,
+# consuming wrapper-owned flags AND their values.
+# ---------------------------------------------------------------------------
+
+
 def _is_env_assignment(token):
-    """True if `token` looks like NAME=value at the start of a command line."""
     if "=" not in token:
         return False
     name, _, _ = token.partition("=")
@@ -104,15 +214,26 @@ def _is_env_assignment(token):
     return all(c.isalnum() or c == "_" for c in name)
 
 
-def resolve_executable(argv):
-    """Walk past env-var prefixes and transparent wrappers; return (cmd, rest).
+def _skip_wrapper_flags(argv, i, value_flags):
+    """Advance `i` past `argv[i]`'s wrapper flags, consuming flag values.
 
-    Returns (None, []) if `argv` is exhausted. We don't try to be exhaustive
-    about wrapper flag handling — if we mis-parse a wrapper-with-flag form
-    (e.g., `sudo -u user rm -rf /`), the worst case is a false negative
-    (we miss the block). The hook is one layer of defense; W10 says hooks
-    plus sandbox isolation together close the gap.
+    `value_flags` is the per-wrapper set of flags that take a following token.
+    `--` ends the option list. Long forms `--flag=value` keep value inline.
     """
+    while i < len(argv) and argv[i].startswith("-"):
+        if argv[i] == "--":
+            i += 1
+            break
+        flag, sep, _value = argv[i].partition("=")
+        i += 1
+        if flag in value_flags and sep != "=":
+            if i < len(argv):
+                i += 1
+    return i
+
+
+def resolve_executable(argv):
+    """Walk past env-var prefixes and transparent wrappers; return (cmd, rest)."""
     i = 0
     while i < len(argv):
         a = argv[i]
@@ -120,13 +241,9 @@ def resolve_executable(argv):
             i += 1
             continue
         if a in TRANSPARENT_WRAPPERS:
+            value_flags = WRAPPER_VALUE_FLAGS.get(a, frozenset())
             i += 1
-            # Skip wrapper-owned flags. `--` ends the wrapper's option list.
-            while i < len(argv) and argv[i].startswith("-"):
-                if argv[i] == "--":
-                    i += 1
-                    break
-                i += 1
+            i = _skip_wrapper_flags(argv, i, value_flags)
             continue
         break
     if i >= len(argv):
@@ -134,11 +251,12 @@ def resolve_executable(argv):
     return argv[i], argv[i + 1 :]
 
 
-def _first_path_component(path):
-    """Return the leading absolute path component (e.g., `/etc/foo` -> `/etc`).
+# ---------------------------------------------------------------------------
+# rm — block recursive destruction of protected paths.
+# ---------------------------------------------------------------------------
 
-    Returns `path` unchanged if it doesn't start with `/`.
-    """
+
+def _first_path_component(path):
     if not path.startswith("/"):
         return path
     rest = path[1:]
@@ -146,14 +264,11 @@ def _first_path_component(path):
     return "/" + head
 
 
-def check_rm(argv):
-    """Return a violation label if this `rm` invocation is dangerous, else None.
+_HOME_PREFIXES = ("~/", "$HOME/", "${HOME}/")
+_HOME_EXACT = frozenset(["~", "$HOME", "${HOME}"])
 
-    Blocks when the command is recursive (`-r` / `-R` / `--recursive`,
-    whether or not `-f` / `--force` is also set) and targets `/`,
-    a protected top-level system directory, or `~` / `$HOME` (or anything
-    under them). `-r` alone still recurses; `-f` only suppresses prompts.
-    """
+
+def check_rm(argv):
     recursive = False
     targets = []
     after_double_dash = False
@@ -168,7 +283,6 @@ def check_rm(argv):
         if arg.startswith("--"):
             if arg == "--recursive":
                 recursive = True
-            # `--force`, other long options: do not affect recursion.
             continue
         if arg.startswith("-") and len(arg) >= 2:
             for c in arg[1:]:
@@ -181,39 +295,40 @@ def check_rm(argv):
         return None
 
     for target in targets:
-        if target in ("~", "$HOME"):
+        if target in _HOME_EXACT:
             return f"rm -r of {target}"
-        if target.startswith("~/") or target.startswith("$HOME/"):
+        if any(target.startswith(p) for p in _HOME_PREFIXES):
             return f"rm -r under $HOME ({target!r})"
 
         if target == "/" or target.rstrip("/") == "":
             return "rm -r of /"
 
         if target.startswith("/"):
-            head = _first_path_component(target)
+            # Canonicalize (.., //, .) before the protected-dir check.
+            normalized = os.path.normpath(target)
+            if normalized == "/":
+                return "rm -r of /"
+            head = _first_path_component(normalized)
             if head in PROTECTED_TOP_DIRS:
                 return f"rm -r under protected dir {head}"
 
     return None
 
 
+# ---------------------------------------------------------------------------
+# git push / git branch -D — block force-update to protected branches.
+# ---------------------------------------------------------------------------
+
+
 def _is_force_push_flag(arg):
-    """Recognize every form of `git push` force flag."""
     if arg in ("-f", "--force"):
         return True
-    # `--force-with-lease`, `--force-with-lease=ref`, `--force-if-includes`, ...
     if arg.startswith("--force-with-lease") or arg.startswith("--force-if-includes"):
         return True
     return False
 
 
 def _ref_targets_protected_branch(refspec):
-    """True if `refspec` (a non-flag `git push` arg) names main/master.
-
-    Handles plain `main`, `+main`, `HEAD:main`, `+refs/heads/main`, etc.
-    Returns (matched, plus_prefixed) — plus_prefixed indicates a
-    non-fast-forward push regardless of explicit force flag.
-    """
     plus = refspec.startswith("+")
     without_plus = refspec[1:] if plus else refspec
     dst = without_plus.split(":")[-1]
@@ -222,23 +337,15 @@ def _ref_targets_protected_branch(refspec):
 
 
 def check_git_push(push_argv):
-    """Inspect a `git push ...` argv (with leading `push` token).
-
-    Returns a violation label if any non-flag arg names a protected branch
-    AND either a force flag is set or the refspec is `+`-prefixed.
-    """
     has_force_flag = False
     refspec_tokens = []
-
     for a in push_argv[1:]:
         if _is_force_push_flag(a):
             has_force_flag = True
         elif a.startswith("-"):
-            # Unrelated flag; ignore.
             continue
         else:
             refspec_tokens.append(a)
-
     for tok in refspec_tokens:
         matched, plus = _ref_targets_protected_branch(tok)
         if not matched:
@@ -251,7 +358,6 @@ def check_git_push(push_argv):
 
 
 def check_git_branch_force_delete(branch_argv):
-    """Inspect a `git branch ...` argv. Block `-D main` / `-D master`."""
     if "-D" not in branch_argv:
         return None
     targets = [a for a in branch_argv[1:] if not a.startswith("-")]
@@ -262,17 +368,17 @@ def check_git_branch_force_delete(branch_argv):
 
 
 def check_git(git_rest):
-    """Skip `git`-level options (e.g., `-C path`, `-c k=v`) and dispatch."""
+    """Skip git-level options (including value-taking ones) and dispatch."""
     i = 0
     while i < len(git_rest):
         a = git_rest[i]
-        if a in ("-C", "-c"):
-            i += 2
-            continue
-        if a.startswith("-"):
-            i += 1
-            continue
-        break
+        if not a.startswith("-"):
+            break
+        flag, sep, _value = a.partition("=")
+        i += 1
+        if flag in GIT_VALUE_FLAGS and sep != "=":
+            if i < len(git_rest):
+                i += 1
     sub = git_rest[i:]
     if not sub:
         return None
@@ -283,8 +389,12 @@ def check_git(git_rest):
     return None
 
 
+# ---------------------------------------------------------------------------
+# Top-level dispatch.
+# ---------------------------------------------------------------------------
+
+
 def check_segment(tokens):
-    """Check a single pipeline segment. Returns violation label or None."""
     if not tokens:
         return None
     cmd, rest = resolve_executable(tokens)
@@ -298,9 +408,20 @@ def check_segment(tokens):
 
 
 def check_command(command):
-    """Top-level: split into pipeline segments, check each. Returns label or None."""
+    """Top-level: pre-process, extract substitutions, split pipeline, check."""
     if not isinstance(command, str) or not command.strip():
         return None
+
+    command = replace_unquoted_newlines(command)
+
+    # Recursively inspect command substitutions — they execute as their own
+    # commands during shell expansion, so destructive forms inside them are
+    # equally dangerous.
+    for sub in extract_command_substitutions(command):
+        violation = check_command(sub)
+        if violation:
+            return f"{violation} (in command substitution)"
+
     for segment in split_pipeline(command):
         violation = check_segment(segment)
         if violation:

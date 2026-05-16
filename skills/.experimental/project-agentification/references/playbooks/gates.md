@@ -117,21 +117,47 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   `command → expected failure → workaround → status`. Agents that find documented dead ends skip
   re-discovering them.
 - **H5.** **A deny-list / pattern-matching hook ships with its negative-case test fixture as one
-  scaffold artifact, not two.** Generate test rows for every variant of every flag in the pattern:
-  split short flags (`-r -f` vs `-rf`), long-form aliases (`--recursive`, `--force`), `=` forms
-  (`--force-with-lease=ref`), `--` option terminator, transparent wrappers (`sudo`, `time`, `env`,
-  `command`, `git -C path`), and env-var prefixes (`FOO=bar cmd …`). The hook landing without
-  tests is the regression vector logged at `docs/agent-failures.md` entry 7 of any repo that has
-  tracked this. The post-write auditor (workflow step 8.5) treats this heuristic as `applied`
-  only when both the hook and its test fixture are in the diff and the fixture covers the variant
-  matrix.
+  scaffold artifact, not two.** The fixture's variant matrix MUST cover every category below;
+  rounds 1 and 2 of automated PR review on this repo (failure-log entries 7 and 8) each surfaced
+  bypasses in categories the previous round didn't cover. Encode the matrix when the fixture is
+  first scaffolded, not when each bypass is reported:
+  1. **Flag forms** — single short (`-rf`), split short (`-r -f`), long-form alias
+     (`--recursive`), `=` form where applicable (`--force-with-lease=ref`), `--` terminator.
+  2. **Path traversal** — `..` segments resolving to a protected dir (`rm -rf /tmp/../etc`).
+     The hook must canonicalize (`os.path.normpath`) before the protected-dir check.
+  3. **Shell variable expansion** — `$VAR`, `${VAR}`, with and without trailing path components
+     (`rm -rf ${HOME}/Documents`).
+  4. **Command substitution** — `$(...)`, backticks, `<(...)`, `>(...)`, and nested forms
+     (`echo $(echo $(rm))`). The hook must extract these and recursively check the body.
+  5. **Multi-line commands** — real newlines as command separators (`echo ok\nrm -rf /etc`).
+     `whitespace_split=True` strips newlines unless they're pre-processed into `;` outside quotes.
+  6. **Transparent wrappers** — bare (`sudo rm`), wrapper with separate-token flag value
+     (`sudo -u root rm`), `=` form (`sudo --user=root rm`), multiple value-flags. Maintain a
+     per-wrapper set of value-taking flags so the wrapper unwrap consumes them.
+  7. **Env-var prefixes** — single, multiple, and via `env` builtin (`FOO=bar cmd`).
+  8. **Compound statements** — dangerous command in the second pipeline segment, for each
+     separator (`;`, `&&`, `||`, `|`, `&`).
+  9. **Quoted paths** — dangerous target quoted.
+  10. **Tool-level global options with separate-token values** — e.g., `git --work-tree /path
+      push …` must still dispatch to the `push` predicate; `check_git` must consume the value
+      after `--work-tree`, `--git-dir`, `-C`, `-c`, and similar.
+
+  The hook landing without the test fixture is the regression vector logged at
+  `docs/agent-failures.md` entry 7; the fixture landing without exhaustive variant categories
+  is the regression vector logged at entry 8. The post-write auditor (workflow step 8.5)
+  treats this heuristic as `applied` only when both the hook and its test fixture are in the
+  diff and the fixture covers all 11 categories above.
+
 - **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**
   Regex deny-lists have a long bypass tail: refspec forms (`git push -f origin HEAD:main`),
   `+`-refspec force-updates (`git push origin +main` with no `-f` flag), option terminators
-  (`rm -rf -- /etc`), and long-form aliases are all common idioms that don't hit a string regex.
-  Tokenize, split pipelines on `;` / `&&` / `||` / `|` / `&`, unwrap wrappers, then inspect argv.
-  Regex is acceptable only for the trivial cases (single flag, single target form) and even there
-  the test fixture from H5 is required.
+  (`rm -rf -- /etc`), long-form aliases, path traversal, command substitution, and wrapper
+  option values are all common idioms that don't hit a string regex. Tokenize via `shlex`
+  with `punctuation_chars=True`, split pipelines on `;` / `&&` / `||` / `|` / `&`, pre-process
+  newlines into `;` outside quotes, extract command substitutions for recursive checking, and
+  unwrap wrappers (consuming their value-taking flags). Regex is acceptable only for the
+  trivial cases (single flag, single target form) and even there the test fixture from H5 is
+  required.
 
 ### diagnose
 

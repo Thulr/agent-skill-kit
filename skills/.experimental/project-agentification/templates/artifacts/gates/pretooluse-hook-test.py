@@ -45,18 +45,33 @@ def _load_hook_module():
 # ---------------------------------------------------------------------------
 # CASES: (command, expect_blocked, label)
 #
-# Required matrix per gates scaffold H5. Coverage rules:
-#   1. Every flag in your deny-list appears in at least one row with each
-#      of: single short flag, split short flags, long-form alias, `=` form
-#      (if applicable), `--` terminator.
-#   2. Every protected target appears with at least one wrapper prefix
-#      (`sudo`, `time`, `env`) and one env-var prefix.
-#   3. Compound statements: at least one positive case where the dangerous
-#      command is in the second pipeline segment (`safe && dangerous`).
-#   4. Quoted paths: at least one positive case where the target is quoted.
-#   5. Negatives: at least one variant of each form that should be ALLOWED
-#      (e.g., `git push -f origin feature-branch` is allowed; only protected
-#      branches are blocked).
+# Required matrix per gates scaffold H5. Coverage rules (each MUST have at
+# least one positive row in the table below — additions to entry 7 of any
+# repo's failure log expanded this list in round 2):
+#   1. Flag forms: single short flag (`-rf`), split short flags (`-r -f`),
+#      long-form alias (`--recursive`), `=` form where applicable
+#      (`--force-with-lease=ref`), `--` option terminator (`rm -rf -- /etc`).
+#   2. Path traversal: target with `..` segments that resolve to a protected
+#      dir (`rm -rf /tmp/../etc`).
+#   3. Shell variable expansion: `$VAR`, `${VAR}`, both with and without
+#      trailing path components (`rm -rf ${HOME}/Documents`).
+#   4. Command substitution: `$(...)`, backticks `` `...` ``, process
+#      substitution `<(...)`, `>(...)`, and nested forms (`$(echo $(rm))`).
+#   5. Multi-line commands: real newlines as command separators
+#      (`echo ok\nrm -rf /etc`).
+#   6. Transparent wrappers: bare wrapper (`sudo rm`), wrapper with flag
+#      value (`sudo -u root rm`), `=` form (`sudo --user=root rm`), and
+#      multiple value flags (`sudo -g wheel -u root rm`).
+#   7. Env-var prefixes: single (`FOO=bar cmd`), multiple (`FOO=1 BAR=2 cmd`),
+#      via `env` builtin (`env FOO=bar cmd`).
+#   8. Compound statements: dangerous command in the second pipeline segment
+#      (`safe-cmd && dangerous`), with each pipeline separator (`;`, `&&`,
+#      `||`, `|`, `&`).
+#   9. Quoted paths: dangerous target quoted (`rm -rf "/etc"`).
+#   10. Tool-level global options with separate-token values
+#       (`git --work-tree /path push -f origin main`).
+#   11. Negatives: at least one variant of each form that should be ALLOWED
+#       (`git push -f origin feature-branch`, `rm -rf /tmp/safe`, etc.).
 # ---------------------------------------------------------------------------
 
 CASES = [

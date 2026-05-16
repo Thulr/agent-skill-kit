@@ -5,35 +5,44 @@ Prescribed by gates scaffold H1 + H6: argv parsing (shlex-tokenized) over
 regex-on-string. Reads the tool-use payload from stdin. Exits 2 to block
 with a message the model will see; exits 0 to allow.
 
-Splits the command pipeline on `;`, `&&`, `||`, `|`, `&`, then walks each
-segment's argv after stripping env-var prefixes and transparent wrappers
-(`sudo`, `time`, `env`, `command`, `git -C path`). This catches forms a
-regex-on-string approach silently allows: refspec force-pushes, `--` option
-terminators, split short flags, long-form aliases. See
-[`docs/agent-failures.md` entry tracking your initial scaffold] for the
-bypass family that motivated argv parsing.
+Implementation shape — this template is hardened against the bypass family
+logged in `docs/agent-failures.md` entries 7 and 8 of any repo that has
+tracked them:
+  - Real newlines pre-processed into `;` outside quotes (multi-line
+    commands count as compound statements).
+  - Command substitutions (`$(...)`, backticks, `<(...)`, `>(...)`)
+    extracted and recursively checked.
+  - `shlex` with `punctuation_chars=True` tokenizes; pipeline splits on
+    `;`, `&&`, `||`, `|`, `&`.
+  - Wrapper unwrap: env-var prefixes (`FOO=bar cmd`) and transparent
+    wrappers (`sudo`, `time`, `env`, `command`, `nice`, `ionice`, `doas`,
+    `exec`). Wrapper flags with values (`sudo -u root cmd`) are consumed.
+  - For `rm`: `os.path.normpath` canonicalizes targets so `/tmp/../etc`
+    resolves to `/etc` before the protected-dir check; `~`, `$HOME`, AND
+    `${HOME}` are all recognized.
+  - For `git`: global options with separate-token values (`-C`, `-c`,
+    `--work-tree`, `--git-dir`, `--namespace`, `--super-prefix`,
+    `--config-env`, `--exec-path`) consume the next token before
+    subcommand dispatch.
+
+Customization — fill from your three-tier table (gates scaffold H1):
+- PROTECTED_GIT_BRANCHES — branches `git push --force` is blocked against.
+- PROTECTED_TOP_DIRS — top-level dirs `rm -r` is blocked against.
+- Add new predicates in the `check_segment` dispatch for additional
+  forbidden actions named in your three-tier table. Every predicate must
+  trace to a failure-log row — no boilerplate (W1).
+- Ships with a companion test fixture (`pretooluse-hook-test.py`). Hook +
+  tests are one scaffold artifact (gates scaffold H5). The test fixture's
+  variant-matrix coverage rules are enumerated in `gates.md` scaffold H5.
 
 W3: prose at ~70%, hooks at 100%. Anything safety-relevant lives here, not
 in AGENTS.md alone.
-
-Customization:
-- Fill the FORBIDDEN_ACTIONS section with patterns derived from your
-  three-tier table (gates scaffold H1). Each pattern must trace to a
-  failure-log row or a named threat — no boilerplate.
-- Ships with a companion test file at the same path with `test_` prefix.
-  Hook + tests are one scaffold artifact (gates scaffold H5).
 """
 
 import json
+import os
 import shlex
 import sys
-
-# ---------------------------------------------------------------------------
-# FORBIDDEN_ACTIONS — fill from the three-tier table.
-# Each entry is a tuple of (predicate_fn, human-readable label, failure-ref).
-# `predicate_fn` takes a tokenized argv list (after wrapper-unwrapping) and
-# returns a violation label (str) or None.
-# ---------------------------------------------------------------------------
 
 PROTECTED_GIT_BRANCHES = frozenset(["main", "master"])  # extend per repo
 
@@ -49,16 +58,98 @@ TRANSPARENT_WRAPPERS = frozenset(
     ["sudo", "doas", "command", "exec", "time", "nice", "ionice", "env"]
 )
 
+# Per-wrapper flags that consume a following token as their value. Long forms
+# with `=` are handled inline. Unknown wrappers fall back to one-token-per-flag.
+WRAPPER_VALUE_FLAGS = {
+    "sudo": frozenset(
+        [
+            "-u", "-g", "-h", "-p", "-r", "-t", "-U", "-D", "-C", "-G",
+            "--user", "--group", "--host", "--prompt", "--role",
+            "--type", "--other-user", "--chdir", "--close-from",
+            "--group-list",
+        ]
+    ),
+    "doas": frozenset(["-u", "-C"]),
+    "env": frozenset(["-u", "--unset", "-S", "--split-string"]),
+    "nice": frozenset(["-n", "--adjustment"]),
+    "ionice": frozenset(["-c", "-n", "-p", "-P", "-u"]),
+}
+
+# Top-level `git` options that take a following token as their value.
+GIT_VALUE_FLAGS = frozenset(
+    [
+        "-C", "-c",
+        "--work-tree", "--git-dir", "--namespace", "--super-prefix",
+        "--config-env", "--exec-path", "--list-cmds",
+    ]
+)
+
 PIPELINE_SEPARATORS = frozenset([";", "&", "&&", "|", "||"])
 
 
-def split_pipeline(command):
-    """Tokenize and split a command on shell pipeline operators.
+def replace_unquoted_newlines(command):
+    """Replace real newlines with `; ` outside of quoted strings."""
+    out = []
+    in_single = False
+    in_double = False
+    escape = False
+    for c in command:
+        if escape:
+            out.append(c)
+            escape = False
+            continue
+        if c == "\\":
+            out.append(c)
+            escape = True
+            continue
+        if c == "'" and not in_double:
+            in_single = not in_single
+            out.append(c)
+        elif c == '"' and not in_single:
+            in_double = not in_double
+            out.append(c)
+        elif (c == "\n" or c == "\r") and not in_single and not in_double:
+            out.append(";")
+            out.append(" ")
+        else:
+            out.append(c)
+    return "".join(out)
 
-    Returns a list of token lists, one per pipeline segment. Quoting is
-    handled by shlex; `punctuation_chars=True` makes `;`, `&`, `|` emit
-    as their own tokens.
-    """
+
+def extract_command_substitutions(command):
+    """Extract one level of `$(...)`, `<(...)`, `>(...)`, and backtick bodies."""
+    subs = []
+    i = 0
+    n = len(command)
+    while i < n:
+        c = command[i]
+        if c in "$<>" and i + 1 < n and command[i + 1] == "(":
+            depth = 1
+            start = i + 2
+            j = start
+            while j < n:
+                if command[j] == "(":
+                    depth += 1
+                elif command[j] == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if depth == 0:
+                subs.append(command[start:j])
+                i = j + 1
+                continue
+        elif c == "`":
+            j = command.find("`", i + 1)
+            if j != -1:
+                subs.append(command[i + 1 : j])
+                i = j + 1
+                continue
+        i += 1
+    return subs
+
+
+def split_pipeline(command):
     try:
         lexer = shlex.shlex(command, posix=True, punctuation_chars=True)
         lexer.whitespace_split = True
@@ -94,8 +185,20 @@ def _is_env_assignment(token):
     return all(c.isalnum() or c == "_" for c in name)
 
 
+def _skip_wrapper_flags(argv, i, value_flags):
+    while i < len(argv) and argv[i].startswith("-"):
+        if argv[i] == "--":
+            i += 1
+            break
+        flag, sep, _value = argv[i].partition("=")
+        i += 1
+        if flag in value_flags and sep != "=":
+            if i < len(argv):
+                i += 1
+    return i
+
+
 def resolve_executable(argv):
-    """Walk past env-var prefixes and transparent wrappers; return (cmd, rest)."""
     i = 0
     while i < len(argv):
         a = argv[i]
@@ -103,12 +206,9 @@ def resolve_executable(argv):
             i += 1
             continue
         if a in TRANSPARENT_WRAPPERS:
+            value_flags = WRAPPER_VALUE_FLAGS.get(a, frozenset())
             i += 1
-            while i < len(argv) and argv[i].startswith("-"):
-                if argv[i] == "--":
-                    i += 1
-                    break
-                i += 1
+            i = _skip_wrapper_flags(argv, i, value_flags)
             continue
         break
     if i >= len(argv):
@@ -121,6 +221,7 @@ def resolve_executable(argv):
 # table includes `rm -r` of protected paths; DELETE otherwise.
 # ---------------------------------------------------------------------------
 
+
 def _first_path_component(path):
     if not path.startswith("/"):
         return path
@@ -129,9 +230,11 @@ def _first_path_component(path):
     return "/" + head
 
 
+_HOME_PREFIXES = ("~/", "$HOME/", "${HOME}/")
+_HOME_EXACT = frozenset(["~", "$HOME", "${HOME}"])
+
+
 def check_rm(argv):
-    """Block recursive rm of /, protected top-level dirs, ~, $HOME, or anywhere
-    under them. Handles `--`, split flags (`-r -f`), long-form (`--recursive`)."""
     recursive = False
     targets = []
     after_double_dash = False
@@ -158,14 +261,17 @@ def check_rm(argv):
         return None
 
     for target in targets:
-        if target in ("~", "$HOME"):
+        if target in _HOME_EXACT:
             return f"rm -r of {target}"
-        if target.startswith("~/") or target.startswith("$HOME/"):
+        if any(target.startswith(p) for p in _HOME_PREFIXES):
             return f"rm -r under $HOME ({target!r})"
         if target == "/" or target.rstrip("/") == "":
             return "rm -r of /"
         if target.startswith("/"):
-            head = _first_path_component(target)
+            normalized = os.path.normpath(target)
+            if normalized == "/":
+                return "rm -r of /"
+            head = _first_path_component(normalized)
             if head in PROTECTED_TOP_DIRS:
                 return f"rm -r under protected dir {head}"
 
@@ -177,6 +283,7 @@ def check_rm(argv):
 # KEEP if your forbidden-action table includes force-push protection;
 # DELETE otherwise.
 # ---------------------------------------------------------------------------
+
 
 def _is_force_push_flag(arg):
     if arg in ("-f", "--force"):
@@ -226,17 +333,16 @@ def check_git_branch_force_delete(branch_argv):
 
 
 def check_git(git_rest):
-    """Skip `git`-level options (`-C path`, `-c k=v`) and dispatch."""
     i = 0
     while i < len(git_rest):
         a = git_rest[i]
-        if a in ("-C", "-c"):
-            i += 2
-            continue
-        if a.startswith("-"):
-            i += 1
-            continue
-        break
+        if not a.startswith("-"):
+            break
+        flag, sep, _value = a.partition("=")
+        i += 1
+        if flag in GIT_VALUE_FLAGS and sep != "=":
+            if i < len(git_rest):
+                i += 1
     sub = git_rest[i:]
     if not sub:
         return None
@@ -251,6 +357,7 @@ def check_git(git_rest):
 # Top-level dispatch. Extend the if-chain below with predicates from your
 # three-tier table. Each predicate returns (violation_label or None).
 # ---------------------------------------------------------------------------
+
 
 def check_segment(tokens):
     if not tokens:
@@ -269,6 +376,14 @@ def check_segment(tokens):
 def check_command(command):
     if not isinstance(command, str) or not command.strip():
         return None
+
+    command = replace_unquoted_newlines(command)
+
+    for sub in extract_command_substitutions(command):
+        violation = check_command(sub)
+        if violation:
+            return f"{violation} (in command substitution)"
+
     for segment in split_pipeline(command):
         violation = check_segment(segment)
         if violation:

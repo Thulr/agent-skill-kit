@@ -1,1 +1,6 @@
 layer,name,when_to_use,playbook,core_refs
+unit,Unit test,"Decide which unit tests to delete",references/layers/unit.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md
+integration,Integration test,"Decide which integration tests to delete",references/layers/integration.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md
+e2e-ui,E2E/UI test,"Decide which e2e/UI tests to delete",references/layers/e2e-ui.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md
+snapshot,Snapshot test,"Decide which snapshots to delete or unify",references/layers/snapshot.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md
+performance,Performance test,"Decide which performance tests to delete or quarantine",references/layers/performance.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md

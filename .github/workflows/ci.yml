@@ -17,7 +17,7 @@ jobs:
           set -euo pipefail
           shopt -s nullglob
           failed=0
-          for script in skills/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
+          for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
             echo "::group::$script"
             if ! bash "$script"; then
               failed=1

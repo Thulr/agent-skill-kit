@@ -1,0 +1,29 @@
+# CODEOWNERS — required reviewers for agent-surface paths.
+#
+# Why this exists: skills/ and .agents/ load into downstream agent sessions
+# via `npx skills add`. A PR that modifies them affects every consumer.
+# Pair this file with a branch-protection rule on main that requires:
+#   - the `static-checks` CI job to pass
+#   - at least one approving review from a code owner
+#
+# Replace @Thulr with the actual GitHub handle(s) of the people you want
+# blocking merges on these paths. GitHub teams (e.g. @org/maintainers) work too.
+
+# Default owner — catches anything not matched below.
+*                                   @Thulr
+
+# Skills bundle (loaded into downstream agent sessions).
+/skills/                            @Thulr
+/skills/.experimental/              @Thulr
+
+# Repo-local agent surface (loaded into this repo's own agent sessions).
+/.agents/                           @Thulr
+
+# CI, workflow, and structural gates.
+/.github/                           @Thulr
+/Justfile                           @Thulr
+
+# Public-facing documentation that shapes how downstream users install + use skills.
+/README.md                          @Thulr
+/THIRD_PARTY.md                     @Thulr
+/LICENSE                            @Thulr

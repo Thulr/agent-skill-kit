@@ -44,6 +44,7 @@ check_file "$skill_dir/templates/audit-report-multi.md"
 check_file "$skill_dir/templates/design-doc.md"
 check_file "$skill_dir/templates/refactor-runbook.md"
 check_file "$skill_dir/templates/explanation.md"
+check_file "$skill_dir/evals/activation-cases.md"
 
 # Skill-specific: glossary must be non-empty (terminology overload is the
 # highest-likelihood reader-derailment risk in this domain).

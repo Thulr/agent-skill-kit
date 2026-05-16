@@ -10,7 +10,7 @@ surface plus a brief justification citing the playbook's heuristics.
 | 7–8 | **Healthy** | Some deviations but they are documented and contained. No load-bearing violations. |
 | 5–6 | **Mixed** | The shape is recognizable but several Medium-severity issues. Refactor would pay off within a quarter. |
 | 3–4 | **Eroded** | Original shape is visible only in places. High-severity issues compound. Strangler-fig is more realistic than incremental cleanup. |
-| 1–2 | **Inverted** | The architecture works against itself. Inner layers depend on outer; vocabulary is inconsistent across contexts. Critical findings present. |
+| 1–2 | **Inverted** | The architecture works against itself. Inner layers depend on outer; vocabulary is inconsistent across contexts. Critical findings present (the score reflects current state — Critical findings independently block merge per the severity rubric). |
 | 0 | **Absent** | No identifiable architecture; ad-hoc structure only. |
 
 ## How to pick a score

@@ -27,7 +27,10 @@ A horizontal slice of code with a single architectural responsibility
 (domain, application, interface, infrastructure). In a layered diagram,
 inner layers do not know about outer layers. "Layer" and "ring" (in
 onion architecture) and "circle" (in concentric diagrams) are different
-visualizations of the same idea.
+visualizations of the same idea. Different authors name the layers
+differently; this glossary uses the *domain / application / interface /
+infrastructure* set as the canonical reference, with other naming
+conventions called out in the playbooks as needed.
 
 ## Module
 
@@ -105,3 +108,112 @@ A refactoring pattern: a new implementation grows alongside the old,
 gradually taking over capabilities until the old can be removed.
 Borrowed from the *Ficus aurea* tree that envelops its host. Used
 extensively in monolith-to-microservices refactoring.
+
+## Aggregate root
+
+The single entity within an aggregate that callers reference and through
+which all operations on the aggregate flow. The root enforces the
+aggregate's invariants at its boundary; internal entities and value
+objects are never accessed directly from outside the aggregate.
+
+## Branch-by-abstraction
+
+A refactoring pattern: introduce an abstraction over the current
+implementation, route callers through it, add a new implementation
+alongside the old, swap implementations behind the abstraction, then
+remove the old. Lets large changes happen incrementally on a single
+branch without long-lived feature branches.
+
+## Characterization test
+
+A test written against existing behavior — even behavior that is wrong
+or undocumented — to pin it before refactoring. The point is to detect
+unintended changes; the test asserts "this is what the system does
+today," not "this is what the system should do."
+
+## Conformist
+
+A context-mapping relationship: the downstream context adopts the
+upstream context's model wholesale rather than translating. Cheaper
+than ACL but the downstream is now coupled to the upstream's design
+decisions.
+
+## Customer-Supplier
+
+A context-mapping relationship where the downstream (customer) has a
+clear voice in what the upstream (supplier) provides. The upstream is
+willing to negotiate, and the downstream's needs influence the
+upstream's roadmap.
+
+## Dependency Inversion Principle (DIP)
+
+The "D" in SOLID: depend on abstractions, not concretions. At class
+scope, DIP is the local form of the dependency rule — an inner class
+declares an interface that an outer class implements, inverting who
+depends on whom.
+
+## Domain event
+
+A record of something meaningful that happened in the domain (e.g.,
+`OrderPlaced`, `PaymentReceived`). Domain events let aggregates
+communicate without holding references to each other and enable
+eventual consistency across aggregates or contexts.
+
+## Domain service
+
+A piece of behavior that does not naturally belong to a single entity
+or value object — it operates across them. Used only when no single
+aggregate is the right home; otherwise the behavior goes on the
+aggregate root.
+
+## Eventual consistency
+
+A consistency model where state changes propagate asynchronously and
+observers may briefly see stale data. Used between aggregates (within
+a context) and between bounded contexts; the alternative —
+transactional consistency across aggregates — usually scales poorly.
+
+## Open host service (OHS)
+
+A context-mapping relationship: the upstream context publishes a
+stable, well-documented protocol that any downstream can consume.
+Often paired with a *published language* so the protocol is the
+contract, not the upstream's internal model.
+
+## Repository
+
+A pattern from PoEAA: an outbound port that mediates between the
+domain and persistence. The repository interface speaks the domain's
+vocabulary (`findCustomerById`, `save(customer)`); its implementation
+lives in infrastructure and translates to whatever persistence
+technology is in use.
+
+## Shared kernel
+
+A context-mapping relationship where two contexts agree to share a
+small subset of the model — but only by explicit coordination. Used
+sparingly; changes to the shared kernel require both teams' agreement.
+
+## Subdomain (core / supporting / generic)
+
+A partition of the business domain by strategic importance. **Core**
+subdomains are the competitive differentiator (build in-house, invest
+heavily). **Supporting** subdomains are necessary but not
+differentiating (build pragmatically, often in-house). **Generic**
+subdomains are commodity (buy or use off-the-shelf). The subdomain
+type informs the integration pattern between contexts.
+
+## Ubiquitous language
+
+A team-agreed vocabulary for one bounded context: every term means the
+same thing to every team member and appears unchanged in
+conversations, documentation, and code. Drift in the language is a
+signal that the context boundary is wrong or that a sub-context is
+forming.
+
+## Unit of Work
+
+A pattern from PoEAA: an object that tracks changes to a set of
+objects within one transactional scope and coordinates flushing them
+atomically. Often implemented under the hood by ORMs (e.g., a session
+or a context object).

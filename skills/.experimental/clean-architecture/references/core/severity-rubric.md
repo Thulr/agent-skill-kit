@@ -24,7 +24,9 @@ in a refactor runbook, and every caveat in an explanation.
 ## Calibration anchors
 
 - "Repository interface lives in the infrastructure layer, domain
-  imports it" → **4** (dependency rule reversed in the core path).
+  imports it" → **3** (High) by default; escalate to **4** if the
+  leaked type also appears *inside* an aggregate root or violates a
+  security boundary.
 - "Use case calls an HTTP client directly without an outbound port" →
   **3** (architectural seam reversed).
 - "Aggregate has a getter for a child collection that callers mutate

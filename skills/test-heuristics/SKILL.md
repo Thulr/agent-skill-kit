@@ -32,19 +32,22 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    prompt to: `triage`, `review`, `author`, `strategize`, `prune`.
    Ambiguous → ask once.
 2. **Pick layer.** Load `references/activities/<activity>.csv`. Match to
-   one or more layers, or `all` (review only) for cross-layer fan-out.
-   Ambiguous → ask once with the CSV menu.
-3. **Load grounded context.** Load only the files in the chosen CSV row:
-   one `references/layers/<layer>.md` plus the listed `core_refs`. Skip
-   when layer = `all` — each spawned layer agent loads its own.
+   one or more layers, or `all` for cross-layer treatment (`review`
+   fan-out, `strategize` integrative pass). Ambiguous → ask with the
+   menu.
+3. **Load grounded context.** Load the files in the chosen row's
+   `playbook` column — most rows reference one playbook; cross-layer
+   rows list many — plus the listed `core_refs`. For `review/all`,
+   skip: each spawned layer agent loads its own.
 4. **Identify the target persona** from `references/core/personas.md`.
 5. **Ask the purpose question** (review / author / triage / prune): what
    is this test for — `spec`, `regression`, `characterization`,
    `exploration`, or `gate`? Heuristics tagged for the purpose apply
    first; multiple purposes can apply.
 6. **Spawn sub-agents in parallel** (default for `review` and `prune`).
-   Single-layer: one lens per agent. Review + `all`: one layer per
-   agent; each runs the three lenses sequentially inside itself. See
+   Single-layer: one lens per agent. `review/all`: one layer per agent;
+   each runs the three lenses sequentially inside itself.
+   `strategize/all`: single integrative pass — no fan-out. See
    `references/subagent-dispatch.md`. Fall back to sequential lenses
    only if the host has no delegation primitive.
 7. **Apply the playbook.** Use heuristics tagged for this activity. For

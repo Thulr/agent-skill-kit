@@ -65,6 +65,21 @@ a template.
   menu from `<registry>.csv`," every option the workflow accepts (including
   special meta-values like `all`) is either a row in that CSV or explicitly
   added to the menu instructions.
+- **Special meta-values are documented per parent scope.** When a registry
+  CSV contains a meta-value row (e.g., layer = `all`, surface = `any`,
+  mode = `auto`), the workflow text says *which parent activities/intents
+  support that meta-value* and *what semantics each one applies* — single
+  integrative pass, fan-out, etc. A workflow that says "`all` is review
+  only" while another activity's CSV also has an `all` row creates a
+  silent gap: the agent reads the workflow literally and never offers
+  the `all` path for the other activity. Walk every CSV row that uses a
+  meta-value and confirm the SKILL.md workflow names both the activity
+  and its semantics.
+- **Multi-playbook rows are honored downstream.** If any registry CSV row
+  references multiple playbook files (semicolon-separated), the
+  context-loading step in the workflow describes how multi-playbook rows
+  are loaded (single pass vs. fan-out per playbook). A workflow that says
+  "load *one* `playbook.md`" silently breaks the multi-playbook case.
 - **Load-bearing markers match section headers.** A `<!-- Load-bearing
   section: X -->` comment in a template names a real `## X` heading in that
   same file. Renaming the heading without updating the marker (or vice

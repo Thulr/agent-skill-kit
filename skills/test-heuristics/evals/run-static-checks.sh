@@ -226,6 +226,30 @@ for layer in $all_layers; do
   (( ref_count > 0 )) || fail "layer playbook $layer.md is not referenced by any activity CSV (orphan)"
 done
 
+# ----- Description-claims-to-registry coverage -----
+# If SKILL.md description (frontmatter) names a layer by its basename, the layer
+# must be routable from at least one activity CSV. Catches the class of bug
+# where the description advertises a layer/surface that has no routable path.
+
+if [[ -f "$skill_md" ]] && [[ -n "$all_layers" ]]; then
+  description_line=$(awk '/^description:/{print; exit}' "$skill_md")
+  for layer in $all_layers; do
+    if printf '%s' "$description_line" | grep -qiwE -- "$layer"; then
+      # layer mentioned in description — ensure it's referenced by at least one
+      # activity CSV (the orphan check covers presence, but only after the file
+      # exists; this gate ensures the description's claim is honored)
+      pb_path="references/layers/${layer}.md"
+      hit=0
+      for activity in triage review author strategize prune; do
+        csv="$skill_dir/references/activities/$activity.csv"
+        [[ -f "$csv" ]] || continue
+        grep -qF -- "$pb_path" "$csv" && { hit=1; break; }
+      done
+      (( hit == 1 )) || fail "SKILL.md description names layer '$layer' but no activity CSV routes to it"
+    fi
+  done
+fi
+
 # ----- skill.json playbooks-field gate -----
 
 if [[ -f "$skill_json" ]]; then

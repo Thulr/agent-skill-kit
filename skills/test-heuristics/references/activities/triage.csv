@@ -6,3 +6,4 @@ property-based,Property test,"A property-based test is failing or shrinking unex
 contract,Contract test,"A consumer contract test is failing",references/layers/contract.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 snapshot,Snapshot test,"A snapshot/approval test is failing",references/layers/snapshot.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 performance,Performance test,"A performance test is failing or noisy",references/layers/performance.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+mutation,Mutation test,"A mutation run is failing or a surviving mutant is unclear",references/layers/mutation.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md

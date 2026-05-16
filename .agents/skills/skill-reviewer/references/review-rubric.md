@@ -77,6 +77,14 @@ a template.
   (e.g., tables → blocks, renamed sections, removed columns), intro
   sentences and inline references describe the new structure. "Each row gets
   a severity…" must not survive a row-to-block conversion.
+- **Description claims match the registry.** Every routable concept the
+  frontmatter `description` advertises (surface, layer, activity, intent,
+  mode) is reachable from at least one registry row. Stronger form: when
+  the description lists a verb-set × noun-set (e.g., "reviewing, designing,
+  triaging X, Y, Z tests"), each (verb, noun) pair the reader will infer
+  must be routable. A description that promises triage of mutation tests
+  while `triage.csv` omits the mutation row creates a routing gap users
+  will hit. Either wire it or narrow the description's claim.
 
 ## Status Decision
 

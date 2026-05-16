@@ -86,6 +86,14 @@ a template.
   context-loading step in the workflow describes how multi-playbook rows
   are loaded (single pass vs. fan-out per playbook). A workflow that says
   "load *one* `playbook.md`" silently breaks the multi-playbook case.
+- **Template inputs are sourced by the workflow.** Every named field a
+  template asks for (Persona, Purpose, Score, Severity, Failure mode,
+  Layer, …) has a workflow step that elicits, computes, or explicitly
+  skips it for every activity that emits that template. A template with a
+  "Purpose-by-purpose coverage" table is incoherent if the workflow
+  never elicits purpose for that activity *and* never says "this
+  template covers all purposes." Either the workflow gathers the input
+  or the workflow says where the template gets it.
 - **Load-bearing markers match section headers.** A `<!-- Load-bearing
   section: X -->` comment in a template names a real `## X` heading in that
   same file. Renaming the heading without updating the marker (or vice

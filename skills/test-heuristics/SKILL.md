@@ -40,10 +40,11 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    rows list many — plus the listed `core_refs`. For `review/all`,
    skip: each spawned layer agent loads its own.
 4. **Identify the target persona** from `references/core/personas.md`.
-5. **Ask the purpose question** (review / author / triage / prune): what
-   is this test for — `spec`, `regression`, `characterization`,
-   `exploration`, or `gate`? Heuristics tagged for the purpose apply
-   first; multiple purposes can apply.
+5. **Handle purpose** (`spec`, `regression`, `characterization`,
+   `exploration`, `gate`). For `review`/`author`/`triage`/`prune`, ask
+   which applies (multiple can); heuristics for that purpose apply
+   first. For `strategize`, skip — the strategy template covers all
+   purposes via its purpose-by-purpose table.
 6. **Spawn sub-agents in parallel** (default for `review` and `prune`).
    Single-layer: one lens per agent. `review/all`: one layer per agent;
    each runs the three lenses sequentially inside itself.

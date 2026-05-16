@@ -32,8 +32,10 @@ jobs:
             sleep $((attempts * 2))
           done
           attempts=0
+          # ca-certificates is required for actions/checkout's HTTPS git fetch
+          # (git only Recommends it, so --no-install-recommends drops it).
           until apt-get install -y --no-install-recommends \
-                git jq python3 python3-jsonschema; do
+                ca-certificates git jq python3 python3-jsonschema; do
             attempts=$((attempts + 1))
             if (( attempts >= max_attempts )); then
               echo "apt-get install failed after $attempts attempts" >&2

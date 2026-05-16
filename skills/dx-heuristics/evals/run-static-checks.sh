@@ -224,6 +224,47 @@ if [[ -f "$skill_json" ]]; then
   done < <(jq -r '.inspired_by[].playbooks[]' "$skill_json")
 fi
 
+# ----- trigger-evals.json schema gate -----
+# Canonical schema (see AGENTS.md §Canonical trigger-evals.json schema):
+#   {skill, version, queries: [{query, should_activate, expected_route?, category?}]}
+# Schema changes migrate all skills in the same PR (Rule 2 in AGENTS.md).
+
+trigger_evals="$skill_dir/evals/trigger-evals.json"
+if [[ -f "$trigger_evals" ]]; then
+  python3 - "$trigger_evals" "dx-heuristics" <<'PYEOF' || fail "trigger-evals.json schema check failed"
+import json, sys
+path, expected_skill = sys.argv[1], sys.argv[2]
+try:
+    with open(path) as f:
+        data = json.load(f)
+except json.JSONDecodeError as e:
+    print(f"  trigger-evals.json: invalid JSON ({e})", file=sys.stderr); sys.exit(1)
+if not isinstance(data, dict):
+    print("  trigger-evals.json: top-level must be object", file=sys.stderr); sys.exit(1)
+if data.get("skill") != expected_skill:
+    print(f"  trigger-evals.json: 'skill' must be {expected_skill!r}, got {data.get('skill')!r}", file=sys.stderr); sys.exit(1)
+queries = data.get("queries")
+if not isinstance(queries, list) or not queries:
+    print("  trigger-evals.json: 'queries' must be a non-empty list", file=sys.stderr); sys.exit(1)
+errors = 0
+for i, q in enumerate(queries):
+    if not isinstance(q, dict):
+        print(f"  trigger-evals.json[{i}]: must be object", file=sys.stderr); errors += 1; continue
+    if not isinstance(q.get("query"), str) or not q["query"].strip():
+        print(f"  trigger-evals.json[{i}]: 'query' must be non-empty string", file=sys.stderr); errors += 1
+    if not isinstance(q.get("should_activate"), bool):
+        print(f"  trigger-evals.json[{i}]: 'should_activate' must be bool", file=sys.stderr); errors += 1
+    er = q.get("expected_route")
+    if er is not None and not isinstance(er, str):
+        print(f"  trigger-evals.json[{i}]: 'expected_route' must be string or null", file=sys.stderr); errors += 1
+    cat = q.get("category")
+    if cat is not None and cat not in ("positive", "negative", "edge"):
+        print(f"  trigger-evals.json[{i}]: 'category' must be positive|negative|edge or null", file=sys.stderr); errors += 1
+if errors > 0:
+    sys.exit(1)
+PYEOF
+fi
+
 # ----- Result -----
 
 if (( failures > 0 )); then

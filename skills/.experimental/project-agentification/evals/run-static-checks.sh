@@ -88,6 +88,50 @@ else
   err "evals/activation-cases.md missing"
 fi
 
+# 9. trigger-evals.json schema (canonical shape — see AGENTS.md §Canonical
+#    trigger-evals.json schema). Schema changes migrate all skills in the same
+#    PR (Rule 2 in AGENTS.md).
+if [ -f evals/trigger-evals.json ]; then
+  if python3 - evals/trigger-evals.json "project-agentification" <<'PYEOF' >&2; then
+import json, sys
+path, expected_skill = sys.argv[1], sys.argv[2]
+try:
+    with open(path) as f:
+        data = json.load(f)
+except json.JSONDecodeError as e:
+    print(f"trigger-evals.json: invalid JSON ({e})"); sys.exit(1)
+if not isinstance(data, dict):
+    print("trigger-evals.json: top-level must be object"); sys.exit(1)
+if data.get("skill") != expected_skill:
+    print(f"trigger-evals.json: 'skill' must be {expected_skill!r}, got {data.get('skill')!r}"); sys.exit(1)
+queries = data.get("queries")
+if not isinstance(queries, list) or not queries:
+    print("trigger-evals.json: 'queries' must be a non-empty list"); sys.exit(1)
+errors = 0
+for i, q in enumerate(queries):
+    if not isinstance(q, dict):
+        print(f"trigger-evals.json[{i}]: must be object"); errors += 1; continue
+    if not isinstance(q.get("query"), str) or not q["query"].strip():
+        print(f"trigger-evals.json[{i}]: 'query' must be non-empty string"); errors += 1
+    if not isinstance(q.get("should_activate"), bool):
+        print(f"trigger-evals.json[{i}]: 'should_activate' must be bool"); errors += 1
+    er = q.get("expected_route")
+    if er is not None and not isinstance(er, str):
+        print(f"trigger-evals.json[{i}]: 'expected_route' must be string or null"); errors += 1
+    cat = q.get("category")
+    if cat is not None and cat not in ("positive", "negative", "edge"):
+        print(f"trigger-evals.json[{i}]: 'category' must be positive|negative|edge or null"); errors += 1
+if errors > 0:
+    sys.exit(1)
+PYEOF
+    ok "trigger-evals.json schema valid"
+  else
+    err "trigger-evals.json schema check failed"
+  fi
+else
+  err "evals/trigger-evals.json missing"
+fi
+
 if [ "$fail" -ne 0 ]; then
   echo
   echo "Static checks FAILED."

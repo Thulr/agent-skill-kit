@@ -43,16 +43,19 @@ mechanics, leaky abstractions.
 
 ### Lens 3 — Refactor-pragmatist
 
-**Prompt:** "You are sequencing a refactor toward better architecture
-under **realistic constraints**: feature work continues, big-bang is
-forbidden, every step must be reversible. Use strangler-fig,
-branch-by-abstraction, parallel-change, characterization tests as
-safety nets. Sequence findings from the other lenses; do not introduce
-new findings yourself. Estimate effort per step (S/M/L); name what
-breaks if the refactor stops partway."
+**Prompt:** "You are evaluating this code/design for **refactor
+viability** under realistic constraints (feature work continues,
+big-bang forbidden, every step must be reversible). For the surface
+in question, name the refactor patterns that apply (strangler-fig,
+branch-by-abstraction, parallel-change, expand-contract,
+characterization tests as safety nets). For each pattern: when does
+it fit, what's the smallest reversible step, what breaks if the
+refactor stops partway? Estimate per-pattern effort (S/M/L). Do not
+enumerate specific code-level findings — that's the other lenses'
+job. Do not synthesize a step sequence — that's the host's job."
 
-**Anchors on:** smallest-reversible-step, strangler-fig pathways,
-characterization tests, parallel-change, expand-contract migrations.
+**Anchors on:** which refactor patterns apply, safety-net discipline,
+smallest-reversible-step posture.
 
 ## Dispatch template
 
@@ -66,13 +69,14 @@ Read references/playbooks/<surface>.md and references/core/severity-rubric.md
 and references/core/glossary.md before starting.
 
 Agent 2 (boundary-designer): <Lens 2 prompt above>, applied to <surface>.
-Read references/playbooks/<surface>.md and references/core/glossary.md
-before starting.
+Read references/playbooks/<surface>.md, references/core/severity-rubric.md,
+and references/core/glossary.md before starting.
 
 Agent 3 (refactor-pragmatist): <Lens 3 prompt above>, applied to
 <surface>. Read references/playbooks/<surface>.md and
-references/core/severity-rubric.md before starting. Wait for agents 1
-and 2 to complete; sequence their findings.
+references/core/severity-rubric.md before starting. Runs independently
+in parallel with the other two; the host sequences findings during
+synthesis.
 
 Each agent returns: a list of findings/proposals with severity, citing
 heuristic numbers from the playbook. No prose summary at the top.
@@ -93,8 +97,17 @@ After the three lenses return, the host agent:
    resolve them silently — name the disagreement and the trade-off
    between the lenses' framings.
 3. **Order by severity** (4 → 0).
-4. **Map to template.** Emit the intent-appropriate template
-   (`templates/<intent>.md`) populated from the synthesized list.
+4. **Sequence using Lens 3's pattern guidance.** For refactor and
+   design intents, use Lens 3's per-pattern viability (which patterns
+   fit, smallest reversible step, what breaks if stopped partway) to
+   order Lens 1's and Lens 2's findings into actionable steps. Items
+   with no refactor pattern that Lens 3 surfaced get flagged as Open
+   questions.
+5. **Map to template.** Emit the intent-appropriate template —
+   `audit-report.md`, `design-doc.md`, `refactor-runbook.md`, or
+   `explanation.md` (the mapping lives in
+   `references/intent-router.csv`'s `default_template` column) —
+   populated from the synthesized list.
 
 ## Fan-out variant (surface = `all`, audit only)
 

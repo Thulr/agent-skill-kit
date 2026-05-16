@@ -223,7 +223,8 @@ for activity in triage review author strategize prune; do
   done < <(python3 - "$csv" <<'PYEOF'
 import csv, sys
 with open(sys.argv[1], newline='') as f:
-    reader = csv.DictReader(f)
+    lines = [ln for ln in f if not ln.lstrip().startswith('#')]
+    reader = csv.DictReader(lines)
     for row in reader:
         pb = row.get('playbook', '').strip()
         refs = row.get('core_refs', '').strip()
@@ -272,27 +273,75 @@ if [[ -f "$activation_md" ]]; then
   ' "$activation_md" || failures=$((failures + 1))
 fi
 
-# ----- Description-claims-to-registry coverage -----
-# If SKILL.md description (frontmatter) names a layer by its basename, the layer
-# must be routable from at least one activity CSV. Catches the class of bug
-# where the description advertises a layer/surface that has no routable path.
+# ----- Description verb-x-layer cross-product coverage -----
+# The SKILL.md description names verbs (reviewing / designing / triaging /
+# rationalizing) and layers (unit / integration / ... / mutation / performance).
+# A reader infers the cross-product: every named verb works for every named
+# layer. This gate enforces that: for each (verb-synonym, layer) pair where
+# both appear in description, the activity the verb maps to must include the
+# layer in its CSV.
+#
+# Verb-to-activity map below is the single source of truth for this skill's
+# vocabulary. Add a synonym here when the description gains a new framing.
+
+verb_activity_map=$(cat <<'EOF'
+reviewing review
+review review
+auditing review
+designing author
+authoring author
+triaging triage
+debugging triage
+strategizing strategize
+strategize strategize
+rationalizing strategize
+rationalizing prune
+pruning prune
+EOF
+)
 
 if [[ -f "$skill_md" ]] && [[ -n "$all_layers" ]]; then
   description_line=$(awk '/^description:/{print; exit}' "$skill_md")
+
+  # which layers does the description mention?
+  mentioned_layers=""
   for layer in $all_layers; do
-    if printf '%s' "$description_line" | grep -qiwE -- "$layer"; then
-      # layer mentioned in description — ensure it's referenced by at least one
-      # activity CSV (the orphan check covers presence, but only after the file
-      # exists; this gate ensures the description's claim is honored)
-      pb_path="references/layers/${layer}.md"
-      hit=0
-      for activity in triage review author strategize prune; do
-        csv="$skill_dir/references/activities/$activity.csv"
-        [[ -f "$csv" ]] || continue
-        grep -qF -- "$pb_path" "$csv" && { hit=1; break; }
-      done
-      (( hit == 1 )) || fail "SKILL.md description names layer '$layer' but no activity CSV routes to it"
+    printf '%s' "$description_line" | grep -qiwE -- "$layer" && mentioned_layers+="$layer "
+  done
+
+  # which verbs does the description mention? -> which activities?
+  mentioned_activities=" "
+  while read -r verb activity; do
+    [[ -z "$verb" ]] && continue
+    # Match verb as a whole word in description (case-insensitive)
+    if printf '%s' "$description_line" | grep -qiwE -- "$verb"; then
+      case "$mentioned_activities" in
+        *" $activity "*) ;;
+        *) mentioned_activities+="$activity " ;;
+      esac
     fi
+  done <<< "$verb_activity_map"
+
+  # Cross-product: every (activity, layer) advertised by description must
+  # be wired in that activity's CSV, unless explicitly omitted via a header
+  # comment of the form `# omits: layer1, layer2 (reason)` in the CSV.
+  for activity in $mentioned_activities; do
+    csv="$skill_dir/references/activities/$activity.csv"
+    [[ -f "$csv" ]] || continue
+    # Parse omits list from a leading `# omits: layer1, layer2` comment.
+    # Rationale belongs on its own `# rationale: ...` line and is ignored here.
+    omits=$(awk -F'omits:' '/^#[[:space:]]*omits:/ { print $2; exit }' "$csv")
+    omits_normalized=" $(printf '%s' "$omits" | tr ',' ' ') "
+    for layer in $mentioned_layers; do
+      pb_path="references/layers/${layer}.md"
+      if grep -qF -- "$pb_path" "$csv"; then
+        continue
+      fi
+      case "$omits_normalized" in
+        *" $layer "*) continue ;;
+      esac
+      fail "SKILL.md description advertises activity '$activity' x layer '$layer', but $activity.csv does not route to $layer.md (and does not list '$layer' in its '# omits:' header comment)"
+    done
   done
 fi
 

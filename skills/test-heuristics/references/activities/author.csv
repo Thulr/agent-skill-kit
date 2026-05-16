@@ -7,3 +7,4 @@ property-based,Property test,"Designing a property-based test",references/layers
 contract,Contract test,"Designing a new consumer contract test",references/layers/contract.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 snapshot,Snapshot test,"Designing a new snapshot/approval test",references/layers/snapshot.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 performance,Performance test,"Designing a new performance test",references/layers/performance.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+mutation,Mutation test,"Designing a mutation-testing rollout (operators, scope, cadence) for a codebase",references/layers/mutation.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md

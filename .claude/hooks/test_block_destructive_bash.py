@@ -156,6 +156,41 @@ CASES = [
     ("sudo -u root ls /etc", False, "sudo -u root ls (non-rm)"),
     ("echo $(ls)", False, "ls inside $()"),
     ("echo ok\nls", False, "newline-separated ls"),
+
+    # ----- Round-4 bypasses (Codex bot, PR #5; failure-log entry 9) -----
+
+    # Relative path traversal.
+    ("rm -rf ../../etc", True, "rm relative ../../etc"),
+    ("rm -rf ../..", True, "rm relative ../.."),
+    ("rm -rf safe/../../etc", True, "rm with embedded ../.."),
+
+    # cwd-aware: `cd /` then relative rm of protected name.
+    ("cd / && rm -rf etc", True, "cd / then rm -rf etc"),
+    ("cd /var && rm -rf ../etc", True, "cd /var then rm -rf ../etc"),
+    ("cd /tmp; cd /; rm -rf usr", True, "chained cd then rm"),
+
+    # env -S / --split-string with command payload.
+    ("env -S 'rm -rf /etc'", True, "env -S 'rm -rf /etc'"),
+    ("env --split-string='rm -rf /etc'", True, "env --split-string="),
+    ("env --split-string 'git push -f origin main'", True, "env --split-string push"),
+
+    # Shell launcher -c.
+    ("bash -c 'rm -rf /etc'", True, "bash -c rm"),
+    ("sh -c 'rm -rf /etc'", True, "sh -c rm"),
+    ("zsh -c 'git push -f origin main'", True, "zsh -c push"),
+    ("bash -lc 'rm -rf /etc'", True, "bash -lc combined-flag"),
+    ("bash --command='rm -rf /etc'", True, "bash --command="),
+    ("bash --command 'rm -rf /etc'", True, "bash --command separate"),
+
+    # ----- Round-4 negatives: must remain allowed -----
+    ("rm -rf ./safe", False, "rm -rf ./safe"),
+    ("rm -rf safe/subfolder", False, "rm -rf safe/subfolder"),
+    ("cd /tmp && rm -rf build", False, "cd /tmp then rm build (not protected)"),
+    ("env FOO=bar ls", False, "env FOO=bar ls"),
+    ("env -u VAR ls", False, "env -u VAR ls (non-command value)"),
+    ("bash -c 'ls'", False, "bash -c ls"),
+    ("sh -c 'echo hi'", False, "sh -c echo"),
+    ("bash -lc 'ls'", False, "bash -lc ls"),
 ]
 
 

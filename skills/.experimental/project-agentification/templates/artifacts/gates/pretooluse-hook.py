@@ -6,8 +6,8 @@ regex-on-string. Reads the tool-use payload from stdin. Exits 2 to block
 with a message the model will see; exits 0 to allow.
 
 Implementation shape — this template is hardened against the bypass family
-logged in `docs/agent-failures.md` entries 7 and 8 of any repo that has
-tracked them:
+logged in `docs/agent-failures.md` entries 7, 8, and 9 of any repo that has
+tracked them. Categories covered:
   - Real newlines pre-processed into `;` outside quotes (multi-line
     commands count as compound statements).
   - Command substitutions (`$(...)`, backticks, `<(...)`, `>(...)`)
@@ -17,9 +17,16 @@ tracked them:
   - Wrapper unwrap: env-var prefixes (`FOO=bar cmd`) and transparent
     wrappers (`sudo`, `time`, `env`, `command`, `nice`, `ionice`, `doas`,
     `exec`). Wrapper flags with values (`sudo -u root cmd`) are consumed.
-  - For `rm`: `os.path.normpath` canonicalizes targets so `/tmp/../etc`
-    resolves to `/etc` before the protected-dir check; `~`, `$HOME`, AND
-    `${HOME}` are all recognized.
+  - Wrapper flags whose VALUE is a command (`env -S "rm -rf /etc"`) are
+    recursively inspected.
+  - Shell launchers (`bash`, `sh`, `zsh`, ...) — `-c "cmd"`, `-c<cmd>`,
+    combined-flag `-lc "cmd"`, long-form `--command="cmd"` — the command
+    string value is recursively inspected.
+  - For `rm`: `os.path.normpath` canonicalizes targets; protected dirs
+    checked both for absolute paths AND for relative paths resolved
+    against a simulated cwd tracked across `cd` segments in the pipeline.
+    Relative targets with `..` escape are blocked even when cwd is unknown.
+    `~`, `$HOME`, AND `${HOME}` are all recognized.
   - For `git`: global options with separate-token values (`-C`, `-c`,
     `--work-tree`, `--git-dir`, `--namespace`, `--super-prefix`,
     `--config-env`, `--exec-path`) consume the next token before
@@ -58,8 +65,8 @@ TRANSPARENT_WRAPPERS = frozenset(
     ["sudo", "doas", "command", "exec", "time", "nice", "ionice", "env"]
 )
 
-# Per-wrapper flags that consume a following token as their value. Long forms
-# with `=` are handled inline. Unknown wrappers fall back to one-token-per-flag.
+SHELL_LAUNCHERS = frozenset(["sh", "bash", "zsh", "dash", "ksh", "ash", "fish"])
+
 WRAPPER_VALUE_FLAGS = {
     "sudo": frozenset(
         [
@@ -75,7 +82,15 @@ WRAPPER_VALUE_FLAGS = {
     "ionice": frozenset(["-c", "-n", "-p", "-P", "-u"]),
 }
 
-# Top-level `git` options that take a following token as their value.
+# (wrapper, flag) pairs where the consumed value is a command string and must
+# be recursively inspected (`env -S 'rm -rf /etc'`).
+WRAPPER_COMMAND_VALUE_FLAGS = frozenset(
+    [
+        ("env", "-S"),
+        ("env", "--split-string"),
+    ]
+)
+
 GIT_VALUE_FLAGS = frozenset(
     [
         "-C", "-c",
@@ -117,7 +132,6 @@ def replace_unquoted_newlines(command):
 
 
 def extract_command_substitutions(command):
-    """Extract one level of `$(...)`, `<(...)`, `>(...)`, and backtick bodies."""
     subs = []
     i = 0
     n = len(command)
@@ -185,20 +199,26 @@ def _is_env_assignment(token):
     return all(c.isalnum() or c == "_" for c in name)
 
 
-def _skip_wrapper_flags(argv, i, value_flags):
+def _skip_wrapper_flags(argv, i, value_flags, wrapper_name, command_values):
     while i < len(argv) and argv[i].startswith("-"):
         if argv[i] == "--":
             i += 1
             break
-        flag, sep, _value = argv[i].partition("=")
+        flag, sep, inline_value = argv[i].partition("=")
         i += 1
+        inspect = (wrapper_name, flag) in WRAPPER_COMMAND_VALUE_FLAGS
         if flag in value_flags and sep != "=":
             if i < len(argv):
+                if inspect:
+                    command_values.append(argv[i])
                 i += 1
+        elif sep == "=" and inspect:
+            command_values.append(inline_value)
     return i
 
 
 def resolve_executable(argv):
+    command_values = []
     i = 0
     while i < len(argv):
         a = argv[i]
@@ -207,13 +227,14 @@ def resolve_executable(argv):
             continue
         if a in TRANSPARENT_WRAPPERS:
             value_flags = WRAPPER_VALUE_FLAGS.get(a, frozenset())
+            wrapper_name = a
             i += 1
-            i = _skip_wrapper_flags(argv, i, value_flags)
+            i = _skip_wrapper_flags(argv, i, value_flags, wrapper_name, command_values)
             continue
         break
     if i >= len(argv):
-        return None, []
-    return argv[i], argv[i + 1 :]
+        return None, [], command_values
+    return argv[i], argv[i + 1 :], command_values
 
 
 # ---------------------------------------------------------------------------
@@ -234,7 +255,7 @@ _HOME_PREFIXES = ("~/", "$HOME/", "${HOME}/")
 _HOME_EXACT = frozenset(["~", "$HOME", "${HOME}"])
 
 
-def check_rm(argv):
+def check_rm(argv, cwd=None):
     recursive = False
     targets = []
     after_double_dash = False
@@ -274,6 +295,18 @@ def check_rm(argv):
             head = _first_path_component(normalized)
             if head in PROTECTED_TOP_DIRS:
                 return f"rm -r under protected dir {head}"
+        else:
+            if cwd is not None:
+                joined = os.path.normpath(os.path.join(cwd, target))
+                if joined == "/":
+                    return f"rm -r of / (relative target {target!r} from cwd={cwd})"
+                if joined.startswith("/"):
+                    head = _first_path_component(joined)
+                    if head in PROTECTED_TOP_DIRS:
+                        return f"rm -r under protected dir {head} (relative target {target!r} from cwd={cwd})"
+            normalized_rel = os.path.normpath(target)
+            if normalized_rel == ".." or normalized_rel.startswith("../"):
+                return f"rm -r of cwd-escape path ({target!r})"
 
     return None
 
@@ -353,23 +386,92 @@ def check_git(git_rest):
     return None
 
 
+def _extract_shell_c_payloads(rest):
+    """Return any `-c <cmd>` / `-c<cmd>` / combined-flag command strings."""
+    payloads = []
+    i = 0
+    while i < len(rest):
+        a = rest[i]
+        if a == "-c":
+            if i + 1 < len(rest):
+                payloads.append(rest[i + 1])
+            i += 2
+            continue
+        if a.startswith("-c") and not a.startswith("--"):
+            payloads.append(a[2:])
+            i += 1
+            continue
+        if a.startswith("--command="):
+            payloads.append(a[len("--command=") :])
+            i += 1
+            continue
+        if a == "--command":
+            if i + 1 < len(rest):
+                payloads.append(rest[i + 1])
+            i += 2
+            continue
+        if a.startswith("-") and not a.startswith("--") and "c" in a[1:]:
+            for j in range(i + 1, len(rest)):
+                if not rest[j].startswith("-"):
+                    payloads.append(rest[j])
+                    break
+            i += 1
+            continue
+        i += 1
+    return payloads
+
+
 # ---------------------------------------------------------------------------
 # Top-level dispatch. Extend the if-chain below with predicates from your
 # three-tier table. Each predicate returns (violation_label or None).
 # ---------------------------------------------------------------------------
 
 
-def check_segment(tokens):
+def check_segment(tokens, cwd=None):
     if not tokens:
         return None
-    cmd, rest = resolve_executable(tokens)
+    cmd, rest, command_values = resolve_executable(tokens)
+
+    for value in command_values:
+        violation = check_command(value)
+        if violation:
+            return f"{violation} (in wrapper flag-value)"
+
     if cmd is None:
         return None
+
+    if cmd in SHELL_LAUNCHERS:
+        for payload in _extract_shell_c_payloads(rest):
+            violation = check_command(payload)
+            if violation:
+                return f"{violation} (in {cmd} -c)"
+        return None
     if cmd == "rm":
-        return check_rm(rest)
+        return check_rm(rest, cwd=cwd)
     if cmd == "git":
         return check_git(rest)
-    # ADD predicates for additional forbidden actions here.
+    return None
+
+
+def _update_cwd_from_cd(tokens, cwd):
+    if not tokens or tokens[0] != "cd":
+        return cwd
+    if len(tokens) < 2:
+        return cwd
+    target = None
+    for t in tokens[1:]:
+        if t.startswith("-"):
+            continue
+        target = t
+        break
+    if target is None:
+        return cwd
+    if target == "/":
+        return "/"
+    if target.startswith("/"):
+        return os.path.normpath(target)
+    if cwd is not None:
+        return os.path.normpath(os.path.join(cwd, target))
     return None
 
 
@@ -384,10 +486,12 @@ def check_command(command):
         if violation:
             return f"{violation} (in command substitution)"
 
+    cwd = None
     for segment in split_pipeline(command):
-        violation = check_segment(segment)
+        violation = check_segment(segment, cwd=cwd)
         if violation:
             return violation
+        cwd = _update_cwd_from_cd(segment, cwd)
     return None
 
 

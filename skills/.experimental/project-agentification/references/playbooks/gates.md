@@ -141,12 +141,23 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   10. **Tool-level global options with separate-token values** — e.g., `git --work-tree /path
       push …` must still dispatch to the `push` predicate; `check_git` must consume the value
       after `--work-tree`, `--git-dir`, `-C`, `-c`, and similar.
+  11. **Relative path traversal** — `rm -rf ../../etc` resolves to a protected dir from a
+      knowable cwd; blocked even when cwd is unknown via the `..`-escape rule. Combined with
+      cwd tracking across pipeline segments: `cd / && rm -rf etc` must resolve the relative
+      target to `/etc` and block.
+  12. **Wrapper flag-values that carry commands** — `env -S 'rm -rf /etc'` and
+      `env --split-string='git push -f origin main'` pack a command into the `-S` value;
+      the hook must recursively inspect that value, not consume it as opaque.
+  13. **Shell launchers with `-c` payloads** — `bash -c "rm -rf /etc"`, `sh -c "…"`,
+      combined-flag forms like `bash -lc "…"`, and `--command="…"` long-form must extract
+      the command-string value and recursively check it. Without this, the dispatcher sees
+      `bash` (not in the deny-list) and allows the segment.
 
   The hook landing without the test fixture is the regression vector logged at
   `docs/agent-failures.md` entry 7; the fixture landing without exhaustive variant categories
-  is the regression vector logged at entry 8. The post-write auditor (workflow step 8.5)
-  treats this heuristic as `applied` only when both the hook and its test fixture are in the
-  diff and the fixture covers all 11 categories above.
+  is the regression vector logged at entries 8 and 9. The post-write auditor (workflow
+  step 8.5) treats this heuristic as `applied` only when both the hook and its test fixture
+  are in the diff and the fixture covers all 13 categories above.
 
 - **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**
   Regex deny-lists have a long bypass tail: refspec forms (`git push -f origin HEAD:main`),

@@ -67,6 +67,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # actions/checkout configures safe.directory in its own temporary
+          # HOME, but each `bash run-static-checks.sh` starts a fresh shell
+          # whose HOME has no such config. Without this, `git rev-parse
+          # --show-toplevel` inside the scripts fails with "dubious ownership"
+          # (the runner UID doesn't match the in-container root). Re-add it
+          # here so every static-check script can resolve repo_root.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           shopt -s nullglob
           failed=0
           for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do

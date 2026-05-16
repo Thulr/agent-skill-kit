@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+dependency-rule,Dependency rule,"Setting the dependency direction invariant for a new module","references/playbooks/dependency-rule.md","references/core/personas.md;references/core/glossary.md"
+boundaries,Layered/hexagonal/onion boundaries,"Designing layers, ports, and adapters for a new feature","references/playbooks/boundaries.md","references/core/personas.md;references/core/glossary.md"
+domain-model,Domain model,"Shaping entities, aggregates, value objects for a new domain","references/playbooks/domain-model.md","references/core/personas.md;references/core/glossary.md"
+bounded-context,Bounded context,"Carving a new bounded context or context relationship","references/playbooks/bounded-context.md","references/core/personas.md;references/core/glossary.md"
+cross-cutting,Cross-cutting concerns,"Designing error, transaction, and effect strategy for new layers","references/playbooks/cross-cutting.md","references/core/personas.md;references/core/glossary.md"

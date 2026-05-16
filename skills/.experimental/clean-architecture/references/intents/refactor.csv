@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+dependency-rule,Dependency rule,"Inverting a wrong-direction dependency","references/playbooks/dependency-rule.md","references/core/severity-rubric.md;references/core/personas.md;references/core/glossary.md"
+boundaries,Layered/hexagonal/onion boundaries,"Extracting a port; introducing an adapter; lifting domain out of a framework","references/playbooks/boundaries.md","references/core/severity-rubric.md;references/core/personas.md;references/core/glossary.md"
+domain-model,Domain model,"Splitting an aggregate; breaking up a god entity; introducing value objects","references/playbooks/domain-model.md","references/core/severity-rubric.md;references/core/personas.md;references/core/glossary.md"
+bounded-context,Bounded context,"Strangler-fig extraction; branch-by-abstraction across contexts","references/playbooks/bounded-context.md","references/core/severity-rubric.md;references/core/personas.md;references/core/glossary.md"
+cross-cutting,Cross-cutting concerns,"Isolating side-effects; centralizing transactions; cleaning up error pathways","references/playbooks/cross-cutting.md","references/core/severity-rubric.md;references/core/personas.md;references/core/glossary.md"

@@ -133,22 +133,45 @@ agent success ~3% on average.
 The PreToolUse hook at [`.claude/hooks/block-destructive-bash.py`](./.claude/hooks/block-destructive-bash.py)
 rejects, with non-zero exit:
 
-- `git push --force` / `-f` / `--force-with-lease` targeting `main` or `master`
-- `git branch -D main` / `git branch -D master`
-- `rm -rf /` and `rm -rf` of protected dirs (`/bin`, `/etc`, `/usr`, `/var`, `/home`, `/System`, `/Users`)
-- `rm -rf ~` / `rm -rf $HOME`
+- `git push` to `main` / `master` with **any** force form: `--force` / `-f`
+  / `--force-with-lease[=…]` / `--force-if-includes`, **or** a `+`-prefixed
+  refspec (`+main`, `+HEAD:main`, `+refs/heads/main`).
+- `git branch -D main` / `git branch -D master`.
+- `rm -r` (or `-R` / `--recursive`, in any order, separable, with or
+  without `-f` / `--force`, with or without `--` terminator) of:
+  - `/` itself.
+  - Protected top-level system dirs (`/bin`, `/boot`, `/etc`, `/lib`,
+    `/opt`, `/sbin`, `/sys`, `/proc`, `/root`, `/run`, `/srv`, `/usr`,
+    `/var`, `/home`, `/System`, `/Library`, `/Applications`, `/Users`)
+    and anything beneath them.
+  - `~` / `$HOME` and anything beneath them.
+
+The hook parses commands argv-by-argv via `shlex` (not regex on the raw
+string), splits pipelines on `;` / `&&` / `||` / `|` / `&`, and unwraps
+common prefixes (`sudo`, `time`, `env`, `command`, env-var assignments,
+`git -C path`). Test coverage lives at
+[`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
+(56 unit + 3 subprocess cases) and runs in `just check` and CI. When a
+new bypass is observed, log it in `docs/agent-failures.md`, add the
+fixture to the test file, then update the hook so the new case passes.
 
 The hook is claude-code-specific (`.claude/settings.json`). Cursor, Codex,
-Copilot, etc. should configure equivalents from this list. If a blocked
-command is genuinely intended (e.g., maintenance from outside an agent
-session), run it manually in a terminal — not via the agent.
+Copilot, etc. should configure equivalents from this list (see the
+per-harness gate-primitives table in
+[`skills/.experimental/project-agentification/references/playbooks/gates.md`](./skills/.experimental/project-agentification/references/playbooks/gates.md)).
+If a blocked command is genuinely intended (e.g., maintenance from
+outside an agent session), run it manually in a terminal — not via the
+agent.
 
 ## Ownership and review
 
 - [`.github/CODEOWNERS`](./.github/CODEOWNERS) — required reviewers on
   `skills/**`, `.agents/**`, `.github/**`, `Justfile`, `README.md`.
-- Branch protection on `main` requires the `static-checks` CI status check + at
-  least one approving review from a code owner. Self-merges are blocked.
+- Branch protection on `main` **is being configured** to require the
+  `static-checks` CI status check plus at least one approving review from a
+  code owner, with self-merges blocked. Until that rule is enabled,
+  `CODEOWNERS` is documentation-only and the gate is best-effort. Tracked as
+  a known follow-up on PR #5.
 
 ## Security
 

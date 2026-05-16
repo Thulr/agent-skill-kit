@@ -15,6 +15,10 @@ jobs:
         shell: bash
         run: bash scripts/check-instruction-surface.sh
 
+      - name: Test destructive-bash hook
+        shell: bash
+        run: python3 .claude/hooks/test_block_destructive_bash.py
+
       - name: Run skill static checks
         shell: bash
         run: |

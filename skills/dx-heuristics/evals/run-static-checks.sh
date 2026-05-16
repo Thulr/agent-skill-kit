@@ -243,6 +243,9 @@ if not isinstance(data, dict):
     print("  trigger-evals.json: top-level must be object", file=sys.stderr); sys.exit(1)
 if data.get("skill") != expected_skill:
     print(f"  trigger-evals.json: 'skill' must be {expected_skill!r}, got {data.get('skill')!r}", file=sys.stderr); sys.exit(1)
+version = data.get("version")
+if not isinstance(version, str) or not version.strip():
+    print("  trigger-evals.json: 'version' must be a non-empty string (canonical schema, AGENTS.md §Canonical trigger-evals.json schema)", file=sys.stderr); sys.exit(1)
 queries = data.get("queries")
 if not isinstance(queries, list) or not queries:
     print("  trigger-evals.json: 'queries' must be a non-empty list", file=sys.stderr); sys.exit(1)

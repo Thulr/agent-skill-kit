@@ -47,7 +47,7 @@ sets designed specifically to trigger AI hallucinations are a first-class citize
   (severity cap: 4; lens: maintainer)
 - **H2.** Check whether evals are triggered in CI on every change to AGENTS.md, skills, tools,
   hooks, or prompt files. A team that only runs evals manually runs them infrequently — the first
-  unevaluated prompt change is the one that ships a regression. (severity cap: 5; lens: auditor)
+  unevaluated prompt change is the one that ships a regression. (severity cap: 4; lens: auditor)
 - **H3.** Verify an adversarial case set covers all four categories: prompt injection, ambiguous
   tool outputs, long context, and conflicting instructions. Each category targets a distinct
   hallucination trigger; a suite missing any one of them has a blind spot. (severity cap: 4;

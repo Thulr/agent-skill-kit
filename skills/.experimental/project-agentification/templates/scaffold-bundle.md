@@ -6,7 +6,7 @@
 
 ## Observed failures justifying this scaffold
 
-> **Required.** The skill refuses to generate any file without at least one stated observed agent failure on this repo. (Empirical warning W1: don't autogenerate from boilerplate.)
+> **Required.** The skill refuses to generate any file without **at least 3 stated observed agent failures** on this repo. (Empirical warning W1: don't autogenerate from boilerplate; one failure overfits, three forces a pattern.) The workflow asks for 3–5; three is the floor.
 
 1. <failure 1 — observed in PR/session/run; what went wrong>
 2. <failure 2>

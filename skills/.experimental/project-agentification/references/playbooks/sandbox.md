@@ -45,14 +45,14 @@ so validation is comparable across CI, laptops, and evals.
 
 - **H1.** Identify the current sandbox mode (process / container / remote) and verify it matches
   the risk profile — process sandbox on a developer laptop running production-adjacent tasks is the
-  most common mis-match. (severity cap: 5; lens: adversarial)
+  most common mis-match. (severity cap: 4; lens: adversarial)
 - **H2.** Verify the Docker image or remote sandbox is pinned to a digest or a deterministic tag,
   not `latest` — unpinned images produce different behavior across CI runs and make eval
   comparisons invalid. (severity cap: 4; lens: auditor)
 - **H3.** Check whether secrets are mounted in or exported into the agent's writable workspace —
-  W10; inject outside the model's write path. (severity cap: 5; lens: adversarial)
+  W10; inject outside the model's write path. (severity cap: 4; lens: adversarial)
 - **H4.** Verify network egress: default-deny outbound with a per-domain allow-list; unrestricted
-  egress equals no sandbox for exfiltration. (severity cap: 5; lens: adversarial)
+  egress equals no sandbox for exfiltration. (severity cap: 4; lens: adversarial)
 - **H5.** Confirm `CODEX_SANDBOX_NETWORK_DISABLED_ENV_VAR` and `CODEX_SANDBOX_ENV_VAR` are
   declared read-only invariants in AGENTS.md — absence lets the agent disable its own network
   controls. (severity cap: 4; lens: cold-agent)

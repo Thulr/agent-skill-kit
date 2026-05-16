@@ -42,7 +42,7 @@ and below the regulatory layer (NIST AI RMF), covering:
 
 - **H1.** Audit whether every prompt file, skill directory, tool schema, eval dataset, and policy
   file has a named owner in `.github/CODEOWNERS` — unowned agent artifacts are W5-ungated.
-  (severity cap: 5; lens: adversarial)
+  (severity cap: 4; lens: adversarial)
 - **H2.** Verify the approval matrix maps action type (code, dependency, secret, schema, network
   destination) × risk class (low / medium / high / critical) to minimum reviewer count and role
   with named approvers, not implied "someone must review." (severity cap: 4; lens: auditor)
@@ -53,7 +53,7 @@ and below the regulatory layer (NIST AI RMF), covering:
   decision. (severity cap: 4; lens: auditor)
 - **H5.** Verify an incident-disclosure path is documented in the repo (not only in external
   policy systems); absence violates the NIST AI RMF GenAI Profile content-provenance and
-  incident-disclosure requirements. (severity cap: 5; lens: adversarial)
+  incident-disclosure requirements. (severity cap: 4; lens: adversarial)
 - **H6.** Run the Green M&M Test before a complex session: query the agent on the hidden
   config instruction; a correct answer proves full-context-window ingestion; a wrong answer means
   the context surface must be fixed before proceeding. (severity cap: 4; lens: cold-agent)

@@ -45,7 +45,7 @@ commands work and which do not, including errors encountered and workarounds tak
 - **H1.** Audit whether forbidden actions (`rm -rf`, force-push to main, prod-DB writes, disabling
   sandbox controls) are blocked by a PreToolUse hook with exit code 2 — or only mentioned in
   AGENTS.md prose. Prose compliance is ~70%; any forbidden-tier action that lives only in prose is
-  effectively unprotected. (severity cap: 5; lens: adversarial)
+  effectively unprotected. (severity cap: 4; lens: adversarial)
 - **H2.** Verify an ask-first tier exists and is documented. List the specific action classes that
   require user approval: DB migrations, dependency changes, secret-handling edits, new external
   network destinations. Absence of this tier is the single most common cause of agents performing

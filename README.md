@@ -97,7 +97,9 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 | `docs/runbooks/` | Maintainer procedures (durable “how”) |
 | `docs/architecture/` | Repo structure reference docs / repo maps |
 | `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
-| `skills/example-minimal/` | Optional starter you can delete once real skills exist |
+| `skills/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete |
+| `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
+| `scripts/` | Repo-wide scripts: instruction-surface symlink check, schema validator |
 | `skills/.experimental/<name>/` | Work-in-progress or caveat-heavy skills (still discovered by `npx skills`) |
 | `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |
 | `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |

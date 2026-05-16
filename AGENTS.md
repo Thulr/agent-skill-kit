@@ -55,7 +55,9 @@ published skills must exist there too, even as a minimal placeholder.
 
 ## Canonical `trigger-evals.json` schema
 
-All skills use this shape. Migrate, don't fork:
+The authoritative shape lives in [`schemas/trigger-evals.schema.json`](./schemas/trigger-evals.schema.json);
+the example below is a human-readable summary. Static checks validate against
+the schema file, not against the example.
 
 ```json
 {
@@ -96,16 +98,21 @@ canonical example. When adding a gate, verify it picks up at least one skill
 in each lane.
 
 ### Rule 2 — Cross-skill schema parity (log entry 2)
-Skills share canonical schemas for `skill.json`, `trigger-evals.json`, and
-`evals/activation-cases.md`. When a schema changes, migrate every skill in
-the same PR. Static checks in each skill's `run-static-checks.sh` enforce
-**every documented field of the shape** (presence, type, allowed values),
-not just the fields the writer remembered — the Copilot review of PR #5
-caught the canonical `trigger-evals.json` schema documenting a `version`
-field that none of the validators checked. Do not let "I'll migrate the
-others later" land. If this rule drifts a second time, move to a single
-source of truth: commit a JSON Schema file under `schemas/` and have every
-`run-static-checks.sh` validate against it.
+Canonical schemas for `skill.json` and `evals/trigger-evals.json` live under
+[`schemas/`](./schemas/) as JSON Schema files. Every skill's
+`run-static-checks.sh` validates against them via
+[`scripts/validate-against-schema.py`](./scripts/validate-against-schema.py).
+**When a schema changes, edit the schema file (one place) — the static checks
+pick it up automatically.** Per-skill `run-static-checks.sh` only carries
+assertions that genuinely vary per skill (e.g. `name == <skill-dir>`); do not
+reintroduce inline shape validators. Activation-cases markdown is still gated
+per-skill until it grows enough structure to schema-validate.
+
+Duplicate-inline-validators landed twice before the extraction: the canonical
+`trigger-evals.json` schema documented a `version` field that no validator
+checked (caught in PR #5 review), and the maintainer-handle validator was
+copy-pasted across four `run-static-checks.sh` scripts (caught in PR #7
+review). The second occurrence triggered the extraction to `schemas/`.
 
 ### Rule 3 — `example-minimal` is the template contract (log entry 3)
 Whatever published skills are required to have, `example-minimal` must

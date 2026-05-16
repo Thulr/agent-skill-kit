@@ -3,7 +3,9 @@
 # Exits non-zero on any failure.
 set -euo pipefail
 
-SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
+SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$SKILL_DIR"
 
 fail=0
@@ -13,29 +15,22 @@ ok()   { printf '  ✓ %s\n' "$1"; }
 
 echo "Checking project-agentification skill at: $SKILL_DIR"
 
-# 1. skill.json parses
-if python3 -c "import json,sys; json.load(open('skill.json'))" 2>/dev/null; then
-  ok "skill.json is valid JSON"
+# 1. skill.json conforms to canonical schema (schemas/skill.schema.json)
+#    Shape (name presence/type, status enum, maintainer handle pattern, inspired_by
+#    required fields) lives in the schema. Per-skill name match is asserted below.
+if python3 "$REPO_ROOT/scripts/validate-against-schema.py" \
+     "$REPO_ROOT/schemas/skill.schema.json" skill.json; then
+  ok "skill.json conforms to schemas/skill.schema.json"
 else
-  err "skill.json failed to parse"
+  err "skill.json schema validation failed (see above)"
 fi
 
-# 1b. skill.json identity fields are resolvable (AGENTS.md Rule 4)
-if python3 - <<'PY' 2>/dev/null; then
-import json, re
-data = json.load(open("skill.json"))
-assert data.get("name") == "project-agentification"
-status = data.get("status")
-assert status in {"draft", "reviewed", "published"}
-maintainers = data.get("maintainers")
-assert isinstance(maintainers, list) and maintainers
-pat = re.compile(r"^@[A-Za-z0-9-]+(?:/[A-Za-z0-9-]+)?$")
-for m in maintainers:
-  assert isinstance(m, str) and pat.match(m), m
-PY
-  ok "skill.json identity fields are valid (status + maintainers)"
+# 1b. skill name matches the directory
+actual_name="$(python3 -c "import json; print(json.load(open('skill.json'))['name'])")"
+if [ "$actual_name" = "project-agentification" ]; then
+  ok "skill.json name == project-agentification"
 else
-  err "skill.json identity fields invalid (status must be draft/reviewed/published; maintainers must be @handles)"
+  err "skill.json name is $actual_name, expected project-agentification"
 fi
 
 # 2. SKILL.md has frontmatter
@@ -106,48 +101,20 @@ else
   err "evals/activation-cases.md missing"
 fi
 
-# 9. trigger-evals.json schema (canonical shape — see AGENTS.md §Canonical
-#    trigger-evals.json schema). Schema changes migrate all skills in the same
-#    PR (Rule 2 in AGENTS.md).
+# 9. evals/trigger-evals.json conforms to schemas/trigger-evals.schema.json.
+#    Per-skill 'skill' field is asserted below.
 if [ -f evals/trigger-evals.json ]; then
-  if python3 - evals/trigger-evals.json "project-agentification" <<'PYEOF' >&2; then
-import json, sys
-path, expected_skill = sys.argv[1], sys.argv[2]
-try:
-    with open(path) as f:
-        data = json.load(f)
-except json.JSONDecodeError as e:
-    print(f"trigger-evals.json: invalid JSON ({e})"); sys.exit(1)
-if not isinstance(data, dict):
-    print("trigger-evals.json: top-level must be object"); sys.exit(1)
-if data.get("skill") != expected_skill:
-    print(f"trigger-evals.json: 'skill' must be {expected_skill!r}, got {data.get('skill')!r}"); sys.exit(1)
-version = data.get("version")
-if not isinstance(version, str) or not version.strip():
-    print("trigger-evals.json: 'version' must be a non-empty string (canonical schema, AGENTS.md §Canonical trigger-evals.json schema)"); sys.exit(1)
-queries = data.get("queries")
-if not isinstance(queries, list) or not queries:
-    print("trigger-evals.json: 'queries' must be a non-empty list"); sys.exit(1)
-errors = 0
-for i, q in enumerate(queries):
-    if not isinstance(q, dict):
-        print(f"trigger-evals.json[{i}]: must be object"); errors += 1; continue
-    if not isinstance(q.get("query"), str) or not q["query"].strip():
-        print(f"trigger-evals.json[{i}]: 'query' must be non-empty string"); errors += 1
-    if not isinstance(q.get("should_activate"), bool):
-        print(f"trigger-evals.json[{i}]: 'should_activate' must be bool"); errors += 1
-    er = q.get("expected_route")
-    if er is not None and not isinstance(er, str):
-        print(f"trigger-evals.json[{i}]: 'expected_route' must be string or null"); errors += 1
-    cat = q.get("category")
-    if cat is not None and cat not in ("positive", "negative", "edge"):
-        print(f"trigger-evals.json[{i}]: 'category' must be positive|negative|edge or null"); errors += 1
-if errors > 0:
-    sys.exit(1)
-PYEOF
-    ok "trigger-evals.json schema valid"
+  if python3 "$REPO_ROOT/scripts/validate-against-schema.py" \
+       "$REPO_ROOT/schemas/trigger-evals.schema.json" evals/trigger-evals.json; then
+    ok "trigger-evals.json conforms to schemas/trigger-evals.schema.json"
   else
-    err "trigger-evals.json schema check failed"
+    err "trigger-evals.json schema validation failed (see above)"
+  fi
+  trigger_skill="$(python3 -c "import json; print(json.load(open('evals/trigger-evals.json'))['skill'])")"
+  if [ "$trigger_skill" = "project-agentification" ]; then
+    ok "trigger-evals.json 'skill' field == project-agentification"
+  else
+    err "trigger-evals.json 'skill' is $trigger_skill, expected project-agentification"
   fi
 else
   err "evals/trigger-evals.json missing"

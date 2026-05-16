@@ -8,7 +8,8 @@ Use this when changing any schema that is intended to be shared across skills
 ## Prerequisites
 
 - Node.js available (to run `npx skills ...`)
-- `jq` and `python3` available (used by existing static checks)
+- `jq`, `python3`, and `python3-jsonschema` available locally
+  (Debian/Ubuntu: `apt-get install python3-jsonschema`; macOS: `pip install --user --break-system-packages jsonschema`)
 - `just` available
 
 ## Required environment variables
@@ -17,22 +18,26 @@ None.
 
 ## Expected duration
 
-30–120 minutes, depending on how many skills are affected.
+10–30 minutes (most of which is reviewing the affected skills, not editing).
 
 ## Procedure
 
-1. Update the documented contract:
+The canonical schemas live in [`schemas/`](../../schemas/) as JSON Schema files.
+Every skill's `run-static-checks.sh` validates against them via
+[`scripts/validate-against-schema.py`](../../scripts/validate-against-schema.py),
+so most schema changes only require editing the schema file itself.
 
-   - Update the canonical schema description in `AGENTS.md` (keep it short; it is
-     a table of contents, not a full spec).
-   - If this is the second time a schema has drifted, consider promoting the
-     contract to a single shared schema file under `schemas/` and validating
-     every skill against it.
+1. Edit the schema file under `schemas/`:
 
-2. Migrate every skill in the same PR:
+   - `schemas/skill.schema.json` for `skill.json`.
+   - `schemas/trigger-evals.schema.json` for `evals/trigger-evals.json`.
 
-   - Update each skill's `evals/run-static-checks.sh` to validate the new shape.
-   - Update every affected file (`trigger-evals.json`, etc.) in every skill.
+   If the change tightens an existing constraint (new required field, stricter
+   `enum`, narrower `pattern`), every existing skill's affected file must be
+   migrated in the same PR — drift is the failure mode (AGENTS.md Rule 2).
+
+2. If the human-readable summary in `AGENTS.md` referenced the changed field,
+   update it. Keep `AGENTS.md` short; the schema file is authoritative.
 
 3. Run gates:
 
@@ -45,6 +50,6 @@ None.
 ## Rollback
 
 Revert the schema change commit(s). If partial migrations landed, finish the
-migration immediately rather than “rolling forward later”; drift is the failure
+migration immediately rather than "rolling forward later"; drift is the failure
 mode.
 

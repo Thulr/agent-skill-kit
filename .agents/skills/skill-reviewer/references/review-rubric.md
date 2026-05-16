@@ -51,6 +51,14 @@ Score each category as pass, fix, or block.
   ambiguous section with explicit clarifying-question guidance, not in the
   binary positive/negative lists. A static check can grep for hedge words
   inside the wrong-polarity section.
+- **Validation regexes are specific to their target syntax.** A static check
+  that asserts "every X must appear" should match only the canonical
+  syntax it's looking for, not loosely-similar substrings. A regex like
+  `\($mode\)` or `\(.*\b$mode\b` will match prose parentheses elsewhere
+  in the file and silently pass when the actual tag is missing. Tighten
+  detection to the tag's specific form (e.g., italic-parenthesized
+  comma-separated tokens within a named section) and parse structurally
+  with awk when grep gets ambiguous.
 
 ## Internal Consistency
 

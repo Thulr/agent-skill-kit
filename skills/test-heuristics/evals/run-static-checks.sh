@@ -159,8 +159,29 @@ for layer in $all_layers; do
   ' "$pb" || fail "$layer.md: # Heuristics has no activity tags like (triage), (review), (author), (strategize), or (prune)"
 
   grep -qF 'failure-modes.md' "$pb" || fail "$layer.md must reference failure-modes.md"
+  # Mode detection: only count a mode as "seen" when it appears as a
+  # comma-separated token inside an italic-parenthesized tag group
+  # (*(mode, ...)*) within the ## Heuristics section. Avoids false matches
+  # on prose parens elsewhere in the playbook.
   for m in $required_failure_modes; do
-    if grep -qE "\\($m\\)|\\(.*\\b$m\\b" "$pb"; then
+    if awk -v mode="$m" '
+      /^## Heuristics/ { f = 1; next }
+      /^## / { f = 0 }
+      f {
+        line = $0
+        while (match(line, /\*\([^)]*\)\*/)) {
+          group = substr(line, RSTART, RLENGTH)
+          inner = substr(group, 3, RLENGTH - 4)
+          n = split(inner, parts, /,[ \t]*/)
+          for (i = 1; i <= n; i++) {
+            gsub(/^[ \t]+|[ \t]+$/, "", parts[i])
+            if (parts[i] == mode) { found = 1; exit }
+          }
+          line = substr(line, RSTART + RLENGTH)
+        }
+      }
+      END { exit (found ? 0 : 1) }
+    ' "$pb"; then
       case "$seen_modes" in
         *" $m "*) ;;
         *) seen_modes+="$m " ;;

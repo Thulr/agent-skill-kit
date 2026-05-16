@@ -33,3 +33,10 @@ language-specific syntax unless the persona is language-specific.>
 ## Where to read more
 
 <Cite the playbook's `## Grounding` entries.>
+
+## Verification
+
+<How to verify this explanation matches the playbook's `## Grounding`
+entries — spot-check at least one claim against a cited source; note
+any place where the explanation goes beyond the source or simplifies
+it in ways the audience should know.>

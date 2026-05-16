@@ -1,0 +1,12 @@
+{
+  "name": "test-heuristics",
+  "description": "stub",
+  "version": "0.0.1",
+  "license": "MIT",
+  "status": "draft",
+  "maintainers": ["justin"],
+  "tags": ["testing"],
+  "inspired_by": [
+    {"name": "stub", "author": "stub", "kind": "stub", "year": null, "contribution": "stub", "playbooks": []}
+  ]
+}

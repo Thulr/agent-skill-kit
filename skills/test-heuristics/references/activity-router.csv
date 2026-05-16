@@ -1,0 +1,6 @@
+activity,name,when_to_use,registry_file,default_template
+triage,stub,stub,references/activities/triage.csv,templates/triage-runbook.md
+review,stub,stub,references/activities/review.csv,templates/review-report.md
+author,stub,stub,references/activities/author.csv,templates/author-design.md
+strategize,stub,stub,references/activities/strategize.csv,templates/strategy-doc.md
+prune,stub,stub,references/activities/prune.csv,templates/prune-plan.md

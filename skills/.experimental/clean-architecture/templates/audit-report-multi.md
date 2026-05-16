@@ -1,7 +1,7 @@
 # Architecture Audit — multi-surface
 
 **Target persona:** <from references/core/personas.md>
-**Surfaces audited:** dependency-rule, boundaries, domain-model, bounded-context, cross-cutting
+**Surfaces audited:** <list from references/intents/audit.csv, excluding the `all` row — one entry per surface this audit actually visited>
 **Date:** <YYYY-MM-DD>
 
 ## Summary
@@ -11,13 +11,13 @@ that show up across multiple surfaces (often the most load-bearing).>
 
 ## Per-surface scores
 
+One row per surface actually audited (drawn from `references/intents/audit.csv`, minus the `all` row).
+
 | Surface | Score | Band | Top finding |
 |---------|------:|------|-------------|
-| dependency-rule | <0–10> | <band> | <one-line> |
-| boundaries | <0–10> | <band> | <one-line> |
-| domain-model | <0–10> | <band> | <one-line> |
-| bounded-context | <0–10> | <band> | <one-line> |
-| cross-cutting | <0–10> | <band> | <one-line> |
+| <surface 1> | <0–10> | <band> | <one-line> |
+| <surface 2> | <0–10> | <band> | <one-line> |
+| ... |
 
 ## Cross-surface patterns
 
@@ -27,25 +27,17 @@ each other.>
 
 ## Per-surface details
 
-### dependency-rule
+One subsection per surface actually audited, in the same order as the per-surface scores table.
+
+### <surface 1>
 
 <Findings list from the surface agent, severity-ordered.>
 
-### boundaries
+### <surface 2>
 
 <...>
 
-### domain-model
-
-<...>
-
-### bounded-context
-
-<...>
-
-### cross-cutting
-
-<...>
+### ...
 
 ## Open questions
 

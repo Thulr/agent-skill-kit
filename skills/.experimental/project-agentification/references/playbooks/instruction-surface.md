@@ -12,6 +12,14 @@ ephemeral local override). Discovery is hierarchical: root-to-leaf walk, closest
 openai/codex ships ~88 nested `AGENTS.md` files as the reference monorepo pattern; vercel/next.js
 symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific and portable layers.
 
+**`README.md` is also part of this surface.** Copilot loads it explicitly; Claude Code and Cursor
+commonly read it on first invocation; agent-aware harnesses fall back to it when no AGENTS.md /
+`.cursor/rules` / etc. exists. In a repo that hasn't reached the W1 ≥3-failures threshold to
+hand-curate an AGENTS.md yet, `README.md` is the **only** always-loaded prose surface the agent
+sees — which makes it the load-bearing discoverability point for the reflection log (e.g.
+`docs/agent-failures.md`). Once AGENTS.md lands, it absorbs the discoverability and README's
+agent-facing role shrinks to "see AGENTS.md."
+
 ## Why it matters for agents
 
 - **Context rot at scale.** LLMs follow instructions on the periphery of the prompt most reliably;
@@ -97,8 +105,17 @@ symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific a
 - **H4.** Keep the root file ≤100 lines; push depth into hierarchical nested `AGENTS.md` per
   subdirectory, skills (progressive disclosure, ~100-token metadata at startup), ADRs, and a
   structured `docs/` tree the file points to — not a table of contents that duplicates them.
-
-### diagnose
+- **H5. Bootstrap discoverability when no AGENTS.md exists yet.** The W1 floor (≥3 observed
+  failures before hand-curating AGENTS.md) creates a Stage-0 interim where the reflection log
+  exists but AGENTS.md does not. In that interim, `README.md` is the only always-loaded prose
+  surface most harnesses see, so it must carry an agent-facing pointer to the reflection log
+  (typically a short `§Authoring` / `§Agents` section: "When an AI coding agent trips on this
+  repo, record it in `docs/agent-failures.md`. Three entries describing the same gap is the
+  threshold for adding a rule, hook, or AGENTS.md sentence to close it."). Without that
+  pointer, the log lands as an orphan on disk. **Apply order:** reflection log + README pointer
+  land **first** (Stage 0); AGENTS.md lands **only after** the W1 floor is met and absorbs the
+  pointer into its own §Failure-log section. Never scaffold AGENTS.md without the Stage-0
+  substrate; never scaffold the reflection log without the README pointer.
 
 - **H1.** Agent ignores a rule from the instruction file → rank hypotheses: (1) file exceeds 200
   lines and the rule is in the middle (W2: "lost in the middle" decay); (2) Cursor rule has wrong

@@ -20,6 +20,16 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Token budget is the dominant scarcity.** Prefer on-demand → on-trigger → always-loaded.
 3. **Hard gates over soft prose.** Hooks at 100% vs prose at 70%.
 
+## Bootstrap order
+
+The W1 floor (≥3 observed failures before scaffolding AGENTS.md) creates a hard staging dependency. **Scaffold artifacts in this order, never out of it:**
+
+1. **Stage 0** — reflection log (`docs/agent-failures.md` or equivalent) + a `README.md §Agents` / `§Authoring` pointer to it. The log is exempt from the W1 floor because it does not *contain* agent instructions; it *captures* the observations future instructions will be hand-curated from. The README pointer is required because, until AGENTS.md exists, README is the only always-loaded prose surface most harnesses see — without the pointer, the log lands as an orphan, invisible to any agent.
+2. **Stage 1** — `AGENTS.md` (and its `CLAUDE.md` / `.github/copilot-instructions.md` symlinks), hand-curated from the now-populated log. The AGENTS.md absorbs the discoverability pointer; the README role shrinks to "see AGENTS.md."
+3. **Stage 2+** — gates, skills, sandbox, telemetry, evals, governance — each grounded in the failures the log accumulated.
+
+**Refuse to scaffold Stage 1 without the Stage-0 substrate** (no log + README pointer → no AGENTS.md). **Refuse to scaffold the log without the README pointer** (log lands as orphan). The post-write auditor (step 8.5) enforces both via the failure modes listed in `references/lenses.md`.
+
 ## Activation
 
 - **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use project-agentification"`): load `references/intent-router.csv`, show the intent menu, wait. No file inspection, no network calls, no writes.

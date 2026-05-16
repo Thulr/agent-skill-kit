@@ -84,6 +84,7 @@ Hosts that lack a delegation primitive: fall back to running the lenses sequenti
 - Static-check / hook configured but not registered in the harness's settings file (hook file exists but `.claude/settings.json` doesn't reference it).
 - **Deny-list / pattern-matching hook scaffolded without a negative-case test fixture next to it** (gates.md `scaffold` H5). The hook file exists but no test file covers the variant matrix the hook is trying to block — the regression vector logged at `docs/agent-failures.md` entry 7.
 - **Hook predicate uses regex-on-string for non-trivial patterns** (gates.md `scaffold` H6). Refspec forms, `+`-refspecs, option terminators, long-form aliases, and wrapper prefixes silently bypass regex deny-lists; argv parsing makes the surface explicit.
+- **Reflection log scaffolded but no `README.md` pointer to it, in a repo without AGENTS.md** (instruction-surface.md `scaffold` H5). The log lands as an orphan: present on disk, invisible to any agent walking in fresh because nothing always-loaded references it. Conversely, **AGENTS.md scaffolded without the Stage-0 substrate** (no `docs/agent-failures.md`, no README pointer) means the W1 ≥3-failures floor was skipped — the AGENTS.md cannot have been hand-curated from observed failures because the log doesn't exist yet.
 
 **Skip cases:** `assess`, `harden`, `diagnose` — no writes happened, so there is nothing to audit. Step 8.5 is `scaffold`-only.
 

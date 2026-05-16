@@ -1,6 +1,8 @@
 ---
 name: skill-reviewer
 description: Use when reviewing or editing draft public skills for structure, metadata, source safety, usefulness, validation, and readiness before they become reviewed or published.
+metadata:
+  internal: true
 ---
 
 # Skill Reviewer

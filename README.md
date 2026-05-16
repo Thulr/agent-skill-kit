@@ -6,6 +6,12 @@
 
 **[Agent Skills](https://agentskills.io) with citations.** An *informed heuristic* uses domain knowledge to estimate more accurately than a blind rule of thumb — every skill here cites the books, papers, and research it's grounded in, so you can check the work. Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
 
+```bash
+npx skills add Thulr/informed-skills
+```
+
+[skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
+
 ## Skills
 
 ### dx-heuristics
@@ -18,6 +24,18 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill dx-heuristics
+```
+
+### test-heuristics
+
+Practical test-suite review, design, triage, strategy, and pruning across unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Core principle: *a test exists to catch the bugs that ship in this code class — and to be diagnosable when it fails.*
+
+Grounded in canonical testing literature (full provenance in [`skills/test-heuristics/skill.json`](./skills/test-heuristics/skill.json)). Routes by activity (`triage` / `review` / `author` / `strategize` / `prune`) and layer, with the same parallel-lens discipline used by `dx-heuristics`.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill test-heuristics
 ```
 
 ### project-agentification (experimental)

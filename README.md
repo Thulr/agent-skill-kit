@@ -112,6 +112,8 @@ Validate the repository before publishing or handing off changes:
 just check
 ```
 
+When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/agent-failures.md`](./docs/agent-failures.md). Three entries describing the same gap is the threshold for adding a rule, hook, or `AGENTS.md` sentence to close it.
+
 ## License
 
 See [LICENSE](./LICENSE). Individual skills may declare different terms; third-party notices live in [THIRD_PARTY.md](./THIRD_PARTY.md).

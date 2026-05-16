@@ -1,0 +1,30 @@
+{
+  "//": "TEMPLATE — skill.json shape. Prescribed by skills playbook + AGENTS.md Rule 2 (cross-skill schema parity). Fields below are required unless marked optional. Validator: each skill's evals/run-static-checks.sh enforces this shape — every field a skill ships must be checked there, not just the fields the writer remembered.",
+
+  "name": "<skill-name-must-match-directory>",
+  "version": "0.1.0",
+  "status": "draft",
+  "//status": "One of: draft | reviewed | published. New skills start as draft; promote via skill-reviewer.",
+
+  "license": "MIT",
+
+  "maintainers": [
+    "@<github-handle>",
+    "@<github-org>/<team-slug>"
+  ],
+  "//maintainers": "Each entry MUST match ^@[A-Za-z0-9-]+$ or ^@[A-Za-z0-9-]+/[A-Za-z0-9-]+$ (Rule 4). Opaque strings like 'justin' fail the static check because they cannot be resolved to a reviewer.",
+
+  "inspired_by": [
+    {
+      "name": "<source title>",
+      "author": "<author or organization>",
+      "kind": "book | paper | talk | article | blog | repo",
+      "url": "<URL or DOI>",
+      "contribution": "<one-line: what this source contributed to the skill>",
+      "playbooks": ["<sub-surface-1>", "<sub-surface-2-or-marker>"]
+    }
+  ],
+  "//inspired_by": "Required, non-empty. The 'kind' is one of: book, paper, talk, article, blog, repo. 'contribution' must be a single line; 'playbooks' references either a sub-surface name (from references/layer-router.csv) or a 'all'/'<activity>-activity' marker depending on skill structure.",
+
+  "//SKILL.md-pairing": "This file pairs with SKILL.md (frontmatter: name, description, license). The name here MUST match SKILL.md's frontmatter name AND the directory name. trigger-evals.json's 'skill' field MUST also match."
+}

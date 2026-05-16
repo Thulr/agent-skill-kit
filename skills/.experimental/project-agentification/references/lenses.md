@@ -1,8 +1,8 @@
 # Lenses — Parallel Dispatch
 
-Four reviewer lenses, each with a specific anchoring concern. **Dispatched in parallel** for `assess`; optional but recommended for `harden` and `scaffold`. For `diagnose`, run only the lens that matches the hypothesized failure mode (run all four if hypothesis is unclear).
+Four **pre-write** reviewer lenses (dispatched at workflow step 5), plus one **post-write auditor** dispatched at step 8.5 for `scaffold` after files are written. Each has a specific anchoring concern. The four pre-write lenses run **in parallel** for `assess`; optional but recommended for `harden` and `scaffold`. For `diagnose`, run only the lens that matches the hypothesized failure mode (run all four if hypothesis is unclear).
 
-Hosts that lack a delegation primitive: fall back to running the four lenses sequentially in the same head, switching role between passes. The discipline of *switching lens between passes* matters more than parallelism.
+Hosts that lack a delegation primitive: fall back to running the lenses sequentially in the same head, switching role between passes. The discipline of *switching lens between passes* matters more than parallelism.
 
 ## Lens 1 — Cold-Context Agent
 
@@ -67,6 +67,28 @@ Hosts that lack a delegation primitive: fall back to running the four lenses seq
 - Approval tier is binary (allow / deny) rather than tiered (free / ask / forbidden).
 - No incident-disclosure path documented in the repo.
 
+## Post-write auditor (step 8.5, `scaffold` only)
+
+**Anchoring concern:** did the writer actually apply the `harden` heuristics the chosen playbook(s) prescribe — or did some get silently skipped between confirmation and disk?
+
+**Why a separate dispatch:** the four pre-write lenses ran at step 5, before anything was on disk. They can name what *should* be done; they cannot verify what *was* done. A self-attestation checklist in the scaffold output is the wrong fix — the writer rubber-stamps its own work. Dispatch a fresh-context sub-agent whose **only inputs** are (a) the playbook(s) for the chosen sub-surface(s), (b) the git diff of the scaffold write, and (c) the failing harden heuristics the writer claimed. The auditor has no access to the writer's reasoning, internal monologue, or pre-write lens findings — only the playbook and what landed on disk.
+
+**Prompt to apply:**
+> You are a fresh-context auditor. You did not perform this scaffold. You are given (1) the playbook(s) for the sub-surface(s) being scaffolded, (2) the git diff of the writes that just happened, (3) the user's stated harness inventory from step 4.5 (if applicable). Enumerate every `scaffold` heuristic **and** every `harden` heuristic in the loaded playbook(s) — scaffold heuristics govern what the scaffold itself should produce; harden heuristics fire whenever an artifact the scaffold created (e.g., AGENTS.md, a hook) is now in scope for them. For each, classify as one of: `applied` (cite the line/file in the diff that satisfies it), `skipped-because-X` (cite the explicit reason the writer or user gave; "not relevant" is not a reason — name *why* it isn't), or `deferred` (named in the scaffold output as follow-up). Anything that doesn't fit those three classifications is a **miss** — report it as such. Severity 0–4 per miss; severity 3+ surfaces to the user as a must-do before claiming the scaffold is complete.
+
+**Failure modes this lens catches:**
+- Prescribed symlink missing (`CLAUDE.md` → `AGENTS.md`).
+- Harness-specific equivalents not produced for harnesses named in step 4.5 (e.g., Codex inventoried but no `--ask-for-approval` config produced).
+- CI assertion mentioned in a harden heuristic but not wired in.
+- Per-skill artifact required by the contract (e.g., `evals/run-static-checks.sh`) not written for a new skill the scaffold created.
+- Static-check / hook configured but not registered in the harness's settings file (hook file exists but `.claude/settings.json` doesn't reference it).
+- **Deny-list / pattern-matching hook scaffolded without a negative-case test fixture next to it** (gates.md `scaffold` H5). The hook file exists but no test file covers the variant matrix the hook is trying to block — the regression vector logged at `docs/agent-failures.md` entry 7.
+- **Hook predicate uses regex-on-string for non-trivial patterns** (gates.md `scaffold` H6). Refspec forms, `+`-refspecs, option terminators, long-form aliases, and wrapper prefixes silently bypass regex deny-lists; argv parsing makes the surface explicit.
+- **Reflection log scaffolded but no `README.md` pointer to it, in a repo without AGENTS.md** (instruction-surface.md `scaffold` H5). The log lands as an orphan: present on disk, invisible to any agent walking in fresh because nothing always-loaded references it. Conversely, **AGENTS.md scaffolded without the Stage-0 substrate** (no `docs/agent-failures.md`, no README pointer) means the W1 ≥3-failures floor was skipped — the AGENTS.md cannot have been hand-curated from observed failures because the log doesn't exist yet.
+- **Artifact written without citing a template, or with `<placeholder>` markers remaining.** Every scaffolded file should map to a template under `templates/artifacts/<sub-surface>/` (see playbook §Templates section). The auditor verifies that (a) the scaffold-bundle's Proposed-files table cited a template path for each file or stated why no template applies, (b) no `<placeholder>` strings remain in the written file, and (c) the file's top-level shape (sections / required frontmatter fields / table columns) matches the template. Drift between template and artifact is a shape-compliance miss.
+
+**Skip cases:** `assess`, `harden`, `diagnose` — no writes happened, so there is nothing to audit. Step 8.5 is `scaffold`-only.
+
 ## Dispatch template
 
 ```
@@ -86,6 +108,34 @@ The main agent then synthesizes:
   2. Preserve lens-specific findings (no merge).
   3. Surface conflicts (lens A says do X, lens B says don't) as open questions.
   4. Emit the intent-specific template.
+```
+
+### Post-write dispatch (step 8.5, `scaffold` only)
+
+```
+Spawn 1 sub-agent in a fresh context. The agent receives:
+  - The playbook(s) for the chosen sub-surface(s) (full text).
+  - The git diff of the writes that just happened.
+  - The harness inventory collected at step 4.5 (if applicable).
+  - The "Post-write auditor" prompt from this file.
+
+It does NOT receive:
+  - The pre-write lens findings.
+  - The writer's reasoning or scaffold-bundle output.
+  - The conversation history.
+
+The agent produces:
+  - For each `harden` heuristic in the loaded playbook(s):
+    {heuristic-id, classification: applied | skipped-because-X | deferred | miss,
+     evidence: file:line for `applied` / explicit reason for `skipped` / follow-up
+     pointer for `deferred` / "no evidence in diff" for `miss`, severity 0–4}.
+
+The main agent then:
+  1. Lists every `miss` to the user with severity, before claiming the scaffold is complete.
+  2. Asks the user to either accept the misses as `skipped-because-X` (with reason),
+     accept as `deferred` (with follow-up pointer), or amend the scaffold.
+  3. Does not silently downgrade misses; either the user resolves them or they
+     stay flagged in the scaffold-bundle output.
 ```
 
 ## Multi-surface fan-out

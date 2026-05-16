@@ -14,13 +14,32 @@
 
 If you don't have observed failures yet, stop. Run an agent session against this repo, collect 3–5 specific failures, and return.
 
+## Harness inventory (step 4.5)
+
+> **Required for `instruction-surface` and `gates` sub-surfaces.** Names every harness in use on this repo so the scaffold produces per-harness equivalents — not just the one whose dotfile happens to exist. Filesystem signals tell you which harnesses are *known*, not which are *all in use*.
+
+- Claude Code: <yes | no | unknown>
+- Cursor: <yes | no | unknown>
+- Codex: <yes | no | unknown>
+- Copilot: <yes | no | unknown>
+- Aider: <yes | no | unknown>
+- Windsurf: <yes | no | unknown>
+- AGENTS.md-compatible only (Jules, Amp, etc.): <yes | no | unknown>
+
 ## Proposed files
 
-| Path | Action | Failure closed | Severity | Preview |
-|---|---|---|---|---|
-| <path/AGENTS.md> | create | <failure-id> | <severity> | <expand below> |
-| <path/.claude/skills/foo/SKILL.md> | create | <failure-id> | <severity> | <expand below> |
-| <path/.github/hooks/pretooluse-no-force-push.sh> | create | <failure-id> | <severity> | <expand below> |
+> **Template column required.** Every proposed file should cite a starting
+> template from `templates/artifacts/<sub-surface>/` (see `templates/artifacts/README.md`).
+> If no template fits, name that explicitly in the row — the post-write
+> auditor (step 8.5) treats "no template cited" as a shape-compliance miss
+> unless the writer states why no template applies.
+
+| Path | Action | Failure closed | Severity | Template | Preview |
+|---|---|---|---|---|---|
+| <path/AGENTS.md> | create | <failure-id> | <severity> | `templates/artifacts/instruction-surface/AGENTS.md` | <expand below> |
+| <path/docs/agent-failures.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/agent-failures.md` | <expand below> |
+| <path/.claude/hooks/<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook.py` | <expand below> |
+| <path/.claude/hooks/test_<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook-test.py` | <expand below> |
 
 ## File previews
 
@@ -63,6 +82,23 @@ If any proposed file already exists, the skill will refuse to overwrite without 
 - **Written:** <paths>
 - **Skipped:** <paths>
 - **Conflicts:** <paths and reasons>
+
+## Post-write audit (step 8.5)
+
+> **Required.** A fresh-context auditor sub-agent (see `references/lenses.md` §Post-write auditor) inspects the diff against the chosen playbook(s) and classifies every `harden` heuristic. Severity 3+ `miss` entries surface to the user as must-do before the scaffold is considered done. **Self-attestation is not allowed** — the auditor must be dispatched separately and its findings included verbatim.
+
+| Playbook | Heuristic | Classification | Evidence | Severity |
+|---|---|---|---|---|
+| instruction-surface | H2-harden (CLAUDE.md symlink) | applied | `CLAUDE.md -> AGENTS.md` (new file) | 0 |
+| instruction-surface | H3-harden ("trust these instructions") | miss | not in AGENTS.md diff | 3 |
+| <playbook> | <heuristic-id> | applied \| skipped-because-X \| deferred \| miss | <file:line or reason> | <0-4> |
+
+**Unapplied harden heuristics requiring user action:**
+
+- <severity-3+ miss 1 with proposed resolution>
+- <severity-3+ miss 2 with proposed resolution>
+
+If the table above lists any `miss` at severity 3+, the scaffold is **not done**. Either resolve the miss, reclassify it as `skipped-because-X` (with explicit reason; "not relevant" is not a reason), or `deferred` (with a tracked follow-up).
 
 ## Validation
 

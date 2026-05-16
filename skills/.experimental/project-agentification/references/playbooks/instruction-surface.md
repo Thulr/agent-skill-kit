@@ -12,6 +12,14 @@ ephemeral local override). Discovery is hierarchical: root-to-leaf walk, closest
 openai/codex ships ~88 nested `AGENTS.md` files as the reference monorepo pattern; vercel/next.js
 symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific and portable layers.
 
+**`README.md` is also part of this surface.** Copilot loads it explicitly; Claude Code and Cursor
+commonly read it on first invocation; agent-aware harnesses fall back to it when no AGENTS.md /
+`.cursor/rules` / etc. exists. In a repo that hasn't reached the W1 ≥3-failures threshold to
+hand-curate an AGENTS.md yet, `README.md` is the **only** always-loaded prose surface the agent
+sees — which makes it the load-bearing discoverability point for the reflection log (e.g.
+`docs/agent-failures.md`). Once AGENTS.md lands, it absorbs the discoverability and README's
+agent-facing role shrinks to "see AGENTS.md."
+
 ## Why it matters for agents
 
 - **Context rot at scale.** LLMs follow instructions on the periphery of the prompt most reliably;
@@ -54,9 +62,19 @@ symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific a
 - **H1.** Auto-init producing bloated boilerplate → delete the file and hand-author from a list of
   observed agent failures, referencing `references/empirical-warnings.md#W1` in a comment at the
   top of `AGENTS.md`.
-- **H2.** `CLAUDE.md` and `AGENTS.md` content drift → run
-  `ln -sf AGENTS.md CLAUDE.md && ln -sf ../AGENTS.md .github/copilot-instructions.md` at repo
-  root; add a CI step that asserts `CLAUDE.md` is a symlink to abort drift silently.
+- **H2.** `CLAUDE.md` / `.github/copilot-instructions.md` content drift → **all three actions
+  required as a single unit; partial application is the failure mode** (see
+  `docs/agent-failures.md` entry 5 in any repo that has tracked this miss):
+  1. `ln -sf AGENTS.md CLAUDE.md` at repo root.
+  2. `ln -sf ../AGENTS.md .github/copilot-instructions.md`.
+  3. A CI / static-check step that asserts both files are symlinks pointing at the correct
+     target and that the target resolves — fails the build on divergence. Step 1 + 2 without
+     step 3 decays the moment a contributor "fixes" a symlink to a regular file. The post-write
+     auditor (workflow step 8.5) treats this heuristic as `applied` only when all three are
+     present.
+  Add a one-line declaration to `AGENTS.md` so future agents do not try to "fix" the divergence
+  by editing `CLAUDE.md` directly: *"`CLAUDE.md` is a symlink to `AGENTS.md`. Edit `AGENTS.md`
+  only."*
 - **H3.** Agent re-explores repo on every task despite instruction file presence → add a
   "trust these instructions" clause at line 1 of `AGENTS.md`: *"Trust the instructions here;
   only search further if you find an explicit gap."*
@@ -87,8 +105,17 @@ symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific a
 - **H4.** Keep the root file ≤100 lines; push depth into hierarchical nested `AGENTS.md` per
   subdirectory, skills (progressive disclosure, ~100-token metadata at startup), ADRs, and a
   structured `docs/` tree the file points to — not a table of contents that duplicates them.
-
-### diagnose
+- **H5. Bootstrap discoverability when no AGENTS.md exists yet.** The W1 floor (≥3 observed
+  failures before hand-curating AGENTS.md) creates a Stage-0 interim where the reflection log
+  exists but AGENTS.md does not. In that interim, `README.md` is the only always-loaded prose
+  surface most harnesses see, so it must carry an agent-facing pointer to the reflection log
+  (typically a short `§Authoring` / `§Agents` section: "When an AI coding agent trips on this
+  repo, record it in `docs/agent-failures.md`. Three entries describing the same gap is the
+  threshold for adding a rule, hook, or AGENTS.md sentence to close it."). Without that
+  pointer, the log lands as an orphan on disk. **Apply order:** reflection log + README pointer
+  land **first** (Stage 0); AGENTS.md lands **only after** the W1 floor is met and absorbs the
+  pointer into its own §Failure-log section. Never scaffold AGENTS.md without the Stage-0
+  substrate; never scaffold the reflection log without the README pointer.
 
 - **H1.** Agent ignores a rule from the instruction file → rank hypotheses: (1) file exceeds 200
   lines and the rule is in the middle (W2: "lost in the middle" decay); (2) Cursor rule has wrong
@@ -131,6 +158,16 @@ symlinks `CLAUDE.md → AGENTS.md` to eliminate drift between harness-specific a
   explicit scope declaration: *"Note: CLAUDE.md is a symlink to AGENTS.md. They are the same file."*
 - **temporalio/sdk-java** — terse, imperative, single-purpose: three rules, all commands, no
   narrative; copy this as the floor for "minimum viable AGENTS.md."
+
+## Templates
+
+Concrete starting points for the `scaffold` heuristics above. Copy from
+`templates/artifacts/`, fill `<placeholder>` markers, then commit:
+
+- `templates/artifacts/instruction-surface/AGENTS.md` — WHAT/WHY/HOW skeleton (scaffold H1–H4).
+- `templates/artifacts/instruction-surface/README-agents-section.md` — Stage-0 pointer block (scaffold H5).
+- `templates/artifacts/instruction-surface/check-instruction-surface.sh` — symlink-drift static check (harden H2).
+- `templates/artifacts/reflection-log/agent-failures.md` — the substrate Stage 0 lands first (SKILL.md §Bootstrap order).
 
 ## Sources
 

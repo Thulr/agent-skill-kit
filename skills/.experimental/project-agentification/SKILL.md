@@ -20,6 +20,16 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Token budget is the dominant scarcity.** Prefer on-demand → on-trigger → always-loaded.
 3. **Hard gates over soft prose.** Hooks at 100% vs prose at 70%.
 
+## Bootstrap order
+
+The W1 floor (≥3 observed failures before scaffolding AGENTS.md) creates a hard staging dependency. **Scaffold artifacts in this order, never out of it:**
+
+1. **Stage 0** — reflection log (`docs/agent-failures.md` or equivalent) + a `README.md §Agents` / `§Authoring` pointer to it. The log is exempt from the W1 floor because it does not *contain* agent instructions; it *captures* the observations future instructions will be hand-curated from. The README pointer is required because, until AGENTS.md exists, README is the only always-loaded prose surface most harnesses see — without the pointer, the log lands as an orphan, invisible to any agent.
+2. **Stage 1** — `AGENTS.md` (and its `CLAUDE.md` / `.github/copilot-instructions.md` symlinks), hand-curated from the now-populated log. The AGENTS.md absorbs the discoverability pointer; the README role shrinks to "see AGENTS.md."
+3. **Stage 2+** — gates, skills, sandbox, telemetry, evals, governance — each grounded in the failures the log accumulated.
+
+**Refuse to scaffold Stage 1 without the Stage-0 substrate** (no log + README pointer → no AGENTS.md). **Refuse to scaffold the log without the README pointer** (log lands as orphan). The post-write auditor (step 8.5) enforces both via the failure modes listed in `references/lenses.md`.
+
 ## Activation
 
 - **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use project-agentification"`): load `references/intent-router.csv`, show the intent menu, wait. No file inspection, no network calls, no writes.
@@ -32,10 +42,12 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Pick sub-surface(s).** Load `references/layer-router.csv`. Match the prompt to one or more sub-surfaces. For `assess`, `all` is a valid sub-surface choice that fans out across the whole sub-surface list. Ambiguous → ask once with the menu.
 3. **Load grounded context.** Load the playbook(s) for the chosen sub-surfaces, `references/empirical-warnings.md`, and **`references/core/severity-rubric.md` always** (every finding carries a severity per step 7). For `assess`, also load `references/core/maturity-rubric.md` (the `additional_rubric` column in `intent-router.csv` names the assess-only addition).
 4. **For `scaffold`: collect observed failures.** Ask the user for 3–5 concrete agent failures observed on this repo before generating any file. Refuse to scaffold if fewer than 3 are stated (empirical warning W1 — the hard floor is 3, not 1).
+4.5. **For `scaffold` / `harden` touching `instruction-surface` or `gates`: collect harness inventory.** Ask the user which harnesses are in use on this repo: Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or AGENTS.md-compatible-only (Jules, Amp, etc.). **Do not infer scope from filesystem signals alone** — the presence of `.claude/` tells you Claude Code is used, not that it is the only one. Default to producing per-harness equivalents for every harness named; absence-of-dotfile is not absence-of-use.
 5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per sub-surface, four lenses sequentially inside.
 6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed sub-surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
 7. **Apply severity** (0–4) to every finding using `references/core/severity-rubric.md`.
 8. **For `scaffold`: present write-to-disk confirmation.** List `{path, action}` pairs; wait for user reply (`all` / `none` / specific list). Write only confirmed files. Report what was written, skipped, and what to validate.
+8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen sub-surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
 9. **Emit output.** Use the intent-specific template:
    - `assess` → `templates/assess-report.md`
    - `harden` → `templates/harden-recommendation.md`
@@ -60,14 +72,18 @@ Every output includes:
 
 ## Lens dispatch
 
-Independent perspectives anchor on different concerns and catch issues a single pass misses. **Four lenses, dispatched in parallel:**
+Independent perspectives anchor on different concerns and catch issues a single pass misses. **Four pre-write lenses, dispatched in parallel at step 5:**
 
 - **cold-context-agent** — does a fresh-context LLM trip on this?
 - **maintainer** — is the agent surface itself drifting?
 - **adversarial** — injection, exfiltration, tool abuse, sandbox escape?
 - **auditor** — can a human reconstruct what the agent did and why?
 
-Load `references/lenses.md` for the per-lens persona prompts, the dispatch template, and the synthesis step. Hosts without a delegation primitive: run the four lenses sequentially in the same head, switching role between passes. Skip dispatch for tiny copy edits, deterministic command checks, or tasks requiring privileged context.
+**One post-write dispatch, at step 8.5 (`scaffold` only):**
+
+- **post-write auditor** — fresh-context sub-agent that compares the chosen playbook(s) to the actual diff and reports every unapplied `harden` heuristic. Catches execution misses the pre-write lenses cannot see because nothing was on disk yet.
+
+Load `references/lenses.md` for the per-lens persona prompts, the dispatch template, and the synthesis step. Hosts without a delegation primitive: run the lenses sequentially in the same head, switching role between passes. Skip dispatch for tiny copy edits, deterministic command checks, or tasks requiring privileged context.
 
 ## Empirical warnings
 
@@ -87,7 +103,8 @@ Ten load-bearing don'ts live in `references/empirical-warnings.md` (W1–W10). E
 - `references/core/maturity-rubric.md` — Level 1–5 (Engineering Agents).
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/empirical-warnings.md` — W1–W10 load-bearing don'ts.
-- `templates/*.md` — four intent-specific output templates.
+- `templates/*.md` — four intent-specific output templates (what the skill itself emits).
+- `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.
 - `evals/run-static-checks.sh` — structural / schema gates run in CI.
 - `evals/trigger-evals.json` — queries for the description-optimization loop.

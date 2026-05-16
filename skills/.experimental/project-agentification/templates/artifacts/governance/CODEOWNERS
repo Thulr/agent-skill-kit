@@ -1,0 +1,38 @@
+# TEMPLATE — CODEOWNERS for agent-surface review.
+#
+# Prescribed by governance scaffold. Required reviewers on every path that
+# affects how agents behave: instruction surface, hooks, CI, skills.
+#
+# Rule 4 (resolvable handles): every owner entry MUST match `@handle` or
+# `@org/team` — opaque strings like `justin` are static-check failures
+# because they cannot be resolved to a reviewer for CODEOWNERS or branch-
+# protection automation. See docs/agent-failures.md entry tracking this.
+#
+# Pair with branch protection: this file is documentation-only until the
+# GitHub branch-protection rule for `main` requires CODEOWNERS approval.
+# State the enforcement posture honestly in AGENTS.md / SECURITY.md.
+
+# Instruction-surface — every change that an agent reads on session start.
+AGENTS.md                           @<owner-handle>
+CLAUDE.md                           @<owner-handle>
+.github/copilot-instructions.md     @<owner-handle>
+.cursor/                            @<owner-handle>
+.windsurf/                          @<owner-handle>
+
+# Gates — hooks and CI that enforce forbidden / ask-first action tiers.
+.claude/                            @<owner-handle>
+.github/workflows/                  @<owner-handle>
+scripts/check-instruction-surface.sh @<owner-handle>
+
+# Skills — the published artifacts that downstream agents install.
+skills/**                           @<owner-handle>
+.agents/**                          @<owner-handle>
+
+# Governance.
+.github/CODEOWNERS                  @<owner-handle>
+SECURITY.md                         @<owner-handle>
+docs/agent-failures.md              @<owner-handle>
+
+# Top-level developer-facing files.
+Justfile                            @<owner-handle>
+README.md                           @<owner-handle>

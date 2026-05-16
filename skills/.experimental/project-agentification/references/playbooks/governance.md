@@ -134,6 +134,16 @@ and below the regulatory layer (NIST AI RMF), covering:
 - **Anthropic's internal model routing (Haiku / Sonnet / Opus)** — per-session cost surfaced in
   the audit log provides the feedback signal that drives routing discipline over time.
 
+## Templates
+
+Concrete starting points for `scaffold` governance artifacts. Copy from
+`templates/artifacts/governance/`, fill `<placeholder>` markers:
+
+- `CODEOWNERS` — required-reviewer lanes with resolvable-handle format (AGENTS.md Rule 4 — no
+  opaque strings).
+- `SECURITY.md` — incident-disclosure path with honest enforcement-state language (do not
+  overstate branch protection that isn't on yet).
+
 ## Sources
 
 - "SLSA Framework" — supply-chain provenance L1–L4; `actions/attest-build-provenance`;

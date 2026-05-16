@@ -1,0 +1,17 @@
+{
+  "//": "TEMPLATE — .claude/settings.json hook registration block. Prescribed by gates scaffold H1. Drop into the target repo's .claude/settings.json. Each entry under hooks.PreToolUse[].matcher selects a tool (Bash, Write, Edit, etc.); each hook command is the shell invocation that fires before the tool runs. Exit code 2 from the hook blocks the tool call; any other non-zero exit is treated as a hook error.",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/<hook-filename>.py"
+          }
+        ]
+      }
+    ]
+  }
+}

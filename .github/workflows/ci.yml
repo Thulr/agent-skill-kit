@@ -11,13 +11,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check instruction-surface symlinks
+        shell: bash
+        run: bash scripts/check-instruction-surface.sh
+
+      - name: Test destructive-bash hook
+        shell: bash
+        run: python3 .claude/hooks/test_block_destructive_bash.py
+
       - name: Run skill static checks
         shell: bash
         run: |
           set -euo pipefail
           shopt -s nullglob
           failed=0
-          for script in skills/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
+          for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
             echo "::group::$script"
             if ! bash "$script"; then
               failed=1

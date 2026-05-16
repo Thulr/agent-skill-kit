@@ -23,6 +23,27 @@ Aider's auto-lint and auto-test and Factory.ai's linter-as-direction pattern bot
 Copilot's custom-instructions guidance adds a complementary requirement: explicitly document which
 commands work and which do not, including errors encountered and workarounds taken.
 
+### Per-harness gate primitives
+
+Different harnesses expose different enforcement points. **Scaffold per-harness equivalents for every harness in the step 4.5 inventory** — not just the one whose dotfile happens to exist.
+
+| Harness | Hard-block primitive (forbidden) | Approval primitive (ask-first) | Reactive primitive (lint-on-write) | Notes |
+|---|---|---|---|---|
+| **Claude Code** | `PreToolUse` hook exit 2 (`.claude/settings.json` + `.claude/hooks/*`) | `PreToolUse` hook structured payload | `PostToolUse` hook on `Write`/`Edit` | Only harness with a native non-bypassable hard-block at the harness layer. |
+| **Cursor** | None native — prose-only (`alwaysApply: true` in `.cursor/rules/*.mdc`) → ~70% (W3) | Same — prose-only | None native; relies on file-watcher / pre-commit | Compensate with CI gates + pre-commit hooks. |
+| **Codex** | Sandbox policy (filesystem allow-list, network egress allow-list) + `--ask-for-approval` tiering | `--ask-for-approval` modes (`untrusted` / `on-failure` / `on-request` / `never`) | None native; relies on Codex shell tool calls in the wrapped run | Hard-block is sandbox-layer, not harness-layer; the `~/.codex/config.toml` plus per-repo `AGENTS.md` define it. |
+| **Aider** | None native — prose + `--read-only` files | `--auto-commits false` (manual approval per commit) | `--lint-cmd` and `--test-cmd` run after every edit cycle | Lint-as-direction is Aider's strongest primitive. |
+| **Copilot** (IDE / coding agent) | None native — CI-only (branch protection + required checks) | None native (PR review is the approval point) | None native; relies on workflow `actions/*` checks | Push enforcement entirely into CI. `.github/copilot-instructions.md` is prose-only. |
+| **Windsurf** | None native (W3) — `.windsurf/rules/*.md` with `trigger: always_on` is prose | None native | None native | 12 k-char workspace rule cap; behave like Cursor for enforcement purposes. |
+| **AGENTS.md-only** (Jules, Amp, etc.) | None — prose-only | None | None | CI is the only structural enforcement; treat the harness layer as advisory. |
+
+**Implication.** A `forbidden`-tier rule like *"never force-push to main"* needs:
+- Claude Code: `PreToolUse` hook (exit 2).
+- Codex: sandbox network/process policy + an `AGENTS.md` line that the wrapped shell enforces.
+- Cursor / Windsurf / Aider / Copilot / AGENTS.md-only: **CI branch protection** is the load-bearing gate; the rule in prose alone is ~70%.
+
+Every harness needs its own row in the scaffold's gate enumeration. If the user inventoried Cursor and Codex but not Claude Code, do not write `.claude/hooks/*` — write the Codex sandbox config and the CI gate.
+
 ## Why it matters for agents
 
 - **Prose achieves ~70% compliance; hooks enforce at 100%.** "CLAUDE.md instructions get followed
@@ -81,6 +102,11 @@ commands work and which do not, including errors encountered and workarounds tak
 - **Do not scaffold gates from generic templates.** Each gate must be traceable to a named action
   class in the three-tier table; a hardcoded `rm` pattern without a tier assignment is security
   theater, not a gate strategy.
+- **Require the step 4.5 harness inventory.** Without it, the scaffold defaults to whichever
+  harness's dotfile happens to exist — repeating the failure logged at
+  `docs/agent-failures.md` entry 6 (`.claude/` present, Claude-only hook produced, other harnesses
+  punted on). Refuse to scaffold gates until the inventory is collected; then produce equivalents
+  per the per-harness primitives table above for every harness named.
 - **H1.** Fill the three-tier table first: enumerate every action class the agent will take,
   assign a tier, identify which forbidden or ask-first actions lack a hook. Gaps are the backlog.
 - **H2.** Wire PostToolUse format-on-write before PreToolUse blocks — low-risk, immediate output
@@ -90,6 +116,59 @@ commands work and which do not, including errors encountered and workarounds tak
 - **H4.** Document failing commands alongside working ones in AGENTS.md using the format:
   `command → expected failure → workaround → status`. Agents that find documented dead ends skip
   re-discovering them.
+- **H5.** **A deny-list / pattern-matching hook ships with its negative-case test fixture as one
+  scaffold artifact, not two.** The fixture's variant matrix MUST cover every category below;
+  rounds 1 and 2 of automated PR review on this repo (failure-log entries 7 and 8) each surfaced
+  bypasses in categories the previous round didn't cover. Encode the matrix when the fixture is
+  first scaffolded, not when each bypass is reported:
+  1. **Flag forms** — single short (`-rf`), split short (`-r -f`), long-form alias
+     (`--recursive`), `=` form where applicable (`--force-with-lease=ref`), `--` terminator.
+  2. **Path traversal** — `..` segments resolving to a protected dir (`rm -rf /tmp/../etc`).
+     The hook must canonicalize (`os.path.normpath`) before the protected-dir check.
+  3. **Shell variable expansion** — `$VAR`, `${VAR}`, with and without trailing path components
+     (`rm -rf ${HOME}/Documents`).
+  4. **Command substitution** — `$(...)`, backticks, `<(...)`, `>(...)`, and nested forms
+     (`echo $(echo $(rm))`). The hook must extract these and recursively check the body.
+  5. **Multi-line commands** — real newlines as command separators (`echo ok\nrm -rf /etc`).
+     `whitespace_split=True` strips newlines unless they're pre-processed into `;` outside quotes.
+  6. **Transparent wrappers** — bare (`sudo rm`), wrapper with separate-token flag value
+     (`sudo -u root rm`), `=` form (`sudo --user=root rm`), multiple value-flags. Maintain a
+     per-wrapper set of value-taking flags so the wrapper unwrap consumes them.
+  7. **Env-var prefixes** — single, multiple, and via `env` builtin (`FOO=bar cmd`).
+  8. **Compound statements** — dangerous command in the second pipeline segment, for each
+     separator (`;`, `&&`, `||`, `|`, `&`).
+  9. **Quoted paths** — dangerous target quoted.
+  10. **Tool-level global options with separate-token values** — e.g., `git --work-tree /path
+      push …` must still dispatch to the `push` predicate; `check_git` must consume the value
+      after `--work-tree`, `--git-dir`, `-C`, `-c`, and similar.
+  11. **Relative path traversal** — `rm -rf ../../etc` resolves to a protected dir from a
+      knowable cwd; blocked even when cwd is unknown via the `..`-escape rule. Combined with
+      cwd tracking across pipeline segments: `cd / && rm -rf etc` must resolve the relative
+      target to `/etc` and block.
+  12. **Wrapper flag-values that carry commands** — `env -S 'rm -rf /etc'` and
+      `env --split-string='git push -f origin main'` pack a command into the `-S` value;
+      the hook must recursively inspect that value, not consume it as opaque.
+  13. **Shell launchers with `-c` payloads** — `bash -c "rm -rf /etc"`, `sh -c "…"`,
+      combined-flag forms like `bash -lc "…"`, and `--command="…"` long-form must extract
+      the command-string value and recursively check it. Without this, the dispatcher sees
+      `bash` (not in the deny-list) and allows the segment.
+
+  The hook landing without the test fixture is the regression vector logged at
+  `docs/agent-failures.md` entry 7; the fixture landing without exhaustive variant categories
+  is the regression vector logged at entries 8 and 9. The post-write auditor (workflow
+  step 8.5) treats this heuristic as `applied` only when both the hook and its test fixture
+  are in the diff and the fixture covers all 13 categories above.
+
+- **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**
+  Regex deny-lists have a long bypass tail: refspec forms (`git push -f origin HEAD:main`),
+  `+`-refspec force-updates (`git push origin +main` with no `-f` flag), option terminators
+  (`rm -rf -- /etc`), long-form aliases, path traversal, command substitution, and wrapper
+  option values are all common idioms that don't hit a string regex. Tokenize via `shlex`
+  with `punctuation_chars=True`, split pipelines on `;` / `&&` / `||` / `|` / `&`, pre-process
+  newlines into `;` outside quotes, extract command substitutions for recursive checking, and
+  unwrap wrappers (consuming their value-taking flags). Regex is acceptable only for the
+  trivial cases (single flag, single target form) and even there the test fixture from H5 is
+  required.
 
 ### diagnose
 
@@ -127,6 +206,21 @@ commands work and which do not, including errors encountered and workarounds tak
   agent behavior; every output the agent sees is already conformant, which changes what it produces.
 - **Copilot "explicitly indicate which commands work"** — document failing commands, errors, and
   workarounds alongside working commands so agents skip re-discovering known dead ends.
+
+## Templates
+
+Concrete starting points for the `scaffold` heuristics above. Copy from
+`templates/artifacts/gates/`, fill `<placeholder>` markers, then commit:
+
+- `pretooluse-hook.py` — argv-parsed deny-list skeleton (scaffold H1, H6). Ships with working
+  predicates for `rm`-of-protected-paths and force-push-to-main as examples; delete predicates
+  that don't apply, add new ones from your three-tier table.
+- `pretooluse-hook-test.py` — variant-matrix test fixture (scaffold H5). Required: hook and
+  tests are one scaffold artifact, not two.
+- `claude-settings.json` — hook registration block (Claude Code only; other harnesses use their
+  own registration mechanism — see the per-harness primitives table).
+- `ci-static-checks.yml` — path-based, all-lanes CI workflow snippet (scaffold H4, mirrors the
+  hook layer per W10).
 
 ## Sources
 

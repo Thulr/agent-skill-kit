@@ -1,1 +1,19 @@
-{}
+{
+  "skill": "test-heuristics",
+  "queries": [
+    {"query": "review my unit tests", "should_activate": true, "expected_route": "review/unit"},
+    {"query": "this test is flaky", "should_activate": true, "expected_route": "triage"},
+    {"query": "audit snapshot tests", "should_activate": true, "expected_route": "review/snapshot"},
+    {"query": "what should I test at the integration level vs unit level?", "should_activate": true, "expected_route": "strategize"},
+    {"query": "design an exploratory testing session", "should_activate": true, "expected_route": "author/exploratory"},
+    {"query": "are my tests too brittle to refactor", "should_activate": true, "expected_route": "review"},
+    {"query": "which tests can I delete", "should_activate": true, "expected_route": "prune"},
+    {"query": "improve my contract tests", "should_activate": true, "expected_route": "review/contract"},
+    {"query": "tune my property-based test generators", "should_activate": true, "expected_route": "review/property-based"},
+    {"query": "performance test is noisy", "should_activate": true, "expected_route": "triage/performance"},
+    {"query": "review my CLI design", "should_activate": false, "expected_route": null},
+    {"query": "set up jest", "should_activate": false, "expected_route": null},
+    {"query": "deploy to staging", "should_activate": false, "expected_route": null},
+    {"query": "explain how to use pytest fixtures", "should_activate": false, "expected_route": null}
+  ]
+}

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "status": "draft",
-  "maintainers": ["justin"],
+  "maintainers": ["@Thulr"],
   "tags": [
     "testing", "test-quality",
     "unit", "integration", "e2e", "exploratory",

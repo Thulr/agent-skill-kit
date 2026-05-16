@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "license": "MIT",
   "status": "draft",
-  "maintainers": ["justin"],
+  "maintainers": ["@Thulr"],
   "tags": [
     "dx", "developer-experience",
     "api", "sdk", "cli", "docs", "errors",

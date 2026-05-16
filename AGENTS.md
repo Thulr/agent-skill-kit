@@ -11,6 +11,8 @@ This file is hand-curated from observed agent failures recorded in
 empirical-warnings doc). Every load-bearing rule below traces back to a log entry
 or a recurring real failure; if you want to add a rule, log the failure first.
 
+Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
+
 > **`CLAUDE.md` and `.github/copilot-instructions.md` are symlinks to this file.**
 > They exist so Claude Code and Copilot pick up the same hand-curated instructions
 > as any AGENTS.md-aware harness (Codex, Cursor, Aider, Windsurf). Edit `AGENTS.md`
@@ -49,12 +51,13 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
 - `evals/activation-cases.md` — natural-language behavioral cases (positive, negative, boundary).
 
 `skills/example-minimal/` is the **template contract**: anything required of
-published skills must exist there too, even as a minimal placeholder. The current
-`example-minimal/` violates this (see log entry 3); fixing it is open work.
+published skills must exist there too, even as a minimal placeholder.
 
 ## Canonical `trigger-evals.json` schema
 
-All skills use this shape. Migrate, don't fork:
+The authoritative shape lives in [`schemas/trigger-evals.schema.json`](./schemas/trigger-evals.schema.json);
+the example below is a human-readable summary. Static checks validate against
+the schema file, not against the example.
 
 ```json
 {
@@ -95,16 +98,21 @@ canonical example. When adding a gate, verify it picks up at least one skill
 in each lane.
 
 ### Rule 2 — Cross-skill schema parity (log entry 2)
-Skills share canonical schemas for `skill.json`, `trigger-evals.json`, and
-`evals/activation-cases.md`. When a schema changes, migrate every skill in
-the same PR. Static checks in each skill's `run-static-checks.sh` enforce
-**every documented field of the shape** (presence, type, allowed values),
-not just the fields the writer remembered — the Copilot review of PR #5
-caught the canonical `trigger-evals.json` schema documenting a `version`
-field that none of the validators checked. Do not let "I'll migrate the
-others later" land. If this rule drifts a second time, move to a single
-source of truth: commit a JSON Schema file under `schemas/` and have every
-`run-static-checks.sh` validate against it.
+Canonical schemas for `skill.json` and `evals/trigger-evals.json` live under
+[`schemas/`](./schemas/) as JSON Schema files. Every skill's
+`run-static-checks.sh` validates against them via
+[`scripts/validate-against-schema.py`](./scripts/validate-against-schema.py).
+**When a schema changes, edit the schema file (one place) — the static checks
+pick it up automatically.** Per-skill `run-static-checks.sh` only carries
+assertions that genuinely vary per skill (e.g. `name == <skill-dir>`); do not
+reintroduce inline shape validators. Activation-cases markdown is still gated
+per-skill until it grows enough structure to schema-validate.
+
+Duplicate-inline-validators landed twice before the extraction: the canonical
+`trigger-evals.json` schema documented a `version` field that no validator
+checked (caught in PR #5 review), and the maintainer-handle validator was
+copy-pasted across four `run-static-checks.sh` scripts (caught in PR #7
+review). The second occurrence triggered the extraction to `schemas/`.
 
 ### Rule 3 — `example-minimal` is the template contract (log entry 3)
 Whatever published skills are required to have, `example-minimal` must
@@ -189,11 +197,9 @@ downstream agent sessions; treat skill PRs at production-code review depth
 
 ## See also
 
-- [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) —
-  current maturity assessment (Level 1 across all layers; Stage 0 closed, Stage 1
-  in progress).
-- [`docs/agent-failures.md`](./docs/agent-failures.md) — the log every change to
-  this file must trace back to.
-- [`skills/.experimental/project-agentification/references/empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md)
-  — W1–W10 don'ts that govern when prose vs gates vs evidence-driven scaffolding
-  is the right tool.
+- [`constitution.md`](./constitution.md) — repo charter (purpose + invariants)
+- [`docs/adr/`](./docs/adr/) — architectural decisions (the "why")
+- [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
+- [`docs/agent-failures.md`](./docs/agent-failures.md) — evidence log for new rules/gates
+- [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
+- [`empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md) — W1–W10 guardrails

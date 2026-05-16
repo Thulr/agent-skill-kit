@@ -1,0 +1,18 @@
+{
+  "skill": "example-minimal",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Validate that skills are discoverable in this repository.",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "positive"
+    },
+    {
+      "query": "Refactor this React component.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    }
+  ]
+}

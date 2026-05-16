@@ -5,11 +5,55 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   static-checks:
     runs-on: ubuntu-latest
+    container:
+      image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
+      options: --user root
     steps:
-      - uses: actions/checkout@v4
+      - name: Install system deps
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Retry apt-get update + install: Debian mirrors flake occasionally
+          # and a hard failure would block the required PR check.
+          attempts=0
+          max_attempts=5
+          until apt-get update; do
+            attempts=$((attempts + 1))
+            if (( attempts >= max_attempts )); then
+              echo "apt-get update failed after $attempts attempts" >&2
+              exit 1
+            fi
+            sleep $((attempts * 2))
+          done
+          attempts=0
+          # ca-certificates is required for actions/checkout's HTTPS git fetch
+          # (git only Recommends it, so --no-install-recommends drops it).
+          until apt-get install -y --no-install-recommends \
+                ca-certificates git jq python3 python3-jsonschema; do
+            attempts=$((attempts + 1))
+            if (( attempts >= max_attempts )); then
+              echo "apt-get install failed after $attempts attempts" >&2
+              exit 1
+            fi
+            sleep $((attempts * 2))
+          done
+          rm -rf /var/lib/apt/lists/*
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: List installable skills
+        shell: bash
+        env:
+          DISABLE_TELEMETRY: "1"
+        # Pin skills CLI version so the install-discovery gate doesn't silently
+        # change behavior between PRs (everything else here is pinned by digest).
+        run: npx -y skills@1.5.7 add . --list
 
       - name: Check instruction-surface symlinks
         shell: bash
@@ -23,6 +67,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # actions/checkout configures safe.directory in its own temporary
+          # HOME, but each `bash run-static-checks.sh` starts a fresh shell
+          # whose HOME has no such config. Without this, `git rev-parse
+          # --show-toplevel` inside the scripts fails with "dubious ownership"
+          # (the runner UID doesn't match the in-container root). Re-add it
+          # here so every static-check script can resolve repo_root.
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           shopt -s nullglob
           failed=0
           for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do

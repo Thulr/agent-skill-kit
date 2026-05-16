@@ -86,8 +86,9 @@ The discipline of switching lens matters more than the parallelism.
 
 After the three lenses return, the host agent:
 
-1. **Deduplicate.** When two lenses report the same finding, keep one
-   with the higher-severity attribution.
+1. **Deduplicate.** When two or more lenses report the same finding,
+   keep the higher-severity copy and note which other lenses also
+   flagged it.
 2. **Preserve disagreements** as `Open questions` in the output. Do not
    resolve them silently — name the disagreement and the trade-off
    between the lenses' framings.
@@ -98,8 +99,11 @@ After the three lenses return, the host agent:
 ## Fan-out variant (surface = `all`, audit only)
 
 For `audit` with `all`-fanout, the structure inverts: spawn one agent
-per surface (5 agents, one each for dependency-rule, boundaries,
-domain-model, bounded-context, cross-cutting). Each surface-agent runs
-all three lenses sequentially inside itself and returns a per-surface
-finding list. The host synthesizes across surfaces and emits
-`templates/audit-report-multi.md`.
+per surface listed in `references/intents/audit.csv` (excluding the
+`all` row itself). Each surface-agent runs all three lenses
+sequentially inside itself and returns a per-surface finding list. The
+host synthesizes across surfaces and emits
+`templates/audit-report-multi.md`. Do not hardcode the surface set in
+this file — `audit.csv` is the source of truth so a new surface can be
+added by editing the CSV + dropping in a playbook, with no edits to
+this dispatch doc.

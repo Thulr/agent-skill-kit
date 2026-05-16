@@ -157,7 +157,7 @@ string), splits pipelines on `;` / `&&` / `||` / `|` / `&`, and unwraps
 common prefixes (`sudo`, `time`, `env`, `command`, env-var assignments,
 `git -C path`). Test coverage lives at
 [`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
-(56 unit + 3 subprocess cases) and runs in `just check` and CI. When a
+(109 unit + 3 subprocess cases) and runs in `just check` and CI. When a
 new bypass is observed, log it in `docs/agent-failures.md`, add the
 fixture to the test file, then update the hook so the new case passes.
 
@@ -173,11 +173,13 @@ agent.
 
 - [`.github/CODEOWNERS`](./.github/CODEOWNERS) — required reviewers on
   `skills/**`, `.agents/**`, `.github/**`, `Justfile`, `README.md`.
-- Branch protection on `main` **is being configured** to require the
-  `static-checks` CI status check plus at least one approving review from a
-  code owner, with self-merges blocked. Until that rule is enabled,
-  `CODEOWNERS` is documentation-only and the gate is best-effort. Tracked as
-  a known follow-up on PR #5.
+- Branch protection on `main` requires the `static-checks` CI status check
+  plus at least one approving review from a code owner. Self-merges are
+  blocked at the GitHub layer; confirmed by an attempted `gh pr merge` on
+  PR #5 returning `the base branch policy prohibits the merge`. To merge a
+  PR you authored, use the GitHub web UI after a code-owner approval —
+  `gh pr merge --admin` overrides the policy and should not be used unless
+  the change is genuinely a hotfix.
 
 ## Security
 

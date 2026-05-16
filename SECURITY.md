@@ -60,9 +60,8 @@ Out of scope (open a normal issue instead):
 
 - `.github/CODEOWNERS` requires review on `skills/**`, `.agents/**`, `.github/**`,
   `Justfile`, `README.md`.
-- Branch protection on `main` **is being configured** to require CI plus at least
-  one code-owner approval, with self-merges blocked. Until that rule is enabled
-  on GitHub, `CODEOWNERS` is documentation-only — review compliance is best-effort.
+- Branch protection on `main` requires CI plus at least one code-owner approval;
+  self-merges are blocked at the GitHub layer (verified on PR #5).
 - Each skill ships static checks (`evals/run-static-checks.sh`) that gate on
   `SKILL.md` structure, `skill.json` provenance, and source-author leakage.
 - `.claude/hooks/block-destructive-bash.py` blocks destructive Bash actions

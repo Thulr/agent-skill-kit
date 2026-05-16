@@ -11,6 +11,8 @@ This file is hand-curated from observed agent failures recorded in
 empirical-warnings doc). Every load-bearing rule below traces back to a log entry
 or a recurring real failure; if you want to add a rule, log the failure first.
 
+Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
+
 > **`CLAUDE.md` and `.github/copilot-instructions.md` are symlinks to this file.**
 > They exist so Claude Code and Copilot pick up the same hand-curated instructions
 > as any AGENTS.md-aware harness (Codex, Cursor, Aider, Windsurf). Edit `AGENTS.md`
@@ -49,8 +51,7 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
 - `evals/activation-cases.md` — natural-language behavioral cases (positive, negative, boundary).
 
 `skills/example-minimal/` is the **template contract**: anything required of
-published skills must exist there too, even as a minimal placeholder. The current
-`example-minimal/` violates this (see log entry 3); fixing it is open work.
+published skills must exist there too, even as a minimal placeholder.
 
 ## Canonical `trigger-evals.json` schema
 
@@ -189,11 +190,9 @@ downstream agent sessions; treat skill PRs at production-code review depth
 
 ## See also
 
-- [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) —
-  current maturity assessment (Level 1 across all layers; Stage 0 closed, Stage 1
-  in progress).
-- [`docs/agent-failures.md`](./docs/agent-failures.md) — the log every change to
-  this file must trace back to.
-- [`skills/.experimental/project-agentification/references/empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md)
-  — W1–W10 don'ts that govern when prose vs gates vs evidence-driven scaffolding
-  is the right tool.
+- [`constitution.md`](./constitution.md) — repo charter (purpose + invariants)
+- [`docs/adr/`](./docs/adr/) — architectural decisions (the "why")
+- [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
+- [`docs/agent-failures.md`](./docs/agent-failures.md) — evidence log for new rules/gates
+- [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
+- [`empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md) — W1–W10 guardrails

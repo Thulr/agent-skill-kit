@@ -20,6 +20,24 @@ else
   err "skill.json failed to parse"
 fi
 
+# 1b. skill.json identity fields are resolvable (AGENTS.md Rule 4)
+if python3 - <<'PY' 2>/dev/null; then
+import json, re
+data = json.load(open("skill.json"))
+assert data.get("name") == "project-agentification"
+status = data.get("status")
+assert status in {"draft", "reviewed", "published"}
+maintainers = data.get("maintainers")
+assert isinstance(maintainers, list) and maintainers
+pat = re.compile(r"^@[A-Za-z0-9-]+(?:/[A-Za-z0-9-]+)?$")
+for m in maintainers:
+  assert isinstance(m, str) and pat.match(m), m
+PY
+  ok "skill.json identity fields are valid (status + maintainers)"
+else
+  err "skill.json identity fields invalid (status must be draft/reviewed/published; maintainers must be @handles)"
+fi
+
 # 2. SKILL.md has frontmatter
 if [ -f SKILL.md ] && head -1 SKILL.md | grep -q '^---$'; then
   ok "SKILL.md has frontmatter"

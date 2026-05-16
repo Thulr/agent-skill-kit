@@ -80,6 +80,19 @@ if [[ -f "$skill_json" ]]; then
     draft|reviewed|published) ;;
     *) fail "skill.json: status must be draft/reviewed/published, got $status" ;;
   esac
+  python3 - "$skill_json" <<'PYEOF' || fail "skill.json: maintainers must be resolvable GitHub handles (@user or @org/team)"
+import json, re, sys
+path = sys.argv[1]
+with open(path) as f:
+  data = json.load(f)
+maintainers = data.get("maintainers")
+if not isinstance(maintainers, list) or not maintainers:
+  raise SystemExit("skill.json: maintainers must be a non-empty list")
+pat = re.compile(r"^@[A-Za-z0-9-]+(?:/[A-Za-z0-9-]+)?$")
+for m in maintainers:
+  if not isinstance(m, str) or not pat.match(m):
+    raise SystemExit(f"skill.json: invalid maintainer handle: {m!r}")
+PYEOF
   count=$(jq '.inspired_by | length' "$skill_json")
   (( count > 0 )) || fail "skill.json: inspired_by must be non-empty"
   missing=$(jq -r '.inspired_by | map(select(.name == null or .author == null or .kind == null or .contribution == null)) | length' "$skill_json")

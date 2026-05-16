@@ -1,0 +1,61 @@
+# informed-skills — LLM Index (full)
+#
+# This is a repo for shipping installable "Agent Skills".
+# Treat changes under `skills/`, `skills/.experimental/`, `.agents/skills/`, and
+# `.github/` as release artifacts.
+#
+# Quick start
+# - List installable skills from a local checkout: `npx skills add . --list`
+# - Run all repo gates: `just check`
+#
+# Non-negotiables (see `AGENTS.md` for the full contract)
+# - `just check` must pass before commit/PR.
+# - Path-based gates must enumerate all three install lanes:
+#   - `skills/*`
+#   - `skills/.experimental/*`
+#   - `.agents/skills/*`
+# - Skill schema parity is enforced by each skill's `evals/run-static-checks.sh`.
+# - `AGENTS.md` is hand-curated from `docs/agent-failures.md`; do not autogenerate.
+#
+# Primary entrypoints
+# - `README.md`: overview + install instructions + layout
+# - `constitution.md`: repo charter (purpose + invariants)
+# - `AGENTS.md`: agent instructions for working in this repo
+# - `docs/agent-failures.md`: observed failures; source-of-truth for future rules/gates
+# - `docs/adr/`: architectural decisions (the "why")
+# - `docs/runbooks/`: maintainer procedures (the "how")
+#
+# Repo map
+#
+# Root
+# - `Justfile`: `just check` orchestrator (invoked by contributors and CI)
+# - `.github/workflows/ci.yml`: CI (runs the same core gates as `just check`)
+# - `.github/CODEOWNERS`: required reviewers for release-critical paths
+# - `.claude/settings.json`, `.claude/hooks/*`: Claude Code hooks and tests
+#
+# Skills (the product)
+# - `skills/dx-heuristics/`: reviewed/published skill
+# - `skills/test-heuristics/`: reviewed/published skill
+# - `skills/.experimental/project-agentification/`: experimental skill; still installable
+# - `skills/example-minimal/`: internal template contract (hidden unless
+#   `INSTALL_INTERNAL_SKILLS=1`); kept so new contributors can't template a skill
+#   that bypasses required gates.
+#
+# Skill contract (every skill directory)
+# - `SKILL.md` (YAML frontmatter; < 800 words)
+# - `skill.json` (status, maintainers, inspired_by, etc.)
+# - `evals/run-static-checks.sh` (schema + structure gates)
+# - `evals/trigger-evals.json` (canonical schema; validated, not executed yet)
+# - `evals/activation-cases.md` (behavioral examples)
+#
+# Repo-local authoring skills (not published)
+# - `.agents/skills/skill-curator/`
+# - `.agents/skills/skill-reviewer/`
+#
+# Docs
+# - `docs/agent-failures.md`: failure log (evidence-first workflow)
+# - `docs/agent-readiness-2026-05-15.md`: historical assessment (may be stale)
+# - `docs/specs/`: specs for significant work (new skills, schema changes, new gates)
+# - `docs/adr/`: ADRs (durable decisions)
+# - `docs/runbooks/`: runbooks (durable procedures)
+# - `docs/architecture/`: reference docs / repo maps

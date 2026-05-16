@@ -1,0 +1,19 @@
+{
+  "name": "example-minimal",
+  "description": "Template skill demonstrating this repository layout. Copy or delete after adding real skills.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "draft",
+  "maintainers": ["@Thulr"],
+  "tags": ["template", "example"],
+  "inspired_by": [
+    {
+      "name": "Agent Skills (agentskills.io)",
+      "author": "Anthropic",
+      "kind": "spec",
+      "year": 2025,
+      "contribution": "SKILL.md format with YAML frontmatter; progressive disclosure (~100-token metadata at startup, full instructions on trigger).",
+      "playbooks": ["all"]
+    }
+  ]
+}

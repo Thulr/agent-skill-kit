@@ -1,0 +1,27 @@
+# informed-skills
+#
+# A small, high-signal index for LLMs. Start here, then follow the linked files.
+#
+# Repo purpose
+# - A catalog of installable "Agent Skills" (the product is the skill folders).
+# - Downstream users install via: `npx skills add Thulr/informed-skills`
+#
+# Where to look first
+# - `README.md` (human overview, install, layout)
+# - `constitution.md` (repo charter: purpose + invariants)
+# - `AGENTS.md` (agent instructions; symlinked from `CLAUDE.md` and `.github/copilot-instructions.md`)
+# - `docs/agent-failures.md` (the evidence log that governs changes to AGENTS/hard gates)
+# - `docs/adr/` (architectural decisions: the "why")
+# - `docs/runbooks/` (maintainer procedures: the "how")
+#
+# Key commands
+# - `just check` (must pass before commit/PR; runs all skill static checks across lanes)
+# - `npx skills add . --list` (lists installable skills from a local checkout)
+#
+# Repo layout
+# - `skills/<name>/` published skills (release artifacts)
+# - `skills/.experimental/<name>/` WIP skills (still installable)
+# - `.agents/skills/<name>/` repo-local skills (authoring aids; not published)
+# - `docs/` support docs and working notes
+#
+# If you need more detail, read `llms-full.txt`.

@@ -5,11 +5,31 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   static-checks:
     runs-on: ubuntu-latest
+    container:
+      image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
+      options: --user root
     steps:
-      - uses: actions/checkout@v4
+      - name: Install system deps
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends git jq python3
+          rm -rf /var/lib/apt/lists/*
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: List installable skills
+        shell: bash
+        env:
+          DISABLE_TELEMETRY: "1"
+        run: npx -y skills add . --list
 
       - name: Check instruction-surface symlinks
         shell: bash

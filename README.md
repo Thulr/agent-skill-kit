@@ -89,9 +89,17 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 
 | Path | Purpose |
 |------|---------|
+| `constitution.md` | Repo charter: purpose, non-goals, and invariants |
+| `AGENTS.md` | Hand-curated agent instructions for this repo (also surfaced via `CLAUDE.md` + `.github/copilot-instructions.md` symlinks) |
+| `docs/agent-failures.md` | Log of observed agent failures; source-of-truth for future rules/gates |
+| `docs/specs/` | Specs/plans for significant work (new skills, schema changes, new gates) |
+| `docs/adr/` | Architectural Decision Records (durable “why”) |
+| `docs/runbooks/` | Maintainer procedures (durable “how”) |
+| `docs/architecture/` | Repo structure reference docs / repo maps |
 | `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
 | `skills/example-minimal/` | Optional starter you can delete once real skills exist |
 | `skills/.experimental/<name>/` | Work-in-progress or caveat-heavy skills (still discovered by `npx skills`) |
+| `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |
 | `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |
 
 Skills marked internal in frontmatter (`metadata.internal: true`) are hidden unless `INSTALL_INTERNAL_SKILLS=1` is set when using the CLI.

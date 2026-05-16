@@ -159,6 +159,16 @@ agent-facing role shrinks to "see AGENTS.md."
 - **temporalio/sdk-java** — terse, imperative, single-purpose: three rules, all commands, no
   narrative; copy this as the floor for "minimum viable AGENTS.md."
 
+## Templates
+
+Concrete starting points for the `scaffold` heuristics above. Copy from
+`templates/artifacts/`, fill `<placeholder>` markers, then commit:
+
+- `templates/artifacts/instruction-surface/AGENTS.md` — WHAT/WHY/HOW skeleton (scaffold H1–H4).
+- `templates/artifacts/instruction-surface/README-agents-section.md` — Stage-0 pointer block (scaffold H5).
+- `templates/artifacts/instruction-surface/check-instruction-surface.sh` — symlink-drift static check (harden H2).
+- `templates/artifacts/reflection-log/agent-failures.md` — the substrate Stage 0 lands first (SKILL.md §Bootstrap order).
+
 ## Sources
 
 - "AGENTS.md" — Agentic AI Foundation (Linux Foundation); canonical spec for vendor-neutral

@@ -1,0 +1,54 @@
+# TEMPLATE — CI static-checks job (path-based, all-lanes).
+#
+# Prescribed by gates scaffold H4: CI mirrors hook-layer gates so the
+# constraint holds even when a hook is bypassed or misconfigured. Hook +
+# CI compose (W10 defense-in-depth).
+#
+# Drop into `.github/workflows/ci.yml` (or merge with an existing workflow).
+# Per AGENTS.md Rule 1 (path-based gates enumerate every install lane), the
+# script loop covers all skill / agent-surface lanes the target repo uses.
+# Add lanes when new ones appear.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Instruction-surface drift check (instruction-surface H2-harden).
+      # Keep iff CLAUDE.md / copilot-instructions.md symlinks are in scope.
+      - name: Check instruction-surface symlinks
+        shell: bash
+        run: bash scripts/check-instruction-surface.sh
+
+      # Hook test fixture (gates scaffold H5). Keep iff a PreToolUse hook exists.
+      - name: Test PreToolUse hook
+        shell: bash
+        run: python3 .claude/hooks/test_<hook-filename>.py
+
+      # Per-skill / per-agent-surface static checks (AGENTS.md Rule 1).
+      # The glob list MUST enumerate every install lane the repo uses;
+      # `shopt -s nullglob` makes missing lanes a no-op instead of an error.
+      - name: Run skill static checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          failed=0
+          for script in skills/*/evals/run-static-checks.sh \
+                        skills/.experimental/*/evals/run-static-checks.sh \
+                        .agents/skills/*/evals/run-static-checks.sh; do
+            echo "::group::$script"
+            if ! bash "$script"; then
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $failed

@@ -170,6 +170,21 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
 - **Copilot "explicitly indicate which commands work"** — document failing commands, errors, and
   workarounds alongside working commands so agents skip re-discovering known dead ends.
 
+## Templates
+
+Concrete starting points for the `scaffold` heuristics above. Copy from
+`templates/artifacts/gates/`, fill `<placeholder>` markers, then commit:
+
+- `pretooluse-hook.py` — argv-parsed deny-list skeleton (scaffold H1, H6). Ships with working
+  predicates for `rm`-of-protected-paths and force-push-to-main as examples; delete predicates
+  that don't apply, add new ones from your three-tier table.
+- `pretooluse-hook-test.py` — variant-matrix test fixture (scaffold H5). Required: hook and
+  tests are one scaffold artifact, not two.
+- `claude-settings.json` — hook registration block (Claude Code only; other harnesses use their
+  own registration mechanism — see the per-harness primitives table).
+- `ci-static-checks.yml` — path-based, all-lanes CI workflow snippet (scaffold H4, mirrors the
+  hook layer per W10).
+
 ## Sources
 
 - "Harness Engineering: Leveraging Codex in an Agent-First World" — `--ask-for-approval` as the

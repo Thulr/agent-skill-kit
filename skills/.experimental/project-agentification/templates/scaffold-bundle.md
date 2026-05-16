@@ -28,11 +28,18 @@ If you don't have observed failures yet, stop. Run an agent session against this
 
 ## Proposed files
 
-| Path | Action | Failure closed | Severity | Preview |
-|---|---|---|---|---|
-| <path/AGENTS.md> | create | <failure-id> | <severity> | <expand below> |
-| <path/.claude/skills/foo/SKILL.md> | create | <failure-id> | <severity> | <expand below> |
-| <path/.github/hooks/pretooluse-no-force-push.sh> | create | <failure-id> | <severity> | <expand below> |
+> **Template column required.** Every proposed file should cite a starting
+> template from `templates/artifacts/<sub-surface>/` (see `templates/artifacts/README.md`).
+> If no template fits, name that explicitly in the row — the post-write
+> auditor (step 8.5) treats "no template cited" as a shape-compliance miss
+> unless the writer states why no template applies.
+
+| Path | Action | Failure closed | Severity | Template | Preview |
+|---|---|---|---|---|---|
+| <path/AGENTS.md> | create | <failure-id> | <severity> | `templates/artifacts/instruction-surface/AGENTS.md` | <expand below> |
+| <path/docs/agent-failures.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/agent-failures.md` | <expand below> |
+| <path/.claude/hooks/<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook.py` | <expand below> |
+| <path/.claude/hooks/test_<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook-test.py` | <expand below> |
 
 ## File previews
 

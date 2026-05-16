@@ -129,6 +129,16 @@ AGENTS.md prose for capability-specific workflows.
   repo: YAML frontmatter → skill body → `references/`, `evals/`, `templates/` subdirectories;
   `skill.json` for structured metadata alongside SKILL.md.
 
+## Templates
+
+Concrete starting points for `scaffold` skill metadata. Copy from
+`templates/artifacts/skills/`, fill `<placeholder>` markers:
+
+- `skill.json` — required-fields shape (`name`, `version`, `status`, `license`, `maintainers`,
+  `inspired_by`); enforces AGENTS.md Rule 4 (resolvable handles) in comments.
+- `trigger-evals.json` — canonical schema (`skill`, `version`, `queries[]`) per AGENTS.md
+  Rule 2; every documented field is required (`version` was the gap Copilot caught in PR #5).
+
 ## Sources
 
 - "Agent Skills (agentskills.io)" — canonical open standard; SKILL.md frontmatter schema

@@ -103,7 +103,8 @@ Ten load-bearing don'ts live in `references/empirical-warnings.md` (W1–W10). E
 - `references/core/maturity-rubric.md` — Level 1–5 (Engineering Agents).
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/empirical-warnings.md` — W1–W10 load-bearing don'ts.
-- `templates/*.md` — four intent-specific output templates.
+- `templates/*.md` — four intent-specific output templates (what the skill itself emits).
+- `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.
 - `evals/run-static-checks.sh` — structural / schema gates run in CI.
 - `evals/trigger-evals.json` — queries for the description-optimization loop.

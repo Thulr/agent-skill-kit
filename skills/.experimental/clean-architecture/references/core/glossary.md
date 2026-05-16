@@ -69,6 +69,15 @@ A domain object identified by an identity that persists through state
 changes (a Customer with id 42 is the same Customer after their email
 changes). Entities live inside aggregates.
 
+## Invariant
+
+A rule that must always hold for a piece of state to be valid. The
+aggregate boundary exists to enforce invariants — operations on the
+aggregate must leave its state consistent. "Order total equals sum of
+line item amounts" and "no two reservations overlap for the same
+seat" are typical invariants. Invariants drive aggregate design more
+than the noun structure of the domain.
+
 ## Value object
 
 A domain object identified by the values it carries (a Money(100, USD)
@@ -165,6 +174,15 @@ A piece of behavior that does not naturally belong to a single entity
 or value object — it operates across them. Used only when no single
 aggregate is the right home; otherwise the behavior goes on the
 aggregate root.
+
+## DTO (Data Transfer Object)
+
+A plain object used to carry data across a boundary (typically an
+inbound adapter to a use case, or a use case back to an outbound
+adapter). Carries no behavior of its own. The pattern was named in
+PoEAA (Fowler 2002) for inter-process boundaries but the same shape
+is useful at any layer boundary where the layers should not share
+their internal types.
 
 ## Eventual consistency
 

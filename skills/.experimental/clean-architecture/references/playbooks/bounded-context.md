@@ -90,7 +90,7 @@ Out of scope: tactical patterns inside one context (see
    Introduce an abstraction over the existing data access; swap
    implementations behind the abstraction; the old implementation
    can be removed when no callers remain.
-9. **(refactor) Stop the refactor partway is the safety net.** Every
+9. **(refactor) Stopping the refactor partway is the safety net.** Every
    step should leave the system shippable. If a refactor cannot be
    stopped after step N, redesign the refactor.
 10. **(explain) Bounded contexts are about modeling, not deployment.**

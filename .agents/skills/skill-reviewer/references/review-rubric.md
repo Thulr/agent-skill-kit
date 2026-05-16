@@ -102,6 +102,17 @@ a template.
   never elicits purpose for that activity *and* never says "this
   template covers all purposes." Either the workflow gathers the input
   or the workflow says where the template gets it.
+- **Template enums match the registry (or are explicitly abbreviated).**
+  When a template enumerates values for a routing field (e.g.,
+  `Layer: [unit | integration | snapshot]`), the set must either equal
+  the corresponding registry CSV's layer set OR include an ellipsis
+  (`…` / `...`) signalling non-exhaustive. An exhaustive-looking enum
+  that silently drifts from the CSV (e.g., CSV gains a `mutation` row
+  but the template still lists 7 layers without it) lets the agent
+  fill in the wrong value or omit the routed layer entirely. CI can
+  detect this by parsing the enum bracket and comparing against the
+  CSV's first column for the activity bound to that template by the
+  router's `default_template` column.
 - **Load-bearing markers match section headers.** A `<!-- Load-bearing
   section: X -->` comment in a template names a real `## X` heading in that
   same file. Renaming the heading without updating the marker (or vice

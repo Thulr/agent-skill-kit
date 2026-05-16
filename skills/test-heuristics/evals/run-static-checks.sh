@@ -248,6 +248,55 @@ for layer in $all_layers; do
   (( ref_count > 0 )) || fail "layer playbook $layer.md is not referenced by any activity CSV (orphan)"
 done
 
+# ----- Template Layer-enum drift gate -----
+# Templates may enumerate layer choices in a `**Layer:** [a | b | c]` line.
+# If the enum is exhaustive (no `…`/`...` ellipsis), it must equal the layer
+# set in the corresponding activity's CSV. Templates with ellipsis are
+# treated as abbreviated and skipped (the writer signals non-exhaustive).
+# Activity is resolved via activity-router.csv's default_template column.
+
+if [[ -f "$activity_router" ]]; then
+  # Build a template -> activity map from the router.
+  while IFS=, read -r activity _name _when _registry tpl; do
+    [[ "$activity" == "activity" ]] && continue
+    [[ -z "$activity" || -z "$tpl" ]] && continue
+    tpl_path="$skill_dir/$tpl"
+    [[ -f "$tpl_path" ]] || continue
+    enum_line=$(grep -m1 -E '^\*\*Layer:\*\*[[:space:]]*\[' "$tpl_path" || true)
+    [[ -z "$enum_line" ]] && continue
+    # Skip if the enum is abbreviated (contains ellipsis).
+    case "$enum_line" in
+      *…*|*"..."*) continue ;;
+    esac
+    # Extract the bracket content, split on `|`.
+    enum=$(printf '%s' "$enum_line" | sed -E 's/.*\[([^]]+)\].*/\1/')
+    enum_set=""
+    IFS='|' read -ra parts <<< "$enum"
+    for p in "${parts[@]}"; do
+      v=$(printf '%s' "$p" | tr -d '[:space:]')
+      [[ -n "$v" ]] && enum_set+="$v "
+    done
+    # Layer set from the activity CSV.
+    csv="$skill_dir/references/activities/$activity.csv"
+    [[ -f "$csv" ]] || continue
+    csv_layers=$(awk -F, 'NR>1 && !/^#/ && NF>0 {print $1}' "$csv" | tr '\n' ' ')
+    # Compare both directions.
+    for v in $enum_set; do
+      case " $csv_layers " in
+        *" $v "*) ;;
+        *) fail "$(basename "$tpl_path") Layer enum lists '$v' but $activity.csv has no row for it (drift; add to CSV or use '…' to mark non-exhaustive)" ;;
+      esac
+    done
+    for v in $csv_layers; do
+      [[ "$v" == "all" ]] && continue
+      case " $enum_set " in
+        *" $v "*) ;;
+        *) fail "$(basename "$tpl_path") Layer enum is exhaustive but missing '$v' which appears in $activity.csv (add to enum or use '…' to mark non-exhaustive)" ;;
+      esac
+    done
+  done < "$activity_router"
+fi
+
 # ----- Activation-cases unambiguous-section gate -----
 # Items inside "should NOT activate" sections must not contain "may activate"
 # or "could activate" hedges (those belong in the boundary/ambiguous section).

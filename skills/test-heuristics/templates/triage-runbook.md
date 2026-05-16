@@ -1,7 +1,7 @@
 # Triage Runbook
 
 **Test:** `path/to/test_file::test_name`
-**Layer:** [unit | integration | e2e-ui | property-based | contract | snapshot | performance]
+**Layer:** [unit | integration | …]
 **Symptom:** [failing | flaky | slow]
 **Persona:** on-call engineer
 

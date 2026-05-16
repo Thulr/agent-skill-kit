@@ -180,6 +180,24 @@ stable, well-documented protocol that any downstream can consume.
 Often paired with a *published language* so the protocol is the
 contract, not the upstream's internal model.
 
+## Package principles (REP, CCP, CRP, ADP, SDP, SAP)
+
+Six principles that operationalize the dependency rule at package
+scope. Cohesion: REP (Reuse-Equivalence — packages are units of reuse),
+CCP (Common-Closure — classes that change together belong together),
+CRP (Common-Reuse — classes reused together belong together).
+Coupling: ADP (Acyclic-Dependencies — no cycles between packages), SDP
+(Stable-Dependencies — depend in the direction of stability), SAP
+(Stable-Abstractions — stable packages should be abstract).
+
+## Parallel-change
+
+A refactoring pattern (also called *expand-contract*): introduce the
+new shape alongside the old, migrate callers one at a time, then
+remove the old. Distinct from branch-by-abstraction in that the old
+and new shapes coexist as public API during the migration window
+rather than being hidden behind a single abstraction.
+
 ## Repository
 
 A pattern from PoEAA: an outbound port that mediates between the

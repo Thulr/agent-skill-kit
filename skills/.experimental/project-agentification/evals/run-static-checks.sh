@@ -46,16 +46,21 @@ for csv in references/intent-router.csv references/layer-router.csv; do
 done
 
 # 5. Every playbook referenced in layer-router.csv exists
+# Use python csv module to parse properly (handles quoted comma-containing values)
 if [ -f references/layer-router.csv ]; then
-  # Column 4 expected to be the playbook path (relative to references/)
-  tail -n +2 references/layer-router.csv | awk -F',' '{print $4}' | while read -r path; do
+  while IFS= read -r path; do
     [ -z "$path" ] && continue
     if [ -f "references/$path" ]; then
       ok "playbook present: references/$path"
     else
       err "playbook missing: references/$path"
     fi
-  done
+  done < <(python3 -c "
+import csv
+with open('references/layer-router.csv') as f:
+    for row in csv.DictReader(f):
+        print(row['playbook'])
+")
 fi
 
 # 6. Templates exist

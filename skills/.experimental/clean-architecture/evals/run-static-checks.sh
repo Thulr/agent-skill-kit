@@ -234,9 +234,11 @@ if [[ -f "$skill_json" ]]; then
   done < <(jq -r '.inspired_by[].playbooks[]?' "$skill_json")
 fi
 
-# ----- trigger-evals.json schema gate -----
+# ----- trigger-evals.json gate -----
+# trigger-evals.json is required: presence + schema + skill-name match.
 
 trigger_evals="$skill_dir/evals/trigger-evals.json"
+check_file "$trigger_evals"
 if [[ -f "$trigger_evals" ]]; then
   python3 "$repo_root/scripts/validate-against-schema.py" \
     "$repo_root/schemas/trigger-evals.schema.json" "$trigger_evals" \

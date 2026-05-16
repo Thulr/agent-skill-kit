@@ -43,8 +43,10 @@ same: if an inward arrow exists, the architecture leaks.
    in step 5.
 4. **Identify the target developer persona** from
    `references/core/personas.md`. Load `references/core/glossary.md`
-   to disambiguate terminology before applying the playbook.
-5. **Spawn sub-agents in parallel (default for `audit`).** Single-surface:
+   to disambiguate terminology before applying the playbook. For
+   surface = `all`, do this at synthesis only; spawned surface agents
+   load their own copies.
+5. **Spawn sub-agents in parallel (default for `audit`; see Subagent dispatch below for other intents).** Single-surface:
    delegate one lens per agent — dependency-auditor, boundary-designer,
    refactor-pragmatist. Audit + `all`: delegate one surface per agent;
    each runs the three lenses sequentially inside itself. See
@@ -54,7 +56,7 @@ same: if an inward arrow exists, the architecture leaks.
    intent. For `audit`, score the surface 0–10 using
    `references/core/score-rubric.md`; for `design`, name the good-shaped
    pattern; for `refactor`, sequence steps with safety nets; for
-   `explain`, ground the explanation in the playbook's references. If
+   `explain`, ground the explanation in the playbook's `## Grounding` section. If
    sub-agents ran, synthesize their findings here.
 7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
    every finding or risk.
@@ -87,7 +89,7 @@ Every output includes:
 Independent perspectives catch issues a single pass misses. **Default for
 `audit`.** Preferred for `design` when comparing trade-offs. Optional for
 `refactor` when ranking sequencing. Skip for tiny explanations,
-deterministic file checks, or tasks needing secrets / live production.
+deterministic checks, or tasks needing secrets / live production.
 
 Spawn three sub-agents — one per lens: **dependency-auditor**,
 **boundary-designer**, **refactor-pragmatist** — in parallel. Some hosts
@@ -114,9 +116,7 @@ the parallelism.
   context" vs "layer" vs "module" vs "context" before playbook content.
 - `templates/*.md` — four intent-specific output templates plus the
   audit-multi template for surface = `all`.
-- `evals/activation-cases.md` — activation and behavioral cases (positive,
-  negative, edge).
+- `evals/activation-cases.md` — activation cases (positive, negative, edge).
 - `evals/run-static-checks.sh` — structural and schema gates run in CI.
-- `evals/trigger-evals.json` — queries for the description-optimization
-  loop.
+- `evals/trigger-evals.json` — queries for description-optimization.
 - `skill.json` — provenance, grounding sources, version, status.

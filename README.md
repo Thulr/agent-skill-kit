@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="./docs/informed-skills.png" alt="informed-skills — Agent Skills distilled from books and papers" width="800">
+</p>
+
 # informed-skills
 
-A collection of [Agent Skills](https://agentskills.io) grounded in real books, papers, and research — original work, forks, and experiments — installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
-
-An *informed heuristic* uses domain knowledge to estimate more accurately than a blind rule of thumb. Every skill here cites its source so you can check the work.
+**[Agent Skills](https://agentskills.io) with citations.** An *informed heuristic* uses domain knowledge to estimate more accurately than a blind rule of thumb — every skill here cites the books, papers, and research it's grounded in, so you can check the work. Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
 
 ## Skills
 
@@ -16,6 +18,20 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill dx-heuristics
+```
+
+### project-agentification (experimental)
+
+Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).
+
+Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × sub-surface (10 across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research and empirical studies (full provenance in [`skills/.experimental/project-agentification/skill.json`](./skills/.experimental/project-agentification/skill.json)).
+
+> **Experimental.** The research domain is moving quickly; expect iteration. Lives under `skills/.experimental/` and is still discovered by `npx skills`.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill project-agentification
 ```
 
 ## Install

@@ -226,6 +226,31 @@ for layer in $all_layers; do
   (( ref_count > 0 )) || fail "layer playbook $layer.md is not referenced by any activity CSV (orphan)"
 done
 
+# ----- Activation-cases unambiguous-section gate -----
+# Items inside "should NOT activate" sections must not contain "may activate"
+# or "could activate" hedges (those belong in the boundary/ambiguous section).
+# Symmetric check on positive sections for "may NOT activate".
+
+activation_md="$skill_dir/evals/activation-cases.md"
+if [[ -f "$activation_md" ]]; then
+  awk '
+    BEGIN { section = "" }
+    /^## .*NOT activate/ { section = "negative"; next }
+    /^## .*should activate/ { section = "positive"; next }
+    /^## .*[Bb]oundary/ { section = "boundary"; next }
+    /^## / { section = "other"; next }
+    section == "negative" && /may activate|could activate|might activate/ {
+      printf "FAIL activation-cases.md line %d: \"may/could/might activate\" inside NOT-activate section — move to boundary or rewrite as non-activating\n", NR > "/dev/stderr"
+      bad = 1
+    }
+    section == "positive" && /may not activate|could fail to|might not activate/ {
+      printf "FAIL activation-cases.md line %d: \"may not activate\" inside should-activate section — move to boundary or rewrite as activating\n", NR > "/dev/stderr"
+      bad = 1
+    }
+    END { exit bad }
+  ' "$activation_md" || failures=$((failures + 1))
+fi
+
 # ----- Description-claims-to-registry coverage -----
 # If SKILL.md description (frontmatter) names a layer by its basename, the layer
 # must be routable from at least one activity CSV. Catches the class of bug

@@ -17,7 +17,6 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
 
 ## Negative — should NOT activate (these belong to other skills)
 
-- "write a unit test for this function" with no quality concern → may activate; but a basic implementation request is fine for the model alone if the user doesn't ask for review.
 - "set up jest in my repo" → tooling/setup; closer to dx-heuristics' `setup` playbook.
 - "explain how mocking works in pytest" → general programming question; no quality review needed.
 - "deploy this code to staging" → not testing.
@@ -28,6 +27,7 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
 - "fix this failing test" → could be triage (the test is wrong) or could be a SUT bug. Ask: "is the test wrong or is the code wrong?" If unsure, default to triage flow.
 - "improve my tests" → ask: which layer, and what improvement (clarity / coverage / cost)?
 - "review my testing" → ask: which layer? offer `all` as an option.
+- "write a unit test for this function" with no quality concern → the model can usually handle a plain implementation request alone. Activate only if the user adds a quality intent ("good", "robust", "well-designed", "review the test after").
 
 ## Lens-specific cases
 

@@ -45,6 +45,12 @@ Score each category as pass, fix, or block.
 - Reused or risky behavior has activation and scenario evals.
 - Validation instructions are realistic and runnable.
 - Templates do not contain unresolved placeholders in published/reviewed status.
+- **Activation-case sections are unambiguous.** Items in "should activate"
+  do not carry "may not activate" hedges; items in "should NOT activate" do
+  not carry "may activate" caveats. Hedged cases belong in a boundary /
+  ambiguous section with explicit clarifying-question guidance, not in the
+  binary positive/negative lists. A static check can grep for hedge words
+  inside the wrong-polarity section.
 
 ## Internal Consistency
 

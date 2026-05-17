@@ -35,6 +35,16 @@ Out of scope: layer mechanics (see `boundaries.md`), domain modeling
   visibility, lint rules, archunit/dependency-cruiser).
 - Cycle count between top-level modules is zero.
 
+## Agentification note
+
+If coding agents work in the repo, treat dependency direction as a **gate**, not a guideline:
+
+- Keep the boundary model human-legible (layers/modules + allowed import directions).
+- Enforce it structurally (arch tests / lint rules) as a CI-required check, so violations are
+  caught deterministically even when the agent’s coupling reasoning degrades under noise.
+- See `skills/.experimental/project-agentification/references/playbooks/gates.md` for the
+  enforcement pattern (“hard gates over soft prose”).
+
 ## Common failures
 
 - A domain entity imports its ORM annotations from a framework package.

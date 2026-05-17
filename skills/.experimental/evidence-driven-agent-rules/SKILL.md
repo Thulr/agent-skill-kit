@@ -144,6 +144,7 @@ live in the shared `references/empirical-warnings.md` (symlink to
 - `references/empirical-warnings.md` — symlink to shared W2–W10.
 - `references/lenses.md` — symlink to shared four-lens parallel
   dispatch.
+- `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement (used when promoting boundary-violation patterns into gates).
 - `references/core/maturity-rubric.md` — Levels 4–5 (extends
   `project-agentification`'s Levels 1–3).
 - `references/playbooks/reflection-log.md` — the only sub-surface this

@@ -15,6 +15,9 @@ Foundation in December 2025, alongside Block's Goose.
 - **Context budget.** Stuffing tool definitions into the system prompt inflated context windows
   to 150,000+ tokens. MCP moves tool defs outside the window; agents "think in code" and call
   MCP APIs. Real-world tests show a 98.7% reduction — from 150,000 to 2,000 tokens. (W6)
+- **Structure as data, not prose.** Repo structure maps (build/test graphs, dependency graphs,
+  module maps) should be exposed as MCP **resources** with machine-readable schemas. Agents can
+  treat them as ground truth instead of re-deriving structure from raw code and docs.
 - **Hard gates, not prose.** Tool schemas enforce action boundaries AGENTS.md prose cannot. A
   schema that omits a `force` flag makes force-push structurally inexpressible; AGENTS.md says
   "don't" and the agent complies ~70% of the time. (W3)
@@ -136,6 +139,8 @@ Foundation in December 2025, alongside Block's Goose.
 - "Effective Context Engineering for AI Agents" — token-budget framing (W6); on-demand vs.
   always-loaded tool definitions; smallest-high-signal-token principle; dynamic discovery at
   agent connect time.
+- "Repository Intelligence Graph (RIG)" — shows the value of exposing deterministic repository
+  structure as an LLM-friendly JSON view that agents can treat as authoritative.
 - "OWASP LLM and Agent Top 10" — prompt injection, tool abuse, privilege escalation, and data
   exfiltration as primary threat model; least-privilege tool surfaces; sandbox isolation baseline;
   approval classes by action type.

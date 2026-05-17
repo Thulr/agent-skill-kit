@@ -9,8 +9,12 @@ ingestion companion), the canonical `docs/` tree (`docs/specs/`, `docs/adr/`, `d
 `docs/architecture/`), `ATTRIBUTION.md` (YAML-frontmatter block that agents parse for licensing
 and attribution requirements of ingested code), and Aider-style AST repo maps generated via
 Tree-sitter → dependency graph → PageRank → binary-search token budget (target 1024–2048 tokens
-for a whole-repo map). Together these surfaces let an agent answer "where is this?" and "what
-does this repo look like?" in a single, token-efficient pass rather than an open-ended crawl.
+for a whole-repo map). When available, this surface also includes deterministic repo structure
+graphs (build/test graphs and/or repo-level code graphs) exposed as machine-readable artifacts
+the agent can treat as ground truth.
+
+Together these surfaces let an agent answer "where is this?" and "what does this repo look like?"
+in a single, token-efficient pass rather than an open-ended crawl.
 
 ## Why it matters for agents
 
@@ -27,6 +31,9 @@ does this repo look like?" in a single, token-efficient pass rather than an open
 - **AST repo maps let agents reason globally within a fixed token budget.** PageRank-weighted
   symbol graphs surface the highest-centrality files without loading every source file; the
   binary-search budget cap (1024–2048 tokens) keeps map cost predictable regardless of repo size.
+- **Deterministic structure graphs shift failures away from “repo archaeology”.** When agents
+  can rely on a ground-truth build/test/dependency map, they spend less time rediscovering
+  structure and more time reasoning about the actual task.
 
 ## Heuristics by intent
 
@@ -133,6 +140,10 @@ does this repo look like?" in a single, token-efficient pass rather than an open
 
 - "Aider Repo Map (Tree-sitter + PageRank)" — Tree-sitter AST parsing, directed dependency graph,
   PageRank centrality scoring, 10x prompt-mention weight boost, binary-search token-budget cap.
+- "Repository Intelligence Graph (RIG)" — deterministic build/test/dependency structure map exposed
+  as an LLM-friendly JSON view (ground-truth repo structure rather than rediscovered heuristics).
+- "RepoGraph" — repository-level code graph used as navigation/retrieval structure for repo-scale
+  tasks.
 - "Effective Context Engineering for AI Agents" — smallest-high-signal-token principle; token
   budget as dominant scarcity (W6); always-loaded vs on-trigger vs on-demand load classification.
 - "AGENTS.md" — `docs/specs/`, `docs/adr/`, `docs/runbooks/`, `docs/architecture/` as canonical

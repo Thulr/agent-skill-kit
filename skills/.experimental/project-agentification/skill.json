@@ -119,6 +119,104 @@
       "playbooks": ["docs-index"]
     },
     {
+      "name": "Repository Intelligence Graph: Deterministic Architectural Map for LLM Code Assistants",
+      "author": "Tsvi Cherny-Shahar, Amiram Yehudai",
+      "kind": "paper",
+      "year": 2026,
+      "arxiv": "2601.10112",
+      "contribution": "Shows that giving agents a deterministic build/test/dependency structure map (LLM-friendly JSON) improves mean accuracy and reduces completion time; shifts failures from structural misunderstandings toward reasoning over correct structure.",
+      "playbooks": ["docs-index", "tools"]
+    },
+    {
+      "name": "RepoGraph: Enhancing AI Software Engineering with Repository-level Code Graph",
+      "author": "Siru Ouyang et al.",
+      "kind": "paper",
+      "year": 2025,
+      "arxiv": "2410.14684",
+      "contribution": "Repo-level code graphs used as repository-wide navigation improve repo-scale coding performance (e.g., SWE-bench).",
+      "playbooks": ["docs-index"]
+    },
+    {
+      "name": "CodePlan: Repository-level Coding using LLMs and Planning",
+      "author": "Ramakrishna Bairi et al.",
+      "kind": "paper",
+      "year": 2023,
+      "arxiv": "2309.12499",
+      "contribution": "Frames repository-level coding as a planning problem; uses incremental dependency analysis and change impact analysis to sequence multi-file edits with validity checks.",
+      "playbooks": ["specs"]
+    },
+    {
+      "name": "What You See Is What It Does: A Structural Pattern for Legible Software",
+      "author": "Eagon Meng, Daniel Jackson",
+      "kind": "paper",
+      "year": 2025,
+      "arxiv": "2508.14511",
+      "contribution": "Argues that LLM coders motivate structural patterns that support incrementality, integrity, and transparency via independent concepts and declarative synchronizations.",
+      "playbooks": ["specs", "docs-index"]
+    },
+    {
+      "name": "On the Criteria To Be Used in Decomposing Systems into Modules",
+      "author": "D. L. Parnas",
+      "kind": "paper",
+      "year": 1972,
+      "doi": "10.1145/361598.361623",
+      "contribution": "Frames modules as responsibility assignments and argues for information-hiding decomposition; motivates partitioning multi-agent work along stable interfaces and likely-to-change decisions.",
+      "playbooks": ["specs", "gates"]
+    },
+    {
+      "name": "Design Rules: The Power of Modularity (Volume 1)",
+      "author": "Carliss Y. Baldwin, Kim B. Clark",
+      "kind": "book",
+      "year": 2000,
+      "contribution": "Formalizes design rules (stable decisions like interfaces/APIs/standards) that decouple subordinate decisions; supports parallel work by keeping design rules stable and modules independent beneath them.",
+      "playbooks": ["specs", "gates"]
+    },
+    {
+      "name": "Design Rule Hierarchies and Parallelism in Software Development Tasks",
+      "author": "Sunny Wong, Yuanfang Cai, Giuseppe Valetto, Georgi Simeonov, Kanwarpreet Sethi",
+      "kind": "paper",
+      "year": 2009,
+      "doi": "10.1109/ASE.2009.53",
+      "contribution": "Shows a design-rule hierarchy can predict which modules are parallelizable (same layer) vs coordination-heavy (cross-layer dependencies); motivates multi-agent work partitioning by dependency layers.",
+      "playbooks": ["specs", "gates"]
+    },
+    {
+      "name": "Exploring the duality between product and organizational architectures: A test of the “mirroring” hypothesis",
+      "author": "Alan MacCormack, Carliss Baldwin, John Rusnak",
+      "kind": "paper",
+      "year": 2012,
+      "doi": "10.1016/j.respol.2012.04.011",
+      "contribution": "Finds strong evidence that loosely-coupled organizations tend to produce more modular architectures; supports designing for loosely-coupled multi-agent contributions via explicit contracts and modularity.",
+      "playbooks": ["gates", "governance"]
+    },
+    {
+      "name": "Splitting the Organization and Integrating the Code: Conway’s Law Revisited",
+      "author": "James D. Herbsleb, Rebecca E. Grinter",
+      "kind": "paper",
+      "year": 1999,
+      "doi": "10.1145/302405.302455",
+      "contribution": "Case study of geographically distributed development showing integration is often the hardest phase; supports investing in explicit interface contracts and integration/CI surfaces when work is split across agents or sites.",
+      "playbooks": ["gates", "specs"]
+    },
+    {
+      "name": "Hierarchical Evaluation of Software Design Capabilities of Large Language Models of Code",
+      "author": "Mootez Saad et al.",
+      "kind": "paper",
+      "year": 2025,
+      "arxiv": "2511.20933",
+      "contribution": "Finds coupling reasoning is brittle under noise in open-ended scenarios; motivates enforcing architectural boundaries with structural checks (lints/tests/CI) rather than relying on agent reasoning.",
+      "playbooks": ["gates"]
+    },
+    {
+      "name": "Graph of Skills: Dependency-Aware Structural Retrieval for Massive Agent Skills",
+      "author": "Dawei Liu et al.",
+      "kind": "paper",
+      "year": 2026,
+      "arxiv": "2604.05333",
+      "contribution": "Shows dependency-aware structural retrieval for large skill libraries improves reward while reducing tokens; motivates structure-aware progressive disclosure at scale.",
+      "playbooks": ["skills"]
+    },
+    {
       "name": "SLSA Framework",
       "author": "OpenSSF",
       "kind": "guide",

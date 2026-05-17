@@ -64,7 +64,11 @@ Three coupled changes:
    failure (`YYYY-MM-DD-<slug>.md`) with frontmatter (`date`, `harness`,
    `sub-surface`, `severity`, `status`, `related`) plus a `README.md` index
    that carries the recording-bar callout. Pattern detection becomes
-   `grep -l 'sub-surface: <name>' *.md` instead of scanning a giant table.
+   `grep -l 'sub-surface: <name>' [0-9]*.md` instead of scanning a giant
+   table. (The `[0-9]*` glob scopes to dated entry files; the unanchored
+   `*.md` form double-counts by also matching `README.md` and
+   `_template.md`, which contain the same literal strings in their
+   schema docs.)
    Source (Engineering Agents) does not prescribe shape, so this is a free
    design choice; matches postmortem culture (Google SRE, Microsoft's
    [triage-and-improvement-playbook](https://github.com/microsoft/triage-and-improvement-playbook)).

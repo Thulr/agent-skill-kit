@@ -143,9 +143,11 @@ this repo:
    / recurring?" at recording time — that filter belongs at the promotion
    step (below), not here. When in doubt: record.
 3. **Promote when there's a pattern.** Three or more entries describing the
-   same gap (use `grep -l 'sub-surface: gates' docs/reflection-log/*.md` to
-   find them) → open an issue tagged `agent-surface` and propose the smallest
-   change (rule here, hook, CI gate, or skill edit) that closes it.
+   same gap (use `grep -l 'sub-surface: gates' docs/reflection-log/[0-9]*.md`
+   to find them — the `[0-9]*` glob scopes to dated entry files and excludes
+   `README.md` / `_template.md`, which otherwise inflate the count) → open
+   an issue tagged `agent-surface` and propose the smallest change (rule
+   here, hook, CI gate, or skill edit) that closes it.
 4. Reference the entry filename in the commit message that closes the gap;
    set the entry's `status:` to `resolved` and fill `## Closed by`.
 

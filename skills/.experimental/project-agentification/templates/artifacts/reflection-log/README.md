@@ -71,11 +71,17 @@ this repo:
 The directory layout makes pattern detection a shell one-liner — no manual
 table scan.
 
-- By sub-surface: `grep -l 'sub-surface: gates' *.md`
-- By harness: `grep -l 'harness: claude-code' *.md`
-- Open entries: `grep -l 'status: open' *.md`
-- Date-ordered list: `ls *.md` (filenames sort chronologically)
-- Entries citing a related entry: `grep -l 'related:.*<slug>' *.md`
+All examples scope the glob to `[0-9]*.md` — entry filenames start with a
+date (`YYYY-MM-DD-…`), so the `[0-9]*` glob picks them up while excluding
+`README.md` and `_template.md`, which both contain literal `sub-surface:`,
+`harness:`, and `status:` strings in the schema docs and would otherwise
+inflate any count.
+
+- By sub-surface: `grep -l 'sub-surface: gates' [0-9]*.md`
+- By harness: `grep -l 'harness: claude-code' [0-9]*.md`
+- Open entries: `grep -l 'status: open' [0-9]*.md`
+- Date-ordered list: `ls [0-9]*.md` (filenames sort chronologically)
+- Entries citing a related entry: `grep -l 'related:.*<slug>' [0-9]*.md`
 
 **Three or more entries with the same `sub-surface:` tag (or the same
 underlying gap, even across sub-surfaces) = pattern.** Open an issue
@@ -107,8 +113,7 @@ related: []                   # list of other entry filenames (without .md), or 
 
 ## Index
 
-Filename order = chronological order. To get a table view:
-`ls -1 *.md | grep -v -e README -e _template`.
+Filename order = chronological order. To get a table view: `ls -1 [0-9]*.md`.
 
 ## See also
 

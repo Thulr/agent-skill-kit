@@ -38,6 +38,20 @@ Install just this skill:
 npx skills add Thulr/informed-skills --skill test-heuristics
 ```
 
+### clean-architecture (experimental)
+
+Audit, design, refactor toward, or explain clean-architecture concerns — dependency rule, layered/hexagonal/onion boundaries, DDD tactical and strategic patterns, cross-cutting concerns. Language-agnostic, full-stack-friendly (frontend grounding is thinner than backend — flagged in playbooks).
+
+Routes by intent (`audit` / `design` / `refactor` / `explain`) × surface (`dependency-rule` / `boundaries` / `domain-model` / `bounded-context` / `cross-cutting`); `audit` also supports an `all`-fanout that spawns one agent per surface. Three reviewer lenses run in parallel (dependency-auditor, boundary-designer, refactor-pragmatist) and the host synthesizes them. Grounded in 17 sources spanning Parnas → Cockburn → Palermo → Martin → Evans → Vernon → Fowler → Newman → Khononov → Hohpe & Woolf → Ousterhout + Flux/Elm (full provenance in [`skills/.experimental/clean-architecture/skill.json`](./skills/.experimental/clean-architecture/skill.json)).
+
+> **Experimental.** Opinionated terrain; school disagreements (Uncle Bob critics, DDD purist vs pragmatist) surfaced explicitly rather than smoothed over. Lives under `skills/.experimental/` and is still discovered by `npx skills`.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill clean-architecture
+```
+
 ### project-agentification (experimental)
 
 Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).

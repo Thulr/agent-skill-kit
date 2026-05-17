@@ -37,7 +37,9 @@ If you don't have observed failures yet, stop. Run an agent session against this
 | Path | Action | Failure closed | Severity | Template | Preview |
 |---|---|---|---|---|---|
 | <path/AGENTS.md> | create | <failure-id> | <severity> | `templates/artifacts/instruction-surface/AGENTS.md` | <expand below> |
-| <path/docs/agent-failures.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/agent-failures.md` | <expand below> |
+| <path/docs/reflection-log/README.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/README.md` | <expand below> |
+| <path/docs/reflection-log/_template.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/_template.md` | <expand below> |
+| <path/docs/reflection-log/YYYY-MM-DD-<slug>.md> | create | <failure-id> | <severity> | `templates/artifacts/reflection-log/_template.md` | one file per observed failure (one entry, one file) |
 | <path/.claude/hooks/<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook.py` | <expand below> |
 | <path/.claude/hooks/test_<hook>.py> | create | <failure-id> | <severity> | `templates/artifacts/gates/pretooluse-hook-test.py` | <expand below> |
 

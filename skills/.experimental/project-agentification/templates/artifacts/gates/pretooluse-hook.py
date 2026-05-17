@@ -6,8 +6,9 @@ regex-on-string. Reads the tool-use payload from stdin. Exits 2 to block
 with a message the model will see; exits 0 to allow.
 
 Implementation shape — this template is hardened against the bypass family
-logged in `docs/agent-failures.md` entries 7, 8, and 9 of any repo that has
-tracked them. Categories covered:
+logged in `docs/reflection-log/` (per-entry files dated to when each round
+of bypasses was discovered; canonical examples in this repo are the
+`2026-05-16-hook-*-bypasses-round{1,2,3}.md` entries). Categories covered:
   - Real newlines pre-processed into `;` outside quotes (multi-line
     commands count as compound statements).
   - Command substitutions (`$(...)`, backticks, `<(...)`, `>(...)`)

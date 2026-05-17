@@ -6,10 +6,12 @@ The published skills here ARE the product; downstream consumers install them via
 `.github/` as a release artifact, not internal scaffolding.
 
 This file is hand-curated from observed agent failures recorded in
-[`docs/agent-failures.md`](./docs/agent-failures.md). Do **not** autogenerate it
+[`docs/reflection-log/`](./docs/reflection-log/) (one file per failure;
+indexed by `docs/reflection-log/README.md`). Do **not** autogenerate it
 (`/init`, `/Generate Cursor Rules`, etc. — see W1 in the project-agentification
-empirical-warnings doc). Every load-bearing rule below traces back to a log entry
-or a recurring real failure; if you want to add a rule, log the failure first.
+empirical-warnings doc). Every load-bearing rule below traces back to a
+reflection-log entry or a recurring real failure; if you want to add a rule,
+log the failure first.
 
 Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
 
@@ -88,16 +90,16 @@ now, not yet executed.
 
 ## Load-bearing rules
 
-Each rule traces back to a log entry in `docs/agent-failures.md`:
+Each rule traces back to a reflection-log entry in `docs/reflection-log/`:
 
-### Rule 1 — Path-based gates enumerate every install lane (log entry 1)
+### Rule 1 — Path-based gates enumerate every install lane (`docs/reflection-log/2026-05-15-justfile-glob-missed-dotfile-lane.md`)
 Any glob, CI matrix, ignore pattern, or hook that operates on skills MUST
 cover `skills/*`, `skills/.experimental/*`, and `.agents/skills/*`.
 The Justfile glob silently skipping `.experimental/` for weeks is the
 canonical example. When adding a gate, verify it picks up at least one skill
 in each lane.
 
-### Rule 2 — Cross-skill schema parity (log entry 2)
+### Rule 2 — Cross-skill schema parity (`docs/reflection-log/2026-05-15-trigger-evals-schema-drift.md`)
 Canonical schemas for `skill.json` and `evals/trigger-evals.json` live under
 [`schemas/`](./schemas/) as JSON Schema files. Every skill's
 `run-static-checks.sh` validates against them via
@@ -114,33 +116,44 @@ checked (caught in PR #5 review), and the maintainer-handle validator was
 copy-pasted across four `run-static-checks.sh` scripts (caught in PR #7
 review). The second occurrence triggered the extraction to `schemas/`.
 
-### Rule 3 — `example-minimal` is the template contract (log entry 3)
+### Rule 3 — `example-minimal` is the template contract (`docs/reflection-log/2026-05-15-example-minimal-missing-evals-dir.md`)
 Whatever published skills are required to have, `example-minimal` must
 have too — even as an empty placeholder. New contributors copy from
 `example-minimal`; if it skips a gate, every skill templated from it skips
 that gate.
 
-### Rule 4 — Identity fields are resolvable handles (log entry 4)
+### Rule 4 — Identity fields are resolvable handles (`docs/reflection-log/2026-05-15-codeowners-opaque-maintainer-handle.md`)
 `skill.json` `maintainers` (and any future `contributors`) entries match
 `^@[A-Za-z0-9-]+$` or `^@[A-Za-z0-9-]+/[A-Za-z0-9-]+$` (GitHub teams). Opaque
 strings like `"justin"` are static-check failures: they cannot be resolved
 to a reviewer for CODEOWNERS or branch-protection automation.
 
-## Failure-log workflow
+## Reflection-log workflow
 
 When an agent (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider) trips on
 this repo:
 
-1. Append a row to [`docs/agent-failures.md`](./docs/agent-failures.md) — date,
-   harness, task, what happened, smallest gap.
-2. **Three or more entries describing the same gap** = pattern. Open an issue
-   tagged `agent-surface` and propose the smallest change (rule here, hook,
-   CI gate, or skill edit) that closes it.
-3. Reference the log row in the commit message that closes the gap.
+1. **Record it.** Copy `docs/reflection-log/_template.md` to
+   `docs/reflection-log/YYYY-MM-DD-<slug>.md` and fill it in — frontmatter
+   (`date`, `harness`, `sub-surface`, `severity`, `status`, `related`),
+   `## What happened`, `## What to do differently`, `## Closed by`.
+2. **The recording bar is low.** If you can write a non-trivial
+   `## What to do differently` section, the entry is worth recording. One
+   observation is enough. Do **not** filter on "is this a class / pattern
+   / recurring?" at recording time — that filter belongs at the promotion
+   step (below), not here. When in doubt: record.
+3. **Promote when there's a pattern.** Three or more entries describing the
+   same gap (use `grep -l 'sub-surface: gates' docs/reflection-log/*.md` to
+   find them) → open an issue tagged `agent-surface` and propose the smallest
+   change (rule here, hook, CI gate, or skill edit) that closes it.
+4. Reference the entry filename in the commit message that closes the gap;
+   set the entry's `status:` to `resolved` and fill `## Closed by`.
 
-The three-entry floor is W1 (LogicStar/ETH Mündler et al., Feb 2026): scaffolding
-from fewer than three observed failures produces plausible boilerplate that hurts
-agent success ~3% on average.
+The three-entry promotion floor is W1 (LogicStar/ETH Mündler et al., Feb 2026):
+scaffolding from fewer than three observed failures produces plausible
+boilerplate that hurts agent success ~3% on average. **W1 gates promotion,
+not recording.** A single entry is fine on disk; it is not yet a basis to
+hand-curate a rule from.
 
 ## Forbidden actions (hook-enforced)
 
@@ -166,8 +179,9 @@ common prefixes (`sudo`, `time`, `env`, `command`, env-var assignments,
 `git -C path`). Test coverage lives at
 [`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
 (109 unit + 3 subprocess cases) and runs in `just check` and CI. When a
-new bypass is observed, log it in `docs/agent-failures.md`, add the
-fixture to the test file, then update the hook so the new case passes.
+new bypass is observed, log it in `docs/reflection-log/` (one file per
+bypass), add the fixture to the test file, then update the hook so the
+new case passes.
 
 The hook is claude-code-specific (`.claude/settings.json`). Cursor, Codex,
 Copilot, etc. should configure equivalents from this list (see the
@@ -200,6 +214,6 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`constitution.md`](./constitution.md) — repo charter (purpose + invariants)
 - [`docs/adr/`](./docs/adr/) — architectural decisions (the "why")
 - [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
-- [`docs/agent-failures.md`](./docs/agent-failures.md) — evidence log for new rules/gates
+- [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
 - [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
 - [`empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md) — W1–W10 guardrails

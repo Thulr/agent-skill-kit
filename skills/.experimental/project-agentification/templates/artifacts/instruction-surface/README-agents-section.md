@@ -2,15 +2,21 @@
 
      Drop this into the project's existing `README.md` (under a top-level
      `## Agents` or `## Authoring` heading) when AGENTS.md does not yet
-     exist. The block makes `docs/agent-failures.md` discoverable in the
+     exist. The block makes `docs/reflection-log/` discoverable in the
      W1-interim where the agent surface has only the reflection log.
 
      Prescribed by instruction-surface scaffold H5. Required when:
-     - The repo has `docs/agent-failures.md` but no `AGENTS.md` (Stage 0).
+     - The repo has `docs/reflection-log/` but no `AGENTS.md` (Stage 0).
      - Any harness in the step 4.5 inventory loads README at session start
        (true for Copilot, common for Claude Code and Cursor).
 
-     Once AGENTS.md lands, the §Failure-log workflow there absorbs this
+     Critical: this block MUST explicitly distinguish the recording bar
+     (low — one observation is enough) from the promotion bar (high —
+     ≥3 entries describing the same gap before scaffolding a rule).
+     Conflating them in the same paragraph causes reviewers and agents to
+     self-filter single observations as "not yet a pattern."
+
+     Once AGENTS.md lands, the §Reflection-log workflow there absorbs this
      block; reduce the README block to a single line: "See [AGENTS.md]." -->
 
 ## Agents
@@ -20,10 +26,20 @@ Copilot, Aider, Windsurf, and other AGENTS.md-compatible harnesses).
 
 When an AI coding agent trips on this repo — wastes tokens, edits the wrong
 file, hallucinates a convention, makes an unsafe action — record it in
-[`docs/agent-failures.md`](./docs/agent-failures.md). **Three entries
-describing the same gap** is the threshold for adding a rule, hook, or
-`AGENTS.md` sentence to close it (W1: scaffolding from fewer than three
-observed failures produces plausible boilerplate that hurts agent success).
+[`docs/reflection-log/`](./docs/reflection-log/) by copying `_template.md`
+to `YYYY-MM-DD-<slug>.md`. See
+[`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for the
+full workflow.
+
+**Recording bar (low).** If you can write a non-trivial
+`## What to do differently` section, log it. One observation is enough —
+do **not** filter on "is this a pattern yet?" at recording time. When in
+doubt, record.
+
+**Promotion bar (high).** **Three or more entries describing the same gap**
+is the threshold for adding a rule, hook, or `AGENTS.md` sentence to close
+it (W1: scaffolding from fewer than three observed failures produces
+plausible boilerplate that hurts agent success).
 
 <!-- If the repo already has gates (hooks, CI checks) that an agent should
      be aware of before its first action, list them here. Otherwise delete

@@ -17,7 +17,7 @@ commonly read it on first invocation; agent-aware harnesses fall back to it when
 `.cursor/rules` / etc. exists. In a repo that hasn't reached the W1 ≥3-failures threshold to
 hand-curate an AGENTS.md yet, `README.md` is the **only** always-loaded prose surface the agent
 sees — which makes it the load-bearing discoverability point for the reflection log (e.g.
-`docs/agent-failures.md`). Once AGENTS.md lands, it absorbs the discoverability and README's
+`docs/reflection-log/`). Once AGENTS.md lands, it absorbs the discoverability and README's
 agent-facing role shrinks to "see AGENTS.md."
 
 ## Why it matters for agents
@@ -64,7 +64,8 @@ agent-facing role shrinks to "see AGENTS.md."
   top of `AGENTS.md`.
 - **H2.** `CLAUDE.md` / `.github/copilot-instructions.md` content drift → **all three actions
   required as a single unit; partial application is the failure mode** (see
-  `docs/agent-failures.md` entry 5 in any repo that has tracked this miss):
+  `docs/reflection-log/2026-05-16-symlink-omitted-during-scaffold.md` in this repo, or the
+  equivalent entry in any repo that has tracked this miss):
   1. `ln -sf AGENTS.md CLAUDE.md` at repo root.
   2. `ln -sf ../AGENTS.md .github/copilot-instructions.md`.
   3. A CI / static-check step that asserts both files are symlinks pointing at the correct
@@ -110,11 +111,15 @@ agent-facing role shrinks to "see AGENTS.md."
   exists but AGENTS.md does not. In that interim, `README.md` is the only always-loaded prose
   surface most harnesses see, so it must carry an agent-facing pointer to the reflection log
   (typically a short `§Authoring` / `§Agents` section: "When an AI coding agent trips on this
-  repo, record it in `docs/agent-failures.md`. Three entries describing the same gap is the
-  threshold for adding a rule, hook, or AGENTS.md sentence to close it."). Without that
-  pointer, the log lands as an orphan on disk. **Apply order:** reflection log + README pointer
-  land **first** (Stage 0); AGENTS.md lands **only after** the W1 floor is met and absorbs the
-  pointer into its own §Failure-log section. Never scaffold AGENTS.md without the Stage-0
+  repo, record it in `docs/reflection-log/` by copying `_template.md` to
+  `YYYY-MM-DD-<slug>.md`. **The recording bar is low**: one observation with a non-trivial
+  `What to do differently` line is enough. The ≥3-entries threshold gates *promoting* the
+  pattern into a rule, hook, or AGENTS.md sentence — not recording."). Without that pointer,
+  the log lands as an orphan on disk. **Recording vs. promotion bar** must be explicit in the
+  pointer block; conflating them causes reviewers to self-filter single entries as "not yet a
+  pattern" instead of recording them. **Apply order:** reflection log + README pointer land
+  **first** (Stage 0); AGENTS.md lands **only after** the W1 floor is met and absorbs the
+  pointer into its own §Reflection-log section. Never scaffold AGENTS.md without the Stage-0
   substrate; never scaffold the reflection log without the README pointer.
 
 - **H1.** Agent ignores a rule from the instruction file → rank hypotheses: (1) file exceeds 200
@@ -167,7 +172,7 @@ Concrete starting points for the `scaffold` heuristics above. Copy from
 - `templates/artifacts/instruction-surface/AGENTS.md` — WHAT/WHY/HOW skeleton (scaffold H1–H4).
 - `templates/artifacts/instruction-surface/README-agents-section.md` — Stage-0 pointer block (scaffold H5).
 - `templates/artifacts/instruction-surface/check-instruction-surface.sh` — symlink-drift static check (harden H2).
-- `templates/artifacts/reflection-log/agent-failures.md` — the substrate Stage 0 lands first (SKILL.md §Bootstrap order).
+- `templates/artifacts/reflection-log/README.md` + `templates/artifacts/reflection-log/_template.md` — the substrate Stage 0 lands first (SKILL.md §Bootstrap order). README is the directory index + recording-bar / promotion-bar callout; `_template.md` is copied per failure.
 
 ## Sources
 

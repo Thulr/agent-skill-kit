@@ -25,7 +25,9 @@ The published skill directories are the product.
    production behavior.
 2. **`just check` stays green.** It must pass before commit and before PR.
 3. **Evidence before scaffolding.** New rules, hooks, and instruction-surface
-   changes must trace back to observed failures logged in `docs/agent-failures.md`.
+   changes must trace back to observed failures logged in `docs/reflection-log/`
+   (one file per failure). Recording a single failure is encouraged; scaffolding
+   a rule from it is gated on ≥3 entries describing the same gap (W1).
 4. **AGENTS.md stays short.** `AGENTS.md` is a table of contents and a set of
    load-bearing rules. Depth lives in `docs/`. Keep it ≤ 200 lines.
 5. **Path-based gates enumerate all install lanes.** Any glob/gate operating on
@@ -40,6 +42,7 @@ The published skill directories are the product.
 - **Architectural/structural changes:** write (or update) an ADR under `docs/adr/`
   describing the decision and tradeoffs, and link it from the PR description.
 - **Operational changes:** add/update a runbook under `docs/runbooks/`.
-- **Agent-surface changes:** add a row to `docs/agent-failures.md` and reference
-  it in the commit message that closes the gap.
+- **Agent-surface changes:** add an entry to `docs/reflection-log/` (copy
+  `_template.md` to `YYYY-MM-DD-<slug>.md`) and reference the filename in the
+  commit message that closes the gap.
 

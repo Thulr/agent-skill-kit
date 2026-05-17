@@ -15,8 +15,8 @@ Runs the hook's `check_command` against a fixture table covering:
   - Quoted paths.
 
 Wired into `just check` and CI (`.github/workflows/ci.yml`). Add a new
-fixture row when a new bypass is observed in the failure log
-(`docs/agent-failures.md`).
+fixture row when a new bypass is observed and logged under
+`docs/reflection-log/` (one file per bypass, by date).
 """
 
 from __future__ import annotations

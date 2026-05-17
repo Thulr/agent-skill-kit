@@ -18,8 +18,9 @@ test fixture as one scaffold artifact, not two). Runs the hook's
       * Refspec forms for git (`HEAD:main`, `+main`, `+HEAD:main`).
       * Quoted paths.
 
-Add a new fixture row when a new bypass is observed in
-`docs/agent-failures.md`. CI runs this file on every PR.
+Add a new fixture row when a new bypass is observed and logged under
+`docs/reflection-log/` (one file per bypass, by date). CI runs this file
+on every PR.
 """
 
 from __future__ import annotations

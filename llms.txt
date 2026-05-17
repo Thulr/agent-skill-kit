@@ -10,7 +10,7 @@
 # - `README.md` (human overview, install, layout)
 # - `constitution.md` (repo charter: purpose + invariants)
 # - `AGENTS.md` (agent instructions; symlinked from `CLAUDE.md` and `.github/copilot-instructions.md`)
-# - `docs/agent-failures.md` (the evidence log that governs changes to AGENTS/hard gates)
+# - `docs/reflection-log/` (per-failure entries; evidence base for changes to AGENTS/hard gates)
 # - `docs/adr/` (architectural decisions: the "why")
 # - `docs/runbooks/` (maintainer procedures: the "how")
 #

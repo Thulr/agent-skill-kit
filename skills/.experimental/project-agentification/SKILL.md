@@ -44,11 +44,13 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
 7. **Apply severity** (0–4) to every finding using `references/core/severity-rubric.md`.
 8. **For `scaffold`: present write-to-disk confirmation.** List `{path, action}` pairs; wait for user reply (`all` / `none` / specific list). Write only confirmed files. Report what was written, skipped, and what to validate.
 8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen sub-surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
-9. **Emit output.** Use the intent-specific template:
-   - `assess` → `templates/assess-report.md`
-   - `harden` → `templates/harden-recommendation.md`
-   - `scaffold` → `templates/scaffold-bundle.md`
-   - `diagnose` → `templates/diagnose-runbook.md`
+9. **Emit output.** Default to a rendered, TUI-friendly view in chat. If the user asks to save a report to disk, also emit a saved-report form.
+   - **Rendered (chat/TUI):** do **not** emit Markdown pipe tables. Pretty-print tabular sections as fixed-width text (ASCII) in a fenced `text` block or as bullet lists. Keep each row single-line.
+   - **Saved report (Markdown file):** use the intent-specific template verbatim (Markdown tables are OK, but table rows must be single-line; no hard-wrapped newlines inside cells):
+     - `assess` → `templates/assess-report.md`
+     - `harden` → `templates/harden-recommendation.md`
+     - `scaffold` → `templates/scaffold-bundle.md`
+     - `diagnose` → `templates/diagnose-runbook.md`
 
 ## Modes
 
@@ -65,6 +67,7 @@ Every output includes:
 - Intent-specific load-bearing section: maturity scores + gaps (`assess`), recommendation + verification (`harden`), file previews + confirmation gate (`scaffold`), hypothesis ranking + fix + prevention (`diagnose`).
 - Severity per finding.
 - Sources cited (skill.json `inspired_by` entries).
+- If printing to chat/TUI, avoid Markdown pipe tables; pretty-print as fixed-width text or bullet lists. If writing a Markdown file, keep table rows single-line (no wrapped newlines inside cells).
 
 ## Lens dispatch
 
@@ -101,6 +104,7 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - `references/core/maturity-rubric.md` — Levels 1–3 (Engineering Agents). Levels 4–5 live in `evidence-driven-agent-rules`.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/empirical-warnings.md` — W2–W10 (symlink to `skills/_shared/empirical-warnings.md`). W1 lives in `evidence-driven-agent-rules`.
+- `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement; points to `clean-architecture` for boundary design.
 - `templates/*.md` — four intent-specific output templates (what the skill itself emits).
 - `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.

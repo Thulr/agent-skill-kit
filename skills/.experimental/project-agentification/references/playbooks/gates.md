@@ -15,7 +15,7 @@ Three tiers organize what a gate should do for each action class:
 | Tier | Description | Examples |
 |---|---|---|
 | **free-action** | Agent proceeds without approval | Read public files, run tests, search codebase |
-| **ask-first** | Agent must request user approval before proceeding | DB migrations, dependency changes, secret-handling edits, new external network destinations |
+| **ask-first** | Agent must request user approval before proceeding | DB migrations, dependency changes, changes to public API/interface/schema (“design rules”), secret-handling edits, new external network destinations |
 | **forbidden** | Hard-blocked at the hook layer, no override path | `rm -rf`, force-push to main, prod-DB writes, disabling sandbox controls |
 
 Linters and formatters wired to PostToolUse write-time hooks shape agent output structurally —
@@ -58,6 +58,9 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   blocks at the OS layer. Neither alone is sufficient; together they are defense-in-depth. (W10)
 - **Linters as direction.** PostToolUse format-on-write means the agent always sees linted output
   regardless of whether model followed style instructions — structural enforcement over prose.
+- **Architectural boundaries need gates too.** If the repo relies on boundaries (dependency
+  direction, “no cycles”, forbidden imports across layers), enforce them with static checks
+  (lint/tests/CI). Don’t rely on the agent to reason about coupling correctly in noisy contexts.
 
 ## Heuristics by intent
 
@@ -69,8 +72,9 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   effectively unprotected. (severity cap: 4; lens: adversarial)
 - **H2.** Verify an ask-first tier exists and is documented. List the specific action classes that
   require user approval: DB migrations, dependency changes, secret-handling edits, new external
-  network destinations. Absence of this tier is the single most common cause of agents performing
-  irreversible actions without confirmation. (severity cap: 4; lens: maintainer)
+  network destinations, and changes to design-rule artifacts (public APIs, shared schemas/types).
+  Absence of this tier is the single most common cause of agents performing irreversible actions
+  without confirmation. (severity cap: 4; lens: maintainer)
 - **H3.** Check whether linters and formatters are wired to PostToolUse hooks or only referenced
   in prose. "Always run prettier before committing" in CLAUDE.md will be skipped ~30% of the time;
   a PostToolUse hook on file write runs every time. (severity cap: 3; lens: cold-agent)
@@ -81,6 +85,16 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
 - **H5.** Confirm CI gates mirror hook-layer gates. If a PreToolUse hook blocks force-push to main,
   branch protection rules should enforce the same constraint independently — so the gate holds even
   when the hook is bypassed or misconfigured. (severity cap: 4; lens: auditor)
+- **H6.** Check for architecture boundary gates: dependency-direction rules, cycle detection, and
+  forbidden imports between layers/modules. If boundaries exist only as prose, violations will
+  recur. (severity cap: 3; lens: maintainer)
+- **H7.** If the org expects parallel multi-agent work, check whether the repo has **stable
+  contracts (“design rules”)** that make parallelism real — and whether those contracts are
+  protected by gates. Look for: (1) named module boundaries + a dependency rule, (2) explicit
+  interface/schema ownership (CODEOWNERS / required reviewers), (3) boundary checks (forbidden
+  imports / cycles) and interface-compatibility checks in CI, and (4) integration tests that fail
+  fast when contracts drift. Without these, “4 agents in parallel” mostly means “4 agents
+  colliding on shared files.” (severity cap: 3; lens: auditor)
 
 ### harden
 
@@ -96,6 +110,12 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
 - **H4.** CI gate absent for hook-protected actions → add branch protection rules and required
   status checks mirroring the PreToolUse hook. Hook layer and CI are defense-in-depth, not
   redundancy to eliminate.
+- **H5.** Multi-agent parallelization desired → promote design rules to first-class gate targets:
+  (1) define “design rules” artifacts (public interfaces, schemas, shared types, architectural
+  boundaries), (2) require review/approval for edits to those artifacts (CODEOWNERS + branch
+  protection), (3) enforce boundaries via lint/tests/CI (forbidden imports, dependency direction,
+  no cycles), and (4) add contract/integration tests so modules can be edited independently while
+  staying compatible.
 
 ### scaffold
 
@@ -186,6 +206,10 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   extension. Fix: widen event filter and add hook-level error logging.
 - **H4.** CI catches what the PreToolUse hook missed → hook predicate is incomplete; treat each
   CI-caught violation as a missing hook test case.
+- **H5.** Agent repeatedly violates architectural boundaries → rank: (1) no boundary checks exist
+  (dependency direction, forbidden imports, cycle detection); (2) checks exist but are not required
+  in CI; (3) boundary model is ambiguous — use `clean-architecture` to define the boundary model,
+  then gate it.
 
 ## Empirical warnings
 
@@ -225,6 +249,27 @@ Concrete starting points for the `scaffold` heuristics above. Copy from
 - `ci-static-checks.yml` — path-based, all-lanes CI workflow snippet (scaffold H4, mirrors the
   hook layer per W10).
 
+## Implementation options (non-exhaustive)
+
+You can enforce boundary constraints and interface contracts with either **lint** (fast feedback)
+or **tests** (richer checks). Pick one per constraint and make it CI-required.
+
+### Boundary / dependency rules
+
+- **Java/Kotlin/JVM**: ArchUnit architecture tests (layered rules, forbidden dependencies).
+- **Python**: Import Linter “layers” contracts (forbidden imports between layers).
+- **JS/TS**:
+  - Nx `@nx/enforce-module-boundaries` (project graph + tag constraints).
+  - `dependency-cruiser` (forbidden dependency rules; circular dependency detection).
+  - `eslint-plugin-boundaries` (folder-based import allow/deny constraints).
+
+### Contract / interface compatibility
+
+- **Consumer-driven contracts**: Pact (consumer tests emit contracts; provider verification runs in CI).
+- **HTTP API contracts**: OpenAPI linting + contract tests (e.g., schema checks in CI; gateway tests).
+- **Schema compatibility**: enforce backward/forward compatibility for shared schemas (e.g., Protobuf/Avro)
+  as a required check when a schema is a design rule.
+
 ## Sources
 
 - "Harness Engineering: Leveraging Codex in an Agent-First World" — `--ask-for-approval` as the
@@ -235,3 +280,11 @@ Concrete starting points for the `scaffold` heuristics above. Copy from
   class; human-in-the-loop for high-risk tiers; audit logging for hook overrides.
 - "Don't Build Multi-Agents" — single-threaded linear agents as the safe default; gates are what
   make that topology safe without multi-agent handoff complexity.
+- "Design Rules: The Power of Modularity" — design rules (stable interfaces/APIs/standards) as a
+  precondition for parallel work; integration/testing protocols as part of the visible contract.
+- "Design Rule Hierarchies and Parallelism in Software Development Tasks" — design-rule layers
+  predict parallelizable work vs coordination requirements; motivates partitioning work beneath
+  stable design rules and enforcing cross-layer dependencies.
+- "Hierarchical Evaluation of Software Design Capabilities of Large Language Models of Code" —
+  coupling reasoning brittleness under noise; motivates structural boundary enforcement rather than
+  relying on agent reasoning.

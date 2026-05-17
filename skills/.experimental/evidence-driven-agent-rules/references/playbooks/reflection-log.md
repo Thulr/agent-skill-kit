@@ -87,6 +87,11 @@ naming.
   `## Closed by` in the same commit. Open entries that contributed
   to a resolved pattern create false signal for the next `promote`
   pass.
+- **H5.** If the recurring gap is *architectural boundary violations*
+  (layer-skipping, wrong-direction dependencies, forbidden imports,
+  cycles), prefer structural fixes: architecture lints/tests as
+  CI-required checks. Use `clean-architecture` to define the boundary
+  model; use `project-agentification` gates guidance to enforce it.
 
 ### assess-l4l5
 

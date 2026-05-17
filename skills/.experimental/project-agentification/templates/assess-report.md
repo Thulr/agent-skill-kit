@@ -9,11 +9,21 @@
 
 | Layer | Score (1–5) | Justification |
 |---|---|---|
-| Legibility | <N> | <one-line; cite weakest sub-surface> |
-| Action | <N> | <one-line> |
-| Control | <N> | <one-line> |
+| Legibility | <N> | <single line; cite weakest sub-surface; no `|`> |
+| Action | <N> | <single line; no `|`> |
+| Control | <N> | <single line; no `|`> |
 
 **Overall maturity ceiling:** <min(layer scores)> — limited by **<layer>** (weakest discipline is your ceiling).
+
+## Parallel agent partitioning (optional; if multi-agent work is desired)
+
+Use this checklist to assess whether multiple agents can work in parallel without stepping on each other:
+
+- [ ] **Design rules identified:** a short list of stable contracts (public interfaces/APIs, schemas, shared types, dependency rule).
+- [ ] **Design rules protected:** CODEOWNERS / required reviewers + CI-required checks for changes to those contracts.
+- [ ] **Boundaries enforced:** forbidden imports / dependency direction / cycle detection (don’t rely on agent reasoning).
+- [ ] **Partition strategy explicit:** agents assigned to independent modules “under” the design rules; avoid concurrent edits to the same contract artifacts.
+- [ ] **Integration signal exists:** contract/integration tests fail fast when module boundaries or interfaces drift.
 
 ## Blocking gaps (severity 3–4)
 

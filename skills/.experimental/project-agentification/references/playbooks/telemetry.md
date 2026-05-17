@@ -80,9 +80,9 @@ regression detection impossible.
 
 ### scaffold
 
-- **Do not autogenerate instrumentation from templates without a named observability goal.** Generic
-  spans with no semantic meaning add noise and cost without enabling diagnosis or eval. (W1)
-- **H1.** (W1 guard) Before adding a span, name the failure mode or eval question it answers;
+- **Do not autogenerate instrumentation from templates without a named observability goal (W9).** Generic
+  spans with no semantic meaning add noise and cost without enabling diagnosis or eval.
+- **H1.** (W9 guard) Before adding a span, name the failure mode or eval question it answers;
   "more observability is better" is not a valid trigger.
 - **H2.** Scaffold in three layers: (1) run metadata as OTel resource attributes (model, prompt
   hash, tool-schema version, commit SHA, env); (2) per-step spans using semantic conventions for
@@ -115,7 +115,7 @@ regression detection impossible.
   only artifact that makes the full run auditable as a single causal chain.
 - **W6** — Full trace payloads exhaust the token budget when always-loaded; expose telemetry as
   an on-demand MCP query surface.
-- **W1** — Generic instrumentation without a named observability goal produces noisy, high-cost
+- **W9** — Generic instrumentation without a named observability goal produces noisy, high-cost
   traces; every span should answer a specific failure-mode or eval question.
 
 ## Canonical examples

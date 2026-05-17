@@ -81,7 +81,7 @@ so validation is comparable across CI, laptops, and evals.
 - **Do not autogenerate Dockerfile or sandbox IaC from templates.** `FROM ubuntu:latest` with no
   egress rules and no secret-scoping plan ships the W10 failure mode directly. Each config must
   address a named threat.
-- **H1.** (W1 guard) Before writing sandbox config, name the threat it mitigates (credential
+- **H1.** (W9 guard) Before writing sandbox config, name the threat it mitigates (credential
   exfiltration / network exfiltration / environment drift / host isolation) in a top comment.
 - **H2.** Scaffold in three ordered layers: (1) image pinning (content-addressed digest);
   (2) filesystem isolation (read-only source mount, ephemeral output volume); (3) network policy

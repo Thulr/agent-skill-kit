@@ -54,9 +54,9 @@ npx skills add Thulr/informed-skills --skill clean-architecture
 
 ### project-agentification (experimental)
 
-Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).
+Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry). **For any repo that wants coding agents to work well in it** — no eval / benchmark / telemetry prerequisites; scaffolds from project knowledge (stack, layout, commands, invariants).
 
-Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × sub-surface (10 across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research and empirical studies (full provenance in [`skills/.experimental/project-agentification/skill.json`](./skills/.experimental/project-agentification/skill.json)).
+Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × sub-surface (10 across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research (full provenance in [`skills/.experimental/project-agentification/skill.json`](./skills/.experimental/project-agentification/skill.json)).
 
 > **Experimental.** The research domain is moving quickly; expect iteration. Lives under `skills/.experimental/` and is still discovered by `npx skills`.
 
@@ -64,6 +64,20 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill project-agentification
+```
+
+### evidence-driven-agent-rules (experimental)
+
+Capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entries floor, and score Level 4–5 (Spec Architecture, Sovereign Engineering) maturity. **For teams with a feedback signal** — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test.
+
+Pair with `project-agentification`: that skill scaffolds the project-context-first AGENTS.md any repo can use; this skill layers the evidence-driven workflow on top for the subset of repos where the feedback signal exists. Provenance in [`skills/.experimental/evidence-driven-agent-rules/skill.json`](./skills/.experimental/evidence-driven-agent-rules/skill.json).
+
+> **Experimental.** Lives under `skills/.experimental/` and is still discovered by `npx skills`.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill evidence-driven-agent-rules
 ```
 
 ## Install
@@ -112,6 +126,7 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 | `docs/architecture/` | Repo structure reference docs / repo maps |
 | `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
 | `skills/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete |
+| `skills/_shared/` | Cross-skill primitives (e.g. `lenses.md`, `empirical-warnings.md` W2–W10). Each consuming skill symlinks the relevant files; `npx skills` dereferences at install time, shipping self-contained skills. Enforced by `scripts/check-shared-content.sh` |
 | `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
 | `scripts/` | Repo-wide scripts: instruction-surface symlink check, schema validator |
 | `skills/.experimental/<name>/` | Work-in-progress or caveat-heavy skills (still discovered by `npx skills`) |

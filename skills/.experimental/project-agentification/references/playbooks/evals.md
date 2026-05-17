@@ -82,8 +82,8 @@ sets designed specifically to trigger AI hallucinations are a first-class citize
 
 - **Do not autogenerate eval cases from templates or model output.** Synthetic cases regress to
   the model's training distribution and miss the adversarial and edge cases that actually occur
-  in production. Every new case must be grounded in a real failure or a named threat. (W1)
-- **H1.** (W1 guard) Before adding an eval case, state: the failure mode it covers, the source
+  in production. Every new case must be grounded in a real failure or a named threat. (W9)
+- **H1.** (W9 guard) Before adding an eval case, state: the failure mode it covers, the source
   (real failure / named threat / adversarial category), and the grader that will score it. Cases
   without all three are not mergeable.
 - **H2.** Start with the smallest viable offline dataset: 5–10 cases from real bugs or "human
@@ -118,9 +118,9 @@ sets designed specifically to trigger AI hallucinations are a first-class citize
   agent was told X" is not evidence that X happened.
 - **W6 (cost discipline)** — Evals are expensive. Tier by risk surface: smoke evals on routine
   changes; full adversarial suite only on changes to AGENTS.md, skills, tools, hooks, or prompts.
-- **W1 (no autogeneration)** — Do not autogenerate eval cases from model output or templates.
+- **W9 (no autogeneration)** — Do not autogenerate eval cases from model output or templates.
   Synthetic cases converge on modal behavior and miss the distribution tail. Eval data must come
-  from real failures.
+  from real failures or named threats.
 
 ## Canonical examples
 

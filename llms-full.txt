@@ -38,6 +38,8 @@
 # - `skills/test-heuristics/`: reviewed/published skill
 # - `skills/.experimental/clean-architecture/`: experimental skill; still installable
 # - `skills/.experimental/project-agentification/`: experimental skill; still installable
+# - `skills/.experimental/evidence-driven-agent-rules/`: experimental skill; pairs with project-agentification for repos with a feedback signal (eval/telemetry/baseline)
+# - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless
 #   `INSTALL_INTERNAL_SKILLS=1`); kept so new contributors can't template a skill
 #   that bypasses required gates.

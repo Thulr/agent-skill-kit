@@ -20,15 +20,11 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Token budget is the dominant scarcity.** Prefer on-demand → on-trigger → always-loaded.
 3. **Hard gates over soft prose.** Hooks at 100% vs prose at 70%.
 
-## Bootstrap order
+## Scope
 
-The W1 floor (≥3 observed failures before scaffolding AGENTS.md) creates a hard staging dependency. **Scaffold artifacts in this order, never out of it:**
+For any repo that wants coding agents (Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, AGENTS.md-compatible harnesses) to work well in it. This skill makes no assumptions about eval infrastructure, benchmarks, telemetry, or run-level measurement — it works from project knowledge (stack, layout, monorepo scope, build/test commands, top-level invariants).
 
-1. **Stage 0** — reflection log (`docs/reflection-log/` directory with `README.md` index + `_template.md` entry template; one `YYYY-MM-DD-<slug>.md` per failure) + a `README.md §Agents` / `§Authoring` pointer to the directory. The log is exempt from the W1 floor because it does not *contain* agent instructions; it *captures* the observations future instructions will be hand-curated from. The README pointer is required because, until AGENTS.md exists, README is the only always-loaded prose surface most harnesses see — without the pointer, the log lands as an orphan, invisible to any agent. **The Stage-0 README explicitly distinguishes the recording bar (low — "can I write a `What to do differently` line?") from the promotion bar (high — ≥3 entries describing the same gap).** Conflating the two causes agents to self-filter entries.
-2. **Stage 1** — `AGENTS.md` (and its `CLAUDE.md` / `.github/copilot-instructions.md` symlinks), hand-curated from the now-populated log. The AGENTS.md absorbs the discoverability pointer; the README role shrinks to "see AGENTS.md."
-3. **Stage 2+** — gates, skills, sandbox, telemetry, evals, governance — each grounded in the failures the log accumulated.
-
-**Refuse to scaffold Stage 1 without the Stage-0 substrate** (no log directory + README pointer → no AGENTS.md). **Refuse to scaffold the log without the README pointer** (log lands as orphan). The post-write auditor (step 8.5) enforces both via the failure modes listed in `references/lenses.md`.
+If you also have a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test — pair this skill with `evidence-driven-agent-rules`, which layers a reflection-log workflow on top (capture observed agent failures, promote recurring patterns into AGENTS.md rules via the W1 ≥3-entries floor). This skill does not require it; most repos won't.
 
 ## Activation
 
@@ -41,7 +37,7 @@ The W1 floor (≥3 observed failures before scaffolding AGENTS.md) creates a har
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to `assess` / `harden` / `scaffold` / `diagnose`. Ambiguous → ask once.
 2. **Pick sub-surface(s).** Load `references/layer-router.csv`. Match the prompt to one or more sub-surfaces. For `assess`, `all` is a valid sub-surface choice that fans out across the whole sub-surface list. Ambiguous → ask once with the menu.
 3. **Load grounded context.** Load the playbook(s) for the chosen sub-surfaces, `references/empirical-warnings.md`, and **`references/core/severity-rubric.md` always** (every finding carries a severity per step 7). For `assess`, also load `references/core/maturity-rubric.md` (the `additional_rubric` column in `intent-router.csv` names the assess-only addition).
-4. **For `scaffold`: collect observed failures.** Ask the user for 3–5 concrete agent failures observed on this repo before generating any file. Refuse to scaffold if fewer than 3 are stated (empirical warning W1 — the hard floor is 3, not 1).
+4. **For `scaffold`: collect project knowledge.** Ask the user for (a) tech stack and runtimes, (b) repo layout / monorepo scope (which directories the scaffold applies to), (c) build / test / lint commands, (d) any top-level invariants the agent should not break. Hand-curate from project knowledge; do not autogenerate from boilerplate (W9: `/init` and equivalents produce surface-plausible scaffolds with low fitness). The content quality bar is "specific to this project, verifiable by reading the file" — not "measured against a benchmark."
 4.5. **For `scaffold` / `harden` touching `instruction-surface` or `gates`: collect harness inventory.** Ask the user which harnesses are in use on this repo: Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or AGENTS.md-compatible-only (Jules, Amp, etc.). **Do not infer scope from filesystem signals alone** — the presence of `.claude/` tells you Claude Code is used, not that it is the only one. Default to producing per-harness equivalents for every harness named; absence-of-dotfile is not absence-of-use.
 5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per sub-surface, four lenses sequentially inside.
 6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed sub-surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
@@ -87,22 +83,24 @@ Load `references/lenses.md` for the per-lens persona prompts, the dispatch templ
 
 ## Empirical warnings
 
-Ten load-bearing don'ts live in `references/empirical-warnings.md` (W1–W10). Every playbook backlinks to the warnings it touches; every template invokes them in its "Empirical warnings invoked" section. The most load-bearing four:
+Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (symlink to `skills/_shared/empirical-warnings.md`). Every playbook backlinks to the warnings it touches; every template invokes them in its "Empirical warnings invoked" section. The most load-bearing four for this skill's audience:
 
-- **W1** — Don't autogenerate AGENTS.md / CLAUDE.md.
 - **W2** — AGENTS.md ≤ 200 lines.
 - **W3** — Hard gates over soft prose.
 - **W6** — Token budget is the dominant scarcity.
+- **W9** — Auto-init commands lie; hand-curate from project knowledge.
+
+> **W1** ("≥3 observed failures before scaffolding") is the failure-driven floor and lives in `evidence-driven-agent-rules`. It does not apply to `project-agentification` — most repos have no feedback signal to observe failures against. If your repo does, pair the two skills.
 
 ## Reference map
 
 - `references/intent-router.csv` — level-1 router (intent → template + rubric).
 - `references/layer-router.csv` — level-2 router (layer + sub-surface → playbook).
 - `references/playbooks/<sub-surface>.md` — 10 sub-surface playbooks (legibility: instruction-surface, specs, docs-index; action: skills, tools, sandbox; control: gates, telemetry, evals, governance).
-- `references/lenses.md` — four lens prompts + dispatch template + synthesis.
-- `references/core/maturity-rubric.md` — Level 1–5 (Engineering Agents).
+- `references/lenses.md` — four lens prompts + dispatch template + synthesis (symlink to `skills/_shared/lenses.md`).
+- `references/core/maturity-rubric.md` — Levels 1–3 (Engineering Agents). Levels 4–5 live in `evidence-driven-agent-rules`.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
-- `references/empirical-warnings.md` — W1–W10 load-bearing don'ts.
+- `references/empirical-warnings.md` — W2–W10 (symlink to `skills/_shared/empirical-warnings.md`). W1 lives in `evidence-driven-agent-rules`.
 - `templates/*.md` — four intent-specific output templates (what the skill itself emits).
 - `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.

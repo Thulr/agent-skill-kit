@@ -73,10 +73,11 @@ does this repo look like?" in a single, token-efficient pass rather than an open
 
 ### scaffold
 
-- **Do not autogenerate `llms.txt`, `llms-full.txt`, or `ATTRIBUTION.md` from boilerplate without
-  observed agent failure justification.** LLM-generated context files drop task success ~3% and
-  inflate cost >20% (W1). Every entry in `llms.txt` must link to documentation an agent has
-  already needed; every `docs/adr/` entry must capture a real decision.
+- **Do not autogenerate `llms.txt`, `llms-full.txt`, or `ATTRIBUTION.md` from boilerplate (W9).**
+  LLM-generated context files drop task success ~3% and inflate cost >20% (Mündler et al.,
+  arXiv:2602.11988). Every entry in `llms.txt` must link to documentation an agent has already
+  needed or that captures a project invariant; every `docs/adr/` entry must capture a real
+  decision.
 - **H1.** Create `llms.txt` at the repo root: project name, one-line description, then `# Section`
   headings with bulleted links to plain-text or markdown endpoints; add `llms-full.txt` only after
   identifying which docs agents re-fetch most.

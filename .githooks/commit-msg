@@ -46,8 +46,9 @@ if [[ "$first_line" =~ ^($allowed_types)\(([a-z0-9-]+)\) ]]; then
                   project-agentification example-minimal schemas scripts
                   hooks repo ci deps
 
-  If '$scope' should be allowed, update .githooks/commit-msg and
-  commitlint.config.cjs together.
+  If '$scope' should be allowed, update every duplicated scope
+  allowlist together: .githooks/commit-msg, commitlint.config.cjs,
+  the PR-title workflow, and the docs.
 EOF
     exit 1
   fi

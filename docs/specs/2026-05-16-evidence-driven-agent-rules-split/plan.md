@@ -21,18 +21,22 @@ state. `just check` passes after each.
 no functional skill changes yet. Validates the chosen Q1 mechanic before
 either skill depends on it.
 
-- Create `skills/_shared/` (or whatever Q1 resolves to).
+- Create `skills/_shared/` (Q1 resolved: embed-and-lint).
 - Move `references/lenses.md` from `project-agentification` to
-  `_shared/lenses.md` (single canonical source).
-- Embed copy back into `project-agentification/references/lenses.md`
-  (per Q1's recommended option (c)) **or** symlink (per option (a)) —
-  pending Q1 answer.
-- Add `scripts/check-shared-content.sh` invoked by `just check`: asserts
-  embedded copies match canonical `_shared/` sources.
+  `skills/_shared/lenses.md` (canonical source).
+- Embed copy back at `skills/.experimental/project-agentification/references/lenses.md`
+  (byte-identical to canonical).
+- Add `scripts/check-shared-content.sh` invoked by `just check`: walks
+  every skill's `references/` for files whose names match `_shared/`
+  entries; fails the build if any embedded copy diverges from the
+  canonical (`diff -q`).
 - Update `Justfile` to include the new check.
-- Update `.github/workflows/ci.yml` if needed.
+- Update `.github/workflows/ci.yml` if needed (likely no-op if CI just
+  invokes `just check`).
 - Acceptance: `just check` green; no behavioral change to
-  `project-agentification`.
+  `project-agentification`; installing the skill into a scratch dir via
+  `npx skills add` lands a self-contained tree with `references/lenses.md`
+  present.
 
 ### Slice 2 — empirical-warnings split (PR #13)
 

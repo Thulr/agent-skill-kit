@@ -158,34 +158,45 @@ land:
 
 These need reviewer input before plan.md can be finalized.
 
-### Q1. Shared directory mechanics
+### Q1. Shared directory mechanics — RESOLVED
 
-`npx skills add Thulr/informed-skills --skill project-agentification`
-needs to resolve any `_shared/` references the skill makes. Options:
+**Decision:** **embed-and-lint.** Canonical source lives at
+`skills/_shared/<file>.md`. Each consuming skill ships its own copy at
+`<skill>/references/<file>.md`. A new `scripts/check-shared-content.sh`
+(invoked by `just check`) asserts each embedded copy byte-matches the
+canonical source.
 
-- **(a) Symlinks.** Each consuming skill has
-  `references/lenses.md` as a symlink to `../../_shared/lenses.md`.
-  Pro: zero install-tooling change. Con: install behavior depends on
-  whether `npx skills` follows symlinks (needs verification); cross-skill
-  symlinks may not survive a per-skill install.
-- **(b) Copy at install.** A small post-add hook copies `_shared/`
-  content into each installed skill's directory. Pro: clean install
-  semantics. Con: requires changes to the `npx skills` tool or a wrapper.
-- **(c) Per-skill embedded copy + lint check.** Each skill ships its own
-  copy of shared content; a CI check fails the build if the copies drift
-  from the canonical `_shared/` source. Pro: simple install. Con:
-  drift-by-design unless the lint is robust.
-- **(d) Defer the shared dir.** Land the split with cross-skill prose
-  references ("see `project-agentification` §Lenses"); accept that
-  downstream users installing only one skill will see broken cross-refs
-  for now. Revisit shared-content packaging in a follow-up.
+**Why other options are ruled out** (verified empirically — installed
+`project-agentification` alone into `/tmp/skills-test` to observe what
+the `npx skills` tool actually does):
 
-**Recommendation:** start with (c) — embedded copy + lint — because it
-requires no install-tool changes and the canonical source pattern is
-already established for `AGENTS.md` ↔ `CLAUDE.md` (symlink) and skill
-schemas (`schemas/` referenced from each skill's static-check). The lint
-check would be a new `scripts/check-shared-content.sh` invoked by `just
-check`.
+- The `skills` installer (vercel-labs/skills, npm `skills@1.5.7`) only
+  discovers and installs directories containing a valid `SKILL.md`. A
+  sibling `skills/_shared/` with no SKILL.md is silently ignored
+  (`Found 7 skills` — counting only SKILL.md-bearing dirs).
+- Each skill is extracted as a standalone directory under
+  `./.agents/skills/<name>/` plus per-agent symlinks
+  (`./.claude/skills/<name>/`, etc.). The installer copies only the
+  skill's own tree.
+- Cross-skill references like `../../_shared/lenses.md` would resolve to
+  paths that don't exist on the downstream user's disk → broken refs.
+- Cross-skill symlinks would dereference at install time (the file
+  content gets copied into one skill's directory, defeating the
+  single-source goal) or break.
+
+So options (a) symlinks and (d) defer would ship broken installs.
+Option (b) copy-at-install would require changes to the `skills` tool
+itself, which this repo doesn't own. **Owning our own installer** (like
+BMAD-METHOD's `npx bmad-method`) was discussed and ruled out: the cost
+(months of work to reimplement the 55+ harness matrix the `skills` tool
+already handles) is upside-down vs. the benefit of sharing 2–3
+primitives. Decision: stay on `npx skills`, embed-and-lint locally.
+
+**Scope discipline for `_shared/`:** only put content there that is
+**genuinely identical** across consumers. If the two skills end up
+needing slightly different copies of a primitive, the canonical-source
+pattern stops fitting and the lint becomes noise — drop it from
+`_shared/` and maintain independently. Q2/Q3 below apply this filter.
 
 ### Q2. Maturity rubric scope
 

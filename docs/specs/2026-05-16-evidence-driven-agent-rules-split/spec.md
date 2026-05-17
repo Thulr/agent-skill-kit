@@ -140,8 +140,13 @@ land:
 4. A new skill exists at `skills/.experimental/evidence-driven-agent-rules/`
    with a valid `SKILL.md`, `skill.json`, `evals/`, that passes
    `just check`.
-5. The four lenses live in exactly one canonical location, referenced (not
-   duplicated) by both skills.
+5. The four lenses live in exactly one canonical location at maintenance
+   time (`skills/_shared/lenses.md`), referenced by both consuming skills
+   via relative symlinks. At install time, `npx skills` dereferences the
+   symlinks and ships each skill self-contained with a regular-file copy
+   of `lenses.md` — verified by scratch install. The single-source
+   invariant holds at maintenance time, not at install time; downstream
+   users get the canonical content but not the directory structure.
 6. `docs/reflection-log/` in this repo continues to function (paths
    resolve, README is accurate). Cross-references in this repo's
    `AGENTS.md` and `README.md` point to `evidence-driven-agent-rules` for

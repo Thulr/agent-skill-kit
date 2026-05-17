@@ -38,6 +38,12 @@ either skill depends on it.
   `skills/_shared/`; no orphan symlinks. Cheap but catches the one class
   of regression this design has: a maintainer replacing a symlink with
   edited content, silently breaking the canonical contract.
+- **Path-based gate must enumerate all three install lanes** per
+  AGENTS.md Rule 1: `check-shared-content.sh` iterates `skills/*/`,
+  `skills/.experimental/*/`, AND `.agents/skills/*/` (not only the
+  default-visible paths) so any skill in any install lane gets enforced.
+  Missing a lane recreates the exact drift class Rule 1 was added to
+  prevent (see `docs/reflection-log/2026-05-15-justfile-glob-missed-dotfile-lane.md`).
 - Update `Justfile` to include the new check.
 - `.github/workflows/ci.yml`: no-op (CI invokes `just check`).
 - Acceptance: `just check` green; `npx skills add` from a scratch dir
@@ -82,8 +88,10 @@ reflection-log workflow + W1 + Levels 4–5 + Mündler citations.
     evidence-driven scaffolding mode)
   - `skill.json` (provenance, inspired_by: Engineering Agents, Mündler
     et al., the cross-link to `project-agentification`)
-  - `references/empirical-warnings.md` (W1 only; cross-links to
-    `_shared/empirical-warnings.md` for the rest)
+  - `references/empirical-warnings-w1.md` (sole-tenant W1 + Mündler
+    citations, per Q3 decision)
+  - `references/empirical-warnings.md` (symlink to
+    `../../../_shared/empirical-warnings.md` for W2–W10)
   - `references/core/maturity-rubric.md` (Levels 4–5; cross-links to
     `project-agentification` for Levels 1–3)
   - `references/playbooks/reflection-log.md` (new playbook for the

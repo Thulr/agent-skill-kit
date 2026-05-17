@@ -138,6 +138,34 @@ just check
 
 When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/agent-failures.md`](./docs/agent-failures.md). Three entries describing the same gap is the threshold for adding a rule, hook, or `AGENTS.md` sentence to close it.
 
+## Commit conventions
+
+Commits and PR titles use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>[(<scope>)][!]: <subject>
+```
+
+**Allowed types:** `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`.
+
+**Allowed scopes (optional):**
+- Skills: `clean-architecture`, `dx-heuristics`, `test-heuristics`, `project-agentification`, `example-minimal`
+- Repo: `schemas`, `scripts`, `hooks`, `repo`, `ci`, `deps`
+
+**Examples:**
+- `feat(clean-architecture): add new playbook`
+- `fix(dx-heuristics): correct DTO heuristic wording`
+- `docs(repo): list clean-architecture in README`
+- `ci: pin commitlint action to SHA`
+
+Enforced by CI (`wagoid/commitlint-github-action`) and by an optional local hook. To enable the local hook (catches bad messages at `git commit` time):
+
+```bash
+bash scripts/install-hooks.sh
+```
+
+PR titles are also linted (`amannn/action-semantic-pull-request`) since the squash-merge target is the PR title.
+
 ## License
 
 See [LICENSE](./LICENSE). Individual skills may declare different terms; third-party notices live in [THIRD_PARTY.md](./THIRD_PARTY.md).

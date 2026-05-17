@@ -30,6 +30,19 @@ install lanes that any path-based gate **must** enumerate:
 - `skills/.experimental/<name>/` — caveat-heavy / WIP skills (still discoverable by `npx skills`)
 - `.agents/skills/<name>/` — repo-local agent surface (skill-curator, skill-reviewer)
 
+## Commit conventions
+
+Conventional Commits format enforced by CI and (optionally) a local commit-msg
+hook. Allowed types: `build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test`.
+Allowed scopes are skill names (`clean-architecture`, `dx-heuristics`,
+`test-heuristics`, `project-agentification`, `example-minimal`) or repo scopes
+(`schemas`, `scripts`, `hooks`, `repo`, `ci`, `deps`). Header max 100 chars.
+
+Full examples and local-hook install in [`README.md`](./README.md#commit-conventions).
+Config: [`commitlint.config.cjs`](./commitlint.config.cjs), CI jobs in
+[`.github/workflows/ci.yml`](./.github/workflows/ci.yml), local hook in
+[`.githooks/commit-msg`](./.githooks/commit-msg).
+
 ## Commands
 
 - `just check` — runs `npx skills add . --list` plus every `evals/run-static-checks.sh`

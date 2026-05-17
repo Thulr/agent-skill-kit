@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+msg_file="$1"
+first_line=$(head -n1 "$msg_file")
+
+# Skip merge, revert, fixup/squash/amend commits (git's own conventions).
+if [[ "$first_line" =~ ^(Merge|Revert|fixup!|squash!|amend!) ]]; then
+  exit 0
+fi
+
+allowed_types='build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test'
+allowed_scopes=' clean-architecture dx-heuristics test-heuristics project-agentification example-minimal schemas scripts hooks repo ci deps '
+
+if ! [[ "$first_line" =~ ^($allowed_types)(\(([a-z0-9-]+)\))?!?:\ .+ ]]; then
+  cat >&2 <<EOF
+✗ Commit message does not follow Conventional Commits format.
+
+  Got: $first_line
+
+  Expected: <type>[(<scope>)][!]: <subject>
+
+  Examples:
+    feat(clean-architecture): add new playbook
+    fix(dx-heuristics): correct DTO heuristic wording
+    docs(repo): list clean-architecture in README
+    ci: pin commitlint action to SHA
+    chore(scripts): bump schema-validator deps
+
+  Allowed types:  build chore ci docs feat fix perf refactor revert style test
+  Allowed scopes: clean-architecture dx-heuristics test-heuristics
+                  project-agentification example-minimal schemas scripts
+                  hooks repo ci deps (scope is optional)
+EOF
+  exit 1
+fi
+
+# Check scope against allowlist if one was provided.
+if [[ "$first_line" =~ ^($allowed_types)\(([a-z0-9-]+)\) ]]; then
+  scope="${BASH_REMATCH[2]}"
+  if [[ "$allowed_scopes" != *" $scope "* ]]; then
+    cat >&2 <<EOF
+✗ Commit scope '$scope' is not in the allowlist.
+
+  Allowed scopes: clean-architecture dx-heuristics test-heuristics
+                  project-agentification example-minimal schemas scripts
+                  hooks repo ci deps
+
+  If '$scope' should be allowed, update .githooks/commit-msg and
+  commitlint.config.cjs together.
+EOF
+    exit 1
+  fi
+fi
+
+# Check header length (100 chars).
+if (( ${#first_line} > 100 )); then
+  echo "✗ Commit header exceeds 100 chars (${#first_line})." >&2
+  exit 1
+fi
+
+exit 0

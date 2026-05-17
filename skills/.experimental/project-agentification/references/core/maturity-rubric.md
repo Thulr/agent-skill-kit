@@ -1,6 +1,14 @@
-# Maturity Rubric — Level 1–5
+# Maturity Rubric — Levels 1–3
 
 Used by `assess`. Score each layer (legibility / action / control) independently 1–5; overall maturity = min(layer scores). Heuristic: **your weakest discipline is your ceiling.** A perfect Legibility layer with no Control layer caps the repo at Level 2.
+
+> **Levels 4–5** (Specification Architecture, Sovereign Engineering)
+> require harness-engineering infrastructure — specs, eval pipelines,
+> cost tracking, model routing, SLSA provenance — beyond what
+> `project-agentification` scopes. They live in
+> `evidence-driven-agent-rules`'s rubric extension (see that skill's
+> `references/core/maturity-rubric.md`). Repos without harness
+> infrastructure cap at Level 3 here; that's a feature, not a gap.
 
 ## Levels
 
@@ -23,19 +31,7 @@ Used by `assess`. Score each layer (legibility / action / control) independently
 - Sandbox modes are explicit; secret scoping is environment-bound.
 - **Signals:** agent failure rate drops sharply; rules survive because hooks won't let them be violated.
 
-### Level 4 — Specification Architecture
-- Specs precede code: PRDs, ADRs, runbooks live in `docs/specs/`, `docs/adr/`, `docs/runbooks/` and are first-class artifacts.
-- Safety gates on agent pipelines: every prompt/tool/policy change triggers targeted evals.
-- AI is a defined-responsibility colleague with explicit roles (PM, Dev, QA, SM) — either via BMAD-style personas or sub-agent design.
-- Replayable execution: trajectories, event histories, structured logs joined to commits.
-- **Signals:** PRs include self-verification evidence (logs, traces, eval scores) by default; spec drift triggers an automated audit.
-
-### Level 5 — Sovereign Engineering
-- Reusable plugin/skill catalog across teams; versioned, owned, reviewed.
-- Cost tracking per agent session; model-routing policies (Haiku for exploration, Sonnet for daily, Opus for hard reasoning).
-- Organisational governance: audit log for hook overrides, write-protection on AGENTS.md and skills with mandatory review.
-- Provenance: SLSA-style attestations for release artifacts.
-- **Signals:** agent throughput is bounded by review/governance throughput, not infrastructure; incidents have a disclosure path.
+> **Levels 4–5** moved to `evidence-driven-agent-rules`. See note at top.
 
 ## Per-layer scoring
 

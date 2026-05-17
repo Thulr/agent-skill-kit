@@ -38,7 +38,7 @@ Customization — fill from your three-tier table (gates scaffold H1):
 - PROTECTED_TOP_DIRS — top-level dirs `rm -r` is blocked against.
 - Add new predicates in the `check_segment` dispatch for additional
   forbidden actions named in your three-tier table. Every predicate must
-  trace to a failure-log row — no boilerplate (W1).
+  trace to a specific project-knowledge input — no boilerplate (W9).
 - Ships with a companion test fixture (`pretooluse-hook-test.py`). Hook +
   tests are one scaffold artifact (gates scaffold H5). The test fixture's
   variant-matrix coverage rules are enumerated in `gates.md` scaffold H5.

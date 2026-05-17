@@ -5,13 +5,17 @@ The published skills here ARE the product; downstream consumers install them via
 `npx skills add Thulr/informed-skills`. Treat every PR to `skills/`, `.agents/`, or
 `.github/` as a release artifact, not internal scaffolding.
 
-This file is hand-curated from observed agent failures recorded in
-[`docs/reflection-log/`](./docs/reflection-log/) (one file per failure;
-indexed by `docs/reflection-log/README.md`). Do **not** autogenerate it
-(`/init`, `/Generate Cursor Rules`, etc. — see W1 in the project-agentification
-empirical-warnings doc). Every load-bearing rule below traces back to a
-reflection-log entry or a recurring real failure; if you want to add a rule,
-log the failure first.
+This file is hand-curated. Most sections describe project context (stack,
+layout, commands, invariants) and trace to project knowledge. Load-bearing
+rules in the §Load-bearing rules section trace to observed agent failures
+recorded in [`docs/reflection-log/`](./docs/reflection-log/) (this repo
+runs the evidence-driven feedback loop — see `evidence-driven-agent-rules`
+— because it's a skill catalog where skill efficacy is the thing under
+measurement). Do **not** autogenerate this file
+(`/init`, `/Generate Cursor Rules`, etc. — see W9 in
+[`empirical-warnings.md`](./skills/_shared/empirical-warnings.md), or W1 in
+[`evidence-driven-agent-rules`](./skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md)
+for the failure-driven floor).
 
 Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
 
@@ -20,8 +24,9 @@ Trust and follow these instructions; don't re-explore repo layout/commands if th
 > as any AGENTS.md-aware harness (Codex, Cursor, Aider, Windsurf). Edit `AGENTS.md`
 > only — the symlinks update automatically. `scripts/check-instruction-surface.sh`
 > (run in `just check` and CI) fails the build if either symlink is missing or
-> divergent. Pattern from `vercel/next.js`; W8 in the project-agentification
-> empirical-warnings doc covers the drift risk.
+> divergent. Pattern from `vercel/next.js`; W8 in
+> [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md)
+> covers the drift risk.
 
 ## Layout
 
@@ -218,4 +223,5 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
 - [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
-- [`empirical-warnings.md`](./skills/.experimental/project-agentification/references/empirical-warnings.md) — W1–W10 guardrails
+- [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
+- [`skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md`](./skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `evidence-driven-agent-rules`)

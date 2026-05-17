@@ -2,44 +2,33 @@
 
      Drop this into the project's existing `README.md` (under a top-level
      `## Agents` or `## Authoring` heading) when AGENTS.md does not yet
-     exist. The block makes `docs/reflection-log/` discoverable in the
-     W1-interim where the agent surface has only the reflection log.
+     exist. The block tells contributors and AI coding agents how this
+     repo is set up and what the active gates are.
 
      Prescribed by instruction-surface scaffold H5. Required when:
-     - The repo has `docs/reflection-log/` but no `AGENTS.md` (Stage 0).
-     - Any harness in the step 4.5 inventory loads README at session start
-       (true for Copilot, common for Claude Code and Cursor).
+     - The project intends to ship an `AGENTS.md` soon (the README
+       block is the bridge for the period before it lands).
+     - Any harness in the step 4.5 inventory loads README at session
+       start (true for Copilot, common for Claude Code and Cursor).
 
-     Critical: this block MUST explicitly distinguish the recording bar
-     (low — one observation is enough) from the promotion bar (high —
-     ≥3 entries describing the same gap before scaffolding a rule).
-     Conflating them in the same paragraph causes reviewers and agents to
-     self-filter single observations as "not yet a pattern."
+     Once AGENTS.md lands, the §Agents section here can shrink to a
+     single line: "See [AGENTS.md]."
 
-     Once AGENTS.md lands, the §Reflection-log workflow there absorbs this
-     block; reduce the README block to a single line: "See [AGENTS.md]." -->
+     This block is project-context-first. It does NOT presume the
+     project keeps a reflection log; that workflow belongs to the
+     `evidence-driven-agent-rules` skill and the optional pointer at
+     the bottom of this block. -->
 
 ## Agents
 
 This repository is set up for AI coding agents (Claude Code, Cursor, Codex,
 Copilot, Aider, Windsurf, and other AGENTS.md-compatible harnesses).
 
-When an AI coding agent trips on this repo — wastes tokens, edits the wrong
-file, hallucinates a convention, makes an unsafe action — record it in
-[`docs/reflection-log/`](./docs/reflection-log/) by copying `_template.md`
-to `YYYY-MM-DD-<slug>.md`. See
-[`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for the
-full workflow.
+<!-- One paragraph: what this project does, who reads this file, what
+     agents should know before doing anything. Replace the placeholder. -->
 
-**Recording bar (low).** If you can write a non-trivial
-`## What to do differently` section, log it. One observation is enough —
-do **not** filter on "is this a pattern yet?" at recording time. When in
-doubt, record.
-
-**Promotion bar (high).** **Three or more entries describing the same gap**
-is the threshold for adding a rule, hook, or `AGENTS.md` sentence to close
-it (W1: scaffolding from fewer than three observed failures produces
-plausible boilerplate that hurts agent success).
+<one-line project description>. <One sentence on what makes this project
+agent-relevant: monorepo scope, release cadence, top invariants.>
 
 <!-- If the repo already has gates (hooks, CI checks) that an agent should
      be aware of before its first action, list them here. Otherwise delete
@@ -48,6 +37,18 @@ plausible boilerplate that hurts agent success).
 Active gates: <e.g., "`.claude/hooks/block-destructive-bash.py` blocks
 force-push to main and `rm -rf` of protected paths; see the file for the
 full deny-list.">
+
+<!-- Optional: if the project also keeps a reflection log per
+     `evidence-driven-agent-rules`, add this paragraph. Otherwise delete it. -->
+
+<!--
+This project also runs an evidence-driven feedback loop: agent failures
+that produce useful "what to do differently" notes get recorded under
+[`docs/reflection-log/`](./docs/reflection-log/). See
+[`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for
+the workflow (recording bar is low — one observation is enough;
+promotion to a rule waits for ≥3 same-gap entries, per W1).
+-->
 
 <!-- Once `AGENTS.md` lands at the repo root, replace this entire section
      with: -->

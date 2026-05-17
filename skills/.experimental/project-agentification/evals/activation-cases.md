@@ -45,9 +45,13 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
   - Load `references/intent-router.csv`.
   - Present the intent menu.
   - NOT inspect the repo, NOT load any playbook, NOT write any file.
-- On `scaffold` invocation without observed failures stated:
-  - Refuse to scaffold.
-  - Suggest collecting 3–5 failures first.
+- On `scaffold` invocation without project knowledge stated:
+  - Ask the user for tech stack, repo layout / scope, build / test / lint
+    commands, and top-level invariants.
+  - Do not autogenerate from boilerplate (W9).
+  - If the user requests reflection-log-driven scaffolding, redirect to
+    `evidence-driven-agent-rules` (this skill is project-context-first,
+    not evidence-driven).
 - On `assess` invocation with a specific sub-surface:
   - Load only that sub-surface's playbook (plus warnings + rubric).
   - Run all four lenses on it.

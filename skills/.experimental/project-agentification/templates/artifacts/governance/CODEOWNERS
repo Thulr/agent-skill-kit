@@ -6,7 +6,9 @@
 # Rule 4 (resolvable handles): every owner entry MUST match `@handle` or
 # `@org/team` — opaque strings like `justin` are static-check failures
 # because they cannot be resolved to a reviewer for CODEOWNERS or branch-
-# protection automation. See docs/agent-failures.md entry tracking this.
+# protection automation. See the reflection-log entry tracking this
+# (e.g. docs/reflection-log/2026-05-15-codeowners-opaque-maintainer-handle.md
+# in repos that have tracked the failure).
 #
 # Pair with branch protection: this file is documentation-only until the
 # GitHub branch-protection rule for `main` requires CODEOWNERS approval.
@@ -31,7 +33,7 @@ skills/**                           @<owner-handle>
 # Governance.
 .github/CODEOWNERS                  @<owner-handle>
 SECURITY.md                         @<owner-handle>
-docs/agent-failures.md              @<owner-handle>
+docs/reflection-log/                @<owner-handle>
 
 # Top-level developer-facing files.
 Justfile                            @<owner-handle>

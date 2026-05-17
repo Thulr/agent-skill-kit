@@ -104,9 +104,10 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
   theater, not a gate strategy.
 - **Require the step 4.5 harness inventory.** Without it, the scaffold defaults to whichever
   harness's dotfile happens to exist — repeating the failure logged at
-  `docs/agent-failures.md` entry 6 (`.claude/` present, Claude-only hook produced, other harnesses
-  punted on). Refuse to scaffold gates until the inventory is collected; then produce equivalents
-  per the per-harness primitives table above for every harness named.
+  `docs/reflection-log/2026-05-16-gates-scope-inferred-from-dotfile-presence.md` (`.claude/`
+  present, Claude-only hook produced, other harnesses punted on). Refuse to scaffold gates until
+  the inventory is collected; then produce equivalents per the per-harness primitives table
+  above for every harness named.
 - **H1.** Fill the three-tier table first: enumerate every action class the agent will take,
   assign a tier, identify which forbidden or ask-first actions lack a hook. Gaps are the backlog.
 - **H2.** Wire PostToolUse format-on-write before PreToolUse blocks — low-risk, immediate output
@@ -154,10 +155,12 @@ Every harness needs its own row in the scaffold's gate enumeration. If the user 
       `bash` (not in the deny-list) and allows the segment.
 
   The hook landing without the test fixture is the regression vector logged at
-  `docs/agent-failures.md` entry 7; the fixture landing without exhaustive variant categories
-  is the regression vector logged at entries 8 and 9. The post-write auditor (workflow
-  step 8.5) treats this heuristic as `applied` only when both the hook and its test fixture
-  are in the diff and the fixture covers all 13 categories above.
+  `docs/reflection-log/2026-05-16-hook-regex-bypasses-round1.md`; the fixture landing without
+  exhaustive variant categories is the regression vector logged at
+  `docs/reflection-log/2026-05-16-hook-argv-bypasses-round2.md` and
+  `docs/reflection-log/2026-05-16-hook-path-cwd-bypasses-round3.md`. The post-write auditor
+  (workflow step 8.5) treats this heuristic as `applied` only when both the hook and its test
+  fixture are in the diff and the fixture covers all 13 categories above.
 
 - **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**
   Regex deny-lists have a long bypass tail: refspec forms (`git push -f origin HEAD:main`),

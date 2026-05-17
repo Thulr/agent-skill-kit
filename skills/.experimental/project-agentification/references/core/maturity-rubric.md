@@ -19,7 +19,7 @@ Used by `assess`. Score each layer (legibility / action / control) independently
 ### Level 3 — Habitat
 - Instructions are current AND enforced via CI / hooks (PreToolUse/PostToolUse, lint-on-write, format-on-write, type-check, sandbox).
 - A HARNESS.md or equivalent declares constraints that CI actually checks.
-- Reflection log (`docs/agent-failures.md` or similar) is dated within weeks; new entries become rules or eval cases.
+- Reflection log (`docs/reflection-log/` or similar — one file per failure) has recent entries; the `ls`-sorted filename order shows new entries land within weeks; new entries become rules or eval cases.
 - Sandbox modes are explicit; secret scoping is environment-bound.
 - **Signals:** agent failure rate drops sharply; rules survive because hooks won't let them be violated.
 

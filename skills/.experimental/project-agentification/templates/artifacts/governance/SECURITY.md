@@ -64,9 +64,9 @@ lower-severity issues.
 - Branch protection on `main` <"is being configured to require CI + at least
   one code-owner approval" — only state "is required" once the GitHub rule
   is enabled>. Until enabled, `CODEOWNERS` is documentation-only.
-- Failure-log workflow ([`docs/agent-failures.md`](./docs/agent-failures.md))
-  captures and routes agent failures so they become CI gates rather than
-  recurring incidents.
+- Reflection-log workflow ([`docs/reflection-log/`](./docs/reflection-log/))
+  captures and routes agent failures (one file per failure) so they become
+  CI gates rather than recurring incidents.
 
 ## See also
 

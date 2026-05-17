@@ -12,6 +12,6 @@ Diataxis mapping (roughly):
 
 Other docs in this repo:
 
-- `docs/agent-failures.md` — the evidence log that governs new rules/gates
+- `docs/reflection-log/` — per-failure entries; the evidence base that governs new rules/gates (see its `README.md` for the recording-bar vs. promotion-bar distinction)
 - `docs/agent-readiness-2026-05-15.md` — historical assessment (may be stale)
 

@@ -15,13 +15,13 @@
 #   - `skills/.experimental/*`
 #   - `.agents/skills/*`
 # - Skill schema parity is enforced by each skill's `evals/run-static-checks.sh`.
-# - `AGENTS.md` is hand-curated from `docs/agent-failures.md`; do not autogenerate.
+# - `AGENTS.md` is hand-curated from `docs/reflection-log/`; do not autogenerate.
 #
 # Primary entrypoints
 # - `README.md`: overview + install instructions + layout
 # - `constitution.md`: repo charter (purpose + invariants)
 # - `AGENTS.md`: agent instructions for working in this repo
-# - `docs/agent-failures.md`: observed failures; source-of-truth for future rules/gates
+# - `docs/reflection-log/`: per-failure entries; source-of-truth for future rules/gates
 # - `docs/adr/`: architectural decisions (the "why")
 # - `docs/runbooks/`: maintainer procedures (the "how")
 #
@@ -54,7 +54,7 @@
 # - `.agents/skills/skill-reviewer/`
 #
 # Docs
-# - `docs/agent-failures.md`: failure log (evidence-first workflow)
+# - `docs/reflection-log/`: per-failure entries (evidence-first workflow); see its `README.md` for the recording-bar vs. promotion-bar distinction
 # - `docs/agent-readiness-2026-05-15.md`: historical assessment (may be stale)
 # - `docs/specs/`: specs for significant work (new skills, schema changes, new gates)
 # - `docs/adr/`: ADRs (durable decisions)

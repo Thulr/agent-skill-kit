@@ -66,7 +66,7 @@ Out of scope (open a normal issue instead):
   `SKILL.md` structure, `skill.json` provenance, and source-author leakage.
 - `.claude/hooks/block-destructive-bash.py` blocks destructive Bash actions
   (force-push to main, `rm -rf` of protected dirs) at the harness layer.
-- Failure-log workflow ([`docs/agent-failures.md`](./docs/agent-failures.md))
+- Reflection-log workflow ([`docs/reflection-log/`](./docs/reflection-log/))
   feeds AGENTS.md and skill rules from observed real failures.
 
 If you find any of these defenses bypassable, please report under the policy above.

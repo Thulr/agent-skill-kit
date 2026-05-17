@@ -71,9 +71,12 @@ and below the regulatory layer (NIST AI RMF), covering:
   `gh attestation verify` before promoting any artifact downstream.
 - **H4.** Hook override unlogged → instrument every PreToolUse override as a structured event
   (tool, args, exit code, actor, timestamp, rationale) in an append-only log at `docs/audit/`.
-- **H5.** Human rejection events not captured → add `REFLECTION_LOG.md`; each entry records
-  session ID, agent recommendation, human decision, rationale, and proposed eval case; promote
-  entries to `agent/evals/` within one sprint.
+- **H5.** Human rejection events not captured → add `docs/reflection-log/` (directory; one file
+  per rejection per the reflection-log sub-surface template) — each entry records session ID,
+  agent recommendation, human decision, rationale, and proposed eval case; promote entries to
+  `agent/evals/` within one sprint. **Recording bar (one entry) is lower than promotion bar
+  (≥3 same-gap entries → scaffold rule)**; the README in the log directory must spell this out
+  so reviewers do not self-filter entries.
 
 ### scaffold
 
@@ -106,7 +109,10 @@ and below the regulatory layer (NIST AI RMF), covering:
   attestation subject — verify build workflow order and digest computation.
 - **H4.** Reflection log empty despite errors → rank: (1) no hook emits a structured reflection
   prompt on rejection; (2) log format is unstructured — agents and reviewers skip it; (3) log
-  not linked from AGENTS.md — cold-start agent never discovers it.
+  not linked from AGENTS.md — cold-start agent never discovers it; (4) the log's README conflates
+  the recording bar with the promotion bar (≥3 entries language too close to the "how to add an
+  entry" instructions), causing reviewers to self-filter single observations as "not yet a
+  pattern" instead of recording them.
 
 ## Empirical warnings
 
@@ -153,5 +159,7 @@ Concrete starting points for `scaffold` governance artifacts. Copy from
 - "OWASP LLM and Agent Top 10" — AGENTS.md as injection surface (W5); privilege escalation in
   sub-agent topology; supply-chain risk in third-party MCP servers and skill files.
 - "Engineering Agents — Harness Assessment" — Level 5 Sovereign Engineering: cost tracking,
-  model routing, organisational governance; REFLECTION_LOG.md as Level 3 signal; Green M&M
-  Test; write-protection on AGENTS.md and skills with mandatory review.
+  model routing, organisational governance; reflection log (Engineering Agents calls this
+  `REFLECTION_LOG.md`; this playbook scaffolds it as `docs/reflection-log/` — a directory of
+  per-entry files, scaled past the unbounded-table failure mode of a single file) as Level 3
+  signal; Green M&M Test; write-protection on AGENTS.md and skills with mandatory review.

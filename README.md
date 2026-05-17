@@ -105,7 +105,7 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 |------|---------|
 | `constitution.md` | Repo charter: purpose, non-goals, and invariants |
 | `AGENTS.md` | Hand-curated agent instructions for this repo (also surfaced via `CLAUDE.md` + `.github/copilot-instructions.md` symlinks) |
-| `docs/agent-failures.md` | Log of observed agent failures; source-of-truth for future rules/gates |
+| `docs/reflection-log/` | One file per observed agent failure; source-of-truth for future rules/gates |
 | `docs/specs/` | Specs/plans for significant work (new skills, schema changes, new gates) |
 | `docs/adr/` | Architectural Decision Records (durable “why”) |
 | `docs/runbooks/` | Maintainer procedures (durable “how”) |
@@ -136,7 +136,7 @@ Validate the repository before publishing or handing off changes:
 just check
 ```
 
-When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/agent-failures.md`](./docs/agent-failures.md). Three entries describing the same gap is the threshold for adding a rule, hook, or `AGENTS.md` sentence to close it.
+When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/reflection-log/`](./docs/reflection-log/) by copying `_template.md` to `YYYY-MM-DD-<slug>.md`. **The recording bar is low**: if you can write a non-trivial `## What to do differently` section, log it. The "three entries describing the same gap" threshold gates *promoting* the pattern into a rule, hook, or `AGENTS.md` sentence — not recording. See [`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for the full workflow.
 
 ## License
 

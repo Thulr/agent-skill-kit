@@ -2,9 +2,9 @@
      Sub-surface: instruction-surface. Heuristics: scaffold H1 (WHAT/WHY/HOW),
      H2 (front-load constraints), H4 (≤200 lines per W2), H5 (bootstrap order).
 
-     W1 compliance: every section must trace to at least one row in
-     `docs/agent-failures.md`. Sections without a failure source are not
-     mergeable — delete them. Do NOT autogenerate the contents of any
+     W1 compliance: every section must trace to at least one entry under
+     `docs/reflection-log/`. Sections without a reflection-log source are
+     not mergeable — delete them. Do NOT autogenerate the contents of any
      section from boilerplate. Hand-curate.
 
      Strip all `<!-- ... -->` template comments before committing. -->
@@ -18,10 +18,11 @@
 `src/` or `tests/` is treated as a release artifact, not internal scaffolding.">
 
 This file is hand-curated from observed agent failures recorded in
-[`docs/agent-failures.md`](./docs/agent-failures.md). Do **not** autogenerate
-it (`/init`, `/Generate Cursor Rules`, etc. — see W1 in any agent-readiness
-reference). Every rule below traces back to a log entry; to add a rule, log
-the failure first.
+[`docs/reflection-log/`](./docs/reflection-log/) (one file per failure;
+indexed by `docs/reflection-log/README.md`). Do **not** autogenerate it
+(`/init`, `/Generate Cursor Rules`, etc. — see W1 in any agent-readiness
+reference). Every rule below traces back to a reflection-log entry; to add
+a rule, log the failure first.
 
 <!-- If CLAUDE.md and .github/copilot-instructions.md are symlinks to this
      file (per instruction-surface H2-harden), keep the next block. Otherwise
@@ -61,15 +62,16 @@ Tech stack: <languages, frameworks, runtimes, package managers in use>.
 
 ## Load-bearing rules
 
-<!-- Each rule MUST cite a `docs/agent-failures.md` row. No rule without a
-     failure source. Number rules so commits and reviewers can reference
-     them: "Rule 4 covers entry 7 in the failure log." -->
+<!-- Each rule MUST cite a `docs/reflection-log/<entry-file>.md`. No rule
+     without a reflection-log source. Number rules so commits and reviewers
+     can reference them: "Rule 4 covers 2026-05-15-foo-bar.md in the
+     reflection log." -->
 
-### Rule 1 — <one-line title> (log entry <N>)
+### Rule 1 — <one-line title> (`docs/reflection-log/<entry>.md`)
 <2-4 sentences. State the rule. State why agents trip without it. State
 exactly what to do (a path, a flag, a command).>
 
-### Rule 2 — <title> (log entry <N>)
+### Rule 2 — <title> (`docs/reflection-log/<entry>.md`)
 <...>
 
 ## Forbidden actions (hook-enforced)
@@ -86,21 +88,37 @@ non-zero exit:
 <List the per-harness equivalents for every harness in the step 4.5 inventory,
 referencing `templates/artifacts/gates/` for each.>
 
-## Failure-log workflow
+## Reflection-log workflow
 
-<!-- This section anchors the W1 feedback loop. Required. -->
+<!-- This section anchors the W1 feedback loop. Required. The recording bar
+     (low) and the promotion bar (high) must be stated as distinct rules —
+     conflating them in the same paragraph causes reviewers to self-filter
+     single observations as "not yet a pattern" and the log silently
+     under-records. -->
 
 When an agent trips on this repo:
 
-1. Append a row to [`docs/agent-failures.md`](./docs/agent-failures.md) — date,
-   harness, task, what happened, smallest gap.
-2. **Three or more entries describing the same gap** = pattern. Open an issue
+1. **Record it.** Copy `docs/reflection-log/_template.md` to
+   `docs/reflection-log/YYYY-MM-DD-<slug>.md` and fill in frontmatter
+   (`date`, `harness`, `sub-surface`, `severity`, `status`, `related`),
+   `## What happened`, `## What to do differently`, `## Closed by`.
+2. **The recording bar is low.** If you can write a non-trivial
+   `## What to do differently` section, the entry is worth recording. One
+   observation is enough. Do **not** filter on "is this a class / pattern
+   / recurring?" at recording time — that filter belongs at the promotion
+   step (below), not here.
+3. **Promote when there's a pattern.** Three or more entries describing the
+   same gap (use `grep -l 'sub-surface: gates' docs/reflection-log/[0-9]*.md`
+   — the `[0-9]*` glob scopes to dated entry files and excludes `README.md`
+   / `_template.md`, which otherwise inflate the count) → open an issue
    tagged `agent-surface` and propose the smallest change that closes it.
-3. Reference the log row in the commit message that closes the gap.
+4. Reference the entry filename in the commit message that closes the gap;
+   set the entry's `status:` to `resolved` and fill `## Closed by`.
 
-The three-entry floor is W1 (LogicStar/ETH Mündler et al.): scaffolding from
-fewer than three observed failures produces plausible boilerplate that hurts
-agent success ~3% on average.
+The three-entry promotion floor is W1 (LogicStar/ETH Mündler et al.):
+scaffolding from fewer than three observed failures produces plausible
+boilerplate that hurts agent success ~3% on average. **W1 gates promotion,
+not recording.**
 
 ## Ownership and review
 
@@ -119,8 +137,8 @@ what makes this repo's threat model distinct, if anything.>
 
 ## See also
 
-- [`docs/agent-failures.md`](./docs/agent-failures.md) — the log every change
-  to this file must trace back to.
+- [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries;
+  every change to this file must trace back to at least one entry.
 - <Other references the cold-context agent will need.>
 
 <!-- Final shape check before committing:

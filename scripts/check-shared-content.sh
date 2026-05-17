@@ -91,6 +91,18 @@ for skill_dir in skills/*/ skills/.experimental/*/ .agents/skills/*/; do
             continue
         fi
 
+        # Symlink must resolve to the file with the matching basename.
+        # Otherwise references/lenses.md -> _shared/empirical-warnings.md
+        # would silently pass: the symlink IS inside _shared/, but the
+        # content is wrong. This is the regression vector Codex caught
+        # on PR #12 (commit 83d97400).
+        if [[ "$(basename "$resolved")" != "$basename" ]]; then
+            echo "FAIL: $candidate is a symlink to '$resolved' but the basename does not match '$basename'" >&2
+            echo "      → fix the symlink target to point at $SHARED_DIR/$basename" >&2
+            failed=1
+            continue
+        fi
+
         echo "OK:   $candidate -> $(readlink "$candidate")"
     done
 done

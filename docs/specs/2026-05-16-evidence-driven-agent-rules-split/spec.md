@@ -156,113 +156,147 @@ land:
 
 ## Open questions
 
-These need reviewer input before plan.md can be finalized.
+All resolved 2026-05-16. Plan execution is unblocked.
 
 ### Q1. Shared directory mechanics — RESOLVED
 
-**Decision:** **embed-and-lint.** Canonical source lives at
-`skills/_shared/<file>.md`. Each consuming skill ships its own copy at
-`<skill>/references/<file>.md`. A new `scripts/check-shared-content.sh`
-(invoked by `just check`) asserts each embedded copy byte-matches the
-canonical source.
+**Decision:** **symlink-as-canonical.** Canonical source lives at
+`skills/_shared/<file>.md`. Each consuming skill has
+`<skill>/references/<file>.md` as a **relative symlink** to the canonical
+source. At install time, `npx skills` dereferences the symlink and ships
+the resolved file content to the downstream user — they get a regular
+file (no symlink, no missing reference). At maintenance time, editing
+the canonical file propagates to all consumers automatically. No lint
+script needed; drift is impossible because the symlink IS the same
+inode.
 
-**Why other options are ruled out** (verified empirically — installed
-`project-agentification` alone into `/tmp/skills-test` to observe what
-the `npx skills` tool actually does):
+**Why this is the chosen mechanism** (verified empirically — installed
+both a normal skill and a skill containing a cross-directory symlink
+into scratch dirs to observe `npx skills@1.5.7` behavior):
 
-- The `skills` installer (vercel-labs/skills, npm `skills@1.5.7`) only
-  discovers and installs directories containing a valid `SKILL.md`. A
-  sibling `skills/_shared/` with no SKILL.md is silently ignored
-  (`Found 7 skills` — counting only SKILL.md-bearing dirs).
-- Each skill is extracted as a standalone directory under
-  `./.agents/skills/<name>/` plus per-agent symlinks
-  (`./.claude/skills/<name>/`, etc.). The installer copies only the
-  skill's own tree.
-- Cross-skill references like `../../_shared/lenses.md` would resolve to
-  paths that don't exist on the downstream user's disk → broken refs.
-- Cross-skill symlinks would dereference at install time (the file
-  content gets copied into one skill's directory, defeating the
-  single-source goal) or break.
+- Test 1: installed `project-agentification` alone. Confirmed the
+  installer only discovers SKILL.md-bearing dirs (`Found 7 skills`) and
+  copies each skill's own tree to `./.agents/skills/<name>/`. A sibling
+  `skills/_shared/` with no SKILL.md is silently ignored as a skill.
+- Test 2: created a tiny test repo with `skills/test-skill/references/canonical.md`
+  as a symlink to `../../_shared/canonical.md`. Installed via
+  `npx skills add`. The installed file at
+  `./.agents/skills/test-skill/references/canonical.md` was a **regular
+  file** (not a symlink, not broken) containing the canonical content.
+  → The installer dereferences symlinks during extraction.
 
-So options (a) symlinks and (d) defer would ship broken installs.
-Option (b) copy-at-install would require changes to the `skills` tool
-itself, which this repo doesn't own. **Owning our own installer** (like
-BMAD-METHOD's `npx bmad-method`) was discussed and ruled out: the cost
-(months of work to reimplement the 55+ harness matrix the `skills` tool
-already handles) is upside-down vs. the benefit of sharing 2–3
-primitives. Decision: stay on `npx skills`, embed-and-lint locally.
+So at the downstream layer, the user sees a self-contained skill with
+regular files — the `_shared/` directory is purely a maintenance-side
+single-source-of-truth that disappears at install. Best of both worlds.
+
+**Options ruled out:**
+
+- **Per-skill embedded copy + lint.** Strictly worse: needs a lint
+  script, allows drift between lint runs, requires maintainer discipline
+  to update both files. The symlink approach gets the same install
+  behavior with none of that overhead.
+- **Defer the shared dir.** Ships broken cross-refs ("see
+  `project-agentification` §Lenses" from a separately-installed
+  `evidence-driven-agent-rules`).
+- **Copy-at-install via `npx skills` tool changes.** This repo doesn't
+  own the tool.
+- **Owning our own installer** (like BMAD-METHOD's `npx bmad-method`).
+  The cost (months of work to reimplement the 55+ harness matrix the
+  `skills` tool already handles) is upside-down vs. the benefit of
+  sharing 2–3 primitives. Stay on `npx skills`.
 
 **Scope discipline for `_shared/`:** only put content there that is
 **genuinely identical** across consumers. If the two skills end up
 needing slightly different copies of a primitive, the canonical-source
-pattern stops fitting and the lint becomes noise — drop it from
-`_shared/` and maintain independently. Q2/Q3 below apply this filter.
+pattern stops fitting and divergence becomes silent — drop it from
+`_shared/` and maintain independently. Q2/Q3 above apply this filter.
 
-### Q2. Maturity rubric scope
+**Relative-symlink paths to canonical** (computed per consuming skill):
 
-The Level 1–5 maturity rubric in `references/core/maturity-rubric.md`
-mixes layers that apply to all repos (Level 1: "no persistent agent
-artifacts"; Level 2: "AGENTS.md exists, no enforcement") with layers that
-only apply to harness-eng repos (Level 4: "specs precede code, agent
-pipelines with safety gates"; Level 5: "cost tracking, model routing,
-SLSA").
+- `skills/<published>/references/<file>.md` →
+  `../../_shared/<file>.md` (2 levels up)
+- `skills/.experimental/<name>/references/<file>.md` →
+  `../../../_shared/<file>.md` (3 levels up)
+- `.agents/skills/<name>/references/<file>.md` →
+  `../../../skills/_shared/<file>.md` (3 levels up + across)
 
-**Recommendation:** keep Levels 1–3 in `project-agentification` (the
-legibility/action layers any repo can score against); move Levels 4–5 to
-`evidence-driven-agent-rules` as an extension rubric. Both skills can
-score `assess` outputs, but the maximum each can produce reflects what
-their audience can actually achieve.
+### Q2. Maturity rubric scope — RESOLVED
 
-### Q3. `empirical-warnings.md` split
+**Decision:** **split — Levels 1–3 in `project-agentification`; Levels
+4–5 in `evidence-driven-agent-rules`.** The rubric lives in each skill's
+own `references/core/maturity-rubric.md`; it does **not** go in
+`_shared/` because each skill ships a different subset (Q1 scope
+discipline: only put genuinely-identical content in `_shared/`).
 
-W1 + the Mündler citations clearly move to the new skill. The others:
+Cross-link in both directions: `project-agentification`'s rubric ends
+with "Levels 4–5 (Spec Architecture, Sovereign Engineering) require
+infrastructure outside this skill's scope — see
+`evidence-driven-agent-rules`." `evidence-driven-agent-rules`'s rubric
+opens with "Levels 1–3 are described in `project-agentification`'s
+maturity rubric; this file extends with Levels 4–5."
 
-- **W2 (≤200 lines), W3 (hooks over prose), W5 (attack surface), W6
-  (token budget), W10 (sandbox):** apply to both audiences → shared.
-- **W4 (don't blindly multi-agent), W7 (skills vs AGENTS.md), W8 (mixed
-  picture; ship light), W9 (auto-init lies):** apply to both → shared.
-- **W1 (≥3 floor):** evidence-driven-agent-rules only.
+Rationale: Levels 1–3 are about whether `AGENTS.md` exists and whether
+hooks enforce constraints — any repo can score against them. Levels 4–5
+assume specs, eval pipelines, cost tracking, model routing, SLSA — all
+harness-engineering concerns where the feedback signal exists.
 
-**Recommendation:** move W2/W3/W4/W5/W6/W7/W8/W9/W10 to `_shared/`,
-leave W1 with `evidence-driven-agent-rules`. Renumber if needed (or keep
-W1 as a per-skill addendum).
+### Q3. `empirical-warnings.md` split — RESOLVED
 
-### Q4. Reflection-log artifact templates
+**Decision:** **W2–W10 to `_shared/empirical-warnings.md`; W1 stays
+sole-tenant in `evidence-driven-agent-rules/references/empirical-warnings-w1.md`.**
 
-`templates/artifacts/reflection-log/` currently lives in
-`project-agentification`. It should move to `evidence-driven-agent-rules`
-since that's the skill that owns the workflow it scaffolds. The
-question is whether `project-agentification` keeps a pointer
-("`evidence-driven-agent-rules` provides this") or stays silent about
-reflection logs entirely.
+W2/W3/W4/W5/W6/W7/W8/W9/W10 apply identically to both audiences
+(content quality, length budgets, hooks-over-prose, attack surface,
+sandbox, etc.) — these meet the "genuinely identical" filter for
+`_shared/`. W1 (the ≥3 floor + Mündler citations) is the failure-driven
+core of `evidence-driven-agent-rules` and does **not** fit either skill
+the same way.
 
-**Recommendation:** keep a one-line "see also" pointer in
-`project-agentification`'s `governance` playbook (where reflection log
-already gets a brief mention) so the cross-skill story is discoverable.
+**Numbering:** keep W1 as a per-skill standalone file (`empirical-warnings-w1.md`)
+in `evidence-driven-agent-rules` so the shared file numbers cleanly W2–W10
+without gaps. Both skills' `SKILL.md` and playbooks reference warnings by
+their canonical W-number (W1, W2, …); the file split is invisible to
+citations.
 
-### Q5. Lens worked-example citations
+Cross-link: `evidence-driven-agent-rules/references/empirical-warnings-w1.md`
+ends with "W2–W10 live in `_shared/empirical-warnings.md` — same numbering."
 
-The four lenses (`references/lenses.md`) include lists of failure modes
-each lens catches, and some of those failure modes cite specific
-reflection-log entries (e.g., "the regression vector logged at
-`docs/reflection-log/2026-05-16-hook-regex-bypasses-round1.md`"). When
-lenses move to `_shared/`, those citations break for downstream consumers
-who don't have those reflection-log entries.
+### Q4. Reflection-log artifact templates — RESOLVED
 
-**Recommendation:** genericize the worked-example citations in the
-shared copy ("the bypass family documented in any repo that has tracked
-regex→argv hardening") and keep the specific-entry citations only in
-this repo's own annotated copy if one is needed at all.
+**Decision:** **move `templates/artifacts/reflection-log/` to
+`evidence-driven-agent-rules`; `project-agentification` keeps a one-line
+"see also" pointer in its `governance` playbook** (where reflection log
+already gets a brief mention).
 
-### Q6. Naming sanity check on `evidence-driven-agent-rules`
+Discoverability rationale: a user `assess`-ing a repo via
+`project-agentification` who finds they have a feedback signal worth
+capturing should be told where to go next. Silence makes the
+evidence-driven workflow undiscoverable from inside the
+`project-agentification` audience.
 
-Descriptive, no jargon, accurately scopes the audience — but **long**
-(28 chars). Compare to `project-agentification` (22 chars).
-`agent-evidence-loop` (19) and `harness-evidence-loop` (21) are shorter
-but lose some specificity.
+The pointer is one line, not a playbook section — anything heavier
+re-imports the audience confusion this spec is trying to remove.
 
-**Recommendation:** keep `evidence-driven-agent-rules` unless this
-sticks out as awkward in `skill.json`-style listings.
+### Q5. Lens worked-example citations — RESOLVED
+
+**Decision:** **genericize the worked-example citations in
+`_shared/lenses.md`** so the shared copy makes sense for any consumer.
+
+Concretely: replace "the regression vector logged at
+`docs/reflection-log/2026-05-16-hook-regex-bypasses-round1.md`" with "the
+regex→argv hardening bypass family (documented in any repo tracking it)."
+The canonical example stays self-contained — readers don't need access
+to this repo's specific reflection-log files to understand what the lens
+catches.
+
+No annotated this-repo-only copy is needed; the genericized text is
+clear enough.
+
+### Q6. Naming sanity check on `evidence-driven-agent-rules` — RESOLVED
+
+**Decision:** **keep `evidence-driven-agent-rules`.** Maintainer
+selected it during initial sequencing discussion; long but
+self-descriptive. No alternative was a clear improvement.
 
 ## Background
 

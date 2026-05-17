@@ -21,22 +21,28 @@ state. `just check` passes after each.
 no functional skill changes yet. Validates the chosen Q1 mechanic before
 either skill depends on it.
 
-- Create `skills/_shared/` (Q1 resolved: embed-and-lint).
+- Create `skills/_shared/` (Q1 resolved: symlink-as-canonical).
 - Move `references/lenses.md` from `project-agentification` to
   `skills/_shared/lenses.md` (canonical source).
-- Embed copy back at `skills/.experimental/project-agentification/references/lenses.md`
-  (byte-identical to canonical).
-- Add `scripts/check-shared-content.sh` invoked by `just check`: walks
-  every skill's `references/` for files whose names match `_shared/`
-  entries; fails the build if any embedded copy diverges from the
-  canonical (`diff -q`).
+- Replace `skills/.experimental/project-agentification/references/lenses.md`
+  with a relative symlink to `../../../_shared/lenses.md`. `npx skills`
+  dereferences the symlink at install time (empirically verified — see
+  spec Q1), so downstream users get a regular file with canonical
+  content.
+- Add `scripts/check-shared-content.sh` invoked by `just check`. Even
+  though symlinks make drift impossible at the file level, the check
+  asserts the structural invariants the symlink approach depends on:
+  every `<skill>/references/<file>` whose basename matches a
+  `_shared/<file>` is a symlink (not a regular file someone accidentally
+  committed over it); every symlink resolves to a path inside
+  `skills/_shared/`; no orphan symlinks. Cheap but catches the one class
+  of regression this design has: a maintainer replacing a symlink with
+  edited content, silently breaking the canonical contract.
 - Update `Justfile` to include the new check.
-- Update `.github/workflows/ci.yml` if needed (likely no-op if CI just
-  invokes `just check`).
-- Acceptance: `just check` green; no behavioral change to
-  `project-agentification`; installing the skill into a scratch dir via
-  `npx skills add` lands a self-contained tree with `references/lenses.md`
-  present.
+- `.github/workflows/ci.yml`: no-op (CI invokes `just check`).
+- Acceptance: `just check` green; `npx skills add` from a scratch dir
+  lands a self-contained tree with `references/lenses.md` present as a
+  regular file (not a symlink) containing canonical content.
 
 ### Slice 2 — empirical-warnings split (PR #13)
 

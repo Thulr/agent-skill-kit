@@ -82,6 +82,21 @@ for skill_dir in skills/*/ skills/.experimental/*/ .agents/skills/*/; do
             continue
         fi
 
+        # Symlink target must be a RELATIVE path. Absolute symlinks
+        # (e.g., /workspace/informed-skills/skills/_shared/lenses.md)
+        # validate fine on the machine that wrote them but break on
+        # clone/install elsewhere because the absolute prefix doesn't
+        # exist. Regression vector Codex caught on PR #12 (commit
+        # 2057166): the realpath-under-_shared check below passes for
+        # absolute targets even though they are non-portable.
+        target=$(readlink "$candidate")
+        if [[ $target == /* ]]; then
+            echo "FAIL: $candidate is an absolute symlink ('$target') — must be relative" >&2
+            echo "      → recreate as: ln -sf <relative-path>/$basename $candidate" >&2
+            failed=1
+            continue
+        fi
+
         # Symlink must resolve to a file inside skills/_shared/.
         resolved=$(python3 -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$candidate")
         shared_abs="$(cd "$SHARED_DIR" && pwd)"

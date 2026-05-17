@@ -64,9 +64,12 @@ patterns → no evidence-driven rule).
 ## Activation
 
 - **Bare invocation** (`"set up reflection log"`, `"evidence-driven
-  rules"`, `"use evidence-driven-agent-rules"`): load
-  `references/intent-router.csv`, show the intent menu, wait. No file
-  inspection, no network calls, no writes.
+  rules"`, `"use evidence-driven-agent-rules"`): show the intent menu
+  inline (`capture` / `promote` / `assess-l4l5` — see §Workflow step 1
+  below for what each does) and wait. No file inspection, no network
+  calls, no writes. (Unlike `project-agentification`, this skill's
+  narrower scope doesn't ship a separate router CSV; the SKILL.md body
+  is the router.)
 - **Concrete invocation** with intent inferable: skip to step 2 of the
   workflow.
 - **Concrete invocation with ambiguous scope**: ask one blocker question

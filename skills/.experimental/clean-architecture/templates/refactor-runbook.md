@@ -2,6 +2,7 @@
 
 **Target persona:** <from references/core/personas.md>
 **Surfaces in scope:** <list>
+**Linked findings:** <CA-... IDs, if this refactor came from an audit ledger>
 **Starting state:** <one line>
 **Target state:** <one line>
 **Date:** <YYYY-MM-DD>
@@ -23,6 +24,7 @@ step. Effort is S (≤ 1 day) / M (≤ 1 week) / L (≤ 1 month).
 - **What changes:** <one sentence>
 - **Safety net:** <characterization tests, dual-write, etc.>
 - **Done when:** <observable predicate>
+- **Closes findings:** <CA-... IDs, or `none`>
 - **If we stop here:** <what state we are in>
 - **Playbook heuristic:** <playbook>#<n> (<intent>)
 
@@ -38,4 +40,6 @@ net is uncertain.>
 ## Verification
 
 <How to verify each step landed safely — tests, dependency-graph
-delta, characterization-test pass rate.>
+delta, characterization-test pass rate. When linked findings exist, run a
+verification closeout pass and update the ledger/workflow state only for IDs
+whose checks pass.>

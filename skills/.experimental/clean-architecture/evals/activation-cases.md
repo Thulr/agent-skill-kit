@@ -25,6 +25,11 @@ These prompts should route into the skill. The category in
   callers"** — refactor toward a port; `refactor/boundaries`.
 - **"strangler fig refactor to extract the billing bounded context"**
   — refactor pathway named explicitly; `refactor/bounded-context`.
+- **"turn these clean-architecture findings into a tracked roadmap"**
+  — follow-through after audit; load `references/trackable-findings.md`
+  and offer ledger / roadmap / grouped issue artifacts.
+- **"verify whether CA-DEP-003 was fixed in this PR"** — closeout pass;
+  rerun the narrow verification rule for that finding ID before checking it off.
 - **"what is the difference between an aggregate and an entity?"** —
   explain intent on a `domain-model` distinction.
 
@@ -50,6 +55,9 @@ domain. Routing into clean-architecture would waste the user's time.
   architecture (route to `test-heuristics` instead).
 - **"audit my docker image for vulnerabilities"** — container security,
   not architecture.
+- **"close these GitHub issues because the PR merged"** — issue closure
+  alone is not clean-architecture verification; requires a referenced
+  finding ID or architecture audit evidence.
 
 ## Boundary cases
 
@@ -91,3 +99,13 @@ contributors. The runtime activation logic lives in
 `SKILL.md` plus the routing CSVs. This file explains *why* the
 runtime should behave the way it does and gives the description-
 optimization loop a target.
+
+## Tracking behavior
+
+- Large audit outputs (7+ findings) and any severity 3–4 finding must
+  include stable finding IDs and offer follow-through artifacts instead of
+  dumping an untracked list.
+- A roadmap or GitHub issue groups related finding IDs into issue-sized work;
+  do not produce one issue per finding unless requested.
+- A finding is checked off only after the verification rule attached to that
+  ID passes. `implemented` and "issue closed" are not final statuses.

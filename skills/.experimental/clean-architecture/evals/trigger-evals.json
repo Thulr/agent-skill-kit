@@ -45,6 +45,18 @@
       "category": "positive"
     },
     {
+      "query": "turn these clean-architecture findings into a tracked roadmap",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
+      "query": "verify whether CA-DEP-003 was fixed in this PR",
+      "should_activate": true,
+      "expected_route": "audit/closeout",
+      "category": "positive"
+    },
+    {
       "query": "what is the difference between an aggregate and an entity?",
       "should_activate": true,
       "expected_route": "explain/domain-model",
@@ -94,6 +106,12 @@
     },
     {
       "query": "audit my docker image for vulnerabilities",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "close these GitHub issues because the PR merged",
       "should_activate": false,
       "expected_route": null,
       "category": "negative"

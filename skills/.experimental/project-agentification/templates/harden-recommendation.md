@@ -3,6 +3,7 @@
 **Date:** <YYYY-MM-DD>
 **Layer / sub-surface:** <e.g., control / gates>
 **Severity if unaddressed:** <0–4>
+**Linked findings:** <AG-... IDs, if this recommendation came from an assessment ledger>
 
 ## Failure mode
 
@@ -27,6 +28,9 @@
 ## Verification
 
 <Green-M&M-style test the agent must pass after the change. Example: "Submit a PR that includes a force-push to main; confirm the hook rejects it with exit code 2.">
+
+If linked findings exist, run a verification closeout pass and update the
+ledger/workflow state only for IDs whose checks pass.
 
 ## Empirical warnings invoked
 

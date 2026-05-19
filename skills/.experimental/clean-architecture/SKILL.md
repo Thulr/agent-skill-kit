@@ -7,116 +7,82 @@ license: MIT
 # Clean Architecture
 
 Architecture review, design, refactor, and explanation grounded in the
-clean-architecture family of approaches. Provenance and source citations
-live in `skill.json`; this file is runtime routing only.
+clean-architecture family. Provenance and citations live in `skill.json`;
+this file is runtime routing only.
 
 ## Core principle
 
-**Direction of dependencies is the load-bearing invariant.** Inner, more
-abstract code never depends on outer, more concrete code. Whether the
-diagram is layered, hexagonal, onion, or concentric, the rule is the
-same: if an inward arrow exists, the architecture leaks.
+**Dependency direction is load-bearing.** Inner, more abstract code never
+depends on outer, more concrete code. Layered, hexagonal, onion, or
+concentric diagrams differ; inward arrows still mean a leak.
 
 ## Activation
 
 - **Bare invocation** (`"use clean-architecture"`, `"architecture review"`,
   `"start"`): load `references/intent-router.csv`, show the intent menu,
-  wait. No file inspection, no network calls, no writes.
-- **Concrete invocation** with both intent and surface inferable: skip to
-  step 3 of the workflow.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or surface; do not inspect private systems first.
+  wait. No file inspection, network calls, or writes.
+- **Concrete invocation** with intent and surface inferable: skip to step 3.
+- **Ambiguous concrete invocation**: ask one blocker question identifying
+  intent or surface before inspecting private systems.
 
 ## Workflow
 
-1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt
-   to one of: `audit`, `design`, `refactor`, `explain`. Ambiguous → ask
-   once.
-2. **Pick surface.** Load the intent's CSV from
-   `references/intents/<intent>.csv`. Match the prompt to one or more
-   surfaces, or `all` (audit only) for multi-surface fan-out. Ambiguous →
-   ask once with the CSV menu, adding `all` as an option for audit intent.
-3. **Load grounded context.** Load only the files listed in the chosen
-   CSV row: one playbook from `references/playbooks/<surface>.md` plus the
-   `core_refs` listed. Do not load other playbooks. Skip this step when
-   surface = `all` — each spawned surface agent loads its own playbook
-   in step 5.
-4. **Identify the target developer persona** from
-   `references/core/personas.md`. Load `references/core/glossary.md`
-   to disambiguate terminology before applying the playbook. For
-   surface = `all`, do this at synthesis only; spawned surface agents
-   load their own copies.
-5. **Spawn sub-agents in parallel (default for `audit`; see Subagent dispatch below for other intents).** Single-surface:
-   delegate one lens per agent — dependency-auditor, boundary-designer,
-   refactor-pragmatist. Audit + `all`: delegate one surface per agent;
-   each runs the three lenses sequentially inside itself. See
-   `references/subagent-dispatch.md`; fall back to sequential execution
-   only if the host has no delegation primitive.
-6. **Apply the playbook.** Use the playbook's heuristics tagged for this
-   intent. For `audit`, score the surface 0–10 using
-   `references/core/score-rubric.md`; for `design`, name the good-shaped
-   pattern; for `refactor`, sequence steps with safety nets; for
-   `explain`, ground the explanation in the playbook's `## Grounding` section. If
-   sub-agents ran, synthesize their findings here.
-7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
-   every finding or risk.
-8. **Emit output.** Audit → `templates/audit-report.md` (or
-   `templates/audit-report-multi.md` for surface = `all`). Design →
-   `templates/design-doc.md`. Refactor → `templates/refactor-runbook.md`.
-   Explain → `templates/explanation.md`.
+1. **Pick intent.** Load `references/intent-router.csv`; route to `audit`,
+   `design`, `refactor`, or `explain`. Ambiguous -> ask once.
+2. **Pick surface.** Load `references/intents/<intent>.csv`; route to one or
+   more surfaces, or `all` for audit fan-out. Ambiguous -> ask once.
+3. **Load context.** Load only the CSV row's playbook plus `core_refs`. For
+   audit `all`, each surface agent loads its own row.
+4. **Set vocabulary.** Identify persona from `references/core/personas.md`
+   and load `references/core/glossary.md`.
+5. **Spawn sub-agents for audit by default.** Single-surface: dispatch the
+   three lenses from `references/subagent-dispatch.md` (dependency-auditor,
+   boundary-designer, refactor-pragmatist). Audit `all`: one surface per
+   agent, three lenses inside. Fall back to sequential lens passes if needed.
+6. **Apply playbook.** Audit scores 0-10; design names the pattern; refactor
+   sequences safe steps; explain uses the playbook grounding. Synthesize
+   sub-agent findings and preserve disagreements.
+7. **Apply severity and IDs.** Every finding gets severity 0-4. Audit
+   findings also get stable IDs from `references/trackable-findings.md`
+   (`CA-<surface>-NNN`).
+8. **Emit output.** Audit -> `templates/audit-report.md` or
+   `templates/audit-report-multi.md`; design -> `templates/design-doc.md`;
+   refactor -> `templates/refactor-runbook.md`; explain ->
+   `templates/explanation.md`.
+9. **Offer tracking.** For audit outputs with 7+ findings, any severity 3-4,
+   or explicit roadmap/issues/closeout requests, load
+   `references/trackable-findings.md` and offer ledger, roadmap, grouped
+   GitHub issues, or verification closeout. Never create external issues
+   without confirmation. Check boxes only after verification passes.
 
 ## Modes
 
-- **Guided Draft (default):** one optionized question at a time, 3–4
-  likely choices plus a freeform path.
-- **Autopilot:** proceed from available context; state assumptions when
-  the task is clear and low-risk.
-- **Grill Me:** open-ended questions, one at a time, when audience,
-  constraints, or trade-offs materially change the result.
+- **Guided Draft:** default; ask one optionized question at a time.
+- **Autopilot:** proceed from clear, low-risk context; state assumptions.
+- **Grill Me:** ask open-ended questions when trade-offs matter.
 
 ## Output requirements
 
-Every output includes:
-
-- Target developer persona.
-- Playbook(s) applied.
-- Intent-specific load-bearing section: findings (audit), acceptance
-  criteria (design), sequenced steps (refactor), explanation (explain).
-- Verification — how to prove the change worked.
+Every output includes persona, playbook(s), intent-specific payload, severity
+for findings/risks, and verification. Audit outputs also include finding IDs
+and, when triggered, a tracking offer or closeout result.
 
 ## Subagent dispatch
 
-Independent perspectives catch issues a single pass misses. **Default for
-`audit`.** Preferred for `design` when comparing trade-offs. Optional for
-`refactor` when ranking sequencing. Skip for tiny explanations,
-deterministic checks, or tasks needing secrets / live production.
-
-Spawn three sub-agents — one per lens: **dependency-auditor**,
-**boundary-designer**, **refactor-pragmatist** — in parallel. Some hosts
-do not auto-dispatch; instruct explicitly ("spawn three agents" /
-"delegate in parallel"). Load `references/subagent-dispatch.md` for the
-per-lens prompts, dispatch template, and synthesis step. The three lenses
-each produce findings; synthesis deduplicates, preserves disagreements as
-open questions, and emits the template-shaped output.
-
-Fall back to running the three lenses sequentially only when the host has
-no delegation primitive — switching lens between passes matters more than
-the parallelism.
+Default for audit. Spawn the three lenses named above in parallel when the host
+supports delegation; otherwise run the same lens prompts sequentially. Use them
+for design trade-off checks when useful, and skip them for tiny explanations,
+deterministic checks, or work requiring secrets/live production context.
 
 ## Reference map
 
-- `references/intent-router.csv` — level-1 router (intent).
-- `references/intents/<intent>.csv` — level-2 router (surface) per intent.
-- `references/playbooks/<surface>.md` — surface-specific playbooks.
-- `references/subagent-dispatch.md` — three-lens prompts and synthesis.
-- `references/core/{severity,score}-rubric.md` — shared 0–4 and 0–10
-  scales.
-- `references/core/personas.md` — target developer persona list.
-- `references/core/glossary.md` — disambiguates "boundary" vs "bounded
-  context" vs "layer" vs "module" vs "context" before playbook content.
-- `templates/*.md` — four intent-specific output templates plus the
-  audit-multi template for surface = `all`.
-- `evals/activation-cases.md` — activation cases (positive, negative, edge).
-- `evals/run-static-checks.sh` — structural and schema gates run in CI.
-- `evals/trigger-evals.json` — queries for description-optimization.
-- `skill.json` — provenance, grounding sources, version, status.
+- `references/intent-router.csv` and `references/intents/<intent>.csv` -
+  routing.
+- `references/playbooks/<surface>.md` - surface playbooks.
+- `references/subagent-dispatch.md` - three lenses and synthesis.
+- `references/core/{severity,score}-rubric.md`, `personas.md`,
+  `glossary.md` - shared rubrics and terms.
+- `references/trackable-findings.md` - ledger, roadmap, issues, workflow
+  state, and verification closeout.
+- `templates/*.md` - output and tracking templates.
+- `evals/*` and `skill.json` - activation/static checks and provenance.

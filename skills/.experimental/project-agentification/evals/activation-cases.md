@@ -16,6 +16,8 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 10. "Harden this repo against prompt-injection-via-AGENTS.md."
 11. "Set up evals for our agentic workflow."
 12. "Should we use MCP or a typed function tool for our internal API?"
+13. "Turn these agent-readiness findings into a tracked roadmap."
+14. "Verify whether AG-GATES-003 was fixed by this PR."
 
 ## Positive — adjacent triggers (also valid)
 
@@ -57,3 +59,10 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
   - Run all four lenses on it.
   - Score that sub-surface only; not the whole repo.
 - On any output, every finding has a severity (0–4) and every recommendation has at least one source citation from `skill.json`.
+- On large `assess` output (7+ findings) or any severity 3–4 finding:
+  - Assign stable finding IDs.
+  - Offer `findings-ledger.md`, `roadmap.md`, grouped GitHub issues, or
+    `workflow-state.json` rather than leaving an untracked list.
+  - Group findings into issue-sized work before proposing GitHub issues.
+  - Check off a finding only after its verification rule passes; a merged PR
+    or closed issue is evidence to inspect, not proof.

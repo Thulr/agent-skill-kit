@@ -10,11 +10,31 @@ permissions:
 
 jobs:
   static-checks:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container:
       image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
-      options: --user root
+      options: >-
+        --user root
+        --security-opt no-new-privileges
+    env:
+      # Self-hosted runners persist between jobs. Keep tool state inside the
+      # per-job container filesystem so global git/npm/cache writes do not
+      # bleed into the host runner or the next run.
+      HOME: /tmp/gha-home
+      XDG_CACHE_HOME: /tmp/gha-cache
+      XDG_CONFIG_HOME: /tmp/gha-config
+      NPM_CONFIG_CACHE: /tmp/gha-npm-cache
+      npm_config_cache: /tmp/gha-npm-cache
+      TMPDIR: /tmp/gha-tmp
+      GIT_CONFIG_GLOBAL: /tmp/gha-home/.gitconfig
+      DISABLE_TELEMETRY: "1"
     steps:
+      - name: Prepare isolated runtime dirs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$NPM_CONFIG_CACHE" "$TMPDIR"
+
       - name: Install system deps
         shell: bash
         run: |
@@ -46,11 +66,13 @@ jobs:
           rm -rf /var/lib/apt/lists/*
 
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          clean: true
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: List installable skills
         shell: bash
-        env:
-          DISABLE_TELEMETRY: "1"
         # Pin skills CLI version so the install-discovery gate doesn't silently
         # change behavior between PRs (everything else here is pinned by digest).
         run: npx -y skills@1.5.7 add . --list

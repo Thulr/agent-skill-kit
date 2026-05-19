@@ -1,0 +1,36 @@
+{
+  "workflow": "trackable-findings",
+  "version": "0.1.0",
+  "scope": "<repo, module, audit surface, or assessment target>",
+  "phase": "discovered",
+  "status": "active",
+  "created_at": "<YYYY-MM-DD>",
+  "updated_at": "<YYYY-MM-DD>",
+  "artifacts": {
+    "source_report": "<path-or-url>",
+    "findings_ledger": "<path-or-url>",
+    "roadmap": "<path-or-url>",
+    "issues": [],
+    "pull_requests": []
+  },
+  "selected_findings": [
+    {
+      "id": "<PREFIX-SURFACE-001>",
+      "status": "discovered",
+      "work_package": "<WP-001>",
+      "verification": {
+        "rule": "<narrow check>",
+        "last_checked_at": null,
+        "last_result": "not_run",
+        "evidence": null
+      }
+    }
+  ],
+  "decisions": [],
+  "blockers": [],
+  "next_action": "<next safe action>",
+  "handoff": {
+    "compatible_skill": "<optional skill name>",
+    "reason": "<why that skill can continue the work>"
+  }
+}

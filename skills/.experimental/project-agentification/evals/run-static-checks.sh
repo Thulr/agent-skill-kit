@@ -86,11 +86,20 @@ for t in assess-report harden-recommendation scaffold-bundle diagnose-runbook; d
 done
 
 # 7. Core rubrics + warnings
-for f in references/core/maturity-rubric.md references/core/severity-rubric.md references/empirical-warnings.md references/lenses.md; do
+for f in references/core/maturity-rubric.md references/core/severity-rubric.md references/empirical-warnings.md references/lenses.md references/trackable-findings.md; do
   if [ -f "$f" ]; then
     ok "present: $f"
   else
     err "missing: $f"
+  fi
+done
+
+# 7b. Shared tracking artifacts
+for f in templates/findings-ledger.md templates/roadmap.md templates/github-issue.md templates/workflow-state.json; do
+  if [ -f "$f" ]; then
+    ok "tracking artifact present: $f"
+  else
+    err "tracking artifact missing: $f"
   fi
 done
 

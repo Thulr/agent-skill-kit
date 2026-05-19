@@ -41,7 +41,10 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
 4.5. **For `scaffold` / `harden` touching `instruction-surface` or `gates`: collect harness inventory.** Ask the user which harnesses are in use on this repo: Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or AGENTS.md-compatible-only (Jules, Amp, etc.). **Do not infer scope from filesystem signals alone** — the presence of `.claude/` tells you Claude Code is used, not that it is the only one. Default to producing per-harness equivalents for every harness named; absence-of-dotfile is not absence-of-use.
 5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per sub-surface, four lenses sequentially inside.
 6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed sub-surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
-7. **Apply severity** (0–4) to every finding using `references/core/severity-rubric.md`.
+7. **Apply severity and IDs** to every finding using
+   `references/core/severity-rubric.md` and
+   `references/trackable-findings.md`. Assessment findings use stable IDs
+   like `AG-<sub-surface>-NNN`.
 8. **For `scaffold`: present write-to-disk confirmation.** List `{path, action}` pairs; wait for user reply (`all` / `none` / specific list). Write only confirmed files. Report what was written, skipped, and what to validate.
 8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen sub-surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
 9. **Emit output.** Default to a rendered, TUI-friendly view in chat. If the user asks to save a report to disk, also emit a saved-report form.
@@ -51,6 +54,12 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
      - `harden` → `templates/harden-recommendation.md`
      - `scaffold` → `templates/scaffold-bundle.md`
      - `diagnose` → `templates/diagnose-runbook.md`
+10. **Offer tracking / closeout.** For `assess` outputs with 7+ findings,
+    any severity 3–4, or explicit roadmap/issues/workflow-state/closeout
+    requests, load `references/trackable-findings.md`. Offer a findings
+    ledger, roadmap, grouped GitHub issues, or verification closeout. Never
+    create external issues without confirmation. Check boxes only after the
+    finding's verification rule passes.
 
 ## Modes
 
@@ -66,6 +75,7 @@ Every output includes:
 - Playbook(s) applied.
 - Intent-specific load-bearing section: maturity scores + gaps (`assess`), recommendation + verification (`harden`), file previews + confirmation gate (`scaffold`), hypothesis ranking + fix + prevention (`diagnose`).
 - Severity per finding.
+- Stable finding IDs for assessment findings.
 - Sources cited (skill.json `inspired_by` entries).
 - If printing to chat/TUI, avoid Markdown pipe tables; pretty-print as fixed-width text or bullet lists. If writing a Markdown file, keep table rows single-line (no wrapped newlines inside cells).
 
@@ -105,7 +115,9 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/empirical-warnings.md` — W2–W10 (symlink to `skills/_shared/empirical-warnings.md`). W1 lives in `evidence-driven-agent-rules`.
 - `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement; points to `clean-architecture` for boundary design.
+- `references/trackable-findings.md` — shared ledger, roadmap, GitHub issue, workflow-state, and verification closeout workflow.
 - `templates/*.md` — four intent-specific output templates (what the skill itself emits).
+- `templates/{findings-ledger,roadmap,github-issue}.md` and `templates/workflow-state.json` — shared follow-through artifacts for tracked findings.
 - `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.
 - `evals/run-static-checks.sh` — structural / schema gates run in CI.

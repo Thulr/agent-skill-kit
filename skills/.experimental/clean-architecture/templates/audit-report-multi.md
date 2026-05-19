@@ -23,7 +23,9 @@ One row per surface actually audited (drawn from `references/intents/audit.csv`,
 
 <Findings that appeared in two or more surface agents' reports.
 These are usually the highest-leverage items because they confirm
-each other.>
+each other. Assign one stable finding ID per distinct issue using
+`CA-<surface>-NNN`; if one issue spans surfaces, list every affected surface
+under the same finding.>
 
 ## Per-surface details
 
@@ -31,7 +33,8 @@ One subsection per surface actually audited, in the same order as the per-surfac
 
 ### <surface 1>
 
-<Findings list from the surface agent, severity-ordered.>
+<Findings list from the surface agent, severity-ordered. Each finding includes
+ID, severity, status, evidence, suggested fix, and verification rule.>
 
 ### <surface 2>
 
@@ -42,6 +45,14 @@ One subsection per surface actually audited, in the same order as the per-surfac
 ## Open questions
 
 <Disagreements between surface agents; items where evidence was thin.>
+
+## Tracking offer
+
+For 7+ findings, any severity 3–4 finding, or explicit roadmap/issues/closeout
+requests, use `references/trackable-findings.md` and offer a findings ledger,
+roadmap, grouped GitHub issues, or verification closeout. Do not create
+external issues without confirmation. Check boxes only after verification
+passes.
 
 ## Verification
 

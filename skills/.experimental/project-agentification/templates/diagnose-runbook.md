@@ -2,6 +2,7 @@
 
 **Date:** <YYYY-MM-DD>
 **Symptom source:** <PR #, session ID, trace ID, user report>
+**Linked findings:** <AG-... IDs, if this diagnosis is part of tracked remediation>
 
 ## Symptom
 
@@ -39,6 +40,12 @@ Ranked by prior probability for this class of failure. Investigate top-to-bottom
 ## Prevention — eval / hook to add
 
 <Specific eval case or hook config that would have failed-loud at the time the regression was introduced. Add this to `evals/` so the failure can't recur silently.>
+
+## Closeout
+
+If this diagnosis addresses tracked findings, rerun the narrow verification
+checks for those IDs. Mark findings verified/closed only when the check passes;
+otherwise leave them open with updated evidence.
 
 ## Empirical warnings invoked
 

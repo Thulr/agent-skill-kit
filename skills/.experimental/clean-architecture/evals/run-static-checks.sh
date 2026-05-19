@@ -38,12 +38,17 @@ check_file "$skill_dir/references/core/severity-rubric.md"
 check_file "$skill_dir/references/core/score-rubric.md"
 check_file "$skill_dir/references/core/personas.md"
 check_file "$skill_dir/references/core/glossary.md"
+check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/references/subagent-dispatch.md"
 check_file "$skill_dir/templates/audit-report.md"
 check_file "$skill_dir/templates/audit-report-multi.md"
 check_file "$skill_dir/templates/design-doc.md"
 check_file "$skill_dir/templates/refactor-runbook.md"
 check_file "$skill_dir/templates/explanation.md"
+check_file "$skill_dir/templates/findings-ledger.md"
+check_file "$skill_dir/templates/roadmap.md"
+check_file "$skill_dir/templates/github-issue.md"
+check_file "$skill_dir/templates/workflow-state.json"
 check_file "$skill_dir/evals/activation-cases.md"
 
 # Skill-specific: glossary must be non-empty (terminology overload is the
@@ -125,6 +130,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'bare activation' 'show the intent menu' "$skill_md"
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
+  check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
 fi
 
 # ----- Intent router structure -----

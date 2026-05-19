@@ -27,15 +27,15 @@ Use this checklist to assess whether multiple agents can work in parallel withou
 
 ## Blocking gaps (severity 3–4)
 
-| Severity | Layer | Sub-surface | Finding | Artifact pointer | Lens(es) |
-|---|---|---|---|---|---|
-| <4> | <legibility|action|control> | <sub-surface> | <one-line description> | <file:line / hook name / MCP method> | <lens names> |
-| ... | | | | | |
+| ID | Severity | Layer | Sub-surface | Status | Finding | Artifact pointer | Verification | Lens(es) |
+|---|---:|---|---|---|---|---|---|---|
+| <AG-GATES-001> | <4> | <legibility|action|control> | <sub-surface> | discovered | <one-line description> | <file:line / hook name / MCP method> | <narrow check that proves the gap is fixed> | <lens names> |
+| ... | | | | | | | | |
 
 ## Significant gaps (severity 2)
 
-| Layer | Sub-surface | Finding | Artifact pointer |
-|---|---|---|---|
+| ID | Layer | Sub-surface | Status | Finding | Artifact pointer | Verification |
+|---|---|---|---|---|---|---|
 
 ## Minor friction (severity 1)
 
@@ -64,6 +64,19 @@ Based on the weakest layer, the next stage to target is:
 1. <action> — closes <gap-id>
 2. <action> — closes <gap-id>
 3. <action> — closes <gap-id>
+
+## Tracking offer
+
+If this report has 7+ findings, any severity 3–4 finding, or the user asks
+for follow-through, offer to create:
+
+- `templates/findings-ledger.md` — source of truth for finding statuses.
+- `templates/roadmap.md` — staged work packages that close finding IDs.
+- `templates/github-issue.md` — issue-shaped work packages, only with confirmation.
+- `templates/workflow-state.json` — machine-readable continuation state.
+
+Checking off a finding requires a verification closeout pass; `implemented`
+or closed GitHub issue is not enough.
 
 ## Verification
 

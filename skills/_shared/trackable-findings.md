@@ -88,7 +88,9 @@ Given a ledger, roadmap item, issue, PR, diff, or branch:
 
 1. Extract referenced finding IDs.
 2. Re-run the narrow checks for those IDs.
-3. Mark each as `verified`, `still_open`, `blocked`, or `needs_evidence`.
+3. Mark passing findings as `verified`; for failing findings, leave the
+   existing status unchanged unless the evidence supports `blocked` or
+   `needs_evidence`.
 4. Attach evidence: file:line, command output summary, diff pointer, PR/issue,
    or reviewer decision.
 5. Close only findings whose verification rule passes.

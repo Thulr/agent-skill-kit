@@ -16,7 +16,7 @@
 | implemented | <N> |
 | verified | <N> |
 | closed | <N> |
-| blocked / deferred / wont_do / superseded | <N> |
+| needs_evidence / blocked / deferred / wont_do / superseded | <N> |
 
 ## Findings
 

@@ -15,7 +15,10 @@ Load this file when any of these are true:
   issues, a PR, or a diff and asks what is done.
 
 Do not create GitHub issues, modify project files, or update workflow state
-unless the user explicitly asks for that side effect.
+unless the user explicitly asks for that side effect. Individual skills may set
+a narrower default for internal artifacts, such as creating a findings ledger
+when thresholds are met; absent that skill-specific instruction, offer the
+ledger first.
 
 ## Finding IDs
 
@@ -68,8 +71,9 @@ Use the smallest artifact set the user needs:
 - `templates/github-issue.md` turns one work package into an issue.
 - `templates/workflow-state.json` records operational state across turns.
 
-For 7+ findings, offer the ledger first. For 15+ findings, group before making
-issues. Avoid one issue per finding unless the user explicitly wants that.
+For 7+ findings, offer the ledger first unless the consuming skill explicitly
+says to create it by default. For 15+ findings, group before making issues.
+Avoid one issue per finding unless the user explicitly wants that.
 
 ## Work Packages
 

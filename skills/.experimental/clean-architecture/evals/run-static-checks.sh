@@ -131,7 +131,18 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
   check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
+  check_pattern 'ledger created by default' 'Create tracking ledger' "$skill_md"
 fi
+
+# ----- Tracking behavior gates -----
+
+check_pattern 'clean architecture creates ledger by default' 'Create tracking ledger' "$skill_md"
+check_pattern 'roadmaps are opt-in' 'Roadmaps, workflow' "$skill_md"
+check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
+check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
+check_pattern 'audit report forbids mere offer' 'Do not merely offer tracking' "$skill_dir/templates/audit-report.md"
+check_pattern 'external issues need confirmation' 'issues without confirmation' "$skill_dir/templates/audit-report-multi.md"
+check_pattern 'canonical clean architecture id prefix' 'CA-DEP-001' "$skill_dir/templates/audit-report.md"
 
 # ----- Intent router structure -----
 

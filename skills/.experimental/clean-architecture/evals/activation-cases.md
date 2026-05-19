@@ -14,6 +14,9 @@ These prompts should route into the skill. The category in
 - **"review this module for clean architecture violations"** — names
   the skill outright; route to `audit/boundaries` by default unless
   the agent can pick a more specific surface from context.
+- **"clean architecture audit all with parallel sub-agents"** —
+  explicit all-surface audit plus delegation request; route to
+  `audit/all` and dispatch when the host permits it.
 - **"find anemic domain models in this codebase"** — the anemic-domain
   anti-pattern is the canonical `domain-model` audit signal.
 - **"how should I split this monolith into services aligned to bounded
@@ -25,9 +28,15 @@ These prompts should route into the skill. The category in
   callers"** — refactor toward a port; `refactor/boundaries`.
 - **"strangler fig refactor to extract the billing bounded context"**
   — refactor pathway named explicitly; `refactor/bounded-context`.
+- **"full clean architecture audit produced 8 findings"** —
+  threshold-triggered follow-through; route to `audit/tracking` and
+  create a findings ledger by default.
+- **"audit found a severity 3 boundary leak"** — severity-triggered
+  follow-through; route to `audit/tracking` and create a findings ledger.
 - **"turn these clean-architecture findings into a tracked roadmap"**
-  — follow-through after audit; load `references/trackable-findings.md`
-  and offer ledger / roadmap / grouped issue artifacts.
+  — explicit roadmap request after audit; load
+  `references/trackable-findings.md` and use the ledger as the source
+  before creating roadmap artifacts.
 - **"verify whether CA-DEP-003 was fixed in this PR"** — closeout pass;
   rerun the narrow verification rule for that finding ID before checking it off.
 - **"what is the difference between an aggregate and an entity?"** —
@@ -100,11 +109,20 @@ contributors. The runtime activation logic lives in
 runtime should behave the way it does and gives the description-
 optimization loop a target.
 
+## Delegation boundary
+
+`audit all` alone selects the all-surface fan-out route. Try sub-agent
+dispatch whenever user, project, session, or host policy already permits it.
+If the host requires fresh explicit opt-in and none exists, ask once before
+spawning, then use sequential passes only if consent is absent or dispatch is
+blocked.
+
 ## Tracking behavior
 
-- Large audit outputs (7+ findings) and any severity 3–4 finding must
-  include stable finding IDs and offer follow-through artifacts instead of
-  dumping an untracked list.
+- Large audit outputs (7+ findings) and any severity 3–4 finding must create a
+  findings ledger by default, not merely offer tracking choices.
+- Roadmaps, workflow state, and GitHub issues require explicit user request.
+  External issues still require confirmation.
 - A roadmap or GitHub issue groups related finding IDs into issue-sized work;
   do not produce one issue per finding unless requested.
 - A finding is checked off only after the verification rule attached to that

@@ -15,6 +15,12 @@
       "category": "positive"
     },
     {
+      "query": "clean architecture audit all with parallel sub-agents",
+      "should_activate": true,
+      "expected_route": "audit/all",
+      "category": "positive"
+    },
+    {
       "query": "find anemic domain models in this codebase",
       "should_activate": true,
       "expected_route": "audit/domain-model",
@@ -42,6 +48,18 @@
       "query": "strangler fig refactor to extract the billing bounded context",
       "should_activate": true,
       "expected_route": "refactor/bounded-context",
+      "category": "positive"
+    },
+    {
+      "query": "full clean architecture audit produced 8 findings",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
+      "query": "audit found a severity 3 boundary leak",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
       "category": "positive"
     },
     {

@@ -4,4 +4,4 @@ boundaries,Layered/hexagonal/onion boundaries,"Ports, adapters, layer mechanics;
 domain-model,Domain model,"Entities, value objects, aggregates, domain services; anemic-domain detection","references/playbooks/domain-model.md","references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/glossary.md"
 bounded-context,Bounded context,"Strategic split, ubiquitous language, context mapping, modular monolith","references/playbooks/bounded-context.md","references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/glossary.md"
 cross-cutting,Cross-cutting concerns,"Errors, transactions, side-effects, observability flowing through layers","references/playbooks/cross-cutting.md","references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/glossary.md"
-all,All surfaces (audit fan-out),"Multi-surface audit via parallel sub-agents",,
+all,All surfaces (audit fan-out),"Multi-surface audit; try parallel surface agents when permitted, asking once if fresh opt-in is required",,

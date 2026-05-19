@@ -14,11 +14,12 @@ Load this file when any of these are true:
 - A later run references existing finding IDs, a ledger, a roadmap, GitHub
   issues, a PR, or a diff and asks what is done.
 
-Do not create GitHub issues or roadmaps unless the user explicitly asks for
-that side effect. Individual skills may set a narrower default for internal
-artifacts, such as creating a findings ledger and workflow-state JSON when
-thresholds are met; absent that skill-specific instruction, offer the tracking
-artifact pair first.
+Do not create GitHub issues, roadmaps, or modify non-tracking project files
+unless the user explicitly asks for that side effect. Tracking artifacts are the
+only default write allowed by this workflow: individual skills may create a
+findings ledger and workflow-state JSON when thresholds or skill-specific
+instructions require them. Absent that skill-specific instruction, offer the
+tracking artifact pair first.
 
 ## Finding IDs
 

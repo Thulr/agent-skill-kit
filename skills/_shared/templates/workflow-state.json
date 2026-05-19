@@ -1,6 +1,8 @@
 {
   "workflow": "trackable-findings",
   "version": "0.1.0",
+  "skill": "<skill-name>",
+  "state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>.json",
   "scope": "<repo, module, audit surface, or assessment target>",
   "phase": "discovered",
   "status": "active",

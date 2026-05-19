@@ -54,11 +54,17 @@ concentric diagrams differ; inward arrows still mean a leak.
    `templates/audit-report-multi.md`; design -> `templates/design-doc.md`;
    refactor -> `templates/refactor-runbook.md`; explain ->
    `templates/explanation.md`.
-9. **Create tracking ledger.** For audit outputs with 7+ findings or any
-   severity 3-4 finding, load `references/trackable-findings.md` and create
-   the `templates/findings-ledger.md` ledger immediately. Roadmaps, workflow
-   state, and GitHub issues require explicit user request; never create
-   external issues without confirmation. Check boxes only after verification.
+9. **Create tracking state.** For audit outputs with 7+ findings or any
+   severity 3-4 finding, load `references/trackable-findings.md` and write both
+   tracking artifacts immediately: the Markdown ledger at
+   `docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+   and workflow state at
+   `docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+   (create the directory if needed). Populate them from
+   `templates/findings-ledger.md` and `templates/workflow-state.json`, report
+   both saved paths, and do not merely inline or offer them. Roadmaps and
+   GitHub issues require explicit user request; never create external issues
+   without confirmation. Check boxes only after verification.
 
 ## Modes
 
@@ -69,8 +75,8 @@ concentric diagrams differ; inward arrows still mean a leak.
 ## Output requirements
 
 Every output includes persona, playbook(s), intent-specific payload, severity,
-and verification. Audit outputs include finding IDs and, when triggered, a
-populated findings ledger or closeout result.
+and verification. Audit outputs include finding IDs and, when triggered, the
+saved ledger and workflow-state paths or closeout result.
 
 ## Subagent dispatch
 

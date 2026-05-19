@@ -120,9 +120,13 @@ blocked.
 ## Tracking behavior
 
 - Large audit outputs (7+ findings) and any severity 3–4 finding must create a
-  findings ledger by default, not merely offer tracking choices.
-- Roadmaps, workflow state, and GitHub issues require explicit user request.
-  External issues still require confirmation.
+  Markdown findings ledger plus workflow-state JSON by default, not merely
+  offer or inline tracking choices.
+- The ledger and workflow-state filenames start with the skill name, for example
+  `clean-architecture-findings-ledger-2026-05-19-payments.md`, so ledgers from
+  different audit skills are distinguishable.
+- Roadmaps and GitHub issues require explicit user request. External issues
+  still require confirmation.
 - A roadmap or GitHub issue groups related finding IDs into issue-sized work;
   do not produce one issue per finding unless requested.
 - A finding is checked off only after the verification rule attached to that

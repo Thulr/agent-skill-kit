@@ -1,5 +1,7 @@
-# Findings Ledger — <scope>
+# <skill-name> Findings Ledger — <scope>
 
+**Skill:** <skill-name>
+**Ledger file:** `docs/audits/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 **Source report:** <path, URL, or conversation reference>
 **Created:** <YYYY-MM-DD>
 **Last updated:** <YYYY-MM-DD>

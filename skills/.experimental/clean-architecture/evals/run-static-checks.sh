@@ -131,16 +131,22 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
   check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
-  check_pattern 'ledger created by default' 'Create tracking ledger' "$skill_md"
+  check_pattern 'tracking state created by default' 'Create tracking state' "$skill_md"
 fi
 
 # ----- Tracking behavior gates -----
 
-check_pattern 'clean architecture creates ledger by default' 'Create tracking ledger' "$skill_md"
-check_pattern 'roadmaps are opt-in' 'Roadmaps, workflow' "$skill_md"
+check_pattern 'clean architecture creates tracking state by default' 'Create tracking state' "$skill_md"
+check_pattern 'ledger is saved markdown' 'Markdown ledger' "$skill_md"
+check_pattern 'ledger filename has skill prefix' 'clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
+check_pattern 'workflow-state filename has skill prefix' 'clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
+check_pattern 'roadmaps are opt-in' 'Roadmaps and' "$skill_md"
 check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
 check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
-check_pattern 'audit report forbids mere offer' 'Do not merely offer tracking' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit report forbids mere offer' 'offer or inline tracking choices' "$skill_dir/templates/audit-report.md"
+check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'ledger template has markdown path' 'findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
 check_pattern 'external issues need confirmation' 'issues without confirmation' "$skill_dir/templates/audit-report-multi.md"
 check_pattern 'canonical clean architecture id prefix' 'CA-DEP-001' "$skill_dir/templates/audit-report.md"
 

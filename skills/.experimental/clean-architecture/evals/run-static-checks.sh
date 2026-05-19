@@ -140,14 +140,16 @@ check_pattern 'clean architecture creates tracking state by default' 'Create tra
 check_pattern 'ledger is saved markdown' 'Markdown ledger' "$skill_md"
 check_pattern 'ledger filename has skill prefix' 'clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
 check_pattern 'workflow-state filename has skill prefix' 'clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
+check_pattern 'tracking fallback path is preserved' 'audit-artifacts/clean-architecture-' "$skill_md"
 check_pattern 'roadmaps are opt-in' 'Roadmaps and' "$skill_md"
 check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
 check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
-check_pattern 'audit report forbids mere offer' 'offer or inline tracking choices' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit report forbids mere offer' 'offer or inline tracking' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit report preserves fallback path' 'audit-artifacts/clean-architecture-' "$skill_dir/templates/audit-report.md"
 check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
-check_pattern 'external issues need confirmation' 'issues without confirmation' "$skill_dir/templates/audit-report-multi.md"
+check_pattern 'external issues need confirmation' 'external issues' "$skill_dir/templates/audit-report-multi.md"
 check_pattern 'canonical clean architecture id prefix' 'CA-DEP-001' "$skill_dir/templates/audit-report.md"
 
 # ----- Intent router structure -----

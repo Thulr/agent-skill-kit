@@ -24,7 +24,9 @@ the chat, offer to create one, skip workflow state, or skip the artifact.
 Audit skills that create tracking artifacts need a concrete artifact contract,
 not just a template reference. Threshold-triggered ledgers should be written as
 Markdown files under `docs/audits/`, paired workflow-state JSON should be saved
-by default, and filenames should start with the skill name, e.g.
+by default, and `audit-artifacts/` should be the fallback when the target is not
+a repo or `docs/audits/` is not writable. Filenames should start with the skill
+name, e.g.
 `clean-architecture-findings-ledger-YYYY-MM-DD-scope.md` and
 `clean-architecture-workflow-state-YYYY-MM-DD-scope.json`, so different audit
 skills do not collide. Static checks should assert the default-save instruction,
@@ -36,6 +38,8 @@ Current patch. Clean-architecture now requires threshold-triggered audits to
 write `docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and
 `docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+It falls back to matching `audit-artifacts/clean-architecture-...` paths when
+the default directory is unavailable.
 The shared trackable-findings workflow documents the skill-prefixed Markdown
 ledger and workflow-state naming convention, and static checks cover the
 saved-file contract.

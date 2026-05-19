@@ -39,9 +39,11 @@ at
 `docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and the workflow state from `templates/workflow-state.json` at
 `docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
-Create the directory if needed, report both saved paths, and do not merely
-offer or inline tracking choices. Roadmaps and GitHub issues are opt-in; never
-create external issues without confirmation.
+Create the directory if needed. If the target is not a repo or `docs/audits/`
+is not writable, use matching `audit-artifacts/clean-architecture-...` paths
+instead. Report both saved paths, and do not merely offer or inline tracking
+choices. Roadmaps and GitHub issues are opt-in; never create external issues
+without confirmation.
 
 ## Open questions
 

@@ -14,11 +14,12 @@ Load this file when any of these are true:
 - A later run references existing finding IDs, a ledger, a roadmap, GitHub
   issues, a PR, or a diff and asks what is done.
 
-Do not create GitHub issues, modify project files, or update workflow state
-unless the user explicitly asks for that side effect. Individual skills may set
-a narrower default for internal artifacts, such as creating a findings ledger
-when thresholds are met; absent that skill-specific instruction, offer the
-ledger first.
+Do not create GitHub issues, roadmaps, or modify non-tracking project files
+unless the user explicitly asks for that side effect. Tracking artifacts are the
+only default write allowed by this workflow: individual skills may create a
+findings ledger and workflow-state JSON when thresholds or skill-specific
+instructions require them. Absent that skill-specific instruction, offer the
+tracking artifact pair first.
 
 ## Finding IDs
 
@@ -62,7 +63,7 @@ Checking a box means `verified` or `closed`, never merely `implemented`.
 
 Default flow:
 
-`audit report -> findings ledger -> roadmap -> selected GitHub issues -> closeout pass`
+`audit report -> findings ledger + workflow state -> roadmap -> selected GitHub issues -> closeout pass`
 
 Use the smallest artifact set the user needs:
 
@@ -71,9 +72,28 @@ Use the smallest artifact set the user needs:
 - `templates/github-issue.md` turns one work package into an issue.
 - `templates/workflow-state.json` records operational state across turns.
 
-For 7+ findings, offer the ledger first unless the consuming skill explicitly
-says to create it by default. For 15+ findings, group before making issues.
-Avoid one issue per finding unless the user explicitly wants that.
+Ledger files are Markdown and use this path by default:
+
+`docs/audits/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+
+The filename must start with the full skill name, for example
+`clean-architecture-findings-ledger-2026-05-19-payments.md` or
+`ux-heuristics-findings-ledger-2026-05-19-checkout.md`. If the target is not a
+repo or `docs/audits/` is not writable, fall back to
+`audit-artifacts/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+and report the fallback path. Save workflow-state JSON alongside the ledger by
+default as:
+
+`docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+
+If using the fallback directory, save workflow state as:
+
+`audit-artifacts/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+
+For 7+ findings, offer the ledger + workflow-state pair first unless the
+consuming skill explicitly says to create them by default. For 15+ findings,
+group before making issues. Avoid one issue per finding unless the user
+explicitly wants that.
 
 ## Work Packages
 

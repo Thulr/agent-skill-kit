@@ -33,10 +33,17 @@ surface prefixes: `CA-DEP`, `CA-BOUNDARY`, `CA-DOMAIN`, `CA-CONTEXT`, or
 
 ## Findings ledger
 
-If this report has 7+ findings or any severity 3–4 finding, create the
-ledger from `templates/findings-ledger.md` now. Do not merely offer tracking
-choices. Roadmaps, workflow state, and GitHub issues are opt-in; never create
-external issues without confirmation.
+If this report has 7+ findings or any severity 3–4 finding, create both
+tracking artifacts now: the Markdown ledger from `templates/findings-ledger.md`
+at
+`docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+and the workflow state from `templates/workflow-state.json` at
+`docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+Create the directory if needed. If the target is not a repo or `docs/audits/`
+is not writable, use matching `audit-artifacts/clean-architecture-...` paths
+instead. Report both saved paths, and do not merely offer or inline tracking
+choices. Roadmaps and GitHub issues are opt-in; never create external issues
+without confirmation.
 
 ## Open questions
 

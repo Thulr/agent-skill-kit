@@ -50,10 +50,16 @@ ID, severity, status, evidence, suggested fix, and verification rule.>
 ## Findings ledger
 
 For 7+ findings or any severity 3–4 finding, use
-`references/trackable-findings.md` and create the ledger from
-`templates/findings-ledger.md` now. Do not merely offer tracking choices.
-Roadmaps, workflow state, and GitHub issues are opt-in; never create external
-issues without confirmation. Check boxes only after verification passes.
+`references/trackable-findings.md` and create both tracking artifacts now: the
+Markdown ledger from `templates/findings-ledger.md` at
+`docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+and the workflow state from `templates/workflow-state.json` at
+`docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+Create the directory if needed. If the target is not a repo or `docs/audits/`
+is not writable, use matching `audit-artifacts/clean-architecture-...` paths
+instead. Report both saved paths, and do not merely offer or inline tracking
+choices. Roadmaps and GitHub issues are opt-in; never create external issues
+without confirmation. Check boxes only after verification passes.
 
 ## Verification
 

@@ -24,8 +24,9 @@ One row per surface actually audited (drawn from `references/intents/audit.csv`,
 <Findings that appeared in two or more surface agents' reports.
 These are usually the highest-leverage items because they confirm
 each other. Assign one stable finding ID per distinct issue using
-`CA-<surface>-NNN`; if one issue spans surfaces, list every affected surface
-under the same finding.>
+canonical surface prefixes (`CA-DEP`, `CA-BOUNDARY`, `CA-DOMAIN`,
+`CA-CONTEXT`, `CA-CROSS`). If one issue spans surfaces, list every affected
+surface under the same finding.>
 
 ## Per-surface details
 
@@ -46,13 +47,13 @@ ID, severity, status, evidence, suggested fix, and verification rule.>
 
 <Disagreements between surface agents; items where evidence was thin.>
 
-## Tracking offer
+## Findings ledger
 
-For 7+ findings, any severity 3–4 finding, or explicit roadmap/issues/closeout
-requests, use `references/trackable-findings.md` and offer a findings ledger,
-roadmap, grouped GitHub issues, or verification closeout. Do not create
-external issues without confirmation. Check boxes only after verification
-passes.
+For 7+ findings or any severity 3–4 finding, use
+`references/trackable-findings.md` and create the ledger from
+`templates/findings-ledger.md` now. Do not merely offer tracking choices.
+Roadmaps, workflow state, and GitHub issues are opt-in; never create external
+issues without confirmation. Check boxes only after verification passes.
 
 ## Verification
 

@@ -30,30 +30,35 @@ concentric diagrams differ; inward arrows still mean a leak.
 1. **Pick intent.** Load `references/intent-router.csv`; route to `audit`,
    `design`, `refactor`, or `explain`. Ambiguous -> ask once.
 2. **Pick surface.** Load `references/intents/<intent>.csv`; route to one or
-   more surfaces, or `all` for audit fan-out. Ambiguous -> ask once.
+   more surfaces, or `all` for audit fan-out. Follow-through prompts use
+   `audit/tracking` or `audit/closeout` pseudo-routes and skip surface
+   loading. Ambiguous -> ask once.
 3. **Load context.** Load only the CSV row's playbook plus `core_refs`. For
-   audit `all`, each surface agent loads its own row.
+   audit `all`, each surface pass loads its own row.
 4. **Set vocabulary.** Identify persona from `references/core/personas.md`
    and load `references/core/glossary.md`.
-5. **Spawn sub-agents for audit by default.** Single-surface: dispatch the
-   three lenses from `references/subagent-dispatch.md` (dependency-auditor,
-   boundary-designer, refactor-pragmatist). Audit `all`: one surface per
-   agent, three lenses inside. Fall back to sequential lens passes if needed.
+5. **Apply the three-lens plan.** Load `references/subagent-dispatch.md`.
+   Try parallel sub-agents whenever the host supports delegation and the
+   user, project, session, or host policy permits it. If the host requires
+   fresh explicit opt-in and none exists, ask once before dispatch. Fall
+   back to sequential lens or surface passes only when dispatch is blocked,
+   declined, unsafe, or unavailable.
 6. **Apply playbook.** Audit scores 0-10; design names the pattern; refactor
    sequences safe steps; explain uses the playbook grounding. Synthesize
    sub-agent findings and preserve disagreements.
 7. **Apply severity and IDs.** Every finding gets severity 0-4. Audit
-   findings also get stable IDs from `references/trackable-findings.md`
-   (`CA-<surface>-NNN`).
+   findings also get stable IDs from `references/trackable-findings.md`.
+   Use `CA-DEP`, `CA-BOUNDARY`, `CA-DOMAIN`, `CA-CONTEXT`, or `CA-CROSS`
+   prefixes by surface.
 8. **Emit output.** Audit -> `templates/audit-report.md` or
    `templates/audit-report-multi.md`; design -> `templates/design-doc.md`;
    refactor -> `templates/refactor-runbook.md`; explain ->
    `templates/explanation.md`.
-9. **Offer tracking.** For audit outputs with 7+ findings, any severity 3-4,
-   or explicit roadmap/issues/closeout requests, load
-   `references/trackable-findings.md` and offer ledger, roadmap, grouped
-   GitHub issues, or verification closeout. Never create external issues
-   without confirmation. Check boxes only after verification passes.
+9. **Create tracking ledger.** For audit outputs with 7+ findings or any
+   severity 3-4 finding, load `references/trackable-findings.md` and create
+   the `templates/findings-ledger.md` ledger immediately. Roadmaps, workflow
+   state, and GitHub issues require explicit user request; never create
+   external issues without confirmation. Check boxes only after verification.
 
 ## Modes
 
@@ -63,16 +68,24 @@ concentric diagrams differ; inward arrows still mean a leak.
 
 ## Output requirements
 
-Every output includes persona, playbook(s), intent-specific payload, severity
-for findings/risks, and verification. Audit outputs also include finding IDs
-and, when triggered, a tracking offer or closeout result.
+Every output includes persona, playbook(s), intent-specific payload, severity,
+and verification. Audit outputs include finding IDs and, when triggered, a
+populated findings ledger or closeout result.
 
 ## Subagent dispatch
 
-Default for audit. Spawn the three lenses named above in parallel when the host
-supports delegation; otherwise run the same lens prompts sequentially. Use them
-for design trade-off checks when useful, and skip them for tiny explanations,
-deterministic checks, or work requiring secrets/live production context.
+Use the three lenses for audit, prefer them for design trade-off checks, and
+skip them for tiny explanations, deterministic checks, or work requiring
+secrets/live production context.
+
+Always try dispatch when the host supports delegation and user, project,
+session, or host policy permits it. If policy requires an explicit user
+request and none is present, ask once: "Use parallel sub-agents for this
+clean-architecture work?" A yes unlocks dispatch; no or ambiguity means
+sequential passes.
+
+For audit `all`, try to dispatch one agent per audit CSV surface; each runs
+the three lenses sequentially. Otherwise use one agent per lens.
 
 ## Reference map
 

@@ -1,17 +1,17 @@
 # Subagent dispatch — three lenses for clean-architecture work
 
-Three sub-agents, each held strictly in their lens, produce three
-independent finding lists. The host agent synthesizes them, deduplicates,
-preserves disagreements as open questions, and emits the template-shaped
-output.
+Try to use sub-agents whenever delegation is permitted. Sub-agents held
+strictly in their lens produce independent finding lists. The host agent
+synthesizes them, deduplicates, preserves disagreements as open questions,
+and emits the template-shaped output.
 
 ## When to dispatch
 
-| Intent | Dispatch by default? | When to skip |
+| Intent | Lens plan | When to skip |
 |--------|----------------------|--------------|
-| audit | **Yes** | Single-file change with no architectural implications |
-| design | **Strongly preferred** | A small design tweak where one lens dominates |
-| refactor | **Optional** | Trivial mechanical refactor with no boundary changes |
+| audit | **Try dispatch when permitted** | Single-file change with no architectural implications |
+| design | **Prefer dispatch when permitted** | A small design tweak where one lens dominates |
+| refactor | **Optional lenses** | Trivial mechanical refactor with no boundary changes |
 | explain | **No** | Lens disagreement is not useful when the goal is grounded explanation |
 
 ## The three lenses
@@ -59,7 +59,9 @@ smallest-reversible-step posture.
 
 ## Dispatch template
 
-When the host has a delegation primitive, fan out:
+When the host has a delegation primitive and active policy permits dispatch,
+fan out. Treat explicit user, project, session, or host instructions to use
+sub-agents as permission when they satisfy the active platform policy:
 
 ```
 Spawn three subagents in parallel.
@@ -82,9 +84,11 @@ Each agent returns: a list of findings/proposals with severity, citing
 heuristic numbers from the playbook. No prose summary at the top.
 ```
 
-If the host has no delegation primitive: run the three lenses
-sequentially in one head, switching lens explicitly between passes.
-The discipline of switching lens matters more than the parallelism.
+If the host has no delegation primitive, run sequentially. If active policy
+requires fresh explicit user permission that has not been granted, ask once;
+run sequentially only if permission is absent, declined, unsafe, or still
+blocked by the host. The discipline of switching lens matters more than the
+parallelism.
 
 ## Synthesis step
 
@@ -111,11 +115,12 @@ After the three lenses return, the host agent:
 
 ## Fan-out variant (surface = `all`, audit only)
 
-For `audit` with `all`-fanout, the structure inverts: spawn one agent
-per surface listed in `references/intents/audit.csv` (excluding the
-`all` row itself). Each surface-agent runs all three lenses
-sequentially inside itself and returns a per-surface finding list. The
-host synthesizes across surfaces and emits
+For `audit` with `all`-fanout, the structure inverts: try to spawn one agent
+per surface listed in
+`references/intents/audit.csv` (excluding the `all` row itself). Each
+surface-agent runs all three lenses sequentially inside itself and returns a
+per-surface finding list. Without permitted delegation, run the same surface
+passes sequentially. The host synthesizes across surfaces and emits
 `templates/audit-report-multi.md`. Do not hardcode the surface set in
 this file — `audit.csv` is the source of truth so a new surface can be
 added by editing the CSV + dropping in a playbook, with no edits to

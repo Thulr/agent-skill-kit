@@ -55,12 +55,26 @@ debug an avoidable setup issue, that is a DX problem.
    pattern; for `debug`, rank hypotheses before naming fixes; for
    `edge-pass`, scan all categories in the playbook. If sub-agents ran,
    synthesize their findings here.
-7. **Apply severity** from `references/core/severity-rubric.md` (0–4) to
-   every finding or risk.
+7. **Apply severity and IDs** from `references/core/severity-rubric.md`
+   and `references/trackable-findings.md` to every audit/edge-pass finding
+   or risk. Use stable IDs like `DX-<surface>-NNN`.
 8. **Emit output.** Audit → `templates/audit-report.md` (or
    `audit-report-multi.md` for surface = `all`). Design →
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
+9. **Create tracking state.** For audit/edge-pass outputs with 7+ findings
+   or risks, any severity 3–4, or a save/track request, load
+   `references/trackable-findings.md` and write both artifacts now: Markdown
+   ledger at
+   `docs/audits/dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+   and workflow state at
+   `docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+   If the target is not a repo or `docs/audits/` is not writable, use
+   `audit-artifacts/dx-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+   Populate from `templates/findings-ledger.md` and
+   `templates/workflow-state.json`, report both paths, and do not merely offer
+   tracking. Roadmaps, issues, and non-tracking project-file edits remain
+   opt-in.
 
 ## Modes
 
@@ -84,24 +98,13 @@ Every output includes:
 ## Subagent dispatch
 
 Independent perspectives anchor on different concerns and catch issues a
-single pass misses. **Default for `audit` and `edge-pass`.** Strongly
-preferred for `design` when comparing tradeoffs. Optional for `debug` when
-ranking hypotheses. Skip for tiny copy edits, deterministic command
-checks, or tasks requiring secrets or live production access.
-
-Spawn three sub-agents — one per lens: **first-time integrator**,
-**maintainer**, **adversarial debugger** — and run them in parallel, not
-sequentially in one head. Some hosts do not auto-dispatch; instruct the
-main agent explicitly ("spawn three agents to do X" / "delegate this in
-parallel") rather than expecting it to infer the dispatch. Load
-`references/subagent-dispatch.md` for the per-lens persona prompts, the
-dispatch template, and the synthesis step. The three lenses each produce
-a finding list; the synthesizing pass deduplicates, preserves
-disagreements as open questions, and emits the template-shaped output.
-
-Fall back to running the three lenses sequentially only when the host has
-no delegation primitive — the discipline of switching lens between passes
-matters more than the parallelism.
+single pass misses. **Default for `audit` and `edge-pass`;** preferred for
+`design`; optional for `debug`; skip tiny deterministic work or secret-bound
+tasks. Spawn three agents in parallel — **first-time integrator**,
+**maintainer**, **adversarial debugger** — and load
+`references/subagent-dispatch.md` for prompts and synthesis. If the host lacks
+delegation, run the lenses sequentially and still preserve disagreements as
+open questions.
 
 ## Reference map
 
@@ -110,9 +113,10 @@ matters more than the parallelism.
 - `references/playbooks/<surface>.md` — surface-specific playbooks (one per
   surface listed in the intent CSVs).
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
+- `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/core/{severity,score}-rubric.md` — shared 0–4 and 0–10 scales.
 - `references/core/personas.md` — target developer persona list.
-- `templates/*.md` — four intent-specific output templates.
+- `templates/*.md` — four intent-specific outputs plus tracking artifacts.
 - `evals/activation-cases.md` — activation and behavioral cases (positive
   and negative).
 - `evals/run-static-checks.sh` — structural and schema gates run in CI.

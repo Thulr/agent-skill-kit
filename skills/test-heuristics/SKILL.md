@@ -57,10 +57,24 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    before fixes. For `strategize`, produce a per-layer investment
    recommendation. For `prune`, produce a deletion list with rationale.
    Synthesize sub-agent findings here.
-8. **Apply severity** from `references/core/severity-rubric.md` (0–4)
-   and tag failure modes from `references/core/failure-modes.md` on
-   every finding.
+8. **Apply severity, IDs, and failure modes** from
+   `references/core/severity-rubric.md`, `references/trackable-findings.md`,
+   and `references/core/failure-modes.md` to every review/prune finding. Use
+   stable IDs like `TEST-<layer>-NNN`.
 9. **Emit output** per the default template in the activity router row.
+10. **Create tracking state.** For review/prune outputs with 7+ findings or
+   candidates, any severity 3–4, or a save/track request, load
+   `references/trackable-findings.md` and write both artifacts now: Markdown
+   ledger at
+   `docs/audits/test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+   and workflow state at
+   `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+   If the target is not a repo or `docs/audits/` is not writable, use
+   `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+   Populate from `templates/findings-ledger.md` and
+   `templates/workflow-state.json`, report both paths, and do not merely offer
+   tracking. Roadmaps, issues, and non-tracking project-file edits remain
+   opt-in.
 
 ## Modes
 
@@ -73,33 +87,18 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
 
 ## Output requirements
 
-Every output includes:
-
-- Target persona.
-- Layer(s) and purpose(s).
-- Activity-specific load-bearing section per the template.
-- Failure mode(s) tagged on every finding.
-- Verification — how to prove the change worked.
+Every output includes target persona, layer/purpose, the template's
+load-bearing section, failure modes on findings, and verification.
 
 ## Subagent dispatch
 
-Independent perspectives catch issues a single pass misses. **Default
-for `review` and `prune`.** Preferred for `author` when comparing
-approaches. Optional for `triage` when ranking hypotheses. Skip for
-tiny edits, deterministic single-step checks, or tasks requiring
-secrets or production access.
-
-Spawn three sub-agents — one per lens: **intent reader**, **refactor
-adversary**, **bug-shape hunter** — and run them in parallel. Some
-hosts do not auto-dispatch; instruct the main agent explicitly
-("spawn three agents," "delegate this in parallel"). Load
-`references/subagent-dispatch.md` for per-lens prompts, the dispatch
-template, and the synthesis step. The three lenses each produce a
-finding list; the synthesizing pass deduplicates, preserves
-disagreements as open questions, and emits the template-shaped
-output. Fall back to sequential only when the host has no delegation
-primitive — the discipline of switching lens between passes matters
-more than the parallelism.
+Independent perspectives catch issues a single pass misses. **Default for
+`review` and `prune`;** preferred for `author`; optional for `triage`; skip tiny
+deterministic work or secret-bound tasks. Spawn three agents in parallel —
+**intent reader**, **refactor adversary**, **bug-shape hunter** — and load
+`references/subagent-dispatch.md` for prompts and synthesis. If the host lacks
+delegation, run the lenses sequentially and still preserve disagreements as
+open questions.
 
 ## Reference map
 
@@ -108,13 +107,14 @@ more than the parallelism.
 - `references/layers/<layer>.md` — layer-specific playbooks (one per layer
   listed in the activity CSVs).
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
+- `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/core/score-rubric.md` — 0–10 test-quality scale.
 - `references/core/personas.md` — target persona list.
 - `references/core/failure-modes.md` — six-mode test failure taxonomy.
-- `references/core/oracles.md` — SFDIPOT and FEW HICCUPPS oracles for
-  exploratory work and the bug-shape hunter lens.
-- `templates/*.md` — five activity-specific output templates.
+- `references/core/oracles.md` — test oracles for exploratory work and the
+  bug-shape hunter lens.
+- `templates/*.md` — five activity outputs plus tracking artifacts.
 - `evals/activation-cases.md` — activation and behavioral cases (positive
   and negative).
 - `evals/run-static-checks.sh` — structural and schema gates run in CI.

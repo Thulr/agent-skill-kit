@@ -22,12 +22,18 @@ wired).
    - Requires user to confirm current Level 1–3 score (from `project-agentification`).
    - Refuses if Level 1–3 < 3 (fix lower-level gaps first).
    - Otherwise scores Levels 4–5 against `references/core/maturity-rubric.md`.
+   - For 7+ gaps, any level-ceiling blocker, or a save/track request, saves
+     both `evidence-driven-agent-rules-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+     and `evidence-driven-agent-rules-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+     under `docs/audits/`, or the matching `audit-artifacts/` fallback.
 
 4. **"Find any sub-surfaces with 3+ entries and propose a rule that closes the gap."** → `promote`
    - Explicit invocation of the promote workflow; no ambiguity.
 
 5. **"Are we at Sovereign Engineering level yet?"** → `assess-l4l5`
    - Maps to Level 5 specifically; same workflow as `assess-l4l5`.
+   - Reports both saved tracking paths when artifact thresholds are met; does
+     not merely offer to create them.
 
 ## Negative — should NOT activate
 

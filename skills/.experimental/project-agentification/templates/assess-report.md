@@ -65,18 +65,22 @@ Based on the weakest layer, the next stage to target is:
 2. <action> — closes <gap-id>
 3. <action> — closes <gap-id>
 
-## Tracking offer
+## Findings ledger
 
-If this report has 7+ findings, any severity 3–4 finding, or the user asks
-for follow-through, offer to create:
+If this report has 7+ findings, any severity 3–4 finding, or a save/track
+request, create both tracking artifacts now: the Markdown ledger from
+`templates/findings-ledger.md` at
+`docs/audits/project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+and the workflow state from `templates/workflow-state.json` at
+`docs/audits/project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+Create the directory if needed. If the target is not a repo or `docs/audits/`
+is not writable, use matching `audit-artifacts/project-agentification-...`
+paths. Report both saved paths; do not merely offer or inline tracking.
+Roadmaps, external issues, and non-tracking project-file edits require explicit
+confirmation.
 
-- `templates/findings-ledger.md` — source of truth for finding statuses.
-- `templates/roadmap.md` — staged work packages that close finding IDs.
-- `templates/github-issue.md` — issue-shaped work packages, only with confirmation.
-- `templates/workflow-state.json` — machine-readable continuation state.
-
-Checking off a finding requires a verification closeout pass; `implemented`
-or closed GitHub issue is not enough.
+Checking off a finding requires a verification closeout pass; `implemented` or
+closed GitHub issue is not enough.
 
 ## Verification
 

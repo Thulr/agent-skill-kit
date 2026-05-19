@@ -56,7 +56,7 @@ fi
 # 5. Shared symlinks: empirical-warnings.md and lenses.md must be symlinks
 #    into skills/_shared/. The repo-level scripts/check-shared-content.sh
 #    enforces the structural invariants in detail; here we just assert presence.
-for f in references/empirical-warnings.md references/lenses.md; do
+for f in references/empirical-warnings.md references/lenses.md references/trackable-findings.md; do
   if [ -L "$f" ]; then
     target=$(readlink "$f")
     case "$target" in
@@ -92,6 +92,27 @@ for f in templates/artifacts/reflection-log/README.md templates/artifacts/reflec
     err "artifact template missing: $f"
   fi
 done
+
+# 8b. Tracking artifacts for assess-l4l5 findings
+for f in templates/findings-ledger.md templates/workflow-state.json; do
+  if [ -f "$f" ]; then
+    ok "tracking artifact present: $f"
+  else
+    err "tracking artifact missing: $f"
+  fi
+done
+if grep -q "Create tracking state" SKILL.md &&
+   grep -q "evidence-driven-agent-rules-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md" SKILL.md &&
+   grep -q "evidence-driven-agent-rules-workflow-state-<YYYY-MM-DD>-<scope-slug>.json" SKILL.md; then
+  ok "SKILL.md creates skill-prefixed assess-l4l5 tracking state"
+else
+  err "SKILL.md missing default assess-l4l5 tracking artifact behavior"
+fi
+if grep -q "audit-artifacts/evidence-driven-agent-rules-" SKILL.md; then
+  ok "SKILL.md preserves tracking fallback path"
+else
+  err "SKILL.md missing audit-artifacts/evidence-driven-agent-rules fallback path"
+fi
 
 # 9. Activation eval present
 if [ -f evals/activation-cases.md ]; then

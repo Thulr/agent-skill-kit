@@ -39,12 +39,15 @@ check_file "$skill_dir/references/core/severity-rubric.md"
 check_file "$skill_dir/references/core/score-rubric.md"
 check_file "$skill_dir/references/core/personas.md"
 check_file "$skill_dir/references/subagent-dispatch.md"
+check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/templates/triage-runbook.md"
 check_file "$skill_dir/templates/review-report.md"
 check_file "$skill_dir/templates/review-report-multi.md"
 check_file "$skill_dir/templates/author-design.md"
 check_file "$skill_dir/templates/strategy-doc.md"
 check_file "$skill_dir/templates/prune-plan.md"
+check_file "$skill_dir/templates/findings-ledger.md"
+check_file "$skill_dir/templates/workflow-state.json"
 
 # ----- Discover layer playbooks (source of truth) -----
 
@@ -120,7 +123,26 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'bare activation' 'show the activity menu' "$skill_md"
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
+  check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
 fi
+
+# ----- Tracking behavior gates -----
+
+check_pattern 'test creates tracking state by default' 'Create tracking state' "$skill_md"
+check_pattern 'ledger filename has skill prefix' 'test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
+check_pattern 'workflow-state filename has skill prefix' 'test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
+check_pattern 'tracking fallback path is preserved' 'audit-artifacts/test-heuristics-' "$skill_md"
+check_pattern 'roadmaps and issues are opt-in' 'Roadmaps, issues' "$skill_md"
+check_pattern 'review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report.md"
+check_pattern 'multi review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report-multi.md"
+check_pattern 'prune plan has findings ledger section' '^## Findings ledger' "$skill_dir/templates/prune-plan.md"
+check_pattern 'review report forbids mere offer' 'offer tracking' "$skill_dir/templates/review-report.md"
+check_pattern 'review report preserves fallback path' 'audit-artifacts/test-heuristics-' "$skill_dir/templates/review-report.md"
+check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
+check_pattern 'review CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/activities/review.csv"
+check_pattern 'prune CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/activities/prune.csv"
 
 # ----- Activity router structure -----
 

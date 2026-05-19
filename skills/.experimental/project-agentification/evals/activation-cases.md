@@ -61,8 +61,11 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 - On any output, every finding has a severity (0–4) and every recommendation has at least one source citation from `skill.json`.
 - On large `assess` output (7+ findings) or any severity 3–4 finding:
   - Assign stable finding IDs.
-  - Offer `findings-ledger.md`, `roadmap.md`, grouped GitHub issues, or
-    `workflow-state.json` rather than leaving an untracked list.
-  - Group findings into issue-sized work before proposing GitHub issues.
+  - Save both `project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+    and `project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+    under `docs/audits/`, or use the matching `audit-artifacts/` fallback.
+  - Report both saved paths rather than merely offering tracking.
+  - Group findings into issue-sized work before proposing GitHub issues, and
+    only create roadmaps or issues after explicit confirmation.
   - Check off a finding only after its verification rule passes; a merged PR
     or closed issue is evidence to inspect, not proof.

@@ -14,6 +14,7 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
 - "my e2e suite is 80% flaky" → triage × e2e-ui (or review)
 - "use test-heuristics" → bare invocation; show activity menu
 - "test review on `path/to/users_test.py`" → review × unit (inferred from file)
+- "review all test layers and save a ledger so we can track closeout" → review × all; creates `test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md` and `test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
 
 ## Negative — should NOT activate (these belong to other skills)
 
@@ -34,3 +35,13 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
 - A test asserts `mock.payment_gateway.charge.call_count == 1` → refactor adversary should flag this as brittleness/false-pass.
 - A test name `test_user_2` exists → intent reader should flag this as confusion.
 - A unit test only has happy-path inputs → bug-shape hunter should flag this as gap.
+
+## Artifact/state regression cases
+
+- A review or prune output with 7+ findings/candidates must save both
+  skill-prefixed tracking artifacts, report both paths, and not merely offer
+  to create them.
+- Tracking artifacts use `docs/audits/` by default and
+  `audit-artifacts/test-heuristics-...` when the target is not a writable repo.
+- Roadmaps, GitHub issues, and non-tracking project-file edits require explicit
+  user confirmation.

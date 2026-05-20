@@ -1,0 +1,1 @@
+../../../../skills/_shared/templates/findings-ledger.md

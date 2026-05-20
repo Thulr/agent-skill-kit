@@ -103,6 +103,31 @@ for f in templates/findings-ledger.md templates/roadmap.md templates/github-issu
   fi
 done
 
+# 7c. Default tracking behavior for assessment findings
+if grep -q "Create tracking state" SKILL.md; then
+  ok "SKILL.md creates tracking state by default"
+else
+  err "SKILL.md must create tracking state by default for trackable assess outputs"
+fi
+if grep -q "project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md" SKILL.md &&
+   grep -q "project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json" SKILL.md; then
+  ok "SKILL.md uses skill-prefixed tracking filenames"
+else
+  err "SKILL.md missing project-agentification-prefixed ledger/workflow-state paths"
+fi
+if grep -q "audit-artifacts/project-agentification-" SKILL.md; then
+  ok "SKILL.md preserves tracking fallback path"
+else
+  err "SKILL.md missing audit-artifacts/project-agentification fallback path"
+fi
+if grep -q "^## Findings ledger" templates/assess-report.md &&
+   grep -q "do not merely offer" templates/assess-report.md &&
+   grep -q "audit-artifacts/project-agentification-" templates/assess-report.md; then
+  ok "assess report requires saved ledger/workflow-state artifacts"
+else
+  err "templates/assess-report.md must require saved tracking artifacts with fallback"
+fi
+
 # 8. Activation eval present
 if [ -f evals/activation-cases.md ]; then
   ok "evals/activation-cases.md present"

@@ -103,7 +103,8 @@ patterns → no evidence-driven rule).
 5. **For `assess-l4l5`:** assume Levels 1–3 already scored by
    `project-agentification` (require user confirmation); score Levels
    4–5 against `references/core/maturity-rubric.md`; report ceiling and
-   gaps.
+   gaps. Assign stable IDs like `ED-L4L5-001` to trackable gaps using
+   `references/trackable-findings.md`.
 6. **Emit output.** Per-intent shape:
    - `capture` → list of files written + the §Agents pointer block
      diff + validation checklist.
@@ -111,6 +112,17 @@ patterns → no evidence-driven rule).
      entries it cites + the AGENTS.md / hook diff for confirmation.
    - `assess-l4l5` → maturity score per layer + ceiling + prioritized
      gaps.
+7. **Create tracking state.** For `assess-l4l5` outputs with 7+ gaps, any
+   level-ceiling blocker, or a save/track/workflow-state request, load
+   `references/trackable-findings.md` and write both artifacts now: Markdown
+   ledger at
+   `docs/audits/evidence-driven-agent-rules-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+   and workflow state at
+   `docs/audits/evidence-driven-agent-rules-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+   If the target is not a repo or `docs/audits/` is not writable, use
+   `audit-artifacts/evidence-driven-agent-rules-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+   Report both paths. Roadmaps, issues, promotion changes, and non-tracking
+   project-file edits still require confirmation.
 
 ## Recording bar vs. promotion bar
 
@@ -149,8 +161,12 @@ live in the shared `references/empirical-warnings.md` (symlink to
   `project-agentification`'s Levels 1–3).
 - `references/playbooks/reflection-log.md` — the only sub-surface this
   skill owns directly.
+- `references/trackable-findings.md` — ledger, workflow-state, and closeout
+  rules for `assess-l4l5` gaps.
 - `templates/artifacts/reflection-log/` — `README.md` (index +
   recording-bar / promotion-bar callout) + `_template.md` (per-entry).
+- `templates/findings-ledger.md` and `templates/workflow-state.json` — saved
+  tracking artifacts for advanced maturity assessments.
 - `evals/` — static checks, trigger evals, activation cases.
 
 ## See also

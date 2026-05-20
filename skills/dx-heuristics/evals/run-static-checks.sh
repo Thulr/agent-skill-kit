@@ -37,10 +37,14 @@ check_file "$skill_dir/references/intents/edge-pass.csv"
 check_file "$skill_dir/references/core/severity-rubric.md"
 check_file "$skill_dir/references/core/score-rubric.md"
 check_file "$skill_dir/references/core/personas.md"
+check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/templates/audit-report.md"
+check_file "$skill_dir/templates/audit-report-multi.md"
 check_file "$skill_dir/templates/design-doc.md"
 check_file "$skill_dir/templates/debug-runbook.md"
 check_file "$skill_dir/templates/edge-checklist.md"
+check_file "$skill_dir/templates/findings-ledger.md"
+check_file "$skill_dir/templates/workflow-state.json"
 
 # ----- Discover playbooks (source of truth) -----
 # Auto-deriving from the playbook directory means adding a new surface is
@@ -121,7 +125,26 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'bare activation' 'show the intent menu' "$skill_md"
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
+  check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
 fi
+
+# ----- Tracking behavior gates -----
+
+check_pattern 'dx creates tracking state by default' 'Create tracking state' "$skill_md"
+check_pattern 'ledger filename has skill prefix' 'dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
+check_pattern 'workflow-state filename has skill prefix' 'dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
+check_pattern 'tracking fallback path is preserved' 'audit-artifacts/dx-heuristics-' "$skill_md"
+check_pattern 'roadmaps and issues are opt-in' 'Roadmaps, issues' "$skill_md"
+check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
+check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
+check_pattern 'edge checklist has findings ledger section' '^## Findings ledger' "$skill_dir/templates/edge-checklist.md"
+check_pattern 'audit report forbids mere offer' 'offer or inline tracking' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit report preserves fallback path' 'audit-artifacts/dx-heuristics-' "$skill_dir/templates/audit-report.md"
+check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
+check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
+check_pattern 'audit CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/audit.csv"
+check_pattern 'edge-pass CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/edge-pass.csv"
 
 # ----- Intent router structure -----
 

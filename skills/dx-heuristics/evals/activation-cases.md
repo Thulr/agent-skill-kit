@@ -72,6 +72,22 @@ Passing a case means the agent:
 
 ---
 
+## Case 2b: Tracked Audit Artifacts
+
+**Prompt:** `Audit all DX surfaces and save the findings so we can close them out later.`
+
+**Expected:**
+
+- Routes to (audit, all).
+- Assigns stable `DX-<surface>-NNN` finding IDs.
+- Creates both `docs/audits/dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md` and `docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`, or the matching `audit-artifacts/dx-heuristics-...` fallback.
+- Reports both saved paths.
+- Does not create roadmaps, GitHub issues, or modify non-tracking project files without explicit confirmation.
+
+**Fail if:** it only offers to create tracking artifacts or emits the ledger inline without saving.
+
+---
+
 ## Case 3: API Error Message
 
 **Prompt:** `The API returns "bad request" when the payload is wrong. Is that fine?`

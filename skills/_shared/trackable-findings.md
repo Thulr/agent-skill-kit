@@ -16,10 +16,10 @@ Load this file when any of these are true:
 
 Do not create GitHub issues, roadmaps, or modify non-tracking project files
 unless the user explicitly asks for that side effect. Tracking artifacts are the
-only default write allowed by this workflow: individual skills may create a
-findings ledger and workflow-state JSON when thresholds or skill-specific
-instructions require them. Absent that skill-specific instruction, offer the
-tracking artifact pair first.
+only default write allowed by this workflow. Audit/review skills in this catalog
+should create the findings ledger and workflow-state JSON by default when
+thresholds or skill-specific instructions require them. Absent that
+skill-specific instruction, offer the tracking artifact pair first.
 
 ## Finding IDs
 
@@ -32,6 +32,10 @@ Examples:
 - `CA-DEP-001` for clean-architecture dependency-rule findings.
 - `CA-BOUNDARY-004` for clean-architecture boundary findings.
 - `AG-GATES-003` for project-agentification gate findings.
+- `DX-CLI-002` for dx-heuristics CLI findings.
+- `TEST-UNIT-004` for test-heuristics unit-test findings.
+- `SR-SOURCE-001` for skill-reviewer source-safety findings.
+- `ED-L4L5-001` for evidence-driven-agent-rules maturity gaps.
 
 IDs are immutable once emitted. If a finding is split, keep the original as
 `superseded` and create new IDs. If findings merge, keep all IDs and list the

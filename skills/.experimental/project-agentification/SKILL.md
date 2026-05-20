@@ -54,11 +54,17 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
      - `harden` → `templates/harden-recommendation.md`
      - `scaffold` → `templates/scaffold-bundle.md`
      - `diagnose` → `templates/diagnose-runbook.md`
-10. **Offer tracking / closeout.** For `assess` outputs with 7+ findings,
-    any severity 3–4, or explicit roadmap/issues/workflow-state/closeout
-    requests, load `references/trackable-findings.md`. Offer a findings
-    ledger, roadmap, grouped GitHub issues, or verification closeout. Never
-    create external issues without confirmation. Check boxes only after the
+10. **Create tracking state / closeout.** For `assess` outputs with 7+
+    findings, any severity 3–4, or a save/track/workflow-state/closeout
+    request, load `references/trackable-findings.md` and write both artifacts
+    now: Markdown ledger at
+    `docs/audits/project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+    and workflow state at
+    `docs/audits/project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+    If the target is not a repo or `docs/audits/` is not writable, use
+    `audit-artifacts/project-agentification-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+    Report both paths. Never create roadmaps, external issues, or edit
+    non-tracking project files without confirmation. Check boxes only after the
     finding's verification rule passes.
 
 ## Modes

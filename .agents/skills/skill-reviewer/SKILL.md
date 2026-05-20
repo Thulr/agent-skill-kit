@@ -29,6 +29,8 @@ skill files directly, but only when `skill.json.status` is `draft`.
   useful for execution rather than source explanation.
 - Check source safety, usefulness, progressive disclosure, templates, evals, and
   validation.
+- For substantial reviews, create saved tracking artifacts by default instead
+  of leaving findings only in chat.
 - Run `just check` after edits.
 
 ## Activation Handshake
@@ -45,13 +47,25 @@ without a target, ask for the skill path or whether to review all draft skills.
 4. Confirm every public reference/template needed by the skill is mapped from
    `references/use-case-registry.csv`, and that the selected rows load only the
    files needed for each use case.
-5. Apply the review rubric.
+5. Apply the review rubric and assign stable IDs like `SR-<area>-NNN` to
+   trackable findings using `references/trackable-findings.md`.
 6. If the skill is draft and fixes are clear, edit files directly.
 7. Run validation.
 8. If all checks pass and the skill meets the rubric, update
    `skill.json.status` to `reviewed` only when the user asked for review with
    edit authority.
 9. Report findings, edits, validation output, and remaining risks.
+10. **Create tracking state.** If the review has 7+ findings, any severity
+    3–4, or a save/track request, write both artifacts now: Markdown ledger at
+    `docs/audits/skill-reviewer-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+    and workflow state at
+    `docs/audits/skill-reviewer-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+    If the target is not a repo or `docs/audits/` is not writable, use
+    `audit-artifacts/skill-reviewer-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+    Populate from `templates/findings-ledger.md` and
+    `templates/workflow-state.json`, report both paths, and do not merely offer
+    tracking. Roadmaps, issues, and non-tracking project-file edits remain
+    opt-in.
 
 ## Review Gates
 
@@ -83,4 +97,7 @@ Block or fix a draft when:
 - `references/review-rubric.md`: scoring and findings rubric.
 - `references/source-safety-review.md`: source-inspired copyright and safety
   checks.
+- `references/trackable-findings.md`: ledger, workflow-state, closeout rules.
 - `templates/review-report.md`: findings report format.
+- `templates/findings-ledger.md` and `templates/workflow-state.json`: saved
+  tracking artifacts for substantial reviews.

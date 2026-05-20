@@ -29,6 +29,9 @@ skill files directly, but only when `skill.json.status` is `draft`.
   useful for execution rather than source explanation.
 - Check source safety, usefulness, progressive disclosure, templates, evals, and
   validation.
+- For contract-drift reviews, use `references/contract-drift-review.md` to
+  trace runtime text through registries, templates, evals, static checks, and
+  CI gates.
 - For substantial reviews, create saved tracking artifacts by default instead
   of leaving findings only in chat.
 - Run `just check` after edits.
@@ -90,6 +93,9 @@ Block or fix a draft when:
   dispatch, or template selection), a menu that lists options not in the
   CSV, a load-bearing comment naming a heading that no longer exists, or a
   doc hardcoding a count/list that should iterate a registry
+- release-contract behavior changed without an equivalent gate: required files,
+  saved artifacts, symlink invariants, fallback paths, closeout rules, or CI
+  workflow steps must be asserted by static checks, not only described
 
 ## Reference Map
 
@@ -97,6 +103,9 @@ Block or fix a draft when:
 - `references/review-rubric.md`: scoring and findings rubric.
 - `references/source-safety-review.md`: source-inspired copyright and safety
   checks.
+- `references/contract-drift-review.md`: end-to-end release-contract drift
+  audit across workflow text, registries, templates, evals, static checks, and
+  CI.
 - `references/trackable-findings.md`: ledger, workflow-state, closeout rules.
 - `templates/review-report.md`: findings report format.
 - `templates/findings-ledger.md` and `templates/workflow-state.json`: saved

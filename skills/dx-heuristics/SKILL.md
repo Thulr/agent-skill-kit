@@ -62,28 +62,26 @@ debug an avoidable setup issue, that is a DX problem.
    `audit-report-multi.md` for surface = `all`). Design →
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
-9. **Create tracking state.** For audit/edge-pass outputs with 7+ findings
-   or risks, any severity 3–4, or a save/track request, load
-   `references/trackable-findings.md` and write both artifacts now: Markdown
-   ledger at
+9. **Create, resume, or close tracking state.** For audit/edge-pass outputs
+   with 7+ findings or risks, any severity 3–4, or a save/track/closeout
+   request, load `references/trackable-findings.md`. If the request names an
+   existing ledger, workflow-state file, PR, diff, branch, or `DX-*` ID, read
+   saved state first and update statuses only after each verification rule
+   passes. Otherwise write both artifacts now: Markdown ledger at
    `docs/audits/dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
    and workflow state at
    `docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
    If the target is not a repo or `docs/audits/` is not writable, use
    `audit-artifacts/dx-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate from `templates/findings-ledger.md` and
-   `templates/workflow-state.json`, report both paths, and do not merely offer
-   tracking. Roadmaps, issues, and non-tracking project-file edits remain
-   opt-in.
+   Populate/update `templates/findings-ledger.md` and
+   `templates/workflow-state.json`, report both paths, and keep roadmaps,
+   issues, and non-tracking edits opt-in.
 
 ## Modes
 
-- **Guided Draft (default):** one optionized question at a time, 3–4
-  likely choices plus a freeform path.
-- **Autopilot:** proceed from available context; state assumptions when
-  the task is clear and low-risk.
-- **Grill Me:** open-ended questions, one at a time, when audience,
-  constraints, or trade-offs materially change the result.
+- **Guided Draft (default):** one optionized question at a time.
+- **Autopilot:** proceed from clear, low-risk context; state assumptions.
+- **Grill Me:** one open-ended question at a time when trade-offs matter.
 
 ## Output requirements
 

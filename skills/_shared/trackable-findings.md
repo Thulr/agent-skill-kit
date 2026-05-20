@@ -126,6 +126,22 @@ Given a ledger, roadmap item, issue, PR, diff, or branch:
 GitHub issue closure does not automatically close findings. Treat an issue or
 PR as evidence to inspect, not proof.
 
+## Resume Path
+
+When a later run references a workflow-state JSON, ledger path, finding ID, PR,
+or branch, resume from the saved state before producing new findings:
+
+1. Read `workflow-state.json` first, then the referenced ledger.
+2. Confirm the skill name and scope match the current request.
+3. Extract only the requested IDs, or all open IDs when the user asks for a
+   broad closeout pass.
+4. Re-run each verification rule and update status/evidence in the ledger.
+5. Write the updated workflow-state JSON with current phase, selected IDs,
+   verification timestamp, blockers, and next safe action.
+
+If the referenced artifacts are missing or from another skill/scope, stop and
+ask for the correct ledger or state file instead of inventing continuity.
+
 ## Workflow State
 
 Workflow state is machine-readable operational memory. Store only:

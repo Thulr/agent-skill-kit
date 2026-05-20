@@ -14,6 +14,7 @@
     {"query": "The agent failed on PR #4321 — root-cause it.", "should_activate": true, "expected_route": "diagnose", "category": "positive"},
     {"query": "Make our repo agent-native.", "should_activate": true, "expected_route": "assess", "category": "positive"},
     {"query": "Harness engineering for this repo.", "should_activate": true, "expected_route": "assess", "category": "positive"},
+    {"query": "Audit whether our required GitHub Actions checks are safe to run on self-hosted runners for fork PRs.", "should_activate": true, "expected_route": "assess", "category": "positive"},
     {"query": "Where are we on Level 1–3 of the maturity rubric?", "should_activate": true, "expected_route": "assess", "category": "positive"},
     {"query": "Turn these agent-readiness findings into a tracked roadmap.", "should_activate": true, "expected_route": "assess/tracking", "category": "positive"},
     {"query": "Verify whether AG-GATES-003 was fixed by this PR.", "should_activate": true, "expected_route": "assess/closeout", "category": "positive"},
@@ -35,6 +36,6 @@
     {"query": "Review this PR for style.", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "Make our docs better.", "should_activate": false, "expected_route": null, "category": "edge"},
     {"query": "Add a hook.", "should_activate": false, "expected_route": null, "category": "edge"},
-    {"query": "Set up CI for our agent.", "should_activate": false, "expected_route": null, "category": "edge"}
+    {"query": "Set up CI for our agent.", "should_activate": true, "expected_route": "assess", "category": "edge"}
   ]
 }

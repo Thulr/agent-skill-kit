@@ -15,6 +15,7 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
 - "use test-heuristics" → bare invocation; show activity menu
 - "test review on `path/to/users_test.py`" → review × unit (inferred from file)
 - "review all test layers and save a ledger so we can track closeout" → review × all; creates `test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md` and `test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+- "verify whether TEST-UNIT-004 is fixed using the saved workflow-state JSON" → closeout; reads saved state, reruns the finding's verification rule, and updates status only when evidence passes
 
 ## Negative — should NOT activate (these belong to other skills)
 
@@ -45,3 +46,5 @@ Behavioral cases the skill should respond to (positive) or stay silent on (negat
   `audit-artifacts/test-heuristics-...` when the target is not a writable repo.
 - Roadmaps, GitHub issues, and non-tracking project-file edits require explicit
   user confirmation.
+- Closeout resumes from the saved workflow-state JSON/ledger; a merged PR or
+  closed issue is evidence to inspect, not proof that a finding is closed.

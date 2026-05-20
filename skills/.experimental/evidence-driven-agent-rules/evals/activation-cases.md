@@ -30,7 +30,12 @@ wired).
 4. **"Find any sub-surfaces with 3+ entries and propose a rule that closes the gap."** → `promote`
    - Explicit invocation of the promote workflow; no ambiguity.
 
-5. **"Are we at Sovereign Engineering level yet?"** → `assess-l4l5`
+5. **"Promote these hook bypass entries into a gate."** → `promote`
+   - Loads `references/playbooks/gate-hardening.md`.
+   - Requires a variant matrix, regression fixture, and CI binding before
+     calling the gate complete.
+
+6. **"Are we at Sovereign Engineering level yet?"** → `assess-l4l5`
    - Maps to Level 5 specifically; same workflow as `assess-l4l5`.
    - Reports both saved tracking paths when artifact thresholds are met; does
      not merely offer to create them.

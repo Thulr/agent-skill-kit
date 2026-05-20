@@ -88,6 +88,20 @@ Passing a case means the agent:
 
 ---
 
+## Case 2c: Closeout From Saved State
+
+**Prompt:** `Verify whether DX-CLI-002 is fixed in this PR using docs/audits/dx-heuristics-workflow-state-2026-05-20-cli.json.`
+
+**Expected:**
+
+- Loads `references/trackable-findings.md`, then the workflow-state JSON and ledger it points at.
+- Extracts `DX-CLI-002`, reruns that finding's verification rule, and updates status only if the rule passes.
+- Treats the PR as evidence to inspect, not proof; does not close GitHub issues or edit non-tracking files without confirmation.
+
+**Fail if:** it marks the finding closed only because the PR merged, ignores saved workflow state, or invents a new ledger.
+
+---
+
 ## Case 3: API Error Message
 
 **Prompt:** `The API returns "bad request" when the payload is wrong. Is that fine?`

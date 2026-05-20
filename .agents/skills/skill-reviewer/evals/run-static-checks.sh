@@ -25,6 +25,7 @@ check_file "$skill_md"
 check_file "$skill_dir/references/use-case-registry.csv"
 check_file "$skill_dir/references/review-rubric.md"
 check_file "$skill_dir/references/source-safety-review.md"
+check_file "$skill_dir/references/contract-drift-review.md"
 check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/templates/review-report.md"
 check_file "$skill_dir/templates/findings-ledger.md"
@@ -45,6 +46,9 @@ check_pattern 'workflow-state template has state_file' '"state_file": "docs/audi
 check_pattern 'registry maps tracking reference' 'trackable-findings\.md' "$skill_dir/references/use-case-registry.csv"
 check_pattern 'registry maps ledger template' 'templates/findings-ledger\.md' "$skill_dir/references/use-case-registry.csv"
 check_pattern 'registry maps workflow-state template' 'templates/workflow-state\.json' "$skill_dir/references/use-case-registry.csv"
+check_pattern 'registry maps contract drift mode' '^contract-drift-audit,' "$skill_dir/references/use-case-registry.csv"
+check_pattern 'contract drift reference maps CI parity' 'CI parity' "$skill_dir/references/contract-drift-review.md"
+check_pattern 'contract drift reference maps symlink integrity' 'Symlink integrity' "$skill_dir/references/contract-drift-review.md"
 
 if (( failures > 0 )); then
   printf '\nskill-reviewer static eval failed with %d issue(s).\n' "$failures" >&2

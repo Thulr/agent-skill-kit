@@ -77,11 +77,26 @@ else
   err "references/core/maturity-rubric.md missing"
 fi
 
-# 7. Reflection-log playbook
-if [ -f references/playbooks/reflection-log.md ]; then
-  ok "playbook present: references/playbooks/reflection-log.md"
+# 7. Promotion playbooks
+for f in references/playbooks/reflection-log.md references/playbooks/gate-hardening.md; do
+  if [ -f "$f" ]; then
+    ok "playbook present: $f"
+  else
+    err "playbook missing: $f"
+  fi
+done
+if grep -q "gate-hardening variant matrix" SKILL.md &&
+   grep -q "references/playbooks/gate-hardening.md" SKILL.md; then
+  ok "SKILL.md routes promoted gates through gate-hardening"
 else
-  err "playbook missing: references/playbooks/reflection-log.md"
+  err "SKILL.md must route hook/CI/static-gate promotion through gate-hardening"
+fi
+if grep -q "Variant Matrix" references/playbooks/gate-hardening.md &&
+   grep -q "CI parity" references/playbooks/gate-hardening.md &&
+   grep -q "Shared-Content Requirements" references/playbooks/gate-hardening.md; then
+  ok "gate-hardening playbook covers variants, CI parity, and shared-content gates"
+else
+  err "gate-hardening playbook missing required hardening sections"
 fi
 
 # 8. Artifact templates for the reflection-log directory

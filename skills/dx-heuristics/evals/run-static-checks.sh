@@ -130,11 +130,13 @@ fi
 
 # ----- Tracking behavior gates -----
 
-check_pattern 'dx creates tracking state by default' 'Create tracking state' "$skill_md"
+check_pattern 'dx creates tracking state by default' 'Create, resume, or close tracking state' "$skill_md"
 check_pattern 'ledger filename has skill prefix' 'dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
 check_pattern 'workflow-state filename has skill prefix' 'dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
 check_pattern 'tracking fallback path is preserved' 'audit-artifacts/dx-heuristics-' "$skill_md"
-check_pattern 'roadmaps and issues are opt-in' 'Roadmaps, issues' "$skill_md"
+check_pattern 'roadmaps and issues are opt-in' 'roadmaps,' "$skill_md"
+check_pattern 'dx closeout resumes saved state' 'saved state first' "$skill_md"
+check_pattern 'dx closeout verifies before status update' 'verification rule' "$skill_md"
 check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
 check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
 check_pattern 'edge checklist has findings ledger section' '^## Findings ledger' "$skill_dir/templates/edge-checklist.md"

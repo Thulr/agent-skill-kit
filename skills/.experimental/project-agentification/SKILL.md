@@ -115,7 +115,7 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 
 - `references/intent-router.csv` — level-1 router (intent → template + rubric).
 - `references/layer-router.csv` — level-2 router (layer + sub-surface → playbook).
-- `references/playbooks/<sub-surface>.md` — 10 sub-surface playbooks (legibility: instruction-surface, specs, docs-index; action: skills, tools, sandbox; control: gates, telemetry, evals, governance).
+- `references/playbooks/<sub-surface>.md` — 11 sub-surface playbooks (legibility: instruction-surface, specs, docs-index; action: skills, tools, sandbox; control: gates, ci-runners, telemetry, evals, governance).
 - `references/lenses.md` — four lens prompts + dispatch template + synthesis (symlink to `skills/_shared/lenses.md`).
 - `references/core/maturity-rubric.md` — Levels 1–3 (Engineering Agents). Levels 4–5 live in `evidence-driven-agent-rules`.
 - `references/core/severity-rubric.md` — 0–4 severity scale.

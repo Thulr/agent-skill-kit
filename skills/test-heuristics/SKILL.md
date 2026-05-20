@@ -73,15 +73,15 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
    If the target is not a repo or `docs/audits/` is not writable, use
    `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate/update `templates/findings-ledger.md` and
-   `templates/workflow-state.json`, report both paths, and keep roadmaps,
-   issues, and non-tracking edits opt-in.
+   Populate or update the ledger and workflow-state files using
+   `templates/findings-ledger.md` and `templates/workflow-state.json`; do not
+   edit the templates themselves. Report both paths, and keep roadmaps, issues,
+   and non-tracking edits opt-in.
 
 ## Modes
 
-- **Guided Draft (default):** one optionized question at a time.
-- **Autopilot:** proceed from clear, low-risk context; state assumptions.
-- **Grill Me:** one open-ended question at a time when trade-offs matter.
+Guided Draft asks one optionized question; Autopilot proceeds when low-risk;
+Grill Me asks open-ended trade-off questions.
 
 ## Output requirements
 

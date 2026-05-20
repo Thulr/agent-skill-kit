@@ -129,18 +129,26 @@ PR as evidence to inspect, not proof.
 ## Resume Path
 
 When a later run references a workflow-state JSON, ledger path, finding ID, PR,
-or branch, resume from the saved state before producing new findings:
+or branch, resume from the strongest artifact available before producing new
+findings:
 
-1. Read `workflow-state.json` first, then the referenced ledger.
-2. Confirm the skill name and scope match the current request.
-3. Extract only the requested IDs, or all open IDs when the user asks for a
+1. If a `workflow-state.json` is provided, read it first, then read the ledger
+   it references.
+2. If only a ledger is provided, read the ledger directly; do not require a
+   workflow-state file to perform closeout.
+3. If only finding IDs, a PR, diff, or branch are provided, extract IDs and use
+   the ledger named by the user or discoverable from context; ask for the ledger
+   only when the verification rule is unavailable.
+4. Confirm the skill name and scope match the current request.
+5. Extract only the requested IDs, or all open IDs when the user asks for a
    broad closeout pass.
-4. Re-run each verification rule and update status/evidence in the ledger.
-5. Write the updated workflow-state JSON with current phase, selected IDs,
-   verification timestamp, blockers, and next safe action.
+6. Re-run each verification rule and update status/evidence in the ledger.
+7. Write or update workflow-state JSON when continuing the workflow, capturing
+   current phase, selected IDs, verification timestamp, blockers, and next safe
+   action.
 
 If the referenced artifacts are missing or from another skill/scope, stop and
-ask for the correct ledger or state file instead of inventing continuity.
+ask for the correct artifact instead of inventing continuity.
 
 ## Workflow State
 

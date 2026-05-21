@@ -14,8 +14,8 @@ npx skills add Thulr/informed-skills
 
 The current catalog focuses on software engineering, coding-agent operations,
 developer experience, test quality, architecture, and user-facing product UX /
-accessibility. Other source-grounded domains can be added later, but they are
-not part of the published install surface today.
+accessibility, and UI design craft. Other source-grounded domains can be added
+later, but they are not part of the published install surface today.
 
 ## Which skill should I use?
 
@@ -24,6 +24,7 @@ not part of the published install surface today.
 | Developer-facing APIs, SDKs, CLIs, docs, setup, errors, auth, telemetry, or onboarding | `dx-heuristics` |
 | Unit/integration/e2e/property/contract/snapshot/mutation/performance test quality | `test-heuristics` |
 | User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` |
+| Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` |
 | Dependency direction, ports/adapters, DDD, bounded contexts, architecture refactors | `clean-architecture` |
 | Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` |
 | Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` |
@@ -72,6 +73,26 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill ux-accessibility-heuristics
+```
+
+### ui-design-craft
+
+Practical UI design craft for product screens, frontend mockups, prototypes,
+design systems, decks, motion/effects, host-integrated artifacts, handoff, and
+anti-slop visual review. Use it when the work needs visible design direction or
+a runnable artifact, not only a usability/accessibility inspection.
+
+Grounded in project-local design workflow notes plus canonical usability,
+accessibility, and design-system sources (full provenance in
+[`skills/ui-design-craft/skill.json`](./skills/ui-design-craft/skill.json)).
+Routes by use case (`product-ui` / `design-system` / `prototype` / `deck` /
+`motion-scene` / `host-handoff` / `quality-review`) and supports guided,
+autopilot, or question-heavy design modes.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill ui-design-craft
 ```
 
 ### clean-architecture

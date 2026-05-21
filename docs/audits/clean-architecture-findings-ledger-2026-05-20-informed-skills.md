@@ -2,7 +2,7 @@
 
 **Skill:** clean-architecture
 **Ledger file:** `docs/audits/clean-architecture-findings-ledger-2026-05-20-informed-skills.md`
-**Source report:** clean-architecture audit/all conversation run on `/Users/justin/Dev/informed-skills`
+**Source report:** clean-architecture audit/all conversation run on `repo:Thulr/informed-skills`
 **Created:** 2026-05-20
 **Last updated:** 2026-05-21
 **Owner:** Justin / informed-skills maintainers

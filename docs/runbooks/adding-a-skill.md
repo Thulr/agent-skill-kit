@@ -30,7 +30,7 @@ None.
 2. Move/ensure the directory lives under one lane:
 
    - `skills/<skill-name>/` for product work
-  - `skills/.experimental/<skill-name>/` is reserved and should remain empty
+   - `skills/.experimental/<skill-name>/` is reserved and should remain empty
      unless a future release explicitly reopens experimental distribution
 
 3. Ensure required artifacts exist (per `AGENTS.md`):

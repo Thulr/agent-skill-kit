@@ -16,12 +16,25 @@ def _load_policy_module():
     spec = importlib.util.spec_from_file_location(
         "destructive_bash_policy", POLICY_PATH
     )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load policy module from {POLICY_PATH}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
-_policy = _load_policy_module()
+def _load_policy_or_block():
+    try:
+        return _load_policy_module()
+    except Exception as exc:
+        print(
+            f"block-destructive-bash: cannot load shared policy: {exc}",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
+
+_policy = _load_policy_or_block()
 check_command = _policy.check_command
 main = _policy.main
 

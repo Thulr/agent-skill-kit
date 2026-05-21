@@ -14,14 +14,16 @@
 # Run by `just check` and CI.
 #
 # Invariants enforced:
-# 1. For every top-level Markdown file in `skills/_shared/`, every skill that
+# 1. The canonical shared corpus is any file under `skills/_shared/**`,
+#    including nested shared templates.
+# 2. For every top-level Markdown file in `skills/_shared/`, every skill that
 #    has a file of the same basename under `<skill>/references/` MUST have it
 #    as a symlink (not a regular file).
-# 2. Every symlink anywhere under a skill that resolves into `skills/_shared/**`
+# 3. Every symlink anywhere under a skill that resolves into `skills/_shared/**`
 #    MUST be relative, resolve, stay inside `skills/_shared/`, and point to a
 #    canonical file with the same basename. This covers shared templates as
 #    well as shared references.
-# 3. Every such symlink MUST resolve to an existing file (no orphan symlinks).
+# 4. Every such symlink MUST resolve to an existing file (no orphan symlinks).
 #
 # Skills that don't reference a given shared file are not required to —
 # this only enforces consistency for skills that DO reference one.

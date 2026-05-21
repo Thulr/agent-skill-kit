@@ -39,6 +39,9 @@ These prompts should route into the skill. The category in
   before creating roadmap artifacts.
 - **"verify whether CA-DEP-003 was fixed in this PR"** — closeout pass;
   rerun the narrow verification rule for that finding ID before checking it off.
+- **"why did the audit use CA-dependency-rule-001 instead of CA-DEP-001?"**
+  — mechanics follow-up; load `references/audit-mechanics.md` and normalize
+  future findings to canonical ID prefixes.
 - **"what is the difference between an aggregate and an entity?"** —
   explain intent on a `domain-model` distinction.
 

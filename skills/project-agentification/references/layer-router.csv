@@ -6,6 +6,7 @@ action,skills,"SKILL.md bundles, progressive disclosure, trigger words, skills v
 action,tools,"MCP servers, typed function tools, plugins, tool descriptions as public API",playbooks/tools.md
 action,sandbox,"Docker / container / remote sandbox, network egress, secret scope, isolation modes",playbooks/sandbox.md
 control,gates,"PreToolUse/PostToolUse hooks, approval tiers (free/ask/forbidden), lint/format-on-write",playbooks/gates.md
+control,ci-runners,"GitHub Actions runner trust, fork-PR execution, token/secret exposure, required-check parity, enforcement posture truthfulness",playbooks/ci-runners.md
 control,telemetry,"Traces, append-only event histories, OpenTelemetry, run metadata, .traj-style artifacts",playbooks/telemetry.md
 control,evals,"Offline regression + online monitoring + adversarial cases; eval-on-prompt-change",playbooks/evals.md
 control,governance,"Provenance (SLSA), attestations, ownership, audit trail, model routing, cost tracking",playbooks/governance.md

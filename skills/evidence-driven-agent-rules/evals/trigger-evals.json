@@ -6,6 +6,7 @@
     {"query": "Scaffold docs/reflection-log/ for this project.", "should_activate": true, "expected_route": "capture", "category": "positive"},
     {"query": "We've been recording agent failures and have a few patterns now — promote them into rules.", "should_activate": true, "expected_route": "promote", "category": "positive"},
     {"query": "Find any sub-surfaces with 3+ entries and propose a rule that closes the gap.", "should_activate": true, "expected_route": "promote", "category": "positive"},
+    {"query": "Promote these hook bypass entries into a hardened gate with regression fixtures.", "should_activate": true, "expected_route": "promote", "category": "positive"},
     {"query": "Score our repo against Level 4 / Level 5 of the Engineering Agents maturity rubric.", "should_activate": true, "expected_route": "assess-l4l5", "category": "positive"},
     {"query": "Are we at Sovereign Engineering level yet?", "should_activate": true, "expected_route": "assess-l4l5", "category": "positive"},
     {"query": "Help me set up the feedback loop so agent failures become AGENTS.md rules.", "should_activate": true, "expected_route": "capture", "category": "positive"},

@@ -153,6 +153,16 @@ else
   err "templates/assess-report.md must require saved tracking artifacts with fallback"
 fi
 
+# 7d. CI runner trust playbook
+if grep -q '^control,ci-runners,' references/layer-router.csv &&
+   [ -f references/playbooks/ci-runners.md ] &&
+   grep -q 'self-hosted runners' references/playbooks/ci-runners.md &&
+   grep -q 'required-check parity' references/playbooks/ci-runners.md; then
+  ok "ci-runners sub-surface is routed and covers runner trust"
+else
+  err "ci-runners playbook must be routed and cover self-hosted runner trust + required-check parity"
+fi
+
 # 8. Activation eval present
 if [ -f evals/activation-cases.md ]; then
   ok "evals/activation-cases.md present"

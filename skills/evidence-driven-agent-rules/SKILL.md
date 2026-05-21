@@ -84,8 +84,10 @@ patterns → no evidence-driven rule).
    `references/empirical-warnings-w1.md` and the
    `references/playbooks/reflection-log.md` playbook. For `promote`,
    also load the reflection log itself (read every
-   `docs/reflection-log/[0-9]*.md`). For `assess-l4l5`, also load
-   `references/core/maturity-rubric.md`.
+   `docs/reflection-log/[0-9]*.md`). If the closing change is a hook,
+   CI check, static validator, branch-protection rule, or other gate,
+   also load `references/playbooks/gate-hardening.md`. For
+   `assess-l4l5`, also load `references/core/maturity-rubric.md`.
 3. **For `capture`:** scaffold `docs/reflection-log/README.md` +
    `_template.md` from `templates/artifacts/reflection-log/`; add the
    `README.md §Agents` pointer block if it doesn't exist; refuse if
@@ -97,7 +99,9 @@ patterns → no evidence-driven rule).
    with ≥3 entries, present them to the user; propose the smallest
    closing change (rule sentence in AGENTS.md, PreToolUse hook, CI
    check, or template edit); ask for confirmation before writing.
-   Refuse promotion if the group has <3 entries (W1 floor).
+   Refuse promotion if the group has <3 entries (W1 floor). For gates,
+   require the gate-hardening variant matrix and regression fixture before
+   calling the change complete.
 5. **For `assess-l4l5`:** assume Levels 1–3 already scored by
    `project-agentification` (require user confirmation); score Levels
    4–5 against `references/core/maturity-rubric.md`; report ceiling and
@@ -159,6 +163,8 @@ live in the shared `references/empirical-warnings.md` (symlink to
   `project-agentification`'s Levels 1–3).
 - `references/playbooks/reflection-log.md` — the only sub-surface this
   skill owns directly.
+- `references/playbooks/gate-hardening.md` — adversarial variant matrix and
+  fixture requirements for promoted hooks, static checks, and CI gates.
 - `references/trackable-findings.md` — ledger, workflow-state, and closeout
   rules for `assess-l4l5` gaps.
 - `templates/artifacts/reflection-log/` — `README.md` (index +

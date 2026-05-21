@@ -62,28 +62,25 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    and `references/core/failure-modes.md` to every review/prune finding. Use
    stable IDs like `TEST-<layer>-NNN`.
 9. **Emit output** per the default template in the activity router row.
-10. **Create tracking state.** For review/prune outputs with 7+ findings or
-   candidates, any severity 3–4, or a save/track request, load
-   `references/trackable-findings.md` and write both artifacts now: Markdown
-   ledger at
+10. **Create, resume, or close tracking state.** For review/prune outputs with
+   7+ findings or candidates, any severity 3–4, or a save/track/closeout
+   request, load `references/trackable-findings.md`. If the request names an
+   existing ledger, workflow-state file, PR, diff, branch, or `TEST-*` ID, read
+   saved state first and update statuses only after each verification rule
+   passes. Otherwise write both artifacts now: Markdown ledger at
    `docs/audits/test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
    and workflow state at
    `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
    If the target is not a repo or `docs/audits/` is not writable, use
    `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate from `templates/findings-ledger.md` and
-   `templates/workflow-state.json`, report both paths, and do not merely offer
-   tracking. Roadmaps, issues, and non-tracking project-file edits remain
-   opt-in.
+   Populate or update files from the ledger/workflow-state templates; do not
+   edit templates. Report both paths, and keep roadmaps, issues, and
+   non-tracking edits opt-in.
 
 ## Modes
 
-- **Guided Draft (default):** one optionized question at a time, 3–4 likely
-  choices plus a freeform path.
-- **Autopilot:** proceed from available context; state assumptions when the
-  task is clear and low-risk.
-- **Grill Me:** open-ended questions, one at a time, when audience,
-  constraints, or trade-offs materially change the result.
+Guided Draft asks one optionized question; Autopilot proceeds when low-risk;
+Grill Me asks open-ended trade-off questions.
 
 ## Output requirements
 

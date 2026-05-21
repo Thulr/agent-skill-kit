@@ -11,7 +11,8 @@ Implementation shape:
   - Command substitutions (`$(...)`, backticks, `<(...)`, `>(...)`) are
     extracted and recursively checked as their own commands.
   - `shlex` tokenizes the result with `punctuation_chars=True`; the
-    pipeline splits on `;`, `&&`, `||`, `|`, `&`.
+    pipeline splits on `;`, `&&`, `||`, `|`, `&`, and shell group
+    delimiters `(`, `)`, `{`, `}`.
   - Each pipeline segment is unwrapped: env-var prefixes (`FOO=bar cmd`),
     transparent wrappers (`sudo`, `time`, `env`, `command`), and per-
     wrapper value-taking flags (`sudo -u root cmd`) are consumed before
@@ -27,6 +28,8 @@ Implementation shape:
 Blocked patterns (see AGENTS.md §Forbidden actions):
   - `git push` with `--force` / `-f` / `--force-with-lease[=…]` /
     `--force-if-includes`, OR a `+refspec`, targeting `main` / `master`.
+    Force pushes with omitted/ambiguous refspecs are also blocked because
+    Git may default to the current protected upstream branch.
   - `git branch -D main` / `git branch -D master`.
   - `rm -r` (or `-R` / `--recursive`, in any order, separable, with or
     without `-f` / `--force`, with or without `--` terminator) of `/`,
@@ -96,6 +99,7 @@ GIT_VALUE_FLAGS = frozenset(
 )
 
 PIPELINE_SEPARATORS = frozenset([";", "&", "&&", "|", "||"])
+SHELL_GROUP_DELIMITERS = frozenset(["(", ")", "{", "}"])
 
 
 # ---------------------------------------------------------------------------
@@ -200,7 +204,7 @@ def split_pipeline(command):
     segments = []
     current = []
     for tok in tokens:
-        if tok in PIPELINE_SEPARATORS:
+        if tok in PIPELINE_SEPARATORS or tok in SHELL_GROUP_DELIMITERS:
             if current:
                 segments.append(current)
                 current = []
@@ -400,6 +404,10 @@ def check_git_push(push_argv):
             continue
         else:
             refspec_tokens.append(a)
+
+    if has_force_flag and len(refspec_tokens) <= 1:
+        return "force-push with omitted or ambiguous refspec"
+
     for tok in refspec_tokens:
         matched, plus = _ref_targets_protected_branch(tok)
         if not matched:

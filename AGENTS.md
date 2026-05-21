@@ -185,7 +185,9 @@ rejects, with non-zero exit:
 
 - `git push` to `main` / `master` with **any** force form: `--force` / `-f`
   / `--force-with-lease[=…]` / `--force-if-includes`, **or** a `+`-prefixed
-  refspec (`+main`, `+HEAD:main`, `+refs/heads/main`).
+  refspec (`+main`, `+HEAD:main`, `+refs/heads/main`). Force-push commands
+  with omitted/ambiguous refspecs are blocked too because Git can default to
+  the current protected upstream branch.
 - `git branch -D main` / `git branch -D master`.
 - `rm -r` (or `-R` / `--recursive`, in any order, separable, with or
   without `-f` / `--force`, with or without `--` terminator) of:
@@ -197,11 +199,11 @@ rejects, with non-zero exit:
   - `~` / `$HOME` and anything beneath them.
 
 The hook parses commands argv-by-argv via `shlex` (not regex on the raw
-string), splits pipelines on `;` / `&&` / `||` / `|` / `&`, and unwraps
-common prefixes (`sudo`, `time`, `env`, `command`, env-var assignments,
-`git -C path`). Test coverage lives at
+string), splits pipelines and grouped commands on `;` / `&&` / `||` / `|` /
+`&` / `(` / `)` / `{` / `}`, and unwraps common prefixes (`sudo`, `time`,
+`env`, `command`, env-var assignments, `git -C path`). Test coverage lives at
 [`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
-(109 unit + 3 subprocess cases) and runs in `just check` and CI. When a
+(115 unit + 3 subprocess cases) and runs in `just check` and CI. When a
 new bypass is observed, log it in `docs/reflection-log/` (one file per
 bypass), add the fixture to the test file, then update the hook so the
 new case passes.

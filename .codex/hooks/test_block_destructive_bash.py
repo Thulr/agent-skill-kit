@@ -10,6 +10,9 @@ Runs the hook's `check_command` against a fixture table covering:
       * `rm -- /etc` option terminator.
       * `rm -r -f /etc` split-flag form.
       * `rm --recursive --force /etc` long-form flags.
+  - PR #21 review comments:
+      * Grouped shell commands (`(rm -rf /etc)`, `{ git push -f origin main; }`).
+      * Force pushes with omitted/ambiguous refspecs (`git push -f origin`).
   - Pipeline / compound statements (`cd /tmp && rm -rf /etc`).
   - Transparent wrappers (`sudo`, `time`, `env`).
   - Quoted paths.
@@ -67,6 +70,8 @@ CASES = [
     ("git push --force origin main", True, "force-push main"),
     ("git push -f main", True, "-f main"),
     ("git push --force-with-lease origin main", True, "force-with-lease main"),
+    ("git push -f origin", True, "force-push omitted refspec after remote"),
+    ("git push --force-with-lease", True, "force-with-lease omitted remote/refspec"),
     ("git push --force origin master", True, "force-push master"),
     ("git branch -D main", True, "branch -D main"),
     ("git branch -D master", True, "branch -D master"),
@@ -93,6 +98,10 @@ CASES = [
     ("rm -rf /tmp/ok || rm -rf /etc", True, "compound: || rm"),
     ("git push -f origin main | tee log", True, "pipe to tee"),
     ("ls & rm -rf /etc", True, "background & rm"),
+    ("(rm -rf /etc)", True, "grouped subshell rm"),
+    ("{ git push -f origin main; }", True, "brace group force-push"),
+    ("safe && { git push -f origin main; }", True, "compound brace group force-push"),
+    ("(cd / && rm -rf etc)", True, "subshell cd then relative rm"),
 
     # ----- Transparent wrappers -----
     ("sudo rm -rf /etc", True, "sudo rm"),

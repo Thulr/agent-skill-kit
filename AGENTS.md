@@ -34,18 +34,23 @@ See [README.md §Layout](./README.md#layout) for the canonical table. The three
 install lanes that any path-based gate **must** enumerate:
 
 - `skills/<name>/` — published skills
-- `skills/.experimental/<name>/` — caveat-heavy / WIP skills (still discoverable by `npx skills`)
+- `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
+  release explicitly reopens experimental distribution
 - `.agents/skills/<name>/` — repo-local agent surface (skill-curator, skill-reviewer)
 
 ## Commands
 
-- `just check` — runs install discovery, instruction-surface and shared-content
-  symlink checks, destructive-bash hook tests, and every `evals/run-static-checks.sh`
-  across all three install lanes. **Must pass before commit and before PR.**
+- `just check` — runs install discovery, release-contract checks,
+  instruction-surface and shared-content symlink checks, destructive-bash hook
+  tests, and every `evals/run-static-checks.sh` across all three install lanes.
+  **Must pass before commit and before PR.**
 - `just test` — alias for `just check` today; reserved for future per-skill tests.
-- `npx skills add . --list` — lists installable skills locally; same call CI uses.
-- `bash scripts/check-shared-content.sh` — verifies every skill reference to
-  `skills/_shared/*.md` is a relative symlink to the canonical shared file.
+- `bash scripts/list-installable-skills.sh` — lists installable skills locally;
+  same pinned `skills` CLI call CI uses.
+- `bash scripts/check-shared-content.sh` — verifies every skill symlink into
+  `skills/_shared/**` is relative and points to the canonical shared file.
+- `python3 scripts/test-trigger-evals-schema.py` — smoke-tests the
+  `trigger-evals.json` schema against valid cases and known invalid cases.
 - `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
   against the canonical schema files under `schemas/`.
 
@@ -67,8 +72,10 @@ CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](.
 Every skill under `skills/` or `skills/.experimental/` must ship:
 
 - `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 800 words.
-- `skill.json` with `name`, `status` (`draft|reviewed|published`), `maintainers`
-  (resolvable GitHub handles, see Rule 4), and a non-empty `inspired_by` list.
+- `skill.json` with `name`, `status: "published"` for installable skills,
+  `maintainers` (resolvable GitHub handles, see Rule 4), and a non-empty
+  `inspired_by` list. Use repository release tags (for example
+  `0.0.1-alpha`) for catalog-level maturity, not per-skill draft status.
 - `evals/run-static-checks.sh` — exits 0 on success; runs in `just check` and CI.
 - `evals/trigger-evals.json` — canonical schema below.
 - `evals/activation-cases.md` — natural-language behavioral cases (positive, negative, boundary).
@@ -103,8 +110,8 @@ the schema file, not against the example.
 }
 ```
 
-`category` is `"positive" | "negative" | "edge"`. `expected_route` is optional
-(use `null` when the skill is single-route). Each skill's
+`category` is `"positive" | "negative" | "edge"`. `expected_route` is required
+and uses `null` when the skill is single-route or should not activate. Each skill's
 `run-static-checks.sh` validates the shape; a runner that grades activation
 against a model lives in a future Stage 1.5 — file is parsed and validated for
 now, not yet executed.

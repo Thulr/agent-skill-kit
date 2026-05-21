@@ -77,7 +77,7 @@ existing skills in this repo. The canonical example is
   "description": "User-facing summary covering trigger conditions.",
   "version": "0.1.0",
   "license": "MIT",
-  "status": "draft",
+  "status": "published",
   "maintainers": ["<your-handle>"],
   "tags": ["pack-name", "topic", "..."],
   "inspired_by": [
@@ -126,11 +126,10 @@ Flat skills can skip the registry — there's no routing to do.
 
 The eval set depends on the shape:
 
-- **Flat** — optional. Consider a few activation cases if the skill has
-  ambiguity that could mistrigger.
-- **Single-layer** — `evals/activation-cases.md` is recommended.
-  `evals/run-static-checks.sh` is worth it once the file set passes a
-  handful of files.
+- **Flat** — required in this repo, even when minimal, so a templated skill
+  cannot bypass gates.
+- **Single-layer** — required in this repo: `evals/activation-cases.md`,
+  `evals/trigger-evals.json`, and `evals/run-static-checks.sh`.
 - **Two-level** — both required. Also include `evals/trigger-evals.json`
   for the description-optimization loop.
 
@@ -156,4 +155,5 @@ Before handing to review:
   than a summary of the source.
 - Generated evals test activation (positive and negative) and the main
   workflow.
-- `skill.json.status` is `draft`.
+- `skill.json.status` is `published`; repository-level prerelease tags carry
+  maturity caveats.

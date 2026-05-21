@@ -27,8 +27,8 @@ skills/<skill-name>/
                               # artifacts
   evals/
     activation-cases.md       # behavioral cases (positive + negative)
-    run-static-checks.sh      # recommended once the file set passes a
-                              # handful of files
+    trigger-evals.json        # canonical trigger-eval schema
+    run-static-checks.sh      # required repo gate
 ```
 
 ## The registry CSV
@@ -54,7 +54,7 @@ Rules:
 - Overview / core principle
 - Operating contract (the non-negotiables)
 - Activation handshake (what to ask when invoked bare)
-- Modes (optional — Guided Draft / Autopilot / Grill Me are common)
+- Modes (optional — Guided Build / Autopilot / Grill Me are common)
 - Workflow that consults the registry
 - Output requirements
 - Reference map (mirrors the registry, plus templates and evals)
@@ -70,8 +70,8 @@ informs, so future agents see the source → use-case mapping.
 
 ## Static check
 
-Once the skill has more than ~6 files, add `evals/run-static-checks.sh`
-that verifies:
+Every public skill in this repo has `evals/run-static-checks.sh`.
+It verifies:
 
 - All expected files exist.
 - `skill.json` is valid JSON with the required fields.

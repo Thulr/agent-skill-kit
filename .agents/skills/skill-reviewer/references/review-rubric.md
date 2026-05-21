@@ -13,7 +13,10 @@ Score each category as pass, fix, or block.
   `references/intents/*.csv`, `references/activity-router.csv` plus
   `references/activities/*.csv`, or `references/layer-router.csv`.
 - `skill.json.name` matches frontmatter `name`.
-- `skill.json.status` is `draft`, `reviewed`, or `published`.
+- `skill.json.status` is `draft`, `reviewed`, or `published`, and installable
+  public skills in this repo use `published` before shipping. `reviewed` is
+  acceptable for internal/template artifacts; `draft` should not be shipped
+  under an installable public lane.
 - Every public reference file and artifact template needed by the skill is
   mapped from the skill's router.
 

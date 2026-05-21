@@ -5,7 +5,7 @@
 # `.github/` as release artifacts.
 #
 # Quick start
-# - List installable skills from a local checkout: `npx skills add . --list`
+# - List installable skills from a local checkout: `bash scripts/list-installable-skills.sh`
 # - Run all repo gates: `just check`
 #
 # Non-negotiables (see `AGENTS.md` for the full contract)
@@ -36,9 +36,12 @@
 # Skills (the product)
 # - `skills/dx-heuristics/`: reviewed/published skill
 # - `skills/test-heuristics/`: reviewed/published skill
-# - `skills/.experimental/clean-architecture/`: experimental skill; still installable
-# - `skills/.experimental/project-agentification/`: experimental skill; still installable
-# - `skills/.experimental/evidence-driven-agent-rules/`: experimental skill; pairs with project-agentification for repos with a feedback signal (eval/telemetry/baseline)
+# - `skills/clean-architecture/`: published skill
+# - `skills/project-agentification/`: published skill
+# - `skills/evidence-driven-agent-rules/`: published skill; pairs with project-agentification for repos with a feedback signal (eval/telemetry/baseline)
+# - `skills/ui-design-craft/`: published skill
+# - `skills/ux-accessibility-heuristics/`: published skill
+# - `skills/.experimental/`: reserved and currently empty
 # - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless
 #   `INSTALL_INTERNAL_SKILLS=1`); kept so new contributors can't template a skill
@@ -46,7 +49,7 @@
 #
 # Skill contract (every skill directory)
 # - `SKILL.md` (YAML frontmatter; < 800 words)
-# - `skill.json` (status, maintainers, inspired_by, etc.)
+# - `skill.json` (`status: "published"` for installable skills, maintainers, inspired_by, etc.)
 # - `evals/run-static-checks.sh` (schema + structure gates)
 # - `evals/trigger-evals.json` (canonical schema; validated, not executed yet)
 # - `evals/activation-cases.md` (behavioral examples)

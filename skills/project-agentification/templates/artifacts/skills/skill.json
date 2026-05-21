@@ -3,8 +3,8 @@
 
   "name": "<skill-name-must-match-directory>",
   "version": "0.1.0",
-  "status": "draft",
-  "//status": "One of: draft | reviewed | published. New skills start as draft; promote via skill-reviewer.",
+  "status": "published",
+  "//status": "Installable skills in informed-skills use published status; prerelease maturity is communicated by the repository release tag.",
 
   "license": "MIT",
 

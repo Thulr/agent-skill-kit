@@ -1,6 +1,6 @@
 ---
 name: skill-curator
-description: Use when researching books, movies, talks, articles, or notes as source material and turning them into draft source-inspired public skills. Also use when choosing how many routing layers a curated skill needs (flat, single-layer, or two-level routing).
+description: Use when researching books, movies, talks, articles, or notes as source material and turning them into source-inspired public skills. Also use when choosing how many routing layers a curated skill needs (flat, single-layer, or two-level routing).
 metadata:
   internal: true
 ---
@@ -19,9 +19,9 @@ shape feels familiar.
 
 ## Operating Contract
 
-- Use web research from multiple source types before drafting public skills.
+- Use web research from multiple source types before creating public skills.
 - Keep research and provenance detail in `.agents/state/`.
-- Write public draft skills only under `skills/<skill-name>/`. Capability
+- Write public skill files only under `skills/<skill-name>/`. Capability
   pack is recorded in `skill.json.tags`, not as a directory layer.
 - Keep `SKILL.md` runtime-only. Put user-facing provenance in `skill.json`.
 - Pick the skill's shape using `references/depth-rubric.md`. Then scaffold
@@ -33,26 +33,28 @@ shape feels familiar.
 - Do not reproduce long copyrighted passages, chapter summaries, scripts,
   dialogue, lyrics, or distinctive text. Paraphrase concepts into
   operational methods.
-- Set every generated public `skill.json.status` to `draft`.
+- Set every generated public `skill.json.status` to `published`; this repo
+  communicates prerelease maturity with the repository tag, not per-skill draft
+  status.
 
 ## Activation Handshake
 
 If the user gives a concrete source and asks for curation, proceed in
-Guided Draft mode unless they ask for another mode.
+Guided Build mode unless they ask for another mode.
 
 If the user only invokes this skill, ask for one source seed:
 
 - source title, creator, or URL
 - target audience if known
-- preferred output: proposal only or draft files
+- preferred output: proposal only or skill files
 
 ## Modes
 
 - **Grill Me**: ask one open question at a time before research when the
   desired audience, safety boundaries, or shape strategy is unclear.
-- **Guided Draft**: default. Research, propose the shape and plan, ask one
-  approval question, then write draft files if approved.
-- **Autopilot**: research and create draft files using conservative
+- **Guided Build**: default. Research, propose the shape and plan, ask one
+  approval question, then write skill files if approved.
+- **Autopilot**: research and create skill files using conservative
   assumptions. Stop only for legal/safety ambiguity, unavailable research,
   or destructive actions.
 
@@ -86,8 +88,7 @@ If the user only invokes this skill, ask for one source seed:
     heuristics or caveats.
 12. Run `just check` (which executes the repo's static checks across all
     skills).
-13. Hand off to `skill-reviewer` before any draft becomes reviewed or
-    published.
+13. Hand off to `skill-reviewer` before any generated skill is merged.
 
 ## Pack Rules
 

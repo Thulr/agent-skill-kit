@@ -30,24 +30,30 @@ None.
 2. Move/ensure the directory lives under one lane:
 
    - `skills/<skill-name>/` for product work
-   - `skills/.experimental/<skill-name>/` only for future caveat-heavy / WIP
-     work that must remain separated while it matures
+  - `skills/.experimental/<skill-name>/` is reserved and should remain empty
+     unless a future release explicitly reopens experimental distribution
 
 3. Ensure required artifacts exist (per `AGENTS.md`):
 
    - `SKILL.md` with YAML frontmatter (`name`, `description`, `license`)
-   - `skill.json` with `status` (`draft|reviewed|published`), `maintainers`
-     (GitHub handles), and non-empty `inspired_by`
+   - `skill.json` with `status: "published"`, `maintainers` (GitHub
+     handles), and non-empty `inspired_by`
    - `evals/run-static-checks.sh`
    - `evals/trigger-evals.json` (canonical schema)
    - `evals/activation-cases.md`
 
-4. Update any repo-level indexes that should mention the new skill:
+4. Keep maturity at the repo-release level:
+
+   - Use repository prerelease tags such as `0.0.1-alpha` for catalog-level
+     caveats.
+   - Do not ship installable public skills with `status: "draft"`.
+
+5. Update any repo-level indexes that should mention the new skill:
 
    - `README.md` (Skills section)
    - `llms.txt` / `llms-full.txt` if agents need to discover new docs quickly
 
-5. Run gates:
+6. Run gates:
 
    `just check`
 

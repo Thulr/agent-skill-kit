@@ -1,0 +1,146 @@
+{
+  "workflow": "trackable-findings",
+  "version": "0.1.0",
+  "skill": "clean-architecture",
+  "state_file": "docs/audits/clean-architecture-workflow-state-2026-05-20-informed-skills.json",
+  "scope": "repo:/Users/justin/Dev/informed-skills",
+  "phase": "verified",
+  "status": "ready_for_pr",
+  "created_at": "2026-05-20",
+  "updated_at": "2026-05-21",
+  "artifacts": {
+    "source_report": "clean-architecture audit/all conversation run on /Users/justin/Dev/informed-skills",
+    "findings_ledger": "docs/audits/clean-architecture-findings-ledger-2026-05-20-informed-skills.md",
+    "roadmap": null,
+    "issues": [],
+    "pull_requests": []
+  },
+  "selected_findings": [
+    {
+      "id": "CA-CROSS-001",
+      "status": "verified",
+      "work_package": "WP-001",
+      "verification": {
+        "rule": "Subprocess smoke tests cover malformed JSON for every registered hook and the selected uninspectable/block behavior returns non-zero.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "Shared destructive-bash policy blocks invalid JSON/non-object payloads; Claude and Codex hook tests pass in just check."
+      }
+    },
+    {
+      "id": "CA-CONTEXT-001",
+      "status": "verified",
+      "work_package": "WP-002",
+      "verification": {
+        "rule": "A gate defines and enforces one installability rule: no unintended draft skill appears in install discovery, or the repo explicitly documents lane-driven installability and checks that status semantics match it.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "Release contract enforces published status for installable public skills and an empty skills/.experimental lane; install discovery finds 7 skills."
+      }
+    },
+    {
+      "id": "CA-CONTEXT-002",
+      "status": "verified",
+      "work_package": "WP-002",
+      "verification": {
+        "rule": "Curator shape docs and any curator static checks require evals/run-static-checks.sh, evals/trigger-evals.json, and evals/activation-cases.md for every generated public skill.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "skill-curator guidance now targets published public skills with required eval artifacts; skill-curator static eval passes."
+      }
+    },
+    {
+      "id": "CA-BOUNDARY-001",
+      "status": "verified",
+      "work_package": "WP-003",
+      "verification": {
+        "rule": "Shared-content check traverses skills/_shared/** and validates every consumer symlink in references/ and templates/ for relative target, resolution, and matching basename.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "scripts/check-shared-content.sh verifies references and templates resolving into skills/_shared/**; just check verified 31 symlinks."
+      }
+    },
+    {
+      "id": "CA-CROSS-002",
+      "status": "verified",
+      "work_package": "WP-001",
+      "verification": {
+        "rule": "One shared command-policy module or generated artifact feeds thin Claude/Codex adapters, and parity tests run every registered hook path.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "Claude/Codex hook adapters import scripts/hooks/destructive_bash_policy.py; Just and CI run both hook test suites."
+      }
+    },
+    {
+      "id": "CA-BOUNDARY-002",
+      "status": "verified",
+      "work_package": "WP-002",
+      "verification": {
+        "rule": "A lane-contract check enumerates .agents/skills/* and either requires a static check for each repo-local skill or documents and enforces the narrower exception.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "scripts/check-release-contract.py requires repo-local SKILL.md plus eval static checks and activation cases; skill-curator now provides them."
+      }
+    },
+    {
+      "id": "CA-DEP-001",
+      "status": "verified",
+      "work_package": "WP-004",
+      "verification": {
+        "rule": "A repo-owned validation runner/port handles schema paths and repo root discovery; per-skill scripts call the port or declare only skill-specific assertions.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "scripts/static-check-lib.sh owns repo-root discovery and canonical schema/name checks; public skill scripts call it."
+      }
+    },
+    {
+      "id": "CA-DOMAIN-001",
+      "status": "verified",
+      "work_package": "WP-004",
+      "verification": {
+        "rule": "Schema and fixtures enforce the chosen category requirement and route/activation consistency, including invalid cases for missing category and bad route shape.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "schemas/trigger-evals.schema.json requires category/expected_route, constrains route ids, and rejects expected_route on non-activating cases; release contract rechecks these invariants."
+      }
+    },
+    {
+      "id": "CA-CROSS-003",
+      "status": "verified",
+      "work_package": "WP-003",
+      "verification": {
+        "rule": "One repo-owned install-discovery wrapper is called from both Just and CI with the same skills version, cache policy, telemetry setting, and failure vocabulary.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "scripts/list-installable-skills.sh centralizes skills CLI version, npm cache, telemetry, and update-notifier policy; Just and CI call it."
+      }
+    },
+    {
+      "id": "CA-CROSS-004",
+      "status": "verified",
+      "work_package": "WP-004",
+      "verification": {
+        "rule": "Shared runner covers common schema/name/registry/source-safety/result-format mechanics while per-skill scripts keep only genuinely skill-specific assertions.",
+        "last_checked_at": "2026-05-21",
+        "last_result": "pass",
+        "evidence": "scripts/static-check-lib.sh covers common JSON contract mechanics; per-skill scripts retain content-specific checks."
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "date": "2026-05-20",
+      "decision": "Roadmap and external issues were not created; those require explicit user request."
+    },
+    {
+      "date": "2026-05-21",
+      "decision": "No installable skills should remain in draft or experimental lanes; repository prerelease maturity is communicated by the 0.0.1-alpha tag."
+    }
+  ],
+  "blockers": [],
+  "next_action": "Open one PR for the audit fixes; cut the 0.0.1-alpha release tag from the merge commit after it lands.",
+  "handoff": {
+    "compatible_skill": "project-agentification",
+    "reason": "Several findings are gate-hardening and agent-surface boundary work."
+  }
+}

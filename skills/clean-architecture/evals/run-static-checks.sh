@@ -2,7 +2,8 @@
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repo_root="$(git -C "$script_dir" rev-parse --show-toplevel)"
+source "$script_dir/../../../scripts/static-check-lib.sh"
+repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
@@ -86,13 +87,7 @@ fi
 
 # ----- skill.json gates -----
 
-if [[ -f "$skill_json" ]]; then
-  python3 "$repo_root/scripts/validate-against-schema.py" \
-    "$repo_root/schemas/skill.schema.json" "$skill_json" \
-    || fail "skill.json: schema validation failed (schemas/skill.schema.json)"
-  name=$(jq -r '.name' "$skill_json")
-  [[ "$name" == "clean-architecture" ]] || fail "skill.json: name must be clean-architecture, got $name"
-fi
+validate_skill_json_contract "$repo_root" "$skill_json" "clean-architecture"
 
 # ----- SKILL.md source-safety (citations live in skill.json, not SKILL.md) -----
 
@@ -271,15 +266,7 @@ fi
 # trigger-evals.json is required: presence + schema + skill-name match.
 
 trigger_evals="$skill_dir/evals/trigger-evals.json"
-check_file "$trigger_evals"
-if [[ -f "$trigger_evals" ]]; then
-  python3 "$repo_root/scripts/validate-against-schema.py" \
-    "$repo_root/schemas/trigger-evals.schema.json" "$trigger_evals" \
-    || fail "trigger-evals.json: schema validation failed (schemas/trigger-evals.schema.json)"
-  skill_in_trigger=$(jq -r '.skill' "$trigger_evals")
-  [[ "$skill_in_trigger" == "clean-architecture" ]] \
-    || fail "trigger-evals.json: 'skill' must be clean-architecture, got $skill_in_trigger"
-fi
+validate_trigger_evals_contract "$repo_root" "$trigger_evals" "clean-architecture"
 
 # ----- Result -----
 

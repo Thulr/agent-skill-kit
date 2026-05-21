@@ -122,8 +122,8 @@ implementation):
 
 - All expected files exist (SKILL.md, skill.json, both registry layers,
   every playbook listed by the registries, every template).
-- `skill.json` is valid JSON with required fields, status in
-  `draft|reviewed|published`, and a non-empty `inspired_by`.
+- `skill.json` is valid JSON with required fields, `status: "published"`
+  for installable skills, and a non-empty `inspired_by`.
 - `SKILL.md` is under a word cap (800 is a good default) and contains the
   gates the runtime expects (e.g., `^## Subagent dispatch`).
 - Every playbook on disk is referenced by at least one intent CSV

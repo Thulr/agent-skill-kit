@@ -14,12 +14,14 @@
 # Run by `just check` and CI.
 #
 # Invariants enforced:
-# 1. For every file in `skills/_shared/`, every skill that has a file of the
-#    same basename under `<skill>/references/` MUST have it as a symlink (not
-#    a regular file).
-# 2. Every such symlink MUST resolve to a file inside `skills/_shared/`.
-# 3. Every such symlink MUST resolve to an existing file (no orphan
-#    symlinks).
+# 1. For every top-level Markdown file in `skills/_shared/`, every skill that
+#    has a file of the same basename under `<skill>/references/` MUST have it
+#    as a symlink (not a regular file).
+# 2. Every symlink anywhere under a skill that resolves into `skills/_shared/**`
+#    MUST be relative, resolve, stay inside `skills/_shared/`, and point to a
+#    canonical file with the same basename. This covers shared templates as
+#    well as shared references.
+# 3. Every such symlink MUST resolve to an existing file (no orphan symlinks).
 #
 # Skills that don't reference a given shared file are not required to —
 # this only enforces consistency for skills that DO reference one.
@@ -36,7 +38,7 @@ if [[ ! -d $SHARED_DIR ]]; then
     exit 0
 fi
 
-shared_count=$(find "$SHARED_DIR" -maxdepth 1 -type f -name '*.md' | wc -l | tr -d ' ')
+shared_count=$(find "$SHARED_DIR" -type f | wc -l | tr -d ' ')
 if [[ $shared_count -eq 0 ]]; then
     echo "OK:   $SHARED_DIR/ exists but contains no shared files yet"
     exit 0
@@ -44,6 +46,62 @@ fi
 
 failed=0
 checked=0
+checked_paths=""
+shared_abs="$(cd "$SHARED_DIR" && pwd)"
+
+check_shared_symlink() {
+    local candidate=$1
+    local expected_basename=${2:-}
+
+    if printf '%s' "$checked_paths" | grep -Fxq "$candidate"; then
+        return
+    fi
+    checked_paths="${checked_paths}${candidate}"$'\n'
+    checked=$((checked + 1))
+
+    if [[ ! -L $candidate ]]; then
+        echo "FAIL: $candidate exists as a regular file but a shared file is its canonical source" >&2
+        echo "      → replace with a relative symlink into $SHARED_DIR/" >&2
+        failed=1
+        return
+    fi
+
+    if [[ ! -e $candidate ]]; then
+        local missing_target
+        missing_target=$(readlink "$candidate")
+        echo "FAIL: $candidate is a symlink to '$missing_target' which does not resolve" >&2
+        failed=1
+        return
+    fi
+
+    local target
+    target=$(readlink "$candidate")
+    if [[ $target == /* ]]; then
+        echo "FAIL: $candidate is an absolute symlink ('$target') — must be relative" >&2
+        echo "      → recreate as a relative symlink into $SHARED_DIR/" >&2
+        failed=1
+        return
+    fi
+
+    local resolved
+    resolved=$(python3 -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$candidate")
+    if [[ $resolved != "$shared_abs"/* ]]; then
+        echo "FAIL: $candidate resolves to '$resolved' which is outside $SHARED_DIR/" >&2
+        failed=1
+        return
+    fi
+
+    local basename
+    basename=$(basename "$resolved")
+    if [[ -n $expected_basename && $basename != "$expected_basename" ]]; then
+        echo "FAIL: $candidate is a symlink to '$resolved' but the basename does not match '$expected_basename'" >&2
+        echo "      → fix the symlink target to point at $SHARED_DIR/$expected_basename" >&2
+        failed=1
+        return
+    fi
+
+    echo "OK:   $candidate -> $target"
+}
 
 # Enumerate every skill (all three install lanes per AGENTS.md Rule 1).
 shopt -s nullglob
@@ -57,6 +115,7 @@ for skill_dir in skills/*/ skills/.experimental/*/ .agents/skills/*/; do
     [[ -d $refs_dir ]] || continue
 
     for shared_file in "$SHARED_DIR"/*.md; do
+        [[ -f $shared_file ]] || continue
         basename=$(basename "$shared_file")
         candidate="$refs_dir/$basename"
 
@@ -64,62 +123,14 @@ for skill_dir in skills/*/ skills/.experimental/*/ .agents/skills/*/; do
         # shared one. That's fine.
         [[ -e $candidate || -L $candidate ]] || continue
 
-        checked=$((checked + 1))
-
-        # Must be a symlink, not a regular file.
-        if [[ ! -L $candidate ]]; then
-            echo "FAIL: $candidate exists as a regular file but $shared_file is its canonical source" >&2
-            echo "      → replace with: ln -sf <relative-path>/$basename $candidate" >&2
-            failed=1
-            continue
-        fi
-
-        # Symlink target must resolve.
-        if [[ ! -e $candidate ]]; then
-            target=$(readlink "$candidate")
-            echo "FAIL: $candidate is a symlink to '$target' which does not resolve" >&2
-            failed=1
-            continue
-        fi
-
-        # Symlink target must be a RELATIVE path. Absolute symlinks
-        # (e.g., /workspace/informed-skills/skills/_shared/lenses.md)
-        # validate fine on the machine that wrote them but break on
-        # clone/install elsewhere because the absolute prefix doesn't
-        # exist. Regression vector Codex caught on PR #12 (commit
-        # 2057166): the realpath-under-_shared check below passes for
-        # absolute targets even though they are non-portable.
-        target=$(readlink "$candidate")
-        if [[ $target == /* ]]; then
-            echo "FAIL: $candidate is an absolute symlink ('$target') — must be relative" >&2
-            echo "      → recreate as: ln -sf <relative-path>/$basename $candidate" >&2
-            failed=1
-            continue
-        fi
-
-        # Symlink must resolve to a file inside skills/_shared/.
-        resolved=$(python3 -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$candidate")
-        shared_abs="$(cd "$SHARED_DIR" && pwd)"
-        if [[ $resolved != "$shared_abs"/* ]]; then
-            echo "FAIL: $candidate resolves to '$resolved' which is outside $SHARED_DIR/" >&2
-            failed=1
-            continue
-        fi
-
-        # Symlink must resolve to the file with the matching basename.
-        # Otherwise references/lenses.md -> _shared/empirical-warnings.md
-        # would silently pass: the symlink IS inside _shared/, but the
-        # content is wrong. This is the regression vector Codex caught
-        # on PR #12 (commit 83d97400).
-        if [[ "$(basename "$resolved")" != "$basename" ]]; then
-            echo "FAIL: $candidate is a symlink to '$resolved' but the basename does not match '$basename'" >&2
-            echo "      → fix the symlink target to point at $SHARED_DIR/$basename" >&2
-            failed=1
-            continue
-        fi
-
-        echo "OK:   $candidate -> $(readlink "$candidate")"
+        check_shared_symlink "$candidate" "$basename"
     done
+
+    while IFS= read -r symlink; do
+        resolved=$(python3 -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$symlink")
+        [[ $resolved == "$shared_abs"/* ]] || continue
+        check_shared_symlink "$symlink" "$(basename "$resolved")"
+    done < <(find "$skill_dir" -type l -print)
 done
 
 if [[ $checked -eq 0 ]]; then

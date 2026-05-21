@@ -45,10 +45,13 @@ there's only one playbook (the SKILL.md itself).
 
 ## Evals
 
-Optional. If the trigger is genuinely ambiguous (the description could
-mistrigger on adjacent topics), add a tiny `evals/activation-cases.md`
-with 3–5 positive and 2–3 negative prompts. Otherwise skip — at this depth
-the static-check overhead is usually not worth it.
+Required in this repo. Even flat public skills ship:
+
+- `evals/activation-cases.md`
+- `evals/trigger-evals.json`
+- `evals/run-static-checks.sh`
+
+Keep them minimal when the trigger is simple, but do not omit them.
 
 ## Promotion signals
 

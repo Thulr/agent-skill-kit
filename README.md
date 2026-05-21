@@ -13,7 +13,7 @@ npx skills add Thulr/informed-skills
 [skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
 
 The current catalog focuses on software engineering, coding-agent operations,
-developer experience, test quality, architecture, and user-facing product UX /
+developer experience, test quality, architecture, user-facing product UX /
 accessibility, and UI design craft. Other source-grounded domains can be added
 later, but they are not part of the published install surface today.
 

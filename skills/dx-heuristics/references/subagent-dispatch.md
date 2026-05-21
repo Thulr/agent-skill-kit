@@ -30,6 +30,34 @@ honest. Lens 2 isn't influenced by lens 1's findings.
 3. **Adversarial debugger** — starts from likely failure modes. Tests
    whether errors, logs, and docs lead to recovery in under five minutes.
 
+## Preamble before dispatch
+
+Before spawning sub-agents, emit a short user-facing preamble — 3–4 lines, no
+more. Sub-agent fan-outs go silent for a minute or more; the preamble converts
+that wait from a black box into an anticipated reveal.
+
+The preamble must name:
+
+- **Lenses dispatched** (e.g., "first-time integrator, maintainer,
+  adversarial debugger").
+- **Surface(s)** being audited.
+- **Rough time estimate** ("~1–2 minutes," not a hard number).
+- **What to watch for in the output** — one sentence telegraphing the kind
+  of finding the user should expect.
+
+Example:
+
+```text
+Dispatching 3 lenses (first-time integrator, maintainer, adversarial
+debugger) against the `cli` surface. ~1–2 min.
+Watch for: inconsistent flag conventions, error messages that don't lead
+anywhere, and --help that assumes context.
+```
+
+Skip the preamble for hosts that don't show streaming text. Don't substitute
+a long status spinner for the preamble — the value is the user knowing *what
+is being looked for*, not just that work is happening.
+
 ## Dispatch template
 
 Spawn three sub-agents (one per lens) and run them in parallel. In hosts

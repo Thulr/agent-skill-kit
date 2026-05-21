@@ -67,6 +67,11 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
 
 ## Modes
 
+Three shared modes — Guided Draft (default), Autopilot, Grill Me — set
+depth-vs-speed up front. Canonical contract in
+[`references/modes.md`](./references/modes.md) (sourced from
+`skills/_shared/modes.md`). Project-agentification specifics:
+
 - **Guided Draft (default):** one optionized question at a time, 3–4 likely choices plus a freeform path.
 - **Autopilot:** proceed from available context; state assumptions when the task is clear and low-risk.
 - **Grill Me:** open-ended questions, one at a time, when audience, constraints, or trade-offs materially change the result.
@@ -120,6 +125,8 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - `references/empirical-warnings.md` — W2–W10 (symlink to `skills/_shared/empirical-warnings.md`). W1 lives in `evidence-driven-agent-rules`.
 - `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement; points to `clean-architecture` for boundary design.
 - `references/trackable-findings.md` — shared ledger, roadmap, GitHub issue, workflow-state, and verification closeout workflow.
+- `references/modes.md` — Guided Draft / Autopilot / Grill Me contract (symlink to `skills/_shared/modes.md`).
+- `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `templates/*.md` — four intent-specific output templates (what the skill itself emits).
 - `templates/{findings-ledger,roadmap,github-issue}.md` and `templates/workflow-state.json` — shared follow-through artifacts for tracked findings.
 - `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.

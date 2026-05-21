@@ -19,8 +19,11 @@ or use a pointing device to recover, the product has a UX problem.
 ## Activation
 
 - **Bare invocation** (`"use ux-accessibility-heuristics"`, `"UX audit"`,
-  `"accessibility review"`): load `references/use-case-registry.csv`, show the
-  use-case menu, wait. No file inspection, network calls, or writes.
+  `"accessibility review"`): load `references/starter-scenarios.csv` and
+  `references/use-case-registry.csv`, then show the use-case menu with the
+  named starter scenarios on top (each pre-routes use-case + persona) and
+  offer the mode choice (Guided Draft / Autopilot / Grill Me). Wait. No
+  file inspection, network calls, or writes.
 - **Concrete invocation** with a use case inferable: skip to step 3.
 - **Ambiguous concrete invocation**: ask one blocker question identifying the
   use case or target user/task before inspecting private systems.
@@ -54,6 +57,14 @@ or use a pointing device to recover, the product has a UX problem.
    Report both paths. Roadmaps, issues, and product-file edits require explicit
    confirmation.
 
+## Modes
+
+Three shared modes — Guided Draft (default), Autopilot, Grill Me — set
+depth-vs-speed up front. Full contract in
+[`references/modes.md`](./references/modes.md) (canonical at
+`skills/_shared/modes.md`). Offer the mode at bare invocation, before loading
+the use-case router; on concrete invocations, default to Guided Draft.
+
 ## Output requirements
 
 Every output includes target user, task, interface state, lenses used,
@@ -64,9 +75,11 @@ manual or specialist confirmation.
 ## Reference map
 
 - `references/use-case-registry.csv` - use-case router.
+- `references/starter-scenarios.csv` - named worked examples for bare invocation.
 - `references/playbooks/*.md` - use-case playbooks.
 - `references/core/severity-rubric.md` - 0-4 severity scale.
 - `references/trackable-findings.md` - ledger and closeout workflow.
+- `references/modes.md` - Guided Draft / Autopilot / Grill Me contract (shared).
 - `templates/audit-report.md` - output shape.
 - `templates/findings-ledger.md` and `templates/workflow-state.json` - tracking
   artifacts.

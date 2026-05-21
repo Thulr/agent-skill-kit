@@ -144,6 +144,17 @@ bar down to recording.
 
 When in doubt: record. The `promote` workflow searches later.
 
+## Modes
+
+Three shared modes — Guided Draft (default), Autopilot, Grill Me — set
+depth-vs-speed up front. Full contract in
+[`references/modes.md`](./references/modes.md) (canonical at
+`skills/_shared/modes.md`).
+
+For `promote`, Grill Me is the safer default: rule shipment is high-cost
+trust-wise (per the Core principle), so opening the trade-offs explicitly
+beats inferring them. For `capture` and `assess-l4l5`, Guided Draft works.
+
 ## Empirical warnings
 
 W1 (the ≥3 floor) lives in this skill at
@@ -158,6 +169,8 @@ live in the shared `references/empirical-warnings.md` (symlink to
 - `references/empirical-warnings.md` — symlink to shared W2–W10.
 - `references/lenses.md` — symlink to shared four-lens parallel
   dispatch.
+- `references/modes.md` — Guided Draft / Autopilot / Grill Me contract
+  (symlink to shared).
 - `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement (used when promoting boundary-violation patterns into gates).
 - `references/core/maturity-rubric.md` — Levels 4–5 (extends
   `project-agentification`'s Levels 1–3).

@@ -20,6 +20,26 @@ Running them in parallel — not sequentially in one head — keeps each lens ho
 
 3. **Bug-shape hunter** — pictures the bugs that ship in this code class (off-by-one, nulls, concurrency, timezone, partial failure, retries-as-duplicates). Pulls from `references/core/oracles.md` for variation. Question: "would this test catch any of those bugs?" Reports happy-path bias, missing boundary cases, missing error paths, no failure injection.
 
+## Preamble before dispatch
+
+Before spawning sub-agents, emit a short user-facing preamble — 3–4 lines, no more. Sub-agent fan-outs go silent for a minute or more; the preamble converts that wait from a black box into an anticipated reveal.
+
+The preamble must name:
+
+- **Lenses dispatched** (e.g., "intent reader, refactor adversary, bug-shape hunter").
+- **Layer + scope** being reviewed.
+- **Rough time estimate** ("~1–2 minutes," not a hard number).
+- **What to watch for in the output** — one sentence telegraphing the kind of finding the user should expect.
+
+Example:
+
+```text
+Dispatching 3 lenses (intent reader, refactor adversary, bug-shape hunter) against tests/unit/payments/. ~1–2 min.
+Watch for: tests whose name doesn't match the assertion, assertions on call-count/order, and missing failure-injection paths.
+```
+
+Skip the preamble for hosts that don't show streaming text. Don't substitute a long status spinner — the value is the user knowing *what is being looked for*, not just that work is happening.
+
 ## Dispatch template
 
 Spawn three sub-agents (one per lens) and run them in parallel. In hosts that do not auto-dispatch sub-agents, use explicit verbs: "spawn three agents," "delegate this in parallel," or "use a sub-agent for the intent reader lens." Do not expect the main agent to infer delegation from the word "dispatch" alone.

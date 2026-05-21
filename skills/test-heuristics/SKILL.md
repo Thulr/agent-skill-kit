@@ -19,8 +19,9 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
 ## Activation
 
 - **Bare invocation** (`"use test-heuristics"`, `"test review"`, `"start"`):
-  load `references/activity-router.csv`, show the activity menu, wait. No
-  file inspection, no network calls, no writes.
+  load `references/starter-scenarios.csv` and `references/activity-router.csv`,
+  then show the activity menu with named starter scenarios on top and offer
+  the mode choice. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both activity and layer inferable: skip to
   step 3 of the workflow.
 - **Concrete invocation with ambiguous scope**: ask one blocker question
@@ -63,24 +64,22 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    stable IDs like `TEST-<layer>-NNN`.
 9. **Emit output** per the default template in the activity router row.
 10. **Create, resume, or close tracking state.** For review/prune outputs with
-   7+ findings or candidates, any severity 3–4, or a save/track/closeout
-   request, load `references/trackable-findings.md`. If the request names an
-   existing ledger, workflow-state file, PR, diff, branch, or `TEST-*` ID, read
-   saved state first and update statuses only after each verification rule
-   passes. Otherwise write both artifacts now: Markdown ledger at
+   7+ findings, any severity 3–4, or a save/track/closeout request, load
+   `references/trackable-findings.md`. If the request names an existing
+   ledger, workflow-state, PR, branch, or `TEST-*` ID, read saved state first;
+   update statuses only after each verification rule passes. Otherwise write
+   both artifacts now at
    `docs/audits/test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
-   and workflow state at
-   `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
-   If the target is not a repo or `docs/audits/` is not writable, use
-   `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate or update files from the ledger/workflow-state templates; do not
-   edit templates. Report both paths, and keep roadmaps, issues, and
-   non-tracking edits opt-in.
+   and `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+   Fall back to `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
+   if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
+   and non-tracking edits opt-in.
 
 ## Modes
 
-Guided Draft asks one optionized question; Autopilot proceeds when low-risk;
-Grill Me asks open-ended trade-off questions.
+Guided Draft (default), Autopilot, Grill Me — see
+[`references/modes.md`](./references/modes.md). Offer the mode at bare
+invocation; default to Guided Draft on concrete invocations.
 
 ## Output requirements
 
@@ -90,11 +89,10 @@ sources applied from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
-Independent perspectives catch issues a single pass misses. **Default for
-`review` and `prune`;** preferred for `author`; optional for `triage`; skip tiny
-deterministic work or secret-bound tasks. Spawn three agents in parallel —
-**intent reader**, **refactor adversary**, **bug-shape hunter** — and load
-`references/subagent-dispatch.md` for prompts and synthesis. If the host lacks
+**Default for `review` and `prune`;** preferred for `author`; optional for
+`triage`; skip tiny deterministic or secret-bound tasks. Spawn three lenses
+in parallel — **intent reader**, **refactor adversary**, **bug-shape
+hunter** — per `references/subagent-dispatch.md`. If the host lacks
 delegation, run the lenses sequentially and still preserve disagreements as
 open questions.
 
@@ -106,6 +104,8 @@ open questions.
   listed in the activity CSVs).
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
+- `references/modes.md` — Guided Draft / Autopilot / Grill Me contract (shared).
+- `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/core/score-rubric.md` — 0–10 test-quality scale.
 - `references/core/personas.md` — target persona list.

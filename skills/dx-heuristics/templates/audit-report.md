@@ -12,6 +12,22 @@
 
 <One short paragraph: the highest-impact DX gap and the fastest path to improvement.>
 
+## Fix three first
+
+The three findings to act on this week, picked for **impact × effort** — not
+strictly by severity. A sev-3 item that costs a quarter should not crowd out a
+sev-2 item the team can land in a day.
+
+Skip this section if every finding is severity ≤ 1. List however many exist if
+there are fewer than three.
+
+1. **<finding ID>** — <why this one in one sentence>. _Verify by:_ <narrow check>.
+2. **<finding ID>** — <why this one>. _Verify by:_ <narrow check>.
+3. **<finding ID>** — <why this one>. _Verify by:_ <narrow check>.
+
+These are not the same list as "Path to 10/10" below — Fix-three optimizes
+impact-per-day; Path to 10/10 sequences the journey to a healthy surface.
+
 ## Findings
 
 One block per finding. Repeat as needed.

@@ -9,6 +9,20 @@
 
 [2–3 sentences: biggest gap, biggest strength, recommended priority action]
 
+## Fix three first
+
+The three findings to act on this week, picked for **impact × effort** — not
+strictly by severity. A sev-3 test-design problem that requires reshaping a
+fixture should not crowd out a sev-2 oracle gap the author can fix in an hour.
+
+Skip if every finding is severity ≤ 1. List however many exist if there are
+fewer than three.
+
+1. **[finding ID]** — [why this one]. _Verify by:_ [narrow check — usually a
+   re-run with a mutated SUT or a deleted assertion].
+2. **[finding ID]** — [why this one]. _Verify by:_ [check].
+3. **[finding ID]** — [why this one]. _Verify by:_ [check].
+
 ## Findings
 
 ### Finding 1: [Heuristic name]

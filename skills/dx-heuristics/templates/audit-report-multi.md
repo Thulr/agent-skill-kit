@@ -19,6 +19,16 @@ Lowest → highest. Score from `references/core/score-rubric.md`.
 <One short paragraph: the highest-impact DX gaps across the project and
 the single intervention that lifts overall DX the most.>
 
+## Fix three first
+
+Across all surfaces audited, the three findings to act on this week — picked
+for **impact × effort**, biased toward cross-surface patterns. If fewer than
+three cross-surface or sev-2+ findings exist, list however many do.
+
+1. **<finding ID>** (<surfaces>) — <why this one>. _Verify by:_ <check>.
+2. **<finding ID>** (<surfaces>) — <why this one>. _Verify by:_ <check>.
+3. **<finding ID>** (<surfaces>) — <why this one>. _Verify by:_ <check>.
+
 ## Findings
 
 Cross-surface findings ranked by severity, highest first. One block per

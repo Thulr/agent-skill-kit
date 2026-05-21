@@ -4,9 +4,13 @@ Shared mode contract for skills that take more than a few seconds to produce
 output. Picking a mode is the user's first agency lever: it sets depth-vs-speed
 *before* the skill starts grinding through routers, lenses, or fan-outs.
 
-Offer the mode choice at **bare invocation**, before loading any router CSV,
-and again whenever a request is materially ambiguous about how much
-back-and-forth the user wants.
+Offer the mode choice at **bare invocation**, alongside the scenario or
+route menu, and again whenever a request is materially ambiguous about how
+much back-and-forth the user wants. Loading the small router CSV (or
+starter-scenarios CSV) that backs that menu is fine — the menu would be
+empty without it. What should *not* load before the user picks an intent
+and surface is the heavier grounded context: playbooks, lenses,
+intent-specific files, and per-surface references.
 
 ## The three modes
 

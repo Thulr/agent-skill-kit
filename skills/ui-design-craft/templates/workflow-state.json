@@ -1,0 +1,27 @@
+{
+  "skill": "ui-design-craft",
+  "version": "0.1.0",
+  "status": "in_progress",
+  "use_case": "<product-ui|design-system|prototype|deck|motion-scene|host-handoff|quality-review>",
+  "artifact_paths": [],
+  "decisions": {
+    "audience": "",
+    "format": "",
+    "design_system": "",
+    "material": "",
+    "type": "",
+    "accent": "",
+    "density": "",
+    "variation_axis": ""
+  },
+  "verification": {
+    "loads": false,
+    "console": false,
+    "responsive": false,
+    "states": false,
+    "reduced_motion": false,
+    "anti_slop": false,
+    "handoff": false
+  },
+  "next_action": ""
+}

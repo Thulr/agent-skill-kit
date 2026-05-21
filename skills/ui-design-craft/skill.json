@@ -1,0 +1,91 @@
+{
+  "name": "ui-design-craft",
+  "description": "Practical UI design craft for product screens, frontend mockups, prototypes, design systems, decks, motion, host-integrated artifacts, handoff, and anti-slop visual review. Grounded in project-local design workflow notes plus canonical usability, accessibility, and design-system sources.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "draft",
+  "maintainers": ["@Thulr"],
+  "tags": [
+    "ui", "visual-design", "product-design", "frontend", "prototype",
+    "design-system", "motion", "decks", "handoff", "artifact-host"
+  ],
+  "inspired_by": [
+    {
+      "name": "Claude design workflows source pack",
+      "author": "Project-local source notes",
+      "kind": "notes",
+      "year": 2026,
+      "contribution": "Seven-stage design workflow, focused question rounds, visual craft rules, component conventions, output-format choices, motion patterns, and anti-slop review heuristics.",
+      "playbooks": ["product-ui", "design-system", "prototype", "deck", "motion-scene", "quality-review"]
+    },
+    {
+      "name": "Claude design host integration source pack",
+      "author": "Project-local source notes",
+      "kind": "notes",
+      "year": 2026,
+      "contribution": "Artifact-host protocols for tweak panels, fixed-canvas scaling, speaker notes, direct edit, mentioned elements, bundling, export, and handoff.",
+      "playbooks": ["prototype", "deck", "host-handoff"]
+    },
+    {
+      "name": "10 Usability Heuristics for User Interface Design",
+      "author": "Jakob Nielsen",
+      "kind": "article",
+      "year": 1994,
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+      "contribution": "Heuristic framing for system status, real-world language, user control, consistency, error prevention, recognition, flexibility, minimalist design, recovery, and help.",
+      "playbooks": ["product-ui", "prototype", "quality-review"]
+    },
+    {
+      "name": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "kind": "book",
+      "year": 1988,
+      "contribution": "Affordances, signifiers, feedback, constraints, and mental-model alignment for interface decisions.",
+      "playbooks": ["product-ui", "prototype", "quality-review"]
+    },
+    {
+      "name": "Web Content Accessibility Guidelines (WCAG) 2.2",
+      "author": "W3C Web Accessibility Initiative",
+      "kind": "standard",
+      "year": 2023,
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "contribution": "Accessibility baseline for perceivable, operable, understandable, and robust UI; informs focus, contrast, motion, and verification boundaries.",
+      "playbooks": ["product-ui", "prototype", "motion-scene", "quality-review"]
+    },
+    {
+      "name": "GOV.UK Design System",
+      "author": "GOV.UK Design System team",
+      "kind": "guide",
+      "year": null,
+      "url": "https://design-system.service.gov.uk/",
+      "contribution": "Component and pattern guidance with coded examples; reinforces system-first composition and task-specific patterns.",
+      "playbooks": ["product-ui", "design-system", "quality-review"]
+    },
+    {
+      "name": "Human Interface Guidelines",
+      "author": "Apple",
+      "kind": "guide",
+      "year": null,
+      "url": "https://developer.apple.com/design/human-interface-guidelines/",
+      "contribution": "Visual hierarchy, platform consistency, layout adaptation, and motion guidance for polished interface behavior.",
+      "playbooks": ["product-ui", "motion-scene", "quality-review"]
+    },
+    {
+      "name": "Material Design 3 Foundations",
+      "author": "Google",
+      "kind": "guide",
+      "year": null,
+      "url": "https://m3.material.io/foundations",
+      "contribution": "Foundational vocabulary for color, typography, motion, interaction states, and component-system consistency.",
+      "playbooks": ["product-ui", "design-system", "motion-scene"]
+    }
+  ],
+  "metadata": {
+    "shape": "single-layer",
+    "classification": "workflow-aware",
+    "source_paths": [
+      "claude-design-workflows/",
+      "claude-design-host-integration/"
+    ]
+  }
+}

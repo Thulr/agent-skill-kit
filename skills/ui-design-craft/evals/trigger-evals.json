@@ -1,0 +1,72 @@
+{
+  "skill": "ui-design-craft",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Make this dashboard look less like a generic AI template.",
+      "should_activate": true,
+      "expected_route": "product-ui",
+      "category": "positive"
+    },
+    {
+      "query": "Prototype this onboarding flow with a tweaks panel for density and color.",
+      "should_activate": true,
+      "expected_route": "prototype",
+      "category": "positive"
+    },
+    {
+      "query": "Create a design system with tokens, components, and preview pages.",
+      "should_activate": true,
+      "expected_route": "design-system",
+      "category": "positive"
+    },
+    {
+      "query": "Turn these notes into an HTML slide deck with speaker notes.",
+      "should_activate": true,
+      "expected_route": "deck",
+      "category": "positive"
+    },
+    {
+      "query": "Add atmospheric motion and depth to this landing hero.",
+      "should_activate": true,
+      "expected_route": "motion-scene",
+      "category": "positive"
+    },
+    {
+      "query": "Prepare this prototype for standalone HTML export and direct editing.",
+      "should_activate": true,
+      "expected_route": "host-handoff",
+      "category": "positive"
+    },
+    {
+      "query": "Run an anti-slop visual review of this UI.",
+      "should_activate": true,
+      "expected_route": "quality-review",
+      "category": "positive"
+    },
+    {
+      "query": "Run a formal WCAG 2.2 accessibility audit.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review the developer experience of this CLI.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Refactor this service into clean architecture layers.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "UI designer",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "edge"
+    }
+  ]
+}

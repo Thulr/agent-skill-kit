@@ -27,8 +27,10 @@ from __future__ import annotations
 import importlib.util
 import json
 import pathlib
+import shutil
 import subprocess
 import sys
+import tempfile
 
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -232,6 +234,7 @@ def run_subprocess_smoke():
     payload_nonbash = json.dumps(
         {"tool_name": "Read", "tool_input": {"file_path": "/etc/passwd"}}
     )
+    payload_non_object = json.dumps(["Bash", {"command": "rm -rf /etc"}])
 
     failures = []
 
@@ -264,6 +267,44 @@ def run_subprocess_smoke():
     )
     if proc.returncode != 0:
         failures.append(f"non-Bash payload: expected exit 0, got {proc.returncode}")
+
+    proc = subprocess.run(
+        [sys.executable, str(HOOK_PATH)],
+        input="{not-json",
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+    if proc.returncode != 2:
+        failures.append(f"malformed payload: expected exit 2, got {proc.returncode}")
+
+    proc = subprocess.run(
+        [sys.executable, str(HOOK_PATH)],
+        input=payload_non_object,
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+    if proc.returncode != 2:
+        failures.append(f"non-object payload: expected exit 2, got {proc.returncode}")
+
+    with tempfile.TemporaryDirectory(prefix="hook-missing-policy-") as tmp:
+        tmp_hook = pathlib.Path(tmp) / ".claude" / "hooks" / HOOK_PATH.name
+        tmp_hook.parent.mkdir(parents=True)
+        shutil.copy2(HOOK_PATH, tmp_hook)
+        proc = subprocess.run(
+            [sys.executable, str(tmp_hook)],
+            input=payload_allow,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if proc.returncode != 2:
+            failures.append(
+                f"missing-policy payload: expected exit 2, got {proc.returncode}"
+            )
+        if "cannot load shared policy" not in proc.stderr:
+            failures.append("missing-policy payload: missing fail-closed stderr")
 
     return failures
 
@@ -299,7 +340,7 @@ def main():
 
     print(
         f"block-destructive-bash tests: "
-        f"{len(CASES)} unit cases + 3 subprocess smokes passed."
+        f"{len(CASES)} unit cases + 6 subprocess smokes passed."
     )
     return 0
 

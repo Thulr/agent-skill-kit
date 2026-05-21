@@ -20,17 +20,35 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["query", "should_activate"],
+        "required": ["query", "should_activate", "expected_route", "category"],
         "additionalProperties": true,
         "properties": {
           "query": {"type": "string", "minLength": 1},
           "should_activate": {"type": "boolean"},
-          "expected_route": {"type": ["string", "null"]},
-          "category": {
+          "expected_route": {
             "type": ["string", "null"],
-            "enum": ["positive", "negative", "edge", null]
+            "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["positive", "negative", "edge"]
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "should_activate": {"const": false}
+              },
+              "required": ["should_activate"]
+            },
+            "then": {
+              "properties": {
+                "expected_route": {"type": "null"}
+              }
+            }
+          }
+        ]
       }
     }
   }

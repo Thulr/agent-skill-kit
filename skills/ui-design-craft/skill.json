@@ -3,7 +3,7 @@
   "description": "Practical UI design craft for product screens, frontend mockups, prototypes, design systems, decks, motion, host-integrated artifacts, handoff, and anti-slop visual review. Grounded in project-local design workflow notes plus canonical usability, accessibility, and design-system sources.",
   "version": "0.1.0",
   "license": "MIT",
-  "status": "draft",
+  "status": "published",
   "maintainers": ["@Thulr"],
   "tags": [
     "ui", "visual-design", "product-design", "frontend", "prototype",

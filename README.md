@@ -159,7 +159,7 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 | `skills/_shared/` | Cross-skill primitives (e.g. `lenses.md`, `empirical-warnings.md` W2–W10). Each consuming skill symlinks the relevant files; `npx skills` dereferences at install time, shipping self-contained skills. Enforced by `scripts/check-shared-content.sh` |
 | `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
 | `scripts/` | Repo-wide scripts: instruction-surface symlink check, schema validator |
-| `skills/.experimental/<name>/` | Reserved lane for future work-in-progress or caveat-heavy skills; current product skills have been promoted to `skills/<name>/` |
+| `skills/.experimental/<name>/` | Reserved lane kept empty for now; current product skills live in `skills/<name>/`, and prerelease maturity is communicated by repository release tags such as `0.0.1-alpha` |
 | `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |
 | `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |
 
@@ -173,7 +173,9 @@ Create a new skill template:
 npx skills init my-skill
 ```
 
-Move the resulting folder under `skills/` for product work. Use `skills/.experimental/` only for future caveat-heavy work that should remain clearly separated while it matures. Each skill needs valid YAML frontmatter with at least `name` and `description`.
+Move the resulting folder under `skills/` for product work. Keep `skills/.experimental/` empty unless a future release explicitly reopens experimental distribution. Each skill needs valid YAML frontmatter with at least `name` and `description`.
+
+Installable skills in this repository use `skill.json.status: "published"`; prerelease caveats belong to the repository release tag, not per-skill draft status.
 
 Validate the repository before publishing or handing off changes:
 

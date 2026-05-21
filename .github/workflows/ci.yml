@@ -73,13 +73,19 @@ jobs:
 
       - name: List installable skills
         shell: bash
-        # Pin skills CLI version so the install-discovery gate doesn't silently
-        # change behavior between PRs (everything else here is pinned by digest).
-        run: npx -y skills@1.5.7 add . --list
+        run: bash scripts/list-installable-skills.sh
 
       - name: Check instruction-surface symlinks
         shell: bash
         run: bash scripts/check-instruction-surface.sh
+
+      - name: Check release contract
+        shell: bash
+        run: python3 scripts/check-release-contract.py
+
+      - name: Test trigger evals schema
+        shell: bash
+        run: python3 scripts/test-trigger-evals-schema.py
 
       - name: Check shared-content symlinks
         shell: bash
@@ -87,7 +93,9 @@ jobs:
 
       - name: Test destructive-bash hook
         shell: bash
-        run: python3 .claude/hooks/test_block_destructive_bash.py
+        run: |
+          python3 .claude/hooks/test_block_destructive_bash.py
+          python3 .codex/hooks/test_block_destructive_bash.py
 
       - name: Run skill static checks
         shell: bash

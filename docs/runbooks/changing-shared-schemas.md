@@ -43,13 +43,17 @@ so most schema changes only require editing the schema file itself.
 
    `just check`
 
-4. Sanity-check installs:
+4. If you changed `schemas/trigger-evals.schema.json`, verify the valid and
+   invalid fixture expectations directly:
 
-   `npx skills add . --list`
+   `python3 scripts/test-trigger-evals-schema.py`
+
+5. Sanity-check installs:
+
+   `bash scripts/list-installable-skills.sh`
 
 ## Rollback
 
 Revert the schema change commit(s). If partial migrations landed, finish the
 migration immediately rather than "rolling forward later"; drift is the failure
 mode.
-

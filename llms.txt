@@ -16,11 +16,11 @@
 #
 # Key commands
 # - `just check` (must pass before commit/PR; runs all skill static checks across lanes)
-# - `npx skills add . --list` (lists installable skills from a local checkout)
+# - `bash scripts/list-installable-skills.sh` (lists installable skills from a local checkout)
 #
 # Repo layout
 # - `skills/<name>/` published skills (release artifacts)
-# - `skills/.experimental/<name>/` WIP skills (still installable)
+# - `skills/.experimental/<name>/` reserved lane, currently empty
 # - `.agents/skills/<name>/` repo-local skills (authoring aids; not published)
 # - `docs/` support docs and working notes
 #

@@ -2,7 +2,8 @@
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-repo_root="$(git -C "$script_dir" rev-parse --show-toplevel)"
+source "$script_dir/../../../scripts/static-check-lib.sh"
+repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
@@ -37,14 +38,10 @@ check_file "$skill_dir/templates/workflow-state.json"
 check_file "$skill_dir/evals/activation-cases.md"
 check_file "$skill_dir/evals/trigger-evals.json"
 
+validate_skill_json_contract "$repo_root" "$skill_json" "ui-design-craft"
 if [[ -f "$skill_json" ]]; then
-  python3 "$repo_root/scripts/validate-against-schema.py" \
-    "$repo_root/schemas/skill.schema.json" "$skill_json" \
-    || fail "skill.json: schema validation failed"
-  name=$(jq -r '.name' "$skill_json")
-  [[ "$name" == "ui-design-craft" ]] || fail "skill.json name mismatch: $name"
   status=$(jq -r '.status' "$skill_json")
-  [[ "$status" == "draft" ]] || fail "skill.json status must be draft, got $status"
+  [[ "$status" == "published" ]] || fail "skill.json status must be published, got $status"
 fi
 
 if [[ -f "$skill_md" ]]; then
@@ -112,13 +109,7 @@ fi
 
 jq empty "$skill_dir/templates/workflow-state.json" || fail "workflow-state.json is invalid JSON"
 
-if [[ -f "$skill_dir/evals/trigger-evals.json" ]]; then
-  python3 "$repo_root/scripts/validate-against-schema.py" \
-    "$repo_root/schemas/trigger-evals.schema.json" "$skill_dir/evals/trigger-evals.json" \
-    || fail "trigger-evals.json: schema validation failed"
-  trigger_skill=$(jq -r '.skill' "$skill_dir/evals/trigger-evals.json")
-  [[ "$trigger_skill" == "ui-design-craft" ]] || fail "trigger-evals.json skill mismatch: $trigger_skill"
-fi
+validate_trigger_evals_contract "$repo_root" "$skill_dir/evals/trigger-evals.json" "ui-design-craft"
 
 if (( failures > 0 )); then
   printf '\nui-design-craft static eval failed with %d issue(s).\n' "$failures" >&2

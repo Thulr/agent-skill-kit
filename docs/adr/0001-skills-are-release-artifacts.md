@@ -4,8 +4,11 @@
 
 ## Context
 
-This repository's product is the content under `skills/` (and
-`skills/.experimental/`). Downstream consumers install skills with
+This repository's product is the content under `skills/`. The
+`skills/.experimental/` lane is reserved and intentionally empty for the
+current release model; prerelease maturity is communicated by repository tags
+such as `0.0.1-alpha`, not by shipping draft/experimental skill directories.
+Downstream consumers install skills with
 `npx skills add Thulr/informed-skills`, and the resulting instructions load into
 agent sessions with broad permissions.
 
@@ -17,7 +20,7 @@ meaningfully closer to “shipping production code” than “editing docs”.
 Treat any PR that changes:
 
 - `skills/**`
-- `skills/.experimental/**`
+- `skills/.experimental/**` if a future release explicitly reopens that lane
 - `.agents/skills/**`
 - `.github/**`
 
@@ -35,4 +38,3 @@ Concrete requirements:
   that will be executed or trusted by downstream agents).
 - “Documentation” changes in these paths should be written like code: explicit,
   testable where possible, and kept consistent across skills.
-

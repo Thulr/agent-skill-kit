@@ -4,7 +4,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
+source "$SCRIPT_DIR/../../../scripts/static-check-lib.sh"
+REPO_ROOT="$(repo_root_from "$SCRIPT_DIR")"
 SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$SKILL_DIR"
 
@@ -15,23 +16,8 @@ ok()   { printf '  ✓ %s\n' "$1"; }
 
 echo "Checking project-agentification skill at: $SKILL_DIR"
 
-# 1. skill.json conforms to canonical schema (schemas/skill.schema.json)
-#    Shape (name presence/type, status enum, maintainer handle pattern, inspired_by
-#    required fields) lives in the schema. Per-skill name match is asserted below.
-if python3 "$REPO_ROOT/scripts/validate-against-schema.py" \
-     "$REPO_ROOT/schemas/skill.schema.json" skill.json; then
-  ok "skill.json conforms to schemas/skill.schema.json"
-else
-  err "skill.json schema validation failed (see above)"
-fi
-
-# 1b. skill name matches the directory
-actual_name="$(python3 -c "import json; print(json.load(open('skill.json'))['name'])")"
-if [ "$actual_name" = "project-agentification" ]; then
-  ok "skill.json name == project-agentification"
-else
-  err "skill.json name is $actual_name, expected project-agentification"
-fi
+# 1. skill.json conforms to canonical schema and matches the directory.
+validate_skill_json_contract "$REPO_ROOT" skill.json "project-agentification"
 
 # 2. SKILL.md has frontmatter
 if [ -f SKILL.md ] && head -1 SKILL.md | grep -q '^---$'; then
@@ -170,24 +156,8 @@ else
   err "evals/activation-cases.md missing"
 fi
 
-# 9. evals/trigger-evals.json conforms to schemas/trigger-evals.schema.json.
-#    Per-skill 'skill' field is asserted below.
-if [ -f evals/trigger-evals.json ]; then
-  if python3 "$REPO_ROOT/scripts/validate-against-schema.py" \
-       "$REPO_ROOT/schemas/trigger-evals.schema.json" evals/trigger-evals.json; then
-    ok "trigger-evals.json conforms to schemas/trigger-evals.schema.json"
-  else
-    err "trigger-evals.json schema validation failed (see above)"
-  fi
-  trigger_skill="$(python3 -c "import json; print(json.load(open('evals/trigger-evals.json'))['skill'])")"
-  if [ "$trigger_skill" = "project-agentification" ]; then
-    ok "trigger-evals.json 'skill' field == project-agentification"
-  else
-    err "trigger-evals.json 'skill' is $trigger_skill, expected project-agentification"
-  fi
-else
-  err "evals/trigger-evals.json missing"
-fi
+# 9. evals/trigger-evals.json conforms to schema and matches the skill.
+validate_trigger_evals_contract "$REPO_ROOT" evals/trigger-evals.json "project-agentification"
 
 if [ "$fail" -ne 0 ]; then
   echo

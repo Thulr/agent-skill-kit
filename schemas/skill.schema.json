@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/Thulr/informed-skills/blob/main/schemas/skill.schema.json",
   "title": "Skill manifest (skill.json)",
-  "description": "Canonical shape for skills/<name>/skill.json and skills/.experimental/<name>/skill.json. Per-skill scripts assert name match via jq after schema validation passes.",
+  "description": "Canonical shape for skills/<name>/skill.json and the reserved skills/.experimental/<name>/skill.json lane. Per-skill scripts assert name match via jq after schema validation passes.",
   "type": "object",
   "required": ["name", "description", "version", "license", "status", "maintainers", "inspired_by"],
   "additionalProperties": true,

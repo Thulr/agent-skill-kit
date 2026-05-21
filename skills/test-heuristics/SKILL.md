@@ -88,7 +88,8 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
 ## Output requirements
 
 Every output includes target persona, layer/purpose, the template's
-load-bearing section, failure modes on findings, and verification.
+load-bearing section, failure modes on findings, verification, and grounding
+sources applied from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 

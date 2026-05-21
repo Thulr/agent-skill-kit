@@ -31,3 +31,7 @@ offer tracking. Roadmaps and external issues require explicit confirmation.
 ## Verification
 
 [How we'll know the prune was right: suite runtime drop, no escape uptick, etc.]
+
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [deletion or quarantine principle it informed]

@@ -9,21 +9,27 @@ metadata:
 
 ## Overview
 
-Review draft public skills before they leave `draft` status. You may edit draft
-skill files directly, but only when `skill.json.status` is `draft`.
+Review public and repo-local skills for release readiness, structure, source
+safety, usefulness, progressive disclosure, templates, evals, and validation.
 
 ## Operating Contract
 
-- Review public skills under `skills/<pack>/<skill>/`.
-- Read `skill.json` first to confirm status and metadata.
-- If status is `draft`, you may patch files directly.
-- If status is `reviewed` or `published`, produce findings unless the user
-  explicitly asks you to edit that skill.
+- Review public skills under `skills/<name>/`; also review
+  `skills/.experimental/<name>/` if that reserved lane is populated.
+- Review repo-local authoring/review skills under `.agents/skills/<name>/`
+  when the user asks for catalog or authoring-surface review.
+- Read `skill.json` first when present to confirm status and metadata.
+- For `published` or `reviewed` skills, produce findings unless the user
+  explicitly asks you to edit them. For `draft` skills, patch clear fixes when
+  edit authority is implied.
 - Keep `SKILL.md` runtime-only and move user-facing provenance to `skill.json`.
 - Reject source summaries disguised as skills.
 - Enforce registry-based progressive disclosure: `SKILL.md` should route, not
-  carry the full knowledge base; detailed files and templates must be mapped
-  through `references/use-case-registry.csv`.
+  carry the full knowledge base. Detailed files and templates must be mapped
+  through the skill's router shape: `references/use-case-registry.csv`,
+  `references/intent-router.csv` plus `references/intents/*.csv`,
+  `references/activity-router.csv` plus `references/activities/*.csv`, or
+  `references/layer-router.csv`.
 - Check that provenance is concise and user-facing in `skill.json`, while any
   public grounding references are short, paraphrased, registry-mapped, and
   useful for execution rather than source explanation.
@@ -41,15 +47,17 @@ without a target, ask for the skill path or whether to review all draft skills.
 ## Workflow
 
 1. Load `references/use-case-registry.csv`.
-2. Find the requested draft skill or enumerate draft skills from `skill.json`.
-3. Read `SKILL.md`, `skill.json`, `references/use-case-registry.csv`, and any
-   referenced files needed for the review.
-4. Confirm every public reference/template needed by the skill is mapped from
-   `references/use-case-registry.csv`, and that the selected rows load only the
-   files needed for each use case.
+2. Find the requested skill or enumerate skills across `skills/*/`,
+   `skills/.experimental/*/`, and `.agents/skills/*/` as the scope requires.
+3. Read `SKILL.md`, `skill.json` if present, the router files used by that
+   skill, and any referenced files needed for the review.
+4. Confirm every public reference/template needed by the skill is mapped from a
+   router, and that selected rows load only the files needed for each use case,
+   intent, activity, layer, or sub-surface.
 5. Apply the review rubric and assign stable IDs like `SR-<area>-NNN` to
    trackable findings using `references/trackable-findings.md`.
-6. If the skill is draft and fixes are clear, edit files directly.
+6. If fixes are clear and the user asked for edit authority, edit files
+   directly; otherwise report findings only.
 7. Run validation.
 8. If all checks pass and the skill meets the rubric, update
    `skill.json.status` to `reviewed` only when the user asked for review with
@@ -75,8 +83,8 @@ Block or fix a draft when:
 - `SKILL.md` contains source provenance, marketing, or long source summaries
 - the skill would not activate on realistic prompts
 - the skill is generic prompt advice rather than a durable behavior
-- references are missing or not mapped from the registry
-- registry rows point to every reference for every use case instead of practicing
+- references are missing or not mapped from the skill's router
+- router rows point to every reference for every use case instead of practicing
   progressive disclosure
 - public grounding references are long bibliographies, source explainers, author
   biographies, or substitute summaries instead of concise operational maps

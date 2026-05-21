@@ -94,6 +94,7 @@ Every output includes:
 - Intent-specific load-bearing section: findings (audit), acceptance criteria
   (design), prevention (debug), re-run trigger (edge-pass).
 - Verification — how to prove the change worked.
+- Grounding sources applied from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 

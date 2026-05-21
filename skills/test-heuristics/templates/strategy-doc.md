@@ -29,3 +29,7 @@
 ## Verification
 
 [How we'll know the strategy is working: lead time, flake rate, escape rate, time-to-detect]
+
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [strategy trade-off it informed]

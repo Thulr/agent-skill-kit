@@ -42,3 +42,7 @@ offer tracking. Roadmaps and external issues require explicit confirmation.
 ## Per-layer reports (full)
 
 [Append the full single-layer review-report.md content for each layer]
+
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [cross-layer recommendation it informed]

@@ -27,6 +27,10 @@ Assert:
 
 - [Named heuristic from layer playbook] — how it's reflected in the outline above
 
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [test-design choice it informed]
+
 ## Failure modes prevented
 
 - [Mode]: how this test design prevents it

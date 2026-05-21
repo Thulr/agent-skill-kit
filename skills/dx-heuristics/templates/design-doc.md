@@ -21,6 +21,10 @@ One block per heuristic.
 - Why it applies:               <one line>
 - How this design satisfies it: <specific design choice>
 
+## Grounding sources applied
+
+- <skill.json inspired_by entry> - <design choice it informed>
+
 ## Anti-patterns avoided
 
 - <Named anti-pattern>: <how this design dodges it>

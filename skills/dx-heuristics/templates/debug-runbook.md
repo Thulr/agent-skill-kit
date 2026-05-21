@@ -48,3 +48,7 @@ target developer — not just the original reporter.>
 <What would make this *class* of friction impossible — typed contract,
 validation, error message change, doc update, test, lint rule. Cite the
 playbook anti-pattern.>
+
+## Grounding sources applied
+
+- <skill.json inspired_by entry> - <hypothesis, fix, or prevention choice it informed>

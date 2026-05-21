@@ -42,3 +42,7 @@ offer tracking. Roadmaps and external issues require explicit confirmation.
 ## Verification
 
 [Suite-level checks that should pass after applying the fixes]
+
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [finding or recommendation it informed]

@@ -1,0 +1,37 @@
+{
+  "state_file": "docs/audits/skill-reviewer-workflow-state-2026-05-20-catalog-ux-content-gaps.json",
+  "phase": "verification_closeout",
+  "status": "verified",
+  "skill": "skill-reviewer",
+  "scope": "catalog-ux-content-gaps",
+  "created": "2026-05-20",
+  "updated": "2026-05-20",
+  "artifacts": {
+    "findings_ledger": "docs/audits/skill-reviewer-findings-ledger-2026-05-20-catalog-ux-content-gaps.md",
+    "workflow_state": "docs/audits/skill-reviewer-workflow-state-2026-05-20-catalog-ux-content-gaps.json"
+  },
+  "selected_finding_ids": [
+    "SR-UX-001",
+    "SR-UX-002",
+    "SR-STRUCT-001",
+    "SR-CONTENT-001",
+    "SR-CONTENT-002",
+    "SR-CONTENT-003",
+    "SR-EVAL-001",
+    "SR-EVAL-002",
+    "SR-PD-001",
+    "SR-CONTENT-004"
+  ],
+  "decisions": [
+    "Scope included installable skills shown by npx skills add . --list and internal authoring/review skills where they affect catalog quality.",
+    "No behavior edits were made in the initial review pass; review tracking artifacts were created.",
+    "All current product skills were promoted to published status in skills/<name>/; skills/.experimental remains reserved for future caveat-heavy work.",
+    "Added ux-accessibility-heuristics to cover user-facing UX and accessibility prompts that dx-heuristics correctly declines."
+  ],
+  "blockers": [],
+  "last_verification": {
+    "command": "just check",
+    "result": "passed with approved network access for npx package resolution; npx skills add . --list found 6 installable skills"
+  },
+  "next_safe_action": "Optional manual review of the new ux-accessibility-heuristics content before release announcement."
+}

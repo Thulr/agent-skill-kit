@@ -64,6 +64,10 @@ offer tracking. Roadmaps and external issues require explicit confirmation.
 
 - <Risk>: <why this is acceptable, who decided>
 
+## Grounding sources applied
+
+- <skill.json inspired_by entry> - <risk or check it informed>
+
 ## Re-run trigger
 
 <When this pass should run again: release cadence / surface change /

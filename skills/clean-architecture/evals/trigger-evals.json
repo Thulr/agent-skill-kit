@@ -1,0 +1,168 @@
+{
+  "skill": "clean-architecture",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "is my domain code leaking into infrastructure?",
+      "should_activate": true,
+      "expected_route": "audit/dependency-rule",
+      "category": "positive"
+    },
+    {
+      "query": "review this module for clean architecture violations",
+      "should_activate": true,
+      "expected_route": "audit/boundaries",
+      "category": "positive"
+    },
+    {
+      "query": "clean architecture audit all with parallel sub-agents",
+      "should_activate": true,
+      "expected_route": "audit/all",
+      "category": "positive"
+    },
+    {
+      "query": "find anemic domain models in this codebase",
+      "should_activate": true,
+      "expected_route": "audit/domain-model",
+      "category": "positive"
+    },
+    {
+      "query": "how should I split this monolith into services aligned to bounded contexts?",
+      "should_activate": true,
+      "expected_route": "design/bounded-context",
+      "category": "positive"
+    },
+    {
+      "query": "design layer boundaries for this new payments feature",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "positive"
+    },
+    {
+      "query": "extract a pure use case from this controller without breaking callers",
+      "should_activate": true,
+      "expected_route": "refactor/boundaries",
+      "category": "positive"
+    },
+    {
+      "query": "strangler fig refactor to extract the billing bounded context",
+      "should_activate": true,
+      "expected_route": "refactor/bounded-context",
+      "category": "positive"
+    },
+    {
+      "query": "full clean architecture audit produced 8 findings",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
+      "query": "audit found a severity 3 boundary leak",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
+      "query": "turn these clean-architecture findings into a tracked roadmap",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
+      "query": "verify whether CA-DEP-003 was fixed in this PR",
+      "should_activate": true,
+      "expected_route": "audit/closeout",
+      "category": "positive"
+    },
+    {
+      "query": "what is the difference between an aggregate and an entity?",
+      "should_activate": true,
+      "expected_route": "explain/domain-model",
+      "category": "positive"
+    },
+    {
+      "query": "make my CSS architecture cleaner",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "audit my dependency versions for CVEs",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "design a clean UI for this form",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "audit checkout accessibility and form usability",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "refactor this regex to be more readable",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "what is the best React component library?",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "set up CI/CD for my repo",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "speed up my test suite",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "audit my docker image for vulnerabilities",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "close these GitHub issues because the PR merged",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "explain SOLID principles",
+      "should_activate": true,
+      "expected_route": "explain/dependency-rule",
+      "category": "edge"
+    },
+    {
+      "query": "how do I structure my React components?",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "edge"
+    },
+    {
+      "query": "microservices vs monolith for a 5-person startup?",
+      "should_activate": true,
+      "expected_route": "design/bounded-context",
+      "category": "edge"
+    },
+    {
+      "query": "should I use Repository pattern with my ORM?",
+      "should_activate": true,
+      "expected_route": "design/cross-cutting",
+      "category": "edge"
+    }
+  ]
+}

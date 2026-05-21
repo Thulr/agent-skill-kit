@@ -35,3 +35,7 @@
 ## Prevention
 
 [What change to authoring guidance, lint rule, or playbook tag would have prevented this]
+
+## Grounding sources applied
+
+- [skill.json inspired_by entry] — [hypothesis or prevention choice it informed]

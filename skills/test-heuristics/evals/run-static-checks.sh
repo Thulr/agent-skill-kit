@@ -128,11 +128,13 @@ fi
 
 # ----- Tracking behavior gates -----
 
-check_pattern 'test creates tracking state by default' 'Create tracking state' "$skill_md"
+check_pattern 'test creates tracking state by default' 'Create, resume, or close tracking state' "$skill_md"
 check_pattern 'ledger filename has skill prefix' 'test-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_md"
 check_pattern 'workflow-state filename has skill prefix' 'test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json' "$skill_md"
 check_pattern 'tracking fallback path is preserved' 'audit-artifacts/test-heuristics-' "$skill_md"
-check_pattern 'roadmaps and issues are opt-in' 'Roadmaps, issues' "$skill_md"
+check_pattern 'roadmaps and issues are opt-in' 'roadmaps,' "$skill_md"
+check_pattern 'test closeout resumes saved state' 'saved state first' "$skill_md"
+check_pattern 'test closeout verifies before status update' 'verification rule' "$skill_md"
 check_pattern 'review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report.md"
 check_pattern 'multi review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report-multi.md"
 check_pattern 'prune plan has findings ledger section' '^## Findings ledger' "$skill_dir/templates/prune-plan.md"

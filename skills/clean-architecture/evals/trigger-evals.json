@@ -75,6 +75,12 @@
       "category": "positive"
     },
     {
+      "query": "why did the audit use CA-dependency-rule-001 instead of CA-DEP-001?",
+      "should_activate": true,
+      "expected_route": "audit/tracking",
+      "category": "positive"
+    },
+    {
       "query": "what is the difference between an aggregate and an entity?",
       "should_activate": true,
       "expected_route": "explain/domain-model",

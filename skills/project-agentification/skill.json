@@ -225,6 +225,14 @@
       "playbooks": ["governance"]
     },
     {
+      "name": "GitHub Actions secure use reference",
+      "author": "GitHub",
+      "kind": "docs",
+      "year": 2026,
+      "contribution": "Runner-trust guidance: GitHub-hosted runners are ephemeral, while self-hosted runners can be persistently compromised by untrusted workflow code. Grounds fork-PR runner selection, token/secret exposure, and required-check parity checks.",
+      "playbooks": ["ci-runners", "gates", "governance"]
+    },
+    {
       "name": "OpenTelemetry Semantic Conventions",
       "author": "CNCF / OpenTelemetry",
       "kind": "spec",

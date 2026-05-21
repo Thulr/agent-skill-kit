@@ -39,12 +39,28 @@ install lanes that any path-based gate **must** enumerate:
 
 ## Commands
 
-- `just check` — runs `npx skills add . --list` plus every `evals/run-static-checks.sh`
+- `just check` — runs install discovery, instruction-surface and shared-content
+  symlink checks, destructive-bash hook tests, and every `evals/run-static-checks.sh`
   across all three install lanes. **Must pass before commit and before PR.**
 - `just test` — alias for `just check` today; reserved for future per-skill tests.
 - `npx skills add . --list` — lists installable skills locally; same call CI uses.
+- `bash scripts/check-shared-content.sh` — verifies every skill reference to
+  `skills/_shared/*.md` is a relative symlink to the canonical shared file.
+- `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
+  against the canonical schema files under `schemas/`.
 
 CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
+
+## Maintainer workflows
+
+- Adding a skill: follow [`docs/runbooks/adding-a-skill.md`](./docs/runbooks/adding-a-skill.md);
+  start with `npx skills init <skill-name>` or `skills/example-minimal/`, update
+  discovery docs when needed, then run `just check`.
+- Changing shared schemas: follow [`docs/runbooks/changing-shared-schemas.md`](./docs/runbooks/changing-shared-schemas.md);
+  edit `schemas/`, migrate affected skill files in the same PR, update this file only
+  when the human-readable schema summary changes, then run `just check`.
+- Changing shared references: keep canonical files in `skills/_shared/`; consumers
+  use relative symlinks because `npx skills` dereferences them at install time.
 
 ## Per-skill required artifacts
 

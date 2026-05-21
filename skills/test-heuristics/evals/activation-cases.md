@@ -79,6 +79,15 @@ contracts, provider verification, consumer relevance, and CI evidence.
 **Expected:** Routes to `triage/performance`, ranks environment variance,
 measurement setup, thresholds, and workload stability before fixes.
 
+### Case 10: Closeout verification
+
+**Prompt:** `Verify whether TEST-UNIT-004 is fixed using the saved
+workflow-state JSON.`
+
+**Expected:** Routes to closeout, reads saved state first, reruns the finding's
+verification rule, and updates status only when evidence passes. A merged PR or
+closed issue is evidence to inspect, not proof that a finding is closed.
+
 ## Negative cases
 
 - `Review my CLI design.` -> `dx-heuristics`, not this skill.
@@ -97,6 +106,18 @@ measurement setup, thresholds, and workload stability before fixes.
 - `Review my testing.` -> ask which layer; offer `all`.
 - `Write a unit test for this function.` -> plain implementation unless the
   user adds a quality intent such as robust, well-designed, or review.
+
+## Tracking and closeout cases
+
+- A review or prune output with 7+ findings/candidates must save both
+  skill-prefixed tracking artifacts, report both paths, and not merely offer
+  to create them.
+- Tracking artifacts use `docs/audits/` by default and
+  `audit-artifacts/test-heuristics-...` when the target is not a writable repo.
+- Roadmaps, GitHub issues, and non-tracking project-file edits require explicit
+  user confirmation.
+- Closeout resumes from the saved workflow-state JSON/ledger; a merged PR or
+  closed issue is evidence to inspect, not proof that a finding is closed.
 
 ## Load discipline
 

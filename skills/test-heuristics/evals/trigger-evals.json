@@ -12,6 +12,7 @@
     {"query": "improve my contract tests", "should_activate": true, "expected_route": "review/contract", "category": "positive"},
     {"query": "tune my property-based test generators", "should_activate": true, "expected_route": "review/property-based", "category": "positive"},
     {"query": "performance test is noisy", "should_activate": true, "expected_route": "triage/performance", "category": "positive"},
+    {"query": "verify whether TEST-UNIT-004 is fixed using the saved workflow-state json", "should_activate": true, "expected_route": "review/closeout", "category": "positive"},
     {"query": "review my CLI design", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "set up jest", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "deploy to staging", "should_activate": false, "expected_route": null, "category": "negative"},

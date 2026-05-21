@@ -39,7 +39,9 @@ concentric diagrams differ; inward arrows still mean a leak.
    `audit/tracking` or `audit/closeout` pseudo-routes and skip surface
    loading. Ambiguous -> ask once.
 3. **Load context.** Load only the CSV row's playbook plus `core_refs`. For
-   audit `all`, each surface pass loads its own row.
+   audit `all`, each surface pass loads its own row. Audit rows load
+   `references/audit-mechanics.md` for ID prefixes, synthesis rules, and
+   template mapping.
 4. **Set vocabulary.** Identify persona from `references/core/personas.md`
    and load `references/core/glossary.md`.
 5. **Apply the three-lens plan.** Load `references/subagent-dispatch.md`.
@@ -108,6 +110,8 @@ the three lenses sequentially. Otherwise use one agent per lens.
   routing.
 - `references/playbooks/<surface>.md` - surface playbooks.
 - `references/subagent-dispatch.md` - three lenses and synthesis.
+- `references/audit-mechanics.md` - audit ID namespace, host synthesis,
+  closeout extraction, and template source-of-truth rules.
 - `references/core/{severity,score}-rubric.md`, `personas.md`,
   `glossary.md` - shared rubrics and terms.
 - `references/trackable-findings.md` - ledger, roadmap, issues, workflow

@@ -38,6 +38,7 @@ check_file "$skill_dir/references/core/severity-rubric.md"
 check_file "$skill_dir/references/core/score-rubric.md"
 check_file "$skill_dir/references/core/personas.md"
 check_file "$skill_dir/references/core/glossary.md"
+check_file "$skill_dir/references/audit-mechanics.md"
 check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/references/subagent-dispatch.md"
 check_file "$skill_dir/templates/audit-report.md"
@@ -151,6 +152,12 @@ check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-f
 check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
 check_pattern 'external issues need confirmation' 'external issues' "$skill_dir/templates/audit-report-multi.md"
 check_pattern 'canonical clean architecture id prefix' 'CA-DEP-001' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit mechanics maps CA prefixes' 'CA-BOUNDARY-001' "$skill_dir/references/audit-mechanics.md"
+check_pattern 'audit mechanics names host synthesis' 'Host Synthesis Responsibilities' "$skill_dir/references/audit-mechanics.md"
+check_pattern 'audit CSV loads audit mechanics' 'references/audit-mechanics\.md' "$skill_dir/references/intents/audit.csv"
+if grep -R "CA-dependency-rule" "$skill_dir/templates" "$skill_dir/references" >/dev/null; then
+  fail "clean-architecture artifacts must use canonical CA-DEP IDs, not CA-dependency-rule"
+fi
 
 # ----- Intent router structure -----
 

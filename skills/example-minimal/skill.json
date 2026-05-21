@@ -3,7 +3,7 @@
   "description": "Template contract for this repository: the minimum artifacts every skill must ship (SKILL.md, skill.json, evals/*) so static checks catch a templated skill that bypasses gates. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete.",
   "version": "0.1.0",
   "license": "MIT",
-  "status": "draft",
+  "status": "reviewed",
   "maintainers": ["@Thulr"],
   "tags": ["template", "example"],
   "inspired_by": [

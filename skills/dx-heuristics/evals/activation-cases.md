@@ -181,8 +181,13 @@ Passing a case means the agent:
 
 **Expected:**
 
-- Routes to (edge-pass, cli) — may include multiple edge-pass surfaces.
-- Output follows `templates/edge-checklist.md`: risk inventory across all categories with severity and verification, blockers list, re-run trigger.
+- Routes to `edge-pass` and chooses the relevant edge-pass rows from
+  `references/intents/edge-pass.csv` (for a CLI release this usually includes
+  fresh-machine, env-skew, creds, version-skew, destructive, external-deps, and
+  contributor-path).
+- Output follows `templates/edge-checklist.md`: risk inventory across all
+  selected categories with severity and verification, blockers list, re-run
+  trigger.
 
 **Fail if:** misses categories; omits re-run trigger.
 
@@ -316,7 +321,7 @@ false positives.
 
 - Skill recognizes the target audience is end-users, not developers, despite
   the "friction" keyword.
-- Declines; suggests a general UX skill if one is available.
+- Declines; routes or suggests `ux-accessibility-heuristics`.
 
 **Fail if:** treats end-users as a developer persona and runs `setup` or `docs` playbook.
 
@@ -371,6 +376,6 @@ false positives.
 
 - Skill recognizes accessibility for end-users isn't a developer surface,
   despite the "audit" keyword.
-- Declines.
+- Declines; routes or suggests `ux-accessibility-heuristics`.
 
 **Fail if:** routes audit through any DX playbook for an end-user a11y review.

@@ -14,7 +14,7 @@ runs the evidence-driven feedback loop — see `evidence-driven-agent-rules`
 measurement). Do **not** autogenerate this file
 (`/init`, `/Generate Cursor Rules`, etc. — see W9 in
 [`empirical-warnings.md`](./skills/_shared/empirical-warnings.md), or W1 in
-[`evidence-driven-agent-rules`](./skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md)
+[`evidence-driven-agent-rules`](./skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md)
 for the failure-driven floor).
 
 Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
@@ -209,7 +209,7 @@ new case passes.
 The hook is claude-code-specific (`.claude/settings.json`). Cursor, Codex,
 Copilot, etc. should configure equivalents from this list (see the
 per-harness gate-primitives table in
-[`skills/.experimental/project-agentification/references/playbooks/gates.md`](./skills/.experimental/project-agentification/references/playbooks/gates.md)).
+[`skills/project-agentification/references/playbooks/gates.md`](./skills/project-agentification/references/playbooks/gates.md)).
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the
 agent.
@@ -240,4 +240,4 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
 - [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
 - [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
-- [`skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md`](./skills/.experimental/evidence-driven-agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `evidence-driven-agent-rules`)
+- [`skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md`](./skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `evidence-driven-agent-rules`)

@@ -2,8 +2,9 @@
 
 ## When to use
 
-Use this when creating a new installable skill under `skills/` or
-`skills/.experimental/`.
+Use this when creating a new installable skill under `skills/`. The
+`skills/.experimental/` lane remains reserved for future caveat-heavy work, but
+current product skills live in `skills/<name>/`.
 
 ## Prerequisites
 
@@ -28,8 +29,9 @@ None.
 
 2. Move/ensure the directory lives under one lane:
 
-   - `skills/<skill-name>/` (default)
-   - `skills/.experimental/<skill-name>/` (caveat-heavy / WIP, but installable)
+   - `skills/<skill-name>/` for product work
+   - `skills/.experimental/<skill-name>/` only for future caveat-heavy / WIP
+     work that must remain separated while it matures
 
 3. Ensure required artifacts exist (per `AGENTS.md`):
 
@@ -52,4 +54,3 @@ None.
 ## Rollback
 
 Revert the commit(s) that added the new skill directory and any index updates.
-

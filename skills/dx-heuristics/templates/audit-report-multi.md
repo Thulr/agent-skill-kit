@@ -65,6 +65,10 @@ One block per surface. Full per-surface reports appended below.
 
 - <surface>: <files, commands, docs, PRs, logs reviewed>
 
+## Grounding sources applied
+
+- <skill.json inspired_by entry> - <surface or finding it informed>
+
 ## Open questions
 
 - <Only questions that affect the project-wide recommendation>

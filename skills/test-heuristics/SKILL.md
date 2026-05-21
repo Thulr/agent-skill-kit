@@ -73,10 +73,9 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    `docs/audits/test-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
    If the target is not a repo or `docs/audits/` is not writable, use
    `audit-artifacts/test-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate or update the ledger and workflow-state files using
-   `templates/findings-ledger.md` and `templates/workflow-state.json`; do not
-   edit the templates themselves. Report both paths, and keep roadmaps, issues,
-   and non-tracking edits opt-in.
+   Populate or update files from the ledger/workflow-state templates; do not
+   edit templates. Report both paths, and keep roadmaps, issues, and
+   non-tracking edits opt-in.
 
 ## Modes
 
@@ -86,7 +85,8 @@ Grill Me asks open-ended trade-off questions.
 ## Output requirements
 
 Every output includes target persona, layer/purpose, the template's
-load-bearing section, failure modes on findings, and verification.
+load-bearing section, failure modes on findings, verification, and grounding
+sources applied from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 

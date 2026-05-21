@@ -3,7 +3,7 @@
   "description": "Practical test-suite review, design, triage, strategy, and pruning for unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Grounded in canonical testing literature.",
   "version": "0.1.0",
   "license": "MIT",
-  "status": "draft",
+  "status": "published",
   "maintainers": ["@Thulr"],
   "tags": [
     "testing", "test-quality",

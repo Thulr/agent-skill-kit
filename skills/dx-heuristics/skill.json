@@ -3,7 +3,7 @@
   "description": "Practical developer-experience review, design, debug, and edge-case pass for APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, and telemetry. Grounded in canonical DX/UX literature.",
   "version": "0.3.0",
   "license": "MIT",
-  "status": "draft",
+  "status": "published",
   "maintainers": ["@Thulr"],
   "tags": [
     "dx", "developer-experience",

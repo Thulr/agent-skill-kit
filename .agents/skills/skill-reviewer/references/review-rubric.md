@@ -4,13 +4,18 @@ Score each category as pass, fix, or block.
 
 ## Structure
 
-- Path is `skills/<pack>/<skill>/`.
-- `SKILL.md`, `skill.json`, and `references/use-case-registry.csv` exist.
+- Path is `skills/<name>/` for published product skills, the reserved
+  `skills/.experimental/<name>/` lane for future caveat-heavy skills, or
+  `.agents/skills/<name>/` for repo-local authoring/review skills.
+- `SKILL.md` exists. Public installable skills also have `skill.json`.
+- Routed skills have one accepted router shape:
+  `references/use-case-registry.csv`, `references/intent-router.csv` plus
+  `references/intents/*.csv`, `references/activity-router.csv` plus
+  `references/activities/*.csv`, or `references/layer-router.csv`.
 - `skill.json.name` matches frontmatter `name`.
-- `skill.json.pack` matches the path pack.
 - `skill.json.status` is `draft`, `reviewed`, or `published`.
 - Every public reference file and artifact template needed by the skill is
-  mapped from `references/use-case-registry.csv`.
+  mapped from the skill's router.
 
 ## Runtime Quality
 
@@ -18,7 +23,7 @@ Score each category as pass, fix, or block.
 - Bare activation is interactive and non-side-effectful.
 - Workflows are specific enough for another agent to run.
 - Heavy knowledge lives in references, not only in `SKILL.md`.
-- Registry rows load only the detail files and templates needed for the matched
+- Router rows load only the detail files and templates needed for the matched
   use case; rows should not point to the whole knowledge base by default.
 - The skill can be useful to a user who has not read or watched the source.
 
@@ -34,9 +39,10 @@ Score each category as pass, fix, or block.
 
 ## Pack Fit
 
-- Pack describes a capability domain.
+- Tags describe capability domains.
 - Skill name describes the agent behavior.
-- Source title, creator, character, or franchise is not used as the pack.
+- Source title, creator, character, or franchise is not used as a capability
+  tag or directory name.
 - The candidate should not be a reference addition to an existing skill instead.
 
 ## Artifact And Eval Quality

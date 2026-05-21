@@ -46,6 +46,10 @@ Roadmaps and external issues require explicit confirmation.
 
 - <file, command, doc, PR, log, screenshot, or observed behavior>
 
+## Grounding sources applied
+
+- <skill.json inspired_by entry> - <why it mattered here>
+
 ## Open questions
 
 - <Only questions that affect the recommendation>

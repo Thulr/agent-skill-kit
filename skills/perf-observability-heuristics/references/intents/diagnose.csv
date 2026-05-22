@@ -1,0 +1,8 @@
+surface,name,when_to_use,playbook,core_refs
+latency,Latency symptom,"p99 spike, tail-latency regression, slow request reported","references/playbooks/latency.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+throughput,Throughput symptom,"RPS ceiling, scalability cliff, queueing collapse","references/playbooks/throughput.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+resources,Resource symptom,"Saturation, OOM, disk fill, GC pressure, pool exhaustion","references/playbooks/resources.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+tracing,Tracing symptom,"Missing spans, broken context, blind spots in the dependency graph","references/playbooks/tracing.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+logs,Log symptom,"Log volume blowup, missing correlation, signal lost in noise","references/playbooks/logs.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+metrics,Metric symptom,"Cardinality blowup, missing series, dashboard does not answer the question","references/playbooks/metrics.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"
+slos,SLO symptom,"Error-budget burn, paging on noise, SLI does not reflect user experience","references/playbooks/slos.md","references/core/severity-rubric.md;references/core/personas.md;references/trackable-findings.md"

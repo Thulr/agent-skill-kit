@@ -29,20 +29,22 @@ Different harnesses expose different enforcement points. **Scaffold per-harness 
 
 | Harness | Hard-block primitive (forbidden) | Approval primitive (ask-first) | Reactive primitive (lint-on-write) | Notes |
 |---|---|---|---|---|
-| **Claude Code** | `PreToolUse` hook exit 2 (`.claude/settings.json` + `.claude/hooks/*`) | `PreToolUse` hook structured payload | `PostToolUse` hook on `Write`/`Edit` | Only harness with a native non-bypassable hard-block at the harness layer. |
-| **Cursor** | None native — prose-only (`alwaysApply: true` in `.cursor/rules/*.mdc`) → ~70% (W3) | Same — prose-only | None native; relies on file-watcher / pre-commit | Compensate with CI gates + pre-commit hooks. |
-| **Codex** | Sandbox policy (filesystem allow-list, network egress allow-list) + `--ask-for-approval` tiering | `--ask-for-approval` modes (`untrusted` / `on-failure` / `on-request` / `never`) | None native; relies on Codex shell tool calls in the wrapped run | Hard-block is sandbox-layer, not harness-layer; the `~/.codex/config.toml` plus per-repo `AGENTS.md` define it. |
+| **Claude Code** | `PreToolUse` hook exit 2 (`.claude/settings.json` + `.claude/hooks/*`); use `$CLAUDE_PROJECT_DIR` in the command so CWD drift can't break self-resolution | `PreToolUse` hook structured payload | `PostToolUse` hook on `Write`/`Edit` | Native non-bypassable hard-block at the harness layer. |
+| **Cursor** | `preToolUse` hook exit 2 (`.cursor/hooks.json` + `.cursor/hooks/*`) — matcher is `Shell` (not `Bash`); set `"failClosed": true` to block on hook errors. Use `$CURSOR_PROJECT_DIR` in the command. Project `.cursor/` layer must be trusted on first run. | Same hook with structured payload | None native; relies on file-watcher / pre-commit | Per `cursor.com/docs/hooks` (Jan 2026). `$CLAUDE_PROJECT_DIR` is aliased for compatibility. |
+| **Codex** | `PreToolUse` hook exit 2 (`.codex/hooks.json` + `.codex/hooks/*`) — matcher is `Bash`. Codex does not document a project-dir env var; use `$(git rev-parse --show-toplevel)` in the command (OpenAI's recommended pattern). Project `.codex/` layer must be trusted on first run. Sandbox policy + `--ask-for-approval` tiering layer on top. | `--ask-for-approval` modes (`untrusted` / `on-failure` / `on-request` / `never`) plus hook structured payload | None native; relies on Codex shell tool calls in the wrapped run | Hook layer is harness-native; sandbox layer is OS-layer defense-in-depth. Per `developers.openai.com/codex/hooks` (2026). |
 | **Aider** | None native — prose + `--read-only` files | `--auto-commits false` (manual approval per commit) | `--lint-cmd` and `--test-cmd` run after every edit cycle | Lint-as-direction is Aider's strongest primitive. |
 | **Copilot** (IDE / coding agent) | None native — CI-only (branch protection + required checks) | None native (PR review is the approval point) | None native; relies on workflow `actions/*` checks | Push enforcement entirely into CI. `.github/copilot-instructions.md` is prose-only. |
 | **Windsurf** | None native (W3) — `.windsurf/rules/*.md` with `trigger: always_on` is prose | None native | None native | 12 k-char workspace rule cap; behave like Cursor for enforcement purposes. |
 | **AGENTS.md-only** (Jules, Amp, etc.) | None — prose-only | None | None | CI is the only structural enforcement; treat the harness layer as advisory. |
 
 **Implication.** A `forbidden`-tier rule like *"never force-push to main"* needs:
-- Claude Code: `PreToolUse` hook (exit 2).
-- Codex: sandbox network/process policy + an `AGENTS.md` line that the wrapped shell enforces.
-- Cursor / Windsurf / Aider / Copilot / AGENTS.md-only: **CI branch protection** is the load-bearing gate; the rule in prose alone is ~70%.
+- Claude Code, Cursor, Codex: `PreToolUse` hook (exit 2) at the harness layer, with project-root-prefixed hook path so CWD drift can't wedge the hook (`$CLAUDE_PROJECT_DIR` / `$CURSOR_PROJECT_DIR` / `$(git rev-parse --show-toplevel)`).
+- Codex (defense-in-depth): sandbox network/process policy on top of the harness hook.
+- Windsurf / Aider / Copilot / AGENTS.md-only: **CI branch protection** is the load-bearing gate; the rule in prose alone is ~70%.
 
-Every harness needs its own row in the scaffold's gate enumeration. If the user inventoried Cursor and Codex but not Claude Code, do not write `.claude/hooks/*` — write the Codex sandbox config and the CI gate.
+A shared harness-agnostic policy script (see this repo's `scripts/hooks/destructive_bash_policy.py`) loaded by thin per-harness adapters under `.claude/hooks/`, `.codex/hooks/`, and `.cursor/hooks/` keeps the three configurations from drifting. The policy must recognize both `Bash` (Claude Code, Codex) and `Shell` (Cursor) tool names.
+
+Every harness in the inventory needs its own row in the scaffold's gate enumeration. If the user inventoried Cursor and Codex but not Claude Code, do not write `.claude/hooks/*` — write the `.cursor/hooks/*` and `.codex/hooks/*` adapters plus the CI gate.
 
 ## Why it matters for agents
 

@@ -585,7 +585,7 @@ def check_command(command):
 
 def _block_uninspectable(reason):
     print(
-        "BLOCKED by PreToolUse hook: Bash payload could not be inspected "
+        "BLOCKED by PreToolUse hook: shell-tool payload could not be inspected "
         f"({reason}).\n"
         "See AGENTS.md §Forbidden actions. If this is genuinely intended, "
         "run it manually in a terminal outside the agent session.",

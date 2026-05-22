@@ -9,6 +9,19 @@
 <3–5 sentences. Headline scores per surface; the one or two findings
 that show up across multiple surfaces (often the most load-bearing).>
 
+## Fix three first
+
+Across all surfaces audited, the three findings to act on this week — picked
+for **impact × effort**, not strictly by severity, and biased toward
+cross-surface patterns (they confirm each other and pay back more per fix).
+
+If fewer than three cross-surface or sev-2+ findings exist, list however many
+do.
+
+1. **<finding ID>** (<surfaces it spans>) — <why this one>. _Verify by:_ <check>.
+2. **<finding ID>** (<surfaces>) — <why this one>. _Verify by:_ <check>.
+3. **<finding ID>** (<surfaces>) — <why this one>. _Verify by:_ <check>.
+
 ## Per-surface scores
 
 One row per surface actually audited (drawn from `references/intents/audit.csv`, minus the `all` row).

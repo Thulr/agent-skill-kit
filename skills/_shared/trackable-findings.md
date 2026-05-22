@@ -146,9 +146,51 @@ findings:
 7. Write or update workflow-state JSON when continuing the workflow, capturing
    current phase, selected IDs, verification timestamp, blockers, and next safe
    action.
+8. **Emit a Since-last-run scoreboard.** Whenever resume reads an existing
+   workflow-state or ledger, lead the new output with the scoreboard described
+   below — before any new findings — so the user sees momentum, not a fresh
+   wall of issues.
 
 If the referenced artifacts are missing or from another skill/scope, stop and
 ask for the correct artifact instead of inventing continuity.
+
+## Since-last-run scoreboard
+
+When resuming against an existing ledger or workflow-state, the new report
+opens with a short scoreboard that compares the current scan to the previous
+one. This turns the tracking artifact into visible progress instead of
+restarting the user at "fresh wall of findings."
+
+Emit the scoreboard as a fenced `text` block (so it renders single-line in
+chat/TUI hosts that mangle Markdown tables) immediately under the report
+heading. Include the prior run's date and scope.
+
+Required fields:
+
+- **Closed since last run** — count of findings whose status moved to
+  `verified` or `closed`.
+- **Regressions** — count of findings that were `verified`/`closed` last run
+  and are now re-open (`discovered` or `in_progress`).
+- **Still open** — count of findings not yet closed (carried forward).
+- **New this run** — count of findings discovered this run with no prior ID.
+- **Score delta** — for skills that emit a 0–10 surface score, report
+  `previous → current` and the band change (e.g. Mixed → Healthy). Omit when
+  the skill does not score.
+
+Example:
+
+```text
+Since 2026-04-15 (payments scope):
+  Closed since last run: 2   (CA-DEP-003, CA-BOUNDARY-001)
+  Regressions:           1   (CA-DEP-005 — re-opened by PR #214)
+  Still open:            4
+  New this run:          3
+  Score delta:           4 → 6   (Eroded → Mixed)
+```
+
+When **zero** prior findings remain (clean resume) or no prior run exists,
+skip the scoreboard and proceed with the normal report. Don't fabricate
+deltas against a missing prior state.
 
 ## Workflow State
 

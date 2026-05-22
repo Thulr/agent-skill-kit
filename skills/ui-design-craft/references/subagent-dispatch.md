@@ -26,6 +26,32 @@ handoff cleanly. Check direct-edit readiness, host protocol markers, static
 markup, component states, responsive behavior, reduced motion, console errors,
 and packaging notes.
 
+## Preamble Before Dispatch
+
+Before spawning sub-agents, emit a short user-facing preamble — 3–4 lines, no
+more. Sub-agent fan-outs go silent for a minute or more; the preamble converts
+that wait from a black box into an anticipated reveal.
+
+The preamble must name:
+
+- **Reviewers dispatched** (e.g., "visual-craft, user-task,
+  implementation/handoff").
+- **Artifact + use case** being reviewed.
+- **Rough time estimate** ("~1–2 minutes," not a hard number).
+- **What to watch for** — one sentence telegraphing the kind of finding the
+  user should expect.
+
+Example:
+
+```text
+Dispatching 3 reviewers (visual-craft, user-task, implementation/handoff)
+against the checkout prototype. ~1–2 min.
+Watch for: hierarchy that buries the primary CTA, copy that hides system
+state, and motion that ignores reduced-motion preferences.
+```
+
+Skip for tiny single-role passes or hosts without streaming text.
+
 ## Dispatch Pattern
 
 For reviews or edge passes, run all three roles independently and synthesize

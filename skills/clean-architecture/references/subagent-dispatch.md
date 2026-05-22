@@ -57,6 +57,37 @@ job. Do not synthesize a step sequence — that's the host's job."
 **Anchors on:** which refactor patterns apply, safety-net discipline,
 smallest-reversible-step posture.
 
+## Preamble before dispatch
+
+Before spawning sub-agents, emit a short user-facing preamble — 3–4 lines, no
+more. Sub-agent fan-outs go silent for a minute or more; the preamble converts
+that wait from a black box into an anticipated reveal.
+
+The preamble must name:
+
+- **Lenses dispatched** (e.g., "dependency-auditor, boundary-designer,
+  refactor-pragmatist").
+- **Surface(s)** being audited.
+- **Rough time estimate** ("~1–2 minutes," not a hard number).
+- **What to watch for in the output** — one sentence telegraphing the kind
+  of finding the user should expect (e.g., "watch for dependency-rule
+  violations in the domain layer and any framework imports inside
+  use-cases").
+
+Example:
+
+```text
+Dispatching 3 lenses (dependency-auditor, boundary-designer,
+refactor-pragmatist) against the `domain` surface. ~1–2 min.
+Watch for: framework types leaking into entities, anti-corruption-layer
+absence between contexts, refactor patterns that fit.
+```
+
+Skip the preamble for tiny single-lens passes or hosts that don't show
+streaming text. Don't substitute a long status spinner for the preamble —
+the value is the user knowing *what is being looked for*, not just that
+work is happening.
+
 ## Dispatch template
 
 When the host has a delegation primitive and active policy permits dispatch,

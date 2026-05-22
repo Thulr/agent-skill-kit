@@ -24,8 +24,10 @@ concentric diagrams differ; inward arrows still mean a leak.
 ## Activation
 
 - **Bare invocation** (`"use clean-architecture"`, `"architecture review"`,
-  `"start"`): load `references/intent-router.csv`, show the intent menu,
-  wait. No file inspection, network calls, or writes.
+  `"start"`): load `references/starter-scenarios.csv` and
+  `references/intent-router.csv`, then show the intent menu with named
+  starter scenarios on top and offer the mode choice. Wait. No file
+  inspection, network calls, or writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
 - **Ambiguous concrete invocation**: ask one blocker question identifying
   intent or surface before inspecting private systems.
@@ -78,9 +80,9 @@ concentric diagrams differ; inward arrows still mean a leak.
 
 ## Modes
 
-- **Guided Draft:** default; ask one optionized question at a time.
-- **Autopilot:** proceed from clear, low-risk context; state assumptions.
-- **Grill Me:** ask open-ended questions when trade-offs matter.
+Guided Draft (default), Autopilot, Grill Me — see
+[`references/modes.md`](./references/modes.md). Offer the mode at bare
+invocation; default to Guided Draft on concrete invocations.
 
 ## Output requirements
 
@@ -116,5 +118,7 @@ the three lenses sequentially. Otherwise use one agent per lens.
   `glossary.md` - shared rubrics and terms.
 - `references/trackable-findings.md` - ledger, roadmap, issues, workflow
   state, and verification closeout.
+- `references/modes.md` - Guided Draft / Autopilot / Grill Me contract (shared).
+- `references/starter-scenarios.csv` - named worked examples for bare invocation.
 - `templates/*.md` - output and tracking templates.
 - `evals/*` and `skill.json` - activation/static checks and provenance.

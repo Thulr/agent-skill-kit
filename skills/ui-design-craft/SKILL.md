@@ -19,14 +19,21 @@ artifact in front of the user as soon as it can communicate direction.
 ## Activation
 
 - **Bare invocation** (`"use ui-design-craft"`, `"UI designer"`, `"start"`):
-  load `references/use-case-registry.csv`, show the use-case menu and modes,
-  then wait. No file inspection, network calls, or writes.
+  load `references/starter-scenarios.csv` and `references/use-case-registry.csv`,
+  then show the use-case menu with the named starter scenarios on top (each
+  pre-routes use-case + mode) and offer the full mode choice. Wait. No file
+  inspection, network calls, or writes.
 - **Concrete invocation** with use case inferable: proceed in Guided Draft
   unless the user requests Autopilot or Grill Me.
 - **Ambiguous concrete invocation**: ask one blocker question about audience,
   format, design system, or variation axis before editing.
 
 ## Modes
+
+Three shared modes — Guided Draft (default), Autopilot, Grill Me — set
+depth-vs-speed up front. Canonical contract in
+[`references/modes.md`](./references/modes.md) (sourced from
+`skills/_shared/modes.md`). UI-design-craft specifics:
 
 - **Guided Draft (default):** ask one optionized question round only when the
   answer changes format, audience, design-system binding, or variation count;
@@ -90,6 +97,8 @@ not merely described.
 ## Reference Map
 
 - `references/use-case-registry.csv` - use-case router.
+- `references/starter-scenarios.csv` - named worked examples for bare invocation.
+- `references/modes.md` - Guided Draft / Autopilot / Grill Me contract (shared).
 - `references/*.md` - routed craft, workflow, host, and review playbooks.
 - `templates/*.md` - repeatable brief, plan, system, deck, prototype, and
   review outputs.

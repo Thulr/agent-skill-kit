@@ -1,0 +1,6 @@
+id,scenario,intent,surface,persona,when_to_pick
+S1,"CLI that customers complain is confusing — flags inconsistent, errors unclear, --help unhelpful",audit,cli,cli-user,"You ship a CLI and want a structured pass on the developer's command-line experience"
+S2,"SDK pre-release — want to catch the things first-time integrators will hit before launch",audit,sdk,sdk-integrator,"Pre-launch readiness check on an SDK or client library"
+S3,"Customer reported a confusing error message that wasted hours; want to know if the class of problem is widespread",debug,errors,maintainer,"A specific error-message incident triggered the request; you want the surface-wide pattern"
+S4,"Designing a new SDK from scratch — want to lock the public shape before code is written",design,sdk,sdk-integrator,"Pre-implementation design check; you want heuristics applied to the shape, not the code"
+S5,"Pre-launch hardening pass across docs, errors, CLI, examples — broad scan for the things that look fine but won't survive contact",edge-pass,all,maintainer,"Final pre-ship sweep across every DX surface"

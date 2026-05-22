@@ -1,0 +1,6 @@
+id,scenario,use_case,persona,when_to_pick
+S1,"Checkout flow with reported drop-off — want a heuristic pass before reaching for analytics",usability-audit,first-time-user,"You have a flow with measurable friction and want a structured inspection before user research"
+S2,"Sign-up form with 12 fields that customers complain about — want field-by-field friction review",form-review,first-time-user,"Form is the surface; you want labels, validation, error copy, sequence inspected"
+S3,"Dashboard nav is being redesigned; want IA / wayfinding review before the team commits",navigation-review,returning-user,"Pre-implementation IA pass on a navigation redesign"
+S4,"Error states across the product feel punitive and confusing — want a sweep of recovery copy and behavior",error-recovery,stressed-user,"Error and recovery copy is the surface, not the happy path"
+S5,"Accessibility readiness check before a launch — keyboard, screen-reader, contrast, focus, semantics",accessibility-audit,assistive-tech-user,"Pre-launch a11y pass; treats WCAG as baseline and flags manual-verification items"

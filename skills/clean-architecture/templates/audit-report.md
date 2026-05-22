@@ -10,6 +10,19 @@
 <2–4 sentences. What surface was audited, what the headline score means,
 the single most load-bearing finding.>
 
+## Fix three first
+
+The three findings to act on this week, picked for **impact × effort**, not
+strictly by severity. A high-severity item that requires a quarter-long refactor
+should not crowd out a medium-severity item the team can land in a day.
+
+If there are fewer than three findings, list however many exist. If every
+finding is severity ≤ 1, skip this section.
+
+1. **<finding ID>** — <one sentence on why this one>. _Verify by:_ <narrow check>.
+2. **<finding ID>** — <one sentence>. _Verify by:_ <narrow check>.
+3. **<finding ID>** — <one sentence>. _Verify by:_ <narrow check>.
+
 ## Findings
 
 Ordered by severity (4 → 0). Each finding cites the playbook heuristic

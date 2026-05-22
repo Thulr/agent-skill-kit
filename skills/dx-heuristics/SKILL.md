@@ -20,8 +20,9 @@ debug an avoidable setup issue, that is a DX problem.
 ## Activation
 
 - **Bare invocation** (`"use dx-heuristics"`, `"DX review"`, `"start"`): load
-  `references/intent-router.csv`, show the intent menu, wait. No file
-  inspection, no network calls, no writes.
+  `references/starter-scenarios.csv` and `references/intent-router.csv`,
+  then show the intent menu with named starter scenarios on top and offer
+  the mode choice. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and surface inferable: skip to
   step 3 of the workflow.
 - **Concrete invocation with ambiguous scope**: ask one blocker question
@@ -63,25 +64,22 @@ debug an avoidable setup issue, that is a DX problem.
    `templates/design-doc.md`. Debug → `templates/debug-runbook.md`.
    Edge-pass → `templates/edge-checklist.md`.
 9. **Create, resume, or close tracking state.** For audit/edge-pass outputs
-   with 7+ findings or risks, any severity 3–4, or a save/track/closeout
-   request, load `references/trackable-findings.md`. If the request names an
-   existing ledger, workflow-state file, PR, diff, branch, or `DX-*` ID, read
-   saved state first and update statuses only after each verification rule
-   passes. Otherwise write both artifacts now: Markdown ledger at
+   with 7+ findings, any severity 3–4, or a save/track/closeout request, load
+   `references/trackable-findings.md`. If the request names an existing
+   ledger, workflow-state, PR, branch, or `DX-*` ID, read saved state first;
+   update statuses only after each verification rule passes. Otherwise write
+   both artifacts now at
    `docs/audits/dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
-   and workflow state at
-   `docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
-   If the target is not a repo or `docs/audits/` is not writable, use
-   `audit-artifacts/dx-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
-   Populate or update the ledger and workflow-state files using
-   `templates/findings-ledger.md` and `templates/workflow-state.json`; do not
-   edit the templates themselves. Report both paths, and keep roadmaps, issues,
+   and `docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+   Fall back to `audit-artifacts/dx-heuristics-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
+   if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and non-tracking edits opt-in.
 
 ## Modes
 
-Guided Draft asks one optionized question; Autopilot proceeds when low-risk;
-Grill Me asks open-ended trade-off questions.
+Guided Draft (default), Autopilot, Grill Me — see
+[`references/modes.md`](./references/modes.md). Offer the mode at bare
+invocation; default to Guided Draft on concrete invocations.
 
 ## Output requirements
 
@@ -96,14 +94,11 @@ Every output includes:
 
 ## Subagent dispatch
 
-Independent perspectives anchor on different concerns and catch issues a
-single pass misses. **Default for `audit` and `edge-pass`;** preferred for
-`design`; optional for `debug`; skip tiny deterministic work or secret-bound
-tasks. Spawn three agents in parallel — **first-time integrator**,
-**maintainer**, **adversarial debugger** — and load
-`references/subagent-dispatch.md` for prompts and synthesis. If the host lacks
-delegation, run the lenses sequentially and still preserve disagreements as
-open questions.
+**Default for `audit` and `edge-pass`;** preferred for `design`; optional for
+`debug`; skip tiny deterministic or secret-bound work. Spawn three lenses in
+parallel — **first-time integrator**, **maintainer**, **adversarial
+debugger** — per `references/subagent-dispatch.md`. Without delegation, run
+the lenses sequentially and preserve disagreements as open questions.
 
 ## Reference map
 
@@ -113,6 +108,8 @@ open questions.
   surface listed in the intent CSVs).
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
+- `references/modes.md` — Guided Draft / Autopilot / Grill Me contract (shared).
+- `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — shared 0–4 and 0–10 scales.
 - `references/core/personas.md` — target developer persona list.
 - `templates/*.md` — four intent-specific outputs plus tracking artifacts.

@@ -1,0 +1,6 @@
+id,scenario,use_case,mode,when_to_pick
+S1,"Existing product screen looks plain/inconsistent — want a polished pass that respects the design system",product-ui,guided-draft,"You have a working screen and want craft brought up without inventing a new system"
+S2,"Brand-new feature — want a clickable HTML/CSS prototype before committing to engineering",prototype,guided-draft,"You're pre-implementation and want a runnable artifact to react to"
+S3,"Stakeholder deck due this week — narrative arc, slide composition, visual language",deck,grill-me,"Strategic deck where audience and arc matter more than visuals"
+S4,"Design system has tokens but no documented component vocabulary — want a spec",design-system,guided-draft,"You're authoring a system, not just consuming one"
+S5,"Review an existing UI artifact for visual-craft issues (hierarchy, type, color, anti-slop)",quality-review,autopilot,"You have a finished artifact and want findings, not a redesign"

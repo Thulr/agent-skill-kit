@@ -10,6 +10,24 @@
 
 <2-4 sentences: highest-impact task failure, accessibility risk, and next fix.>
 
+## Fix three first
+
+The three findings to act on this week, picked for **impact × effort** — not
+strictly by severity. A high-severity refactor of an information architecture
+should not crowd out a medium-severity label fix the team can land in an hour.
+
+Accessibility note: any finding that blocks an assistive-tech user from
+completing the task should appear here regardless of effort — exclusion is
+not deferrable.
+
+Skip if every finding is severity ≤ 1. List however many exist if fewer than
+three.
+
+1. **<finding ID>** — <why this one in one sentence>. _Verify by:_ <keyboard
+   pass, screen-reader transcript, contrast check, or user task>.
+2. **<finding ID>** — <why this one>. _Verify by:_ <check>.
+3. **<finding ID>** — <why this one>. _Verify by:_ <check>.
+
 ## Findings
 
 Ordered by severity.

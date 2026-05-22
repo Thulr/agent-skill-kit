@@ -15,6 +15,21 @@
 
 **Overall maturity ceiling:** <min(layer scores)> — limited by **<layer>** (weakest discipline is your ceiling).
 
+## Fix three first
+
+The three findings to act on this week, picked for **impact × effort** — not
+strictly by severity. Prefer items that raise the ceiling layer (the one
+limiting overall maturity); a sev-4 finding in a non-ceiling layer is real but
+will not move the headline score.
+
+Skip if every finding is severity ≤ 1. List however many exist if fewer than
+three.
+
+1. **<AG-…-NNN>** (layer: <layer>) — <why this one>. _Verify by:_ <narrow check —
+   hook run, MCP call, eval case, or harness-replay>.
+2. **<AG-…-NNN>** (layer: <layer>) — <why this one>. _Verify by:_ <check>.
+3. **<AG-…-NNN>** (layer: <layer>) — <why this one>. _Verify by:_ <check>.
+
 ## Parallel agent partitioning (optional; if multi-agent work is desired)
 
 Use this checklist to assess whether multiple agents can work in parallel without stepping on each other:

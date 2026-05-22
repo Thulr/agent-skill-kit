@@ -1,0 +1,6 @@
+id,scenario,activity,layer,persona,when_to_pick
+S1,"Suite is flaky — same tests pass locally, fail intermittently in CI; want to triage before rerunning",triage,integration,maintainer,"You have a flake incident and need to rank hypotheses before patching"
+S2,"Suite has 5000 unit tests and we don't trust them — want to know which ones actually catch bugs and which are theater",review,unit,maintainer,"You inherited a suite and want a credibility audit on the unit layer"
+S3,"Authoring tests for a new payment-flow feature — want to know which layer(s) to cover and what oracle to use",author,all,feature-eng,"Pre-write authoring guidance for a new feature"
+S4,"E2E suite takes 45 minutes and the team avoids running it — want to know what to delete and what to keep",prune,e2e,maintainer,"You have a slow suite and want a deletion list with rationale, not just blanket cuts"
+S5,"Quarterly review of the test pyramid/trophy — where to invest next quarter, where to disinvest",strategize,all,team-lead,"Cross-layer investment recommendation, not a per-test review"

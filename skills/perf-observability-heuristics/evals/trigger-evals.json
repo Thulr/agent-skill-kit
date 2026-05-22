@@ -27,9 +27,9 @@
       "category": "positive"
     },
     {
-      "query": "Strategize our observability roadmap across logs, metrics, and traces for the next two quarters.",
+      "query": "Strategize our observability roadmap across logs, metrics, and traces for the next two quarters, anchored on the SLO program.",
       "should_activate": true,
-      "expected_route": "strategize/all",
+      "expected_route": "strategize/slos",
       "category": "positive"
     },
     {
@@ -75,7 +75,7 @@
       "category": "negative"
     },
     {
-      "query": "Our test runtime grew from 2 minutes to 8 — what's slowing the CI pipeline?",
+      "query": "Our CI build farm is saturated and the test stage runtime doubled — investigate the pipeline workers.",
       "should_activate": true,
       "expected_route": "diagnose/latency",
       "category": "edge"

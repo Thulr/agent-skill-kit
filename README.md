@@ -32,7 +32,7 @@ the published install surface today.
 | Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` |
 | "Make our docs better" | Ask whether the audience is humans using the product (`ux-accessibility-heuristics`), developers integrating it (`dx-heuristics`), or coding agents reading the repo (`project-agentification`). |
 | "Add a hook" | Ask whether this means a Claude/Codex/Cursor agent gate (`project-agentification`) or a generic Git/build hook. |
-| "Our service is slow" / "our dashboards aren't useful" / "design SLOs" | `perf-observability-heuristics`. Route DX-perception perf (install time, cold start, build/test latency) to `dx-heuristics`. |
+| "Our service is slow" / "our dashboards aren't useful" / "design SLOs" | `perf-observability-heuristics`. Boundary against `dx-heuristics`: route **developer-inner-loop** perf on the developer's own machine (install time, cold start, your own edit-test-debug cycle) to `dx-heuristics`. **CI / build-farm runtime is a production system** owned by an infra or platform team, so route it to `perf-observability-heuristics`. |
 
 ## Skills
 

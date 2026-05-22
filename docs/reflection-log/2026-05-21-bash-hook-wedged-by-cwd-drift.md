@@ -26,8 +26,7 @@ cd skills/perf-observability-heuristics/references && \
 The trailing `cd ../..` was meant to return to the repo root from
 `skills/perf-observability-heuristics/templates/`, but two `..` levels land
 in `skills/`, not the repo root. The Bash tool persists shell CWD between
-calls, so every subsequent Bash invocation ran with CWD =
-`/Users/justin/Dev/informed-skills/skills/`.
+calls, so every subsequent Bash invocation ran with CWD = `<repo-root>/skills/`.
 
 The PreToolUse Bash hook is configured in `.claude/settings.json` as:
 
@@ -40,19 +39,20 @@ with the persistent shell CWD, so Python tried to resolve
 `.claude/hooks/block-destructive-bash.py` against `skills/` and failed with
 `[Errno 2] No such file or directory`. The hook process exited non-zero,
 and the harness — correctly, by hook contract — blocked every subsequent
-Bash tool call, including the recovery `cd /Users/justin/Dev/informed-skills`
-that would have un-wedged the shell.
+Bash tool call, including the recovery `cd <repo-root>` that would have
+un-wedged the shell.
 
-Recovery required user intervention: the user typed
-`! cd /Users/justin/Dev/informed-skills` in the prompt, which executed in
-the same persisted shell and reset CWD. Bash worked again immediately.
+Recovery required user intervention: the user typed `! cd <repo-root>` in
+the prompt, which executed in the same persisted shell and reset CWD.
+Bash worked again immediately.
 
-Concrete error reported on the blocked call:
+Concrete error reported on the blocked call (absolute paths sanitized
+to `<repo-root>`):
 
 ```
 PreToolUse:Bash hook error: [python3 .claude/hooks/block-destructive-bash.py]:
 .../Python: can't open file
-'/Users/justin/Dev/informed-skills/skills/.claude/hooks/block-destructive-bash.py':
+'<repo-root>/skills/.claude/hooks/block-destructive-bash.py':
 [Errno 2] No such file or directory
 ```
 
@@ -81,8 +81,8 @@ once Python can find the script, everything downstream works.
 **Agent-side discipline (corollary, not a substitute for the gate fix)**:
 prefer absolute paths in Bash one-liners that touch multiple directories;
 avoid trailing `cd` that depends on counting `..` correctly. If a one-liner
-must `cd`, return to a known absolute path (`cd /Users/justin/Dev/informed-skills`)
-rather than a relative one.
+must `cd`, return to a known absolute path (`cd "$CLAUDE_PROJECT_DIR"` or
+`cd "$(git rev-parse --show-toplevel)"`) rather than a relative one.
 
 **Recording bar note (W1)**: this is the first observed CWD-drift wedge in
 this repo. Per the W1 ≥3 promotion floor, do not auto-promote to an

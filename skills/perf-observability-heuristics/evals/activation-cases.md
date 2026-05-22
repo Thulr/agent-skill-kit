@@ -19,8 +19,9 @@ file is human-graded.
   → `optimize/latency`. Profile-first; sequenced safe improvements with
   measured before/after gates.
 - "Strategize our observability roadmap across logs, metrics, and traces."
-  → `strategize/all`. Program scope, adoption sequence, instrumentation
-  budget.
+  → `strategize/slos` (SLO program is the natural anchor; logs / metrics /
+  traces fall out of "what do we need to measure to defend the SLO?").
+  Program scope, adoption sequence, instrumentation budget.
 - "Review our distributed tracing setup for cardinality and sampling."
   → `audit/tracing`. Three lenses against a single playbook.
 - "We're seeing connection-pool exhaustion and slow queries; help us think
@@ -50,11 +51,13 @@ file is human-graded.
 
 ## Edge — boundary or ambiguous
 
-- "Our test runtime grew from 2 minutes to 8 — what's slowing the CI
-  pipeline?" → Activates at `diagnose/latency`; cross-link to
-  `dx-heuristics`' `inner-loop` for the build/test-latency lens. The
-  perf-side framing wins because the question is "what's slow," not
-  "what's the DX of waiting."
+- "Our CI build farm is saturated and the test stage runtime doubled —
+  investigate the pipeline workers." → Activates at `diagnose/latency`.
+  Per the README boundary, **CI / build-farm runtime is a production
+  system** (owned by an infra / platform team) and stays here; developer
+  inner-loop perf on a single workstation (install, cold start, own
+  edit-test cycle) routes to `dx-heuristics`. The "investigate the
+  pipeline workers" framing is unambiguously the production-system case.
 - "First Contentful Paint regressed after the bundler upgrade; investigate
   the browser tier." → `diagnose/latency` (browser-tier slice).
 - "We have RED metrics on the gateway but nothing on workers — what to

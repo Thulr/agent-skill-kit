@@ -41,6 +41,7 @@
 # - `skills/evidence-driven-agent-rules/`: published skill; pairs with project-agentification for repos with a feedback signal (eval/telemetry/baseline)
 # - `skills/ui-design-craft/`: published skill
 # - `skills/ux-accessibility-heuristics/`: published skill
+# - `skills/perf-observability-heuristics/`: published skill; systems performance + observability (latency / throughput / resources / tracing / logs / metrics / SLOs across backend, browser/network, and DB-perf tiers)
 # - `skills/.experimental/`: reserved and currently empty
 # - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless

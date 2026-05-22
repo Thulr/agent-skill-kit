@@ -1,0 +1,96 @@
+{
+  "skill": "perf-observability-heuristics",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Our p99 latency just doubled and we don't know why. Help me diagnose.",
+      "should_activate": true,
+      "expected_route": "diagnose/latency",
+      "category": "positive"
+    },
+    {
+      "query": "Design the SLO program for our new payments service.",
+      "should_activate": true,
+      "expected_route": "design/slos",
+      "category": "positive"
+    },
+    {
+      "query": "Audit our existing observability stack for gaps before next quarter's reliability push.",
+      "should_activate": true,
+      "expected_route": "audit/all",
+      "category": "positive"
+    },
+    {
+      "query": "Plan a tail-latency optimization pass for the checkout API; profile-first, no guesses.",
+      "should_activate": true,
+      "expected_route": "optimize/latency",
+      "category": "positive"
+    },
+    {
+      "query": "Strategize our observability roadmap across logs, metrics, and traces for the next two quarters.",
+      "should_activate": true,
+      "expected_route": "strategize/all",
+      "category": "positive"
+    },
+    {
+      "query": "Review our distributed tracing setup for cardinality and sampling.",
+      "should_activate": true,
+      "expected_route": "audit/tracing",
+      "category": "positive"
+    },
+    {
+      "query": "We're seeing connection-pool exhaustion and slow queries; help us think through it.",
+      "should_activate": true,
+      "expected_route": "diagnose/resources",
+      "category": "positive"
+    },
+    {
+      "query": "Pick a good name for this React component.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Refactor this CRUD endpoint to use the repository pattern.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review our developer onboarding docs for first-time integrator friction.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Audit this test suite for false-pass risk and flakiness.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Design a database schema with proper normalization and foreign keys.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Our test runtime grew from 2 minutes to 8 — what's slowing the CI pipeline?",
+      "should_activate": true,
+      "expected_route": "diagnose/latency",
+      "category": "edge"
+    },
+    {
+      "query": "First Contentful Paint regressed after the bundler upgrade; investigate the browser tier.",
+      "should_activate": true,
+      "expected_route": "diagnose/latency",
+      "category": "edge"
+    },
+    {
+      "query": "We have RED metrics on the gateway but nothing on workers — what to add and why?",
+      "should_activate": true,
+      "expected_route": "design/metrics",
+      "category": "edge"
+    }
+  ]
+}

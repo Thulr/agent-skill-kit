@@ -13,9 +13,10 @@ npx skills add Thulr/informed-skills
 [skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
 
 The current catalog focuses on software engineering, coding-agent operations,
-developer experience, test quality, architecture, user-facing product UX /
-accessibility, and UI design craft. Other source-grounded domains can be added
-later, but they are not part of the published install surface today.
+developer experience, test quality, architecture, systems performance and
+observability, user-facing product UX / accessibility, and UI design craft.
+Other source-grounded domains can be added later, but they are not part of
+the published install surface today.
 
 ## Which skill should I use?
 
@@ -26,10 +27,12 @@ later, but they are not part of the published install surface today.
 | User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` |
 | Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` |
 | Dependency direction, ports/adapters, DDD, bounded contexts, architecture refactors | `clean-architecture` |
+| Systems performance, observability, SLOs, p99/tail-latency, profiling, capacity, RED/USE/Four-Golden-Signals, distributed tracing, instrumentation strategy | `perf-observability-heuristics` |
 | Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` |
 | Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` |
 | "Make our docs better" | Ask whether the audience is humans using the product (`ux-accessibility-heuristics`), developers integrating it (`dx-heuristics`), or coding agents reading the repo (`project-agentification`). |
 | "Add a hook" | Ask whether this means a Claude/Codex/Cursor agent gate (`project-agentification`) or a generic Git/build hook. |
+| "Our service is slow" / "our dashboards aren't useful" / "design SLOs" | `perf-observability-heuristics`. Route DX-perception perf (install time, cold start, build/test latency) to `dx-heuristics`. |
 
 ## Skills
 
@@ -93,6 +96,36 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill ui-design-craft
+```
+
+### perf-observability-heuristics
+
+Practical review, design, diagnosis, optimization, and program-level strategy
+for systems performance and observability across backend services, distributed
+systems, the browser / network tier, and database performance internals.
+Covers latency budgets, throughput / scalability, resource utilization,
+distributed tracing, structured logs, metrics, and SLO / error-budget
+programs.
+
+Grounded in canonical systems-performance, SRE, and observability literature
+spanning Gregg, the Google SRE book, Kleppmann, Gunther, Jain, Sridharan,
+Majors/Fong-Jones/Miranda, Sigelman et al. (Dapper), Dean & Barroso (Tail at
+Scale), Little, Wilkie (RED), Tene (coordinated omission), Grigorik, Souders,
+and Winand (full provenance in
+[`skills/perf-observability-heuristics/skill.json`](./skills/perf-observability-heuristics/skill.json)).
+Routes by intent (`audit` / `design` / `diagnose` / `optimize` / `strategize`)
+× surface (`latency` / `throughput` / `resources` / `tracing` / `logs` /
+`metrics` / `slos`), and dispatches three parallel reviewer lenses (on-call /
+SRE, profiler / workload, capacity-planner).
+
+DB-internals coverage is performance-only (index strategy, query plans, lock
+contention, connection pooling); schema design, normalization, and migration
+safety are reserved for a future `data-modeling-heuristics` skill.
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill perf-observability-heuristics
 ```
 
 ### clean-architecture

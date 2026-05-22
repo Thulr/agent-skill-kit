@@ -585,7 +585,7 @@ def check_command(command):
 
 def _block_uninspectable(reason):
     print(
-        "BLOCKED by PreToolUse hook: Bash payload could not be inspected "
+        "BLOCKED by PreToolUse hook: shell-tool payload could not be inspected "
         f"({reason}).\n"
         "See AGENTS.md §Forbidden actions. If this is genuinely intended, "
         "run it manually in a terminal outside the agent session.",
@@ -603,7 +603,9 @@ def main():
     if not isinstance(payload, dict):
         return _block_uninspectable("payload is not a JSON object")
 
-    if payload.get("tool_name") != "Bash":
+    # Recognize each harness's shell-tool name. Claude Code and Codex emit
+    # "Bash"; Cursor emits "Shell". Any other tool name is out of scope.
+    if payload.get("tool_name") not in ("Bash", "Shell"):
         return 0
 
     tool_input = payload.get("tool_input", {})

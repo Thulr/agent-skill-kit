@@ -3,7 +3,7 @@ date: 2026-05-21
 harness: claude-code
 sub-surface: gates
 severity: 3
-status: open
+status: resolved
 related: [2026-05-16-hook-path-cwd-bypasses-round3]
 ---
 # Bash hook self-resolution broke when shell CWD drifted into a sub-directory
@@ -92,5 +92,14 @@ agent discipline.
 
 ## Closed by
 
-<unfilled — pending PR that switches the hook command to use
-`$CLAUDE_PROJECT_DIR`>
+PR #26 — switched all three harness hook configs to project-root-prefixed
+paths so shell-CWD drift no longer wedges the hook:
+`.claude/settings.json` uses `$CLAUDE_PROJECT_DIR`, `.codex/hooks.json` uses
+`$(git rev-parse --show-toplevel)` (OpenAI's recommended pattern; Codex
+does not document a project-dir env var), and the new `.cursor/hooks.json`
+uses `$CURSOR_PROJECT_DIR`. The shared policy at
+`scripts/hooks/destructive_bash_policy.py` was extended to recognize both
+`Bash` and `Shell` tool names so the same script serves Claude Code, Codex,
+and Cursor. Cursor-shape `Shell + destructive` test fixtures were added to
+all three per-harness test files, and the Justfile now runs all three in
+`just check`.

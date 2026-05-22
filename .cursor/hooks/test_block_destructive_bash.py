@@ -304,7 +304,7 @@ def run_subprocess_smoke():
         )
 
     with tempfile.TemporaryDirectory(prefix="hook-missing-policy-") as tmp:
-        tmp_hook = pathlib.Path(tmp) / ".claude" / "hooks" / HOOK_PATH.name
+        tmp_hook = pathlib.Path(tmp) / ".cursor" / "hooks" / HOOK_PATH.name
         tmp_hook.parent.mkdir(parents=True)
         shutil.copy2(HOOK_PATH, tmp_hook)
         proc = subprocess.run(

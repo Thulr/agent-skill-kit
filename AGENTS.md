@@ -210,15 +210,37 @@ string), splits pipelines and grouped commands on `;` / `&&` / `||` / `|` /
 `&` / `(` / `)` / `{` / `}`, and unwraps common prefixes (`sudo`, `time`,
 `env`, `command`, env-var assignments, `git -C path`). Test coverage lives at
 [`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
-(115 unit + 3 subprocess cases) and runs in `just check` and CI. When a
-new bypass is observed, log it in `docs/reflection-log/` (one file per
-bypass), add the fixture to the test file, then update the hook so the
+and [`.codex/hooks/test_block_destructive_bash.py`](./.codex/hooks/test_block_destructive_bash.py)
+(115 unit + 6 subprocess cases each) and runs in `just check` and CI. When
+a new bypass is observed, log it in `docs/reflection-log/` (one file per
+bypass), add the fixture to both test files, then update the hook so the
 new case passes.
 
-The hook is claude-code-specific (`.claude/settings.json`). Cursor, Codex,
-Copilot, etc. should configure equivalents from this list (see the
-per-harness gate-primitives table in
-[`skills/project-agentification/references/playbooks/gates.md`](./skills/project-agentification/references/playbooks/gates.md)).
+**Harness coverage.** The shared policy at
+[`scripts/hooks/destructive_bash_policy.py`](./scripts/hooks/destructive_bash_policy.py)
+is harness-agnostic; thin per-harness adapters under `.claude/hooks/`,
+`.codex/hooks/`, and `.cursor/hooks/` load it. Wired up:
+
+- **Claude Code** — `.claude/settings.json` → PreToolUse on `Bash` →
+  `python3 "$CLAUDE_PROJECT_DIR/.claude/hooks/block-destructive-bash.py"`.
+  `$CLAUDE_PROJECT_DIR`-prefixing is load-bearing: the hook command is
+  invoked with the persisted shell CWD, so a relative path
+  (`.claude/hooks/…`) breaks the moment the agent `cd`s into a subdir
+  and Python can no longer find the hook script.
+- **Codex** — `.codex/hooks.json` → PreToolUse on `Bash` →
+  `python3 "$(git rev-parse --show-toplevel)/.codex/hooks/block-destructive-bash.py"`.
+  Codex does not document a project-dir env var; the git-root expansion is
+  OpenAI's recommended pattern. The project `.codex/` layer must be
+  trusted on first run (`/hooks` command in Codex CLI).
+- **Cursor** — `.cursor/hooks.json` → preToolUse on `Shell` →
+  `python3 "$CURSOR_PROJECT_DIR/.cursor/hooks/block-destructive-bash.py"`
+  with `"failClosed": true`. Cursor's shell-tool name is `Shell` (not
+  `Bash`); the shared policy recognizes both.
+- **Copilot / Aider / Windsurf / AGENTS.md-only harnesses** — no native
+  PreToolUse-equivalent. CI branch protection is the load-bearing gate
+  for these. See the per-harness gate-primitives table in
+  [`skills/project-agentification/references/playbooks/gates.md`](./skills/project-agentification/references/playbooks/gates.md).
+
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the
 agent.

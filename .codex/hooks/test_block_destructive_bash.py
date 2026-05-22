@@ -235,6 +235,9 @@ def run_subprocess_smoke():
         {"tool_name": "Read", "tool_input": {"file_path": "/etc/passwd"}}
     )
     payload_non_object = json.dumps(["Bash", {"command": "rm -rf /etc"}])
+    payload_shell_block = json.dumps(
+        {"tool_name": "Shell", "tool_input": {"command": "rm -rf /etc"}}
+    )
 
     failures = []
 
@@ -287,6 +290,18 @@ def run_subprocess_smoke():
     )
     if proc.returncode != 2:
         failures.append(f"non-object payload: expected exit 2, got {proc.returncode}")
+
+    proc = subprocess.run(
+        [sys.executable, str(HOOK_PATH)],
+        input=payload_shell_block,
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+    if proc.returncode != 2:
+        failures.append(
+            f"Shell (Cursor) block payload: expected exit 2, got {proc.returncode}"
+        )
 
     with tempfile.TemporaryDirectory(prefix="hook-missing-policy-") as tmp:
         tmp_hook = pathlib.Path(tmp) / ".codex" / "hooks" / HOOK_PATH.name

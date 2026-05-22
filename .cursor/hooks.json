@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "matcher": "Shell",
+        "command": "python3 \"$CURSOR_PROJECT_DIR/.cursor/hooks/block-destructive-bash.py\"",
+        "failClosed": true
+      }
+    ]
+  }
+}

@@ -603,7 +603,9 @@ def main():
     if not isinstance(payload, dict):
         return _block_uninspectable("payload is not a JSON object")
 
-    if payload.get("tool_name") != "Bash":
+    # Recognize each harness's shell-tool name. Claude Code and Codex emit
+    # "Bash"; Cursor emits "Shell". Any other tool name is out of scope.
+    if payload.get("tool_name") not in ("Bash", "Shell"):
         return 0
 
     tool_input = payload.get("tool_input", {})

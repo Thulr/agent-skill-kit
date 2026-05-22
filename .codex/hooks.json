@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 '.codex/hooks/block-destructive-bash.py'"
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/block-destructive-bash.py\""
           }
         ]
       }

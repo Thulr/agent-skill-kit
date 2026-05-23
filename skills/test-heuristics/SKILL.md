@@ -1,13 +1,13 @@
 ---
 name: test-heuristics
-description: Use when reviewing, designing, triaging, or rationalizing test suites — unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, or performance tests. Trigger for flakiness triage, false-pass risk, brittleness on refactor, suite pruning, test-pyramid/trophy decisions, exploratory charters, and snapshot review. Routes by activity (triage / review / author / strategize / prune) and layer.
+description: Use when reviewing, designing, triaging, or rationalizing test suites — unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, or performance tests. Trigger for flakiness triage, false-pass risk, brittleness on refactor, suite pruning, test-pyramid/trophy decisions, exploratory charters, and snapshot review. Routes by activity (triage / review / author / strategize / prune) and layer. Do not use for production-system performance / SLOs (use `perf-observability-heuristics`).
 license: MIT
 ---
 
 # Test Heuristics
 
-Practical test-suite review, design, triage, strategy, and pruning for any
-testing layer a developer writes, runs, debugs, or maintains. Provenance and
+Test-suite review, design, triage, strategy, and pruning for any testing
+layer a developer writes, runs, debugs, or maintains. Provenance and
 grounding sources live in `skill.json`; this file is runtime routing only.
 
 ## Core principle
@@ -29,9 +29,8 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
 
 ## Workflow
 
-1. **Pick activity.** Load `references/activity-router.csv`. Match the
-   prompt to: `triage`, `review`, `author`, `strategize`, `prune`.
-   Ambiguous → ask once.
+1. **Pick activity.** Load `references/activity-router.csv`. Match to:
+   `triage`, `review`, `author`, `strategize`, `prune`. Ambiguous → ask once.
 2. **Pick layer.** Load `references/activities/<activity>.csv`. Match to
    one or more layers, or `all` for cross-layer treatment (`review`
    fan-out, `strategize` integrative pass). Ambiguous → ask with the

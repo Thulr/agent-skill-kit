@@ -1,6 +1,6 @@
 ---
 name: skill-reviewer
-description: Use when reviewing or editing proposed or existing public skills for structure, metadata, source safety, usefulness, validation, and release readiness.
+description: Use when reviewing or editing proposed or existing public skills for structure, metadata, source safety, usefulness, validation, and release readiness. Do not use for building a new skill from source material; use `skill-curator` for that.
 metadata:
   internal: true
 ---

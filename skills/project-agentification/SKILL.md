@@ -1,6 +1,6 @@
 ---
 name: project-agentification
-description: Use when assessing a repository's agent-readiness, hardening it against agent failure modes, scaffolding AGENTS.md / SKILL.md / MCP servers / hooks / specs from observed failures, or diagnosing why coding agents trip on this repo. Also trigger for AGENTS.md review, agent-native repo design, harness engineering, MCP exposure, agent eval setup, sandbox/approval design, context-rot debugging, repository maturity assessment, or "make this repo work better with Claude Code / Cursor / Codex / Copilot / Windsurf / Aider."
+description: Use when assessing a repository's agent-readiness, hardening it against agent failure modes, scaffolding AGENTS.md / SKILL.md / MCP servers / hooks / specs from observed failures, or diagnosing why coding agents trip on this repo. Also trigger for AGENTS.md review, agent-native repo design, harness engineering, MCP exposure, agent eval setup, sandbox/approval design, context-rot debugging, repository maturity assessment, or "make this repo work better with Claude Code / Cursor / Codex / Copilot / Windsurf / Aider." Do not use when you already have eval suites / run telemetry and want to promote recurring agent failures into rules from evidence; use `evidence-driven-agent-rules` for that.
 license: MIT
 ---
 

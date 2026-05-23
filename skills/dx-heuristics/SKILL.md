@@ -1,13 +1,13 @@
 ---
 name: dx-heuristics
-description: Use when evaluating, designing, or debugging developer experience for APIs, SDKs, CLIs, docs, examples, setup, errors, local dev, build/test workflows, migrations, package contracts, contributor workflows, auth, IDE integration, plugins, performance, or telemetry. Also trigger for DX reviews, developer onboarding friction, confusing integration steps, dev-facing interface design, or PR feedback about developer usability.
+description: Use when evaluating, designing, or debugging developer experience for APIs, SDKs, CLIs, docs, examples, setup, errors, local dev, build/test workflows, migrations, package contracts, contributor workflows, auth, IDE integration, plugins, performance, or telemetry. Also trigger for DX reviews, developer onboarding friction, confusing integration steps, dev-facing interface design, or PR feedback about developer usability. Do not use for product-end-user UX or accessibility (use `ux-accessibility-heuristics`) or for production-system performance / SLOs (use `perf-observability-heuristics`).
 license: MIT
 ---
 
 # DX Heuristics
 
-Practical developer-experience review, design, debugging, and risk-scan for any
-surface a developer has to install, call, debug, extend, test, or maintain.
+Developer-experience review, design, debugging, and risk-scan for any surface
+a developer has to install, call, debug, extend, test, or maintain.
 Provenance and grounding sources live in `skill.json`; this file is runtime
 routing only.
 

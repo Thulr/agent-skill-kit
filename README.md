@@ -55,7 +55,7 @@ npx skills add Thulr/informed-skills --skill dx-heuristics
 
 Practical test-suite review, design, triage, strategy, and pruning across unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Core principle: *a test exists to catch the bugs that ship in this code class — and to be diagnosable when it fails.*
 
-Grounded in canonical testing literature (full provenance in [`skills/test-heuristics/skill.json`](./skills/test-heuristics/skill.json)). Routes by activity (`triage` / `review` / `author` / `strategize` / `prune`) and layer, with the same parallel-lens discipline used by `dx-heuristics`.
+Grounded in canonical testing literature (full provenance in [`skills/test-heuristics/skill.json`](./skills/test-heuristics/skill.json)). Routes by intent (`triage` / `review` / `author` / `strategize` / `prune`) and surface, with the same parallel-lens discipline used by `dx-heuristics`.
 
 Install just this skill:
 
@@ -71,7 +71,7 @@ keyboard access, focus, semantics, contrast, and dark-pattern risk.
 
 Grounded in usability literature and WCAG 2.2 (full provenance in
 [`skills/ux-accessibility-heuristics/skill.json`](./skills/ux-accessibility-heuristics/skill.json)).
-Routes by use case (`usability-audit` / `accessibility-audit` / `form-review`
+Routes by intent (`usability-audit` / `accessibility-audit` / `form-review`
 / `navigation-review` / `error-recovery`) and distinguishes likely WCAG issues
 from checks that need manual or specialist confirmation.
 
@@ -91,7 +91,7 @@ a runnable artifact, not only a usability/accessibility inspection.
 Grounded in project-local design workflow notes plus canonical usability,
 accessibility, and design-system sources (full provenance in
 [`skills/ui-design-craft/skill.json`](./skills/ui-design-craft/skill.json)).
-Routes by use case (`product-ui` / `design-system` / `prototype` / `deck` /
+Routes by intent (`product-ui` / `design-system` / `prototype` / `deck` /
 `motion-scene` / `host-handoff` / `quality-review`) and supports guided,
 autopilot, or question-heavy design modes.
 
@@ -147,7 +147,7 @@ npx skills add Thulr/informed-skills --skill clean-architecture
 
 Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry). **For any repo that wants coding agents to work well in it** — no eval / benchmark / telemetry prerequisites; scaffolds from project knowledge (stack, layout, commands, invariants).
 
-Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × sub-surface (10 across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research (full provenance in [`skills/project-agentification/skill.json`](./skills/project-agentification/skill.json)).
+Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × surface (11 surfaces across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research (full provenance in [`skills/project-agentification/skill.json`](./skills/project-agentification/skill.json)).
 
 Install just this skill:
 

@@ -1,7 +1,7 @@
 # Scaffold Bundle — <scope-name>
 
 **Date:** <YYYY-MM-DD>
-**Sub-surfaces in scope:** <e.g., instruction-surface, skills, gates>
+**Surfaces in scope:** <e.g., instruction-surface, skills, gates>
 **Mode:** preview-then-write (per-file confirmation required)
 
 ## Project knowledge driving this scaffold

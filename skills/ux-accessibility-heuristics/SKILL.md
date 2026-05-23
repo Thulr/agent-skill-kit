@@ -76,7 +76,7 @@ manual or specialist confirmation.
 
 - `references/intent-router.csv` - intent router.
 - `references/starter-scenarios.csv` - named worked examples for bare invocation.
-- `references/playbooks/*.md` - use-case playbooks.
+- `references/playbooks/*.md` - per-intent playbooks.
 - `references/core/severity-rubric.md` - 0-4 severity scale.
 - `references/trackable-findings.md` - ledger and closeout workflow.
 - `references/modes.md` - Guided Draft / Autopilot / Grill Me contract (shared).

@@ -79,7 +79,7 @@ If sub-agents are unavailable in the current environment, run the same three len
 
 ## Cross-layer fan-out (`review` intent only)
 
-When the user picks `--surface=all` for a `review`, iterate the rows of `references/intents/review.csv` and fan out one sub-agent **per surface row** — do not hardcode the layer list here; the CSV is the source of truth and layers may be added or renamed. The orchestrator does **not** load the layer playbooks itself — each spawned layer agent loads only its own playbook.
+When the user picks `--surface=all` for a `review`, iterate the rows of `references/intents/review.csv` and fan out one sub-agent **per surface row** — do not hardcode the surface list here; the CSV is the source of truth and surfaces may be added or renamed. The orchestrator does **not** load the layer playbooks itself — each spawned surface agent loads only its own playbook (`references/layers/<surface>.md`).
 
 ### Each layer sub-agent
 

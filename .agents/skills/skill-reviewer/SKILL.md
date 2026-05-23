@@ -7,6 +7,8 @@ metadata:
 
 # Skill Reviewer
 
+**Produces:** structured review findings (issue list with severity + suggested fix per issue); for proposed skill changes with implied edit authority, also emits patched files. Long-running reviews persist `templates/workflow-state.json`.
+
 ## Overview
 
 Review public and repo-local skills for release readiness, structure, source

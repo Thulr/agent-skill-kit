@@ -8,8 +8,9 @@ license: MIT
 
 Developer-experience review, design, debugging, and risk-scan for any surface
 a developer has to install, call, debug, extend, test, or maintain.
-Provenance and grounding sources live in `skill.json`; this file is runtime
-routing only.
+Provenance lives in `skill.json`; this file is runtime routing only.
+
+**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `debug-runbook.md` / `edge-checklist.md`; tracked audits also emit `dx-heuristics-findings-ledger-<date>-<slug>.md` + `dx-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 
@@ -83,22 +84,17 @@ invocation; default to Guided Draft on concrete invocations.
 
 ## Output requirements
 
-Every output includes:
-
-- Target developer persona.
-- Playbook(s) applied.
-- Intent-specific load-bearing section: findings (audit), acceptance criteria
-  (design), prevention (debug), re-run trigger (edge-pass).
-- Verification — how to prove the change worked.
-- Grounding sources applied from `skill.json.inspired_by`.
+Every output includes target developer persona, playbook(s) applied, the
+intent-specific load-bearing section (findings / acceptance criteria /
+prevention / re-run trigger, per intent), verification, and grounding
+sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
 **Default for `audit` and `edge-pass`;** preferred for `design`; optional for
-`debug`; skip tiny deterministic or secret-bound work. Spawn three lenses in
-parallel — **first-time integrator**, **maintainer**, **adversarial
-debugger** — per `references/subagent-dispatch.md`. Without delegation, run
-the lenses sequentially and preserve disagreements as open questions.
+`debug`; skip tiny deterministic or secret-bound work. Spawn three lenses in parallel —
+**first-time integrator**, **maintainer**, **adversarial debugger** —
+per `references/subagent-dispatch.md`.
 
 ## Reference map
 

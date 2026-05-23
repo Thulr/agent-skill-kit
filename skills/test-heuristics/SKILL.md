@@ -6,9 +6,10 @@ license: MIT
 
 # Test Heuristics
 
-Test-suite review, design, triage, strategy, and pruning for any testing
-layer a developer writes, runs, debugs, or maintains. Provenance and
-grounding sources live in `skill.json`; this file is runtime routing only.
+Test-suite review, design, triage, strategy, and pruning. Provenance lives
+in `skill.json`; this file is runtime routing only.
+
+**Produces:** activity-specific report (`review-report.md` / `author-design.md` / `triage-runbook.md` / `strategy-doc.md` / `prune-plan.md`); tracked reviews also emit `test-heuristics-findings-ledger-<date>-<slug>.md` + `test-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 
@@ -84,16 +85,14 @@ invocation; default to Guided Draft on concrete invocations.
 
 Every output includes target persona, layer/purpose, the template's
 load-bearing section, failure modes on findings, verification, and grounding
-sources applied from `skill.json.inspired_by`.
+sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
 **Default for `review` and `prune`;** preferred for `author`; optional for
 `triage`; skip tiny deterministic or secret-bound tasks. Spawn three lenses
 in parallel — **intent reader**, **refactor adversary**, **bug-shape
-hunter** — per `references/subagent-dispatch.md`. If the host lacks
-delegation, run the lenses sequentially and still preserve disagreements as
-open questions.
+hunter** — per `references/subagent-dispatch.md`.
 
 ## Reference map
 

@@ -15,6 +15,8 @@ direction, state/effect isolation, and feature/module structure. User-facing
 visual UX, forms, navigation, and accessibility route to
 `ux-accessibility-heuristics`.
 
+**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `refactor-runbook.md` / `explanation.md`; tracked audits also emit `clean-architecture-findings-ledger-<date>-<slug>.md` + `clean-architecture-workflow-state-<date>-<slug>.json`.
+
 ## Core principle
 
 **Dependency direction is load-bearing.** Inner, more abstract code never

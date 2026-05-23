@@ -23,6 +23,8 @@ If the repo has no benchmark, no eval suite, no telemetry baseline, and
 no "we observed the agent doing X" stream, use `project-agentification`
 alone. This skill needs a signal to drive promotion.
 
+**Produces:** intent-specific output — `capture` writes the reflection-log scaffold (`docs/reflection-log/README.md` + `_template.md` + repo-root `README.md §Agents` pointer); `promote` proposes the smallest rule / hook / CI-gate diff plus the entries it cites; `assess-l4l5` writes a Level 4–5 maturity score, ceiling, and prioritized gaps. Tracked `assess-l4l5` runs also emit `evidence-driven-agent-rules-findings-ledger-<date>-<slug>.md` + `evidence-driven-agent-rules-workflow-state-<date>-<slug>.json`.
+
 ## Core principle
 
 **Single observations are cheap to record; rules cost trust to ship.**
@@ -125,6 +127,23 @@ patterns → no evidence-driven rule).
    `audit-artifacts/evidence-driven-agent-rules-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
    Report both paths. Roadmaps, issues, promotion changes, and non-tracking
    project-file edits still require confirmation.
+
+## Output requirements
+
+Every output cites the reflection-log entries it draws on (filenames + the
+`## What to do differently` lines). Per intent:
+
+- **`capture`** — list of files written + the repo-root `README.md §Agents` pointer
+  block diff + validation checklist (does the log directory exist, is the
+  template populated, does README.md link to it).
+- **`promote`** — the proposed rule sentence / hook / CI gate + the ≥3
+  reflection-log entries that justified it + the AGENTS.md / hook /
+  workflow-file diff for confirmation. Refuses promotion if the group has
+  <3 entries (W1 floor); for gates, also requires the gate-hardening
+  variant matrix and regression fixture.
+- **`assess-l4l5`** — maturity score per layer (Levels 4–5) + ceiling +
+  prioritized gap list with stable IDs (`ED-L4L5-NNN`); tracked runs also
+  produce the findings ledger and workflow-state JSON above.
 
 ## Recording bar vs. promotion bar
 

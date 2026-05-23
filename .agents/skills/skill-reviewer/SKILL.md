@@ -58,8 +58,8 @@ skills.
 3. Read `SKILL.md`, `skill.json` if present, the router files used by that
    skill, and any referenced files needed for the review.
 4. Confirm every public reference/template needed by the skill is mapped from a
-   router, and that selected rows load only the files needed for each intent,
-   intent, activity, layer, or sub-surface.
+   router, and that selected rows load only the files needed for each intent
+   or surface.
 5. Apply the review rubric and assign stable IDs like `SR-<area>-NNN` to
    trackable findings using `references/trackable-findings.md`.
 6. If fixes are clear and the user asked for edit authority, edit files

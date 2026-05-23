@@ -7,7 +7,7 @@ repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
-registry="$skill_dir/references/use-case-registry.csv"
+router="$skill_dir/references/intent-router.csv"
 playbook_dir="$skill_dir/references/playbooks"
 
 failures=0
@@ -28,7 +28,7 @@ check_pattern() {
 
 check_file "$skill_md"
 check_file "$skill_json"
-check_file "$registry"
+check_file "$router"
 check_file "$skill_dir/references/core/severity-rubric.md"
 check_file "$skill_dir/references/trackable-findings.md"
 check_file "$skill_dir/templates/audit-report.md"
@@ -46,28 +46,28 @@ fi
 if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter name' '^name:[[:space:]]*ux-accessibility-heuristics$' "$skill_md"
   check_pattern 'frontmatter license' '^license:' "$skill_md"
-  check_pattern 'bare activation' 'use-case menu' "$skill_md"
-  check_pattern 'registry routing' 'use-case-registry\.csv' "$skill_md"
+  check_pattern 'bare activation' 'intent menu' "$skill_md"
+  check_pattern 'router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'tracking state' 'Create tracking state' "$skill_md"
   wc=$(wc -w < "$skill_md")
   (( wc < 800 )) || fail "SKILL.md word count $wc exceeds 800"
 fi
 
-if [[ -f "$registry" ]]; then
-  rows=$(grep -cE '^(usability-audit|accessibility-audit|form-review|navigation-review|error-recovery),' "$registry")
-  (( rows == 5 )) || fail "use-case-registry.csv: expected 5 data rows, got $rows"
+if [[ -f "$router" ]]; then
+  rows=$(grep -cE '^(usability-audit|accessibility-audit|form-review|navigation-review|error-recovery),' "$router")
+  (( rows == 5 )) || fail "intent-router.csv: expected 5 data rows, got $rows"
   while IFS='|' read -r details templates; do
     IFS=';' read -ra dparts <<< "$details"
     for p in "${dparts[@]}"; do
       [[ -z "$p" ]] && continue
-      [[ -f "$skill_dir/$p" || -L "$skill_dir/$p" ]] || fail "registry references missing detail file: $p"
+      [[ -f "$skill_dir/$p" || -L "$skill_dir/$p" ]] || fail "router references missing detail file: $p"
     done
     IFS=';' read -ra tparts <<< "$templates"
     for p in "${tparts[@]}"; do
       [[ -z "$p" ]] && continue
-      [[ -f "$skill_dir/$p" || -L "$skill_dir/$p" ]] || fail "registry references missing template: $p"
+      [[ -f "$skill_dir/$p" || -L "$skill_dir/$p" ]] || fail "router references missing template: $p"
     done
-  done < <(python3 - "$registry" <<'PYEOF'
+  done < <(python3 - "$router" <<'PYEOF'
 import csv, sys
 with open(sys.argv[1], newline='') as f:
     for row in csv.DictReader(f):

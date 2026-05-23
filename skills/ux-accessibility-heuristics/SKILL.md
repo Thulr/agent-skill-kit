@@ -20,17 +20,17 @@ or use a pointing device to recover, the product has a UX problem.
 
 - **Bare invocation** (`"use ux-accessibility-heuristics"`, `"UX audit"`,
   `"accessibility review"`): load `references/starter-scenarios.csv` and
-  `references/use-case-registry.csv`, then show the use-case menu with the
-  named starter scenarios on top (each pre-routes use-case + persona) and
+  `references/intent-router.csv`, then show the intent menu with the
+  named starter scenarios on top (each pre-routes intent + persona) and
   offer the mode choice (Guided Draft / Autopilot / Grill Me). Wait. No
   file inspection, network calls, or writes.
-- **Concrete invocation** with a use case inferable: skip to step 3.
+- **Concrete invocation** with an intent inferable: skip to step 3.
 - **Ambiguous concrete invocation**: ask one blocker question identifying the
-  use case or target user/task before inspecting private systems.
+  intent or target user/task before inspecting private systems.
 
 ## Workflow
 
-1. **Pick use case.** Load `references/use-case-registry.csv`. Route to
+1. **Pick intent.** Load `references/intent-router.csv`. Route to
    `usability-audit`, `accessibility-audit`, `form-review`,
    `navigation-review`, or `error-recovery`.
 2. **Load context.** Load only the CSV row's `detail_files` and template.
@@ -63,7 +63,7 @@ Three shared modes — Guided Draft (default), Autopilot, Grill Me — set
 depth-vs-speed up front. Full contract in
 [`references/modes.md`](./references/modes.md) (canonical at
 `skills/_shared/modes.md`). Offer the mode at bare invocation, before loading
-the use-case router; on concrete invocations, default to Guided Draft.
+the intent router; on concrete invocations, default to Guided Draft.
 
 ## Output requirements
 
@@ -74,7 +74,7 @@ manual or specialist confirmation.
 
 ## Reference map
 
-- `references/use-case-registry.csv` - use-case router.
+- `references/intent-router.csv` - intent router.
 - `references/starter-scenarios.csv` - named worked examples for bare invocation.
 - `references/playbooks/*.md` - use-case playbooks.
 - `references/core/severity-rubric.md` - 0-4 severity scale.

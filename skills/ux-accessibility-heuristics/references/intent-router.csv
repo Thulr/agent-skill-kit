@@ -1,4 +1,4 @@
-use_case,trigger_examples,detail_files,templates,notes
+intent,trigger_examples,detail_files,templates,notes
 usability-audit,"UX audit; heuristic evaluation; users are confused","references/playbooks/usability.md;references/core/severity-rubric.md;references/trackable-findings.md","templates/audit-report.md;templates/findings-ledger.md;templates/workflow-state.json","General user-facing product UX review."
 accessibility-audit,"WCAG audit; keyboard review; screen reader risk; contrast and focus","references/playbooks/accessibility.md;references/core/severity-rubric.md;references/trackable-findings.md","templates/audit-report.md;templates/findings-ledger.md;templates/workflow-state.json","Accessibility baseline review; not a legal certification."
 form-review,"Signup form drop-off; checkout form; onboarding wizard","references/playbooks/forms.md;references/playbooks/accessibility.md;references/core/severity-rubric.md;references/trackable-findings.md","templates/audit-report.md;templates/findings-ledger.md;templates/workflow-state.json","Forms, validation, field order, labels, recovery."

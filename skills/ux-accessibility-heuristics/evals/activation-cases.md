@@ -2,7 +2,7 @@
 
 ## Positive cases
 
-- "Use ux-accessibility-heuristics." -> bare invocation; show use-case menu.
+- "Use ux-accessibility-heuristics." -> bare invocation; show intent menu.
 - "Our signup form has 60% drop-off." -> `form-review`; load forms + accessibility playbooks.
 - "Audit our checkout page for WCAG 2.2 AA." -> `accessibility-audit`; state that this is not legal certification.
 - "Users cannot find billing settings." -> `navigation-review`.
@@ -17,7 +17,7 @@
 
 ## Behavioral assertions
 
-- Bare invocation loads only `references/use-case-registry.csv` and waits.
+- Bare invocation loads only `references/intent-router.csv` and waits.
 - Concrete invocation loads only the selected row's files.
 - Accessibility output distinguishes likely WCAG failures from items needing
   manual or specialist confirmation.

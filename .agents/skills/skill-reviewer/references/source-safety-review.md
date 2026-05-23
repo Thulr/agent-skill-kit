@@ -11,9 +11,9 @@ reproduce the source?
 - `SKILL.md` contains runtime instructions, not source marketing.
 - References paraphrase ideas into frameworks, rubrics, workflows, or examples.
 - Public grounding references are concise and operational: they map source
-  families to heuristics, caveats, use cases, or validation criteria.
+  families to heuristics, caveats, intents, or validation criteria.
 - Public grounding references are reachable through
-  `references/use-case-registry.csv` and loaded only for relevant use cases.
+  `references/intent-router.csv` and loaded only for relevant intents.
 - The skill does not provide a substitute for the book, movie, article, or talk.
 - Research claims have enough provenance in local dossiers or user-provided
   notes.

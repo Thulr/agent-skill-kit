@@ -22,7 +22,7 @@ check_pattern() {
 }
 
 check_file "$skill_md"
-check_file "$skill_dir/references/use-case-registry.csv"
+check_file "$skill_dir/references/intent-router.csv"
 check_file "$skill_dir/references/review-rubric.md"
 check_file "$skill_dir/references/source-safety-review.md"
 check_file "$skill_dir/references/contract-drift-review.md"
@@ -43,10 +43,10 @@ check_pattern 'review report has findings ledger section' '^## Findings ledger' 
 check_pattern 'review report forbids mere offer' 'offer tracking' "$skill_dir/templates/review-report.md"
 check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
-check_pattern 'registry maps tracking reference' 'trackable-findings\.md' "$skill_dir/references/use-case-registry.csv"
-check_pattern 'registry maps ledger template' 'templates/findings-ledger\.md' "$skill_dir/references/use-case-registry.csv"
-check_pattern 'registry maps workflow-state template' 'templates/workflow-state\.json' "$skill_dir/references/use-case-registry.csv"
-check_pattern 'registry maps contract drift mode' '^contract-drift-audit,' "$skill_dir/references/use-case-registry.csv"
+check_pattern 'registry maps tracking reference' 'trackable-findings\.md' "$skill_dir/references/intent-router.csv"
+check_pattern 'registry maps ledger template' 'templates/findings-ledger\.md' "$skill_dir/references/intent-router.csv"
+check_pattern 'registry maps workflow-state template' 'templates/workflow-state\.json' "$skill_dir/references/intent-router.csv"
+check_pattern 'registry maps contract drift mode' '^contract-drift-audit,' "$skill_dir/references/intent-router.csv"
 check_pattern 'contract drift reference maps CI parity' 'CI parity' "$skill_dir/references/contract-drift-review.md"
 check_pattern 'contract drift reference maps symlink integrity' 'Symlink integrity' "$skill_dir/references/contract-drift-review.md"
 

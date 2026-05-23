@@ -60,7 +60,7 @@ If the user only invokes this skill, ask for one source seed:
 
 ## Workflow
 
-1. Load `references/use-case-registry.csv`.
+1. Load `references/intent-router.csv`.
 2. Load the relevant detail files for the source type and requested output.
 3. Inspect the repo's current public skills to align with existing
    conventions (`skill.json` schema, eval patterns, path layout). Read
@@ -130,7 +130,7 @@ file in `references/shapes/`. In short:
   files.
 - **Single-layer (hub-and-spoke)** — adds `references/`, optional
   `templates/`, optional `evals/`, with a single registry CSV routing
-  the use cases.
+  the intents.
 - **Two-level routing** — adds `references/intent-router.csv`,
   `references/intents/<intent>.csv`, `references/playbooks/<surface>.md`,
   shared `references/core/` rubrics, `templates/<intent>.md`, and `evals/`
@@ -142,7 +142,7 @@ it short, paraphrased, and routed through the skill's own registry.
 
 ## Reference Map
 
-- `references/use-case-registry.csv` — curator's own use-case routing.
+- `references/intent-router.csv` — curator's own intent routing.
 - `references/research-dossier-playbook.md` — web research and dossier rules.
 - `references/pack-placement-rubric.md` — capability-pack categorization.
 - `references/depth-rubric.md` — choose flat / single-layer / two-level.

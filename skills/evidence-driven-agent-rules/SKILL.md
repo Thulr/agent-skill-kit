@@ -51,8 +51,9 @@ The skill loads `references/playbooks/reflection-log.md`, writes
 `README.md §Agents` pointer block if it doesn't already exist (so the log
 is discoverable from the always-loaded surface). **Precondition:** if
 `AGENTS.md` already exists but doesn't link to the reflection log,
-`capture` refuses — wire the log into AGENTS.md first (see
-`project-agentification` for the `§Reflection-log workflow` template).
+`capture` refuses — wire the log into AGENTS.md first. The reflection-log
+block template lives at
+`project-agentification`'s `templates/artifacts/instruction-surface/AGENTS.md`.
 The README explicitly
 distinguishes the **recording bar** (low — one observation with a
 `What to do differently` line is enough) from the **promotion bar** (high —

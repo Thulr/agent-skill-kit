@@ -1,6 +1,22 @@
 <!-- Load-bearing section: Re-run trigger -->
 # DX Edge-Case Pass: <surface(s)>
 
+## First impressions
+- Score: <passed> / <applicable> (from `references/first-impressions-checklist.md`;
+  skipped items reduce the denominator — e.g. `8 / 9 (1 skipped)`)
+- Failed items: list the numbered checklist items that returned "no". Example:
+  `2 (install not on first screen), 5 (--version returns "dev")`.
+  Omit this line if all applicable items pass. Skip this whole section only
+  when none of the 10 items apply (e.g. a pure internal API with no README,
+  install, CLI, error path, or changelog).
+- **Edge-pass treatment:** failed items become severity ≥ 2 risk blocks in
+  the relevant category below (use the severity floors in
+  `references/first-impressions-checklist.md` as minimums). On
+  `edge-pass/first-impressions` routes the checklist is the primary content
+  — list each failed item as a Risk block under its mapped playbook's
+  category; other edge-pass routes treat the section as a quick top-line
+  signal alongside their narrower risk inventory.
+
 ## Scope
 - Surfaces covered: <list>
 - Target developer: <persona from references/core/personas.md>

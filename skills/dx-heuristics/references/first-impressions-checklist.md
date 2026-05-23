@@ -6,6 +6,19 @@ looking at the repo, registry page, or first-run output. Apply this as the
 opening of any `audit` or `edge-pass` regardless of the deeper surface, so the
 basics are not hidden behind a 7/10 score.
 
+The output contract is template-specific:
+
+- `templates/audit-report.md` — fill the `## First impressions` section at
+  the top; failed items become findings; the per-surface 0–10 score caps at
+  7 if more than two applicable items fail.
+- `templates/audit-report-multi.md` — fill the `## First impressions`
+  section once at the project level; failed items route to the relevant
+  per-surface report as severity ≥ 2 findings.
+- `templates/edge-checklist.md` — fill the `## First impressions` section
+  at the top; failed items become severity ≥ 2 risk blocks in the relevant
+  category. On `edge-pass/first-impressions` routes the checklist is the
+  primary content.
+
 ## How to use
 
 - Run through the list before scoring; record `yes`, `no`, or `n/a` per item.

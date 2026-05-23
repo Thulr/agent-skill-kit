@@ -21,10 +21,10 @@
       "kind": "book | paper | talk | article | blog | repo",
       "url": "<URL or DOI>",
       "contribution": "<one-line: what this source contributed to the skill>",
-      "playbooks": ["<sub-surface-1>", "<sub-surface-2-or-marker>"]
+      "playbooks": ["<surface-1>", "<surface-2-or-marker>"]
     }
   ],
-  "//inspired_by": "Required, non-empty. The 'kind' is one of: book, paper, talk, article, blog, repo. 'contribution' must be a single line; 'playbooks' references either a sub-surface name (from references/layer-router.csv) or a 'all'/'<activity>-activity' marker depending on skill structure.",
+  "//inspired_by": "Required, non-empty. The 'kind' is one of: book, paper, talk, article, blog, repo. 'contribution' must be a single line; 'playbooks' references either a surface name (from references/surface-router.csv) or an 'all'/'<intent>-intent' marker depending on skill structure.",
 
   "//SKILL.md-pairing": "This file pairs with SKILL.md (frontmatter: name, description, license). The name here MUST match SKILL.md's frontmatter name AND the directory name. trigger-evals.json's 'skill' field MUST also match."
 }

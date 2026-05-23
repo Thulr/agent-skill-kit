@@ -38,7 +38,7 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 
 ## Edge cases — could be either; ask once
 
-1. "Make our docs better." → could be `dx-heuristics` (developer docs) or `project-agentification` (docs-index sub-surface for agents). Ask: "for human readers or for AI agents?"
+1. "Make our docs better." → could be `dx-heuristics` (developer docs) or `project-agentification` (docs-index surface for agents). Ask: "for human readers or for AI agents?"
 2. "Add a hook." → could mean Claude Code hook (this skill, `gates` playbook) or generic Git hook. Ask: "Claude Code PreToolUse/PostToolUse hook, or a Git hook?"
 3. "Set up CI for our agent." → overlaps with general DevOps, but activates when the question is about agent-specific gates, runner trust, or required-check enforcement.
 
@@ -55,12 +55,12 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
   - If the user requests reflection-log-driven scaffolding, redirect to
     `evidence-driven-agent-rules` (this skill is project-context-first,
     not evidence-driven).
-- On `assess` invocation with a specific sub-surface:
-  - Load only that sub-surface's playbook (plus warnings + rubric).
+- On `assess` invocation with a specific surface:
+  - Load only that surface's playbook (plus warnings + rubric).
   - Run all four lenses on it.
-  - Score that sub-surface only; not the whole repo.
+  - Score that surface only; not the whole repo.
 - On CI/runner-trust prompts:
-  - Route to the `ci-runners` control sub-surface.
+  - Route to the `ci-runners` control surface.
   - Compare runner labels, workflow events, token/secret exposure, required-check parity, and docs claims against actual enforcement.
 - On any output, every finding has a severity (0–4) and every recommendation has at least one source citation from `skill.json`.
 - On large `assess` output (7+ findings) or any severity 3–4 finding:

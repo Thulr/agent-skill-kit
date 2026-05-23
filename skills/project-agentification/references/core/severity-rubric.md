@@ -20,5 +20,5 @@ Applied to every finding in `harden`, `scaffold`, `diagnose`, and to each gap in
 
 ## Notes
 
-- A finding's severity is independent of its layer or sub-surface.
+- A finding's severity is independent of its layer or surface.
 - A single missing artifact can be severity 1 for `cold-context-agent` (minor friction) and severity 4 for `adversarial` (exfiltration vector). Report the **higher** severity and note the contributing lenses.

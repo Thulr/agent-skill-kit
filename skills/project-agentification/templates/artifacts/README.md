@@ -1,7 +1,7 @@
 # Artifact templates
 
 Skeletons for the files the `project-agentification` `scaffold` intent
-produces. Organized by sub-surface (instruction-surface, gates, governance,
+produces. Organized by surface (instruction-surface, gates, governance,
 skills, reflection-log).
 
 ## How these differ from `templates/*.md`
@@ -11,10 +11,10 @@ The four templates at `templates/` (`assess-report.md`, `harden-recommendation.m
 templates** — what the skill emits when it runs. They are *not* artifacts
 the skill writes to the target repo.
 
-Files under `templates/artifacts/<sub-surface>/` are **artifact templates** —
+Files under `templates/artifacts/<surface>/` are **artifact templates** —
 skeletons the skill copies into the target repo as part of a `scaffold` run.
 Each artifact template is referenced from at least one `scaffold`-tier
-heuristic in `references/playbooks/<sub-surface>.md`.
+heuristic in `references/playbooks/<surface>.md`.
 
 ## W9 compliance
 

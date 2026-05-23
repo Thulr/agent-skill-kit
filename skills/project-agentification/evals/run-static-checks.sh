@@ -36,7 +36,7 @@ for d in references references/playbooks references/core templates evals; do
 done
 
 # 4. CSV routers exist and have headers
-for csv in references/intent-router.csv references/layer-router.csv; do
+for csv in references/intent-router.csv references/surface-router.csv; do
   if [ -f "$csv" ]; then
     head -1 "$csv" | grep -q "," && ok "CSV has header: $csv" || err "CSV missing header: $csv"
   else
@@ -44,9 +44,9 @@ for csv in references/intent-router.csv references/layer-router.csv; do
   fi
 done
 
-# 5. Every playbook referenced in layer-router.csv exists
+# 5. Every playbook referenced in surface-router.csv exists
 # Use python csv module to parse properly (handles quoted comma-containing values)
-if [ -f references/layer-router.csv ]; then
+if [ -f references/surface-router.csv ]; then
   while IFS= read -r path; do
     [ -z "$path" ] && continue
     if [ -f "references/$path" ]; then
@@ -56,7 +56,7 @@ if [ -f references/layer-router.csv ]; then
     fi
   done < <(python3 -c "
 import csv
-with open('references/layer-router.csv') as f:
+with open('references/surface-router.csv') as f:
     for row in csv.DictReader(f):
         print(row['playbook'])
 ")
@@ -64,7 +64,7 @@ fi
 
 # 5b. Playbook progressive-disclosure discipline.
 # These playbooks are allowed to be larger than DX/test playbooks because each
-# sub-surface carries cross-harness implementation tables, empirical warnings,
+# surface carries cross-harness implementation tables, empirical warnings,
 # examples, and scaffold-template pointers. They are still bounded: every
 # playbook must use the same navigable section shape and stay under the
 # explicit 3200-word ceiling (the largest current exception is gates.md).
@@ -140,11 +140,11 @@ else
 fi
 
 # 7d. CI runner trust playbook
-if grep -q '^control,ci-runners,' references/layer-router.csv &&
+if grep -q '^control,ci-runners,' references/surface-router.csv &&
    [ -f references/playbooks/ci-runners.md ] &&
    grep -q 'self-hosted runners' references/playbooks/ci-runners.md &&
    grep -q 'required-check parity' references/playbooks/ci-runners.md; then
-  ok "ci-runners sub-surface is routed and covers runner trust"
+  ok "ci-runners surface is routed and covers runner trust"
 else
   err "ci-runners playbook must be routed and cover self-hosted runner trust + required-check parity"
 fi

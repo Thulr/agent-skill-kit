@@ -9,7 +9,7 @@
     {
       "query": "<natural-language prompt that should trigger this skill>",
       "should_activate": true,
-      "expected_route": "<route-id from references/layer-router.csv or null>",
+      "expected_route": "<route-id from references/surface-router.csv or null>",
       "category": "positive"
     },
     {

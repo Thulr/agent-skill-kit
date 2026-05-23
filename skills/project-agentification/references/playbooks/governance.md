@@ -72,7 +72,7 @@ and below the regulatory layer (NIST AI RMF), covering:
 - **H4.** Hook override unlogged → instrument every PreToolUse override as a structured event
   (tool, args, exit code, actor, timestamp, rationale) in an append-only log at `docs/audit/`.
 - **H5.** Human rejection events not captured → add `docs/reflection-log/` (directory; one file
-  per rejection per the reflection-log sub-surface template) — each entry records session ID,
+  per rejection per the reflection-log surface template) — each entry records session ID,
   agent recommendation, human decision, rationale, and proposed eval case; promote entries to
   `agent/evals/` within one sprint. **Recording bar (one entry) is lower than promotion bar
   (≥3 same-gap entries → scaffold rule)**; the README in the log directory must spell this out

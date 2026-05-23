@@ -60,6 +60,28 @@ credentials.
   documented; scripts can rely on them.
 - **Affordant prefixes** *(audit, design)* — output uses consistent visual
   prefixes (✓ ✗ ⚠) so the developer sees state at a glance.
+- **`--version` and `version`** *(audit, design)* — both forms work and emit
+  the same string including a build identifier; scripts can rely on the
+  output to detect the installed version.
+- **Shell completions** *(design, audit)* — completion scripts for bash, zsh,
+  and fish are shipped (or generatable via `<tool> completions <shell>`);
+  install instructions appear in `--help` or the README.
+- **`NO_COLOR` and `--no-color` honored** *(audit)* — the `NO_COLOR`
+  environment variable and `--no-color` flag both disable color output;
+  agreement is mandatory because users learn one convention and expect both.
+- **Env-var forms of flags** *(design, audit)* — every commonly used flag has
+  an env-var equivalent (`TOOL_VERBOSE=1` ≡ `--verbose`) so scripts and CI
+  do not have to interleave flag strings.
+- **XDG / platform-correct paths** *(design, audit)* — config and cache file
+  locations follow XDG base dirs on Linux, `~/Library/Application Support`
+  on macOS, and `%APPDATA%` on Windows; hard-coded paths are a portability
+  bug.
+- **Update-notifier with opt-out** *(design)* — when a newer version exists,
+  the tool prints a one-line nudge after a successful command, throttled and
+  silenceable via env var or config; nudges never interrupt output.
+- **`--format` and `--output`** *(design, audit)* — long-running or
+  list-output commands expose `--format json|yaml|table` so the same command
+  is usable in scripts and at the terminal without two tool invocations.
 
 ## Quick diagnostic
 
@@ -77,3 +99,7 @@ credentials.
 - → `errors.md` for error message text and recovery copy.
 - → `setup.md` for install path and bootstrap commands.
 - → `auth.md` if the CLI handles credentials.
+- → `logging.md` for `--verbose` semantics, `doctor`/`status` subcommands,
+  and trace-ID propagation in CLI output.
+- → `config.md` for config-file precedence (defaults → file → env → flag).
+- → `package.md` for the install footprint and registry-page surface.

@@ -1,8 +1,19 @@
 <!-- Load-bearing section: Findings -->
 # DX Audit: <surface>
 
+## First impressions
+- Score: <passed> / <applicable> (from `references/first-impressions-checklist.md`;
+  skipped items reduce the denominator — e.g. `8 / 9 (1 skipped)`)
+- Failed items: list the numbered checklist items that returned "no". Example:
+  `2 (install not on first screen), 5 (--version returns "dev")`.
+  Omit this line if all applicable items pass. Skip this whole section only
+  when none of the 10 items apply (e.g. a pure internal API with no README,
+  install, CLI, error path, or changelog).
+
 ## Score
-- Current: <0-10>
+- Current: <0-10> (capped at 7 if more than two applicable first-impressions
+  items failed; the cap floats with the applicable denominator, so a
+  6 / 9 scan with 3 fails still triggers the cap)
 - Target: 10/10
 - Target developer: <persona from references/core/personas.md>
 - Intended outcome: <task the developer should accomplish>

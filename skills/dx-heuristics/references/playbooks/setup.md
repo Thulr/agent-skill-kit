@@ -72,6 +72,24 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
 - **Version-skew detection** *(audit, debug)* — setup reads the detected
   runtime version and warns (or errors) if the major version does not match
   what the project requires.
+- **Time-to-hello-world target** *(design, audit)* — a documented target
+  exists for "clone to first visible success" (commonly five or ten minutes
+  on a clean machine); the target is measured periodically, not aspirational.
+- **Committed runtime pin** *(design, audit)* — a runtime-version manifest
+  (`.nvmrc`, `.tool-versions`, `.python-version`, `rust-toolchain.toml`) is
+  committed so version managers pick up the right version automatically; a
+  contributor doing `nvm use` succeeds without reading docs.
+- **Dev-container or Codespaces support** *(design)* — a `.devcontainer/`
+  config or Codespaces template lets a first-time user click "open in
+  container" and bypass local setup entirely; especially load-bearing when
+  the dependency set is heavy.
+- **Post-setup next-step pointer** *(design, audit)* — the last line of
+  successful setup names the next command to run, not "you're all set."
+  "Setup complete. Try: `<tool> hello`" beats a vague success message.
+- **Scaffold / init command for new users** *(design)* — for tools that
+  generate projects (CLIs, frameworks), a `<tool> init` or `npx create-X`
+  command scaffolds a working starter so the user can paste-and-go without
+  hand-rolling a project layout.
 
 ## Quick diagnostic
 
@@ -89,3 +107,8 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
 - → `inner-loop.md` for the edit-run-test cycle after setup is complete.
 - → `docs.md` for setup-doc patterns (it's a how-to, not a tutorial).
 - → `contributor.md` for fresh-fork onboarding.
+- → `readme.md` for the install command that appears on the README's first
+  screen.
+- → `package.md` for install footprint, peer dependencies, and registry
+  metadata.
+- → `config.md` for runtime configuration distinct from one-time install.

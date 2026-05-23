@@ -92,6 +92,18 @@ typed-exception design.
 - **Secret hygiene** *(audit)* — secrets are masked in all error paths: logs,
   structured error objects, `--verbose` output, and exception messages. Audit
   every log sink when adding debug context.
+- **Stable error-code catalog** *(audit, design)* — every error class has a
+  stable, documented code (e.g. `auth.token_expired`, `db.constraint_violation`);
+  codes do not change between versions and a public catalog page lists them
+  with cause and fix.
+- **TTY-aware rendering** *(audit, design)* — error output adapts to TTY vs
+  pipe: colored and indented in a terminal, plain and parseable when piped
+  to a log file or CI runner. The same root cause produces the same message
+  text in both forms.
+- **"Did you mean" specifically for typos** *(design, audit)* — when an
+  unrecognized command, flag, field, or symbol is within Levenshtein
+  distance two of a known one, the error includes a "Did you mean
+  `<closest>`?" pointer. Absent suggestion forces a documentation hunt.
 
 ## Quick diagnostic
 
@@ -108,3 +120,5 @@ typed-exception design.
 - → `api.md` for HTTP error envelope shape.
 - → `cli.md` for CLI error output formatting.
 - → `sdk.md` for typed-exception design.
+- → `logging.md` for continuous log streams distinct from one-shot errors.
+- → `config.md` for config-validation error message copy.

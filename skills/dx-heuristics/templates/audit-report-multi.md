@@ -1,6 +1,23 @@
 <!-- Load-bearing section: Findings -->
 # DX Audit (multi-surface): <project / target>
 
+## First impressions
+- Score: <passed> / <applicable> (from `references/first-impressions-checklist.md`;
+  skipped items reduce the denominator — e.g. `8 / 9 (1 skipped)`)
+- Failed items: list the numbered checklist items that returned "no". Run
+  the 30-second pass once at the project level before fanning out to
+  per-surface scoring; "no" results become findings in the relevant
+  per-surface report below.
+- **How the cap interacts with per-surface scores:** the 7/10 cap from the
+  single-surface template does **not** lower individual per-surface scores
+  in this report — each surface is scored on its own merits below. Instead,
+  treat the project-level first-impressions score as the headline number
+  the reader sees first, and route failed items to the relevant
+  per-surface report as severity ≥ 2 findings (severity floors are in
+  `references/first-impressions-checklist.md`). If the project rolls up to
+  an overall score, apply the cap to that overall score, not to the
+  per-surface scores.
+
 ## Scope
 - Surfaces audited: <e.g., all 14, or listed subset>
 - Target developer: <persona from references/core/personas.md>

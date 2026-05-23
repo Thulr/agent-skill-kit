@@ -1,7 +1,7 @@
 {
   "name": "dx-heuristics",
-  "description": "Practical developer-experience review, design, debug, and edge-case pass for APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, and telemetry. Grounded in canonical DX/UX literature.",
-  "version": "0.3.0",
+  "description": "Practical developer-experience review, design, debug, and edge-case pass for APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, telemetry, README and first-impressions, package and distribution, examples and samples, logging and runtime introspection, runtime configuration, changelog and release notes, and AI-agent readiness. Grounded in canonical DX/UX literature.",
+  "version": "0.4.0",
   "license": "MIT",
   "status": "published",
   "maintainers": ["@Thulr"],
@@ -9,7 +9,8 @@
     "dx", "developer-experience",
     "api", "sdk", "cli", "docs", "errors",
     "setup", "inner-loop", "contributor",
-    "auth", "migration", "plugin", "ide", "perf", "telemetry"
+    "auth", "migration", "plugin", "ide", "perf", "telemetry",
+    "readme", "package", "examples", "logging", "config", "changelog", "agent"
   ],
   "inspired_by": [
     {
@@ -211,6 +212,78 @@
       "year": 2017,
       "contribution": "Latency framing: percentile matters (p50 hides the tail); average vs p99; head-of-line blocking.",
       "playbooks": ["perf"]
+    },
+    {
+      "name": "Producing Open Source Software",
+      "author": "Karl Fogel",
+      "kind": "book",
+      "year": 2005,
+      "contribution": "The README as the project's front door: name, value, install, first use, link out. Welcoming patterns for evaluators and contributors alike.",
+      "playbooks": ["readme", "contributor"]
+    },
+    {
+      "name": "Open Source Guides",
+      "author": "GitHub",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational patterns for README, CONTRIBUTING, CODEOWNERS, issue and PR templates as surfaces that surface the right context at the right time.",
+      "playbooks": ["readme", "contributor"]
+    },
+    {
+      "name": "Semantic Versioning 2.0.0",
+      "author": "Tom Preston-Werner",
+      "kind": "guide",
+      "year": 2013,
+      "contribution": "MAJOR.MINOR.PATCH contract: breaking changes bump MAJOR, additions bump MINOR, fixes bump PATCH. The version is a contract integrators rely on.",
+      "playbooks": ["package", "changelog", "migration"]
+    },
+    {
+      "name": "Supply-chain Levels for Software Artifacts (SLSA)",
+      "author": "OpenSSF",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Provenance, signed releases, two-factor publish, immutable version tags, reproducible builds as the baseline for any package other people install.",
+      "playbooks": ["package"]
+    },
+    {
+      "name": "Stripe Samples",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational pattern for a samples surface: one repo per language, CI'd against the current SDK, runnable in five minutes, curated rather than community-dumped.",
+      "playbooks": ["examples"]
+    },
+    {
+      "name": "Keep a Changelog",
+      "author": "Olivier Lacan",
+      "kind": "guide",
+      "year": 2014,
+      "contribution": "Chronological changelog with stable categories (Added/Changed/Deprecated/Removed/Fixed/Security), Unreleased section at the top, version-and-date heading per release.",
+      "playbooks": ["changelog"]
+    },
+    {
+      "name": "AGENTS.md convention",
+      "author": "agents.md contributors",
+      "kind": "guide",
+      "year": null,
+      "contribution": "A hand-curated repo-root file that coding agents read first to learn project context, commands, invariants, and load-bearing rules. The single source of truth across harnesses.",
+      "playbooks": ["agent"]
+    },
+    {
+      "name": "Model Context Protocol Specification",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Uniform protocol for exposing tools, resources, and prompts to coding agents. Speaking MCP gets every conforming host the same capabilities without per-host plugins.",
+      "playbooks": ["agent"]
+    },
+    {
+      "name": "Evidence-Driven Agent Scaffolding",
+      "author": "Mündler et al. (ETH Zürich / LogicStar.ai)",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Scaffolding written from fewer than three observed failures produces plausible boilerplate that hurts agent success; rules must be promoted from a logged pattern, not invented.",
+      "playbooks": ["agent"]
     }
   ]
 }

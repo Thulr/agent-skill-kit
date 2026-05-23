@@ -81,6 +81,22 @@ autocomplete and hover-doc shape.
 - **Robustness on read** *(audit)* — unknown or optional fields in API
   responses are ignored or preserved, not panicked or discarded silently;
   serialization out is strict.
+- **Version disclosure** *(audit, design)* — the SDK exposes its own version
+  string at runtime (`client.version`, `__version__`) and includes that
+  version in the User-Agent header on outbound requests. Support can trace
+  any request back to a specific SDK build.
+- **Cancellation and deadlines** *(design, audit)* — every long-running
+  method accepts a timeout or cancellation token native to the language
+  (`context.Context` in Go, `AbortSignal` in JS, `asyncio.timeout` in
+  Python). Callers can cancel without leaking connections.
+- **Debug-mode logging hook** *(design, audit)* — the SDK exposes a logger
+  interface and a `debug` mode that emits request and response data with
+  secrets masked. Callers do not have to monkey-patch internals to see what
+  is on the wire.
+- **Pinned-and-printable construction** *(audit, design)* — the client
+  constructor accepts every option a script would override (base URL,
+  timeout, retry policy, transport) and exposes them on the instance so an
+  integrator can verify the effective configuration at runtime.
 
 ## Quick diagnostic
 
@@ -98,3 +114,7 @@ autocomplete and hover-doc shape.
 - → `api.md` for the underlying HTTP/RPC contract and error envelope.
 - → `errors.md` for exception message copy and recovery hints.
 - → `ide.md` for autocomplete and hover-doc shape.
+- → `package.md` for type definitions, source maps, and registry-page metadata
+  that ship with the SDK.
+- → `examples.md` for runnable sample apps integrators paste from.
+- → `logging.md` for the SDK's debug-mode and secret-redaction contract.

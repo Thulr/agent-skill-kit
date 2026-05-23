@@ -1,6 +1,9 @@
 id,scenario,intent,surface,persona,when_to_pick
-S1,"CLI that customers complain is confusing — flags inconsistent, errors unclear, --help unhelpful",audit,cli,cli-user,"You ship a CLI and want a structured pass on the developer's command-line experience"
-S2,"SDK pre-release — want to catch the things first-time integrators will hit before launch",audit,sdk,sdk-integrator,"Pre-launch readiness check on an SDK or client library"
+S0,"30-second basics pass — does the README have install + example, does --help work, is there a LICENSE and CHANGELOG, does fresh-install succeed",edge-pass,first-impressions,evaluator,"You want to catch the obvious-stuff gaps before scoring deeper surfaces; the fastest possible on-ramp"
+S1,"CLI that customers complain is confusing — flags inconsistent, errors unclear, --help unhelpful",audit,cli,first-time-user,"You ship a CLI and want a structured pass on the developer's command-line experience"
+S2,"SDK pre-release — want to catch the things first-time integrators will hit before launch",audit,sdk,integrator,"Pre-launch readiness check on an SDK or client library"
 S3,"Customer reported a confusing error message that wasted hours; want to know if the class of problem is widespread",debug,errors,maintainer,"A specific error-message incident triggered the request; you want the surface-wide pattern"
-S4,"Designing a new SDK from scratch — want to lock the public shape before code is written",design,sdk,sdk-integrator,"Pre-implementation design check; you want heuristics applied to the shape, not the code"
+S4,"Designing a new SDK from scratch — want to lock the public shape before code is written",design,sdk,integrator,"Pre-implementation design check; you want heuristics applied to the shape, not the code"
 S5,"Pre-launch hardening pass across docs, errors, CLI, examples — broad scan for the things that look fine but won't survive contact",edge-pass,all,maintainer,"Final pre-ship sweep across every DX surface"
+S6,"README is mostly badges and marketing — evaluators bounce before they reach the install command",audit,readme,evaluator,"You suspect the first 60 seconds of the project is losing potential users"
+S7,"Coding agents (Claude Code, Cursor, Copilot) trip on this repo — wrong context, blocked commands, repeated mistakes",audit,agent,integrator,"You want to know what an agent-fluent integrator hits and how to fix AGENTS.md and MCP surface"

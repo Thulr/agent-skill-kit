@@ -41,7 +41,10 @@ non-trivial `What to do differently` line.
 The single-entry recording flow is `capture` — scaffold the reflection log so
 you can record observations as agents trip on the repo. Run it like this:
 
-> `Set up a reflection log for this repo.`
+> `Run capture: scaffold the reflection log for this repo.`
+
+(Naming the intent up front avoids the bare-invocation path, which would
+show the intent menu and wait without writing anything.)
 
 The skill loads `references/playbooks/reflection-log.md`, writes
 `docs/reflection-log/README.md` + `_template.md`, and adds a repo-root

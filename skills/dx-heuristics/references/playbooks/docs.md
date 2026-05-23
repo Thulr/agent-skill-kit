@@ -70,6 +70,22 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
   distinct. Pages pass a 30-second scan test.
 - **Task-before-concept** *(design)* — task docs come first; concept and
   architecture docs are linked from tasks, not the other way around.
+- **Copy-button on code blocks** *(design, audit)* — every code block in the
+  docs has a one-click copy affordance; the developer never has to
+  hand-select the text to paste-and-run.
+- **Version selector** *(design, audit)* — when the docs cover more than one
+  released version, a visible selector switches between them and persists
+  across navigation; users on an older version are not silently served the
+  latest docs.
+- **Broken-link CI** *(audit)* — internal links and external references are
+  exercised in CI; broken links fail the build before they reach users.
+- **Retrieval-friendly headings** *(design)* — headings are specific
+  ("Configuring retry backoff" beats "Configuration") so chunks retrieved
+  by search or by agents make sense on their own. Wide nav with shallow
+  pages beats deep pages with everything dumped in.
+- **Edit-on-GitHub footer** *(design, audit)* — every page links to its
+  source for direct contribution; small fixes flow back as PRs without the
+  contributor learning the docs build first.
 
 ## Quick diagnostic
 
@@ -87,3 +103,6 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
 - → `setup.md` for install-specific documentation friction.
 - → `errors.md` for troubleshooting-doc and error-message UX overlap.
 - → `migration.md` for upgrade guide patterns.
+- → `readme.md` for the README that funnels evaluators into the docs site.
+- → `examples.md` for the runnable samples docs link out to.
+- → `agent.md` for retrieval-friendly structuring optimized for AI agents.

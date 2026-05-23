@@ -79,6 +79,21 @@ the PR loop layered on top of the inner loop.
 - **Lead time as a tracked metric** *(audit)* — measure how long a single
   change takes from first edit to merged. Rising lead time is an early signal
   that the inner loop is accumulating friction.
+- **Incremental type-check on save** *(design, audit)* — typecheck recomputes
+  only the affected files on save (TypeScript project references, mypy
+  incremental, etc.); a multi-second pause on every keystroke is a
+  configuration gap.
+- **Watch-mode debounce** *(design, audit)* — file-system watchers debounce
+  rapid changes (e.g. branch switches) so a `git checkout` does not trigger
+  a hundred sequential rebuilds; a documented debounce window exists.
+- **Test selection from a failing file** *(design, audit)* — a documented
+  command runs only the tests affected by a given file or function (`vitest
+  --related <file>`, `pytest tests/test_x.py::test_y`); developers iterate
+  on one failure without rerunning the suite.
+- **Monorepo task graph** *(design, audit)* — in multi-package repos, a task
+  runner (Nx, Turborepo, Bazel, or equivalent) builds and tests only the
+  changed packages and their dependents; full-graph rebuilds are reserved
+  for release time.
 
 ## Quick diagnostic
 

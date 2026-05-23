@@ -1,8 +1,16 @@
 <!-- Load-bearing section: Findings -->
 # DX Audit: <surface>
 
+## First impressions
+- Score: <N> / 10 (from `references/first-impressions-checklist.md`)
+- Failed items: <list the numbered checklist items that returned "no" — e.g.,
+  "2 (install not on first screen), 5 (--version returns 'dev')">. Omit this
+  line if all items pass. Skip this section only when the surface is one
+  where the checklist genuinely does not apply (e.g. a pure internal API
+  with no README, install, or CLI).
+
 ## Score
-- Current: <0-10>
+- Current: <0-10> (capped at 7 if more than two first-impressions items failed)
 - Target: 10/10
 - Target developer: <persona from references/core/personas.md>
 - Intended outcome: <task the developer should accomplish>

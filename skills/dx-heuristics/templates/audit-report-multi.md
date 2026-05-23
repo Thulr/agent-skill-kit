@@ -1,6 +1,13 @@
 <!-- Load-bearing section: Findings -->
 # DX Audit (multi-surface): <project / target>
 
+## First impressions
+- Score: <N> / 10 (from `references/first-impressions-checklist.md`)
+- Failed items: <list the numbered checklist items that returned "no">. Run
+  the 30-second pass once at the project level before fanning out to
+  per-surface scoring; "no" results become findings in the relevant
+  per-surface report below.
+
 ## Scope
 - Surfaces audited: <e.g., all 14, or listed subset>
 - Target developer: <persona from references/core/personas.md>

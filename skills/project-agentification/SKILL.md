@@ -22,11 +22,11 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 
 ## Quickstart
 
-The 90% case is `assess` × `instruction-surface` — "is AGENTS.md doing its job?" Run it like this:
+The 90% case is `assess` × the `legibility` layer — "are AGENTS.md, specs, and the docs-index doing their jobs?" Run it like this:
 
 > `Assess the legibility layer of this repo.`
 
-The skill loads `references/intent-router.csv` → `assess`, scopes to the `legibility` layer (instruction-surface, specs, docs-index), dispatches the four pre-write lenses against each surface, scores 1–5 per surface, and emits `assess-report.md`. With 7+ findings or severity 3–4, it also writes the findings ledger and workflow-state JSON named above.
+The skill loads `references/intent-router.csv` → `assess`, scopes to the three `legibility` surfaces (instruction-surface, specs, docs-index), dispatches the four pre-write lenses against each surface, scores the layer 1–5 (layer score = min across assessed surfaces, per the maturity rubric), and emits `assess-report.md`. With 7+ findings or any severity 3–4, it also writes the ledger + workflow-state pair under `docs/audits/` (filenames in Workflow step 10).
 
 For `harden`, `scaffold`, or `diagnose`, pick the intent first; the routing taxonomy below explains the surface choices for each. **Scope** (which repos this skill fits, why, and when to pair with `evidence-driven-agent-rules`) lives at [`references/scope.md`](./references/scope.md).
 

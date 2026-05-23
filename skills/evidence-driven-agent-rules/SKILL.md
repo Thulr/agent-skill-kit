@@ -44,8 +44,9 @@ you can record observations as agents trip on the repo. Run it like this:
 > `Set up a reflection log for this repo.`
 
 The skill loads `references/playbooks/reflection-log.md`, writes
-`docs/reflection-log/README.md` + `_template.md`, and adds the `AGENTS.md
-§Agents` pointer block if it doesn't already exist. The README explicitly
+`docs/reflection-log/README.md` + `_template.md`, and adds a repo-root
+`README.md §Agents` pointer block if it doesn't already exist (so the log
+is discoverable from the always-loaded surface). The README explicitly
 distinguishes the **recording bar** (low — one observation with a
 `What to do differently` line is enough) from the **promotion bar** (high —
 ≥3 entries describing the same gap), so reviewers and agents don't

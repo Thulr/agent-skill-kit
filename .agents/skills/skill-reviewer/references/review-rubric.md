@@ -9,9 +9,10 @@ Score each category as pass, fix, or block.
   `.agents/skills/<name>/` for repo-local authoring/review skills.
 - `SKILL.md` exists. Public installable skills also have `skill.json`.
 - Routed skills have one accepted router shape:
-  `references/use-case-registry.csv`, `references/intent-router.csv` plus
-  `references/intents/*.csv`, `references/activity-router.csv` plus
-  `references/activities/*.csv`, or `references/layer-router.csv`.
+  `references/intent-router.csv` alone (single-axis), or
+  `references/intent-router.csv` plus `references/intents/*.csv` (two-axis
+  with intent × surface), or `references/surface-router.csv` (used by
+  `project-agentification` for its level-2 surface picker).
 - `skill.json.name` matches frontmatter `name`.
 - `skill.json.status` is `draft`, `reviewed`, or `published`, and installable
   public skills in this repo use `published` before shipping. `reviewed` is
@@ -27,7 +28,7 @@ Score each category as pass, fix, or block.
 - Workflows are specific enough for another agent to run.
 - Heavy knowledge lives in references, not only in `SKILL.md`.
 - Router rows load only the detail files and templates needed for the matched
-  use case; rows should not point to the whole knowledge base by default.
+  intent; rows should not point to the whole knowledge base by default.
 - The skill can be useful to a user who has not read or watched the source.
 
 ## Grounding And Provenance
@@ -36,7 +37,7 @@ Score each category as pass, fix, or block.
 - `SKILL.md` does not contain author biographies, further-reading sections,
   source marketing, long bibliographies, or source summaries.
 - Public grounding references, when present, are concise operational maps:
-  source family, derived heuristic, caveat, and relevant use case.
+  source family, derived heuristic, caveat, and relevant intent.
 - Detailed research trails, notes, and source URLs belong in local dossiers or
   user-provided notes, not in runtime instructions.
 
@@ -88,12 +89,12 @@ a template.
   menu from `<registry>.csv`," every option the workflow accepts (including
   special meta-values like `all`) is either a row in that CSV or explicitly
   added to the menu instructions.
-- **Special meta-values are documented per parent scope.** When a registry
-  CSV contains a meta-value row (e.g., layer = `all`, surface = `any`,
-  mode = `auto`), the workflow text says *which parent activities/intents
-  support that meta-value* and *what semantics each one applies* — single
+- **Special meta-values are documented per parent scope.** When a router
+  CSV contains a meta-value row (e.g., surface = `all`, surface = `any`,
+  mode = `auto`), the workflow text says *which parent intents support
+  that meta-value* and *what semantics each one applies* — single
   integrative pass, fan-out, etc. A workflow that says "`all` is review
-  only" while another activity's CSV also has an `all` row creates a
+  only" while another intent's CSV also has an `all` row creates a
   silent gap: the agent reads the workflow literally and never offers
   the `all` path for the other activity. Walk every CSV row that uses a
   meta-value and confirm the SKILL.md workflow names both the activity

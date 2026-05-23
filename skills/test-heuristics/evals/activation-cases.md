@@ -11,7 +11,7 @@ logs.
 
 **Prompt:** `Use test-heuristics.`
 
-**Expected:** Loads `references/activity-router.csv`, shows the activity menu
+**Expected:** Loads `references/intent-router.csv`, shows the intent menu
 (`triage` / `review` / `author` / `strategize` / `prune`), and waits. No file
 inspection, commands, network calls, or writes.
 
@@ -122,6 +122,6 @@ closed issue is evidence to inspect, not proof that a finding is closed.
 ## Load discipline
 
 For a clear `review/unit` prompt, the skill should load
-`activity-router.csv`, `activities/review.csv`, `layers/unit.md`, and the
+`intent-router.csv`, `intents/review.csv`, `layers/unit.md`, and the
 row's core refs only. It may load the review template. It should not load every
 layer playbook "for context."

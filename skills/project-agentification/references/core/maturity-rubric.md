@@ -35,13 +35,13 @@ Used by `assess`. Score each layer (legibility / action / control) independently
 
 ## Per-layer scoring
 
-The same five levels apply within each layer. The layer score is **the minimum across its assessed sub-surfaces.** Example: if `instruction-surface` is Level 4 but `docs-index` is Level 1, the Legibility layer is Level 1.
+The same five levels apply within each layer. The layer score is **the minimum across its assessed surfaces.** Example: if `instruction-surface` is Level 4 but `docs-index` is Level 1, the Legibility layer is Level 1.
 
 Overall maturity = min(legibility, action, control).
 
 ## How to use during `assess`
 
-1. For each loaded sub-surface playbook, decide which level best describes the current state.
+1. For each loaded surface playbook, decide which level best describes the current state.
 2. Take the min within each layer.
 3. Report per-layer scores plus the overall ceiling.
 4. The prioritized stage in `templates/assess-report.md` should target the weakest layer first.

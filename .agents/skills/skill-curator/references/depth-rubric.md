@@ -8,7 +8,7 @@ curated skills land at **single-layer**.
 | Shape | Anatomy in short | Use when |
 |---|---|---|
 | **Flat** | `SKILL.md` + 0–2 supporting files | One procedure or one well-named technique. No internal branching. |
-| **Single-layer** (hub-and-spoke) | `SKILL.md` + `references/` + optional `templates/`/`evals/` + one registry CSV | 3–8 distinct use cases that share rubrics, output templates, or vocabulary. |
+| **Single-layer** (hub-and-spoke) | `SKILL.md` + `references/` + optional `templates/`/`evals/` + one registry CSV | 3–8 distinct intents that share rubrics, output templates, or vocabulary. |
 | **Two-level routing** | `SKILL.md` + intent-router CSV + intent-specific CSVs + per-surface playbooks + shared `core/` rubrics + per-intent `templates/` + `evals/` with static check | Two orthogonal dimensions (intent × surface, mode × topic) where each leaf needs distinct content. |
 
 Full anatomy per shape: `shapes/flat.md`, `shapes/single-layer.md`,
@@ -23,7 +23,7 @@ Run these in order. Stop at the first depth that comfortably fits.
    - 3–8 → single-layer
    - 9+ → consider two-level
 
-2. **Are use cases orthogonal — can they be described as a matrix?**
+2. **Are intents orthogonal — can they be described as a matrix?**
    Examples of orthogonal axes: intent × surface, audience × format,
    mode × topic.
    - Yes → two-level may help
@@ -49,14 +49,14 @@ promoted; an over-engineered two-level skill rarely gets flattened back.
 
 Signals that a flat skill should become single-layer:
 
-- A second clearly-distinct use case appears.
+- A second clearly-distinct intent appears.
 - An output template would be reused enough to deserve its own file.
 - Three or more rubrics or vocabularies start to share text.
 
 Signals that a single-layer skill should become two-level:
 
-- The registry needs a second axis (not just "use case" but
-  "use case × audience" or "intent × surface").
+- The registry needs a second axis (not just "intent" but
+  "intent × audience" or "intent × surface").
 - A single leaf needs to load 9+ distinct chunks of content depending on
   context.
 - One leaf grows past ~1500 words — that's usually several variants
@@ -65,7 +65,7 @@ Signals that a single-layer skill should become two-level:
 ## Canonical examples
 
 - **Flat:** `skills/example-minimal/` (or any single-file skill).
-- **Single-layer:** most user-facing skills with one use-case registry.
+- **Single-layer:** most user-facing skills with one intent registry.
 - **Two-level:** `skills/dx-heuristics/` (intent: audit/design/debug/edge-pass
   × surface: api/sdk/cli/docs/errors/...).
 

@@ -30,7 +30,7 @@
 
 ## Edge
 
-- Bare "UI designer" invocation shows modes and use cases, then waits.
+- Bare "UI designer" invocation shows modes and intents, then waits.
 - If a design system is named but unavailable, ask for it or state the
   from-scratch fallback before inventing visuals.
 - If the user asks to copy a third-party product's distinctive UI without

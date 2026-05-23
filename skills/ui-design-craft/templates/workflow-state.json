@@ -2,7 +2,7 @@
   "skill": "ui-design-craft",
   "version": "0.1.0",
   "status": "in_progress",
-  "use_case": "<product-ui|design-system|prototype|deck|motion-scene|host-handoff|quality-review>",
+  "intent": "<product-ui|design-system|prototype|deck|motion-scene|host-handoff|quality-review>",
   "artifact_paths": [],
   "decisions": {
     "audience": "",

@@ -35,7 +35,7 @@
       "kind": "book",
       "year": 2002,
       "contribution": "Spec-purpose framing, the red/green/refactor cadence, and the discipline of writing the test that drives the design.",
-      "playbooks": ["unit", "author-activity"]
+      "playbooks": ["unit", "author-intent"]
     },
     {
       "name": "Unit Testing: Principles, Practices, and Patterns",
@@ -43,7 +43,7 @@
       "kind": "book",
       "year": 2020,
       "contribution": "The four-quadrant test-value model: protection-against-regressions x resistance-to-refactoring x fast-feedback x maintainability. Anchors the false-pass mode and the score rubric's robustness dimension.",
-      "playbooks": ["unit", "review-activity"]
+      "playbooks": ["unit", "review-intent"]
     },
     {
       "name": "Explore It! Reduce Risk and Increase Confidence with Exploratory Testing",
@@ -83,7 +83,7 @@
       "kind": "book",
       "year": 2008,
       "contribution": "The agile testing quadrants and the practical framing of test-strategy decisions across layers.",
-      "playbooks": ["e2e-ui", "strategize-activity"]
+      "playbooks": ["e2e-ui", "strategize-intent"]
     },
     {
       "name": "Succeeding with Agile",
@@ -91,7 +91,7 @@
       "kind": "book",
       "year": 2009,
       "contribution": "The original test pyramid framing - bias toward fast unit tests at the base, fewer integration tests, fewest UI tests at the top.",
-      "playbooks": ["strategize-activity"]
+      "playbooks": ["strategize-intent"]
     },
     {
       "name": "The Testing Trophy",
@@ -99,7 +99,7 @@
       "kind": "essay",
       "year": 2018,
       "contribution": "An alternative to the pyramid emphasizing integration tests as the highest-value layer for typical web apps; informs the strategy playbook's discussion of layer investment.",
-      "playbooks": ["strategize-activity"]
+      "playbooks": ["strategize-intent"]
     },
     {
       "name": "The Practical Test Pyramid",
@@ -107,7 +107,7 @@
       "kind": "essay",
       "year": 2018,
       "contribution": "Concrete practical layer definitions and the often-quoted critique that pyramid is more shape-suggestion than rule.",
-      "playbooks": ["strategize-activity", "e2e-ui"]
+      "playbooks": ["strategize-intent", "e2e-ui"]
     },
     {
       "name": "Approval Testing",

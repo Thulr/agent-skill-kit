@@ -1,7 +1,7 @@
 # Scaffold Bundle — <scope-name>
 
 **Date:** <YYYY-MM-DD>
-**Sub-surfaces in scope:** <e.g., instruction-surface, skills, gates>
+**Surfaces in scope:** <e.g., instruction-surface, skills, gates>
 **Mode:** preview-then-write (per-file confirmation required)
 
 ## Project knowledge driving this scaffold
@@ -20,7 +20,7 @@
 
 ## Harness inventory (step 4.5)
 
-> **Required for `instruction-surface` and `gates` sub-surfaces.** Names every harness in use on this repo so the scaffold produces per-harness equivalents — not just the one whose dotfile happens to exist. Filesystem signals tell you which harnesses are *known*, not which are *all in use*.
+> **Required for `instruction-surface` and `gates` surfaces.** Names every harness in use on this repo so the scaffold produces per-harness equivalents — not just the one whose dotfile happens to exist. Filesystem signals tell you which harnesses are *known*, not which are *all in use*.
 
 - Claude Code: <yes | no | unknown>
 - Cursor: <yes | no | unknown>
@@ -33,7 +33,7 @@
 ## Proposed files
 
 > **Template column required.** Every proposed file should cite a starting
-> template from `templates/artifacts/<sub-surface>/` (see `templates/artifacts/README.md`).
+> template from `templates/artifacts/<surface>/` (see `templates/artifacts/README.md`).
 > If no template fits, name that explicitly in the row — the post-write
 > auditor (step 8.5) treats "no template cited" as a shape-compliance miss
 > unless the writer states why no template applies.

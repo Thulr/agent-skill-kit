@@ -3,7 +3,7 @@
 ## What it is
 
 CI runner posture is the trust model for checks that agents rely on before
-code can merge. This sub-surface covers GitHub Actions runner selection,
+code can merge. This surface covers GitHub Actions runner selection,
 fork-PR behavior, checkout credentials, `GITHUB_TOKEN` permissions,
 environment secrets, required-check parity, and whether documentation claims
 match live branch-protection settings.

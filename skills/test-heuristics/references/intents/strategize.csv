@@ -1,4 +1,4 @@
-layer,name,when_to_use,playbook,core_refs
+surface,name,when_to_use,playbook,core_refs
 all,Cross-layer strategy,"Decide what to test at which layer; shape the suite as a portfolio",references/layers/unit.md;references/layers/integration.md;references/layers/e2e-ui.md;references/layers/exploratory.md;references/layers/property-based.md;references/layers/contract.md;references/layers/snapshot.md;references/layers/mutation.md;references/layers/performance.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/core/failure-modes.md
 unit,Unit-layer investment,"Just deciding unit-test policy",references/layers/unit.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 integration,Integration-layer investment,"Deciding integration test scope",references/layers/integration.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md

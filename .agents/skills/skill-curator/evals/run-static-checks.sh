@@ -4,7 +4,7 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
-registry="$skill_dir/references/use-case-registry.csv"
+registry="$skill_dir/references/intent-router.csv"
 
 failures=0
 
@@ -36,7 +36,7 @@ check_file "$skill_dir/templates/candidate-plan.md"
 check_file "$skill_dir/evals/activation-cases.md"
 
 check_pattern 'frontmatter name' '^name:[[:space:]]*skill-curator$' "$skill_md"
-check_pattern 'registry routing' 'use-case-registry\.csv' "$skill_md"
+check_pattern 'registry routing' 'intent-router\.csv' "$skill_md"
 check_pattern 'published status contract' 'status` to `published`' "$skill_md"
 check_pattern 'repo tag maturity contract' 'repository tag' "$skill_md"
 

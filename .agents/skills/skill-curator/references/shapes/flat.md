@@ -57,7 +57,7 @@ Keep them minimal when the trigger is simple, but do not omit them.
 
 Promote to single-layer when any of these are true:
 
-- A second clearly-distinct use case appears.
+- A second clearly-distinct intent appears.
 - An output template would be reused enough to deserve its own file.
 - Three or more rubrics or vocabularies start to share text.
 - `SKILL.md` is creeping past 500 lines.
@@ -65,7 +65,7 @@ Promote to single-layer when any of these are true:
 ## Anti-patterns
 
 - **A flat skill with 10 different procedures stuffed into one SKILL.md.**
-  Split into single-layer; group by registered use case.
+  Split into single-layer; group by registered intent.
 - **A flat skill whose SKILL.md grows past 800 words on one procedure.**
   Move detail into a `references/` file even if the skill stays
   effectively flat.

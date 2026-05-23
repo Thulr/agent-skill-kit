@@ -44,14 +44,14 @@ Use:
 - `skill.json.inspired_by` for concise source attribution
 - `skill.json.source_note` for the non-substitution boundary
 - a short registry-mapped grounding reference when the source mapping matters,
-  such as source family, derived heuristic, caveat, and use case
+  such as source family, derived heuristic, caveat, and intent
 
 Avoid:
 
 - public author biographies
 - long bibliographies in `SKILL.md`
 - source-by-source summaries in public references
-- grounding files that are not mapped from `references/use-case-registry.csv`
+- grounding files that are not mapped from `references/intent-router.csv`
 
 ## Copyright Boundary
 
@@ -81,4 +81,4 @@ Before drafting, confirm:
 - sensitive-domain claims are bounded
 - source provenance belongs in `skill.json`, not `SKILL.md`
 - any public grounding reference is concise, operational, and mapped through the
-  generated skill's use-case registry
+  generated skill's intent registry

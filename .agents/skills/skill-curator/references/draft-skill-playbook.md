@@ -39,7 +39,7 @@ It should NOT include:
 - copied source language
 
 If source grounding helps execution, put a short operational map in a
-`references/` file (such as "source family → heuristic/caveat/use case")
+`references/` file (such as "source family → heuristic/caveat/intent")
 and route it through the skill's own registry.
 
 For multi-shape skills, keep `SKILL.md` as a navigator: it routes to
@@ -108,17 +108,17 @@ substituting for the source.
 Every non-trivial public skill should use registry-based progressive
 disclosure:
 
-- `SKILL.md` is the navigator: it routes use cases.
+- `SKILL.md` is the navigator: it routes intents.
 - A registry CSV (single-layer) or two registry CSVs (two-level) are the
   source of truth for which detail files and templates load for each use
   case.
 - Detailed frameworks, rubrics, examples, source grounding, edge cases,
   and caveats live in one-hop `references/` files.
-- Templates are mapped only to the use cases that produce those
+- Templates are mapped only to the intents that produce those
   artifacts.
 - No public reference file should be orphaned, and no registry row
   should point to every file unless every file is truly needed for that
-  use case.
+  intent.
 
 Flat skills can skip the registry — there's no routing to do.
 
@@ -150,7 +150,7 @@ Before handing to review:
 - Public files paraphrase concepts into behavior — no long quotes, no
   reproduced exercises, no distinctive phrasing copied in.
 - Registry rows map all public references and templates needed by each
-  use case; no orphan references.
+  intent; no orphan references.
 - Source grounding, when present, is concise and operational rather
   than a summary of the source.
 - Generated evals test activation (positive and negative) and the main

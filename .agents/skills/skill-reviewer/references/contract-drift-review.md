@@ -9,9 +9,10 @@ and what CI actually prevents from regressing.
 
 - **Runtime contract:** `SKILL.md` activation, workflow steps, side-effect
   rules, output requirements, and reference map.
-- **Routing contract:** `references/use-case-registry.csv`, intent/activity
-  CSVs, router `default_template` columns, and any special meta-values such as
-  `all`, `auto`, `tracking`, or `closeout`.
+- **Routing contract:** `references/intent-router.csv`, intent CSVs (under
+  `references/intents/`), `references/surface-router.csv` if present, router
+  `default_template` columns, and any special meta-values such as `all`,
+  `auto`, `tracking`, or `closeout`.
 - **Artifact contract:** templates named by the workflow, required saved-file
   paths, fallback paths, workflow-state shape, ledger status taxonomy, and
   load-bearing section markers.

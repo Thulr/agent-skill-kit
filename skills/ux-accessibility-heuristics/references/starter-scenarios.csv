@@ -1,4 +1,4 @@
-id,scenario,use_case,persona,when_to_pick
+id,scenario,intent,persona,when_to_pick
 S1,"Checkout flow with reported drop-off — want a heuristic pass before reaching for analytics",usability-audit,first-time-user,"You have a flow with measurable friction and want a structured inspection before user research"
 S2,"Sign-up form with 12 fields that customers complain about — want field-by-field friction review",form-review,first-time-user,"Form is the surface; you want labels, validation, error copy, sequence inspected"
 S3,"Dashboard nav is being redesigned; want IA / wayfinding review before the team commits",navigation-review,returning-user,"Pre-implementation IA pass on a navigation redesign"

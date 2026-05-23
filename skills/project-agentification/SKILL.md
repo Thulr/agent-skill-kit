@@ -27,24 +27,24 @@ If you also have a feedback signal — eval suites, run-level telemetry, A/B bas
 ## Activation
 
 - **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use project-agentification"`): load `references/intent-router.csv`, show the intent menu, wait. No file inspection, no network calls, no writes.
-- **Concrete invocation** with intent and sub-surface inferable: skip to step 3 of the workflow.
-- **Concrete invocation with ambiguous scope**: ask one blocker question identifying the intent or sub-surface; do not inspect private systems first.
+- **Concrete invocation** with intent and surface inferable: skip to step 3 of the workflow.
+- **Concrete invocation with ambiguous scope**: ask one blocker question identifying the intent or surface; do not inspect private systems first.
 
 ## Workflow
 
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to `assess` / `harden` / `scaffold` / `diagnose`. Ambiguous → ask once.
-2. **Pick sub-surface(s).** Load `references/layer-router.csv`. Match the prompt to one or more sub-surfaces. For `assess`, `all` is a valid sub-surface choice that fans out across the whole sub-surface list. Ambiguous → ask once with the menu.
-3. **Load grounded context.** Load the playbook(s) for the chosen sub-surfaces, `references/empirical-warnings.md`, and **`references/core/severity-rubric.md` always** (every finding carries a severity per step 7). For `assess`, also load `references/core/maturity-rubric.md` (the `additional_rubric` column in `intent-router.csv` names the assess-only addition). Project-agentification playbooks are larger than the DX/test playbooks because they include cross-harness implementation tables and scaffold template pointers; static checks cap and structure them so they remain bounded, not free-form knowledge dumps.
+2. **Pick surface(s).** Load `references/surface-router.csv`. Match the prompt to one or more surfaces. For `assess`, `all` is a valid surface choice that fans out across the whole surface list. Ambiguous → ask once with the menu.
+3. **Load grounded context.** Load the playbook(s) for the chosen surfaces, `references/empirical-warnings.md`, and **`references/core/severity-rubric.md` always** (every finding carries a severity per step 7). For `assess`, also load `references/core/maturity-rubric.md` (the `additional_rubric` column in `intent-router.csv` names the assess-only addition). Project-agentification playbooks are larger than the DX/test playbooks because they include cross-harness implementation tables and scaffold template pointers; static checks cap and structure them so they remain bounded, not free-form knowledge dumps.
 4. **For `scaffold`: collect project knowledge.** Ask the user for (a) tech stack and runtimes, (b) repo layout / monorepo scope (which directories the scaffold applies to), (c) build / test / lint commands, (d) any top-level invariants the agent should not break. Hand-curate from project knowledge; do not autogenerate from boilerplate (W9: `/init` and equivalents produce surface-plausible scaffolds with low fitness). The content quality bar is "specific to this project, verifiable by reading the file" — not "measured against a benchmark."
 4.5. **For `scaffold` / `harden` touching `instruction-surface` or `gates`: collect harness inventory.** Ask the user which harnesses are in use on this repo: Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or AGENTS.md-compatible-only (Jules, Amp, etc.). **Do not infer scope from filesystem signals alone** — the presence of `.claude/` tells you Claude Code is used, not that it is the only one. Default to producing per-harness equivalents for every harness named; absence-of-dotfile is not absence-of-use.
-5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per sub-surface, four lenses sequentially inside.
-6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed sub-surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
+5. **Spawn lens sub-agents in parallel.** Load `references/lenses.md`. Dispatch four agents — cold-context-agent / maintainer / adversarial / auditor — each loading the playbook(s) and applying its lens prompt. For `assess + all` invert the topology: one agent per surface, four lenses sequentially inside.
+6. **Apply the playbook.** Use heuristics tagged for the chosen intent. For `assess`, score 1–5 per layer using the maturity rubric (layer score = min across assessed surfaces). For `harden` / `diagnose` / `scaffold`, rank hypotheses or recommendations before naming actions.
 7. **Apply severity and IDs** to every finding using
    `references/core/severity-rubric.md` and
    `references/trackable-findings.md`. Assessment findings use stable IDs
-   like `AG-<sub-surface>-NNN`.
+   like `AG-<surface>-NNN`.
 8. **For `scaffold`: present write-to-disk confirmation.** List `{path, action}` pairs; wait for user reply (`all` / `none` / specific list). Write only confirmed files. Report what was written, skipped, and what to validate.
-8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen sub-surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
+8.5. **For `scaffold`: post-write audit.** After writes complete, dispatch **one fresh-context sub-agent** (see `references/lenses.md` §Post-write auditor) that loads the chosen surface playbook(s) and inspects the actual diff/repo state. It enumerates every `harden` heuristic in those playbooks and reports each as `applied | skipped-because-X | deferred`. External verification, not self-attestation: the writer cannot rubber-stamp its own checklist because the auditor does not see the writer's reasoning. Surface unapplied harden heuristics to the user as a follow-up list before claiming the scaffold is done.
 9. **Emit output.** Default to a rendered, TUI-friendly view in chat. If the user asks to save a report to disk, also emit a saved-report form.
    - **Rendered (chat/TUI):** do **not** emit Markdown pipe tables. Pretty-print tabular sections as fixed-width text (ASCII) in a fenced `text` block or as bullet lists. Keep each row single-line.
    - **Saved report (Markdown file):** use the intent-specific template verbatim (Markdown tables are OK, but table rows must be single-line; no hard-wrapped newlines inside cells):
@@ -80,7 +80,7 @@ depth-vs-speed up front. Canonical contract in
 
 Every output includes:
 
-- Intent + sub-surface(s) + lenses dispatched.
+- Intent + surface(s) + lenses dispatched.
 - Playbook(s) applied.
 - Intent-specific load-bearing section: maturity scores + gaps (`assess`), recommendation + verification (`harden`), file previews + confirmation gate (`scaffold`), hypothesis ranking + fix + prevention (`diagnose`).
 - Severity per finding.
@@ -117,8 +117,8 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 ## Reference map
 
 - `references/intent-router.csv` — level-1 router (intent → template + rubric).
-- `references/layer-router.csv` — level-2 router (layer + sub-surface → playbook).
-- `references/playbooks/<sub-surface>.md` — 11 sub-surface playbooks (legibility: instruction-surface, specs, docs-index; action: skills, tools, sandbox; control: gates, ci-runners, telemetry, evals, governance).
+- `references/surface-router.csv` — level-2 router (surface → playbook). CSV columns retain `layer,sub_surface` for grouping.
+- `references/playbooks/<surface>.md` — 11 surface playbooks (legibility: instruction-surface, specs, docs-index; action: skills, tools, sandbox; control: gates, ci-runners, telemetry, evals, governance).
 - `references/lenses.md` — four lens prompts + dispatch template + synthesis (symlink to `skills/_shared/lenses.md`).
 - `references/core/maturity-rubric.md` — Levels 1–3 (Engineering Agents). Levels 4–5 live in `evidence-driven-agent-rules`.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
@@ -129,7 +129,7 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `templates/*.md` — four intent-specific output templates (what the skill itself emits).
 - `templates/{findings-ledger,roadmap,github-issue}.md` and `templates/workflow-state.json` — shared follow-through artifacts for tracked findings.
-- `templates/artifacts/<sub-surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
+- `templates/artifacts/<surface>/` — skeletons for the files `scaffold` writes to the target repo (AGENTS.md, hooks, CODEOWNERS, etc.). See `templates/artifacts/README.md`. Required: every scaffold-bundle Proposed-files row cites a template path; the post-write auditor enforces shape compliance.
 - `evals/activation-cases.md` — activation and behavioral cases.
 - `evals/run-static-checks.sh` — structural / schema gates run in CI.
 - `evals/trigger-evals.json` — queries for the description-optimization loop.

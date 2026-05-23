@@ -7,7 +7,7 @@ repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
-registry="$skill_dir/references/use-case-registry.csv"
+router="$skill_dir/references/intent-router.csv"
 
 failures=0
 
@@ -27,7 +27,7 @@ check_pattern() {
 
 check_file "$skill_md"
 check_file "$skill_json"
-check_file "$registry"
+check_file "$router"
 check_file "$skill_dir/templates/design-brief.md"
 check_file "$skill_dir/templates/ui-plan.md"
 check_file "$skill_dir/templates/review-report.md"
@@ -47,26 +47,26 @@ fi
 if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter name' '^name:[[:space:]]*ui-design-craft$' "$skill_md"
   check_pattern 'frontmatter license' '^license:' "$skill_md"
-  check_pattern 'bare activation' 'show the use-case menu' "$skill_md"
-  check_pattern 'registry routing' 'use-case-registry\.csv' "$skill_md"
+  check_pattern 'bare activation' 'show the intent menu' "$skill_md"
+  check_pattern 'router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'mode support' '^## Modes' "$skill_md"
   check_pattern 'subagent dispatch' '^## Subagent Dispatch' "$skill_md"
   wc=$(wc -w < "$skill_md")
   (( wc < 800 )) || fail "SKILL.md word count $wc exceeds 800"
 fi
 
-if [[ -f "$registry" ]]; then
-  rows=$(grep -cE '^(product-ui|design-system|prototype|deck|motion-scene|host-handoff|quality-review),' "$registry")
-  (( rows == 7 )) || fail "use-case-registry.csv: expected 7 data rows, got $rows"
-  python3 - "$skill_dir" "$registry" <<'PYEOF' || fail "registry references missing files"
+if [[ -f "$router" ]]; then
+  rows=$(grep -cE '^(product-ui|design-system|prototype|deck|motion-scene|host-handoff|quality-review),' "$router")
+  (( rows == 7 )) || fail "intent-router.csv: expected 7 data rows, got $rows"
+  python3 - "$skill_dir" "$router" <<'PYEOF' || fail "router references missing files"
 import csv
 import sys
 from pathlib import Path
 
 skill_dir = Path(sys.argv[1])
-registry = Path(sys.argv[2])
+router = Path(sys.argv[2])
 ok = True
-with registry.open(newline="") as f:
+with router.open(newline="") as f:
     for row in csv.DictReader(f):
         for column in ("detail_files", "templates"):
             for rel in filter(None, (p.strip() for p in row.get(column, "").split(";"))):
@@ -76,15 +76,15 @@ with registry.open(newline="") as f:
 sys.exit(0 if ok else 1)
 PYEOF
 
-  python3 - "$skill_dir" "$registry" <<'PYEOF' || fail "reference file not reachable from registry"
+  python3 - "$skill_dir" "$router" <<'PYEOF' || fail "reference file not reachable from router"
 import csv
 import sys
 from pathlib import Path
 
 skill_dir = Path(sys.argv[1])
-registry = Path(sys.argv[2])
+router = Path(sys.argv[2])
 referenced = set()
-with registry.open(newline="") as f:
+with router.open(newline="") as f:
     for row in csv.DictReader(f):
         for rel in filter(None, (p.strip() for p in row.get("detail_files", "").split(";"))):
             referenced.add(rel)

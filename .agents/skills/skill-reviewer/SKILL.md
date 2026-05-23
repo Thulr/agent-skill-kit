@@ -28,10 +28,10 @@ safety, usefulness, progressive disclosure, templates, evals, and validation.
 - Reject source summaries disguised as skills.
 - Enforce registry-based progressive disclosure: `SKILL.md` should route, not
   carry the full knowledge base. Detailed files and templates must be mapped
-  through the skill's router shape: `references/use-case-registry.csv`,
-  `references/intent-router.csv` plus `references/intents/*.csv`,
-  `references/activity-router.csv` plus `references/activities/*.csv`, or
-  `references/layer-router.csv`.
+  through the skill's router shape: `references/intent-router.csv` alone
+  (single-axis), `references/intent-router.csv` plus
+  `references/intents/*.csv` (two-axis intent × surface), or
+  `references/surface-router.csv` (project-agentification's level-2 picker).
 - Check that provenance is concise and user-facing in `skill.json`, while any
   public grounding references are short, paraphrased, registry-mapped, and
   useful for execution rather than source explanation.
@@ -52,14 +52,14 @@ skills.
 
 ## Workflow
 
-1. Load `references/use-case-registry.csv`.
+1. Load `references/intent-router.csv`.
 2. Find the requested skill or enumerate skills across `skills/*/`,
    `skills/.experimental/*/`, and `.agents/skills/*/` as the scope requires.
 3. Read `SKILL.md`, `skill.json` if present, the router files used by that
    skill, and any referenced files needed for the review.
 4. Confirm every public reference/template needed by the skill is mapped from a
-   router, and that selected rows load only the files needed for each use case,
-   intent, activity, layer, or sub-surface.
+   router, and that selected rows load only the files needed for each intent
+   or surface.
 5. Apply the review rubric and assign stable IDs like `SR-<area>-NNN` to
    trackable findings using `references/trackable-findings.md`.
 6. If fixes are clear and the user asked for edit authority, edit files
@@ -91,7 +91,7 @@ Block or fix a proposed skill change when:
 - the skill would not activate on realistic prompts
 - the skill is generic prompt advice rather than a durable behavior
 - references are missing or not mapped from the skill's router
-- router rows point to every reference for every use case instead of practicing
+- router rows point to every reference for every intent instead of practicing
   progressive disclosure
 - public grounding references are long bibliographies, source explainers, author
   biographies, or substitute summaries instead of concise operational maps
@@ -111,7 +111,7 @@ Block or fix a proposed skill change when:
 
 ## Reference Map
 
-- `references/use-case-registry.csv`: review modes and file routing.
+- `references/intent-router.csv`: review modes and file routing.
 - `references/review-rubric.md`: scoring and findings rubric.
 - `references/source-safety-review.md`: source-inspired copyright and safety
   checks.

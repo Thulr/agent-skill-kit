@@ -1,7 +1,7 @@
 # Harden Recommendation — <failure-mode-name>
 
 **Date:** <YYYY-MM-DD>
-**Layer / sub-surface:** <e.g., control / gates>
+**Layer / surface:** <e.g., control / gates>
 **Severity if unaddressed:** <0–4>
 **Linked findings:** <AG-... IDs, if this recommendation came from an assessment ledger>
 
@@ -11,7 +11,7 @@
 
 ## Root cause
 
-<Which layer and sub-surface. Cite the playbook heuristic that this violates (e.g., "gates playbook H3: no PreToolUse hook for destructive bash").>
+<Which layer and surface. Cite the playbook heuristic that this violates (e.g., "gates playbook H3: no PreToolUse hook for destructive bash").>
 
 ## Recommendation
 

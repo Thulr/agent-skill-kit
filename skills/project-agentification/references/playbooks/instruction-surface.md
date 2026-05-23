@@ -136,7 +136,7 @@ and README's agent-facing role shrinks to "see AGENTS.md."
 - **H4.** Security-sensitive rule consistently violated by the agent → do not add more prose;
   the instruction-following rate for file-based rules is ~70% (W3). Move the constraint to a
   `PreToolUse` hook with exit code 2 (hard block) or a CI gate; treat the continued violation as
-  evidence that the rule belongs in the gates sub-surface, not this one.
+  evidence that the rule belongs in the gates surface, not this one.
 
 ## Empirical warnings
 

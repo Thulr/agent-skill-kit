@@ -2,14 +2,14 @@
 
 **Date:** <YYYY-MM-DD>
 **Primary harness(es) detected:** <claude-code | cursor | codex | copilot | windsurf | aider | none>
-**Sub-surfaces assessed:** <list, or `all`>
+**Surfaces assessed:** <list, or `all`>
 **Lenses dispatched:** cold-context-agent / maintainer / adversarial / auditor
 
 ## Maturity scores
 
 | Layer | Score (1–5) | Justification |
 |---|---|---|
-| Legibility | <N> | <single line; cite weakest sub-surface; no `|`> |
+| Legibility | <N> | <single line; cite weakest surface; no `|`> |
 | Action | <N> | <single line; no `|`> |
 | Control | <N> | <single line; no `|`> |
 
@@ -42,14 +42,14 @@ Use this checklist to assess whether multiple agents can work in parallel withou
 
 ## Blocking gaps (severity 3–4)
 
-| ID | Severity | Layer | Sub-surface | Status | Finding | Artifact pointer | Verification | Lens(es) |
+| ID | Severity | Layer | Surface | Status | Finding | Artifact pointer | Verification | Lens(es) |
 |---|---:|---|---|---|---|---|---|---|
-| <AG-GATES-001> | <4> | <legibility|action|control> | <sub-surface> | discovered | <one-line description> | <file:line / hook name / MCP method> | <narrow check that proves the gap is fixed> | <lens names> |
+| <AG-GATES-001> | <4> | <legibility|action|control> | <surface> | discovered | <one-line description> | <file:line / hook name / MCP method> | <narrow check that proves the gap is fixed> | <lens names> |
 | ... | | | | | | | | |
 
 ## Significant gaps (severity 2)
 
-| ID | Layer | Sub-surface | Status | Finding | Artifact pointer | Verification |
+| ID | Layer | Surface | Status | Finding | Artifact pointer | Verification |
 |---|---|---|---|---|---|---|
 
 ## Minor friction (severity 1)

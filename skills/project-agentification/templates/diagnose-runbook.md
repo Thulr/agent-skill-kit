@@ -33,9 +33,9 @@ Ranked by prior probability for this class of failure. Investigate top-to-bottom
 
 ## Fix
 
-**Layer / sub-surface affected:** <legibility|action|control / sub-surface>
+**Layer / surface affected:** <legibility|action|control / surface>
 **Specific artifact to add or edit:** <file path / hook / MCP method>
-**Pointer to the relevant playbook section:** <references/playbooks/<sub-surface>.md#<heuristic-id>>
+**Pointer to the relevant playbook section:** <references/playbooks/<surface>.md#<heuristic-id>>
 
 ## Prevention — eval / hook to add
 

@@ -1,0 +1,42 @@
+{
+  "name": "loop-architect",
+  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose gaps, and scaffold self-improving evaluation/optimization loops (Levels 1-3) so developers move off ad-hoc prompt tweaking and onto metric-driven compilation.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": ["@Thulr"],
+  "tags": [
+    "evals",
+    "ai-ops",
+    "prompt-optimization",
+    "agent-harness",
+    "sandbox",
+    "compiler-loop"
+  ],
+  "inspired_by": [
+    {
+      "name": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+      "author": "Omar Khattab",
+      "kind": "paper",
+      "year": 2023,
+      "contribution": "Declarative LM framework: typed Signatures, Modules, and Optimizers (BootstrapFewShot, MIPROv2). Reframes prompt engineering as program design and gives Level 2 (Subroutine Compilation) its compilation target.",
+      "playbooks": ["all"]
+    },
+    {
+      "name": "DSPy: The End of Prompt Engineering",
+      "author": "Kevin Madura",
+      "kind": "talk",
+      "year": 2025,
+      "contribution": "Practical framing of declarative LM compilation as cognitive-subroutine engineering inside production AI workspaces. Anchors the skill's Level 2 scaffold recommendation.",
+      "playbooks": ["all"]
+    },
+    {
+      "name": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "author": "Noah Shinn",
+      "kind": "paper",
+      "year": 2023,
+      "contribution": "Iteration caps, structured failure critique, and reflective self-improvement loops. Underwrites Level 1 (System-Prompt Learning) and the iteration-cap guardrails in Level 3.",
+      "playbooks": ["all"]
+    }
+  ]
+}

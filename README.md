@@ -20,19 +20,22 @@ the published install surface today.
 
 ## Which skill should I use?
 
-| User need | Skill |
-|---|---|
-| Developer-facing APIs, SDKs, CLIs, docs, setup, errors, auth, telemetry, or onboarding | `dx-heuristics` |
-| Unit/integration/e2e/property/contract/snapshot/mutation/performance test quality | `test-heuristics` |
-| User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` |
-| Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` |
-| Dependency direction, ports/adapters, DDD, bounded contexts, architecture refactors | `clean-architecture` |
-| Systems performance, observability, SLOs, p99/tail-latency, profiling, capacity, RED/USE/Four-Golden-Signals, distributed tracing, instrumentation strategy | `perf-observability-heuristics` |
-| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` |
-| Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` |
-| "Make our docs better" | Ask whether the audience is humans using the product (`ux-accessibility-heuristics`), developers integrating it (`dx-heuristics`), or coding agents reading the repo (`project-agentification`). |
-| "Add a hook" | Ask whether this means a Claude/Codex/Cursor agent gate (`project-agentification`) or a generic Git/build hook. |
-| "Our service is slow" / "our dashboards aren't useful" / "design SLOs" | `perf-observability-heuristics`. Boundary against `dx-heuristics`: route **developer-inner-loop** perf on the developer's own machine (install time, cold start, your own edit-test-debug cycle) to `dx-heuristics`. **CI / build-farm runtime is a production system** owned by an infra or platform team, so route it to `perf-observability-heuristics`. |
+| User need | Skill | vs neighbor |
+|---|---|---|
+| Developer-facing APIs, SDKs, CLIs, docs, setup, errors, auth, telemetry, or onboarding | `dx-heuristics` | vs `ux-accessibility-heuristics` — DX is the developer integrating; UX-acc is the end user of the product. vs `perf-observability-heuristics` — DX covers developer-inner-loop perf (local install, cold start, edit-test-debug); perf-obs covers production / CI-farm runtime. |
+| Unit/integration/e2e/property/contract/snapshot/mutation/performance test quality | `test-heuristics` | vs `perf-observability-heuristics` — test-heuristics covers performance-*test* design (load tests, benchmarks as tests); perf-obs covers the production system being tested. |
+| User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` | vs `ui-design-craft` — ux-acc *audits* an existing interface against usability and WCAG heuristics; ui-design-craft *creates and polishes* the visual artifact. vs `dx-heuristics` — UX-acc is end users; DX is developers integrating your API/SDK. |
+| Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` | vs `ux-accessibility-heuristics` — ui-design-craft produces the artifact; ux-acc audits it. Pair them when you need both. |
+| Dependency direction, ports/adapters, DDD, bounded contexts, architecture refactors | `clean-architecture` | vs `dx-heuristics` — clean-architecture is *internal* code structure (dependency direction, layering); dx-heuristics is *external* developer-facing interface design. vs `ux-accessibility-heuristics` — code architecture only; product UX routes there. |
+| Systems performance, observability, SLOs, p99/tail-latency, profiling, capacity, RED/USE/Four-Golden-Signals, distributed tracing, instrumentation strategy | `perf-observability-heuristics` | vs `dx-heuristics` — production / CI-farm runtime is owned by infra/platform → perf-obs; developer-inner-loop perf on the developer's own machine → dx. vs `test-heuristics` — perf-obs is the live system; test-heuristics is the perf-test design. |
+| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
+| Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification` and add this skill later. |
+
+**Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
+
+- *"Make our docs better"* — who's the audience? Humans using the product → `ux-accessibility-heuristics`; developers integrating it → `dx-heuristics`; coding agents reading the repo → `project-agentification`.
+- *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
+- *"Our service is slow" / "our dashboards aren't useful" / "design SLOs"* — production system → `perf-observability-heuristics`; developer's own machine (local install time, cold start, edit-test-debug cycle) → `dx-heuristics`.
 
 ## Skills
 

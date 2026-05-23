@@ -19,11 +19,11 @@ artifact in front of the user as soon as it can communicate direction.
 ## Activation
 
 - **Bare invocation** (`"use ui-design-craft"`, `"UI designer"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/use-case-registry.csv`,
-  then show the use-case menu with the named starter scenarios on top (each
-  pre-routes use-case + mode) and offer the full mode choice. Wait. No file
+  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
+  then show the intent menu with the named starter scenarios on top (each
+  pre-routes intent + mode) and offer the full mode choice. Wait. No file
   inspection, network calls, or writes.
-- **Concrete invocation** with use case inferable: proceed in Guided Draft
+- **Concrete invocation** with intent inferable: proceed in Guided Draft
   unless the user requests Autopilot or Grill Me.
 - **Ambiguous concrete invocation**: ask one blocker question about audience,
   format, design system, or variation axis before editing.
@@ -46,10 +46,10 @@ depth-vs-speed up front. Canonical contract in
 
 ## Workflow
 
-1. **Route.** Load `references/use-case-registry.csv`; pick one or more of:
+1. **Route.** Load `references/intent-router.csv`; pick one or more of:
    `product-ui`, `design-system`, `prototype`, `deck`, `motion-scene`,
    `host-handoff`, `quality-review`.
-2. **Load details.** Load only the registry row's `detail_files` and mapped
+2. **Load details.** Load only the router row's `detail_files` and mapped
    templates. If multiple rows apply, prefer the smallest set that covers the
    deliverable.
 3. **Ground the work.** Inspect the brief, product vocabulary, design system,
@@ -58,7 +58,7 @@ depth-vs-speed up front. Canonical contract in
    chosen aesthetic commitments.
 4. **Ask or decide.** Ask one focused question round when blocked. If the user
    says "decide for me", decide and record the call in the artifact or plan.
-5. **Plan.** Use `templates/design-brief.md` plus the use-case template to
+5. **Plan.** Use `templates/design-brief.md` plus the intent template to
    name audience, format, constraints, direction, variation axes, and checks.
 6. **Show early.** Start with layout skeleton, type/color direction, and honest
    placeholders. Open or surface the artifact as soon as it runs.
@@ -96,7 +96,7 @@ not merely described.
 
 ## Reference Map
 
-- `references/use-case-registry.csv` - use-case router.
+- `references/intent-router.csv` - intent router.
 - `references/starter-scenarios.csv` - named worked examples for bare invocation.
 - `references/modes.md` - Guided Draft / Autopilot / Grill Me contract (shared).
 - `references/*.md` - routed craft, workflow, host, and review playbooks.

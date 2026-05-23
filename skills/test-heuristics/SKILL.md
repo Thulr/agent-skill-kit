@@ -85,16 +85,14 @@ invocation; default to Guided Draft on concrete invocations.
 
 Every output includes target persona, layer/purpose, the template's
 load-bearing section, failure modes on findings, verification, and grounding
-sources applied from `skill.json.inspired_by`.
+sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
 **Default for `review` and `prune`;** preferred for `author`; optional for
 `triage`; skip tiny deterministic or secret-bound tasks. Spawn three lenses
 in parallel — **intent reader**, **refactor adversary**, **bug-shape
-hunter** — per `references/subagent-dispatch.md`. If the host lacks
-delegation, run the lenses sequentially and still preserve disagreements as
-open questions.
+hunter** — per `references/subagent-dispatch.md`.
 
 ## Reference map
 

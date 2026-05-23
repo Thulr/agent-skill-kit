@@ -84,22 +84,17 @@ invocation; default to Guided Draft on concrete invocations.
 
 ## Output requirements
 
-Every output includes:
-
-- Target developer persona.
-- Playbook(s) applied.
-- Intent-specific load-bearing section: findings (audit), acceptance criteria
-  (design), prevention (debug), re-run trigger (edge-pass).
-- Verification — how to prove the change worked.
-- Grounding sources applied from `skill.json.inspired_by`.
+Every output includes target developer persona, playbook(s) applied, the
+intent-specific load-bearing section (findings / acceptance criteria /
+prevention / re-run trigger, per intent), verification, and grounding
+sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
 **Default for `audit` and `edge-pass`;** preferred for `design`; optional for
-`debug`; skip tiny deterministic or secret-bound work. Spawn three lenses in
-parallel — **first-time integrator**, **maintainer**, **adversarial
-debugger** — per `references/subagent-dispatch.md`. Without delegation, run
-the lenses sequentially and preserve disagreements as open questions.
+`debug`; skip tiny deterministic or secret-bound work. Spawn three lenses in parallel —
+**first-time integrator**, **maintainer**, **adversarial debugger** —
+per `references/subagent-dispatch.md`.
 
 ## Reference map
 

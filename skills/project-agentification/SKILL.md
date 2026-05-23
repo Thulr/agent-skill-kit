@@ -26,7 +26,7 @@ The 90% case is `assess` × the `legibility` layer — "are AGENTS.md, specs, an
 
 > `Assess the legibility layer of this repo.`
 
-The skill loads `references/intent-router.csv` → `assess`, scopes to the three `legibility` surfaces (instruction-surface, specs, docs-index), dispatches the four pre-write lenses against each surface, scores the layer 1–5 (layer score = min across assessed surfaces, per the maturity rubric), and emits `assess-report.md`. With 7+ findings or any severity 3–4, it also writes the ledger + workflow-state pair under `docs/audits/` (filenames in Workflow step 10).
+The skill loads `references/intent-router.csv` → `assess`, scopes to the three `legibility` surfaces (instruction-surface, specs, docs-index), dispatches the four pre-write lenses against each surface, scores the layer 1–5 (layer score = min across assessed surfaces, per the maturity rubric), and renders the assess report in chat by default. Ask "save the report" to also write `templates/assess-report.md`; with 7+ findings or any severity 3–4, the ledger + workflow-state pair under `docs/audits/` is written automatically (filenames in Workflow step 10).
 
 For `harden`, `scaffold`, or `diagnose`, pick the intent first; the routing taxonomy below explains the surface choices for each. **Scope** (which repos this skill fits, why, and when to pair with `evidence-driven-agent-rules`) lives at [`references/scope.md`](./references/scope.md).
 

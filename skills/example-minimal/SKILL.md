@@ -16,6 +16,10 @@ This folder exists as the **template contract** for this repository: it carries 
 minimum required artifacts (`SKILL.md`, `skill.json`, and `evals/*`) so contributors
 can't accidentally template a new skill that bypasses gates.
 
+**Produces:** nothing in production installs. New skills templated from this folder
+**must** add their own `**Produces:**` callout here describing what the real skill
+emits (primary artifact + any tracking files).
+
 It is marked `metadata.internal: true`, so it is hidden from `npx skills add . --list`
 unless `INSTALL_INTERNAL_SKILLS=1` is set.
 

@@ -7,6 +7,8 @@ metadata:
 
 # Skill Curator
 
+**Produces:** a scaffolded skill directory under `skills/<name>/` (SKILL.md, skill.json, evals/, references/, templates/) shaped per `references/depth-rubric.md`, plus research notes under `.agents/state/` for the curator's own provenance trail.
+
 ## Overview
 
 Turn source material into practical agent skills. A source is raw material;

@@ -6,15 +6,12 @@ license: MIT
 
 # Perf and Observability Heuristics
 
-Practical review, design, diagnosis, optimization, and program-level
-strategy for performance and observability across backend services,
-distributed systems, the browser / network tier, and database performance
-internals. Provenance lives in `skill.json`; this file is runtime routing
-only.
+Review, design, diagnosis, optimization, and program-level strategy for
+performance and observability across backend services, distributed systems,
+the browser / network tier, and database performance internals. Provenance
+lives in `skill.json`; this file is runtime routing only.
 
-Database content is performance-only: index strategy for read paths,
-query plan reading, lock contention, connection-pool sizing. Schema design,
-normalization, and migration safety route to a future data-modeling skill.
+**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `diagnose-runbook.md` / `optimize-plan.md` / `strategy-doc.md`; tracked audits also emit `perf-observability-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

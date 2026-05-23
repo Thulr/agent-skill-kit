@@ -6,9 +6,10 @@ license: MIT
 
 # Test Heuristics
 
-Test-suite review, design, triage, strategy, and pruning for any testing
-layer a developer writes, runs, debugs, or maintains. Provenance and
-grounding sources live in `skill.json`; this file is runtime routing only.
+Test-suite review, design, triage, strategy, and pruning. Provenance lives
+in `skill.json`; this file is runtime routing only.
+
+**Produces:** activity-specific report (`review-audit.md` / `author-playbook.md` / `triage-log.md` / `strategy-roadmap.md` / `prune-list.md`); tracked reviews also emit `test-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

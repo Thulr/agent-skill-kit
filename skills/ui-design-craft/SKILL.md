@@ -10,6 +10,8 @@ Design and ship interface artifacts that feel grounded, specific, usable, and
 visibly intentional. Provenance lives in `skill.json`; this file is runtime
 routing only.
 
+**Produces:** runnable / viewable visual artifact (mockup, prototype, design-system page, deck, motion scene, or handoff bundle) plus a design brief; long-running runs persist `templates/workflow-state.json` (mode, format, viewport set, design-system choices).
+
 ## Core Principle
 
 **Context before craft, show early, iterate small.** Read the product,

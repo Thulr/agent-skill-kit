@@ -7,7 +7,7 @@ repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"
 skill_json="$skill_dir/skill.json"
-activity_router="$skill_dir/references/activity-router.csv"
+intent_router="$skill_dir/references/intent-router.csv"
 layer_dir="$skill_dir/references/layers"
 
 failures=0
@@ -30,9 +30,9 @@ check_pattern() {
 
 check_file "$skill_md"
 check_file "$skill_json"
-check_file "$activity_router"
+check_file "$intent_router"
 for a in triage review author strategize prune; do
-  check_file "$skill_dir/references/activities/$a.csv"
+  check_file "$skill_dir/references/intents/$a.csv"
 done
 check_file "$skill_dir/references/core/failure-modes.md"
 check_file "$skill_dir/references/core/oracles.md"
@@ -65,14 +65,14 @@ for s in $all_layers; do
   valid_layers+="$s "
 done
 
-# Derive activity markers from router
+# Derive intent markers from router
 valid_markers=" all "
-if [[ -f "$activity_router" ]]; then
-  while IFS=, read -r activity _; do
-    [[ "$activity" == "activity" ]] && continue
-    [[ -z "$activity" ]] && continue
-    valid_markers+="${activity}-activity "
-  done < "$activity_router"
+if [[ -f "$intent_router" ]]; then
+  while IFS=, read -r intent _; do
+    [[ "$intent" == "intent" ]] && continue
+    [[ -z "$intent" ]] && continue
+    valid_markers+="${intent}-intent "
+  done < "$intent_router"
 fi
 
 # ----- skill.json gates -----
@@ -114,8 +114,8 @@ fi
 if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter name' '^name:[[:space:]]*test-heuristics$' "$skill_md"
   check_pattern 'frontmatter license' '^license:' "$skill_md"
-  check_pattern 'activity-router routing' 'activity-router\.csv' "$skill_md"
-  check_pattern 'bare activation' 'show the activity menu' "$skill_md"
+  check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
+  check_pattern 'bare activation' 'show the intent menu' "$skill_md"
   check_pattern 'subagent dispatch section' '^## Subagent dispatch' "$skill_md"
   check_pattern 'three lenses' 'three lenses' "$skill_md"
   check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
@@ -138,16 +138,16 @@ check_pattern 'review report preserves fallback path' 'audit-artifacts/test-heur
 check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
-check_pattern 'review CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/activities/review.csv"
-check_pattern 'prune CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/activities/prune.csv"
+check_pattern 'review CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/review.csv"
+check_pattern 'prune CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/prune.csv"
 
-# ----- Activity router structure -----
+# ----- Intent router structure -----
 
-if [[ -f "$activity_router" ]]; then
-  rows=$(grep -cE '^(triage|review|author|strategize|prune),' "$activity_router")
-  (( rows == 5 )) || fail "activity-router.csv: expected 5 data rows, got $rows"
+if [[ -f "$intent_router" ]]; then
+  rows=$(grep -cE '^(triage|review|author|strategize|prune),' "$intent_router")
+  (( rows == 5 )) || fail "intent-router.csv: expected 5 data rows, got $rows"
   for a in triage review author strategize prune; do
-    check_pattern "$a activity" "^$a," "$activity_router"
+    check_pattern "$a intent" "^$a," "$intent_router"
   done
 fi
 
@@ -172,7 +172,7 @@ for layer in $all_layers; do
     /^## /{f=0}
     f && /\((triage|review|author|strategize|prune)/{found=1}
     END{ if(!found) exit 1 }
-  ' "$pb" || fail "$layer.md: # Heuristics has no activity tags like (triage), (review), (author), (strategize), or (prune)"
+  ' "$pb" || fail "$layer.md: # Heuristics has no intent tags like (triage), (review), (author), (strategize), or (prune)"
 
   grep -qF 'failure-modes.md' "$pb" || fail "$layer.md must reference failure-modes.md"
   # Mode detection: only count a mode as "seen" when it appears as a
@@ -220,21 +220,21 @@ done
 
 # ----- Registry integrity (CSV → file) -----
 
-for activity in triage review author strategize prune; do
-  csv="$skill_dir/references/activities/$activity.csv"
-  [[ -f "$csv" ]] || { fail "missing activity CSV: $csv"; continue; }
+for intent in triage review author strategize prune; do
+  csv="$skill_dir/references/intents/$intent.csv"
+  [[ -f "$csv" ]] || { fail "missing intent CSV: $csv"; continue; }
   while IFS='|' read -r pb refs; do
     IFS=';' read -ra parts <<< "$pb"
     for p in "${parts[@]}"; do
       [[ -z "$p" || "$p" == "none" ]] && continue
       full="$skill_dir/$p"
-      [[ -f "$full" ]] || fail "$activity.csv references missing layer playbook: $p"
+      [[ -f "$full" ]] || fail "$intent.csv references missing layer playbook: $p"
     done
     IFS=';' read -ra rparts <<< "$refs"
     for r in "${rparts[@]}"; do
       [[ -z "$r" ]] && continue
       full="$skill_dir/$r"
-      [[ -f "$full" ]] || fail "$activity.csv references missing core_ref: $r"
+      [[ -f "$full" ]] || fail "$intent.csv references missing core_ref: $r"
     done
   done < <(python3 - "$csv" <<'PYEOF'
 import csv, sys
@@ -254,28 +254,28 @@ done
 for layer in $all_layers; do
   pb_path="references/layers/${layer}.md"
   ref_count=0
-  for activity in triage review author strategize prune; do
-    csv="$skill_dir/references/activities/$activity.csv"
+  for intent in triage review author strategize prune; do
+    csv="$skill_dir/references/intents/$intent.csv"
     [[ -f "$csv" ]] || continue
     if grep -qF -- "$pb_path" "$csv"; then
       ref_count=$((ref_count + 1))
     fi
   done
-  (( ref_count > 0 )) || fail "layer playbook $layer.md is not referenced by any activity CSV (orphan)"
+  (( ref_count > 0 )) || fail "layer playbook $layer.md is not referenced by any intent CSV (orphan)"
 done
 
 # ----- Template Layer-enum drift gate -----
 # Templates may enumerate layer choices in a `**Layer:** [a | b | c]` line.
 # If the enum is exhaustive (no `…`/`...` ellipsis), it must equal the layer
-# set in the corresponding activity's CSV. Templates with ellipsis are
+# set in the corresponding intent's CSV. Templates with ellipsis are
 # treated as abbreviated and skipped (the writer signals non-exhaustive).
-# Activity is resolved via activity-router.csv's default_template column.
+# Intent is resolved via intent-router.csv's default_template column.
 
-if [[ -f "$activity_router" ]]; then
-  # Build a template -> activity map from the router.
-  while IFS=, read -r activity _name _when _registry tpl; do
-    [[ "$activity" == "activity" ]] && continue
-    [[ -z "$activity" || -z "$tpl" ]] && continue
+if [[ -f "$intent_router" ]]; then
+  # Build a template -> intent map from the router.
+  while IFS=, read -r intent _name _when _registry tpl; do
+    [[ "$intent" == "intent" ]] && continue
+    [[ -z "$intent" || -z "$tpl" ]] && continue
     tpl_path="$skill_dir/$tpl"
     [[ -f "$tpl_path" ]] || continue
     enum_line=$(grep -m1 -E '^\*\*Layer:\*\*[[:space:]]*\[' "$tpl_path" || true)
@@ -292,25 +292,25 @@ if [[ -f "$activity_router" ]]; then
       v=$(printf '%s' "$p" | tr -d '[:space:]')
       [[ -n "$v" ]] && enum_set+="$v "
     done
-    # Layer set from the activity CSV.
-    csv="$skill_dir/references/activities/$activity.csv"
+    # Layer set from the intent CSV.
+    csv="$skill_dir/references/intents/$intent.csv"
     [[ -f "$csv" ]] || continue
     csv_layers=$(awk -F, 'NR>1 && !/^#/ && NF>0 {print $1}' "$csv" | tr '\n' ' ')
     # Compare both directions.
     for v in $enum_set; do
       case " $csv_layers " in
         *" $v "*) ;;
-        *) fail "$(basename "$tpl_path") Layer enum lists '$v' but $activity.csv has no row for it (drift; add to CSV or use '…' to mark non-exhaustive)" ;;
+        *) fail "$(basename "$tpl_path") Layer enum lists '$v' but $intent.csv has no row for it (drift; add to CSV or use '…' to mark non-exhaustive)" ;;
       esac
     done
     for v in $csv_layers; do
       [[ "$v" == "all" ]] && continue
       case " $enum_set " in
         *" $v "*) ;;
-        *) fail "$(basename "$tpl_path") Layer enum is exhaustive but missing '$v' which appears in $activity.csv (add to enum or use '…' to mark non-exhaustive)" ;;
+        *) fail "$(basename "$tpl_path") Layer enum is exhaustive but missing '$v' which appears in $intent.csv (add to enum or use '…' to mark non-exhaustive)" ;;
       esac
     done
-  done < "$activity_router"
+  done < "$intent_router"
 fi
 
 # ----- Activation-cases unambiguous-section gate -----
@@ -343,13 +343,13 @@ fi
 # rationalizing) and layers (unit / integration / ... / mutation / performance).
 # A reader infers the cross-product: every named verb works for every named
 # layer. This gate enforces that: for each (verb-synonym, layer) pair where
-# both appear in description, the activity the verb maps to must include the
+# both appear in description, the intent the verb maps to must include the
 # layer in its CSV.
 #
-# Verb-to-activity map below is the single source of truth for this skill's
+# Verb-to-intent map below is the single source of truth for this skill's
 # vocabulary. Add a synonym here when the description gains a new framing.
 
-verb_activity_map=$(cat <<'EOF'
+verb_intent_map=$(cat <<'EOF'
 reviewing review
 review review
 auditing review
@@ -374,24 +374,24 @@ if [[ -f "$skill_md" ]] && [[ -n "$all_layers" ]]; then
     printf '%s' "$description_line" | grep -qiwE -- "$layer" && mentioned_layers+="$layer "
   done
 
-  # which verbs does the description mention? -> which activities?
-  mentioned_activities=" "
-  while read -r verb activity; do
+  # which verbs does the description mention? -> which intents?
+  mentioned_intents=" "
+  while read -r verb intent; do
     [[ -z "$verb" ]] && continue
     # Match verb as a whole word in description (case-insensitive)
     if printf '%s' "$description_line" | grep -qiwE -- "$verb"; then
-      case "$mentioned_activities" in
-        *" $activity "*) ;;
-        *) mentioned_activities+="$activity " ;;
+      case "$mentioned_intents" in
+        *" $intent "*) ;;
+        *) mentioned_intents+="$intent " ;;
       esac
     fi
-  done <<< "$verb_activity_map"
+  done <<< "$verb_intent_map"
 
-  # Cross-product: every (activity, layer) advertised by description must
-  # be wired in that activity's CSV, unless explicitly omitted via a header
+  # Cross-product: every (intent, layer) advertised by description must
+  # be wired in that intent's CSV, unless explicitly omitted via a header
   # comment of the form `# omits: layer1, layer2 (reason)` in the CSV.
-  for activity in $mentioned_activities; do
-    csv="$skill_dir/references/activities/$activity.csv"
+  for intent in $mentioned_intents; do
+    csv="$skill_dir/references/intents/$intent.csv"
     [[ -f "$csv" ]] || continue
     # Parse omits list from a leading `# omits: layer1, layer2` comment.
     # Rationale belongs on its own `# rationale: ...` line and is ignored here.
@@ -405,7 +405,7 @@ if [[ -f "$skill_md" ]] && [[ -n "$all_layers" ]]; then
       case "$omits_normalized" in
         *" $layer "*) continue ;;
       esac
-      fail "SKILL.md description advertises activity '$activity' x layer '$layer', but $activity.csv does not route to $layer.md (and does not list '$layer' in its '# omits:' header comment)"
+      fail "SKILL.md description advertises intent '$intent' x layer '$layer', but $intent.csv does not route to $layer.md (and does not list '$layer' in its '# omits:' header comment)"
     done
   done
 fi

@@ -1,6 +1,6 @@
 ---
 name: test-heuristics
-description: Use when reviewing, designing, triaging, or rationalizing test suites — unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, or performance tests. Trigger for flakiness triage, false-pass risk, brittleness on refactor, suite pruning, test-pyramid/trophy decisions, exploratory charters, and snapshot review. Routes by activity (triage / review / author / strategize / prune) and layer. Do not use for production-system performance / SLOs (use `perf-observability-heuristics`).
+description: Use when reviewing, designing, triaging, or rationalizing test suites — unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, or performance tests. Trigger for flakiness triage, false-pass risk, brittleness on refactor, suite pruning, test-pyramid/trophy decisions, exploratory charters, and snapshot review. Routes by intent (triage / review / author / strategize / prune) and surface. Do not use for production-system performance / SLOs (use `perf-observability-heuristics`).
 license: MIT
 ---
 
@@ -19,20 +19,20 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
 ## Activation
 
 - **Bare invocation** (`"use test-heuristics"`, `"test review"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/activity-router.csv`,
-  then show the activity menu with named starter scenarios on top and offer
+  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
+  then show the intent menu with named starter scenarios on top and offer
   the mode choice. Wait. No file inspection, no network calls, no writes.
-- **Concrete invocation** with both activity and layer inferable: skip to
+- **Concrete invocation** with both intent and surface inferable: skip to
   step 3 of the workflow.
 - **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying activity or layer; do not inspect private systems first.
+  identifying intent or surface; do not inspect private systems first.
 
 ## Workflow
 
-1. **Pick activity.** Load `references/activity-router.csv`. Match to:
+1. **Pick intent.** Load `references/intent-router.csv`. Match to:
    `triage`, `review`, `author`, `strategize`, `prune`. Ambiguous → ask once.
-2. **Pick layer.** Load `references/activities/<activity>.csv`. Match to
-   one or more layers, or `all` for cross-layer treatment (`review`
+2. **Pick surface.** Load `references/intents/<intent>.csv`. Match to
+   one or more surfaces, or `all` for cross-layer treatment (`review`
    fan-out, `strategize` integrative pass). Ambiguous → ask with the
    menu.
 3. **Load grounded context.** Load the files in the chosen row's
@@ -51,7 +51,7 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    `strategize/all`: single integrative pass — no fan-out. See
    `references/subagent-dispatch.md`. Fall back to sequential lenses
    only if the host has no delegation primitive.
-7. **Apply the playbook.** Use heuristics tagged for this activity. For
+7. **Apply the playbook.** Use heuristics tagged for this intent. For
    `review`, score 0–10 using `references/core/score-rubric.md`. For
    `author`, name the good-shaped pattern. For `triage`, rank hypotheses
    before fixes. For `strategize`, produce a per-layer investment
@@ -61,7 +61,7 @@ breaks on legitimate refactor, or fails uninformatively is failing at its job.
    `references/core/severity-rubric.md`, `references/trackable-findings.md`,
    and `references/core/failure-modes.md` to every review/prune finding. Use
    stable IDs like `TEST-<layer>-NNN`.
-9. **Emit output** per the default template in the activity router row.
+9. **Emit output** per the default template in the intent router row.
 10. **Create, resume, or close tracking state.** For review/prune outputs with
    7+ findings, any severity 3–4, or a save/track/closeout request, load
    `references/trackable-findings.md`. If the request names an existing
@@ -97,10 +97,10 @@ open questions.
 
 ## Reference map
 
-- `references/activity-router.csv` — level-1 router (activity).
-- `references/activities/<activity>.csv` — level-2 router (layer) per activity.
-- `references/layers/<layer>.md` — layer-specific playbooks (one per layer
-  listed in the activity CSVs).
+- `references/intent-router.csv` — level-1 router (intent).
+- `references/intents/<intent>.csv` — level-2 router (surface) per intent.
+- `references/layers/<layer>.md` — test-pyramid-layer playbooks (one per
+  layer listed in the intent CSVs).
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me contract (shared).
@@ -111,7 +111,7 @@ open questions.
 - `references/core/failure-modes.md` — six-mode test failure taxonomy.
 - `references/core/oracles.md` — test oracles for exploratory work and the
   bug-shape hunter lens.
-- `templates/*.md` — five activity outputs plus tracking artifacts.
+- `templates/*.md` — five intent outputs plus tracking artifacts.
 - `evals/activation-cases.md` — activation and behavioral cases (positive
   and negative).
 - `evals/run-static-checks.sh` — structural and schema gates run in CI.

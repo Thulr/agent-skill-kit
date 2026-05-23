@@ -1,4 +1,4 @@
-layer,name,when_to_use,playbook,core_refs
+surface,name,when_to_use,playbook,core_refs
 unit,Unit test,"A unit test is failing, flaky, or surprising",references/layers/unit.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 integration,Integration test,"An integration test is failing or flaky",references/layers/integration.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
 e2e-ui,E2E/UI test,"An end-to-end or UI test is failing or flaky",references/layers/e2e-ui.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md

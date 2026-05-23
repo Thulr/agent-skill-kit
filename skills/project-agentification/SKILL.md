@@ -10,7 +10,7 @@ Assess, harden, scaffold, and diagnose a repository's agent-readiness.
 Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).
 Grounding sources live in `skill.json`; this file is runtime routing only.
 
-**Produces:** intent-specific report — `assess-report.md` / `harden-recommendation.md` / `scaffold-bundle.md` / `diagnose-runbook.md`; tracked assessments also emit `project-agentification-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`. Rendered in chat as fixed-width text (no Markdown pipe tables).
+**Produces:** intent-specific report — `assess-report.md` / `harden-recommendation.md` / `scaffold-bundle.md` / `diagnose-runbook.md`; tracked assessments also emit `project-agentification-findings-ledger-<date>-<slug>.md` + `project-agentification-workflow-state-<date>-<slug>.json`. Rendered in chat as fixed-width text (no Markdown pipe tables).
 
 ## Core principle
 

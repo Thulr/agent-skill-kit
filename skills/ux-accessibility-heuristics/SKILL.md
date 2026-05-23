@@ -10,7 +10,7 @@ Review and design user-facing interfaces so real people can complete tasks
 without avoidable confusion, exclusion, or coercion. Provenance and grounding
 sources live in `skill.json`; this file is runtime routing only.
 
-**Produces:** `audit-report.md` per use case (usability / accessibility / form / navigation / error-recovery); tracked reviews also emit `ux-accessibility-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
+**Produces:** `audit-report.md` per use case (usability / accessibility / form / navigation / error-recovery); tracked reviews also emit `ux-accessibility-heuristics-findings-ledger-<date>-<slug>.md` + `ux-accessibility-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

@@ -23,7 +23,7 @@ If the repo has no benchmark, no eval suite, no telemetry baseline, and
 no "we observed the agent doing X" stream, use `project-agentification`
 alone. This skill needs a signal to drive promotion.
 
-**Produces:** intent-specific output — `capture` writes the reflection-log scaffold (`docs/reflection-log/README.md` + `_template.md` + `AGENTS.md` §Agents pointer); `promote` proposes the smallest rule / hook / CI-gate diff plus the entries it cites; `assess-l4l5` writes a Level 4–5 maturity score, ceiling, and prioritized gaps. Tracked `assess-l4l5` runs also emit `evidence-driven-agent-rules-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
+**Produces:** intent-specific output — `capture` writes the reflection-log scaffold (`docs/reflection-log/README.md` + `_template.md` + repo-root `README.md §Agents` pointer); `promote` proposes the smallest rule / hook / CI-gate diff plus the entries it cites; `assess-l4l5` writes a Level 4–5 maturity score, ceiling, and prioritized gaps. Tracked `assess-l4l5` runs also emit `evidence-driven-agent-rules-findings-ledger-<date>-<slug>.md` + `evidence-driven-agent-rules-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 
@@ -133,9 +133,9 @@ patterns → no evidence-driven rule).
 Every output cites the reflection-log entries it draws on (filenames + the
 `## What to do differently` lines). Per intent:
 
-- **`capture`** — list of files written + the `AGENTS.md §Agents` pointer
+- **`capture`** — list of files written + the repo-root `README.md §Agents` pointer
   block diff + validation checklist (does the log directory exist, is the
-  template populated, does AGENTS.md link to it).
+  template populated, does README.md link to it).
 - **`promote`** — the proposed rule sentence / hook / CI gate + the ≥3
   reflection-log entries that justified it + the AGENTS.md / hook /
   workflow-file diff for confirmation. Refuses promotion if the group has

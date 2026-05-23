@@ -11,7 +11,7 @@ performance and observability across backend services, distributed systems,
 the browser / network tier, and database performance internals. Provenance
 lives in `skill.json`; this file is runtime routing only.
 
-**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `diagnose-runbook.md` / `optimize-plan.md` / `strategy-doc.md`; tracked audits also emit `perf-observability-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
+**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `diagnose-runbook.md` / `optimize-plan.md` / `strategy-doc.md`; tracked audits also emit `perf-observability-heuristics-findings-ledger-<date>-<slug>.md` + `perf-observability-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

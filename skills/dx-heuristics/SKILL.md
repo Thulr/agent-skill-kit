@@ -10,7 +10,7 @@ Developer-experience review, design, debugging, and risk-scan for any surface
 a developer has to install, call, debug, extend, test, or maintain.
 Provenance lives in `skill.json`; this file is runtime routing only.
 
-**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `debug-runbook.md` / `edge-checklist.md`; tracked audits also emit `dx-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
+**Produces:** intent-specific report — `audit-report.md` / `design-doc.md` / `debug-runbook.md` / `edge-checklist.md`; tracked audits also emit `dx-heuristics-findings-ledger-<date>-<slug>.md` + `dx-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

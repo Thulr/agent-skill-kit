@@ -9,7 +9,7 @@ license: MIT
 Test-suite review, design, triage, strategy, and pruning. Provenance lives
 in `skill.json`; this file is runtime routing only.
 
-**Produces:** activity-specific report (`review-audit.md` / `author-playbook.md` / `triage-log.md` / `strategy-roadmap.md` / `prune-list.md`); tracked reviews also emit `test-heuristics-findings-ledger-<date>-<slug>.md` + `workflow-state-<date>-<slug>.json`.
+**Produces:** activity-specific report (`review-report.md` / `author-design.md` / `triage-runbook.md` / `strategy-doc.md` / `prune-plan.md`); tracked reviews also emit `test-heuristics-findings-ledger-<date>-<slug>.md` + `test-heuristics-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
 

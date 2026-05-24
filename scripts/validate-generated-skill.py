@@ -2,22 +2,25 @@
 """Validate a scaffolded skill against shape-specific structural rules.
 
 Usage:
-  validate-generated-skill.py <skill_dir> [--shape flat|single-layer|two-level]
+  validate-generated-skill.py <skill_dir> [--shape flat|single-layer|two-level|depth-N]
                               [--report <path>]
 
-Detects shape from file layout if --shape is omitted. Runs deterministic
-checks that the existing per-skill run-static-checks.sh scripts do not
-cover: playbook section uniformity, registry orthogonality (two-level),
-inspired_by[]/playbooks mapping, activation-cases shape (counts,
-sibling-naming on negatives), and shape anti-patterns from
-references/depth-rubric.md.
+Detects routing depth from file layout if --shape is omitted by walking
+the CSV chain starting at references/intent-router.csv. Names depths
+0/1/2 as flat/single-layer/two-level; deeper depths are reported as
+depth-N. Runs deterministic checks that the existing per-skill
+run-static-checks.sh scripts do not cover: playbook section uniformity,
+per-layer registry orthogonality (every CSV at depth ≥1 has ≥3 rows
+that route differently),  inspired_by[]/playbooks mapping,
+activation-cases shape (counts, sibling-naming on negatives), and shape
+anti-patterns from references/depth-rubric.md.
 
 Exit codes:
   0 — no blocking findings (warnings/notes may still print)
-  1 — blocking findings (skill is not ready for skill-reviewer handoff)
+  1 — blocking findings (skill is not ready for informed-skill-reviewer handoff)
   2 — usage error or could not read the skill directory
 
-This is invoked by skill-curator's Phase 5 validation. The LLM
+This is invoked by informed-skill-curator's Phase 5 validation. The LLM
 self-review (parallel sub-agents grading per-shape rubrics) is a
 separate concern; this script runs the *deterministic* layer.
 """
@@ -89,17 +92,59 @@ class Report:
         return "\n".join(out)
 
 
-def detect_shape(skill_dir: Path) -> str:
-    """Heuristic shape detection from file layout."""
-    intents_dir = skill_dir / "references" / "intents"
-    playbooks_dir = skill_dir / "references" / "playbooks"
-    intent_router = skill_dir / "references" / "intent-router.csv"
+SHAPE_BY_DEPTH = {0: "flat", 1: "single-layer", 2: "two-level"}
 
-    if intents_dir.is_dir() and playbooks_dir.is_dir():
-        return "two-level"
-    if intent_router.is_file():
-        return "single-layer"
-    return "flat"
+
+def resolve_csv(skill_dir: Path, rel: str) -> Path | None:
+    """Resolve a CSV path from a registry row, trying both skill_dir and skill_dir/references."""
+    rel = rel.strip()
+    if not rel or not rel.endswith(".csv"):
+        return None
+    for base in (skill_dir, skill_dir / "references"):
+        p = base / rel
+        if p.is_file():
+            return p
+    return None
+
+
+def walk_registry_chain(
+    skill_dir: Path,
+) -> list[list[Path]]:
+    """Return the chain of CSV layers reachable from references/intent-router.csv.
+
+    Layer 0 is [intent-router.csv]. Layer N is the list of CSV files referenced
+    by any cell in layer N-1's rows. Stops when no row in the current layer
+    points to a further .csv. Used for depth detection and per-layer
+    orthogonality checks at any depth ≥1.
+    """
+    root = skill_dir / "references" / "intent-router.csv"
+    if not root.is_file():
+        return []
+    layers: list[list[Path]] = [[root]]
+    while True:
+        next_layer: list[Path] = []
+        seen: set[Path] = set()
+        for csv_path in layers[-1]:
+            for row in read_csv(csv_path):
+                for val in row.values():
+                    if val is None:
+                        continue
+                    for piece in str(val).split(";"):
+                        resolved = resolve_csv(skill_dir, piece)
+                        if resolved and resolved not in seen:
+                            seen.add(resolved)
+                            next_layer.append(resolved)
+        if not next_layer:
+            break
+        layers.append(next_layer)
+    return layers
+
+
+def detect_shape(skill_dir: Path) -> str:
+    """Depth-based shape detection. Returns 'flat', 'single-layer', 'two-level', or 'depth-N' for N>=3."""
+    layers = walk_registry_chain(skill_dir)
+    depth = len(layers)
+    return SHAPE_BY_DEPTH.get(depth, f"depth-{depth}")
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -259,8 +304,9 @@ def check_activation_cases(skill_dir: Path, shape: str, report: Report) -> None:
         )
         return
 
-    pos_min = 10 if shape == "two-level" else 3
-    neg_min = 8 if shape == "two-level" else 3
+    deeper = shape == "two-level" or shape.startswith("depth-")
+    pos_min = 10 if deeper else 3
+    neg_min = 8 if deeper else 3
     if len(sections["positive"]) < pos_min:
         report.add(
             SEVERITY_BLOCKING,
@@ -297,80 +343,93 @@ def check_activation_cases(skill_dir: Path, shape: str, report: Report) -> None:
             )
 
 
-def check_two_level_orthogonality(skill_dir: Path, report: Report) -> None:
-    intents_dir = skill_dir / "references" / "intents"
-    intent_csvs = sorted(intents_dir.glob("*.csv"))
-    if len(intent_csvs) < 3:
-        report.add(
-            SEVERITY_BLOCKING,
-            "two-level intent dimension",
-            str(intents_dir),
-            f"only {len(intent_csvs)} intent(s); need ≥3 (anti-pattern: collapsed axis)",
-        )
-    surface_sets: dict[str, set[str]] = {}
-    for csv_path in intent_csvs:
-        rows = read_csv(csv_path)
-        surfaces = {r.get("surface", "") for r in rows if r.get("surface")}
-        surface_sets[csv_path.stem] = surfaces
-        if len(surfaces) < 3:
-            report.add(
-                SEVERITY_BLOCKING,
-                "two-level surface dimension",
-                str(csv_path),
-                f"only {len(surfaces)} surface(s); need ≥3",
-            )
-    if len(surface_sets) >= 2:
-        all_identical = (
-            len({frozenset(s) for s in surface_sets.values()}) == 1
-        )
-        if all_identical:
+def check_layer_orthogonality(
+    layers: list[list[Path]], skill_dir: Path, report: Report
+) -> None:
+    """At every CSV layer at depth ≥1, assert ≥3 rows and that they route differently.
+
+    Walks the chain produced by walk_registry_chain. For each CSV file in
+    each layer beyond the root, checks:
+      - row count (anti-pattern: collapsed axis)
+      - downstream-target diversity (anti-pattern: rows that all load
+        identical sets)
+    Also flags fully-uniform "Cartesian product" matrices at deeper layers
+    as a soft warning (intentional fan-out may be fine; flag for review).
+    """
+    if not layers:
+        return
+    for depth_idx, layer in enumerate(layers):
+        for csv_path in layer:
+            rows = read_csv(csv_path)
+            if depth_idx >= 1 and len(rows) < 3:
+                report.add(
+                    SEVERITY_BLOCKING,
+                    "registry layer dimension",
+                    str(csv_path),
+                    f"only {len(rows)} row(s) at depth {depth_idx}; "
+                    f"need ≥3 (anti-pattern: collapsed axis)",
+                )
+            if len(rows) > 1:
+                load_signatures = {
+                    tuple(
+                        sorted(
+                            (v or "")
+                            for k, v in row.items()
+                            if k not in ("name", "when_to_use", "notes", "trigger_examples")
+                        )
+                    )
+                    for row in rows
+                }
+                if len(load_signatures) == 1:
+                    report.add(
+                        SEVERITY_BLOCKING,
+                        "registry layer routes meaningfully",
+                        str(csv_path),
+                        f"all rows at depth {depth_idx} load identical downstream "
+                        "targets — registry is not routing (anti-pattern: collapse this layer)",
+                    )
+    # Cartesian uniformity: at any depth ≥2, sibling CSVs at the same layer
+    # all loading identical downstream sets is a smell.
+    for depth_idx, layer in enumerate(layers):
+        if depth_idx < 2 or len(layer) < 2:
+            continue
+        downstream_sets: dict[Path, set[str]] = {}
+        for csv_path in layer:
+            rows = read_csv(csv_path)
+            keys = {
+                (row.get("surface") or row.get("intent") or "")
+                for row in rows
+            }
+            downstream_sets[csv_path] = {k for k in keys if k}
+        unique = {frozenset(v) for v in downstream_sets.values()}
+        if len(unique) == 1 and len(downstream_sets) > 1:
             report.add(
                 SEVERITY_WARNING,
-                "two-level matrix curation",
-                str(intents_dir),
-                "every intent loads the same surface set — Cartesian product with no curation. Confirm this is intentional.",
+                "registry layer matrix curation",
+                str(layer[0].parent),
+                f"every CSV at depth {depth_idx} loads the same row set — "
+                "Cartesian product with no curation. Confirm intentional.",
             )
-
-
-def check_single_layer_registry(skill_dir: Path, report: Report) -> None:
-    registry = skill_dir / "references" / "intent-router.csv"
-    if not registry.is_file():
-        report.add(
-            SEVERITY_BLOCKING,
-            "intent-router.csv present",
-            str(registry),
-            "file missing",
-        )
-        return
-    rows = read_csv(registry)
-    if not rows:
-        report.add(
-            SEVERITY_BLOCKING, "registry non-empty", str(registry), "no rows"
-        )
-        return
-    detail_signatures = {tuple(sorted((r.get("detail_file") or "").split(";"))) for r in rows}
-    if len(detail_signatures) == 1 and len(rows) > 1:
-        report.add(
-            SEVERITY_BLOCKING,
-            "registry routes meaningfully",
-            str(registry),
-            "all rows load identical detail_file set — registry is not routing (anti-pattern: collapse to flat)",
-        )
 
 
 def collect_registered_slugs(skill_dir: Path, shape: str) -> tuple[set[str], set[str]]:
-    """Return (playbook_slugs, intent_slugs) used as accepted inspired_by playbooks."""
+    """Return (playbook_slugs, intent_slugs) used as accepted inspired_by playbooks.
+
+    Depth-aware: for any depth ≥2, leaf playbooks live under
+    references/playbooks/; intents are top-level registry rows. For
+    single-layer, intents and playbooks share the same vocabulary.
+    """
     playbooks: set[str] = set()
     intents: set[str] = set()
-    if shape == "two-level":
-        pb_dir = skill_dir / "references" / "playbooks"
+    pb_dir = skill_dir / "references" / "playbooks"
+    router = skill_dir / "references" / "intent-router.csv"
+    is_deeper = shape == "two-level" or shape.startswith("depth-")
+    if is_deeper:
         if pb_dir.is_dir():
             playbooks = {p.stem for p in pb_dir.glob("*.md")}
-        router = skill_dir / "references" / "intent-router.csv"
         if router.is_file():
             intents = {r.get("intent", "") for r in read_csv(router) if r.get("intent")}
     elif shape == "single-layer":
-        router = skill_dir / "references" / "intent-router.csv"
         if router.is_file():
             intents = {r.get("intent", "") for r in read_csv(router) if r.get("intent")}
             playbooks = intents
@@ -387,8 +446,9 @@ def run_checks(skill_dir: Path, shape: str, report: Report) -> None:
             skill_json, shape, registered_playbooks, registered_intents, report
         )
 
-    if shape in ("single-layer", "two-level"):
-        if shape == "two-level":
+    is_deeper = shape == "two-level" or shape.startswith("depth-")
+    if shape in ("single-layer",) or is_deeper:
+        if is_deeper:
             pb_dir = skill_dir / "references" / "playbooks"
             severity = SEVERITY_BLOCKING
         else:
@@ -398,11 +458,9 @@ def run_checks(skill_dir: Path, shape: str, report: Report) -> None:
             for pb in sorted(pb_dir.glob("*.md")):
                 check_playbook_sections(pb, report, severity)
 
-    if shape == "two-level":
-        check_two_level_orthogonality(skill_dir, report)
-
-    if shape == "single-layer":
-        check_single_layer_registry(skill_dir, report)
+    if is_deeper or shape == "single-layer":
+        layers = walk_registry_chain(skill_dir)
+        check_layer_orthogonality(layers, skill_dir, report)
 
     check_activation_cases(skill_dir, shape, report)
 
@@ -412,9 +470,11 @@ def main() -> int:
     parser.add_argument("skill_dir", type=Path)
     parser.add_argument(
         "--shape",
-        choices=["flat", "single-layer", "two-level"],
         default=None,
-        help="Override shape detection",
+        help=(
+            "Override shape detection. Accepts 'flat', 'single-layer', "
+            "'two-level', or 'depth-N' for N>=3."
+        ),
     )
     parser.add_argument(
         "--report",

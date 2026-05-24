@@ -13,14 +13,11 @@ metadata:
 
 Turn source material into practical agent skills. A source is raw material;
 the published skill taxonomy is organized by capability pack, not by book,
-movie, author, character, or title. Each curated skill picks a **routing
-depth** — flat, single-layer (hub-and-spoke), two-level (intent × surface),
-or deeper if the content genuinely needs more axes. Progressive disclosure
-via CSV chains is what makes deeper routing safe: the agent only reads the
-next layer when it commits to that branch, so depth is bounded by content,
-not by an arbitrary cap. Pick the depth explicitly with
-`references/depth-rubric.md`; do not default to whichever shape feels
-familiar.
+movie, author, character, or title. Each curated skill takes one of three
+shapes — flat, single-layer (hub-and-spoke), or two-level routing —
+depending on how much internal branching the content needs. Pick the shape
+explicitly with `references/depth-rubric.md`; do not default to whichever
+shape feels familiar.
 
 The curator works in **five named phases** with **hard user-confirmation
 gates between phases**. The gates are the load-bearing mechanism — they
@@ -140,15 +137,14 @@ Goal: per-candidate decisions that survive scaffolding without rework.
    - `anti_pattern_check` — walk the anti-patterns in `depth-rubric.md`
      and assert none apply (collapsed dimension, registry that doesn't
      route, cargo-culting, projected bloat)
-   - `playbook_outline` — for any routed shape (depth ≥1): list every
+   - `playbook_outline` — for single-layer/two-level: list every
      intended playbook with ≥2 heuristic seeds and ≥1 common-failure
      seed (proves the playbooks will have real content)
-   - `registry_sketch` — for every CSV layer in the chosen depth: rows
-     showing each layer actually routes (not all rows pointing at the
-     same files)
+   - `registry_sketch` — for shapes with a registry: rows showing the
+     registry actually routes (not 50 rows pointing to the same files)
    - `activation_case_seeds` — ≥3 positive / ≥3 negative / ≥1 edge for
-     flat & single-layer; ≥10 / ≥8 / ≥2 for two-level or deeper;
-     **each negative names the sibling skill** it disambiguates from
+     flat & single-layer; ≥10 / ≥8 / ≥2 for two-level; **each negative
+     names the sibling skill** it disambiguates from
    - `grounding_map` — for each `inspired_by` source, which playbooks
      it informs (non-empty)
 3. Walk the **Anti-pattern self-check** checklist at the bottom of the
@@ -166,25 +162,20 @@ plan's `public_path` set may be written without re-opening Phase 3.**
 1. Inspect existing public skills for current conventions. Read
    `skills/dx-heuristics/` end-to-end if scaffolding a two-level skill;
    read 2–3 single-layer skills (e.g. `ux-accessibility-heuristics`,
-   `test-heuristics`) if scaffolding single-layer. For depth ≥3 (no
-   canonical example exists yet), apply the two-level pattern
-   recursively per `references/depth-rubric.md` §Going deeper.
+   `test-heuristics`) if scaffolding single-layer.
 2. Scaffold `skills/<skill-name>/` from the matching
-   `references/shapes/<shape>.md` for depths 0–2; for depth ≥3 the
-   two-level anatomy is the recursion base case. Load only the anatomy
-   you need — do not over-build.
+   `references/shapes/<shape>.md`. Load only that shape's anatomy — do
+   not over-build.
 3. For every generated playbook, start from the matching skeleton at
-   `templates/playbook-skeletons/<shape>.md` (use `two-level.md` as the
-   skeleton for any depth ≥2). Every canonical section (`## Scope`,
-   `## Grounding`, `## Good signals`, `## Common failures`,
+   `templates/playbook-skeletons/<shape>.md`. Every canonical section
+   (`## Scope`, `## Grounding`, `## Good signals`, `## Common failures`,
    `## Heuristics`, `## Quick diagnostic`, `## Cross-references`) must
    be present before the gate.
 4. Start `evals/activation-cases.md` from
    `templates/activation-cases-skeleton.md`. Each negative case must
    name a sibling skill.
-5. For every CSV layer in the chosen depth, map every downstream
-   reference file through it. No orphans, no rows that load identical
-   sets at any layer.
+5. For shapes with a registry, map every reference file through it. No
+   orphans, no rows that load identical sets.
 6. Keep public grounding concise. Source detail belongs in the private
    dossier; user-facing provenance belongs in `skill.json`.
 7. **Gate**: list the files written and ask, "Scaffold written under
@@ -200,9 +191,8 @@ Goal: catch misses before handing off to `informed-skill-reviewer`.
    `.agents/state/validation-reports/<skill-name>-<timestamp>.md` with
    `--report`. **Any blocking finding blocks the gate** — fix and rerun.
 2. **LLM self-review.** Load the matching rubric at
-   `references/validation-rubrics/<shape>.md` (use `two-level.md` for
-   any depth ≥2 — its checks generalize) and grade the scaffolded skill
-   against it. For depth ≥2 skills with ≥5 playbooks, spawn one
+   `references/validation-rubrics/<shape>.md` and grade the scaffolded
+   skill against it. For two-level skills with ≥5 playbooks, spawn one
    read-only `Explore` sub-agent per playbook scoped to that playbook's
    blocks; the curator consolidates. For ≤4 playbooks, batch read.
    Severities (blocking/warning/note) merge into the validation report.
@@ -246,22 +236,18 @@ Every generated public skill must include:
   skills in this repo; see `skills/dx-heuristics/skill.json` for the
   worked example with `inspired_by` as an object array.
 
-The rest of the file set depends on the chosen depth — see the matching
+The rest of the file set depends on the chosen shape — see the matching
 file in `references/shapes/`. In short:
 
-- **Flat** (depth 0) — typically just `SKILL.md`, optionally one or two
-  supporting files.
-- **Single-layer (hub-and-spoke)** (depth 1) — adds `references/`,
-  optional `templates/`, optional `evals/`, with a single registry CSV
-  routing the intents.
-- **Two-level routing** (depth 2) — adds `references/intent-router.csv`,
+- **Flat** — typically just `SKILL.md`, optionally one or two supporting
+  files.
+- **Single-layer (hub-and-spoke)** — adds `references/`, optional
+  `templates/`, optional `evals/`, with a single registry CSV routing
+  the intents.
+- **Two-level routing** — adds `references/intent-router.csv`,
   `references/intents/<intent>.csv`, `references/playbooks/<surface>.md`,
   shared `references/core/` rubrics, `templates/<intent>.md`, and `evals/`
   including a static-check script.
-- **Deeper** (depth ≥3) — same pattern recursively: each registry row
-  can name a child registry CSV that routes the next axis, ending in
-  leaf playbooks. No upper bound; depth is bounded by content, not by
-  ceremony. See `references/depth-rubric.md` §Going deeper.
 
 Do not put author biographies, further-reading sections, source marketing,
 or long bibliographies in `SKILL.md`. If public grounding is useful, keep

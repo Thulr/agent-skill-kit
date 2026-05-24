@@ -36,7 +36,7 @@ install lanes that any path-based gate **must** enumerate:
 - `skills/<name>/` — published skills
 - `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
   release explicitly reopens experimental distribution
-- `.agents/skills/<name>/` — repo-local agent surface (skill-curator, skill-reviewer)
+- `.agents/skills/<name>/` — repo-local agent surface (informed-skill-curator, informed-skill-reviewer)
 
 ## Commands
 

@@ -34,7 +34,7 @@ Examples:
 - `AG-GATES-003` for project-agentification gate findings.
 - `DX-CLI-002` for dx-heuristics CLI findings.
 - `TEST-UNIT-004` for test-heuristics unit-test findings.
-- `SR-SOURCE-001` for skill-reviewer source-safety findings.
+- `SR-SOURCE-001` for informed-skill-reviewer source-safety findings.
 - `ED-L4L5-001` for evidence-driven-agent-rules maturity gaps.
 
 IDs are immutable once emitted. If a finding is split, keep the original as

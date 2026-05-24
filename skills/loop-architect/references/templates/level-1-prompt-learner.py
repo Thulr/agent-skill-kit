@@ -14,7 +14,7 @@ from pathlib import Path
 import openai  # or anthropic, litellm
 
 
-RULES_PATH = Path(".claudemd")
+RULES_PATH = Path("CLAUDE.md")
 PROPOSED_DIFF_PATH = Path("ai-ops/proposed-rules.diff.md")
 RESULTS_PATH = Path("ai-ops/prompt-learning-results.json")
 

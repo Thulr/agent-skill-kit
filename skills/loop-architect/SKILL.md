@@ -37,7 +37,7 @@ flowchart TD
 
 | Tier | Target | Best for | Gate before persistence |
 |---|---|---|---|
-| **L1: System-Prompt Learning** | `.claudemd`, `.clinerules`, `SKILL.md`, rules | Open-ended developer agents, chat assistants | Judge explanations + held-out eval + reviewed diff |
+| **L1: System-Prompt Learning** | `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/`, `.github/copilot-instructions.md`, `.clinerules`, `SKILL.md` | Open-ended developer agents, chat assistants | Judge explanations + held-out eval + reviewed diff |
 | **L2: Subroutine Compilation** | Declarative signatures | Parsers, classifiers, routers, linter triagers | Schema/assertion metric + train/test split |
 | **L3: Sandbox + Repair Harness** | Container, cost, permission, verification rails | Terminal agents, PR builders, side-effectful tools | Isolation + tests + failure-to-artifact repair loop |
 | **L4: System Benchmarking** | Replayable task suites | Model swaps, platform-wide regressions, release gates | Fixed benchmark + baseline comparison + rollback rule |

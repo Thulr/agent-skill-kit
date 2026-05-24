@@ -1,6 +1,6 @@
 {
   "name": "loop-architect",
-  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose feedback-loop gaps, and scaffold self-improving evaluation/optimization loops (Levels 1-4) so developers move off ad-hoc prompt tweaking and onto metric-driven reliability work.",
+  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose feedback-loop gaps, and scaffold self-improving evaluation/optimization loops plus post-readiness improvement controllers.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -14,7 +14,8 @@
     "compiler-loop",
     "trace-replay",
     "system-benchmark",
-    "production-experiments"
+    "production-experiments",
+    "autonomous-improvement"
   ],
   "inspired_by": [
     {
@@ -47,6 +48,14 @@
       "kind": "practice cluster",
       "year": 2026,
       "contribution": "Adds loop-readiness dimensions: signal capture, interpretation layer, change surface, cadence, stop/rollback rules, and human or operational ownership.",
+      "playbooks": ["all"]
+    },
+    {
+      "name": "Self-improving AI systems and system prompt learning",
+      "author": "AI Wiki",
+      "kind": "wiki synthesis",
+      "year": 2026,
+      "contribution": "Adds the post-readiness distinction between measured loops, proposed updates, eval-gated persistence, and production experiments.",
       "playbooks": ["all"]
     },
     {

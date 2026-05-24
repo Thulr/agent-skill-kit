@@ -67,7 +67,7 @@ CASES: list[dict[str, Any]] = [
     {
         "id": "agent-needs-sandbox",
         "fixtures": ["agent.py", "rules.md"],
-        "expected_tier": "Level 0",
+        "expected_tier": "pre-L3 or Level 0",
         "expected_target_tier": "Level 3",
         "expected_scaffold_keywords": [
             "sandbox",
@@ -116,6 +116,24 @@ CASES: list[dict[str, Any]] = [
             "Should route to Level 4 System Benchmarking."
         ),
     },
+    {
+        "id": "post-readiness-operating-loop",
+        "fixtures": ["post-readiness.md"],
+        "expected_tier": "ready but not autonomous",
+        "expected_target_tier": "autonomous improvement controller",
+        "expected_scaffold_keywords": [
+            "controller",
+            "allowlisted",
+            "diff",
+            "eval",
+            "benchmark",
+        ],
+        "description": (
+            "The readiness matrix is 6/6, but no controller exists. Should "
+            "explain that readiness is not autonomy and recommend a gated "
+            "autonomous improvement controller."
+        ),
+    },
 ]
 
 
@@ -131,7 +149,8 @@ Now produce the Step 2 Diagnostic Report. Be specific about:
 - Which AI Optimization Staircase tier each integration currently occupies.
 - Which tier you recommend the developer scaffold next, and why.
 - Which Loop Readiness Matrix fields are missing or present.
-- Which template (Level 1 / 2 / 3 / 4) you would copy into the workspace.
+- Which template (Level 1 / 2 / 3 / 4) or post-readiness controller you would
+  copy into the workspace.
 """
 
 JUDGE_SYSTEM = """\

@@ -1,15 +1,15 @@
 ---
 name: loop-architect
-description: Audit a workspace's AI integrations, score their feedback-loop readiness, map them onto the AI Optimization Staircase, diagnose gaps, and scaffold self-improving evaluation/optimization loops (Level 1, Level 2, Level 3, or Level 4) to move developers from ad-hoc prompt tweaking to measured reliability work. Use when the user wants an AI workspace audit, eval loop, prompt optimizer, trace/eval flywheel, agent harness, production experiment plan, system benchmark, or runs `/loop-architect`.
+description: Audit AI integrations, score feedback-loop readiness, map the AI Optimization Staircase, and scaffold eval loops plus post-readiness improvement controllers. Use for AI workspace audits, eval loops, prompt optimizers, trace/eval flywheels, agent harnesses, production experiments, system benchmarks, autonomous improvement loops, or `/loop-architect`.
 license: MIT
 ---
 
 # loop-architect
 
-`loop-architect` turns vibe-engineered AI applications into measured feedback
-systems. It scans the workspace, maps integration points onto the **AI
-Optimization Staircase**, scores the missing loop mechanics, and scaffolds the
-smallest useful eval/optimization loop.
+`loop-architect` turns vibe-engineered AI apps into measured feedback systems.
+It maps AI integration points, scores missing loop mechanics, and scaffolds the
+smallest useful eval loop. A 6/6 score means ready to improve; autonomy starts
+only when a controller repeats the loop.
 
 > **Pivot:** stop rewriting prompts by feel. Create a loop where every run
 > produces a signal, the signal changes a durable artifact, and the next run
@@ -27,8 +27,7 @@ flowchart TD
 ## When to Use
 
 - User asks to evaluate, improve, or de-risk an AI app or agent.
-- User wants evals, prompt optimization, trace replay, production signal loops,
-  or system benchmarks.
+- User wants evals, prompt optimization, trace replay, production loops, or benchmarks.
 - Workspace has hardcoded prompts, raw rules files, unmonitored agent loops,
   no golden set, or trace data that is not feeding improvement.
 - User invokes `/loop-architect`.
@@ -37,7 +36,7 @@ flowchart TD
 
 | Tier | Target | Best for | Gate before persistence |
 |---|---|---|---|
-| **L1: System-Prompt Learning** | `CLAUDE.md`, `AGENTS.md`, `.cursor/rules/`, `.github/copilot-instructions.md`, `.clinerules`, `SKILL.md` | Open-ended developer agents, chat assistants | Judge explanations + held-out eval + reviewed diff |
+| **L1: System-Prompt Learning** | rules/instruction files | Open-ended developer agents, chat assistants | Judge explanations + held-out eval + reviewed diff |
 | **L2: Subroutine Compilation** | Declarative signatures | Parsers, classifiers, routers, linter triagers | Schema/assertion metric + train/test split |
 | **L3: Sandbox + Repair Harness** | Container, cost, permission, verification rails | Terminal agents, PR builders, side-effectful tools | Isolation + tests + failure-to-artifact repair loop |
 | **L4: System Benchmarking** | Replayable task suites | Model swaps, platform-wide regressions, release gates | Fixed benchmark + baseline comparison + rollback rule |
@@ -77,6 +76,8 @@ Present:
 - **Loop Readiness Matrix** — signal/interpreter/change/cadence/stop/owner.
 - **Production Gap** — whether the local loop needs trace replay, production
   experiment metadata, semantic signals, or human review ownership.
+- **Next Operating Loop** — what command or controller turns the score into a
+  repeated cycle. If all fields are 6/6, say "ready, not autonomous yet."
 
 Do not scaffold yet. Wait for user approval.
 
@@ -95,6 +96,18 @@ Create `ai-ops/` or `.agents/evals/` and adapt the selected template:
 - **L4** → `references/templates/level-4-system-benchmark.py`
 
 Verify Python 3.10+ and required SDKs before telling the user to run code.
+
+### Step 4 — After 6/6
+
+Do not stop at the score. Explain the next loop:
+
+1. Promote a failed trace into an eval case.
+2. Propose one minimal diff to an allowlisted change surface.
+3. Run live evals, held-out evals, and system benchmarks.
+4. Keep the diff only if the target improves and rollback gates stay green.
+
+If no controller exists, offer `references/templates/autonomous-improve-loop.mjs`.
+It stages a diff or PR; it never silently mutates production.
 
 ## Anti-Patterns to Avoid
 

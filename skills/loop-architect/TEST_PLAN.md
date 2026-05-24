@@ -65,6 +65,8 @@ Run the loop-architect on a mock workspace containing these two files:
 3. `observability.md`: Notes that the team has traces, thumbs-down feedback, and sampled transcripts, but no replay dataset, eval cadence, rollback threshold, or owner.
 
 4. `release.md`: Notes that the team wants to swap the model behind the whole assistant and needs a release gate.
+
+5. `post-readiness.md`: Notes that all six readiness fields are 6/6, but no autonomous controller exists.
 ```
 
 ### 2. Success Criteria
@@ -72,6 +74,7 @@ Run the loop-architect on a mock workspace containing these two files:
 * **`agent.py` Diagnosis:** The agent flags the high risk of un-sandboxed shell execution. It recommends a **Level 3 Sandbox + Repair Harness** (enforcing Docker isolation, iteration caps, cost circuit-breakers, verification, and failure-to-artifact logging) before any prompt optimization is run.
 * **`observability.md` Diagnosis:** The agent identifies traces/feedback as raw signal, not a loop. It fills the Loop Readiness Matrix and recommends converting selected traces into replayable eval rows before optimization.
 * **`release.md` Diagnosis:** The agent recommends **Level 4 System Benchmarking** with fixed tasks, baseline/current comparison, pass-rate/cost/latency thresholds, and a rollback rule.
+* **`post-readiness.md` Diagnosis:** The agent says 6/6 is readiness, not autonomy, then recommends a gated controller that promotes failures, proposes one allowlisted diff, runs evals/benchmarks, and persists only on green gates.
 * **Format Compliance:** The agent's output follows the voice rules in `STYLE.md` (no conversational fluff, short declarative sentences, clear markdown tables).
 
 ---
@@ -129,6 +132,7 @@ python test-sandbox/ai-ops/compile_classifier.py
 - [ ] **Loop Readiness:** Reports signal, interpreter, change surface, cadence, rollback, and owner gaps.
 - [ ] **Clean Scaffolding:** Writes real, syntactically correct Python/Docker files in `ai-ops/`.
 - [ ] **Prompt Safeguards:** Level 1 proposes reviewed diffs and uses held-out evals; it does not auto-write learned rules.
+- [ ] **Post-Readiness Action:** A 6/6 matrix produces a Next Operating Loop or controller scaffold, not a dead-end score.
 - [ ] **Local-First Design:** Proposes localized, minimal, clean boilerplate rather than complex cloud-dashboard integrations.
 - [ ] **Zero Prompt Bloat:** Keeps code templates separate from the host application's control flow.
 - [ ] **Lints Cleanly:** The scaffolded code compiles and passes linter evaluations.

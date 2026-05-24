@@ -69,6 +69,12 @@
       "category": "positive"
     },
     {
+      "query": "The loop readiness report says everything is 6/6. What am I supposed to do with this, and how does it make the system autonomously improve?",
+      "should_activate": true,
+      "expected_route": "operate/post-readiness",
+      "category": "positive"
+    },
+    {
       "query": "Explain what JWT is and how RS256 differs from HS256. I'm writing a one-pager for our security team.",
       "should_activate": false,
       "expected_route": null,

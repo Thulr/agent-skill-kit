@@ -21,6 +21,7 @@ python3 skills/loop-architect/evals/phase2-grader.py --live         # grade case
 python3 skills/loop-architect/evals/phase2-grader.py --live --case agent-needs-sandbox
 python3 skills/loop-architect/evals/phase2-grader.py --live --case traces-not-loop
 python3 skills/loop-architect/evals/phase2-grader.py --live --case model-swap-benchmark
+python3 skills/loop-architect/evals/phase2-grader.py --live --case post-readiness-operating-loop
 python3 skills/loop-architect/evals/phase2-grader.py --live --model opus   # ~$0.25, Opus 4.7
 
 # ── Phase 3 — sandbox scaffold + opt-in DSPy run (~$0.20 for execute) ─
@@ -172,6 +173,20 @@ this file for the canonical invocation order. Behavior on missing keys:
 - Requires fixed benchmark tasks, baseline/current comparison, pass-rate/cost/latency thresholds, and a rollback rule.
 
 **Fail if:** recommends ad-hoc prompt tuning or a Level 2 compiler for a product-wide regression problem.
+
+---
+
+#### P7 — 6/6 readiness, no autonomous controller
+
+**Prompt:** "The report says every Loop Readiness Matrix field is 6/6. What am I supposed to do with this? How does it make my system autonomously improve?"
+
+**Expected:**
+- Says 6/6 means ready, not autonomous yet.
+- Produces a Next Operating Loop: failed trace/eval -> one allowlisted diff -> live/held-out evals -> system benchmark -> keep only if gates pass.
+- Offers `references/templates/autonomous-improve-loop.mjs` when no controller exists.
+- States that the controller should stage a diff or PR, not silently mutate production.
+
+**Fail if:** treats the score as the final deliverable; claims autonomy exists without a controller; recommends unreviewed prompt mutation.
 
 ---
 

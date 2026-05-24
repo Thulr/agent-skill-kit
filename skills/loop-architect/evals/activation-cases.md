@@ -60,7 +60,7 @@ py_compile`.
 
 Two additional runners ship with this skill but are **not** invoked by
 `just check`. They execute the Phase 2 and Phase 3 verification described
-in [`../TEST_PLAN.md`](../TEST_PLAN.md).
+in [`TEST_PLAN.md`](./TEST_PLAN.md).
 
 | Runner | What it does | Cost estimate | When to run |
 |--------|--------------|---------------|-------------|

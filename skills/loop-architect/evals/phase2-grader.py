@@ -119,19 +119,21 @@ CASES: list[dict[str, Any]] = [
     {
         "id": "post-readiness-operating-loop",
         "fixtures": ["post-readiness.md"],
-        "expected_tier": "ready but not autonomous",
-        "expected_target_tier": "autonomous improvement controller",
+        "expected_tier": "6/6 score is a false positive (Telemetry Theater)",
+        "expected_target_tier": "wrap LLM client calls / close telemetry gap before the controller",
         "expected_scaffold_keywords": [
-            "controller",
-            "allowlisted",
-            "diff",
-            "eval",
-            "benchmark",
+            "prompt",
+            "completion",
+            "Telemetry Theater",
+            "wrap",
+            "HELD_OUT_EVAL_CMD",
         ],
         "description": (
-            "The readiness matrix is 6/6, but no controller exists. Should "
-            "explain that readiness is not autonomy and recommend a gated "
-            "autonomous improvement controller."
+            "The readiness matrix scores 6/6, but LLM client calls aren't "
+            "wrapped (no prompts/completions captured) and HELD_OUT_EVAL_CMD "
+            "is unset. Should detect the Telemetry Theater gap, downgrade "
+            "rows that depend on LLM I/O capture, and recommend closing the "
+            "gap BEFORE wiring the autonomous controller."
         ),
     },
 ]

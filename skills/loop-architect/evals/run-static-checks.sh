@@ -116,6 +116,19 @@ if [[ -f "$skill_md" ]]; then
     grep -qiF -- "$concept" "$skill_md" \
       || fail "SKILL.md missing loop-readiness concept: $concept"
   done
+  # Instrumentation-verification concepts (added 2026-05-23 after
+  # docs/reflection-log/2026-05-23-loop-architect-graded-fields-not-emission.md).
+  # 6/6 must mean observed emission, not declared capability.
+  for concept in 'Instrumentation Smoke' 'Telemetry Theater' 'Score Without Inspection' 'observed emission'; do
+    grep -qiF -- "$concept" "$skill_md" \
+      || fail "SKILL.md missing instrumentation-verification concept: $concept"
+  done
+  # Step 4 controller preconditions: skill MUST require the autonomous
+  # controller's inputs to actually exist before recommending it.
+  for concept in 'HELD_OUT_EVAL_CMD' 'non-trivial candidate' 'fixture_min'; do
+    grep -qF -- "$concept" "$skill_md" \
+      || fail "SKILL.md Step 4 missing controller precondition: $concept"
+  done
 fi
 
 # ----- Python artifacts must parse -----
@@ -136,6 +149,13 @@ if [[ -d "$template_dir" ]]; then
     for concept in 'OPENAI_API_KEY' 'https://api.openai.com/v1/responses' 'git(["apply", "--check"' 'git(["apply", "-R"' 'allowlist'; do
       grep -qF -- "$concept" "$controller" \
         || fail "autonomous controller missing actuator concept: $concept"
+    done
+    # Preflight gate (added 2026-05-23): controller must refuse to run on
+    # metadata-only candidates or when HELD_OUT_EVAL_CMD is unset. This is
+    # the load-bearing forcing function even if SKILL.md prose regresses.
+    for concept in 'preflight' 'HELD_OUT_EVAL_CMD'; do
+      grep -qF -- "$concept" "$controller" \
+        || fail "autonomous controller missing preflight concept: $concept"
     done
     if grep -qF 'TODO' "$controller"; then
       fail "autonomous controller must be wired; TODO placeholder remains"

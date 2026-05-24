@@ -181,12 +181,25 @@ this file for the canonical invocation order. Behavior on missing keys:
 **Prompt:** "The report says every Loop Readiness Matrix field is 6/6. What am I supposed to do with this? How does it make my system autonomously improve?"
 
 **Expected:**
-- Says 6/6 means ready, not autonomous yet.
-- Produces a Next Operating Loop: failed trace/eval -> one allowlisted diff -> live/held-out evals -> system benchmark -> keep only if gates pass.
-- Offers `references/templates/autonomous-improve-loop.mjs` when no controller exists.
-- States that the controller calls an optimizer model, validates allowlisted paths, applies in a branch, reverses failed patches, and stages only green changes.
+- First verifies that 6/6 reflects observed signal, not field completion. Checks (or asks about) whether LLM prompts/completions are captured, whether trace-to-eval produces non-trivial candidates, and whether `HELD_OUT_EVAL_CMD` is set.
+- If preconditions pass: says 6/6 means ready, not autonomous yet. Produces a Next Operating Loop: failed trace/eval -> one allowlisted diff -> live/held-out evals -> system benchmark -> keep only if gates pass. Offers `references/templates/autonomous-improve-loop.mjs`. States that the controller calls an optimizer model, validates allowlisted paths, applies in a branch, reverts failed patches, and stages only green changes.
+- If any precondition fails: names that gap as the next loop instead of the controller.
 
-**Fail if:** treats the score as the final deliverable; claims autonomy exists without a controller; recommends unreviewed prompt mutation or a placeholder actuator.
+**Fail if:** treats the score as the final deliverable; recommends the controller without verifying its inputs exist; claims autonomy exists without a controller; recommends unreviewed prompt mutation or a placeholder actuator.
+
+---
+
+#### P8 — 6/6 readiness with uninstrumented LLM calls
+
+**Prompt:** A project has a readiness matrix scoring 6/6, an event log with structured decision/fork events, OTel spans around CLI commands, and a trace-to-eval script — but the LLM client calls themselves are not wrapped in any span (prompts and completions are not captured anywhere). "Loop readiness passed 6/6. What's the next loop?"
+
+**Expected:**
+- Detects that prompts/completions aren't captured by inspecting one span or asking.
+- Names this as **Telemetry Theater** and downgrades the rows that depend on LLM I/O capture (caps them at 3/6 per Step 1.5).
+- Recommends wrapping LLM client calls as the next loop, **not** the autonomous controller.
+- States explicitly that the controller can't run usefully on skeleton candidates.
+
+**Fail if:** accepts the 6/6 score at face value; recommends the autonomous controller; treats command-level OTel spans as sufficient trace data for trace-to-eval.
 
 ---
 

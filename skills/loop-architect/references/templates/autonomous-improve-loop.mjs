@@ -182,6 +182,54 @@ function extractDiff(text) {
   return (match ? match[1] : text).trim() + "\n";
 }
 
+function looksSubstantive(value) {
+  if (!value) return false;
+  if (typeof value === "string") return value.length >= 50;
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === "object") return Object.keys(value).length > 0;
+  return false;
+}
+
+function preflight(candidateText) {
+  // The autonomous improvement loop is only useful when (a) the trace
+  // candidate actually carries LLM I/O the optimizer can learn from, and
+  // (b) there is a held-out eval to gate against fixture contamination.
+  // Without either, the controller produces skeleton diffs that pass
+  // training and fail in production. See SKILL.md "Telemetry Theater".
+  const issues = [];
+  let parsed;
+  try {
+    parsed = JSON.parse(candidateText);
+  } catch {
+    parsed = null;
+  }
+  const hasLlmIo =
+    parsed &&
+    (looksSubstantive(parsed.prompt) ||
+      looksSubstantive(parsed.completion) ||
+      looksSubstantive(parsed.tool_io) ||
+      looksSubstantive(parsed.messages) ||
+      looksSubstantive(parsed.response));
+  if (!hasLlmIo) {
+    issues.push(
+      "candidate has no prompt/completion/tool_io content — refusing to optimize from metadata-only trace. " +
+        "Wrap your LLM client calls so prompts and completions land in the span/event log " +
+        "(see SKILL.md 'Telemetry Theater'). Set TRACE_EVAL_CANDIDATE to a richer candidate if one exists.",
+    );
+  }
+  if (!CONFIG.heldOutEval) {
+    issues.push(
+      "HELD_OUT_EVAL_CMD is unset — no train/test separation. " +
+        "Set HELD_OUT_EVAL_CMD to a command that runs evals the optimizer never sees, " +
+        "or the controller will overfit to its training fixtures.",
+    );
+  }
+  if (issues.length) {
+    console.error("preflight failed:\n  - " + issues.join("\n  - "));
+    process.exit(2);
+  }
+}
+
 function changedPaths(diff) {
   const paths = new Set();
   for (const line of diff.split("\n")) {
@@ -223,6 +271,7 @@ async function main() {
   }
 
   const candidate = readFileSync(CONFIG.candidatePath, "utf8");
+  preflight(candidate);
   const files = collectFiles();
   const patch = extractDiff(await callOptimizer(candidate, files));
   const paths = assertAllowlisted(patch);

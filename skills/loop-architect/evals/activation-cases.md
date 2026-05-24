@@ -184,9 +184,9 @@ this file for the canonical invocation order. Behavior on missing keys:
 - Says 6/6 means ready, not autonomous yet.
 - Produces a Next Operating Loop: failed trace/eval -> one allowlisted diff -> live/held-out evals -> system benchmark -> keep only if gates pass.
 - Offers `references/templates/autonomous-improve-loop.mjs` when no controller exists.
-- States that the controller should stage a diff or PR, not silently mutate production.
+- States that the controller calls an optimizer model, validates allowlisted paths, applies in a branch, reverses failed patches, and stages only green changes.
 
-**Fail if:** treats the score as the final deliverable; claims autonomy exists without a controller; recommends unreviewed prompt mutation.
+**Fail if:** treats the score as the final deliverable; claims autonomy exists without a controller; recommends unreviewed prompt mutation or a placeholder actuator.
 
 ---
 

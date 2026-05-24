@@ -106,8 +106,9 @@ Do not stop at the score. Explain the next loop:
 3. Run live evals, held-out evals, and system benchmarks.
 4. Keep the diff only if the target improves and rollback gates stay green.
 
-If no controller exists, offer `references/templates/autonomous-improve-loop.mjs`.
-It stages a diff or PR; it never silently mutates production.
+If no controller exists, copy `references/templates/autonomous-improve-loop.mjs`.
+It calls an optimizer, validates allowlisted paths, applies in a branch with
+`--apply`, reverts on failed gates, and stages only green changes.
 
 ## Anti-Patterns to Avoid
 

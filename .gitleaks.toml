@@ -1,0 +1,21 @@
+# gitleaks configuration — informed-skills
+#
+# Inherits the upstream default ruleset (https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml).
+# Baseline scan (gitleaks v8.30.1, 206 commits, 1.85 MB): 0 findings.
+# That clean baseline is what `gitleaks detect` defends going forward.
+#
+# When a real false positive is observed, add an [[allowlists]] block:
+#
+#   [[allowlists]]
+#   description = "<why this exists — link a path or PR>"
+#   paths = ['''skills/example-minimal/SKILL\.md''']
+#   # or: regexes = ['''AKIAEXAMPLE\d+''']
+#   # or: stopwords = ['''example''']
+#
+# Every allowlist needs at least one of: commits, paths, regexes, stopwords.
+# Prefer narrowing by path over regex when possible. Never allowlist a
+# pattern "just in case" — each entry is a rule we have committed to
+# maintaining, and a too-broad allowlist silently disables real coverage.
+
+[extend]
+useDefault = true

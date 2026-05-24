@@ -74,7 +74,7 @@ Run the loop-architect on a mock workspace containing these two files:
 * **`agent.py` Diagnosis:** The agent flags the high risk of un-sandboxed shell execution. It recommends a **Level 3 Sandbox + Repair Harness** (enforcing Docker isolation, iteration caps, cost circuit-breakers, verification, and failure-to-artifact logging) before any prompt optimization is run.
 * **`observability.md` Diagnosis:** The agent identifies traces/feedback as raw signal, not a loop. It fills the Loop Readiness Matrix and recommends converting selected traces into replayable eval rows before optimization.
 * **`release.md` Diagnosis:** The agent recommends **Level 4 System Benchmarking** with fixed tasks, baseline/current comparison, pass-rate/cost/latency thresholds, and a rollback rule.
-* **`post-readiness.md` Diagnosis:** The agent says 6/6 is readiness, not autonomy, then recommends a gated controller that promotes failures, proposes one allowlisted diff, runs evals/benchmarks, and persists only on green gates.
+* **`post-readiness.md` Diagnosis:** The agent says 6/6 is readiness, not autonomy, then recommends a gated controller that promotes failures, calls an optimizer for one allowlisted diff, runs evals/benchmarks, reverses failed patches, and persists only on green gates.
 * **Format Compliance:** The agent's output follows the voice rules in `STYLE.md` (no conversational fluff, short declarative sentences, clear markdown tables).
 
 ---

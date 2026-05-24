@@ -1,0 +1,14 @@
+# Pre-commit hooks for informed-skills.
+#
+# Install: `just install-hooks`  (or `pre-commit install` if you already
+# have the framework). CI runs the same gitleaks scan as a safety net,
+# but this hook catches leaks locally before they ever hit a remote.
+#
+# Run on demand: `pre-commit run --all-files`
+# Bump pinned versions: `pre-commit autoupdate`
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks

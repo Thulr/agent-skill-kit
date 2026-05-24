@@ -131,6 +131,16 @@ if [[ -d "$template_dir" ]]; then
     [[ -f "$tpl" ]] || continue
     node --check "$tpl" || fail "template won't parse: $tpl"
   done
+  controller="$template_dir/autonomous-improve-loop.mjs"
+  if [[ -f "$controller" ]]; then
+    for concept in 'OPENAI_API_KEY' 'https://api.openai.com/v1/responses' 'git(["apply", "--check"' 'git(["apply", "-R"' 'allowlist'; do
+      grep -qF -- "$concept" "$controller" \
+        || fail "autonomous controller missing actuator concept: $concept"
+    done
+    if grep -qF 'TODO' "$controller"; then
+      fail "autonomous controller must be wired; TODO placeholder remains"
+    fi
+  fi
 fi
 if [[ -d "$fixture_dir" ]]; then
   for fx in "$fixture_dir"/*.py; do

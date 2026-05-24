@@ -16,3 +16,6 @@ check:
     done
 
 test: check
+
+install-hooks:
+    bash scripts/install-hooks.sh

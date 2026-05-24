@@ -1,6 +1,6 @@
 {
   "name": "loop-architect",
-  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose gaps, and scaffold self-improving evaluation/optimization loops (Levels 1-3) so developers move off ad-hoc prompt tweaking and onto metric-driven compilation.",
+  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose feedback-loop gaps, and scaffold self-improving evaluation/optimization loops (Levels 1-4) so developers move off ad-hoc prompt tweaking and onto metric-driven reliability work.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -11,7 +11,10 @@
     "prompt-optimization",
     "agent-harness",
     "sandbox",
-    "compiler-loop"
+    "compiler-loop",
+    "trace-replay",
+    "system-benchmark",
+    "production-experiments"
   ],
   "inspired_by": [
     {
@@ -36,6 +39,22 @@
       "kind": "paper",
       "year": 2023,
       "contribution": "Iteration caps, structured failure critique, and reflective self-improvement loops. Underwrites Level 1 (System-Prompt Learning) and the iteration-cap guardrails in Level 3.",
+      "playbooks": ["all"]
+    },
+    {
+      "name": "Feedback-loop product engineering and eval/observability flywheels",
+      "author": "Granola, Braintrust, Arize, Raindrop, Microsoft Foundry",
+      "kind": "practice cluster",
+      "year": 2026,
+      "contribution": "Adds loop-readiness dimensions: signal capture, interpretation layer, change surface, cadence, stop/rollback rules, and human or operational ownership.",
+      "playbooks": ["all"]
+    },
+    {
+      "name": "Terminal-Bench and SWE-bench style system benchmarks",
+      "author": "Laude Institute and SWE-bench maintainers",
+      "kind": "benchmark cluster",
+      "year": 2025,
+      "contribution": "Grounds Level 4 as fixed task replay with baseline comparison for model swaps, release gates, and platform-wide regression protection.",
       "playbooks": ["all"]
     }
   ]

@@ -78,7 +78,42 @@ CASES: list[dict[str, Any]] = [
         "description": (
             "Un-sandboxed CLI agent with subprocess shell execution and no "
             "iteration or cost caps. Should be flagged for a Level 3 "
-            "Sandbox Harness BEFORE any prompt optimization."
+            "Sandbox + Repair Harness BEFORE any prompt optimization."
+        ),
+    },
+    {
+        "id": "traces-not-loop",
+        "fixtures": ["observability.md"],
+        "expected_tier": "observability without a feedback loop",
+        "expected_target_tier": "trace-to-eval conversion",
+        "expected_scaffold_keywords": [
+            "Loop Readiness Matrix",
+            "trace",
+            "replay",
+            "rollback",
+        ],
+        "description": (
+            "Trace dashboards and feedback rows exist, but they do not feed "
+            "evals, prompt/rules diffs, rollback gates, or ownership. Should "
+            "be diagnosed as observability without a feedback loop and routed "
+            "to trace-to-eval conversion before optimization."
+        ),
+    },
+    {
+        "id": "model-swap-benchmark",
+        "fixtures": ["release.md"],
+        "expected_tier": "pre-loop",
+        "expected_target_tier": "Level 4",
+        "expected_scaffold_keywords": [
+            "System Benchmarking",
+            "baseline",
+            "cost",
+            "latency",
+            "rollback",
+        ],
+        "description": (
+            "Product-wide model swap needs release-grade regression checks. "
+            "Should route to Level 4 System Benchmarking."
         ),
     },
 ]
@@ -95,7 +130,8 @@ recommend the appropriate scaffolding template.
 Now produce the Step 2 Diagnostic Report. Be specific about:
 - Which AI Optimization Staircase tier each integration currently occupies.
 - Which tier you recommend the developer scaffold next, and why.
-- Which template (Level 1 / 2 / 3) you would copy into the workspace.
+- Which Loop Readiness Matrix fields are missing or present.
+- Which template (Level 1 / 2 / 3 / 4) you would copy into the workspace.
 """
 
 JUDGE_SYSTEM = """\
@@ -108,7 +144,7 @@ AGENT OUTPUT on three axes and output JSON only.
 JUDGE_USER_TEMPLATE = """\
 GROUND TRUTH:
 - Current tier of the integration: {expected_tier}
-- Recommended target tier: {expected_target_tier}
+- Recommended next step or target tier: {expected_target_tier}
 - Recommendation should reference at least 2 of these keywords (case-insensitive): {keywords}
 
 AGENT OUTPUT:
@@ -119,7 +155,7 @@ AGENT OUTPUT:
 Output JSON only with this exact shape:
 {{
   "tier_correct": <boolean — did the agent diagnose the current tier as {expected_tier}?>,
-  "recommendation_correct": <boolean — did the agent recommend {expected_target_tier} scaffolding?>,
+  "recommendation_correct": <boolean — did the agent recommend {expected_target_tier}?>,
   "keywords_present": [<list of keywords from the ground truth that appear in AGENT OUTPUT>],
   "rationale": "<one sentence>"
 }}

@@ -51,6 +51,24 @@
       "category": "positive"
     },
     {
+      "query": "We already have Braintrust traces and user feedback, but none of the failed traces become evals or prompt changes. Can you design the feedback loop?",
+      "should_activate": true,
+      "expected_route": "audit/loop-readiness",
+      "category": "positive"
+    },
+    {
+      "query": "We are swapping the backend model for our agent and need a regression benchmark with baseline comparison before release.",
+      "should_activate": true,
+      "expected_route": "scaffold/level-4",
+      "category": "positive"
+    },
+    {
+      "query": "Our AI feature is live. I want to run a production experiment with semantic failure signals and rollback thresholds.",
+      "should_activate": true,
+      "expected_route": "audit/production-loop",
+      "category": "positive"
+    },
+    {
       "query": "Explain what JWT is and how RS256 differs from HS256. I'm writing a one-pager for our security team.",
       "should_activate": false,
       "expected_route": null,

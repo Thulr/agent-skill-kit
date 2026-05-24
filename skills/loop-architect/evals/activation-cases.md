@@ -2,8 +2,8 @@
 
 These cases check whether `loop-architect` (1) activates at the right time,
 (2) places integration points on the right tier of the optimization
-staircase, and (3) scaffolds the right Level 1 / 2 / 3 template — without
-side effects on vague invocation.
+staircase, (3) scores feedback-loop readiness, and (4) scaffolds the right
+Level 1 / 2 / 3 / 4 template — without side effects on vague invocation.
 
 ## Full test sequence (Phase 1 → 3)
 
@@ -17,8 +17,10 @@ bash skills/loop-architect/evals/run-static-checks.sh               # just this 
 
 # ── Phase 2 — semantic diagnosis grader (free dry-run; ~$0.05 live) ───
 python3 skills/loop-architect/evals/phase2-grader.py --dry-run      # preview prompts, no API
-python3 skills/loop-architect/evals/phase2-grader.py --live         # grade 2 cases against Claude
+python3 skills/loop-architect/evals/phase2-grader.py --live         # grade cases against Claude
 python3 skills/loop-architect/evals/phase2-grader.py --live --case agent-needs-sandbox
+python3 skills/loop-architect/evals/phase2-grader.py --live --case traces-not-loop
+python3 skills/loop-architect/evals/phase2-grader.py --live --case model-swap-benchmark
 python3 skills/loop-architect/evals/phase2-grader.py --live --model opus   # ~$0.25, Opus 4.7
 
 # ── Phase 3 — sandbox scaffold + opt-in DSPy run (~$0.20 for execute) ─
@@ -61,7 +63,7 @@ in [`../TEST_PLAN.md`](../TEST_PLAN.md).
 
 | Runner | What it does | Cost estimate | When to run |
 |--------|--------------|---------------|-------------|
-| `evals/phase2-grader.py` | Loads `SKILL.md` as system context, feeds each `evals/fixtures/*.py` mock workspace to Claude, has a separate Claude call judge the diagnosis against ground truth. First `--live` invocation auto-bootstraps `.venv-loop-architect/` and installs `anthropic` (shared venv with `integration-test.sh execute`). | ~$0.05 per `--live` run with default sonnet model. ~$0.25 with `--model opus`. | Before any `SKILL.md` edit; after refactoring `references/templates/`. |
+| `evals/phase2-grader.py` | Loads `SKILL.md` as system context, feeds mock workspace fixtures to Claude, has a separate Claude call judge the diagnosis against ground truth. First `--live` invocation auto-bootstraps `.venv-loop-architect/` and installs `anthropic` (shared venv with `integration-test.sh execute`). | ~$0.05 per `--live` run with default sonnet model. ~$0.25 with `--model opus`. | Before any `SKILL.md` edit; after refactoring `references/templates/`. |
 | `evals/integration-test.sh` | Sets up `test-sandbox/`, prompts a human to invoke `/loop-architect` on it, verifies the scaffolded `ai-ops/` artifacts, optionally executes the generated DSPy compiler against a real model. | Free for `setup` + `verify` + `teardown`. ~$0.20 per `execute` (real DSPy run against gpt-4o-mini). | Before promoting `skill.json` `status` from `draft` to `published`. |
 
 ### Local credentials
@@ -98,7 +100,8 @@ this file for the canonical invocation order. Behavior on missing keys:
 **Expected:**
 - Loads `SKILL.md` and begins the Step 1 Audit (workspace scan).
 - Reports discovered integration points before scaffolding anything.
-- Asks the user to pick a tier (Level 1 / 2 / 3) before writing any file.
+- Includes a Loop Readiness Matrix and Production Gap before scaffolding.
+- Asks the user to pick a tier (Level 1 / 2 / 3 / 4) before writing any file.
 
 **Fail if:** scaffolds an `ai-ops/` directory without an audit report; jumps to Level 2 by default.
 
@@ -124,9 +127,9 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 **Expected:**
 - Flags the un-sandboxed `subprocess.run(shell=True)` execution as the primary risk.
-- Recommends a **Level 3 Sandbox Harness** BEFORE any prompt optimization.
+- Recommends a **Level 3 Sandbox + Repair Harness** BEFORE any prompt optimization.
 - References `references/templates/level-3-sandbox-harness.py`.
-- Names the three required guardrails: container isolation, iteration cap, cost circuit-breaker.
+- Names the required guardrails: container isolation, iteration cap, cost circuit-breaker, verification step, and failure-to-artifact repair log.
 
 **Fail if:** suggests fixing the prompt first; recommends Level 2 compilation while shell execution remains un-sandboxed.
 
@@ -139,9 +142,36 @@ this file for the canonical invocation order. Behavior on missing keys:
 **Expected:**
 - Routes to **Level 1 System-Prompt Learning**.
 - References `references/templates/level-1-prompt-learner.py`.
-- Mentions: golden eval dataset, LLM-as-a-judge with structured critiques (not scalar scores), meta-prompt optimizer that emits Markdown diffs.
+- Mentions: golden eval dataset, held-out eval, LLM-as-a-judge with structured critiques (not scalar scores), meta-prompt optimizer that emits Markdown diffs, and reviewed application instead of auto-writing the rules file.
 
 **Fail if:** recommends DSPy compilation for an open-ended developer agent; outputs a single judge score with no explanation.
+
+---
+
+#### P5 — Trace dashboard with no learning loop
+
+**Prompt:** "We have Braintrust traces, LangSmith runs, thumbs-down feedback rows, and sampled production transcripts, but none of it changes prompts, evals, or release gates. Can loop-architect tell us what's missing?"
+
+**Expected:**
+- Identifies this as observability without a feedback loop.
+- Produces the Loop Readiness Matrix with missing interpreter, change surface, cadence, and rollback fields called out.
+- Recommends trace-to-eval conversion before prompt, model, or rules changes.
+- Names the Production Gap instead of treating dashboards as the optimization artifact.
+
+**Fail if:** says tracing alone solves self-improvement; scaffolds a prompt optimizer before defining replay/eval selection.
+
+---
+
+#### P6 — Model swap regression gate
+
+**Prompt:** "We're swapping the model behind an AI assistant across the product and need to know whether the new release is safe."
+
+**Expected:**
+- Routes to **Level 4 System Benchmarking**.
+- References `references/templates/level-4-system-benchmark.py`.
+- Requires fixed benchmark tasks, baseline/current comparison, pass-rate/cost/latency thresholds, and a rollback rule.
+
+**Fail if:** recommends ad-hoc prompt tuning or a Level 2 compiler for a product-wide regression problem.
 
 ---
 

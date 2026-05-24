@@ -34,12 +34,15 @@ check_file "$activation_cases"
 check_file "$template_dir/level-1-prompt-learner.py"
 check_file "$template_dir/level-2-subroutine-compiler.py"
 check_file "$template_dir/level-3-sandbox-harness.py"
+check_file "$template_dir/level-4-system-benchmark.py"
 
 # Fixtures used by Phase 2 grader + Phase 3 integration test
 check_file "$fixture_dir/translator.py"
 check_file "$fixture_dir/agent.py"
 check_file "$fixture_dir/classifier.py"
 check_file "$fixture_dir/rules.md"
+check_file "$fixture_dir/observability.md"
+check_file "$fixture_dir/release.md"
 check_file "$fixture_dir/README.md"
 
 # Opt-in runners — must ship even though `just check` doesn't invoke them
@@ -99,13 +102,17 @@ if [[ -f "$skill_md" ]]; then
     || fail "SKILL.md missing section: Workflow"
   grep -Eq '^## Anti-Patterns to Avoid' "$skill_md" \
     || fail "SKILL.md missing section: Anti-Patterns to Avoid"
-  for tier in 'L1: System-Prompt Learning' 'L2: Subroutine Compilation' 'L3: Sandbox Harness'; do
+  for tier in 'L1: System-Prompt Learning' 'L2: Subroutine Compilation' 'L3: Sandbox + Repair Harness' 'L4: System Benchmarking'; do
     grep -qF -- "$tier" "$skill_md" \
       || fail "SKILL.md staircase table missing tier: $tier"
   done
-  for template in 'level-1-prompt-learner.py' 'level-2-subroutine-compiler.py' 'level-3-sandbox-harness.py'; do
+  for template in 'level-1-prompt-learner.py' 'level-2-subroutine-compiler.py' 'level-3-sandbox-harness.py' 'level-4-system-benchmark.py'; do
     grep -qF -- "$template" "$skill_md" \
       || fail "SKILL.md Step 3 must reference template: $template"
+  done
+  for concept in 'Loop Readiness Matrix' 'Production Gap' 'trace' 'rollback'; do
+    grep -qiF -- "$concept" "$skill_md" \
+      || fail "SKILL.md missing loop-readiness concept: $concept"
   done
 fi
 

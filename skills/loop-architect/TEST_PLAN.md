@@ -4,7 +4,7 @@ This test plan defines the validation protocol to verify that the **`loop-archit
 
 ---
 
-> **The Verification Goal:** Ensure the agent correctly identifies AI architectural tiers, recommends appropriate optimization/evaluation steps, and writes clean, executable, local-first code scaffolds.
+> **The Verification Goal:** Ensure the agent correctly identifies AI architectural tiers, scores feedback-loop readiness, recommends appropriate optimization/evaluation steps, and writes clean, executable, local-first code scaffolds.
 
 ---
 
@@ -49,7 +49,7 @@ I want to run the /loop-architect on my workspace. Please audit it.
 
 ## Phase 2: Interactive Simulation (Mock Audit)
 
-Verify that the agent's semantic reasoning correctly categorizes LLM integration points onto the **AI Optimization Staircase** and recommends the correct scaffolding pattern.
+Verify that the agent's semantic reasoning correctly categorizes LLM integration points onto the **AI Optimization Staircase**, identifies missing loop mechanics, and recommends the correct scaffolding pattern.
 
 ### 1. The Test Input
 Provide the agent with a description of a mock workspace:
@@ -61,11 +61,17 @@ Run the loop-architect on a mock workspace containing these two files:
    It has zero validation, tests, or logging.
 
 2. `agent.py`: A CLI-driven loop that reads local files, executes local shell commands via subprocess, and runs until a user stops it. It uses raw system prompts in a local `rules.md` file.
+
+3. `observability.md`: Notes that the team has traces, thumbs-down feedback, and sampled transcripts, but no replay dataset, eval cadence, rollback threshold, or owner.
+
+4. `release.md`: Notes that the team wants to swap the model behind the whole assistant and needs a release gate.
 ```
 
 ### 2. Success Criteria
 * **`translator.py` Diagnosis:** The agent identifies this as **Level 0 (Zero-Shot)** and recommends extracting it into a **Level 2 Cognitive Subroutine** (stateless, structured text-in/text-out). It proposes scaffolding a DSPy-based compiler loop.
-* **`agent.py` Diagnosis:** The agent flags the high risk of un-sandboxed shell execution. It recommends a **Level 3 Sandbox Harness** (enforcing Docker isolation, iteration caps, and cost circuit-breakers) before any prompt optimization is run.
+* **`agent.py` Diagnosis:** The agent flags the high risk of un-sandboxed shell execution. It recommends a **Level 3 Sandbox + Repair Harness** (enforcing Docker isolation, iteration caps, cost circuit-breakers, verification, and failure-to-artifact logging) before any prompt optimization is run.
+* **`observability.md` Diagnosis:** The agent identifies traces/feedback as raw signal, not a loop. It fills the Loop Readiness Matrix and recommends converting selected traces into replayable eval rows before optimization.
+* **`release.md` Diagnosis:** The agent recommends **Level 4 System Benchmarking** with fixed tasks, baseline/current comparison, pass-rate/cost/latency thresholds, and a rollback rule.
 * **Format Compliance:** The agent's output follows the voice rules in `STYLE.md` (no conversational fluff, short declarative sentences, clear markdown tables).
 
 ---
@@ -119,8 +125,10 @@ python test-sandbox/ai-ops/compile_classifier.py
 ## Summary Checklist
 
 - [ ] **Trigger Registration:** Activated on keyword, slash command, or `/loop-architect`.
-- [ ] **Accurate Diagnostics:** Places stateless prompts in Level 2 and side-effectful loops in Level 3.
+- [ ] **Accurate Diagnostics:** Places stateless prompts in Level 2, side-effectful loops in Level 3, and release regression problems in Level 4.
+- [ ] **Loop Readiness:** Reports signal, interpreter, change surface, cadence, rollback, and owner gaps.
 - [ ] **Clean Scaffolding:** Writes real, syntactically correct Python/Docker files in `ai-ops/`.
+- [ ] **Prompt Safeguards:** Level 1 proposes reviewed diffs and uses held-out evals; it does not auto-write learned rules.
 - [ ] **Local-First Design:** Proposes localized, minimal, clean boilerplate rather than complex cloud-dashboard integrations.
 - [ ] **Zero Prompt Bloat:** Keeps code templates separate from the host application's control flow.
 - [ ] **Lints Cleanly:** The scaffolded code compiles and passes linter evaluations.

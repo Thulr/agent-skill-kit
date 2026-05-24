@@ -30,12 +30,14 @@ the published install surface today.
 | Systems performance, observability, SLOs, p99/tail-latency, profiling, capacity, RED/USE/Four-Golden-Signals, distributed tracing, instrumentation strategy | `perf-observability-heuristics` | vs `dx-heuristics` — production / CI-farm runtime is owned by infra/platform → `perf-observability-heuristics`; developer-inner-loop perf on the developer's own machine → `dx-heuristics`. vs `test-heuristics` — `perf-observability-heuristics` is the live system; `test-heuristics` is the perf-test design. |
 | Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
 | Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification` and add this skill later. |
+| Audit an AI app/agent's feedback loops, score them on the Optimization Staircase (L1 prompt learning → L2 subroutine compilation → L3 sandbox harness → L4 system benchmark), and scaffold the smallest useful eval/optimization loop | `loop-architect` | vs `project-agentification` / `evidence-driven-agent-rules` — those two harden *a repository* so coding agents work in it (the agent is the consumer of the repo); `loop-architect` instruments *an AI application or agent being built* so its outputs feed a measured improvement loop (the model is the product). |
 
 **Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
 
 - *"Make our docs better"* — who's the audience? Humans using the product → `ux-accessibility-heuristics`; developers integrating it → `dx-heuristics`; coding agents reading the repo → `project-agentification`.
 - *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
 - *"Our service is slow" / "our dashboards aren't useful" / "design SLOs"* — production system → `perf-observability-heuristics`; developer's own machine (local install time, cold start, edit-test-debug cycle) → `dx-heuristics`.
+- *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `loop-architect`.
 
 ## Skills
 
@@ -165,6 +167,18 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill evidence-driven-agent-rules
+```
+
+### loop-architect
+
+Audit a workspace's AI integrations, map them onto the **AI Optimization Staircase** (L1 system-prompt learning → L2 subroutine compilation → L3 sandbox + repair harness → L4 system benchmarking), score the loop mechanics that are missing, and scaffold the smallest useful eval/optimization loop. **For teams shipping an AI product or agent** who are still iterating on prompts by feel and want to move onto metric-driven reliability work.
+
+Diagnostic-first: presents a Loop Readiness Matrix (signal / interpreter / change surface / cadence / stop-rollback / owner) before recommending a tier, and never auto-writes learned rules without held-out evals + reviewed diff. Grounded in DSPy (Khattab et al.), Reflexion (Shinn et al.), Terminal-Bench / SWE-bench-style system benchmarks, and the feedback-loop eval/observability practice cluster (full provenance in [`skills/loop-architect/skill.json`](./skills/loop-architect/skill.json)).
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill loop-architect
 ```
 
 ## Install

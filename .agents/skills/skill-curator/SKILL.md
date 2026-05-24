@@ -19,6 +19,12 @@ depending on how much internal branching the content needs. Pick the shape
 explicitly with `references/depth-rubric.md`; do not default to whichever
 shape feels familiar.
 
+The curator works in **five named phases** with **hard user-confirmation
+gates between phases**. The gates are the load-bearing mechanism — they
+stop the curator from advancing while artifacts are incomplete or
+miscalibrated. Skipping a gate is the failure mode this workflow exists to
+prevent.
+
 ## Operating Contract
 
 - Use web research from multiple source types before creating public skills.
@@ -36,8 +42,13 @@ shape feels familiar.
   dialogue, lyrics, or distinctive text. Paraphrase concepts into
   operational methods.
 - Set every generated public `skill.json.status` to `published`; this repo
-  communicates prerelease maturity with the repository tag, not per-skill draft
-  status.
+  communicates prerelease maturity with the repository tag, not per-skill
+  draft status.
+- **Never advance a hard gate without explicit user confirmation.** Hard
+  gates are non-negotiable for novel packs, novel shapes, and any two-level
+  candidate. They are soft only when Autopilot mode is explicitly chosen
+  *and* the candidate is a routine flat skill *and* the intake brief names
+  at least one strong comparable existing skill.
 
 ## Activation Handshake
 
@@ -50,47 +61,147 @@ If the user only invokes this skill, ask for one source seed:
 - target audience if known
 - preferred output: proposal only or skill files
 
+Then enter Phase 1 (Intake).
+
 ## Modes
+
+Modes set the elicitation style *within* a phase. They do not override
+the hard gates between phases.
 
 - **Grill Me**: ask one open question at a time before research when the
   desired audience, safety boundaries, or shape strategy is unclear.
 - **Guided Build**: default. Research, propose the shape and plan, ask one
-  approval question, then write skill files if approved.
+  approval question per phase, then write skill files if approved.
 - **Autopilot**: research and create skill files using conservative
   assumptions. Stop only for legal/safety ambiguity, unavailable research,
-  or destructive actions.
+  or destructive actions. Autopilot still respects hard phase gates for
+  novel packs/shapes/two-level candidates; it may only soft-gate routine
+  flat skills with a named comparable.
 
-## Workflow
+## Workflow — five phases with hard gates
 
-1. Load `references/intent-router.csv`.
-2. Load the relevant detail files for the source type and requested output.
-3. Inspect the repo's current public skills to align with existing
-   conventions (`skill.json` schema, eval patterns, path layout). Read
-   `skills/dx-heuristics/` as the canonical example for the two-level shape.
-4. Build or update a source dossier in `.agents/state/source-dossiers/`.
-5. Extract reusable behaviors, anti-patterns, rubrics, workflows, and
-   examples from the source.
-6. For each candidate, decide whether it is a small skill, workflow skill,
-   reference addition, or capability-pack-level pattern.
-7. Tag each candidate with its capability pack (a `tags` entry in
-   `skill.json`, not a directory).
-8. **Pick the shape (depth)** for each candidate using
-   `references/depth-rubric.md`: `flat`, `single-layer` (hub-and-spoke),
-   or `two-level` (intent × surface routing). Bias toward the shallowest
-   shape that fits — a skill can be promoted later, but rarely flattened.
-9. If writing files, scaffold `skills/<skill-name>/` from the matching
+Every phase produces a **named artifact**. The curator presents the
+artifact, waits for the user's `go`, then advances. If the user rejects,
+the curator returns to whichever earlier phase the rejection implicates.
+
+### Phase 1 — Intake
+
+Goal: capture what the user wants before any research happens.
+
+1. Load `references/intent-router.csv` to choose the active intent
+   (`curate-source`, `proposal-only`, `pick-shape`, `create-flat`,
+   `create-single-layer`, `create-two-level`, `taxonomy-maintenance`).
+2. Open `templates/intake-brief.md` and fill it in with what the user has
+   already said. Slots: audience, success criteria, scope boundaries,
+   comparable existing skills (curator must `grep` and list 2–3 — forces
+   de-duplication), safety/copyright posture, working hypothesis on
+   shape/pack/intents.
+3. Write to `.agents/state/intake-briefs/<intake-slug>.md`.
+4. **Gate**: present the intake brief. Ask, "Anything missing or wrong
+   before we research? Reply `go` to advance to Phase 2 (Research), or
+   describe what to revise." Do not proceed without `go`.
+
+### Phase 2 — Research
+
+Goal: build the source dossier — paraphrased, multi-source, with
+confidence levels.
+
+1. Load `references/research-dossier-playbook.md`.
+2. Open `templates/source-dossier.md` and fill each section. Confidence
+   column is **required** per row; any **L** on a load-bearing claim is
+   auto-promoted to **Open Questions** and must be resolved or scoped
+   out before Phase 3.
+3. The **Critical / Dissenting Takes** section is required. If no
+   critic exists in your research, write a steelman critique and mark it
+   as hypothesis.
+4. Run the **Paraphrase Audit** at the bottom of the dossier before the
+   gate. Any distinctive copying gets rewritten or removed.
+5. Save to `.agents/state/source-dossiers/<source-slug>.md`. The
+   `<source-slug>` is the dossier ID that the candidate plan will
+   back-link to.
+6. **Gate**: present the dossier. Ask, "Does the research cover the
+   source faithfully? Any missing source types, weak confidence, or open
+   questions to resolve before we plan? Reply `go` to advance to Phase 3."
+
+### Phase 3 — Plan
+
+Goal: per-candidate decisions that survive scaffolding without rework.
+
+1. Load `references/pack-placement-rubric.md` and `references/depth-rubric.md`.
+2. Open `templates/candidate-plan.md` and fill one block per candidate.
+   Every field is required:
+   - `dossier_ref`, `audience_ref` — back-links
+   - `shape_decision.rubric_evidence` — which depth-rubric question(s)
+     justified the chosen shape (forces explicit reasoning, not
+     cargo-culting)
+   - `anti_pattern_check` — walk the anti-patterns in `depth-rubric.md`
+     and assert none apply (collapsed dimension, registry that doesn't
+     route, cargo-culting, projected bloat)
+   - `playbook_outline` — for single-layer/two-level: list every
+     intended playbook with ≥2 heuristic seeds and ≥1 common-failure
+     seed (proves the playbooks will have real content)
+   - `registry_sketch` — for shapes with a registry: rows showing the
+     registry actually routes (not 50 rows pointing to the same files)
+   - `activation_case_seeds` — ≥3 positive / ≥3 negative / ≥1 edge for
+     flat & single-layer; ≥10 / ≥8 / ≥2 for two-level; **each negative
+     names the sibling skill** it disambiguates from
+   - `grounding_map` — for each `inspired_by` source, which playbooks
+     it informs (non-empty)
+3. Walk the **Anti-pattern self-check** checklist at the bottom of the
+   template. Every box must be checked or the candidate must be revised.
+4. Save to `.agents/state/candidate-plans/<plan-slug>.md`.
+5. **Gate**: present the plan. Ask, "Approve the plan, or revise? Reply
+   `go` to advance to Phase 4 (Scaffold). Any rejection sends us back to
+   Phase 2 (Research) or Phase 1 (Intake) depending on the reason."
+
+### Phase 4 — Scaffold
+
+Goal: write the public skill files. **No file outside the approved
+plan's `public_path` set may be written without re-opening Phase 3.**
+
+1. Inspect existing public skills for current conventions. Read
+   `skills/dx-heuristics/` end-to-end if scaffolding a two-level skill;
+   read 2–3 single-layer skills (e.g. `ux-accessibility-heuristics`,
+   `test-heuristics`) if scaffolding single-layer.
+2. Scaffold `skills/<skill-name>/` from the matching
    `references/shapes/<shape>.md`. Load only that shape's anatomy — do
    not over-build.
-10. For shapes that include a registry, map every reference file through
-    it. No public reference should be orphaned or reachable only by
-    scanning a directory.
-11. Keep public grounding concise: source detail belongs in the private
-    dossier, user-facing provenance belongs in `skill.json`, and any
-    public grounding reference should map source families to operational
-    heuristics or caveats.
-12. Run `just check` (which executes the repo's static checks across all
-    skills).
-13. Hand off to `skill-reviewer` before any generated skill is merged.
+3. For every generated playbook, start from the matching skeleton at
+   `templates/playbook-skeletons/<shape>.md`. Every canonical section
+   (`## Scope`, `## Grounding`, `## Good signals`, `## Common failures`,
+   `## Heuristics`, `## Quick diagnostic`, `## Cross-references`) must
+   be present before the gate.
+4. Start `evals/activation-cases.md` from
+   `templates/activation-cases-skeleton.md`. Each negative case must
+   name a sibling skill.
+5. For shapes with a registry, map every reference file through it. No
+   orphans, no rows that load identical sets.
+6. Keep public grounding concise. Source detail belongs in the private
+   dossier; user-facing provenance belongs in `skill.json`.
+7. **Gate**: list the files written and ask, "Scaffold written under
+   `<paths>`. Eyeball before validation? Reply `go` to advance to Phase 5."
+
+### Phase 5 — Validate
+
+Goal: catch misses before handing off to `skill-reviewer`.
+
+1. **Deterministic.** Run
+   `python3 scripts/validate-generated-skill.py skills/<skill-name>/`
+   from the repo root. Save the report to
+   `.agents/state/validation-reports/<skill-name>-<timestamp>.md` with
+   `--report`. **Any blocking finding blocks the gate** — fix and rerun.
+2. **LLM self-review.** Load the matching rubric at
+   `references/validation-rubrics/<shape>.md` and grade the scaffolded
+   skill against it. For two-level skills with ≥5 playbooks, spawn one
+   read-only `Explore` sub-agent per playbook scoped to that playbook's
+   blocks; the curator consolidates. For ≤4 playbooks, batch read.
+   Severities (blocking/warning/note) merge into the validation report.
+3. Run `just check` (repo-wide static checks).
+4. **Gate**: present the validation report. Ask, "Ready for
+   `skill-reviewer` handoff? Reply `go` to finalize."
+5. Update the candidate plan's **Review Handoff** section with draft
+   paths, known risks, suggested reviewer focus, and validation report
+   path. Hand off to `skill-reviewer`.
 
 ## Pack Rules
 
@@ -154,5 +265,14 @@ it short, paraphrased, and routed through the skill's own registry.
   (matches `skills/dx-heuristics/`).
 - `references/draft-skill-playbook.md` — cross-shape rules (path,
   `SKILL.md`/`skill.json` separation, evals, quality bar).
-- `templates/source-dossier.md` — local research dossier template.
-- `templates/candidate-plan.md` — curator proposal template.
+- `references/validation-rubrics/{flat,single-layer,two-level}.md` —
+  Phase 5 LLM self-review rubrics.
+- `templates/intake-brief.md` — Phase 1 elicitation template.
+- `templates/source-dossier.md` — Phase 2 dossier template.
+- `templates/candidate-plan.md` — Phase 3 plan template.
+- `templates/playbook-skeletons/{flat,single-layer,two-level}.md` —
+  Phase 4 playbook starting points.
+- `templates/activation-cases-skeleton.md` — Phase 4 activation-cases
+  starting point.
+- `scripts/validate-generated-skill.py` — Phase 5 deterministic
+  validator (invoked from repo root).

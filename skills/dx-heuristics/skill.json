@@ -1,13 +1,13 @@
 {
   "name": "dx-heuristics",
-  "description": "Practical developer-experience review, design, debug, and edge-case pass for APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, telemetry, README and first-impressions, package and distribution, examples and samples, logging and runtime introspection, runtime configuration, changelog and release notes, and AI-agent readiness. Grounded in canonical DX/UX literature.",
-  "version": "0.4.0",
+  "description": "Practical developer-experience review, design, debug, and edge-case pass for APIs, SDKs, AI/Agent SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, telemetry, README and first-impressions, package and distribution, examples and samples, logging and runtime introspection, runtime configuration, changelog and release notes, and AI-agent readiness. Grounded in canonical DX/UX literature.",
+  "version": "0.5.0",
   "license": "MIT",
   "status": "published",
   "maintainers": ["@Thulr"],
   "tags": [
     "dx", "developer-experience",
-    "api", "sdk", "cli", "docs", "errors",
+    "api", "sdk", "ai-sdk", "cli", "docs", "errors",
     "setup", "inner-loop", "contributor",
     "auth", "migration", "plugin", "ide", "perf", "telemetry",
     "readme", "package", "examples", "logging", "config", "changelog", "agent"
@@ -82,8 +82,88 @@
       "author": "Stripe",
       "kind": "guide",
       "year": null,
-      "contribution": "Public-facing reference for HTTP API conventions: versioning, errors, pagination, idempotency.",
-      "playbooks": ["api"]
+      "contribution": "Public-facing reference for HTTP API conventions: versioning (date-pinned with response transforms), errors, pagination, idempotency keys, expansion, webhook signature verification.",
+      "playbooks": ["api", "sdk"]
+    },
+    {
+      "name": "Builders' Library — Timeouts, Retries, and Backoff with Jitter",
+      "author": "AWS",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Canonical retry design: exponential backoff with full jitter, per-client token-bucket retry budgets, server-directed retry timing — the load-bearing primitive behind any SDK that retries safely under load.",
+      "playbooks": ["sdk"]
+    },
+    {
+      "name": "Smithy IDL specification",
+      "author": "AWS",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Open-source IDL formalizing SDK behavior traits: @idempotencyToken, @paginated, @retryable, @streaming. Drives auto-generated SDKs with consistent middleware, waiters, and event streams.",
+      "playbooks": ["sdk"]
+    },
+    {
+      "name": "API Improvement Proposals (AIPs)",
+      "author": "Google",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Alternative API design philosophy to date-pinned versioning: path-based versions, opaque pagination tokens (AIP-158), request IDs for idempotency (AIP-155), long-running operations (AIP-151). The second canonical reference design.",
+      "playbooks": ["api", "sdk"]
+    },
+    {
+      "name": "Claude SDK and platform documentation",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Primary source for AI-SDK patterns: per-content-block parameters (cache_control, citations), two-tier streaming with typed accumulators, opaque reasoning artifacts with continuity signatures, batch processing namespace, agent-SDK hooks.",
+      "playbooks": ["ai-sdk"]
+    },
+    {
+      "name": "Client SDK and Agents SDK documentation",
+      "author": "OpenAI",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Primary source for the typed exception hierarchy keyed to HTTP semantics, .parse() structured-output flow, agent loop with declarative stop conditions and handoffs, tracing-as-default with vendor-plugin export.",
+      "playbooks": ["ai-sdk", "sdk", "errors"]
+    },
+    {
+      "name": "AI SDK",
+      "author": "Vercel",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Streaming-first AI/Agent SDK design: streamText / streamObject with partial output, tool definition from typed schemas (Zod), declarative stopWhen predicates, provider-agnostic dispatch via shared model interface.",
+      "playbooks": ["ai-sdk"]
+    },
+    {
+      "name": "Instructor",
+      "author": "Jason Liu",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Pioneered the patch-the-LLM-client pattern: response_model= with Pydantic validation, validation-error retry loops with the validator message fed back as semantic context (distinct from transport retries).",
+      "playbooks": ["ai-sdk"]
+    },
+    {
+      "name": "Pydantic AI",
+      "author": "Samuel Colvin",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Schema-first agent SDK: Agent(output_type=Model), @agent.tool with RunContext[Deps] dependency injection, semantic retries on validation failure carried into the agent loop.",
+      "playbooks": ["ai-sdk"]
+    },
+    {
+      "name": "What Color is Your Function?",
+      "author": "Bob Nystrom",
+      "kind": "essay",
+      "year": 2015,
+      "contribution": "Async/sync function-color framing: SDKs that ship only one surface force consumers to thread-pool-wrap or run-loop-bridge at every callsite. The case for dual sync/async surfaces with identical method shapes.",
+      "playbooks": ["sdk"]
+    },
+    {
+      "name": "Semantic Conventions",
+      "author": "OpenTelemetry",
+      "kind": "guide",
+      "year": null,
+      "contribution": "HTTP and gen-ai span-attribute conventions (http.request.method, http.response.status_code, ai.* attributes). SDKs depending on the OTel API (not the SDK) let downstream applications choose the exporter.",
+      "playbooks": ["logging", "ai-sdk"]
     },
     {
       "name": "Hyrum's Law",

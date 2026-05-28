@@ -106,6 +106,12 @@ failure messages, `telemetry.md` for collected data, `cli.md` for
 - **Documented capture path** *(audit, design)* — the docs include a "how
   to capture logs for support" page naming the flag, the file path, and a
   redaction reminder before sharing externally.
+- **Conventions over invention** *(design, audit)* — structured log and
+  span fields follow published semantic conventions
+  (`http.request.method`, `http.response.status_code`, gen-ai `ai.*`)
+  rather than bespoke names. Libraries that emit traces depend on the
+  observability API, not a specific SDK, so downstream applications
+  choose the exporter without per-vendor adapters.
 
 ## Quick diagnostic
 

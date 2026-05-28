@@ -337,6 +337,35 @@ Passing a case means the agent:
 
 ---
 
+## Case 19: AI/Agent SDK Surface
+
+**Prompt:** `We're building a TS client SDK that wraps an LLM API — streaming completions, tool calls, structured output via Zod, plus an agent loop. Before alpha, what's the DX checklist?`
+
+**Expected:**
+
+- Routes to (audit, ai-sdk) or (design, ai-sdk).
+- Loads `playbooks/ai-sdk.md` (not `agent.md`, which is a distinct surface).
+- Output cites ai-sdk.md heuristics (streaming at two altitudes, schema-typed structured output with .parse helper, validation-retry distinct from transport retry, tool schema from function signature, declarative stop conditions, hooks at decision points, tracing as default).
+- May reference `sdk.md` for inherited HTTP-client patterns (jittered retries, typed exception hierarchy) but does not route there exclusively.
+
+**Fail if:** routes to `agent.md` (the repo-readiness playbook, not the AI/Agent SDK playbook); routes to `sdk.md` only and misses the AI-specific patterns; treats streaming, structured output, and the agent loop as ordinary HTTP-client concerns.
+
+---
+
+## Case 20: AI/Agent Stochasticity Edge Pass
+
+**Prompt:** `Pre-launch edge-case pass on our AI SDK — what stochasticity-related failure modes should we hunt for before alpha?`
+
+**Expected:**
+
+- Routes to (edge-pass, ai-stochasticity).
+- Loads `playbooks/ai-sdk.md` and `playbooks/errors.md`.
+- Output covers validation-retry semantics, partial-output rendering, agent-loop bounding, provider feature parity, opaque-reasoning round-trip, batch-vs-online divergence.
+
+**Fail if:** treats this as ordinary back-compat or version-skew pass; misses validation-vs-transport retry distinction; misses opaque-reasoning round-trip.
+
+---
+
 # Negative cases — should not trigger
 
 The skill should *not* activate (or should defer) for prompts that share

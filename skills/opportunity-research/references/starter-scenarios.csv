@@ -1,0 +1,9 @@
+scenario,when_to_pick,intent,surface,mode
+"I have an opportunity statement and want to know which research areas matter",bare invocation; pre-investigation,scope,all,Guided Draft
+"Size the market for a specific product / segment",concrete; one-area depth,investigate,market,Guided Draft
+"Figure out who the real competitors are (incl. do-nothing)",concrete; one-area depth,investigate,competitive,Guided Draft
+"Run the full multi-area investigation in parallel",mid-stage; ready to commit research time,investigate,all,Guided Draft
+"Roll up area artifacts into a one-page brief for the board",artifacts exist; need consolidation,synthesize,bundle,Guided Draft
+"Convert findings into go/no-go with kill criteria",investigation done; need decision,decide,go-no-go,Guided Draft
+"I'm pre-idea — challenge me on whether this is even a real opportunity",very early; user wants pushback,scope,all,Grill Me
+"I have 30 minutes and need a quick stage-aware shortlist",time-constrained scoping,scope,all,Autopilot

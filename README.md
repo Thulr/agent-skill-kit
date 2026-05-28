@@ -31,6 +31,7 @@ the published install surface today.
 | Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
 | Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification` and add this skill later. |
 | Audit an AI app/agent's feedback loops, score them on the Optimization Staircase (L1 prompt learning → L2 subroutine compilation → L3 sandbox harness → L4 system benchmark), and scaffold the smallest useful eval/optimization loop | `loop-architect` | vs `project-agentification` / `evidence-driven-agent-rules` — those two harden *a repository* so coding agents work in it (the agent is the consumer of the repo); `loop-architect` instruments *an AI application or agent being built* so its outputs feed a measured improvement loop (the model is the product). |
+| Get a structured, source-cited research report on a topic — primer, literature review, state-of-the-art, or "research X for me" — with no decision frame attached | `topic-research` | vs `opportunity-research` — `topic-research` produces a report on a topic; `opportunity-research` validates a named product/business opportunity and ends in a go/no-go/pivot decision. vs `tradeoff-analysis` — `topic-research` is open-ended discovery; `tradeoff-analysis` compares fixed named options. |
 
 **Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
 
@@ -38,6 +39,7 @@ the published install surface today.
 - *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
 - *"Our service is slow" / "our dashboards aren't useful" / "design SLOs"* — production system → `perf-observability-heuristics`; developer's own machine (local install time, cold start, edit-test-debug cycle) → `dx-heuristics`.
 - *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `loop-architect`.
+- *"Research X"* — open-ended research on a topic (primer, literature review, state-of-the-art) → `topic-research`; validate a named product/business opportunity (go/no-go) → `opportunity-research`; compare a fixed set of options → `tradeoff-analysis`.
 
 ## Skills
 
@@ -179,6 +181,18 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill loop-architect
+```
+
+### topic-research
+
+Structured, source-cited research reports on a named topic — input is a topic, output is a report with citations on every load-bearing claim. **For anyone asking "research X for me" with no decision frame attached.** Three depth modes: `brief` (~5 sources, 1-page primer), `survey` (~15–20 sources, multi-section default), `deep-dive` (~30+ sources with forward/backward citation chasing).
+
+Output covers research question with explicit in/out-of-scope, search strategy, background, current state, key debates and open questions, implications, annotated sources, and explicit limitations. Every load-bearing claim carries an H/M/L confidence tag and a citation at point of claim — synthesis is marked as inference, not asserted as sourced. Grounded in canonical literature-review and systematic-review methodology (full provenance in [`skills/topic-research/skill.json`](./skills/topic-research/skill.json)).
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill topic-research
 ```
 
 ## Install

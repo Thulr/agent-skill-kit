@@ -106,3 +106,4 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
 - → `readme.md` for the README that funnels evaluators into the docs site.
 - → `examples.md` for the runnable samples docs link out to.
 - → `agent.md` for retrieval-friendly structuring optimized for AI agents.
+- → `docs-experience-heuristics` for cross-audience docs spanning DX, UX, and AX.

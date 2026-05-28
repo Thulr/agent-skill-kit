@@ -35,6 +35,7 @@
 #
 # Skills (the product)
 # - `skills/dx-heuristics/`: reviewed/published skill
+# - `skills/docs-experience-heuristics/`: published skill; cross-audience documentation experience across DX docs, UX help, AX docs, API/tool contracts, and documentation telemetry/conflicts
 # - `skills/test-heuristics/`: reviewed/published skill
 # - `skills/clean-architecture/`: published skill
 # - `skills/project-agentification/`: published skill

@@ -121,3 +121,5 @@ get here, `sdk.md` for the language-specific shape examples must match, and
 - → `sdk.md` for the SDK shape examples must match.
 - → `migration.md` for breaking changes that require sample updates.
 - → `ide.md` for snippet packs sourced from the same curated examples.
+- → `docs-experience-heuristics` when examples are part of a broader docs
+  system for developers, end users, and agents.

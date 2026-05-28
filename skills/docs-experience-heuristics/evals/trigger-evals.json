@@ -1,0 +1,84 @@
+{
+  "skill": "docs-experience-heuristics",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Audit our docs site for developer quickstart quality, user help, and agent-readable docs.",
+      "should_activate": true,
+      "expected_route": "audit/foundations",
+      "category": "positive"
+    },
+    {
+      "query": "Design a documentation system that serves humans and agents from one source of truth.",
+      "should_activate": true,
+      "expected_route": "design/audience-conflicts",
+      "category": "positive"
+    },
+    {
+      "query": "Our README quickstart takes 20 minutes before hello world; review the docs path.",
+      "should_activate": true,
+      "expected_route": "audit/dx-docs",
+      "category": "positive"
+    },
+    {
+      "query": "Users read the help article and still open tickets after failed checkout.",
+      "should_activate": true,
+      "expected_route": "debug/ux-help",
+      "category": "positive"
+    },
+    {
+      "query": "Add llms.txt and make our docs easier for coding agents to retrieve.",
+      "should_activate": true,
+      "expected_route": "design/ax-docs",
+      "category": "positive"
+    },
+    {
+      "query": "Review our OpenAPI and MCP tool descriptions for missing examples and retry semantics.",
+      "should_activate": true,
+      "expected_route": "audit/api-contracts",
+      "category": "positive"
+    },
+    {
+      "query": "Define metrics for documentation quality: zero-result searches, deflection, sample tests, and retrieval evals.",
+      "should_activate": true,
+      "expected_route": "measure/foundations",
+      "category": "positive"
+    },
+    {
+      "query": "Our tooltips help users but agents miss the same instructions; resolve the docs conflict.",
+      "should_activate": true,
+      "expected_route": "debug/audience-conflicts",
+      "category": "positive"
+    },
+    {
+      "query": "Run a pure product accessibility audit on this checkout form.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Make this dashboard visually polished and design a better card layout.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Assess this repository's AGENTS.md, hooks, sandbox, and CI for coding-agent readiness.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review the SDK API design and auth flow; docs are not in scope.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Our docs are confusing.",
+      "should_activate": true,
+      "expected_route": "audit/foundations",
+      "category": "edge"
+    }
+  ]
+}

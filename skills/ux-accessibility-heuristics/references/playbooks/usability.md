@@ -52,3 +52,5 @@ the finding is not just aesthetic.
 - Use `navigation.md` for IA and wayfinding.
 - Use `error-recovery.md` when the issue appears after failure or before a
   destructive action.
+- Use `docs-experience-heuristics` when the issue is help/documentation
+  strategy across product help, docs sites, or agent-readable content.

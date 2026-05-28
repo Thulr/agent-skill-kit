@@ -135,3 +135,5 @@ human-contributor onboarding.
 - → `contributor.md` for human-contributor onboarding and review loop.
 - → `package.md` for the registry-page metadata agents see when proposing
   installs.
+- → `docs-experience-heuristics` for public docs sites, RAG-friendly docs,
+  and human/agent documentation conflicts.

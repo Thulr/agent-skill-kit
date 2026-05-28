@@ -115,3 +115,5 @@ registry-page metadata that mirrors the README.
 - → `package.md` for the registry-page (npm, PyPI, crates) metadata that
   mirrors the README.
 - → `changelog.md` for the release-notes surface linked from the README.
+- → `docs-experience-heuristics` when README work is part of a cross-audience
+  documentation system or agent-readable docs strategy.

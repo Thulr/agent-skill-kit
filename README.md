@@ -13,8 +13,9 @@ npx skills add Thulr/informed-skills
 [skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
 
 The current catalog focuses on software engineering, coding-agent operations,
-developer experience, test quality, architecture, systems performance and
-observability, user-facing product UX / accessibility, and UI design craft.
+developer experience, documentation experience, test quality, architecture,
+systems performance and observability, user-facing product UX / accessibility,
+and UI design craft.
 Other source-grounded domains can be added later, but they are not part of
 the published install surface today.
 
@@ -23,6 +24,7 @@ the published install surface today.
 | User need | Skill | vs neighbor |
 |---|---|---|
 | Developer-facing APIs, SDKs, CLIs, docs, setup, errors, auth, telemetry, or onboarding | `dx-heuristics` | vs `ux-accessibility-heuristics` — `dx-heuristics` is the developer integrating; `ux-accessibility-heuristics` is the end user of the product. vs `perf-observability-heuristics` — `dx-heuristics` covers developer-inner-loop perf (local install, cold start, edit-test-debug); `perf-observability-heuristics` covers production / CI-farm runtime. |
+| Cross-audience documentation systems, help, agent-readable docs, docs IA, README/quickstarts, help centers, `llms.txt`, RAG-friendly docs, API/tool contract docs, or DX/UX/AX documentation conflicts | `docs-experience-heuristics` | vs `dx-heuristics` — use `dx-heuristics` for developer-facing product/API friction beyond docs; use this for documentation as the product surface. vs `ux-accessibility-heuristics` — use that for product UI usability/accessibility, this for help/docs content. vs `project-agentification` — use that for repo agent-readiness and gates, this for docs sites and agent-readable documentation. |
 | Unit/integration/e2e/property/contract/snapshot/mutation/performance test quality | `test-heuristics` | vs `perf-observability-heuristics` — test-heuristics covers performance-*test* design (load tests, benchmarks as tests); `perf-observability-heuristics` covers the production system being tested. |
 | User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` | vs `ui-design-craft` — `ux-accessibility-heuristics` *audits* an existing interface against usability and WCAG heuristics; `ui-design-craft` *creates and polishes* the visual artifact. vs `dx-heuristics` — `ux-accessibility-heuristics` is end users; `dx-heuristics` is developers integrating your API/SDK. |
 | Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` | vs `ux-accessibility-heuristics` — `ui-design-craft` produces the artifact; `ux-accessibility-heuristics` audits it. Pair them when you need both. |
@@ -35,7 +37,7 @@ the published install surface today.
 
 **Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
 
-- *"Make our docs better"* — who's the audience? Humans using the product → `ux-accessibility-heuristics`; developers integrating it → `dx-heuristics`; coding agents reading the repo → `project-agentification`.
+- *"Make our docs better"* — who's the audience and surface? Cross-audience docs/help/agent-readable documentation → `docs-experience-heuristics`; developers integrating a product/API beyond docs → `dx-heuristics`; humans using the product UI → `ux-accessibility-heuristics`; coding agents operating inside the repo → `project-agentification`.
 - *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
 - *"Our service is slow" / "our dashboards aren't useful" / "design SLOs"* — production system → `perf-observability-heuristics`; developer's own machine (local install time, cold start, edit-test-debug cycle) → `dx-heuristics`.
 - *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `loop-architect`.
@@ -53,6 +55,18 @@ Install just this skill:
 
 ```bash
 npx skills add Thulr/informed-skills --skill dx-heuristics
+```
+
+### docs-experience-heuristics
+
+Cross-audience documentation-experience review, design, debugging, and measurement for developer docs, end-user help, and agent-readable docs. Covers docs foundations, README/quickstarts/API references/examples/changelogs, in-product help/onboarding/microcopy/help centers, `llms.txt` / AGENTS.md / SKILL.md / RAG-friendly structure, OpenAPI/MCP/GraphQL descriptions, structured errors/retries/rate-limit semantics, and DX/UX/AX audience conflicts.
+
+Grounded in the 2026 DX/AX/UX documentation-patterns research report (full provenance in [`skills/docs-experience-heuristics/skill.json`](./skills/docs-experience-heuristics/skill.json)). Routes by intent (`audit` / `design` / `debug` / `measure`) × surface (`foundations` / `dx-docs` / `ux-help` / `ax-docs` / `api-contracts` / `audience-conflicts`) and can dispatch four reviewer lenses (developer docs / end-user help / agent retrieval / content operations).
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill docs-experience-heuristics
 ```
 
 ### test-heuristics

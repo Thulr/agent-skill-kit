@@ -23,6 +23,17 @@ their predecessors; does not specify a particular backend.
   observability; the critique of pre-aggregation; why novel-question
   debuggability requires preserving the per-request shape rather than
   rolling up to metrics.
+- **OpenTelemetry GenAI Semantic Conventions (2024–2026, GenAI
+  Observability SIG)** — the institutional schema for tracing AI and
+  agent workloads. Defines `gen_ai.operation.name` (`create_agent`,
+  `invoke_agent`, `invoke_workflow`), `gen_ai.usage.{input,output}_tokens`,
+  `gen_ai.response.finish_reasons`, `gen_ai.conversation.id` for session
+  correlation, and (as of v1.37) aggregated chat-history attributes
+  (`gen_ai.system_instructions`, `gen_ai.input.messages`,
+  `gen_ai.output.messages`) carried on the span or a dedicated event.
+  Status is still *Development* with most attributes *experimental*;
+  dual-emission via `OTEL_SEMCONV_STABILITY_OPT_IN` is the documented
+  migration path.
 
 ## Good signals
 
@@ -44,6 +55,17 @@ their predecessors; does not specify a particular backend.
   that request" without manual joins.
 - Span attribute cardinality has a budget; new attributes are
   reviewed before they ship.
+- AI/agent workloads emit OTel GenAI semconv attributes
+  (`gen_ai.operation.name`, `gen_ai.usage.{input,output}_tokens`,
+  `gen_ai.response.finish_reasons`); multi-agent runs render as one
+  causal tree via `gen_ai.conversation.id` and an enclosing
+  `invoke_workflow` span. Vendor-specific extensions ride alongside the
+  canonical attributes rather than replacing them.
+- Inline chat-history capture has a documented size cap, or large
+  prompts/responses are stored by reference (object key, content hash,
+  eval-dataset row ID) with a typed pointer on the span. Token-usage
+  and structural attributes remain on the span even when content is
+  redacted or referenced.
 
 ## Common failures
 
@@ -59,6 +81,19 @@ their predecessors; does not specify a particular backend.
   manual joins under incident pressure.
 - Sampled traces lose error-path coverage because errors are rare and
   random sampling does not preserve them.
+- AI/agent workloads emit ad-hoc attribute names (`prompt_tokens`,
+  `model`, `chain_id`) instead of OTel GenAI semconv; spans cannot be
+  joined with vendor-aware backends and dashboards require
+  per-team-bespoke translation.
+- Multi-agent or workflow traces are rendered as disconnected trees:
+  context does not propagate across the agent-to-agent boundary, so
+  workflow-level latency or failure attribution is reconstructed by
+  hand from log timestamps.
+- Inline prompt and response bodies on `gen_ai.input.messages` /
+  `gen_ai.output.messages` blow past the backend's per-span size limit,
+  silently truncating high-value evidence; or full chat histories are
+  inlined on every span with no PII boundary and become the dominant
+  source of telemetry-tier data exposure.
 
 ## Heuristics
 
@@ -85,6 +120,27 @@ their predecessors; does not specify a particular backend.
   strategy guarantees the rare error trace is kept; uniform random
   sampling fails this and is replaced with error-prioritized or
   tail-based sampling.
+- **OTel GenAI semconv for AI/agent workloads** *(design, audit,
+  strategize)* — LLM and agent spans use the canonical `gen_ai.*`
+  attribute namespace, not a per-team ad-hoc shape. Vendor-specific
+  extensions are accepted as long as the canonical attributes are also
+  emitted, so downstream backends do not need translation. Treat
+  experimental-status conventions as movable: dual-emit via
+  `OTEL_SEMCONV_STABILITY_OPT_IN` rather than pin to one version.
+- **Workflow and conversation correlation** *(design, audit,
+  diagnose)* — multi-agent runs are wrapped in an `invoke_workflow`
+  span; per-call spans share a `gen_ai.conversation.id` so a session
+  reconstructs across agent-to-agent and tool-to-tool hops as one
+  causal tree. Propagation gaps at the agent boundary are findings, not
+  known limitations.
+- **Inline-vs-reference content discipline** *(design, optimize,
+  strategize)* — when prompts and responses are captured, the playbook
+  either inlines them with a documented size cap or stores them by
+  reference with a typed span pointer. The choice is made deliberately
+  because inline content makes traces self-contained for replay and
+  eval but bloats span size and widens the PII surface; observability
+  pipelines have been shown to dominate post-incident PII exposure in
+  AI workloads.
 
 ## Quick diagnostic
 
@@ -96,6 +152,9 @@ their predecessors; does not specify a particular backend.
 | Are traces correlated with logs and metrics via trace ID? | Joining under incident is manual | Inject trace ID into log MDC / metric exemplars |
 | Is there a span-attribute cardinality budget? | Backend will be surprised | Define a budget; review new attributes |
 | Does the dependency graph match the team's mental model? | Unknown dependencies bite during incidents | Surface graph; triage gaps |
+| Do AI/agent spans use OTel GenAI semconv (`gen_ai.*`)? | Backends and dashboards need per-team translation | Adopt the canonical attribute names; emit vendor extensions alongside, not instead |
+| Does multi-agent context propagate via `gen_ai.conversation.id` + `invoke_workflow`? | Workflow latency reconstructed by hand from log timestamps | Propagate session ID and wrap the workflow in a parent span |
+| Is the inline-vs-reference content choice documented with a size cap? | Span truncation or PII bloat, unpredictably | Pick a model; document the cap and pointer shape |
 
 ## Cross-references
 

@@ -162,8 +162,24 @@
       "author": "OpenTelemetry",
       "kind": "guide",
       "year": null,
-      "contribution": "HTTP and gen-ai span-attribute conventions (http.request.method, http.response.status_code, ai.* attributes). SDKs depending on the OTel API (not the SDK) let downstream applications choose the exporter.",
-      "playbooks": ["logging", "ai-sdk"]
+      "contribution": "HTTP and GenAI span-attribute conventions: http.request.method, http.response.status_code; gen_ai.operation.name (create_agent / invoke_agent / invoke_workflow), gen_ai.usage.{input,output}_tokens, gen_ai.response.finish_reasons, gen_ai.conversation.id for session correlation, and aggregated chat-history attributes (gen_ai.system_instructions, gen_ai.input.messages, gen_ai.output.messages) introduced in v1.37. SDKs depend on the OTel API (not the SDK) so downstream applications pick the exporter; experimental-status attributes are dual-emitted via OTEL_SEMCONV_STABILITY_OPT_IN during migrations.",
+      "playbooks": ["logging", "ai-sdk", "telemetry"]
+    },
+    {
+      "name": "Agent Experience: How to design products that agents can actually use",
+      "author": "WorkOS contributors",
+      "kind": "essay",
+      "year": 2025,
+      "contribution": "Names agent experience (AX) as a distinct design surface from DX: LLMs cannot read tooltips, recover from ambiguity, or maintain context across retries the way humans do; they operate at machine speed on surfaced text alone. Frames structured-error envelopes, idempotency keys, machine-readable interface contracts (OpenAPI, MCP), and structured-output return types as load-bearing for any SDK called by an agent.",
+      "playbooks": ["errors", "ai-sdk"]
+    },
+    {
+      "name": "Safe Observability: A Framework for Automated PII Redaction from LLM Prompts in OpenTelemetry Pipelines",
+      "author": "International Journal of Computer contributors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Empirical finding that AI-system observability pipelines account for 25–40% of all discovered PII exposure in post-incident reviews because traces and error reports retain raw prompts and responses longer than the inference path and are read by more people. Motivates SDK-layer content-capture toggles (record_content) and pluggable redactors over downstream-collector-only redaction, and quantifies the trade-offs of co-located NER vs dedicated redaction tiers.",
+      "playbooks": ["telemetry"]
     },
     {
       "name": "Hyrum's Law",

@@ -127,10 +127,14 @@ exception design, `telemetry.md` for tracing exporters.
   `PostToolResult`, `OnHandoff` hooks let deterministic code intervene
   inside a stochastic flow. Approval/deny decisions are structured,
   not stringly-typed.
-- **Tracing as a default** *(design, audit)* — emit spans per LLM
-  call, tool invocation, guardrail, handoff; export via a batch
-  processor with a vendor-plugin API. OpenTelemetry semantic
-  conventions where they exist.
+- **Tracing as a default, OTel GenAI-shaped** *(design, audit)* — emit
+  spans per LLM call, tool invocation, guardrail, handoff; batch-export
+  via a vendor-plugin API. Attributes follow OTel GenAI semconv:
+  `gen_ai.operation.name` (`create_agent` / `invoke_agent` /
+  `invoke_workflow`), `gen_ai.usage.{input,output}_tokens`,
+  `gen_ai.response.finish_reasons`, `gen_ai.conversation.id` for session
+  correlation. Vendor-specific attributes ride alongside canonical ones
+  so downstream backends do not need translation.
 - **Round-trippable opaque artifacts** *(audit, debug)* — the type
   system has a category for "must echo unchanged"; the serializer
   preserves it; loss of the artifact is a documented failure mode.

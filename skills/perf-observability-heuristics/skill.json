@@ -121,6 +121,22 @@
       "playbooks": ["tracing"]
     },
     {
+      "name": "GenAI Semantic Conventions",
+      "author": "OpenTelemetry",
+      "kind": "guide",
+      "year": 2026,
+      "contribution": "Institutional schema for tracing AI and agent workloads: gen_ai.operation.name (create_agent / invoke_agent / invoke_workflow), gen_ai.usage.{input,output}_tokens, gen_ai.response.finish_reasons, gen_ai.conversation.id for session correlation, and the v1.37 aggregated chat-history attributes (gen_ai.system_instructions, gen_ai.input.messages, gen_ai.output.messages). Status is Development with most attributes Experimental; dual-emission via OTEL_SEMCONV_STABILITY_OPT_IN is the documented migration path. Vendor-specific extensions are accepted alongside the canonical attributes so downstream backends do not require translation.",
+      "playbooks": ["tracing"]
+    },
+    {
+      "name": "Safe Observability: A Framework for Automated PII Redaction from LLM Prompts in OpenTelemetry Pipelines",
+      "author": "International Journal of Computer contributors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Empirical evidence that AI-system observability pipelines dominate post-incident PII exposure — 25–40% of discovered cases — because traces and error reports retain raw prompts and responses longer than the inference path and are read by more people. Motivates inline-vs-reference content discipline on GenAI spans, SDK-layer redaction toggles, and explicit per-span size budgets when chat history is captured.",
+      "playbooks": ["tracing"]
+    },
+    {
       "name": "The Tail at Scale",
       "author": "Jeffrey Dean, Luiz Andre Barroso",
       "kind": "paper",

@@ -1,0 +1,3 @@
+frame,name,when_to_use,path
+report,Topic report,"open-ended research on a topic with no decision attached — primer, literature review, state-of-the-art, 'research X for me', 'what's known about X'",references/report/
+opportunity,Opportunity validation,"validate a named product/business/market/feature opportunity and end in a go/no-go/pivot decision (F/A/D/R memo) — size a market, map competitors, assess feasibility, unit economics, or legal risk",references/opportunity/

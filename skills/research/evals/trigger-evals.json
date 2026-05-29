@@ -1,0 +1,276 @@
+{
+  "skill": "research",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Research the current state of developer documentation for AI APIs.",
+      "should_activate": true,
+      "expected_route": "report/survey",
+      "category": "positive"
+    },
+    {
+      "query": "Give me a primer on differential privacy.",
+      "should_activate": true,
+      "expected_route": "report/brief",
+      "category": "positive"
+    },
+    {
+      "query": "Do a thorough literature review on retrieval-augmented generation.",
+      "should_activate": true,
+      "expected_route": "report/deep-dive",
+      "category": "positive"
+    },
+    {
+      "query": "Tell me what's known about server-driven UI patterns.",
+      "should_activate": true,
+      "expected_route": "report/survey",
+      "category": "positive"
+    },
+    {
+      "query": "Summarize the literature on prompt injection defenses.",
+      "should_activate": true,
+      "expected_route": "report/survey",
+      "category": "positive"
+    },
+    {
+      "query": "Validate whether building a docs-as-code SaaS is a good opportunity.",
+      "should_activate": true,
+      "expected_route": "opportunity/scope/all",
+      "category": "positive"
+    },
+    {
+      "query": "Review this design doc for weaknesses.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Compare Postgres and MySQL for our workload.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Brainstorm names for our new SDK.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Fix the failing test in user_test.py.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Research how OAuth 2.0 works.",
+      "should_activate": true,
+      "expected_route": "report/brief",
+      "category": "edge"
+    },
+    {
+      "query": "Research AI.",
+      "should_activate": true,
+      "expected_route": "report/survey",
+      "category": "edge"
+    },
+    {
+      "query": "What does the research say about this — is it worth investing in?",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "edge"
+    },
+    {
+      "query": "we're considering building an AI-powered scheduling assistant for in-home healthcare visits — can you help me figure out which research areas actually matter before we commit?",
+      "should_activate": true,
+      "expected_route": "opportunity/scope/all",
+      "category": "positive"
+    },
+    {
+      "query": "size the market for an AI coding assistant aimed at solo founders shipping side projects",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/market",
+      "category": "positive"
+    },
+    {
+      "query": "I want to understand who the actual customer is for a tool that helps lawyers draft initial pleadings — JTBD plus pain severity, not feature requests",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/customer",
+      "category": "positive"
+    },
+    {
+      "query": "map the competitive landscape for our developer-focused log analytics product, including the do-nothing alternative",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/competitive",
+      "category": "positive"
+    },
+    {
+      "query": "build a domain glossary and workflow map for B2B payments reconciliation — I want to know what outsiders consistently get wrong",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/domain",
+      "category": "positive"
+    },
+    {
+      "query": "is it technically feasible to build a CRM with offline-first sync that can handle 100k contacts per device — give me 3 architecture options",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/technical",
+      "category": "positive"
+    },
+    {
+      "query": "do we have the data we'd need to train per-customer churn prediction, or is this an AI idea that's actually a data problem",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/data",
+      "category": "positive"
+    },
+    {
+      "query": "what does the operating model look like if we serve regulated healthcare — staffing, support tiers, runbooks, vendor SLAs",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/operational",
+      "category": "positive"
+    },
+    {
+      "query": "do the unit economics support a 19 dollar per month prosumer subscription — base, best, and worst case with named drivers",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/financial",
+      "category": "positive"
+    },
+    {
+      "query": "what legal questions should we escalate to counsel before storing EU citizen data in our analytics product",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/legal",
+      "category": "positive"
+    },
+    {
+      "query": "where do users for a developer-focused open-source CLI actually come from and what's the channel concentration risk if we overinvest in Hacker News",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/channel",
+      "category": "positive"
+    },
+    {
+      "query": "position our product against the do-nothing alternative for SMB accountants — what category, what reference frame, what tradeoff",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/gtm",
+      "category": "positive"
+    },
+    {
+      "query": "for a 50k enterprise pilot in mid-market manufacturing who needs to sign off — users, buyers, approvers, blockers, champion",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/stakeholder",
+      "category": "positive"
+    },
+    {
+      "query": "build the risk register for our SaaS launch — eleven categories, severity x likelihood, severity-4 leads to kill criteria",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/risk",
+      "category": "positive"
+    },
+    {
+      "query": "is now the right window for AI-native browsers or are we too early — separate signals from narratives, name what would resolve the timing call",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/trend",
+      "category": "positive"
+    },
+    {
+      "query": "we have 6 area briefs already, pull them into one decision-ready opportunity brief for the board",
+      "should_activate": true,
+      "expected_route": "opportunity/synthesize/bundle",
+      "category": "positive"
+    },
+    {
+      "query": "convert the investigation into a go or no-go decision with named kill criteria and review trigger",
+      "should_activate": true,
+      "expected_route": "opportunity/decide/go-no-go",
+      "category": "positive"
+    },
+    {
+      "query": "given the investigation, what kill criteria should we forward-commit to so we don't re-litigate later",
+      "should_activate": true,
+      "expected_route": "opportunity/decide/kill-criteria",
+      "category": "positive"
+    },
+    {
+      "query": "brainstorm 20 new feature ideas for our existing product",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "red-team this pitch deck — what objections will leadership raise",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "stress-test our migration plan to mid-market — what could go wrong with the sequencing",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "do a premortem on this launch — assume it failed in 18 months and work backwards",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "critique this user-interview script — too leading, missing critical-incident probes",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "review my user persona docs for evidence gaps and stereotype risk",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "audit the clean architecture of our microservices boundaries",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "review the developer experience of our public SDK — friction, errors, examples, docs",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "run a usability audit on our checkout funnel",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "compare these three CRM vendors we shortlisted last week",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "is this metric a good measure of activation or can it be gamed",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "research this",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "edge"
+    },
+    {
+      "query": "should we enter this market",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "edge"
+    },
+    {
+      "query": "just give me the market size in dollars for B2B SaaS in legal-ops",
+      "should_activate": true,
+      "expected_route": "opportunity/investigate/market",
+      "category": "edge"
+    }
+  ]
+}

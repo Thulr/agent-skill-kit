@@ -55,6 +55,34 @@ def validate_schema(path: Path, schema: Path, failures: list[str]) -> None:
         fail(failures, f"{path.relative_to(ROOT)}: schema validation failed")
 
 
+def _git_ignored(paths: list[Path]) -> set[Path]:
+    """Return the subset of `paths` that git ignores.
+
+    Gitignored directories are not release artifacts — a developer's local
+    install (e.g. a `bmad*` skill set dropped under `.agents/skills/`, which
+    `.gitignore` excludes) must not gate the release contract. CI runs on a
+    clean checkout, so this filter is a no-op there; it only spares local
+    working trees that carry ignored clutter. Falls back to "nothing ignored"
+    (the original behavior) if git is unavailable or errors.
+    """
+    if not paths:
+        return set()
+    by_str = {str(p): p for p in paths}
+    try:
+        proc = subprocess.run(
+            ["git", "check-ignore", "--stdin"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            input="\n".join(by_str),
+        )
+    except OSError:
+        return set()
+    if proc.returncode not in (0, 1):  # 0 = some ignored, 1 = none; >1 = error
+        return set()
+    return {by_str[line] for line in proc.stdout.splitlines() if line in by_str}
+
+
 def public_skill_dirs() -> list[Path]:
     dirs = [
         p
@@ -64,12 +92,17 @@ def public_skill_dirs() -> list[Path]:
     experimental = ROOT / "skills" / ".experimental"
     if experimental.exists():
         dirs.extend(p for p in experimental.iterdir() if p.is_dir())
-    return sorted(dirs)
+    ignored = _git_ignored(dirs)
+    return sorted(p for p in dirs if p not in ignored)
 
 
 def repo_local_skill_dirs() -> list[Path]:
     base = ROOT / ".agents" / "skills"
-    return sorted(p for p in base.iterdir() if p.is_dir()) if base.exists() else []
+    if not base.exists():
+        return []
+    dirs = [p for p in base.iterdir() if p.is_dir()]
+    ignored = _git_ignored(dirs)
+    return sorted(p for p in dirs if p not in ignored)
 
 
 def check_trigger_evals(skill_dir: Path, expected_name: str, failures: list[str]) -> None:

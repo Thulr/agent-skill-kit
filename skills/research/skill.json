@@ -1,26 +1,119 @@
 {
-  "name": "opportunity-research",
-  "description": "Validate a named product, business, or feature opportunity across 14 dimensions of opportunity research — market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend. Every research branch ends in a decision (F/A/D/R memo), not a note — for open-ended topic research with no decision attached, use `topic-research` instead. Two-level routing (intent × area) with sub-agent fan-out per area and per persona lens. Produces one of 18 templated artifacts: scope plan, investigation brief, cross-area brief, F/A/D/R memo, plus 14 area-specific artifacts (market sizing, ICP+JTBD, competitor map, domain glossary, technical feasibility, data inventory, operating model, unit economics, legal register, channel plan, GTM plan, stakeholder map, risk register, trend horizon). Grounded in canonical product / strategy / venture literature.",
+  "name": "research",
+  "description": "Source-grounded research in two frames. REPORT: open-ended topic research with citations and no decision attached (primer, literature review, state-of-the-art, deep dive). OPPORTUNITY: validate a named product/business/market/feature opportunity across 14 dimensions (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend) ending in an F/A/D/R go/no-go/pivot decision. Routed by decision-frame, then by depth (report) or intent x area with sub-agent fan-out (opportunity). Grounded in canonical literature-review, product, strategy, and venture literature.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
-  "maintainers": ["@Thulr"],
+  "maintainers": [
+    "@Thulr"
+  ],
   "tags": [
-    "opportunity-research", "discovery", "validation", "strategy",
-    "product", "founder", "research",
-    "market", "customer", "competitive", "domain", "technical",
-    "data", "operational", "financial", "legal", "channel",
-    "gtm", "stakeholder", "risk", "trend",
-    "fadr", "go-no-go"
+    "research",
+    "literature-review",
+    "survey",
+    "systematic-review",
+    "scoping-review",
+    "primer",
+    "deep-dive",
+    "evidence-synthesis",
+    "report",
+    "discovery",
+    "validation",
+    "strategy",
+    "product",
+    "founder",
+    "market",
+    "customer",
+    "competitive",
+    "domain",
+    "technical",
+    "data",
+    "operational",
+    "financial",
+    "legal",
+    "channel",
+    "gtm",
+    "stakeholder",
+    "risk",
+    "trend",
+    "fadr",
+    "go-no-go"
   ],
   "inspired_by": [
+    {
+      "name": "Systematic Approaches to a Successful Literature Review",
+      "author": "Andrew Booth, Anthea Sutton, Diana Papaioannou",
+      "kind": "book",
+      "year": 2016,
+      "contribution": "SALSA framework — Search, AppraisaL, Synthesis, Analysis — as the four required phases of any literature-grounded research report. Adapted here as the workflow spine: plan-search → triage → synthesize → confidence-and-limitations.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "Guidelines for Performing Systematic Literature Reviews in Software Engineering",
+      "author": "Barbara Kitchenham, Stuart Charters",
+      "kind": "guide",
+      "year": 2007,
+      "contribution": "Protocol-driven review: explicit research question, inclusion/exclusion criteria stated up front, search strategy documented, quality assessment per source. Adapted as the deep-dive depth mode and the 'one-sentence research question with explicit inclusions and exclusions' requirement.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "Guidelines for Snowballing in Systematic Literature Studies",
+      "author": "Claes Wohlin",
+      "kind": "guide",
+      "year": 2014,
+      "contribution": "Snowballing — forward and backward citation chasing from anchor sources — as a search strategy that complements database queries and is particularly well-suited to LLM-driven research where coverage matters more than reproducibility. Adapted as the deep-dive search behavior.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "PRISMA 2020 statement",
+      "author": "Matthew J. Page, Joanne E. McKenzie, Patrick M. Bossuyt",
+      "kind": "guide",
+      "year": 2021,
+      "contribution": "Reporting standard for systematic reviews: what every review must disclose (search strategy, exclusions, limitations) so readers can assess validity. Adapted as the Output requirements section and the report template's required fields.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "A typology of reviews: an analysis of 14 review types and associated methodologies",
+      "author": "Maria J. Grant, Andrew Booth",
+      "kind": "article",
+      "year": 2009,
+      "contribution": "Fourteen review types differentiated by purpose, search, appraisal, synthesis, and analysis. Distilled here to three depth modes — brief (narrative orientation), survey (scoping/mapping), deep-dive (systematic). The depth router reflects this typology rather than treating 'research' as one undifferentiated request.",
+      "playbooks": [
+        "all"
+      ]
+    },
     {
       "name": "Opportunity Research Taxonomy (convo.txt)",
       "author": "User-curated notes, this repo",
       "kind": "notes",
       "year": 2026,
       "contribution": "The 14-area taxonomy, the four-layer Facts/Assumptions/Decisions/Risks frame, the minimum-viable first-pass subset of six areas (Customer / Market / Competitive / Domain / Technical / Financial), and the 'a research branch that ends in notes but not decisions is just organized procrastination' decision-gate principle.",
-      "playbooks": ["market", "customer", "competitive", "domain", "technical", "data", "operational", "financial", "legal", "channel", "gtm", "stakeholder", "risk", "trend", "synthesize", "decide"]
+      "playbooks": [
+        "market",
+        "customer",
+        "competitive",
+        "domain",
+        "technical",
+        "data",
+        "operational",
+        "financial",
+        "legal",
+        "channel",
+        "gtm",
+        "stakeholder",
+        "risk",
+        "trend",
+        "synthesize",
+        "decide"
+      ]
     },
     {
       "name": "The Lean Startup",
@@ -28,7 +121,10 @@
       "kind": "book",
       "year": 2011,
       "contribution": "Build-Measure-Learn loop; validated learning; pivot vs persevere as a forward-commitment decision rather than a vibe.",
-      "playbooks": ["customer", "risk"]
+      "playbooks": [
+        "customer",
+        "risk"
+      ]
     },
     {
       "name": "Know Your Customers' Jobs to Be Done",
@@ -36,7 +132,10 @@
       "kind": "article",
       "year": 2016,
       "contribution": "Jobs-to-be-done framing: name the job, the context, and what is being fired. Competing-against-non-consumption frames substitutes and do-nothing as first-class competitors.",
-      "playbooks": ["customer", "competitive"]
+      "playbooks": [
+        "customer",
+        "competitive"
+      ]
     },
     {
       "name": "The Five Competitive Forces That Shape Strategy",
@@ -44,7 +143,10 @@
       "kind": "article",
       "year": 2008,
       "contribution": "Industry attractiveness as a function of rivalry + buyer power + supplier power + substitutes + new-entrant threat. A market can be big and still unattractive.",
-      "playbooks": ["competitive", "market"]
+      "playbooks": [
+        "competitive",
+        "market"
+      ]
     },
     {
       "name": "Crossing the Chasm (3rd ed.)",
@@ -52,7 +154,11 @@
       "kind": "book",
       "year": 2014,
       "contribution": "Technology-adoption lifecycle; early-market vs mainstream gap; beachhead segment — pick one tightly-defined initial segment whose adoption proves the next segment is winnable.",
-      "playbooks": ["market", "gtm", "customer"]
+      "playbooks": [
+        "market",
+        "gtm",
+        "customer"
+      ]
     },
     {
       "name": "Obviously Awesome",
@@ -60,7 +166,10 @@
       "kind": "book",
       "year": 2019,
       "contribution": "Positioning as deliberate context-setting: who is this for, what reference frame should the buyer hold the product against, and why those tradeoffs matter to them. Defaults are someone else's positioning.",
-      "playbooks": ["gtm", "competitive"]
+      "playbooks": [
+        "gtm",
+        "competitive"
+      ]
     },
     {
       "name": "Four Fits for $100M+ Growth",
@@ -68,7 +177,11 @@
       "kind": "essay",
       "year": 2017,
       "contribution": "Beyond product/market fit, scale requires product/channel fit, channel/model fit, and model/market fit. A mismatch on any pair caps growth.",
-      "playbooks": ["channel", "gtm", "financial"]
+      "playbooks": [
+        "channel",
+        "gtm",
+        "financial"
+      ]
     },
     {
       "name": "SaaS Metrics 2.0",
@@ -76,7 +189,9 @@
       "kind": "essay",
       "year": 2013,
       "contribution": "Canonical SaaS unit economics: CAC, LTV, payback period, gross margin, magic number, LTV/CAC > 3, payback < 12 months as common benchmarks.",
-      "playbooks": ["financial"]
+      "playbooks": [
+        "financial"
+      ]
     },
     {
       "name": "Domain-Driven Design",
@@ -84,7 +199,9 @@
       "kind": "book",
       "year": 2003,
       "contribution": "Ubiquitous language; bounded contexts; the cost of getting the domain model wrong. Domain understanding precedes design; the glossary is load-bearing, not decoration.",
-      "playbooks": ["domain"]
+      "playbooks": [
+        "domain"
+      ]
     },
     {
       "name": "Antifragile",
@@ -92,7 +209,9 @@
       "kind": "book",
       "year": 2012,
       "contribution": "Fragile / robust / antifragile classification; concentration risk; convexity. Risk is structural, not just probabilistic.",
-      "playbooks": ["risk"]
+      "playbooks": [
+        "risk"
+      ]
     },
     {
       "name": "Continuous Discovery Habits",
@@ -100,7 +219,10 @@
       "kind": "book",
       "year": 2021,
       "contribution": "Opportunity solution tree; weekly customer touchpoints; assumption tests vs discovery — research is a habit, not a phase.",
-      "playbooks": ["customer", "scope-intent"]
+      "playbooks": [
+        "customer",
+        "scope-intent"
+      ]
     },
     {
       "name": "Performing a Project Premortem",
@@ -108,7 +230,9 @@
       "kind": "article",
       "year": 2007,
       "contribution": "Imagine the project failed in 12–18 months; work backwards to causes. Catches dissent that doesn't surface in current-state reviews. Used as a heuristic within `risk` here; the dedicated `premortem` skill runs the full interview.",
-      "playbooks": ["risk"]
+      "playbooks": [
+        "risk"
+      ]
     },
     {
       "name": "Just Enough Research (2nd ed.)",
@@ -116,7 +240,11 @@
       "kind": "book",
       "year": 2019,
       "contribution": "Right-sized research; 'research is just having the answers'; the explicit multiple-types-of-research taxonomy (organizational, user, design, competitive, evaluative).",
-      "playbooks": ["scope-intent", "customer", "synthesize-intent"]
+      "playbooks": [
+        "scope-intent",
+        "customer",
+        "synthesize-intent"
+      ]
     },
     {
       "name": "Zero to One",
@@ -124,7 +252,10 @@
       "kind": "book",
       "year": 2014,
       "contribution": "Last-mover advantage; secrets (what important truth do very few people agree with you on?); the monopoly-vs-competition frame; build durable moats rather than chase parity.",
-      "playbooks": ["competitive", "market"]
+      "playbooks": [
+        "competitive",
+        "market"
+      ]
     },
     {
       "name": "Technological Revolutions and Financial Capital",
@@ -132,7 +263,9 @@
       "kind": "book",
       "year": 2002,
       "contribution": "Five surges of technological revolution; installation period vs deployment period; long-wave timing frames for trend analysis.",
-      "playbooks": ["trend"]
+      "playbooks": [
+        "trend"
+      ]
     },
     {
       "name": "Diátaxis Documentation Framework",
@@ -140,7 +273,10 @@
       "kind": "guide",
       "year": 2020,
       "contribution": "Four-quadrant separation (tutorial / how-to / reference / explanation). Applied to opportunity research: 14 area artifacts are reference + explanation; tutorials and how-tos live elsewhere. Don't mix kinds in one artifact.",
-      "playbooks": ["scope-intent", "synthesize-intent"]
+      "playbooks": [
+        "scope-intent",
+        "synthesize-intent"
+      ]
     },
     {
       "name": "The Only Thing That Matters",
@@ -148,7 +284,10 @@
       "kind": "essay",
       "year": 2007,
       "contribution": "Market quality dominates team and product; product/market fit threshold; the market 'pulls' a fit-finding product.",
-      "playbooks": ["market", "customer"]
+      "playbooks": [
+        "market",
+        "customer"
+      ]
     },
     {
       "name": "Stripe Atlas Guides",
@@ -156,7 +295,10 @@
       "kind": "guide",
       "year": null,
       "contribution": "Operational and legal patterns for early-stage businesses: entity formation, sales tax exposure, international expansion, contracts, IP, payment compliance.",
-      "playbooks": ["legal", "operational"]
+      "playbooks": [
+        "legal",
+        "operational"
+      ]
     },
     {
       "name": "How to Get Startup Ideas (and the Y Combinator essay series)",
@@ -164,7 +306,9 @@
       "kind": "essay",
       "year": 2012,
       "contribution": "Live-in-the-future framing; organic vs made-up ideas; founder-as-her-own-customer; the trap of plausible-but-unimportant problems.",
-      "playbooks": ["scope-intent"]
+      "playbooks": [
+        "scope-intent"
+      ]
     },
     {
       "name": "Architecture Tradeoff Analysis Method (ATAM)",
@@ -172,7 +316,9 @@
       "kind": "guide",
       "year": 2000,
       "contribution": "Quality-attribute tradeoffs as named scenarios; sensitivity points; risk themes. Adapted here to frame build-vs-buy and architecture-option decisions inside the technical playbook.",
-      "playbooks": ["technical"]
+      "playbooks": [
+        "technical"
+      ]
     },
     {
       "name": "Platform-Dependence and Growth Loops (Reforge)",
@@ -180,7 +326,9 @@
       "kind": "essay",
       "year": 2018,
       "contribution": "Channel platform-dependence as a first-class risk class; growth loops (compounding mechanisms) as the scalability test for any channel.",
-      "playbooks": ["channel"]
+      "playbooks": [
+        "channel"
+      ]
     }
   ]
 }

@@ -141,6 +141,50 @@ def check_trigger_evals(skill_dir: Path, expected_name: str, failures: list[str]
             )
 
 
+def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> None:
+    """Assert SKILL.md frontmatter is parseable YAML with name + description.
+
+    Per-skill run-static-checks.sh only `grep`s for `^description:`, which a
+    malformed frontmatter passes — but the `skills` CLI runs a real YAML parser
+    and silently SKIPS a skill whose frontmatter won't parse (observed: an
+    unquoted description containing `: ` colon-space made a published skill
+    invisible to `npx skills add . --list`). PyYAML is apt-installed in CI
+    (python3-yaml); if it's missing locally this check degrades to a skip.
+    """
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        return  # already reported by the required-artifacts loop
+    try:
+        import yaml  # type: ignore
+    except ImportError:
+        return
+    rel = skill_dir.relative_to(ROOT)
+    text = skill_md.read_text()
+    if not text.startswith("---"):
+        fail(failures, f"{rel}/SKILL.md: missing opening '---' YAML frontmatter delimiter")
+        return
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        fail(failures, f"{rel}/SKILL.md: frontmatter not closed with a second '---'")
+        return
+    try:
+        meta = yaml.safe_load(parts[1])
+    except yaml.YAMLError as exc:
+        detail = str(exc).splitlines()[0]
+        fail(
+            failures,
+            f"{rel}/SKILL.md: frontmatter is not valid YAML ({detail}); the skills "
+            f"CLI will silently skip this skill — quote the value or use a '>-' block scalar",
+        )
+        return
+    if not isinstance(meta, dict):
+        fail(failures, f"{rel}/SKILL.md: frontmatter must be a YAML mapping")
+        return
+    for key in ("name", "description"):
+        if not meta.get(key):
+            fail(failures, f"{rel}/SKILL.md: frontmatter missing required key '{key}'")
+
+
 def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
     rel = skill_dir.relative_to(ROOT)
     required = [
@@ -153,6 +197,8 @@ def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
     for item in required:
         if not (skill_dir / item).exists():
             fail(failures, f"{rel}: missing required artifact {item}")
+
+    check_skill_md_frontmatter(skill_dir, failures)
 
     data = load_json(skill_dir / "skill.json", failures)
     if data is None:
@@ -193,6 +239,8 @@ def check_repo_local_skill(skill_dir: Path, failures: list[str]) -> None:
     for item in required:
         if not (skill_dir / item).exists():
             fail(failures, f"{rel}: missing repo-local skill artifact {item}")
+
+    check_skill_md_frontmatter(skill_dir, failures)
 
 
 def main() -> int:

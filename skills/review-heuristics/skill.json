@@ -1,0 +1,1456 @@
+{
+  "name": "review-heuristics",
+  "description": "Heuristic review, design, and debugging across seven domains, routed by domain then intent then surface. DOMAINS: dx (APIs/SDKs/CLIs/docs/setup/errors/auth/telemetry developer experience); docs (documentation experience — README/quickstarts/API refs/help centers/llms.txt/agent-readable docs); perf (systems performance & observability — latency/SLOs/tracing/profiling/capacity); test (test-suite quality — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning); ux (user-facing product UX & accessibility — usability, forms, navigation, WCAG); ui-craft (visual UI design & polish — mockups, design systems, prototypes, motion, decks); architecture (clean architecture — dependency rule, layering, ports/adapters, DDD, bounded contexts). Pick the domain, then the skill routes intent (audit/design/debug/...) and surface, dispatches domain-specific reviewer lenses, scores findings, and emits an intent-specific report with optional tracking. Use ui-craft to CREATE/polish a UI and ux to AUDIT one. Grounded in canonical DX/UX/perf/test/architecture literature (per-source provenance below).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": [
+    "@Thulr"
+  ],
+  "tags": [
+    "review-heuristics",
+    "review",
+    "audit",
+    "heuristics",
+    "dx",
+    "developer-experience",
+    "api",
+    "sdk",
+    "ai-sdk",
+    "cli",
+    "docs",
+    "errors",
+    "setup",
+    "inner-loop",
+    "contributor",
+    "auth",
+    "migration",
+    "plugin",
+    "ide",
+    "perf",
+    "telemetry",
+    "readme",
+    "package",
+    "examples",
+    "logging",
+    "config",
+    "changelog",
+    "agent",
+    "documentation",
+    "documentation-experience",
+    "ux",
+    "ax",
+    "agent-experience",
+    "developer-docs",
+    "help-center",
+    "onboarding",
+    "api-reference",
+    "error-copy",
+    "llms-txt",
+    "agents-md",
+    "skill-md",
+    "mcp",
+    "openapi",
+    "rag",
+    "information-architecture",
+    "docs-as-code",
+    "accessibility",
+    "performance",
+    "observability",
+    "latency",
+    "throughput",
+    "resources",
+    "tracing",
+    "logs",
+    "metrics",
+    "slos",
+    "p99",
+    "tail-latency",
+    "percentiles",
+    "profiling",
+    "flamegraph",
+    "use-method",
+    "red-method",
+    "golden-signals",
+    "capacity-planning",
+    "scalability",
+    "queueing",
+    "error-budget",
+    "sre",
+    "instrumentation",
+    "browser-perf",
+    "db-perf",
+    "testing",
+    "test-quality",
+    "unit",
+    "integration",
+    "e2e",
+    "exploratory",
+    "property-based",
+    "contract",
+    "snapshot",
+    "mutation",
+    "flakiness",
+    "false-pass",
+    "brittleness",
+    "test-pyramid",
+    "test-strategy",
+    "tdd",
+    "architecture",
+    "clean-architecture",
+    "hexagonal",
+    "onion",
+    "ports-and-adapters",
+    "ddd",
+    "domain-driven-design",
+    "bounded-context",
+    "dependency-rule",
+    "solid",
+    "refactor",
+    "design",
+    "usability",
+    "wcag",
+    "forms",
+    "navigation",
+    "checkout",
+    "inclusive-design",
+    "dark-patterns",
+    "ui",
+    "visual-design",
+    "product-design",
+    "frontend",
+    "prototype",
+    "design-system",
+    "motion",
+    "decks",
+    "handoff",
+    "artifact-host"
+  ],
+  "inspired_by": [
+    {
+      "name": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "kind": "book",
+      "year": 1988,
+      "contribution": "Affordances, signifiers, slips-vs-mistakes error taxonomy; mental-model alignment.",
+      "playbooks": [
+        "cli",
+        "errors",
+        "api",
+        "plugin"
+      ]
+    },
+    {
+      "name": "10 Usability Heuristics for User Interface Design",
+      "author": "Jakob Nielsen",
+      "kind": "article",
+      "year": 1994,
+      "contribution": "Heuristic-evaluation format; severity rubric; visibility-of-system-status and recognition-over-recall, adapted to developer surfaces.",
+      "playbooks": [
+        "audit-intent",
+        "all"
+      ]
+    },
+    {
+      "name": "How to Design a Good API and Why It Matters",
+      "author": "Joshua Bloch",
+      "kind": "talk",
+      "year": 2006,
+      "contribution": "API design principles: if in doubt leave it out, naming, modules over methods, document everything.",
+      "playbooks": [
+        "api",
+        "sdk"
+      ]
+    },
+    {
+      "name": "A Philosophy of Software Design",
+      "author": "John Ousterhout",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "Deep modules with simple interfaces; defining errors out of existence; comments-as-design.",
+      "playbooks": [
+        "api",
+        "sdk",
+        "errors"
+      ]
+    },
+    {
+      "name": "The Twelve-Factor App",
+      "author": "Adam Wiggins",
+      "kind": "guide",
+      "year": 2011,
+      "contribution": "Config in env, dev/prod parity, logs as event streams — operational DX baseline.",
+      "playbooks": [
+        "setup",
+        "inner-loop",
+        "telemetry"
+      ]
+    },
+    {
+      "name": "Command Line Interface Guidelines",
+      "author": "clig.dev contributors",
+      "kind": "guide",
+      "year": 2022,
+      "contribution": "Concrete CLI conventions: help, flags, output, exit codes, TTY detection.",
+      "playbooks": [
+        "cli",
+        "contributor"
+      ]
+    },
+    {
+      "name": "Observability Engineering",
+      "author": "Charity Majors, Liz Fong-Jones, George Miranda",
+      "kind": "book",
+      "year": 2022,
+      "contribution": "Debuggability as a first-class surface: high-cardinality context, traceability, sampling.",
+      "playbooks": [
+        "errors",
+        "inner-loop",
+        "debug-intent"
+      ]
+    },
+    {
+      "name": "Accelerate",
+      "author": "Nicole Forsgren, Jez Humble, Gene Kim",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "DORA metrics: lead time, deployment frequency, MTTR, change failure rate — make inner-loop quality measurable.",
+      "playbooks": [
+        "inner-loop",
+        "contributor"
+      ]
+    },
+    {
+      "name": "Stripe API Design Guidelines",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Public-facing reference for HTTP API conventions: versioning (date-pinned with response transforms), errors, pagination, idempotency keys, expansion, webhook signature verification.",
+      "playbooks": [
+        "api",
+        "sdk"
+      ]
+    },
+    {
+      "name": "Builders' Library — Timeouts, Retries, and Backoff with Jitter",
+      "author": "AWS",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Canonical retry design: exponential backoff with full jitter, per-client token-bucket retry budgets, server-directed retry timing — the load-bearing primitive behind any SDK that retries safely under load.",
+      "playbooks": [
+        "sdk"
+      ]
+    },
+    {
+      "name": "Smithy IDL specification",
+      "author": "AWS",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Open-source IDL formalizing SDK behavior traits: @idempotencyToken, @paginated, @retryable, @streaming. Drives auto-generated SDKs with consistent middleware, waiters, and event streams.",
+      "playbooks": [
+        "sdk"
+      ]
+    },
+    {
+      "name": "API Improvement Proposals (AIPs)",
+      "author": "Google",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Alternative API design philosophy to date-pinned versioning: path-based versions, opaque pagination tokens (AIP-158), request IDs for idempotency (AIP-155), long-running operations (AIP-151). The second canonical reference design.",
+      "playbooks": [
+        "api",
+        "sdk"
+      ]
+    },
+    {
+      "name": "Claude SDK and platform documentation",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Primary source for AI-SDK patterns: per-content-block parameters (cache_control, citations), two-tier streaming with typed accumulators, opaque reasoning artifacts with continuity signatures, batch processing namespace, agent-SDK hooks.",
+      "playbooks": [
+        "ai-sdk"
+      ]
+    },
+    {
+      "name": "Client SDK and Agents SDK documentation",
+      "author": "OpenAI",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Primary source for the typed exception hierarchy keyed to HTTP semantics, .parse() structured-output flow, agent loop with declarative stop conditions and handoffs, tracing-as-default with vendor-plugin export.",
+      "playbooks": [
+        "ai-sdk",
+        "sdk",
+        "errors"
+      ]
+    },
+    {
+      "name": "AI SDK",
+      "author": "Vercel",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Streaming-first AI/Agent SDK design: streamText / streamObject with partial output, tool definition from typed schemas (Zod), declarative stopWhen predicates, provider-agnostic dispatch via shared model interface.",
+      "playbooks": [
+        "ai-sdk"
+      ]
+    },
+    {
+      "name": "Instructor",
+      "author": "Jason Liu",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Pioneered the patch-the-LLM-client pattern: response_model= with Pydantic validation, validation-error retry loops with the validator message fed back as semantic context (distinct from transport retries).",
+      "playbooks": [
+        "ai-sdk"
+      ]
+    },
+    {
+      "name": "Pydantic AI",
+      "author": "Samuel Colvin",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Schema-first agent SDK: Agent(output_type=Model), @agent.tool with RunContext[Deps] dependency injection, semantic retries on validation failure carried into the agent loop.",
+      "playbooks": [
+        "ai-sdk"
+      ]
+    },
+    {
+      "name": "What Color is Your Function?",
+      "author": "Bob Nystrom",
+      "kind": "essay",
+      "year": 2015,
+      "contribution": "Async/sync function-color framing: SDKs that ship only one surface force consumers to thread-pool-wrap or run-loop-bridge at every callsite. The case for dual sync/async surfaces with identical method shapes.",
+      "playbooks": [
+        "sdk"
+      ]
+    },
+    {
+      "name": "Semantic Conventions",
+      "author": "OpenTelemetry",
+      "kind": "guide",
+      "year": null,
+      "contribution": "HTTP and GenAI span-attribute conventions: http.request.method, http.response.status_code; gen_ai.operation.name (create_agent / invoke_agent / invoke_workflow), gen_ai.usage.{input,output}_tokens, gen_ai.response.finish_reasons, gen_ai.conversation.id for session correlation, and aggregated chat-history attributes (gen_ai.system_instructions, gen_ai.input.messages, gen_ai.output.messages) introduced in v1.37. SDKs depend on the OTel API (not the SDK) so downstream applications pick the exporter; experimental-status attributes are dual-emitted via OTEL_SEMCONV_STABILITY_OPT_IN during migrations.",
+      "playbooks": [
+        "logging",
+        "ai-sdk",
+        "telemetry"
+      ]
+    },
+    {
+      "name": "Agent Experience: How to design products that agents can actually use",
+      "author": "WorkOS contributors",
+      "kind": "essay",
+      "year": 2025,
+      "contribution": "Names agent experience (AX) as a distinct design surface from DX: LLMs cannot read tooltips, recover from ambiguity, or maintain context across retries the way humans do; they operate at machine speed on surfaced text alone. Frames structured-error envelopes, idempotency keys, machine-readable interface contracts (OpenAPI, MCP), and structured-output return types as load-bearing for any SDK called by an agent.",
+      "playbooks": [
+        "errors",
+        "ai-sdk"
+      ]
+    },
+    {
+      "name": "Safe Observability: A Framework for Automated PII Redaction from LLM Prompts in OpenTelemetry Pipelines",
+      "author": "International Journal of Computer contributors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Empirical finding that AI-system observability pipelines account for 25–40% of all discovered PII exposure in post-incident reviews because traces and error reports retain raw prompts and responses longer than the inference path and are read by more people. Motivates SDK-layer content-capture toggles (record_content) and pluggable redactors over downstream-collector-only redaction, and quantifies the trade-offs of co-located NER vs dedicated redaction tiers.",
+      "playbooks": [
+        "telemetry"
+      ]
+    },
+    {
+      "name": "Hyrum's Law",
+      "author": "Hyrum Wright",
+      "kind": "essay",
+      "year": 2010,
+      "contribution": "Every observable behavior of an interface is depended on. Frames stable-contract reasoning.",
+      "playbooks": [
+        "api",
+        "sdk",
+        "migration"
+      ]
+    },
+    {
+      "name": "Application Security Verification Standard (ASVS)",
+      "author": "OWASP Foundation",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Standard checklist for authentication, session, and access control; concrete requirements per security level.",
+      "playbooks": [
+        "auth"
+      ]
+    },
+    {
+      "name": "Digital Identity Guidelines: Authentication and Lifecycle Management (SP 800-63B)",
+      "author": "NIST",
+      "kind": "guide",
+      "year": 2017,
+      "contribution": "Authenticator assurance levels, lifecycle requirements, password and token handling rules.",
+      "playbooks": [
+        "auth"
+      ]
+    },
+    {
+      "name": "Stripe API Key Management",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational patterns for token scoping, rotation, revocation UX, and test-vs-live key separation.",
+      "playbooks": [
+        "auth"
+      ]
+    },
+    {
+      "name": "The Essence of Software",
+      "author": "Daniel Jackson",
+      "kind": "book",
+      "year": 2021,
+      "contribution": "Concept design: software is composed of concepts that interact; extensions have their own concept lifecycle.",
+      "playbooks": [
+        "plugin"
+      ]
+    },
+    {
+      "name": "Design Patterns: Elements of Reusable Object-Oriented Software",
+      "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+      "kind": "book",
+      "year": 1994,
+      "contribution": "Named patterns for extension-point design: composite, observer, strategy applied to plugin contracts.",
+      "playbooks": [
+        "plugin"
+      ]
+    },
+    {
+      "name": "VS Code Extension API",
+      "author": "Microsoft",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Concrete patterns for declarative extension points, contribution points, activation events, and lifecycle.",
+      "playbooks": [
+        "plugin"
+      ]
+    },
+    {
+      "name": "Privacy by Design: The 7 Foundational Principles",
+      "author": "Ann Cavoukian",
+      "kind": "essay",
+      "year": 2009,
+      "contribution": "Privacy by default; user control and visibility; embed privacy into design — operational frame for telemetry consent.",
+      "playbooks": [
+        "telemetry"
+      ]
+    },
+    {
+      "name": "GDPR Article 7 — Conditions for Consent",
+      "author": "European Parliament and Council",
+      "kind": "guide",
+      "year": 2016,
+      "contribution": "Consent must be freely given, specific, informed, and unambiguous; withdrawable. Frames telemetry opt-in requirements.",
+      "playbooks": [
+        "telemetry"
+      ]
+    },
+    {
+      "name": "Diátaxis Documentation Framework",
+      "author": "Daniele Procida",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Four orthogonal documentation modes (tutorials, how-to guides, reference, explanation) that should never be mixed in one page.",
+      "playbooks": [
+        "docs"
+      ]
+    },
+    {
+      "name": "Don't Make Me Think",
+      "author": "Steve Krug",
+      "kind": "book",
+      "year": 2000,
+      "contribution": "Users scan, don't read; F-pattern scanning; signposting; minimize cognitive load — applied to docs IA.",
+      "playbooks": [
+        "docs"
+      ]
+    },
+    {
+      "name": "Language Server Protocol Specification",
+      "author": "Microsoft",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Uniform editor-integration contract: speak LSP and you get autocomplete, diagnostics, hover, and jump-to-def across modern editors.",
+      "playbooks": [
+        "ide"
+      ]
+    },
+    {
+      "name": "The Pragmatic Programmer",
+      "author": "Andrew Hunt, David Thomas",
+      "kind": "book",
+      "year": 1999,
+      "contribution": "Power editing; tool fluency; the IDE is part of the SDK surface.",
+      "playbooks": [
+        "ide"
+      ]
+    },
+    {
+      "name": "Systems Performance",
+      "author": "Brendan Gregg",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "The USE method (utilization, saturation, errors); profile before optimizing; methodology for diagnosing performance problems.",
+      "playbooks": [
+        "perf"
+      ]
+    },
+    {
+      "name": "Response Times: The 3 Important Limits",
+      "author": "Jakob Nielsen",
+      "kind": "article",
+      "year": 1993,
+      "contribution": "The 0.1s / 1s / 10s thresholds for user-perceived latency: instant feel, train-of-thought, attention loss.",
+      "playbooks": [
+        "perf"
+      ]
+    },
+    {
+      "name": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "kind": "book",
+      "year": 2017,
+      "contribution": "Latency framing: percentile matters (p50 hides the tail); average vs p99; head-of-line blocking.",
+      "playbooks": [
+        "perf"
+      ]
+    },
+    {
+      "name": "Producing Open Source Software",
+      "author": "Karl Fogel",
+      "kind": "book",
+      "year": 2005,
+      "contribution": "The README as the project's front door: name, value, install, first use, link out. Welcoming patterns for evaluators and contributors alike.",
+      "playbooks": [
+        "readme",
+        "contributor"
+      ]
+    },
+    {
+      "name": "Open Source Guides",
+      "author": "GitHub",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational patterns for README, CONTRIBUTING, CODEOWNERS, issue and PR templates as surfaces that surface the right context at the right time.",
+      "playbooks": [
+        "readme",
+        "contributor"
+      ]
+    },
+    {
+      "name": "Semantic Versioning 2.0.0",
+      "author": "Tom Preston-Werner",
+      "kind": "guide",
+      "year": 2013,
+      "contribution": "MAJOR.MINOR.PATCH contract: breaking changes bump MAJOR, additions bump MINOR, fixes bump PATCH. The version is a contract integrators rely on.",
+      "playbooks": [
+        "package",
+        "changelog",
+        "migration"
+      ]
+    },
+    {
+      "name": "Supply-chain Levels for Software Artifacts (SLSA)",
+      "author": "OpenSSF",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Provenance, signed releases, two-factor publish, immutable version tags, reproducible builds as the baseline for any package other people install.",
+      "playbooks": [
+        "package"
+      ]
+    },
+    {
+      "name": "Stripe Samples",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational pattern for a samples surface: one repo per language, CI'd against the current SDK, runnable in five minutes, curated rather than community-dumped.",
+      "playbooks": [
+        "examples"
+      ]
+    },
+    {
+      "name": "Keep a Changelog",
+      "author": "Olivier Lacan",
+      "kind": "guide",
+      "year": 2014,
+      "contribution": "Chronological changelog with stable categories (Added/Changed/Deprecated/Removed/Fixed/Security), Unreleased section at the top, version-and-date heading per release.",
+      "playbooks": [
+        "changelog"
+      ]
+    },
+    {
+      "name": "AGENTS.md convention",
+      "author": "agents.md contributors",
+      "kind": "guide",
+      "year": null,
+      "contribution": "A hand-curated repo-root file that coding agents read first to learn project context, commands, invariants, and load-bearing rules. The single source of truth across harnesses.",
+      "playbooks": [
+        "agent"
+      ]
+    },
+    {
+      "name": "Model Context Protocol Specification",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Uniform protocol for exposing tools, resources, and prompts to coding agents. Speaking MCP gets every conforming host the same capabilities without per-host plugins.",
+      "playbooks": [
+        "agent"
+      ]
+    },
+    {
+      "name": "Evidence-Driven Agent Scaffolding",
+      "author": "Mündler et al. (ETH Zürich / LogicStar.ai)",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Scaffolding written from fewer than three observed failures produces plausible boilerplate that hurts agent success; rules must be promoted from a logged pattern, not invented.",
+      "playbooks": [
+        "agent"
+      ]
+    },
+    {
+      "name": "Research Report — Effective Documentation Patterns and Practices for DX, AX, and UX",
+      "author": "Informed Skills research synthesis",
+      "kind": "research report",
+      "year": 2026,
+      "contribution": "Primary synthesis for the skill's cross-audience frame: shared foundations, DX/UX/AX divergences, unique AX requirements, and conflict-resolution patterns.",
+      "playbooks": [
+        "all",
+        "foundations",
+        "dx-docs",
+        "ux-help",
+        "ax-docs",
+        "api-contracts",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "The Documentation System",
+      "author": "Daniele Procida",
+      "kind": "framework",
+      "year": null,
+      "contribution": "Four-mode documentation taxonomy and the anti-mixing rule for tutorials, how-to guides, reference, and explanation.",
+      "playbooks": [
+        "foundations",
+        "dx-docs",
+        "ux-help",
+        "ax-docs"
+      ]
+    },
+    {
+      "name": "Docs as Code",
+      "author": "Anne Gentle and Write the Docs contributors",
+      "kind": "guide",
+      "year": 2017,
+      "contribution": "Version control, PR review, automated tests, link checks, and CI as the operational baseline for durable documentation.",
+      "playbooks": [
+        "foundations",
+        "measure"
+      ]
+    },
+    {
+      "name": "Information Architecture: For the Web and Beyond",
+      "author": "Rosenfeld, Morville, and Arango",
+      "kind": "book",
+      "year": 2015,
+      "contribution": "Organization, labeling, navigation, search, card sorting, and IA vocabulary for docs systems.",
+      "playbooks": [
+        "foundations",
+        "ux-help",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Web Content Accessibility Guidelines 2.2",
+      "author": "World Wide Web Consortium",
+      "kind": "standard",
+      "year": 2023,
+      "contribution": "Accessibility floor for help and docs: focus visibility, target size, semantic structure, captions, transcripts, and consistent help.",
+      "playbooks": [
+        "foundations",
+        "ux-help"
+      ]
+    },
+    {
+      "name": "Improving API Usability",
+      "author": "Brad Myers and Jeffrey Stylos",
+      "kind": "research article",
+      "year": 2016,
+      "contribution": "Empirical grounding for treating examples as primary developer documentation rather than decorative supplements.",
+      "playbooks": [
+        "dx-docs",
+        "api-contracts"
+      ]
+    },
+    {
+      "name": "OpenAPI Specification 3.1.0",
+      "author": "OpenAPI Initiative",
+      "kind": "specification",
+      "year": 2021,
+      "contribution": "Schema-as-docs model for HTTP APIs, including descriptions and examples that tools and agents consume directly.",
+      "playbooks": [
+        "api-contracts",
+        "ax-docs"
+      ]
+    },
+    {
+      "name": "MCP Tool Descriptions Are Smelly!",
+      "author": "Md Hasan and coauthors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Evidence that tool-description quality changes agent task success and that more description can regress behavior when it is not targeted.",
+      "playbooks": [
+        "api-contracts",
+        "ax-docs",
+        "measure"
+      ]
+    },
+    {
+      "name": "Agent Skills overview",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": 2025,
+      "contribution": "Progressive disclosure model for agent-readable instructions: metadata always loaded, instructions on trigger, resources on demand.",
+      "playbooks": [
+        "ax-docs",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Evaluating repository-level context files for coding agents",
+      "author": "Gloaguen and coauthors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Empirical caution that maximalist always-loaded context can reduce task success and increase cost; grounds minimal, measured AX docs.",
+      "playbooks": [
+        "ax-docs",
+        "audience-conflicts",
+        "measure"
+      ]
+    },
+    {
+      "name": "Help and Documentation",
+      "author": "Nielsen Norman Group",
+      "kind": "article",
+      "year": null,
+      "contribution": "Help in the moment of need, contextual help, and support for both search-first and browse-first help behavior.",
+      "playbooks": [
+        "ux-help",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Stripe API Errors reference",
+      "author": "Stripe",
+      "kind": "reference",
+      "year": null,
+      "contribution": "Structured error envelope pattern: machine-readable code, user-facing message, offending parameter, and doc link.",
+      "playbooks": [
+        "api-contracts",
+        "dx-docs"
+      ]
+    },
+    {
+      "name": "Cloudflare documentation for AI tooling",
+      "author": "Cloudflare",
+      "kind": "guide",
+      "year": 2026,
+      "contribution": "Markdown-for-agents, retrieval-friendly content, token budgeting, and content negotiation as a way to serve humans and agents from one source.",
+      "playbooks": [
+        "ax-docs",
+        "audience-conflicts",
+        "foundations"
+      ]
+    },
+    {
+      "name": "Systems Performance: Enterprise and the Cloud (2nd ed.)",
+      "author": "Brendan Gregg",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "USE method (utilization, saturation, errors) as a systematic resource-bottleneck checklist; profile-before-optimize discipline; the symptom-to-root-cause methodology that anchors the resources, latency, throughput, and diagnose paths.",
+      "playbooks": [
+        "resources",
+        "latency",
+        "throughput",
+        "all"
+      ]
+    },
+    {
+      "name": "BPF Performance Tools: Linux System and Application Observability",
+      "author": "Brendan Gregg",
+      "kind": "book",
+      "year": 2019,
+      "contribution": "eBPF-era Linux observability primitives and the workflow of moving from coarse system metrics to fine-grained kernel/userspace tracing without restart or instrumentation overhead.",
+      "playbooks": [
+        "resources",
+        "tracing"
+      ]
+    },
+    {
+      "name": "Thinking Methodically about Performance",
+      "author": "Brendan Gregg",
+      "kind": "paper",
+      "year": 2013,
+      "contribution": "ACM Queue article that codified the USE method as a publishable methodology; the canonical citation behind the resources playbook's good-signals and common-failures lists.",
+      "playbooks": [
+        "resources"
+      ]
+    },
+    {
+      "name": "Site Reliability Engineering: How Google Runs Production Systems",
+      "author": "Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy (eds.)",
+      "kind": "book",
+      "year": 2016,
+      "contribution": "The Four Golden Signals (latency, traffic, errors, saturation); SLI / SLO / SLA framing; error-budget policy as the bridge between reliability and feature velocity. Anchors the metrics and slos playbooks.",
+      "playbooks": [
+        "metrics",
+        "slos",
+        "logs",
+        "all"
+      ]
+    },
+    {
+      "name": "The Site Reliability Workbook: Practical Ways to Implement SRE",
+      "author": "Betsy Beyer, Niall Richard Murphy, David K. Rensin, Kent Kawahara, Stephen Thorne (eds.)",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "Worked examples of SLI selection, SLO target setting, and error-budget policy operationalization. The slos playbook's good-shaped patterns trace back to this volume.",
+      "playbooks": [
+        "slos",
+        "metrics"
+      ]
+    },
+    {
+      "name": "Distributed Systems Observability: A Guide to Building Robust Systems",
+      "author": "Cindy Sridharan",
+      "kind": "report",
+      "year": 2018,
+      "contribution": "The three-pillars framing (logs, metrics, traces) along with its limits — pillars are emission shapes, not a complete observability theory. Anchors the cross-pillar reasoning in tracing, logs, and metrics playbooks.",
+      "playbooks": [
+        "tracing",
+        "logs",
+        "metrics"
+      ]
+    },
+    {
+      "name": "Observability Engineering: Achieving Production Excellence",
+      "author": "Charity Majors, Liz Fong-Jones, George Miranda",
+      "kind": "book",
+      "year": 2022,
+      "contribution": "High-cardinality, structured-event observability and the critique of pre-aggregated metrics for novel-question debuggability. The tracing and logs playbooks lean on this for the diagnose path.",
+      "playbooks": [
+        "tracing",
+        "logs",
+        "metrics"
+      ]
+    },
+    {
+      "name": "Guerrilla Capacity Planning: A Tactical Approach to Planning for Highly Scalable Applications and Services",
+      "author": "Neil J. Gunther",
+      "kind": "book",
+      "year": 2006,
+      "contribution": "Universal Scalability Law (USL) extending Amdahl with a coherency term, modeling the regime where adding nodes degrades throughput. Anchors the capacity-planner lens and the throughput playbook.",
+      "playbooks": [
+        "throughput"
+      ]
+    },
+    {
+      "name": "The Art of Computer Systems Performance Analysis: Techniques for Experimental Design, Measurement, Simulation, and Modeling",
+      "author": "Raj Jain",
+      "kind": "book",
+      "year": 1991,
+      "contribution": "Foundational treatment of experimental design, measurement statistics, queueing models, and common-mistake catalogues for performance studies. Anchors the verification / measurement-method discipline across all surfaces.",
+      "playbooks": [
+        "latency",
+        "throughput",
+        "all"
+      ]
+    },
+    {
+      "name": "High Performance Browser Networking",
+      "author": "Ilya Grigorik",
+      "kind": "book",
+      "year": 2013,
+      "contribution": "Browser- and network-tier performance fundamentals: TCP/TLS handshake costs, HTTP/2 multiplexing, head-of-line blocking, critical rendering path. Anchors the browser-tier slice of the latency playbook.",
+      "playbooks": [
+        "latency",
+        "throughput"
+      ]
+    },
+    {
+      "name": "High Performance Web Sites: Essential Knowledge for Front-End Engineers",
+      "author": "Steve Souders",
+      "kind": "book",
+      "year": 2007,
+      "contribution": "The original 14 front-end performance rules; bulk-of-display-time-is-client-side framing. Still cited in browser-tier audits despite age.",
+      "playbooks": [
+        "latency"
+      ]
+    },
+    {
+      "name": "Dapper, a Large-Scale Distributed Systems Tracing Infrastructure",
+      "author": "Benjamin H. Sigelman, Luiz Andre Barroso, Michael Burrows, Pat Stephenson, Manoj Plakal, Donald Beaver, Saul Jaspan, Chandan Shanbhag",
+      "kind": "paper",
+      "year": 2010,
+      "contribution": "The canonical distributed-tracing model: trace context propagation, span causality, sampling discipline, and the dependency graph as the unit of system understanding.",
+      "playbooks": [
+        "tracing"
+      ]
+    },
+    {
+      "name": "GenAI Semantic Conventions",
+      "author": "OpenTelemetry",
+      "kind": "guide",
+      "year": 2026,
+      "contribution": "Institutional schema for tracing AI and agent workloads: gen_ai.operation.name (create_agent / invoke_agent / invoke_workflow), gen_ai.usage.{input,output}_tokens, gen_ai.response.finish_reasons, gen_ai.conversation.id for session correlation, and the v1.37 aggregated chat-history attributes (gen_ai.system_instructions, gen_ai.input.messages, gen_ai.output.messages). Status is Development with most attributes Experimental; dual-emission via OTEL_SEMCONV_STABILITY_OPT_IN is the documented migration path. Vendor-specific extensions are accepted alongside the canonical attributes so downstream backends do not require translation.",
+      "playbooks": [
+        "tracing"
+      ]
+    },
+    {
+      "name": "The Tail at Scale",
+      "author": "Jeffrey Dean, Luiz Andre Barroso",
+      "kind": "paper",
+      "year": 2013,
+      "contribution": "Why tail-tolerant designs (hedged requests, tied requests, micro-partitioning, selective replication) are load-bearing at scale, and why the median is an actively misleading reliability signal.",
+      "playbooks": [
+        "latency"
+      ]
+    },
+    {
+      "name": "A Proof for the Queuing Formula: L = lambda * W",
+      "author": "John D. C. Little",
+      "kind": "paper",
+      "year": 1961,
+      "contribution": "Little's Law — the foundational identity relating concurrency, throughput, and latency that constrains every closed-loop perf analysis.",
+      "playbooks": [
+        "latency",
+        "throughput",
+        "resources"
+      ]
+    },
+    {
+      "name": "The RED Method: How to Instrument Your Services",
+      "author": "Tom Wilkie",
+      "kind": "essay",
+      "year": 2015,
+      "contribution": "Rate / Errors / Duration triplet for service-level instrumentation; complements the resource-oriented USE method. Anchors the service-tier metric set in the metrics playbook.",
+      "playbooks": [
+        "metrics"
+      ]
+    },
+    {
+      "name": "How NOT to Measure Latency",
+      "author": "Gil Tene",
+      "kind": "talk",
+      "year": 2015,
+      "contribution": "Coordinated omission and the HdrHistogram approach to lossless latency recording. Anchors the latency playbook's measurement-method discipline and the metrics playbook's percentile-aggregation pitfalls.",
+      "playbooks": [
+        "latency",
+        "metrics"
+      ]
+    },
+    {
+      "name": "SQL Performance Explained: Everything Developers Need to Know about SQL Performance",
+      "author": "Markus Winand",
+      "kind": "book",
+      "year": 2012,
+      "contribution": "Index-anatomy-first treatment of SQL performance: B-tree internals, leaf-node traversal, predicate selectivity, function-wrapped column traps. Anchors the DB-tier slice of the latency and resources playbooks.",
+      "playbooks": [
+        "latency",
+        "resources"
+      ]
+    },
+    {
+      "name": "xUnit Test Patterns: Refactoring Test Code",
+      "author": "Gerard Meszaros",
+      "kind": "book",
+      "year": 2007,
+      "contribution": "The canonical test-smell catalog and the test-fixture / object-mother / test-data-builder vocabulary used across the unit, integration, snapshot, and failure-modes references.",
+      "playbooks": [
+        "unit",
+        "integration",
+        "snapshot"
+      ]
+    },
+    {
+      "name": "Working Effectively with Legacy Code",
+      "author": "Michael Feathers",
+      "kind": "book",
+      "year": 2004,
+      "contribution": "Characterization tests, seams, and the test-as-pin-down technique. Anchors the characterization-purpose framing across unit and integration playbooks.",
+      "playbooks": [
+        "unit",
+        "integration"
+      ]
+    },
+    {
+      "name": "Test-Driven Development By Example",
+      "author": "Kent Beck",
+      "kind": "book",
+      "year": 2002,
+      "contribution": "Spec-purpose framing, the red/green/refactor cadence, and the discipline of writing the test that drives the design.",
+      "playbooks": [
+        "unit",
+        "author-intent"
+      ]
+    },
+    {
+      "name": "Unit Testing: Principles, Practices, and Patterns",
+      "author": "Vladimir Khorikov",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "The four-quadrant test-value model: protection-against-regressions x resistance-to-refactoring x fast-feedback x maintainability. Anchors the false-pass mode and the score rubric's robustness dimension.",
+      "playbooks": [
+        "unit",
+        "review-intent"
+      ]
+    },
+    {
+      "name": "Explore It! Reduce Risk and Increase Confidence with Exploratory Testing",
+      "author": "Elisabeth Hendrickson",
+      "kind": "book",
+      "year": 2013,
+      "contribution": "Charter-driven exploratory testing, session-based test management, and the role of automated tests as scaffolding for exploration.",
+      "playbooks": [
+        "exploratory"
+      ]
+    },
+    {
+      "name": "Rapid Software Testing methodology",
+      "author": "James Bach and Michael Bolton",
+      "kind": "guide",
+      "year": null,
+      "contribution": "The SFDIPOT mnemonic for testable aspects and the FEW HICCUPPS consistency oracles, distilled into the oracles core reference.",
+      "playbooks": [
+        "exploratory"
+      ]
+    },
+    {
+      "name": "QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs",
+      "author": "John Hughes and Koen Claessen",
+      "kind": "paper",
+      "year": 2000,
+      "contribution": "The original property-based testing framework and the shrinking idea - failures shrink to a minimal counterexample.",
+      "playbooks": [
+        "property-based"
+      ]
+    },
+    {
+      "name": "Hypothesis design rationale",
+      "author": "David R. MacIver",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Practical generator design, choosing properties, and the integration of property-based testing into mainstream test suites.",
+      "playbooks": [
+        "property-based"
+      ]
+    },
+    {
+      "name": "Agile Testing: A Practical Guide for Testers and Agile Teams",
+      "author": "Lisa Crispin and Janet Gregory",
+      "kind": "book",
+      "year": 2008,
+      "contribution": "The agile testing quadrants and the practical framing of test-strategy decisions across layers.",
+      "playbooks": [
+        "e2e-ui",
+        "strategize-intent"
+      ]
+    },
+    {
+      "name": "Succeeding with Agile",
+      "author": "Mike Cohn",
+      "kind": "book",
+      "year": 2009,
+      "contribution": "The original test pyramid framing - bias toward fast unit tests at the base, fewer integration tests, fewest UI tests at the top.",
+      "playbooks": [
+        "strategize-intent"
+      ]
+    },
+    {
+      "name": "The Testing Trophy",
+      "author": "Kent C. Dodds",
+      "kind": "essay",
+      "year": 2018,
+      "contribution": "An alternative to the pyramid emphasizing integration tests as the highest-value layer for typical web apps; informs the strategy playbook's discussion of layer investment.",
+      "playbooks": [
+        "strategize-intent"
+      ]
+    },
+    {
+      "name": "The Practical Test Pyramid",
+      "author": "Ham Vocke",
+      "kind": "essay",
+      "year": 2018,
+      "contribution": "Concrete practical layer definitions and the often-quoted critique that pyramid is more shape-suggestion than rule.",
+      "playbooks": [
+        "strategize-intent",
+        "e2e-ui"
+      ]
+    },
+    {
+      "name": "Approval Testing",
+      "author": "Llewellyn Falco",
+      "kind": "guide",
+      "year": null,
+      "contribution": "The approval-testing pattern (snapshot-style review of generated output) and the discipline of human review of every diff.",
+      "playbooks": [
+        "snapshot"
+      ]
+    },
+    {
+      "name": "An Analysis and Survey of the Development of Mutation Testing",
+      "author": "Yue Jia and Mark Harman",
+      "kind": "paper",
+      "year": 2011,
+      "contribution": "Comprehensive survey of mutation testing techniques, equivalent-mutant problem, and operator selection strategies.",
+      "playbooks": [
+        "mutation"
+      ]
+    },
+    {
+      "name": "Are Mutants a Valid Substitute for Real Faults in Software Testing?",
+      "author": "Rene Just",
+      "kind": "paper",
+      "year": 2014,
+      "contribution": "Empirical evidence that mutation score correlates with real-fault detection, validating mutation testing as a meaningful signal.",
+      "playbooks": [
+        "mutation"
+      ]
+    },
+    {
+      "name": "Consumer-Driven Contracts: A Service Evolution Pattern",
+      "author": "Ian Robinson",
+      "kind": "essay",
+      "year": 2006,
+      "contribution": "The CDC pattern - consumers state what they actually use; providers verify that subset. Foundation of modern contract testing.",
+      "playbooks": [
+        "contract"
+      ]
+    },
+    {
+      "name": "Pact Foundation documentation",
+      "author": "Pact Foundation contributors",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Practical patterns for broker-published pacts, provider-side verification, and integrating contract tests into CI.",
+      "playbooks": [
+        "contract"
+      ]
+    },
+    {
+      "name": "An Empirical Analysis of Flaky Tests",
+      "author": "Qingzhou Luo",
+      "kind": "paper",
+      "year": 2014,
+      "contribution": "Categorization of flakiness root causes (async wait, ordering, network, time, concurrency) used in the failure-modes file.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "Flaky Tests at Google and How We Mitigate Them",
+      "author": "John Micco",
+      "kind": "essay",
+      "year": 2016,
+      "contribution": "Industrial-scale flakiness mitigation: quarantine, ownership, deflake-or-delete deadlines.",
+      "playbooks": [
+        "all"
+      ]
+    },
+    {
+      "name": "Systems Performance: Enterprise and the Cloud",
+      "author": "Brendan Gregg",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "The USE method (utilization, saturation, errors) and the discipline of profiling before optimizing. Anchors the performance playbook's choice-of-what-to-measure framing.",
+      "playbooks": [
+        "performance"
+      ]
+    },
+    {
+      "name": "On the Criteria To Be Used in Decomposing Systems into Modules",
+      "author": "David Parnas",
+      "kind": "paper",
+      "year": 1972,
+      "contribution": "Information hiding as the basis of module decomposition; 'what should be hidden' as the criterion that predates and underwrites every later layering scheme.",
+      "playbooks": [
+        "boundaries",
+        "dependency-rule"
+      ]
+    },
+    {
+      "name": "Hexagonal Architecture",
+      "author": "Alistair Cockburn",
+      "kind": "article",
+      "year": 2005,
+      "contribution": "Ports and adapters; the application has interior ports and exterior adapters that translate to/from external technologies. Symmetric inbound/outbound framing.",
+      "playbooks": [
+        "boundaries"
+      ]
+    },
+    {
+      "name": "The Onion Architecture",
+      "author": "Jeffrey Palermo",
+      "kind": "article",
+      "year": 2008,
+      "contribution": "Concentric rings; outer rings depend on inner rings, never the reverse. Dependency-rule expressed as geometry.",
+      "playbooks": [
+        "boundaries"
+      ]
+    },
+    {
+      "name": "Agile Software Development: Principles, Patterns, and Practices",
+      "author": "Robert C. Martin",
+      "kind": "book",
+      "year": 2003,
+      "contribution": "SOLID; package cohesion (REP, CCP, CRP) and package coupling (ADP, SDP, SAP) principles. Foundational frame for the dependency rule.",
+      "playbooks": [
+        "dependency-rule"
+      ]
+    },
+    {
+      "name": "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+      "author": "Robert C. Martin",
+      "kind": "book",
+      "year": 2017,
+      "contribution": "The dependency rule as the single load-bearing invariant; concentric layers (entities, use cases, interface adapters, frameworks & drivers).",
+      "playbooks": [
+        "dependency-rule",
+        "boundaries"
+      ]
+    },
+    {
+      "name": "Domain-Driven Design: Tackling Complexity in the Heart of Software",
+      "author": "Eric Evans",
+      "kind": "book",
+      "year": 2003,
+      "contribution": "Ubiquitous language; entities, value objects, aggregates, domain services, repositories; bounded contexts and context mapping.",
+      "playbooks": [
+        "domain-model",
+        "bounded-context"
+      ]
+    },
+    {
+      "name": "Implementing Domain-Driven Design",
+      "author": "Vaughn Vernon",
+      "kind": "book",
+      "year": 2013,
+      "contribution": "Pragmatic tactical-DDD detail: aggregate-design rules, eventual consistency between aggregates, integration patterns between contexts.",
+      "playbooks": [
+        "domain-model",
+        "bounded-context"
+      ]
+    },
+    {
+      "name": "Learning Domain-Driven Design",
+      "author": "Vlad Khononov",
+      "kind": "book",
+      "year": 2021,
+      "contribution": "Modern DDD framing; subdomain types (core, supporting, generic) inform context boundaries and integration patterns.",
+      "playbooks": [
+        "bounded-context",
+        "cross-cutting"
+      ]
+    },
+    {
+      "name": "AnemicDomainModel",
+      "author": "Martin Fowler",
+      "kind": "essay",
+      "year": 2003,
+      "contribution": "Names the anti-pattern of domain objects that hold only data while logic lives in service classes — undercuts the entire point of object-oriented domain modeling.",
+      "playbooks": [
+        "domain-model"
+      ]
+    },
+    {
+      "name": "BoundedContext",
+      "author": "Martin Fowler",
+      "kind": "essay",
+      "year": 2014,
+      "contribution": "Compact restatement of bounded context: a model is valid only within its context; cross-context translation is explicit.",
+      "playbooks": [
+        "bounded-context"
+      ]
+    },
+    {
+      "name": "Patterns of Enterprise Application Architecture",
+      "author": "Martin Fowler",
+      "kind": "book",
+      "year": 2002,
+      "contribution": "Layered architecture; Repository, Unit of Work, Data Mapper, Service Layer patterns. The catalog underwriting most adapter-side mechanics.",
+      "playbooks": [
+        "boundaries",
+        "cross-cutting"
+      ]
+    },
+    {
+      "name": "Enterprise Integration Patterns",
+      "author": "Gregor Hohpe and Bobby Woolf",
+      "kind": "book",
+      "year": 2003,
+      "contribution": "Messaging patterns; integration between bounded contexts via channels, translators, and routers rather than shared databases.",
+      "playbooks": [
+        "bounded-context",
+        "cross-cutting"
+      ]
+    },
+    {
+      "name": "Monolith to Microservices",
+      "author": "Sam Newman",
+      "kind": "book",
+      "year": 2019,
+      "contribution": "Strangler-fig, branch-by-abstraction, and other sequenced patterns for extracting bounded contexts without big-bang rewrites.",
+      "playbooks": [
+        "bounded-context"
+      ]
+    },
+    {
+      "name": "Building Microservices",
+      "author": "Sam Newman",
+      "kind": "book",
+      "year": 2021,
+      "contribution": "Service decomposition aligned to bounded contexts; coupling-vs-cohesion trade-offs for context boundaries.",
+      "playbooks": [
+        "bounded-context"
+      ]
+    },
+    {
+      "name": "Flux: An Application Architecture for React",
+      "author": "Facebook",
+      "kind": "guide",
+      "year": 2014,
+      "contribution": "Unidirectional data flow: actions → dispatcher → stores → views. Frontend analog of the dependency rule.",
+      "playbooks": [
+        "boundaries"
+      ]
+    },
+    {
+      "name": "The Elm Architecture",
+      "author": "Evan Czaplicki",
+      "kind": "guide",
+      "year": 2015,
+      "contribution": "Model-update-view with pure functions and explicit side-effect handling. Frontend grounding for layered boundaries and effect isolation.",
+      "playbooks": [
+        "boundaries",
+        "cross-cutting"
+      ]
+    },
+    {
+      "name": "Web Content Accessibility Guidelines (WCAG) 2.2",
+      "author": "W3C Web Accessibility Initiative",
+      "kind": "standard",
+      "year": 2023,
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "contribution": "Shared accessibility baseline for perceivable, operable, understandable, and robust web content; used for accessibility findings and verification.",
+      "playbooks": [
+        "accessibility-audit",
+        "form-review",
+        "navigation-review"
+      ]
+    },
+    {
+      "name": "WCAG 2.2 is a Web Standard W3C Recommendation",
+      "author": "W3C Web Accessibility Initiative",
+      "kind": "announcement",
+      "year": 2023,
+      "url": "https://www.w3.org/WAI/news/2023-10-05/wcag22rec/",
+      "contribution": "Confirms WCAG 2.2 Recommendation status and frames it as the current stable WCAG 2 standard family baseline.",
+      "playbooks": [
+        "accessibility-audit"
+      ]
+    },
+    {
+      "name": "A Web for Everyone",
+      "author": "Sarah Horton and Whitney Quesenbery",
+      "kind": "book",
+      "year": 2014,
+      "contribution": "Inclusive design patterns and personas that keep accessibility tied to real tasks instead of a checklist-only review.",
+      "playbooks": [
+        "accessibility-audit",
+        "usability-audit"
+      ]
+    },
+    {
+      "name": "Forms that Work",
+      "author": "Caroline Jarrett and Gerry Gaffney",
+      "kind": "book",
+      "year": 2008,
+      "contribution": "Form design principles: ask only what is needed, make labels and examples clear, reduce mode errors, and support correction.",
+      "playbooks": [
+        "form-review"
+      ]
+    },
+    {
+      "name": "Claude design workflows source pack",
+      "author": "Project-local source notes",
+      "kind": "notes",
+      "year": 2026,
+      "contribution": "Seven-stage design workflow, focused question rounds, visual craft rules, component conventions, output-format choices, motion patterns, and anti-slop review heuristics.",
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "prototype",
+        "deck",
+        "motion-scene",
+        "quality-review"
+      ]
+    },
+    {
+      "name": "Claude design host integration source pack",
+      "author": "Project-local source notes",
+      "kind": "notes",
+      "year": 2026,
+      "contribution": "Artifact-host protocols for tweak panels, fixed-canvas scaling, speaker notes, direct edit, mentioned elements, bundling, export, and handoff.",
+      "playbooks": [
+        "prototype",
+        "deck",
+        "host-handoff"
+      ]
+    },
+    {
+      "name": "GOV.UK Design System",
+      "author": "GOV.UK Design System team",
+      "kind": "guide",
+      "year": null,
+      "url": "https://design-system.service.gov.uk/",
+      "contribution": "Component and pattern guidance with coded examples; reinforces system-first composition and task-specific patterns.",
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "quality-review"
+      ]
+    },
+    {
+      "name": "Human Interface Guidelines",
+      "author": "Apple",
+      "kind": "guide",
+      "year": null,
+      "url": "https://developer.apple.com/design/human-interface-guidelines/",
+      "contribution": "Visual hierarchy, platform consistency, layout adaptation, and motion guidance for polished interface behavior.",
+      "playbooks": [
+        "product-ui",
+        "motion-scene",
+        "quality-review"
+      ]
+    },
+    {
+      "name": "Material Design 3 Foundations",
+      "author": "Google",
+      "kind": "guide",
+      "year": null,
+      "url": "https://m3.material.io/foundations",
+      "contribution": "Foundational vocabulary for color, typography, motion, interaction states, and component-system consistency.",
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "motion-scene"
+      ]
+    }
+  ]
+}

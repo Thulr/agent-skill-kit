@@ -1,0 +1,10 @@
+surface,name,when_to_use,playbook,core_refs
+unit,Unit test,"Designing a new unit test",references/test/layers/unit.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+integration,Integration test,"Designing a new integration test",references/test/layers/integration.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+e2e-ui,E2E/UI test,"Designing a new e2e or UI test",references/test/layers/e2e-ui.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+exploratory,Exploratory session,"Chartering an exploratory session",references/test/layers/exploratory.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md;references/test/core/oracles.md
+property-based,Property test,"Designing a property-based test",references/test/layers/property-based.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+contract,Contract test,"Designing a new consumer contract test",references/test/layers/contract.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+snapshot,Snapshot test,"Designing a new snapshot/approval test",references/test/layers/snapshot.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+performance,Performance test,"Designing a new performance test",references/test/layers/performance.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+mutation,Mutation test,"Designing a mutation-testing rollout (operators, scope, cadence) for a codebase",references/test/layers/mutation.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md

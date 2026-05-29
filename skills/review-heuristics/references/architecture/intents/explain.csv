@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+dependency-rule,Dependency rule,"What the rule is, why DIP, how to read a dependency graph","references/architecture/playbooks/dependency-rule.md","references/architecture/core/glossary.md"
+boundaries,Layered/hexagonal/onion boundaries,"Three names for the same idea; ports vs adapters","references/architecture/playbooks/boundaries.md","references/architecture/core/glossary.md"
+domain-model,Domain model,"Aggregate vs entity vs value object; what 'anemic' means","references/architecture/playbooks/domain-model.md","references/architecture/core/glossary.md"
+bounded-context,Bounded context,"What a bounded context is and isn't; context mapping vocabulary","references/architecture/playbooks/bounded-context.md","references/architecture/core/glossary.md"
+cross-cutting,Cross-cutting concerns,"Errors crossing layers; effect isolation; integration patterns","references/architecture/playbooks/cross-cutting.md","references/architecture/core/glossary.md"

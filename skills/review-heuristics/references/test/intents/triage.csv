@@ -1,0 +1,10 @@
+surface,name,when_to_use,playbook,core_refs
+unit,Unit test,"A unit test is failing, flaky, or surprising",references/test/layers/unit.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+integration,Integration test,"An integration test is failing or flaky",references/test/layers/integration.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+e2e-ui,E2E/UI test,"An end-to-end or UI test is failing or flaky",references/test/layers/e2e-ui.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+exploratory,Exploratory session,"A session went off the rails (charter unclear, notes unactionable, no usable findings)",references/test/layers/exploratory.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md;references/test/core/oracles.md
+property-based,Property test,"A property-based test is failing or shrinking unexpectedly",references/test/layers/property-based.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+contract,Contract test,"A consumer contract test is failing",references/test/layers/contract.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+snapshot,Snapshot test,"A snapshot/approval test is failing",references/test/layers/snapshot.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+performance,Performance test,"A performance test is failing or noisy",references/test/layers/performance.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md
+mutation,Mutation test,"A mutation run is failing or a surviving mutant is unclear",references/test/layers/mutation.md,references/test/core/severity-rubric.md;references/test/core/personas.md;references/test/core/failure-modes.md

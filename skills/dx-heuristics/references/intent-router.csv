@@ -1,5 +1,0 @@
-intent,name,when_to_use,registry_file,default_template
-audit,DX Audit,"Reviewing an existing surface for friction or score","references/intents/audit.csv","templates/audit-report.md"
-design,DX Design,"Designing or shaping a new surface from scratch","references/intents/design.csv","templates/design-doc.md"
-debug,Debug DX Issue,"A specific user-reported friction, error, or confused step","references/intents/debug.csv","templates/debug-runbook.md"
-edge-pass,Edge-Case Pass,"Risk scan across version skew, permissions, partial setup, platform variance","references/intents/edge-pass.csv","templates/edge-checklist.md"

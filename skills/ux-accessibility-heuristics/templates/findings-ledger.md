@@ -1,1 +1,0 @@
-../../_shared/templates/findings-ledger.md

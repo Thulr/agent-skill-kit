@@ -1,0 +1,5 @@
+intent,name,when_to_use,registry_file,default_template
+audit,Architecture Audit,"Reviewing an existing codebase or module for clean-architecture violations","references/architecture/intents/audit.csv","templates/architecture/audit-report.md"
+design,Architecture Design,"Proposing layer boundaries, ports, adapters, or context split for new work","references/architecture/intents/design.csv","templates/architecture/design-doc.md"
+refactor,Architecture Refactor,"Planning a sequenced, safe path from a tangled state toward cleaner boundaries","references/architecture/intents/refactor.csv","templates/architecture/refactor-runbook.md"
+explain,Architecture Explainer,"Explaining a principle, pattern, or distinction grounded in the canonical sources","references/architecture/intents/explain.csv","templates/architecture/explanation.md"

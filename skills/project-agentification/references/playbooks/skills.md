@@ -128,7 +128,7 @@ AGENTS.md prose for capability-specific workflows.
 - **inngest/inngest-skills** and **apollographql/skills** — first-party org-level skill libraries
   demonstrating the distribution-as-skills pattern; skills published as standalone repos for
   cross-repo adoption without requiring access to the main application codebase.
-- **informed-skills/skills/dx-heuristics/** — local reference for the SKILL.md shape in this
+- **informed-skills/skills/review-heuristics/** — local reference for the SKILL.md shape in this
   repo: YAML frontmatter → skill body → `references/`, `evals/`, `templates/` subdirectories;
   `skill.json` for structured metadata alongside SKILL.md.
 

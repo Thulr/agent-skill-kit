@@ -90,7 +90,7 @@ naming.
 - **H5.** If the recurring gap is *architectural boundary violations*
   (layer-skipping, wrong-direction dependencies, forbidden imports,
   cycles), prefer structural fixes: architecture lints/tests as
-  CI-required checks. Use `clean-architecture` to define the boundary
+  CI-required checks. Use `review-heuristics` (architecture domain) to define the boundary
   model; use `project-agentification` gates guidance to enforce it.
 
 ### assess-l4l5

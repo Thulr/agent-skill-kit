@@ -19,4 +19,5 @@ add a new ADR that links back.
 - `0002-three-install-lanes-and-gates.md`
 - `0003-instruction-surface-symlinks.md`
 - `0004-canonical-skill-schemas.md`
+- `0005-one-engine-many-surfaces-skills-are-routed-not-split.md`
 

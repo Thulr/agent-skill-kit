@@ -34,32 +34,27 @@
 # - `.claude/settings.json`, `.claude/hooks/*`: Claude Code hooks and tests
 #
 # Skills (the product)
-# - `skills/dx-heuristics/`: reviewed/published skill
-# - `skills/docs-experience-heuristics/`: published skill; cross-audience documentation experience across DX docs, UX help, AX docs, API/tool contracts, and documentation telemetry/conflicts
-# - `skills/test-heuristics/`: reviewed/published skill
-# - `skills/clean-architecture/`: published skill
-# - `skills/project-agentification/`: published skill
+# - `skills/review-heuristics/`: published skill; heuristic review/design/debug across SEVEN domains (dx, docs, perf, test, ux, ui-craft, architecture) routed domain -> intent -> surface; 122 grounding sources; one shared references/review-workflow.md engine
+# - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
+# - `skills/project-agentification/`: published skill; assess/harden/scaffold/diagnose a repo's agent-readiness (no eval prerequisite; scaffolds from project knowledge)
 # - `skills/evidence-driven-agent-rules/`: published skill; pairs with project-agentification for repos with a feedback signal (eval/telemetry/baseline)
-# - `skills/ui-design-craft/`: published skill
-# - `skills/ux-accessibility-heuristics/`: published skill
-# - `skills/perf-observability-heuristics/`: published skill; systems performance + observability (latency / throughput / resources / tracing / logs / metrics / SLOs across backend, browser/network, and DB-perf tiers)
-# - `skills/topic-research/`: published skill; source-cited research reports on a named topic (primer / survey / deep-dive depth modes) — no decision frame required; grounded in canonical literature-review methodology
+# - `skills/loop-architect/`: published skill; audit AI integrations, map the AI Optimization Staircase (L1->L4), scaffold the smallest useful eval/optimization loop
 # - `skills/.experimental/`: reserved and currently empty
-# - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10); not a standalone skill; consumers symlink in their references/
+# - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10, modes.md, trackable-findings.md, routing-contract.md, templates/); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless
 #   `INSTALL_INTERNAL_SKILLS=1`); kept so new contributors can't template a skill
 #   that bypasses required gates.
 #
 # Skill contract (every skill directory)
-# - `SKILL.md` (YAML frontmatter; < 800 words)
+# - `SKILL.md` (YAML frontmatter; thin runtime router, word-capped per skill in its run-static-checks.sh)
 # - `skill.json` (`status: "published"` for installable skills, maintainers, inspired_by, etc.)
 # - `evals/run-static-checks.sh` (schema + structure gates)
 # - `evals/trigger-evals.json` (canonical schema; validated, not executed yet)
 # - `evals/activation-cases.md` (behavioral examples)
 #
 # Repo-local authoring skills (not published)
-# - `.agents/skills/skill-curator/`
-# - `.agents/skills/skill-reviewer/`
+# - `.agents/skills/informed-skill-curator/`
+# - `.agents/skills/informed-skill-reviewer/`
 #
 # Docs
 # - `docs/reflection-log/`: per-failure entries (evidence-first workflow); see its `README.md` for the recording-bar vs. promotion-bar distinction

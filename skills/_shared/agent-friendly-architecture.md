@@ -31,7 +31,7 @@ Treat boundary constraints as **gates**, not prose:
 - CI-required checks / branch protection.
 
 Designing the boundary model (ports/adapters, dependency rule, bounded contexts) is owned by the
-`clean-architecture` skill; `project-agentification` owns the enforcement surface.
+`review-heuristics` (architecture domain); `project-agentification` owns the enforcement surface.
 
 ## 3) Parallelize work via stable “design rules” (contracts)
 

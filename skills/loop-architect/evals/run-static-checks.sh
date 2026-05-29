@@ -59,13 +59,13 @@ if [[ -f "$skill_md" ]]; then
   grep -Eq '^description:' "$skill_md" || fail "SKILL.md frontmatter must include: description:"
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
 
-  # Same 800-word bound as example-minimal and dx-heuristics.
+  # Same 800-word bound as example-minimal.
   wc=$(wc -w < "$skill_md")
   (( wc < 800 )) || fail "SKILL.md word count $wc exceeds 800 (runtime-only bound)"
 fi
 
 # ----- SKILL.md source-author leak gate -----
-# Mirrors dx-heuristics: no author last name or source title in SKILL.md.
+# Mirrors the review-heuristics domains: no author last name or source title in SKILL.md.
 
 author_stoplist=" Foundation Council Parliament Committee Group Working contributors "
 

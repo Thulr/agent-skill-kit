@@ -3,7 +3,7 @@ files, executes shell commands via subprocess with no container isolation,
 and has no iteration or cost cap. Raw system prompts live in a local
 rules.md file (also in fixtures/).
 
-The loop-architect skill should flag the un-sandboxed shell execution and
+The eval-flywheel skill should flag the un-sandboxed shell execution and
 recommend a Level 3 Sandbox + Repair Harness (Docker isolation, iteration
 caps, cost circuit-breakers, verification, and failure-to-artifact logging)
 BEFORE any prompt optimization is run.

@@ -1,6 +1,6 @@
 # Post-Readiness User Question
 
-The loop-architect report scored every readiness area 6/6:
+The eval-flywheel report scored every readiness area 6/6:
 
 - Signal: 6/6
 - Interpreter: 6/6

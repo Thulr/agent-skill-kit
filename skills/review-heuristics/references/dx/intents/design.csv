@@ -19,5 +19,3 @@ examples,Examples design,"Designing the samples surface, per-language hello-worl
 logging,Logging design,"Designing log levels, verbosity dial, structured output, doctor/status/version commands","references/dx/playbooks/logging.md","references/dx/core/personas.md"
 config,Config design,"Designing runtime config: file shape, env-var precedence, validation, dump-effective-config","references/dx/playbooks/config.md","references/dx/core/personas.md"
 changelog,Changelog design,"Designing the changelog format, breaking-change conventions, release-notes pipeline","references/dx/playbooks/changelog.md","references/dx/core/personas.md"
-agent,Agent-readiness design,"Designing AGENTS.md, MCP surface, retrieval-friendly docs, agent-contribution policy","references/dx/playbooks/agent.md","references/dx/core/personas.md"
-ai-sdk,AI/Agent SDK design,"Designing a new LLM/agent client library: streaming, tools, structured output, agent loops, tracing","references/dx/playbooks/ai-sdk.md","references/dx/core/personas.md"

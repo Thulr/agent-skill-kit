@@ -20,4 +20,6 @@ add a new ADR that links back.
 - `0003-instruction-surface-symlinks.md`
 - `0004-canonical-skill-schemas.md`
 - `0005-one-engine-many-surfaces-skills-are-routed-not-split.md`
+- `0006-discipline-front-doors-vs-one-engine-many-surfaces.md`
+- `0007-experience-disciplines-are-audience-peers.md`
 

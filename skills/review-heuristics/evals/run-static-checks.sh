@@ -43,11 +43,11 @@ if [[ -f "$skill_md" ]]; then
   grep -Eq '^name: review-heuristics$' "$skill_md" || fail "SKILL.md frontmatter must include: name: review-heuristics"
   grep -Eq '^description:' "$skill_md" || fail "SKILL.md frontmatter must include: description:"
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
-  # Thin domain-router body + a seven-domain description (kept higher than the
-  # 800 single-domain bound because the description must carry all seven
-  # domains' trigger keywords; per-domain detail lives in references/<domain>/).
+  # Thin domain-router body + a seven-domain description that must carry all
+  # seven domains' trigger keywords; per-domain detail lives in
+  # references/<domain>/. Uses the catalog-wide 1200-word SKILL.md bound.
   wc=$(wc -w < "$skill_md")
-  (( wc < 1100 )) || fail "SKILL.md word count $wc exceeds 1100 (runtime-only bound; per-domain detail belongs in references/<domain>/)"
+  (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound; per-domain detail belongs in references/<domain>/)"
 fi
 
 # ----- Shared JSON contracts -----

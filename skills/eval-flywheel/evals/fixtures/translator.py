@@ -1,5 +1,5 @@
 """Phase 2 mock workspace file: a Level 0 hardcoded prompt with zero
-validation, tests, or logging. The loop-architect skill should diagnose
+validation, tests, or logging. The eval-flywheel skill should diagnose
 this as Level 0 and recommend a Level 2 (Subroutine Compilation) scaffold.
 
 Not skill code. Used by evals/phase2-grader.py as input to the agent.

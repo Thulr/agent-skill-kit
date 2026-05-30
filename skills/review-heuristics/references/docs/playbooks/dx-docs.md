@@ -94,7 +94,7 @@ a developer reading docs to build, debug, or upgrade.
   loops.
 - `references/docs/playbooks/api-contracts.md` — schema descriptions, tool contracts,
   errors, retries, and examples-as-contract.
-- `references/docs/playbooks/ax-docs.md` — when developer docs are also consumed by
-  agents.
+- the `agent-experience` skill (ax-docs surface) — when developer docs are also
+  consumed by agents.
 - `references/docs/playbooks/audience-conflicts.md` — when developer terminology and
   plain-language or agent-readable needs conflict.

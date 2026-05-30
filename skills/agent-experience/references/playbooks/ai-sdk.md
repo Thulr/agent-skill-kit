@@ -6,11 +6,12 @@ Client libraries that call LLM endpoints and/or orchestrate multi-step
 agentic workflows: streaming, tool use, structured output, validation
 retries, agent loops with stop conditions, handoffs, guardrails,
 tracing, batch submodules, MCP transport, opaque reasoning artifacts,
-and provider-agnostic dispatch. Distinct from `sdk.md` (the underlying
-HTTP/RPC client layer, which an AI SDK *inherits* unchanged) and from
-`agent.md` (making your repo readable by coding agents). Routes to
-`sdk.md` for retry/streaming/auth primitives, `errors.md` for typed
-exception design, `telemetry.md` for tracing exporters.
+and provider-agnostic dispatch. Distinct from the underlying HTTP/RPC
+client layer (which an AI SDK *inherits* unchanged) and from `agent.md`
+(sibling — making your repo readable by coding agents). For
+retry/streaming/auth primitives, typed exception design, and tracing
+exporters, see the `review-heuristics` **dx** domain (`sdk`, `errors`,
+`telemetry`).
 
 ## Grounding
 
@@ -164,13 +165,10 @@ exception design, `telemetry.md` for tracing exporters.
 
 ## Cross-references
 
-- → `sdk.md` for the inherited HTTP-client floor (retries with jitter,
-  streaming iterators, typed errors, webhook verification).
-- → `errors.md` for typed exception hierarchy keyed to HTTP semantics
-  and for refusal-vs-error message copy.
-- → `telemetry.md` for tracing exporters and OpenTelemetry conventions.
-- → `agent.md` for the *distinct* surface of making your repo readable
-  by coding agents (not to be confused with this playbook).
-- → `package.md` for tree-shakeable per-provider sub-packages.
-- → `examples.md` for paste-runnable snippets that exercise streaming,
-  tool use, and structured output end-to-end.
+- → `review-heuristics` **dx** domain for the inherited HTTP-client floor
+  (`sdk`: retries with jitter, streaming iterators, typed errors, webhook
+  verification), typed exception hierarchy (`errors`), tracing exporters
+  (`telemetry`), per-provider sub-packages (`package`), and paste-runnable
+  snippets (`examples`).
+- → `agent.md` (sibling) for the *distinct* surface of making your repo
+  readable by coding agents (not to be confused with this playbook).

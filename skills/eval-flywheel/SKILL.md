@@ -1,10 +1,10 @@
 ---
-name: loop-architect
-description: Audit AI integrations, score feedback-loop readiness, map the AI Optimization Staircase, and scaffold eval loops plus post-readiness improvement controllers. Use for AI workspace audits, eval loops, prompt optimizers, trace/eval flywheels, agent harnesses, production experiments, system benchmarks, autonomous improvement loops, or `/loop-architect`.
+name: eval-flywheel
+description: Audit AI integrations, score feedback-loop readiness, map the AI Optimization Staircase, and scaffold eval loops plus post-readiness improvement controllers. Use for AI workspace audits, eval loops, prompt optimizers, trace/eval flywheels, agent harnesses, production experiments, system benchmarks, autonomous improvement loops, or `/eval-flywheel`.
 license: MIT
 ---
 
-# loop-architect
+# eval-flywheel
 
 Maps AI integration points, scores missing loop mechanics, scaffolds the
 smallest useful eval loop. 6/6 means ready to improve; autonomy starts only
@@ -12,8 +12,9 @@ when a controller repeats the loop.
 
 ## When to Use
 
-- User wants evals, prompt optimization, trace replay, production loops, benchmarks, or `/loop-architect`.
+- User wants evals, prompt optimization, trace replay, production loops, benchmarks, or `/eval-flywheel`.
 - Workspace has hardcoded prompts, raw rules files, unmonitored agent loops, no golden set, or trace data that does not feed improvement.
+- Part of the **agent-experience** discipline — the instrument-the-loop arm; `agent-experience` routes here to build eval/optimization loops.
 
 ## The AI Optimization Staircase
 

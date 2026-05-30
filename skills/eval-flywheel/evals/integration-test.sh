@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Phase 3 integration test for loop-architect.
+# Phase 3 integration test for eval-flywheel.
 #
 # Implements TEST_PLAN.md Phase 3 in four subcommands:
 #
@@ -9,13 +9,13 @@
 #               compile_classifier.py exist with the expected shape.
 #   execute   — create a venv, install dspy-ai, run the generated
 #               compiler. Costs ~$0.20 against gpt-4o-mini.
-#   teardown  — rm -rf test-sandbox/ and .venv-loop-architect/.
+#   teardown  — rm -rf test-sandbox/ and .venv-eval-flywheel/.
 #
-# NOT invoked from `just check`. Opt-in. The "now run /loop-architect on
+# NOT invoked from `just check`. Opt-in. The "now run /eval-flywheel on
 # test-sandbox/" step between setup and verify is human-driven because
 # automating it via `claude -p` would pull in the entire host harness
 # (other skills, MCP servers, AGENTS.md) and the test would no longer be
-# grading loop-architect in isolation.
+# grading eval-flywheel in isolation.
 
 set -euo pipefail
 
@@ -24,7 +24,7 @@ skill_dir="$(cd "$script_dir/.." && pwd)"
 repo_root="$(cd "$skill_dir/../.." && pwd)"
 
 sandbox_dir="$repo_root/test-sandbox"
-venv_dir="$repo_root/.venv-loop-architect"
+venv_dir="$repo_root/.venv-eval-flywheel"
 fixture_dir="$skill_dir/evals/fixtures"
 
 die() {
@@ -74,9 +74,9 @@ cmd_setup() {
 Next step (HUMAN-DRIVEN):
   In Claude Code (or any harness that loads this skill), run:
 
-      Run /loop-architect on test-sandbox/. Scaffold the recommended optimization loop.
+      Run /eval-flywheel on test-sandbox/. Scaffold the recommended optimization loop.
 
-  loop-architect should produce test-sandbox/ai-ops/ containing:
+  eval-flywheel should produce test-sandbox/ai-ops/ containing:
     - dataset.json   (5-10 sample tickets with ground-truth labels)
     - compile_classifier.py  (Level 2 DSPy scaffold)
 
@@ -88,7 +88,7 @@ EOF
 cmd_verify() {
   local ai_ops="$sandbox_dir/ai-ops"
   [[ -d "$sandbox_dir" ]]      || die "test-sandbox/ missing. Run \`setup\` first."
-  [[ -d "$ai_ops" ]]           || die "test-sandbox/ai-ops/ missing. Did /loop-architect run?"
+  [[ -d "$ai_ops" ]]           || die "test-sandbox/ai-ops/ missing. Did /eval-flywheel run?"
 
   local dataset="$ai_ops/dataset.json"
   [[ -f "$dataset" ]] || die "missing $dataset"
@@ -172,7 +172,7 @@ usage() {
 Usage: $0 <setup|refresh|verify|execute|teardown>
 
   setup     create test-sandbox/, copy the classifier.py fixture, print the
-            human-driven /loop-architect invocation hint.
+            human-driven /eval-flywheel invocation hint.
   refresh   remove test-sandbox/ (keep the venv) and run setup. Use when a
             prior run left lingering ai-ops/ state and you want a clean
             fixture without paying for a venv reinstall.
@@ -180,7 +180,7 @@ Usage: $0 <setup|refresh|verify|execute|teardown>
             expected shape after the agent has scaffolded them.
   execute   create a venv, install dspy-ai, run the compiled module.
             Requires OPENAI_API_KEY. Costs ~\$0.20.
-  teardown  remove test-sandbox/ and .venv-loop-architect/.
+  teardown  remove test-sandbox/ and .venv-eval-flywheel/.
 EOF
 }
 

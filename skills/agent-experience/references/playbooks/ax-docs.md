@@ -11,8 +11,8 @@ on documentation without a human reading the page.
 - In: `llms.txt`, full-doc markdown bundles, agent context files, skill
   descriptions, retrieval-friendly structure, stable deep links, glossary
   bridges, examples for agents, and always-loaded vs on-demand decisions.
-- Out: repo hook/gate implementation (use an agentification skill) and API/tool
-  schema fields (use `api-contracts.md`).
+- Out: repo hook/gate implementation (hand off to `project-agentification`) and
+  API/tool schema fields (the `review-heuristics` docs `api-contracts` surface).
 - Intents this surface answers: audit, design, debug, measure.
 
 ## Grounding
@@ -91,9 +91,10 @@ on documentation without a human reading the page.
 
 ## Cross-references
 
-- `references/docs/playbooks/api-contracts.md` — machine-readable schemas, tool
-  descriptions, errors, and retries.
-- `references/docs/playbooks/audience-conflicts.md` — resolving human/agent doc
-  tension.
-- `references/docs/playbooks/foundations.md` — IA, versioning, and docs-as-code gates.
-- `references/docs/core/audience-matrix.md` — AX-only requirements and transfer rules.
+- `references/playbooks/audience-conflicts.md` (sibling) — resolving human/agent
+  doc tension, AX-first.
+- `references/core/audience-matrix.md` (sibling) — AX-only requirements and
+  transfer rules.
+- `review-heuristics` **docs** domain — machine-readable schemas/tool contracts
+  (`api-contracts`), IA/versioning/docs-as-code gates (`foundations`), and the
+  full four-audience matrix.

@@ -1,5 +1,5 @@
 {
-  "skill": "loop-architect",
+  "skill": "eval-flywheel",
   "version": "0.1.0",
   "queries": [
     {
@@ -9,7 +9,7 @@
       "category": "positive"
     },
     {
-      "query": "Run /loop-architect on this repo. I want a full AI optimization audit.",
+      "query": "Run /eval-flywheel on this repo. I want a full AI optimization audit.",
       "should_activate": true,
       "expected_route": "audit",
       "category": "positive"

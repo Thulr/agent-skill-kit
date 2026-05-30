@@ -55,13 +55,13 @@ check_file "$skill_dir/evals/integration-test.sh"
 
 if [[ -f "$skill_md" ]]; then
   head -1 "$skill_md" | grep -q '^---$' || fail "SKILL.md missing YAML frontmatter delimiter (---)"
-  grep -Eq '^name: loop-architect$' "$skill_md" || fail "SKILL.md frontmatter must include: name: loop-architect"
+  grep -Eq '^name: eval-flywheel$' "$skill_md" || fail "SKILL.md frontmatter must include: name: eval-flywheel"
   grep -Eq '^description:' "$skill_md" || fail "SKILL.md frontmatter must include: description:"
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
 
-  # Same 800-word bound as example-minimal.
+  # Same 1200-word bound as example-minimal.
   wc=$(wc -w < "$skill_md")
-  (( wc < 800 )) || fail "SKILL.md word count $wc exceeds 800 (runtime-only bound)"
+  (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound)"
 fi
 
 # ----- SKILL.md source-author leak gate -----
@@ -183,12 +183,12 @@ fi
 
 # ----- Shared JSON gates -----
 
-validate_skill_json_contract "$repo_root" "$skill_json" "loop-architect"
-validate_trigger_evals_contract "$repo_root" "$trigger_evals" "loop-architect"
+validate_skill_json_contract "$repo_root" "$skill_json" "eval-flywheel"
+validate_trigger_evals_contract "$repo_root" "$trigger_evals" "eval-flywheel"
 
 if (( failures > 0 )); then
-  printf '\nloop-architect static eval failed with %d issue(s).\n' "$failures" >&2
+  printf '\neval-flywheel static eval failed with %d issue(s).\n' "$failures" >&2
   exit 1
 fi
 
-echo "loop-architect static eval passed."
+echo "eval-flywheel static eval passed."

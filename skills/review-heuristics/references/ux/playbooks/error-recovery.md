@@ -49,5 +49,5 @@ safe to try, and what data is still preserved," the recovery design is weak.
 - Use `forms.md` for field-level validation.
 - Use `accessibility.md` for live regions, focus movement, and error
   association.
-- Use `docs-experience-heuristics` when error copy is part of help-center,
+- Use the `docs` domain when error copy is part of help-center,
   API-contract, or agent-readable documentation strategy.

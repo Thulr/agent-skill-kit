@@ -4,7 +4,7 @@
 
 Use for user-facing screens, flows, dashboards, onboarding, settings, checkout,
 and task completion. Do not use for developer-facing setup, docs, CLIs, SDKs,
-or APIs; those route to `dx-heuristics`.
+or APIs; those route to the `dx` domain.
 
 ## Grounding
 
@@ -52,5 +52,5 @@ the finding is not just aesthetic.
 - Use `navigation.md` for IA and wayfinding.
 - Use `error-recovery.md` when the issue appears after failure or before a
   destructive action.
-- Use `docs-experience-heuristics` when the issue is help/documentation
+- Use the `docs` domain when the issue is help/documentation
   strategy across product help, docs sites, or agent-readable content.

@@ -20,6 +20,8 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Token budget is the dominant scarcity.** Prefer on-demand → on-trigger → always-loaded.
 3. **Hard gates over soft prose.** Hooks at 100% vs prose at 70%.
 
+This skill is the **repo-hardening arm** of the `agent-experience` discipline — use `agent-experience` for the cross-cutting AX framing and for AI/Agent SDK or agent-readable-docs *review*; it routes here to harden a repo.
+
 ## Quickstart
 
 The 90% case is `assess` × the `legibility` layer — "are AGENTS.md, specs, and the docs-index doing their jobs?" Run it like this:

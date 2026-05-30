@@ -69,7 +69,7 @@ Reached with the maintainer on 2026-05-28.
 ## Target catalog
 
 Published, installable: `review-heuristics`, `research`,
-`project-agentification`, `evidence-driven-agent-rules`, `loop-architect`.
+`project-agentification`, `evidence-driven-agent-rules`, `eval-flywheel`.
 Internal template: `example-minimal`. Repo-local: `informed-skill-curator`,
 `informed-skill-reviewer`.
 
@@ -117,7 +117,7 @@ skills/research/
 
 1. `just check` is green after the change.
 2. `npx skills add . --list` shows `review-heuristics`, `research`,
-   `project-agentification`, `evidence-driven-agent-rules`, `loop-architect`
+   `project-agentification`, `evidence-driven-agent-rules`, `eval-flywheel`
    (and not the 9 merged-away names).
 3. `review-heuristics` routes all 7 former domains; every former playbook,
    intent CSV, rubric, and template is reachable under `references/<domain>/`

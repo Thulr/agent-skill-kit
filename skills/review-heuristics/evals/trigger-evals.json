@@ -27,7 +27,7 @@
       "category": "positive"
     },
     {
-      "query": "Make our llms.txt and AGENTS.md agent-readable and RAG-friendly",
+      "query": "Design machine-readable OpenAPI and MCP tool-contract docs with structured errors and examples",
       "should_activate": true,
       "expected_route": "docs/design",
       "category": "positive"

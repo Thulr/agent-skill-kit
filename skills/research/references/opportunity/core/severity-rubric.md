@@ -1,7 +1,7 @@
 # Severity rubric (0–4)
 
 Used by `risk` playbook + the F/A/D/R fold + every artifact that lists
-risks. Same 0–4 scale this repo uses elsewhere (`dx-heuristics`,
+risks. Same 0–4 scale this repo uses elsewhere (`review-heuristics`,
 `project-agentification`) so severities are comparable across skills.
 
 | Score | Label | What it means here | Examples |

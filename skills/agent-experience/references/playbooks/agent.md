@@ -5,14 +5,13 @@
 AI-agent and coding-assistant readiness: `AGENTS.md` (and harness-specific
 mirrors), MCP servers, retrieval-friendly documentation structure,
 snippet-grade examples, and the failure modes coding agents hit on
-unfamiliar repos. Distinct from `docs.md` (human-facing reference) and
-`ide.md` (editor-integration surfaces for human developers): this playbook
-covers the surface developers consume *through* an agent — Claude Code,
-Cursor, Codex, Copilot, Windsurf, Aider — when that agent is the
-integrator's daily driver. Routes to `docs.md` for the underlying content
-structure, `ide.md` for human editor integration, `examples.md` for the
-snippet-grade samples agents retrieve, and `contributor.md` for
-human-contributor onboarding.
+unfamiliar repos. Distinct from human-facing developer reference and
+editor-integration surfaces: this playbook covers the surface developers
+consume *through* an agent — Claude Code, Cursor, Codex, Copilot, Windsurf,
+Aider — when that agent is the integrator's daily driver. For the human
+developer-experience surfaces this sits alongside (content structure, editor
+integration, snippet samples, contributor onboarding), see the
+`review-heuristics` **dx** domain (`docs`, `ide`, `examples`, `contributor`).
 
 ## Grounding
 
@@ -129,11 +128,12 @@ human-contributor onboarding.
 
 ## Cross-references
 
-- → `docs.md` for the underlying content structure agents retrieve.
-- → `ide.md` for human editor integration distinct from agent consumption.
-- → `examples.md` for the snippet-grade samples agents read.
-- → `contributor.md` for human-contributor onboarding and review loop.
-- → `package.md` for the registry-page metadata agents see when proposing
-  installs.
-- → `docs-experience-heuristics` for public docs sites, RAG-friendly docs,
-  and human/agent documentation conflicts.
+- → `ai-sdk.md` (sibling) for designing an AI/Agent SDK that serves agents
+  as clients.
+- → `review-heuristics` **dx** domain (`docs`, `ide`, `examples`,
+  `contributor`, `package`) for the human developer-experience surfaces this
+  playbook sits alongside.
+- → `review-heuristics` **docs** domain for public docs sites, RAG-friendly
+  docs, and the full human/agent audience-conflict treatment.
+- → `project-agentification` to actually scaffold and harden `AGENTS.md`,
+  hooks, gates, sandbox, and MCP (the doing).

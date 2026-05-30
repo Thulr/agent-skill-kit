@@ -42,7 +42,7 @@ if [[ -f "$skill_md" ]]; then
 
   # Parity with other skills' word-count bound (see review-heuristics).
   wc=$(wc -w < "$skill_md")
-  (( wc < 800 )) || fail "SKILL.md word count $wc exceeds 800 (runtime-only bound)"
+  (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound)"
 fi
 
 # ----- Shared JSON gates -----

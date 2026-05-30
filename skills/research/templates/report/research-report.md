@@ -90,5 +90,5 @@ Explicit, not buried. A trustworthy report names its own gaps.
 
 ---
 
-*Generated using the topic-research skill. Methodology grounded in
+*Generated using the `research` skill (report frame). Methodology grounded in
 the sources listed in `skill.json.inspired_by`.*

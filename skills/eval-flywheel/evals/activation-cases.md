@@ -1,6 +1,6 @@
-# activation-cases.md — loop-architect
+# activation-cases.md — eval-flywheel
 
-These cases check whether `loop-architect` (1) activates at the right time,
+These cases check whether `eval-flywheel` (1) activates at the right time,
 (2) places integration points on the right tier of the optimization
 staircase, (3) scores feedback-loop readiness, and (4) scaffolds the right
 Level 1 / 2 / 3 / 4 template — without side effects on vague invocation.
@@ -13,40 +13,40 @@ opt-in and cost a few cents each in API spend.
 ```bash
 # ── Phase 1 — static / contract gates (free, ~2s) ─────────────────────
 just check                                                          # all skills' static checks
-bash skills/loop-architect/evals/run-static-checks.sh               # just this skill
+bash skills/eval-flywheel/evals/run-static-checks.sh               # just this skill
 
 # ── Phase 2 — semantic diagnosis grader (free dry-run; ~$0.05 live) ───
-python3 skills/loop-architect/evals/phase2-grader.py --dry-run      # preview prompts, no API
-python3 skills/loop-architect/evals/phase2-grader.py --live         # grade cases against Claude
-python3 skills/loop-architect/evals/phase2-grader.py --live --case agent-needs-sandbox
-python3 skills/loop-architect/evals/phase2-grader.py --live --case traces-not-loop
-python3 skills/loop-architect/evals/phase2-grader.py --live --case model-swap-benchmark
-python3 skills/loop-architect/evals/phase2-grader.py --live --case post-readiness-operating-loop
-python3 skills/loop-architect/evals/phase2-grader.py --live --model opus   # ~$0.25, Opus 4.7
+python3 skills/eval-flywheel/evals/phase2-grader.py --dry-run      # preview prompts, no API
+python3 skills/eval-flywheel/evals/phase2-grader.py --live         # grade cases against Claude
+python3 skills/eval-flywheel/evals/phase2-grader.py --live --case agent-needs-sandbox
+python3 skills/eval-flywheel/evals/phase2-grader.py --live --case traces-not-loop
+python3 skills/eval-flywheel/evals/phase2-grader.py --live --case model-swap-benchmark
+python3 skills/eval-flywheel/evals/phase2-grader.py --live --case post-readiness-operating-loop
+python3 skills/eval-flywheel/evals/phase2-grader.py --live --model opus   # ~$0.25, Opus 4.7
 
 # ── Phase 3 — sandbox scaffold + opt-in DSPy run (~$0.20 for execute) ─
-bash skills/loop-architect/evals/integration-test.sh setup          # creates test-sandbox/src/classifier.py
+bash skills/eval-flywheel/evals/integration-test.sh setup          # creates test-sandbox/src/classifier.py
 #  ↳ HUMAN STEP: in a FRESH Claude Code session, prompt:
-#     "Run /loop-architect on test-sandbox/. Scaffold the recommended optimization loop."
+#     "Run /eval-flywheel on test-sandbox/. Scaffold the recommended optimization loop."
 #     The agent should produce test-sandbox/ai-ops/dataset.json + compile_classifier.py.
-bash skills/loop-architect/evals/integration-test.sh verify         # asserts ai-ops/ shape (free)
-bash skills/loop-architect/evals/integration-test.sh execute        # real DSPy compile (~$0.20)
-bash skills/loop-architect/evals/integration-test.sh teardown       # rm -rf test-sandbox/ + venv
+bash skills/eval-flywheel/evals/integration-test.sh verify         # asserts ai-ops/ shape (free)
+bash skills/eval-flywheel/evals/integration-test.sh execute        # real DSPy compile (~$0.20)
+bash skills/eval-flywheel/evals/integration-test.sh teardown       # rm -rf test-sandbox/ + venv
 
 # Re-running Phase 3 cleanly without paying for a dspy-ai reinstall:
-bash skills/loop-architect/evals/integration-test.sh refresh        # teardown sandbox only, keep venv, re-setup
+bash skills/eval-flywheel/evals/integration-test.sh refresh        # teardown sandbox only, keep venv, re-setup
 ```
 
 **Fresh-session caveat.** Phase 3's "HUMAN STEP" should run in a Claude Code
 session that has only `SKILL.md` in context — not this repo's other skills.
 Running it inside the host repo grades the *host harness*, not
-loop-architect in isolation. The hermetic version of Phase 3 is to
+eval-flywheel in isolation. The hermetic version of Phase 3 is to
 checkout the repo fresh, install the skill, and prompt from there.
 
 **Local credentials.** Both opt-in runners read API keys from `.env` at
 the repo root before falling back to the shell environment — see
 [Local credentials](#local-credentials) below. First `--live` or `execute`
-invocation auto-bootstraps `.venv-loop-architect/` and installs deps.
+invocation auto-bootstraps `.venv-eval-flywheel/` and installs deps.
 
 ## Static Verification
 
@@ -64,8 +64,8 @@ in [`TEST_PLAN.md`](./TEST_PLAN.md).
 
 | Runner | What it does | Cost estimate | When to run |
 |--------|--------------|---------------|-------------|
-| `evals/phase2-grader.py` | Loads `SKILL.md` as system context, feeds mock workspace fixtures to Claude, has a separate Claude call judge the diagnosis against ground truth. First `--live` invocation auto-bootstraps `.venv-loop-architect/` and installs `anthropic` (shared venv with `integration-test.sh execute`). | ~$0.05 per `--live` run with default sonnet model. ~$0.25 with `--model opus`. | Before any `SKILL.md` edit; after refactoring `references/templates/`. |
-| `evals/integration-test.sh` | Sets up `test-sandbox/`, prompts a human to invoke `/loop-architect` on it, verifies the scaffolded `ai-ops/` artifacts, optionally executes the generated DSPy compiler against a real model. | Free for `setup` + `verify` + `teardown`. ~$0.20 per `execute` (real DSPy run against gpt-4o-mini). | Before promoting `skill.json` `status` from `draft` to `published`. |
+| `evals/phase2-grader.py` | Loads `SKILL.md` as system context, feeds mock workspace fixtures to Claude, has a separate Claude call judge the diagnosis against ground truth. First `--live` invocation auto-bootstraps `.venv-eval-flywheel/` and installs `anthropic` (shared venv with `integration-test.sh execute`). | ~$0.05 per `--live` run with default sonnet model. ~$0.25 with `--model opus`. | Before any `SKILL.md` edit; after refactoring `references/templates/`. |
+| `evals/integration-test.sh` | Sets up `test-sandbox/`, prompts a human to invoke `/eval-flywheel` on it, verifies the scaffolded `ai-ops/` artifacts, optionally executes the generated DSPy compiler against a real model. | Free for `setup` + `verify` + `teardown`. ~$0.20 per `execute` (real DSPy run against gpt-4o-mini). | Before promoting `skill.json` `status` from `draft` to `published`. |
 
 ### Local credentials
 
@@ -96,7 +96,7 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 #### P1 — Bare invocation
 
-**Prompt:** `Run /loop-architect on this repo.`
+**Prompt:** `Run /eval-flywheel on this repo.`
 
 **Expected:**
 - Loads `SKILL.md` and begins the Step 1 Audit (workspace scan).
@@ -151,7 +151,7 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 #### P5 — Trace dashboard with no learning loop
 
-**Prompt:** "We have Braintrust traces, LangSmith runs, thumbs-down feedback rows, and sampled production transcripts, but none of it changes prompts, evals, or release gates. Can loop-architect tell us what's missing?"
+**Prompt:** "We have Braintrust traces, LangSmith runs, thumbs-down feedback rows, and sampled production transcripts, but none of it changes prompts, evals, or release gates. Can eval-flywheel tell us what's missing?"
 
 **Expected:**
 - Identifies this as observability without a feedback loop.
@@ -241,7 +241,7 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 **Prompt:** "Audit this repo so coding assistants stop tripping on it. AGENTS.md is auto-generated and wrong."
 
-**Expected:** skill defers to `project-agentification` (the agent-readiness skill). loop-architect is for **AI integration points inside the workspace**, not for **the workspace's own ergonomics for coding agents**. If activated by mistake, it should explicitly disambiguate before acting.
+**Expected:** skill defers to `project-agentification` (the agent-readiness skill). eval-flywheel is for **AI integration points inside the workspace**, not for **the workspace's own ergonomics for coding agents**. If activated by mistake, it should explicitly disambiguate before acting.
 
 **Fail if:** loads its own playbook to audit AGENTS.md / hooks / MCP servers — wrong skill.
 

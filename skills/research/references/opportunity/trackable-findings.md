@@ -13,7 +13,7 @@ Stable IDs for tracked findings follow this pattern:
 OR-<surface>-NNN
 ```
 
-- `OR` for opportunity-research.
+- `OR` for the research opportunity frame.
 - `<surface>` matches a row in `references/intents/investigate.csv`
   (market, customer, ..., trend) or one of `scope`, `synthesize`,
   `decide` for cross-cutting findings.
@@ -28,10 +28,10 @@ not allocate a new ID.
 ## Ledger (Markdown)
 
 Path:
-`docs/audits/opportunity-research-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+`docs/audits/research-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 
 Fallback (if `docs/audits/` is unwritable):
-`audit-artifacts/opportunity-research-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+`audit-artifacts/research-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 
 Use [`templates/findings-ledger.md`](../templates/findings-ledger.md)
 as the starting point. Each finding is one row with: ID, area,
@@ -43,16 +43,16 @@ review date.
 ## Workflow-state (JSON)
 
 Path:
-`docs/audits/opportunity-research-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+`docs/audits/research-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
 
 Fallback:
-`audit-artifacts/opportunity-research-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+`audit-artifacts/research-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
 
 Schema (machine-parseable for resumption / closeout):
 
 ```json
 {
-  "skill": "opportunity-research",
+  "skill": "research",
   "opportunity_slug": "<short-slug>",
   "opportunity_statement": "<one-line>",
   "stage": "pre-idea | idea | validation | build | launch | scale",

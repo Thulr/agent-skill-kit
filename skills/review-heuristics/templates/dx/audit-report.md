@@ -61,11 +61,11 @@ One block per finding. Repeat as needed.
 If this audit has 7+ findings, any severity 3–4 finding, or a save/track
 request, create both tracking artifacts now: the Markdown ledger from
 `templates/dx/findings-ledger.md` at
-`docs/audits/dx-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+`docs/audits/review-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and the workflow state from `templates/dx/workflow-state.json` at
-`docs/audits/dx-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+`docs/audits/review-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
 Create the directory if needed. If the target is not a repo or `docs/audits/`
-is not writable, use matching `audit-artifacts/dx-heuristics-...` paths.
+is not writable, use matching `audit-artifacts/review-heuristics-...` paths.
 Populate and report both saved paths; do not merely offer or inline tracking.
 Roadmaps and external issues require explicit confirmation.
 

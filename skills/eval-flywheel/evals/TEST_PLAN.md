@@ -1,6 +1,6 @@
-# TEST_PLAN.md — Loop Architect Test Plan
+# TEST_PLAN.md — Eval Flywheel Test Plan
 
-This test plan defines the validation protocol to verify that the **`loop-architect`** skill behaves reliably, executes accurate diagnostics, and scaffolds correct code templates in any target workspace.
+This test plan defines the validation protocol to verify that the **`eval-flywheel`** skill behaves reliably, executes accurate diagnostics, and scaffolds correct code templates in any target workspace.
 
 ---
 
@@ -38,12 +38,12 @@ Verify that the agent successfully registers and loads the skill file (`SKILL.md
 ### 1. The Test Input
 In a fresh chat session, issue one of the triggering commands:
 ```markdown
-I want to run the /loop-architect on my workspace. Please audit it.
+I want to run the /eval-flywheel on my workspace. Please audit it.
 ```
 
 ### 2. Success Criteria
-* The agent displays a status line or message confirming it has loaded and is executing the `loop-architect` skill.
-* The agent references the specific instruction set in `.claude/skills/loop-architect/SKILL.md` to guide its audit workflow.
+* The agent displays a status line or message confirming it has loaded and is executing the `eval-flywheel` skill.
+* The agent references the specific instruction set in `.claude/skills/eval-flywheel/SKILL.md` to guide its audit workflow.
 
 ---
 
@@ -54,7 +54,7 @@ Verify that the agent's semantic reasoning correctly categorizes LLM integration
 ### 1. The Test Input
 Provide the agent with a description of a mock workspace:
 ```markdown
-Run the loop-architect on a mock workspace containing these two files:
+Run the eval-flywheel on a mock workspace containing these two files:
 
 1. `translator.py`: Features a hardcoded prompt inside a function:
    `prompt = f"Translate this text to Spanish: {text}"`
@@ -109,7 +109,7 @@ def classify_ticket(ticket_text):
 ### 2. Run the Skill on the Sandbox
 Instruct the agent to execute the audit and generate the recommended scaffolding:
 ```markdown
-Run the loop-architect on the `test-sandbox/` directory. Scaffold the recommended optimization loop.
+Run the eval-flywheel on the `test-sandbox/` directory. Scaffold the recommended optimization loop.
 ```
 
 ### 3. Verify the Scaffolded Output
@@ -127,7 +127,7 @@ python test-sandbox/ai-ops/compile_classifier.py
 
 ## Summary Checklist
 
-- [ ] **Trigger Registration:** Activated on keyword, slash command, or `/loop-architect`.
+- [ ] **Trigger Registration:** Activated on keyword, slash command, or `/eval-flywheel`.
 - [ ] **Accurate Diagnostics:** Places stateless prompts in Level 2, side-effectful loops in Level 3, and release regression problems in Level 4.
 - [ ] **Loop Readiness:** Reports signal, interpreter, change surface, cadence, rollback, and owner gaps.
 - [ ] **Clean Scaffolding:** Writes real, syntactically correct Python/Docker files in `ai-ops/`.

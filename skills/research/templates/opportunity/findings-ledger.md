@@ -1,4 +1,4 @@
-# opportunity-research findings ledger — <opportunity-slug> — <YYYY-MM-DD>
+# research findings ledger — <opportunity-slug> — <YYYY-MM-DD>
 
 Workflow-state at: `<path to workflow-state.json>`
 

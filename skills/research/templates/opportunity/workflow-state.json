@@ -1,6 +1,6 @@
 {
   "schema_version": "1",
-  "skill": "opportunity-research",
+  "skill": "research",
   "opportunity_slug": "<short-slug>",
   "opportunity_statement": "<one-line>",
   "stage": "pre-idea | idea | validation | build | launch | scale",

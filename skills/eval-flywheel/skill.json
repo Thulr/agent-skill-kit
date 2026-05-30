@@ -1,5 +1,5 @@
 {
-  "name": "loop-architect",
+  "name": "eval-flywheel",
   "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose feedback-loop gaps, and scaffold self-improving evaluation/optimization loops plus post-readiness improvement controllers.",
   "version": "0.1.0",
   "license": "MIT",

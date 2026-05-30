@@ -1,6 +1,6 @@
 """Shared Anthropic SDK boilerplate for skill-local eval graders.
 
-First consumer: skills/loop-architect/evals/phase2-grader.py. Kept
+First consumer: skills/eval-flywheel/evals/phase2-grader.py. Kept
 deliberately minimal — three functions — until a second skill adopts it.
 At that point the API can be refactored without breaking external users
 since this lives under scripts/, not skills/.

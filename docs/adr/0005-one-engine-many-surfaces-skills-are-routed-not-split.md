@@ -45,7 +45,7 @@ intent → surface — not as sibling skills and not split per surface.
   is **not** split into per-layer siblings. Routing depth is a feature, not a
   reason to fragment.
 - Genuinely distinct *methods* still get distinct skills (e.g.
-  `project-agentification` vs `evidence-driven-agent-rules` vs `loop-architect`
+  `project-agentification` vs `evidence-driven-agent-rules` vs `eval-flywheel`
   vs `research`): different engines, not different surfaces of one engine.
 - `skills/_shared/` remains the home for primitives that are *identical* across
   consumers (modes, trackable-findings, lenses, empirical-warnings W2–W10,

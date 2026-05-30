@@ -68,5 +68,5 @@ the design before adding more detail.
 ## Boundary
 
 This skill can flag accessibility risk, focus gaps, contrast problems, and
-motion concerns. For a formal WCAG-oriented audit, hand off to
-`ux-accessibility-heuristics` after the visual direction is stable.
+motion concerns. For a formal WCAG-oriented audit, hand off to the
+`ux` domain after the visual direction is stable.

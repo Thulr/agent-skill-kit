@@ -1,17 +1,17 @@
-"""Phase 2 grader for loop-architect.
+"""Phase 2 grader for eval-flywheel.
 
 Implements TEST_PLAN.md Phase 2: feeds mock workspace files (fixtures/) to
-Claude under loop-architect's SKILL.md instructions, then uses a separate
+Claude under eval-flywheel's SKILL.md instructions, then uses a separate
 Claude call as a judge to score the diagnosis against ground truth.
 
 NOT invoked from `just check`. Opt-in. Costs ~$0.05 per --live run with
 the default Sonnet model.
 
 Usage:
-    python3 skills/loop-architect/evals/phase2-grader.py --dry-run
-    python3 skills/loop-architect/evals/phase2-grader.py --live
-    python3 skills/loop-architect/evals/phase2-grader.py --live --case agent-needs-sandbox
-    python3 skills/loop-architect/evals/phase2-grader.py --live --model opus
+    python3 skills/eval-flywheel/evals/phase2-grader.py --dry-run
+    python3 skills/eval-flywheel/evals/phase2-grader.py --live
+    python3 skills/eval-flywheel/evals/phase2-grader.py --live --case agent-needs-sandbox
+    python3 skills/eval-flywheel/evals/phase2-grader.py --live --model opus
 
 Exit codes:
     0  all cases PASS
@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-VENV_DIR = REPO_ROOT / ".venv-loop-architect"  # shared with integration-test.sh
+VENV_DIR = REPO_ROOT / ".venv-eval-flywheel"  # shared with integration-test.sh
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from anthropic_eval_lib import (  # noqa: E402
@@ -141,7 +141,7 @@ CASES: list[dict[str, Any]] = [
 
 AGENT_USER_TEMPLATE = """\
 A user has asked you to audit the AI integration points in their workspace.
-Below are the files in that workspace. Apply the loop-architect skill: scan,
+Below are the files in that workspace. Apply the eval-flywheel skill: scan,
 diagnose each integration's tier on the AI Optimization Staircase, and
 recommend the appropriate scaffolding template.
 
@@ -185,7 +185,7 @@ Output JSON only with this exact shape:
 
 def _ensure_anthropic() -> None:
     """If `anthropic` isn't importable in the current interpreter,
-    bootstrap `.venv-loop-architect/`, pip-install anthropic into it, and
+    bootstrap `.venv-eval-flywheel/`, pip-install anthropic into it, and
     re-exec this script using the venv's python.
 
     Idempotent: a no-op when anthropic is already importable. Skip with
@@ -316,7 +316,7 @@ def main() -> int:
     parser.add_argument(
         "--no-bootstrap",
         action="store_true",
-        help="Don't auto-create .venv-loop-architect/ if anthropic is missing. "
+        help="Don't auto-create .venv-eval-flywheel/ if anthropic is missing. "
         "Use when you're already inside your own venv with the SDK installed.",
     )
     args = parser.parse_args()

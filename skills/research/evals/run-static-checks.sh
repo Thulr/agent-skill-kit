@@ -57,7 +57,7 @@ if [[ -f "$skill_md" ]]; then
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
   # Thin frame-router body (detail lives in references/<frame>/workflow.md).
   wc=$(wc -w < "$skill_md")
-  (( wc < 900 )) || fail "SKILL.md word count $wc exceeds 900 (runtime-only bound; per-frame detail belongs in references/<frame>/workflow.md)"
+  (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound; per-frame detail belongs in references/<frame>/workflow.md)"
 fi
 
 # ----- Shared JSON contracts -----

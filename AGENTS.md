@@ -75,7 +75,7 @@ CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](.
 
 Every skill under `skills/` or `skills/.experimental/` must ship:
 
-- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 800 words.
+- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 1200 words.
 - `skill.json` with `name`, `status: "published"` for installable skills,
   `maintainers` (resolvable GitHub handles, see Rule 4), and a non-empty
   `inspired_by` list. Use repository release tags (for example

@@ -65,11 +65,11 @@ ID, severity, status, evidence, suggested fix, and verification rule.>
 For 7+ findings or any severity 3–4 finding, use
 `references/architecture/trackable-findings.md` and create both tracking artifacts now: the
 Markdown ledger from `templates/architecture/findings-ledger.md` at
-`docs/audits/clean-architecture-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+`docs/audits/review-heuristics-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and the workflow state from `templates/architecture/workflow-state.json` at
-`docs/audits/clean-architecture-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+`docs/audits/review-heuristics-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
 Create the directory if needed. If the target is not a repo or `docs/audits/`
-is not writable, use matching `audit-artifacts/clean-architecture-...` paths
+is not writable, use matching `audit-artifacts/review-heuristics-...` paths
 instead. Report both saved paths, and do not merely offer or inline tracking
 choices. Roadmaps and GitHub issues are opt-in; never create external issues
 without confirmation. Check boxes only after verification passes.

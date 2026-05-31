@@ -1,6 +1,6 @@
 # ADR 0008: Reverse the Review Consolidation — Skills Split by Domain × Function
 
-**Status:** Accepted (2026-05-30). Supersedes [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) **for the review family only**; updates the structural claims in [ADR 0007](./0007-experience-disciplines-are-audience-peers.md). Does **not** disturb [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) (`agent-experience` stays standalone).
+**Status:** Accepted (2026-05-30). Supersedes [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) **for the review family only**; updates the structural claims in [ADR 0007](./0007-experience-disciplines-are-audience-peers.md). Does **not** disturb [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) (`design-for-agents` stays standalone).
 
 ## Context
 
@@ -69,7 +69,7 @@ skill and a `-design` skill.
 - **Scope is the review family only.** This does not reverse 0005's
   research-frame consolidation (`research` stays one skill routed
   `report | opportunity`) or its guidance against fragmenting an already-routed
-  engine (`project-agentification` stays whole). `agent-experience` (0006)
+  engine (`codebase-agent-readiness` stays whole). `design-for-agents` (0006)
   stands — AX content does not return to the per-domain skills.
 
 The principle, stated to compete with 0005: **when a merged skill's name and
@@ -81,8 +81,8 @@ mega-skill.
 ## Consequences
 
 - Published skills go from one `review-heuristics` to **12** domain×function
-  skills (alongside `research`, `project-agentification`,
-  `evidence-driven-agent-rules`, `agent-experience`, `eval-flywheel`,
+  skills (alongside `research`, `codebase-agent-readiness`,
+  `evidence-driven-agent-rules`, `design-for-agents`, `eval-flywheel`,
   `loop-architect`). The umbrella description's keyword pile-up collapses into
   12 sharp descriptions.
 - Each new skill carries domain×function-scoped `skill.json.inspired_by`

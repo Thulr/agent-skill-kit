@@ -1,22 +1,22 @@
 ---
-name: agent-experience
+name: design-for-agents
 description: >-
-  Use for AGENT EXPERIENCE (AX) — designing, reviewing, and debugging software,
-  repos, docs, and SDKs for AI agents as a first-class consumer audience, the
+  Use to design, review, or debug software, repos, docs, and SDKs so AI agents
+  can consume them as a first-class audience — agent experience (AX), the
   agent-facing analog of UX and DX. Covers agent-readable docs (llms.txt,
   AGENTS.md, SKILL.md, MCP/tool descriptions, RAG/retrieval-friendly structure,
   chunk survivability, stable anchors), AI/Agent SDK design (streaming, tool use,
   structured output, agent loops, guardrails, tracing, MCP transport), repo
   agent-readiness review (AGENTS.md parity, harness mirrors, cold-start
   examples), and human-vs-agent audience conflicts. The umbrella AX discipline:
-  it routes to project-agentification to HARDEN a repo (hooks, gates, sandbox,
+  it routes to codebase-agent-readiness to HARDEN a repo (hooks, gates, sandbox,
   scaffolds), evidence-driven-agent-rules to PROMOTE observed agent failures into
   rules, and eval-flywheel to INSTRUMENT an AI product's eval/optimization loops.
   Triggers on "make our app agent-friendly", "review our llms.txt for agents",
   "design an Agent SDK", "is this AGENTS.md agent-ready", "agent experience", "AX
   review". For human-facing developer experience use dx-critique / dx-design; for
   end-user UX use ux-critique; to scaffold/harden a repo use
-  project-agentification.
+  codebase-agent-readiness.
 license: MIT
 ---
 
@@ -43,7 +43,7 @@ context-window-bound agent can find, parse, and act on.
    design, repo agent-readiness, and human-vs-agent audience conflicts (the
    playbooks under `references/playbooks/`).
 2. **Routes to the implementation arms** when the user wants to *do*, not review:
-   - → `project-agentification` — harden a repo (AGENTS.md, hooks, gates,
+   - → `codebase-agent-readiness` — harden a repo (AGENTS.md, hooks, gates,
      sandbox, MCP, specs): the repo-hardening arm.
    - → `evidence-driven-agent-rules` — promote observed agent failures into
      rules/gates: the evidence/feedback arm (needs a feedback signal).

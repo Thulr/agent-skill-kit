@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Static checks for the project-agentification skill.
+# Static checks for the codebase-agent-readiness skill.
 # Exits non-zero on any failure.
 set -euo pipefail
 
@@ -14,10 +14,10 @@ note() { printf '  • %s\n' "$1"; }
 err()  { printf '  ✗ %s\n' "$1" >&2; fail=1; }
 ok()   { printf '  ✓ %s\n' "$1"; }
 
-echo "Checking project-agentification skill at: $SKILL_DIR"
+echo "Checking codebase-agent-readiness skill at: $SKILL_DIR"
 
 # 1. skill.json conforms to canonical schema and matches the directory.
-validate_skill_json_contract "$REPO_ROOT" skill.json "project-agentification"
+validate_skill_json_contract "$REPO_ROOT" skill.json "codebase-agent-readiness"
 
 # 2. SKILL.md has frontmatter
 if [ -f SKILL.md ] && head -1 SKILL.md | grep -q '^---$'; then
@@ -120,20 +120,20 @@ if grep -q "Create tracking state" SKILL.md; then
 else
   err "SKILL.md must create tracking state by default for trackable assess outputs"
 fi
-if grep -q "project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md" SKILL.md &&
-   grep -q "project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json" SKILL.md; then
+if grep -q "codebase-agent-readiness-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md" SKILL.md &&
+   grep -q "codebase-agent-readiness-workflow-state-<YYYY-MM-DD>-<scope-slug>.json" SKILL.md; then
   ok "SKILL.md uses skill-prefixed tracking filenames"
 else
-  err "SKILL.md missing project-agentification-prefixed ledger/workflow-state paths"
+  err "SKILL.md missing codebase-agent-readiness-prefixed ledger/workflow-state paths"
 fi
-if grep -q "audit-artifacts/project-agentification-" SKILL.md; then
+if grep -q "audit-artifacts/codebase-agent-readiness-" SKILL.md; then
   ok "SKILL.md preserves tracking fallback path"
 else
-  err "SKILL.md missing audit-artifacts/project-agentification fallback path"
+  err "SKILL.md missing audit-artifacts/codebase-agent-readiness fallback path"
 fi
 if grep -q "^## Findings ledger" templates/assess-report.md &&
    grep -q "do not merely offer" templates/assess-report.md &&
-   grep -q "audit-artifacts/project-agentification-" templates/assess-report.md; then
+   grep -q "audit-artifacts/codebase-agent-readiness-" templates/assess-report.md; then
   ok "assess report requires saved ledger/workflow-state artifacts"
 else
   err "templates/assess-report.md must require saved tracking artifacts with fallback"
@@ -157,7 +157,7 @@ else
 fi
 
 # 9. evals/trigger-evals.json conforms to schema and matches the skill.
-validate_trigger_evals_contract "$REPO_ROOT" evals/trigger-evals.json "project-agentification"
+validate_trigger_evals_contract "$REPO_ROOT" evals/trigger-evals.json "codebase-agent-readiness"
 
 if [ "$fail" -ne 0 ]; then
   echo

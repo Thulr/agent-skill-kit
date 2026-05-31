@@ -31,7 +31,7 @@ Examples:
 
 - `CA-DEP-001` for architecture-critique dependency-rule findings.
 - `CA-BOUNDARY-004` for architecture-critique boundary findings.
-- `AG-GATES-003` for project-agentification gate findings.
+- `AG-GATES-003` for codebase-agent-readiness gate findings.
 - `DX-CLI-002` for dx-critique CLI findings.
 - `TEST-UNIT-004` for test-critique unit-test findings.
 - `SR-SOURCE-001` for informed-skill-reviewer source-safety findings.
@@ -82,7 +82,7 @@ Ledger files are Markdown and use this path by default:
 
 The filename must start with the full skill name, for example
 `dx-critique-findings-ledger-2026-05-19-payments.md` or
-`project-agentification-findings-ledger-2026-05-19-gates.md`. If the target is not a
+`codebase-agent-readiness-findings-ledger-2026-05-19-gates.md`. If the target is not a
 repo or `docs/audits/` is not writable, fall back to
 `audit-artifacts/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and report the fallback path. Save workflow-state JSON alongside the ledger by

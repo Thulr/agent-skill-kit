@@ -135,5 +135,5 @@ integration, snippet samples, contributor onboarding), see
   playbook sits alongside.
 - → `docs-critique` / `docs-design` for public docs sites, RAG-friendly
   docs, and the full human/agent audience-conflict treatment.
-- → `project-agentification` to actually scaffold and harden `AGENTS.md`,
+- → `codebase-agent-readiness` to actually scaffold and harden `AGENTS.md`,
   hooks, gates, sandbox, and MCP (the doing).

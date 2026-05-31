@@ -42,7 +42,7 @@ If coding agents work in the repo, treat dependency direction as a **gate**, not
 - Keep the boundary model human-legible (layers/modules + allowed import directions).
 - Enforce it structurally (arch tests / lint rules) as a CI-required check, so violations are
   caught deterministically even when the agent’s coupling reasoning degrades under noise.
-- See `skills/project-agentification/references/playbooks/gates.md` for the
+- See `skills/codebase-agent-readiness/references/playbooks/gates.md` for the
   enforcement pattern (“hard gates over soft prose”).
 
 ## Common failures

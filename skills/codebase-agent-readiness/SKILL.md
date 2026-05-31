@@ -1,5 +1,5 @@
 ---
-name: project-agentification
+name: codebase-agent-readiness
 description: Use when assessing a repository's agent-readiness, hardening it against agent failure modes, scaffolding AGENTS.md / SKILL.md / MCP servers / hooks / specs from observed failures, or diagnosing why coding agents trip on this repo. Also trigger for AGENTS.md review, agent-native repo design, harness engineering, MCP exposure, agent eval setup, sandbox/approval design, context-rot debugging, repository maturity assessment, or "make this repo work better with Claude Code / Cursor / Codex / Copilot / Windsurf / Aider." Do not use when you already have eval suites / run telemetry and want to promote recurring agent failures into rules from evidence; use `evidence-driven-agent-rules` for that.
 license: MIT
 ---
@@ -10,7 +10,7 @@ Assess, harden, scaffold, and diagnose a repository's agent-readiness.
 Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).
 Grounding sources live in `skill.json`; this file is runtime routing only.
 
-**Produces:** intent-specific report — `assess-report.md` / `harden-recommendation.md` / `scaffold-bundle.md` / `diagnose-runbook.md`; tracked assessments also emit `project-agentification-findings-ledger-<date>-<slug>.md` + `project-agentification-workflow-state-<date>-<slug>.json`. Rendered in chat as fixed-width text (no Markdown pipe tables).
+**Produces:** intent-specific report — `assess-report.md` / `harden-recommendation.md` / `scaffold-bundle.md` / `diagnose-runbook.md`; tracked assessments also emit `codebase-agent-readiness-findings-ledger-<date>-<slug>.md` + `codebase-agent-readiness-workflow-state-<date>-<slug>.json`. Rendered in chat as fixed-width text (no Markdown pipe tables).
 
 ## Core principle
 
@@ -20,7 +20,7 @@ Grounding sources live in `skill.json`; this file is runtime routing only.
 2. **Token budget is the dominant scarcity.** Prefer on-demand → on-trigger → always-loaded.
 3. **Hard gates over soft prose.** Hooks at 100% vs prose at 70%.
 
-This skill is the **repo-hardening arm** of the `agent-experience` discipline — use `agent-experience` for the cross-cutting AX framing and for AI/Agent SDK or agent-readable-docs *review*; it routes here to harden a repo.
+This skill is the **repo-hardening arm** of the `design-for-agents` discipline — use `design-for-agents` for the cross-cutting AX framing and for AI/Agent SDK or agent-readable-docs *review*; it routes here to harden a repo.
 
 ## Quickstart
 
@@ -34,7 +34,7 @@ For `harden`, `scaffold`, or `diagnose`, pick the intent first; the routing taxo
 
 ## Activation
 
-- **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use project-agentification"`): load `references/intent-router.csv`, show the intent menu, wait. No file inspection, no network calls, no writes.
+- **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use codebase-agent-readiness"`): load `references/intent-router.csv`, show the intent menu, wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3 of the workflow.
 - **Concrete invocation with ambiguous scope**: ask one blocker question identifying the intent or surface; do not inspect private systems first.
 
@@ -64,11 +64,11 @@ For `harden`, `scaffold`, or `diagnose`, pick the intent first; the routing taxo
     findings, any severity 3–4, or a save/track/workflow-state/closeout
     request, load `references/trackable-findings.md` and write both artifacts
     now: Markdown ledger at
-    `docs/audits/project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+    `docs/audits/codebase-agent-readiness-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
     and workflow state at
-    `docs/audits/project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+    `docs/audits/codebase-agent-readiness-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
     If the target is not a repo or `docs/audits/` is not writable, use
-    `audit-artifacts/project-agentification-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
+    `audit-artifacts/codebase-agent-readiness-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`.
     Report both paths. Never create roadmaps, external issues, or edit
     non-tracking project files without confirmation. Check boxes only after the
     finding's verification rule passes.
@@ -120,7 +120,7 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - **W6** — Token budget is the dominant scarcity.
 - **W9** — Auto-init commands lie; hand-curate from project knowledge.
 
-> **W1** ("≥3 observed failures before scaffolding") is the failure-driven floor and lives in `evidence-driven-agent-rules`. It does not apply to `project-agentification` — most repos have no feedback signal to observe failures against. If your repo does, pair the two skills.
+> **W1** ("≥3 observed failures before scaffolding") is the failure-driven floor and lives in `evidence-driven-agent-rules`. It does not apply to `codebase-agent-readiness` — most repos have no feedback signal to observe failures against. If your repo does, pair the two skills.
 
 ## Reference map
 

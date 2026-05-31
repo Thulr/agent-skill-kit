@@ -5,7 +5,7 @@ Used by `assess`. Score each layer (legibility / action / control) independently
 > **Levels 4–5** (Specification Architecture, Sovereign Engineering)
 > require harness-engineering infrastructure — specs, eval pipelines,
 > cost tracking, model routing, SLSA provenance — beyond what
-> `project-agentification` scopes. They live in
+> `codebase-agent-readiness` scopes. They live in
 > `evidence-driven-agent-rules`'s rubric extension (see that skill's
 > `references/core/maturity-rubric.md`). Repos without harness
 > infrastructure cap at Level 3 here; that's a feature, not a gap.

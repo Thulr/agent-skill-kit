@@ -1,12 +1,12 @@
 {
-  "name": "agent-experience",
-  "description": "The umbrella agent-experience (AX) discipline: design, review, and debug software, repos, docs, and SDKs for AI agents as a first-class consumer audience. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to project-agentification (harden), evidence-driven-agent-rules (promote), and eval-flywheel (instrument) for the doing.",
+  "name": "design-for-agents",
+  "description": "The umbrella agent experience (AX) discipline: design, review, and debug software, repos, docs, and SDKs for AI agents as a first-class consumer audience. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to codebase-agent-readiness (harden), evidence-driven-agent-rules (promote), and eval-flywheel (instrument) for the doing.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
   "maintainers": ["@Thulr"],
   "tags": [
-    "agent-experience", "ax", "agents-md", "llms-txt", "skill-md", "mcp",
+    "design-for-agents", "ax", "agents-md", "llms-txt", "skill-md", "mcp",
     "ai-sdk", "agent-sdk", "agent-readable-docs", "retrieval-friendly",
     "context-engineering", "audience-conflicts", "claude-code", "cursor",
     "codex", "copilot", "windsurf", "aider"

@@ -38,13 +38,13 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 
 ## Edge cases — could be either; ask once
 
-1. "Make our docs better." → could be `docs-critique` / `docs-design` or `project-agentification` (docs-index surface for agents). Ask: "for human readers or for AI agents?"
+1. "Make our docs better." → could be `docs-critique` / `docs-design` or `codebase-agent-readiness` (docs-index surface for agents). Ask: "for human readers or for AI agents?"
 2. "Add a hook." → could mean Claude Code hook (this skill, `gates` playbook) or generic Git hook. Ask: "Claude Code PreToolUse/PostToolUse hook, or a Git hook?"
 3. "Set up CI for our agent." → overlaps with general DevOps, but activates when the question is about agent-specific gates, runner trust, or required-check enforcement.
 
 ## Behavioral assertions
 
-- On a bare invocation (`"use project-agentification"`), the skill must:
+- On a bare invocation (`"use codebase-agent-readiness"`), the skill must:
   - Load `references/intent-router.csv`.
   - Present the intent menu.
   - NOT inspect the repo, NOT load any playbook, NOT write any file.
@@ -65,8 +65,8 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 - On any output, every finding has a severity (0–4) and every recommendation has at least one source citation from `skill.json`.
 - On large `assess` output (7+ findings) or any severity 3–4 finding:
   - Assign stable finding IDs.
-  - Save both `project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
-    and `project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
+  - Save both `codebase-agent-readiness-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+    and `codebase-agent-readiness-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
     under `docs/audits/`, or use the matching `audit-artifacts/` fallback.
   - Report both saved paths rather than merely offering tracking.
   - Group findings into issue-sized work before proposing GitHub issues, and

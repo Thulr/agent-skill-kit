@@ -19,7 +19,7 @@ Per-entry records of observed agent failures on this repo. **This is the
 source-of-truth for any future hand-curated `AGENTS.md`, hook, or new skill
 rule.**
 
-> **W1 meta-note.** The `project-agentification` skill normally refuses to
+> **W1 meta-note.** The `codebase-agent-readiness` skill normally refuses to
 > scaffold files without ≥3 observed failures stated. This directory and its
 > entries are exempt because they do not *contain* agent instructions —
 > they *capture the observations* that future instructions will be
@@ -118,7 +118,7 @@ Filename order = chronological order. To get a table view: `ls -1 [0-9]*.md`.
 ## See also
 
 <!-- Add pointers to: AGENTS.md (when it exists), the agentification audit
-     doc if any, and the project-agentification skill's empirical-warnings.md
+     doc if any, and the codebase-agent-readiness skill's empirical-warnings.md
      (W1-W10) for the rationale behind this workflow. -->
 
 - <pointer 1>

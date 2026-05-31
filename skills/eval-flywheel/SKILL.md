@@ -14,7 +14,7 @@ when a controller repeats the loop.
 
 - User wants evals, prompt optimization, trace replay, production loops, benchmarks, or `/eval-flywheel`.
 - Workspace has hardcoded prompts, raw rules files, unmonitored agent loops, no golden set, or trace data that does not feed improvement.
-- Part of the **agent-experience** discipline — the instrument-the-loop arm; `agent-experience` routes here to build eval/optimization loops.
+- Part of the **design-for-agents** discipline — the instrument-the-loop arm; `design-for-agents` routes here to build eval/optimization loops.
 
 ## The AI Optimization Staircase
 

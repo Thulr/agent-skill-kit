@@ -2,7 +2,7 @@
 
 Sole-tenant of `evidence-driven-agent-rules`. W1 belongs here (not in
 the shared `_shared/empirical-warnings.md`) because it's the failure-driven
-core of this skill and does not apply to `project-agentification`'s
+core of this skill and does not apply to `codebase-agent-readiness`'s
 project-context-first audience.
 
 ETH Zürich / LogicStar.ai (Mündler et al., arXiv:2602.11988, Feb 2026) found that **LLM-generated context files drop task success ~3% on average and inflate cost by over 20%**, while developer-written files improved success by only ~4%. Anthropic's `/init`, Cursor's `/Generate Cursor Rules`, and Codex's auto-init produce plausible but low-value scaffolds. **Hand-curate from observed failures.** The `promote` intent of this skill refuses to write any rule / hook / gate without **at least 3 stated observed-failure entries in `docs/reflection-log/`** that describe the same gap — one failure easily overfits to boilerplate; three forces a pattern.
@@ -28,7 +28,7 @@ team observe agent failures (qualitative — "the agent edited the wrong
 file" with eyes — or quantitative — eval-suite regressions, telemetry
 deltas). For repos without that signal, the W1 ≥3-floor is unenforceable
 in practice (no failures observed → no floor to cross) and the rule is
-moot. Those repos should use `project-agentification` for project-context-first
+moot. Those repos should use `codebase-agent-readiness` for project-context-first
 AGENTS.md scaffolding, not this skill.
 
 ## See also

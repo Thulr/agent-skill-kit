@@ -11,7 +11,7 @@ on documentation without a human reading the page.
 - In: `llms.txt`, full-doc markdown bundles, agent context files, skill
   descriptions, retrieval-friendly structure, stable deep links, glossary
   bridges, examples for agents, and always-loaded vs on-demand decisions.
-- Out: repo hook/gate implementation (hand off to `project-agentification`) and
+- Out: repo hook/gate implementation (hand off to `codebase-agent-readiness`) and
   API/tool schema fields (the `docs-critique` / `docs-design` `api-contracts` surface).
 - Intents this surface answers: audit, design, debug, measure.
 

@@ -1,6 +1,6 @@
 {
   "name": "docs-critique",
-  "description": "Heuristic CRITIQUE of documentation experience — audit and debug existing developer docs, end-user help, and agent-readable docs for friction, drift, accessibility, retrieval failure, and audience conflict, grounded in canonical documentation literature. Use to REVIEW an existing docs/help/agent surface for friction and score it, or diagnose a concrete docs failure (failed quickstart, stale example, zero-result search, bad agent tool call); emits a scored findings report or a debug runbook with severity-rated, verifiable findings. To DESIGN or measure new docs use docs-design; for end-user product UX use ux-critique; for repo-level agent hardening / AGENTS.md use agent-experience.",
+  "description": "Heuristic CRITIQUE of documentation experience — audit and debug existing developer docs, end-user help, and agent-readable docs for friction, drift, accessibility, retrieval failure, and audience conflict, grounded in canonical documentation literature. Use to REVIEW an existing docs/help/agent surface for friction and score it, or diagnose a concrete docs failure (failed quickstart, stale example, zero-result search, bad agent tool call); emits a scored findings report or a debug runbook with severity-rated, verifiable findings. To DESIGN or measure new docs use docs-design; for end-user product UX use ux-critique; for repo-level agent hardening / AGENTS.md use design-for-agents.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

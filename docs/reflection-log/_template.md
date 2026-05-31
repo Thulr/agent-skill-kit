@@ -17,7 +17,7 @@ without asking you.>
 ## What to do differently
 
 <The smallest hook, rule, or gate that closes this gap. Cite W1–W10 from
-`skills/.experimental/project-agentification/references/empirical-warnings.md`
+`skills/.experimental/codebase-agent-readiness/references/empirical-warnings.md`
 where applicable. If this points to a skill-level fix (template, playbook
 heuristic), name the file + heuristic ID.>
 

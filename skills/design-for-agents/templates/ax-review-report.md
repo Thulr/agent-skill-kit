@@ -29,7 +29,7 @@
 ## Hand-offs
 
 - <if the fix is build/harden/measure, name the arm skill and the scoped task:
-  project-agentification (harden) / evidence-driven-agent-rules (promote) /
+  codebase-agent-readiness (harden) / evidence-driven-agent-rules (promote) /
   eval-flywheel (instrument)>
 
 ## Prioritized fixes

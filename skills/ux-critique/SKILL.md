@@ -1,6 +1,6 @@
 ---
 name: ux-critique
-description: Use to CRITIQUE an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on "UX audit", "heuristic evaluation", "users are confused", "signup/checkout drop-off", "IA review", "accessibility/WCAG review", "is this form usable". Do NOT use to CRITIQUE developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-critique), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for AI-agent-facing surfaces and AGENTS.md (use agent-experience).
+description: Use to CRITIQUE an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on "UX audit", "heuristic evaluation", "users are confused", "signup/checkout drop-off", "IA review", "accessibility/WCAG review", "is this form usable". Do NOT use to CRITIQUE developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-critique), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for AI-agent-facing surfaces and AGENTS.md (use design-for-agents).
 license: MIT
 ---
 

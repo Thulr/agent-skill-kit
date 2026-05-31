@@ -1,5 +1,5 @@
 {
-  "name": "project-agentification",
+  "name": "codebase-agent-readiness",
   "description": "Assess, harden, scaffold, and diagnose a repository's agent-readiness. Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry); ships an opinionated checklist grounded in published research and empirical studies of repository-level agent failure modes.",
   "version": "0.1.0",
   "license": "MIT",

@@ -243,7 +243,7 @@ is harness-agnostic; thin per-harness adapters under `.claude/hooks/`,
 - **Copilot / Aider / Windsurf / AGENTS.md-only harnesses** — no native
   PreToolUse-equivalent. CI branch protection is the load-bearing gate
   for these. See the per-harness gate-primitives table in
-  [`skills/project-agentification/references/playbooks/gates.md`](./skills/project-agentification/references/playbooks/gates.md).
+  [`skills/codebase-agent-readiness/references/playbooks/gates.md`](./skills/codebase-agent-readiness/references/playbooks/gates.md).
 
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the

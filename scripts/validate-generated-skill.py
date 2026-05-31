@@ -149,7 +149,11 @@ def detect_shape(skill_dir: Path) -> str:
 
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="") as f:
-        return list(csv.DictReader(f))
+        # Skip blank lines and leading `#` comment rows (the convention used by
+        # e.g. test-design's prune.csv `# omits: …`) before DictReader, so the
+        # comment isn't parsed as the header. Mirrors check-routing-csv.sh.
+        lines = [ln for ln in f if ln.strip() and not ln.lstrip().startswith("#")]
+    return list(csv.DictReader(lines))
 
 
 def load_skill_json(skill_dir: Path, report: Report) -> dict | None:

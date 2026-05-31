@@ -7,6 +7,7 @@ check:
     bash scripts/check-instruction-surface.sh
     bash scripts/check-shared-content.sh
     bash scripts/check-routing-csv.sh
+    python3 scripts/check-doc-links.py
     python3 .claude/hooks/test_block_destructive_bash.py
     python3 .codex/hooks/test_block_destructive_bash.py
     python3 .cursor/hooks/test_block_destructive_bash.py

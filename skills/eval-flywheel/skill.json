@@ -1,10 +1,12 @@
 {
   "name": "eval-flywheel",
-  "description": "Audit a workspace's AI integrations, map them onto an optimization staircase, diagnose feedback-loop gaps, and scaffold self-improving evaluation/optimization loops plus post-readiness improvement controllers.",
+  "description": "Use to AUDIT an AI product's or workspace's integrations, score their feedback-loop readiness on the AI Optimization Staircase, and scaffold the smallest useful evaluation and optimization loop plus post-readiness improvement controllers. For teams shipping an AI product or agent who still iterate on prompts by feel and want metric-driven reliability. Covers eval suites, prompt and program optimizers, trace-and-eval flywheels, held-out benchmarks, and production experiments. Triggers on 'audit our AI integration', 'build an eval or optimization loop', 'are our prompts actually measured', 'map us onto the optimization staircase', 'set up a trace-and-eval flywheel'. Do NOT use to harden a repository for coding agents (use codebase-agent-readiness) or to promote observed agent failures into AGENTS.md rules from an existing signal (use evidence-driven-agent-rules) \u2014 eval-flywheel instruments the AI product you ship, those harden the repo agents work in.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
-  "maintainers": ["@Thulr"],
+  "maintainers": [
+    "@Thulr"
+  ],
   "tags": [
     "evals",
     "ai-ops",
@@ -24,7 +26,9 @@
       "kind": "paper",
       "year": 2023,
       "contribution": "Declarative LM framework: typed Signatures, Modules, and Optimizers (BootstrapFewShot, MIPROv2). Reframes prompt engineering as program design and gives Level 2 (Subroutine Compilation) its compilation target.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     },
     {
       "name": "DSPy: The End of Prompt Engineering",
@@ -32,7 +36,9 @@
       "kind": "talk",
       "year": 2025,
       "contribution": "Practical framing of declarative LM compilation as cognitive-subroutine engineering inside production AI workspaces. Anchors the skill's Level 2 scaffold recommendation.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     },
     {
       "name": "Reflexion: Language Agents with Verbal Reinforcement Learning",
@@ -40,7 +46,9 @@
       "kind": "paper",
       "year": 2023,
       "contribution": "Iteration caps, structured failure critique, and reflective self-improvement loops. Underwrites Level 1 (System-Prompt Learning) and the iteration-cap guardrails in Level 3.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     },
     {
       "name": "Feedback-loop product engineering and eval/observability flywheels",
@@ -48,7 +56,9 @@
       "kind": "practice cluster",
       "year": 2026,
       "contribution": "Adds loop-readiness dimensions: signal capture, interpretation layer, change surface, cadence, stop/rollback rules, and human or operational ownership.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     },
     {
       "name": "Self-improving AI systems and system prompt learning",
@@ -56,7 +66,9 @@
       "kind": "wiki synthesis",
       "year": 2026,
       "contribution": "Adds the post-readiness distinction between measured loops, proposed updates, eval-gated persistence, and production experiments.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     },
     {
       "name": "Terminal-Bench and SWE-bench style system benchmarks",
@@ -64,7 +76,9 @@
       "kind": "benchmark cluster",
       "year": 2025,
       "contribution": "Grounds Level 4 as fixed task replay with baseline comparison for model swaps, release gates, and platform-wide regression protection.",
-      "playbooks": ["all"]
+      "playbooks": [
+        "all"
+      ]
     }
   ]
 }

@@ -1,18 +1,6 @@
 ---
 name: research
-description: >-
-  Use for source-grounded research in one of two frames. REPORT frame —
-  open-ended research on a topic with no decision attached, e.g. "research X
-  for me," "tell me about X," "what's the state of X," primer, literature
-  review, deep dive, "summarize what's known about X." OPPORTUNITY frame —
-  validate a named product/business/market/feature opportunity and end in a
-  go/no-go/pivot decision (an F/A/D/R memo) — validate an idea, size a market,
-  investigate customer pain, map competitors, assess feasibility, unit
-  economics, or legal risk, build a risk register, or produce a decision memo.
-  Do not use for reviewing existing artifacts like prompts, plans, specs, or
-  personas (use the matching -red-team or -review skill), comparing a fixed set
-  of already-named options, or ideating candidates from scratch (both out of
-  scope for research — reach for a dedicated comparison or ideation tool).
+description: Use for source-grounded research in one of two decision-frames. REPORT — open-ended research on a topic with no decision attached (primer, literature review, state of the art), e.g. 'research X for me', 'what's known about X', 'deep dive on X'. OPPORTUNITY — validate a named product, business, market, or feature opportunity across 14 areas (market, customer, competitive, technical, financial, legal, and more) ending in a Facts/Assumptions/Decisions/Risks go, no-go, or pivot memo. Triggers on 'research X', 'give me a primer on X', 'validate whether building X is a good opportunity', 'should we build X'. Do NOT use to review an existing artifact like a prompt, plan, or spec (use the matching -red-team or -review skill), to compare a fixed set of already-named options, or to ideate candidates from scratch.
 license: MIT
 ---
 

@@ -1,22 +1,6 @@
 ---
 name: design-for-agents
-description: >-
-  Use to design, review, or debug software, repos, docs, and SDKs so AI agents
-  can consume them as a first-class audience — agent experience (AX), the
-  agent-facing analog of UX and DX. Covers agent-readable docs (llms.txt,
-  AGENTS.md, SKILL.md, MCP/tool descriptions, RAG/retrieval-friendly structure,
-  chunk survivability, stable anchors), AI/Agent SDK design (streaming, tool use,
-  structured output, agent loops, guardrails, tracing, MCP transport), repo
-  agent-readiness review (AGENTS.md parity, harness mirrors, cold-start
-  examples), and human-vs-agent audience conflicts. The umbrella AX discipline:
-  it routes to codebase-agent-readiness to HARDEN a repo (hooks, gates, sandbox,
-  scaffolds), evidence-driven-agent-rules to PROMOTE observed agent failures into
-  rules, and eval-flywheel to INSTRUMENT an AI product's eval/optimization loops.
-  Triggers on "make our app agent-friendly", "review our llms.txt for agents",
-  "design an Agent SDK", "is this AGENTS.md agent-ready", "agent experience", "AX
-  review". For human-facing developer experience use dx-critique / dx-design; for
-  end-user UX use ux-critique; to scaffold/harden a repo use
-  codebase-agent-readiness.
+description: Use to DESIGN or REVIEW software, docs, SDKs, and repos so AI agents can consume them as a first-class audience — agent experience (AX), the agent-facing analog of UX and DX. Covers agent-readable docs (llms.txt, AGENTS.md, MCP and tool descriptions, RAG-friendly structure), AI and Agent SDK design (streaming, tools, structured output, agent loops, tracing), repo agent-readiness review, and human-versus-agent audience conflicts. The umbrella AX discipline — it routes to codebase-agent-readiness to HARDEN a repo, evidence-driven-agent-rules to PROMOTE observed failures into rules, and eval-flywheel to INSTRUMENT an AI product's eval loops. Triggers on 'make our app agent-friendly', 'review our llms.txt for agents', 'design an Agent SDK', 'is this AGENTS.md agent-ready', 'AX review'. Do NOT use for human developer experience (use dx-critique or dx-design), end-user UX (use ux-critique), or to actually scaffold a repo's gates and hooks (use codebase-agent-readiness).
 license: MIT
 ---
 

@@ -10,16 +10,20 @@ permissions:
 
 jobs:
   static-checks:
-    runs-on: self-hosted
+    # GitHub-hosted runner (was self-hosted; that runner went offline and every
+    # run startup-failed at 0s, blocking the required check). The pinned
+    # node:22-bookworm-slim container keeps the toolchain identical regardless of
+    # host, so the checks run exactly as before — just on infra that exists.
+    runs-on: ubuntu-latest
     container:
       image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
       options: >-
         --user root
         --security-opt no-new-privileges
     env:
-      # Self-hosted runners persist between jobs. Keep tool state inside the
-      # per-job container filesystem so global git/npm/cache writes do not
-      # bleed into the host runner or the next run.
+      # Pin tool state under /tmp inside the container so steps never depend on a
+      # writable HOME/cache default (defensive; also kept clean state on the
+      # former self-hosted runner, which persisted between jobs).
       HOME: /tmp/gha-home
       XDG_CACHE_HOME: /tmp/gha-cache
       XDG_CONFIG_HOME: /tmp/gha-config

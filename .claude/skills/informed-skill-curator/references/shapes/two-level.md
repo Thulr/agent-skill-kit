@@ -152,10 +152,42 @@ Wire `run-static-checks.sh` into `just check` and a CI job.
 
 Plan for 10+ positive and 8+ negative when the skill is published.
 
+## Going deeper (depth ≥3)
+
+The two-level pattern is the **recursion base case**, not a ceiling.
+When a skill genuinely has three or more orthogonal axes (intent ×
+surface × persona, mode × topic × stage, etc.), repeat the layering:
+each `references/intents/<intent>.csv` row can name a child registry
+CSV that routes the next axis, ending in leaf playbooks.
+
+```text
+references/
+  intent-router.csv               # axis 1
+  intents/<intent>.csv            # axis 2 per intent
+  <intent>/<subintent>.csv        # axis 3 per (intent, subintent)
+  ...
+  playbooks/<surface>.md          # leaves (canonical sections)
+  core/<shared-rubric>.md         # shared across all depths
+```
+
+Invariants from the two-level pattern apply at **every** layer:
+
+- Every row in every registry differs meaningfully from its siblings
+  (no collapsed axis at any depth).
+- Every leaf playbook follows the canonical section structure above.
+- Shared rubrics live in `references/core/`, reachable from any depth
+  — they do not duplicate per-layer.
+- The static check **auto-derives** the registry chain from disk; do
+  not hardcode depth or surface lists at any layer.
+
+Promote past depth 2 only when a real third axis is doing independent
+work — confirm orthogonality before adding a CSV layer (see
+`references/depth-rubric.md` §Anti-patterns).
+
 ## Anti-patterns
 
-- **One dimension has only 1–2 values.** Collapse to single-layer; the
-  second axis isn't earning its keep.
+- **One dimension has only 1–2 values (at any depth).** Collapse that
+  layer back into its parent — the axis isn't earning its keep.
 - **Playbooks that don't follow the uniform structure.** Static check
   catches this; fix the playbook, don't loosen the check.
 - **Detail in `SKILL.md` that should be in a playbook.** SKILL.md is
@@ -164,4 +196,8 @@ Plan for 10+ positive and 8+ negative when the skill is published.
   objects.** Loses the per-source grounding metadata that future
   contributors need.
 - **Hardcoded surface lists in static-check or registry validation.**
-  Auto-derive from disk so a new surface is a two-file change.
+  Auto-derive from disk so a new surface is a two-file change — and
+  the same applies at every depth.
+- **Adding a deeper layer because "we can."** Depth is content-driven;
+  without a real new axis doing independent work, an extra CSV layer
+  is just overhead.

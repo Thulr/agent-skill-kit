@@ -33,7 +33,7 @@ Path:
 Fallback (if `docs/audits/` is unwritable):
 `audit-artifacts/research-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 
-Use [`templates/findings-ledger.md`](../templates/findings-ledger.md)
+Use [`templates/opportunity/findings-ledger.md`](../../templates/opportunity/findings-ledger.md)
 as the starting point. Each finding is one row with: ID, area,
 severity, confidence, claim (one line), evidence (citation or
 artifact reference), F-A-D-R category, mitigation / next test, owner,

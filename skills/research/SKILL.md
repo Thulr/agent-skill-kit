@@ -11,8 +11,8 @@ description: >-
   economics, or legal risk, build a risk register, or produce a decision memo.
   Do not use for reviewing existing artifacts like prompts, plans, specs, or
   personas (use the matching -red-team or -review skill), comparing a fixed set
-  of named options (use tradeoff-analysis), or ideating candidates from scratch
-  (use brainstorming).
+  of already-named options, or ideating candidates from scratch (both out of
+  scope for research — reach for a dedicated comparison or ideation tool).
 license: MIT
 ---
 

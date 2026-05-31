@@ -8,8 +8,8 @@ recovery) but not its practice — each peer differs by **substrate** (what the
 audience reads), **success metric** (what "good" optimizes for), and **cost of
 error** (re-clickable for UX, contract-permanent for DX, silent-at-scale for AX).
 Content-ops is the cross-cutting closure layer, not a fourth audience. See
-[ADR 0007](../../../../../docs/adr/0007-experience-disciplines-are-audience-peers.md)
-for the full model and [ADR 0006](../../../../../docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)
+[ADR 0007](../../../../docs/adr/0007-experience-disciplines-are-audience-peers.md)
+for the full model and [ADR 0006](../../../../docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)
 for why AX is packaged as its own skill while dx/ux stay routed domains.
 
 Use this matrix before recommending changes to multi-audience documentation. The

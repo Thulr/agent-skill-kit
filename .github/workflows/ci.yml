@@ -130,6 +130,14 @@ jobs:
         shell: bash
         run: bash scripts/check-shared-content.sh
 
+      - name: Check routing CSVs
+        shell: bash
+        run: bash scripts/check-routing-csv.sh
+
+      - name: Check doc links
+        shell: bash
+        run: python3 scripts/check-doc-links.py
+
       - name: Test destructive-bash hook
         shell: bash
         run: |

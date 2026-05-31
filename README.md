@@ -12,6 +12,8 @@ npx skills add Thulr/informed-skills
 
 [skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
 
+**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-critique` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `design-for-agents`. Every skill names the cited sources it applied, so you can check the work.
+
 The current catalog focuses on software engineering, coding-agent operations,
 developer experience, documentation experience, test quality, architecture,
 systems performance and observability, user-facing product UX / accessibility,
@@ -44,7 +46,7 @@ the published install surface today.
 
 ## Skills
 
-### Heuristic critique & design (per domain × function)
+### Heuristic critique & design — dx · docs · perf · test · ux · ui · architecture
 
 Source-grounded heuristics for software surfaces, split so the skill name says
 what it does. A **`-critique`** skill audits, debugs, or risk-scans an *existing*
@@ -221,32 +223,13 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 
 Skills marked internal in frontmatter (`metadata.internal: true`) are hidden unless `INSTALL_INTERNAL_SKILLS=1` is set when using the CLI.
 
-## Authoring
+## Contributing
 
-Create a new skill template:
-
-```bash
-npx skills init my-skill
-```
-
-Move the resulting folder under `skills/` for product work. Keep `skills/.experimental/` empty unless a future release explicitly reopens experimental distribution. Each skill needs valid YAML frontmatter with at least `name` and `description`.
-
-Installable skills in this repository use `skill.json.status: "published"`; prerelease caveats belong to the repository release tag, not per-skill draft status.
-
-Validate the repository before publishing or handing off changes:
-
-```bash
-just check
-```
-
-When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/reflection-log/`](./docs/reflection-log/) by copying `_template.md` to `YYYY-MM-DD-<slug>.md`. **The recording bar is low**: if you can write a non-trivial `## What to do differently` section, log it. The "three entries describing the same gap" threshold gates *promoting* the pattern into a rule, hook, or `AGENTS.md` sentence — not recording. See [`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for the full workflow.
-
-## Development
-To install a skill from this checkout into `~/.agents/skills`:
-
-```bash
-npx --yes skills add . --skill <skill-name> --agent cline --global --copy -y
-```
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for adding or changing a skill, the
+`just check` gate that must pass before every commit and PR, the reflection-log
+workflow, and how to install a local checkout while developing. Work in this repo
+starts from [`AGENTS.md`](./AGENTS.md), and changes are tracked in
+[`CHANGELOG.md`](./CHANGELOG.md).
 
 ## License
 

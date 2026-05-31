@@ -49,6 +49,36 @@ done
 artifact_count=$(find "$skill_dir/templates/opportunity/artifacts" -maxdepth 1 -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 (( artifact_count == 14 )) || fail "expected 14 opportunity area artifacts, found $artifact_count"
 
+# ----- Opportunity routing integrity (every CSV path token must resolve) -----
+# The opportunity sub-tree was relocated under references/opportunity/ +
+# templates/opportunity/ during the research merge; its router/intents CSVs
+# once carried pre-move paths (references/intents/*, templates/*) that resolved
+# to nothing. This validates every references//templates/ token in the
+# intent-router and its intent CSVs (registry_file, default_template, playbook,
+# core_refs, artifact_template, output_template) against the skill on disk.
+while IFS= read -r missing; do
+  [[ -n "$missing" ]] && fail "opportunity routing CSV points at missing path: $missing"
+done < <(python3 - "$skill_dir" <<'PYEOF'
+import csv, os, re, sys, glob
+skill = sys.argv[1]
+pathlike = re.compile(r'^(references|templates)/[A-Za-z0-9_./-]+\.(csv|md)$')
+csvs = [os.path.join(skill, 'references/opportunity/intent-router.csv')] + \
+       sorted(glob.glob(os.path.join(skill, 'references/opportunity/intents/*.csv')))
+for p in csvs:
+    if not os.path.exists(p):
+        continue
+    with open(p, newline='') as fh:
+        for row in csv.DictReader(fh):
+            for v in row.values():
+                if not v:
+                    continue
+                for tok in v.split(';'):
+                    tok = tok.strip()
+                    if pathlike.match(tok) and not os.path.exists(os.path.join(skill, tok)):
+                        print(tok)
+PYEOF
+)
+
 # ----- SKILL.md frontmatter + word-count gate -----
 if [[ -f "$skill_md" ]]; then
   head -1 "$skill_md" | grep -q '^---$' || fail "SKILL.md missing YAML frontmatter delimiter (---)"

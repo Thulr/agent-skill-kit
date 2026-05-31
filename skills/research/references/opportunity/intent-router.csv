@@ -1,5 +1,5 @@
 intent,name,when_to_use,registry_file,default_template
-scope,Scope Research,"Pick which research areas matter for this opportunity at this stage; produce a research plan, not findings.",references/intents/scope.csv,templates/scope-plan.md
-investigate,Investigate Area,"Execute deep research in one area (or all in-scope areas via fan-out); produce a per-area artifact + investigation brief.",references/intents/investigate.csv,templates/investigation-brief.md
-synthesize,Synthesize Findings,"Roll up 3+ area artifacts into one decision-ready cross-area brief.",references/intents/synthesize.csv,templates/cross-area-brief.md
-decide,Decide Go/No-Go,"Fold investigated areas into Facts / Assumptions / Decisions / Risks; emit go / no-go / pivot with kill criteria.",references/intents/decide.csv,templates/fadr-memo.md
+scope,Scope Research,"Pick which research areas matter for this opportunity at this stage; produce a research plan, not findings.",references/opportunity/intents/scope.csv,templates/opportunity/scope-plan.md
+investigate,Investigate Area,Execute deep research in one area (or all in-scope areas via fan-out); produce a per-area artifact + investigation brief.,references/opportunity/intents/investigate.csv,templates/opportunity/investigation-brief.md
+synthesize,Synthesize Findings,Roll up 3+ area artifacts into one decision-ready cross-area brief.,references/opportunity/intents/synthesize.csv,templates/opportunity/cross-area-brief.md
+decide,Decide Go/No-Go,Fold investigated areas into Facts / Assumptions / Decisions / Risks; emit go / no-go / pivot with kill criteria.,references/opportunity/intents/decide.csv,templates/opportunity/fadr-memo.md

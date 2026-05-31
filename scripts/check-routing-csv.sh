@@ -59,6 +59,22 @@ sys.exit(0)
 PY
 }
 
+# Drop git-ignored paths: a contributor's local skill clutter (e.g. a `bmad*`
+# pack dropped under `.agents/skills/`, excluded by .gitignore) is not a release
+# artifact and must not gate `just check`. Mirrors check-release-contract.py's
+# `_git_ignored` filter. CI runs on a clean checkout, so this is a no-op there.
+filter_unignored() {
+  local all ignored
+  all="$(cat)"
+  [[ -z "$all" ]] && return 0
+  ignored="$(printf '%s\n' "$all" | git check-ignore --stdin 2>/dev/null || true)"
+  if [[ -z "$ignored" ]]; then
+    printf '%s\n' "$all"
+  else
+    printf '%s\n' "$all" | grep -vxF -f <(printf '%s\n' "$ignored")
+  fi
+}
+
 failed=0
 checked=0
 
@@ -76,7 +92,7 @@ done < <(
       \( -name '*-router.csv' -o -path '*/intents/*.csv' \) -print
     [[ -d .agents/skills ]] && find .agents/skills -type f \
       \( -name '*-router.csv' -o -path '*/intents/*.csv' \) -print
-  } | sort -u
+  } | sort -u | filter_unignored
 )
 
 if [[ $checked -eq 0 ]]; then

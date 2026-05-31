@@ -117,11 +117,17 @@ on context-file evals, the OpenTelemetry GenAI conventions, and the AX/DX/UX
 documentation synthesis (full provenance in
 [`skills/agent-experience/skill.json`](./skills/agent-experience/skill.json)).
 
-Install just this skill:
+Install the umbrella with its three implementation arms (so the harden / promote
+/ instrument routes resolve to installed skills):
 
 ```bash
-npx skills add Thulr/informed-skills --skill agent-experience
+npx skills add Thulr/informed-skills --skill agent-experience \
+  --skill project-agentification --skill evidence-driven-agent-rules --skill eval-flywheel
 ```
+
+`agent-experience` installs standalone too, but on its own it is **review-only**:
+its build/harden/measure routes point at the arm skills above, so install those
+alongside it to use the full discipline.
 
 ### project-agentification
 

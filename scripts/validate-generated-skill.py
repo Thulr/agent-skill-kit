@@ -361,7 +361,11 @@ def check_layer_orthogonality(
     for depth_idx, layer in enumerate(layers):
         for csv_path in layer:
             rows = read_csv(csv_path)
-            if depth_idx >= 1 and len(rows) < 3:
+            # Every CSV layer, including the root (depth 0) registry of a
+            # single-layer skill or the top-level intent axis of a deeper one,
+            # must carry ≥3 differentiated routes — a 1–2 row layer is a
+            # collapsed axis that should be flattened, not routed.
+            if len(rows) < 3:
                 report.add(
                     SEVERITY_BLOCKING,
                     "registry layer dimension",

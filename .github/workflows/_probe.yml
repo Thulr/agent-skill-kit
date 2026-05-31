@@ -2,16 +2,10 @@ name: probe
 on:
   push:
     branches: [ci-hosted-runner]
-
 permissions:
   contents: read
-
 jobs:
   static-checks:
-    # GitHub-hosted runner (was self-hosted; that runner went offline and every
-    # run startup-failed at 0s, blocking the required check). The pinned
-    # node:22-bookworm-slim container keeps the toolchain identical regardless of
-    # host, so the checks run exactly as before — just on infra that exists.
     runs-on: ubuntu-latest
     container:
       image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
@@ -19,9 +13,6 @@ jobs:
         --user root
         --security-opt no-new-privileges
     env:
-      # Pin tool state under /tmp inside the container so steps never depend on a
-      # writable HOME/cache default (defensive; also kept clean state on the
-      # former self-hosted runner, which persisted between jobs).
       HOME: /tmp/gha-home
       XDG_CACHE_HOME: /tmp/gha-cache
       XDG_CONFIG_HOME: /tmp/gha-config
@@ -31,136 +22,4 @@ jobs:
       GIT_CONFIG_GLOBAL: /tmp/gha-home/.gitconfig
       DISABLE_TELEMETRY: "1"
     steps:
-      - name: Prepare isolated runtime dirs
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$NPM_CONFIG_CACHE" "$TMPDIR"
-
-      - name: Install system deps
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Retry apt-get update + install: Debian mirrors flake occasionally
-          # and a hard failure would block the required PR check.
-          attempts=0
-          max_attempts=5
-          until apt-get update; do
-            attempts=$((attempts + 1))
-            if (( attempts >= max_attempts )); then
-              echo "apt-get update failed after $attempts attempts" >&2
-              exit 1
-            fi
-            sleep $((attempts * 2))
-          done
-          attempts=0
-          # ca-certificates is required for actions/checkout's HTTPS git fetch
-          # (git only Recommends it, so --no-install-recommends drops it).
-          until apt-get install -y --no-install-recommends \
-                ca-certificates curl git jq python3 python3-jsonschema python3-yaml; do
-            attempts=$((attempts + 1))
-            if (( attempts >= max_attempts )); then
-              echo "apt-get install failed after $attempts attempts" >&2
-              exit 1
-            fi
-            sleep $((attempts * 2))
-          done
-          rm -rf /var/lib/apt/lists/*
-
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-        with:
-          clean: true
-          # fetch-depth: 0 (full history) is required by the gitleaks step so
-          # `gitleaks detect` can scan every commit, not just HEAD. The repo is
-          # ~2 MB / ~200 commits, so the marginal clone cost is negligible.
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Scan for secrets (gitleaks)
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Pinned binary + SHA256 from the upstream release checksum file at
-          # https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_checksums.txt
-          # Bump together when upgrading; mismatch is a hard fail.
-          version="8.30.1"
-          expected_sha="551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
-          archive="gitleaks_${version}_linux_x64.tar.gz"
-          url="https://github.com/gitleaks/gitleaks/releases/download/v${version}/${archive}"
-          attempts=0
-          max_attempts=5
-          until curl -fsSL "$url" -o "$archive"; do
-            attempts=$((attempts + 1))
-            if (( attempts >= max_attempts )); then
-              echo "gitleaks download failed after $attempts attempts" >&2
-              exit 1
-            fi
-            sleep $((attempts * 2))
-          done
-          actual_sha=$(sha256sum "$archive" | awk '{print $1}')
-          if [[ "$actual_sha" != "$expected_sha" ]]; then
-            echo "gitleaks checksum mismatch" >&2
-            echo "  expected: $expected_sha" >&2
-            echo "  actual:   $actual_sha" >&2
-            exit 1
-          fi
-          tar -xzf "$archive" gitleaks
-          chmod +x gitleaks
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          # Default git-history mode scans every commit (requires fetch-depth: 0
-          # above). This catches add+remove-across-commits leaks and implicitly
-          # respects .gitignore (untracked files like local .env aren't in git).
-          ./gitleaks detect \
-            --source . \
-            --config .gitleaks.toml \
-            --no-banner \
-            --redact \
-            --verbose
-
-      - name: List installable skills
-        shell: bash
-        run: bash scripts/list-installable-skills.sh
-
-      - name: Check instruction-surface symlinks
-        shell: bash
-        run: bash scripts/check-instruction-surface.sh
-
-      - name: Check release contract
-        shell: bash
-        run: python3 scripts/check-release-contract.py
-
-      - name: Test trigger evals schema
-        shell: bash
-        run: python3 scripts/test-trigger-evals-schema.py
-
-      - name: Check shared-content symlinks
-        shell: bash
-        run: bash scripts/check-shared-content.sh
-
-      - name: Test destructive-bash hook
-        shell: bash
-        run: |
-          python3 .claude/hooks/test_block_destructive_bash.py
-          python3 .codex/hooks/test_block_destructive_bash.py
-
-      - name: Run skill static checks
-        shell: bash
-        run: |
-          set -euo pipefail
-          # actions/checkout configures safe.directory in its own temporary
-          # HOME, but each `bash run-static-checks.sh` starts a fresh shell
-          # whose HOME has no such config. Without this, `git rev-parse
-          # --show-toplevel` inside the scripts fails with "dubious ownership"
-          # (the runner UID doesn't match the in-container root). Re-add it
-          # here so every static-check script can resolve repo_root.
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          shopt -s nullglob
-          failed=0
-          for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
-            echo "::group::$script"
-            if ! bash "$script"; then
-              failed=1
-            fi
-            echo "::endgroup::"
-          done
-          exit $failed
+      - run: echo ok

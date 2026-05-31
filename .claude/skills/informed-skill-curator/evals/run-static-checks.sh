@@ -48,8 +48,10 @@ check_pattern 'registry routing' 'intent-router\.csv' "$skill_md"
 check_pattern 'published status contract' 'status` to `published`' "$skill_md"
 check_pattern 'repo tag maturity contract' 'repository tag' "$skill_md"
 check_pattern 'five-phase workflow named' 'five (named )?phases' "$skill_md"
-check_pattern 'phase 1 intake' 'Phase 1 . Intake' "$skill_md"
-check_pattern 'phase 5 validate' 'Phase 5 . Validate' "$skill_md"
+# `.*` (not a single `.`) so the em-dash in "Phase 1 — Intake" matches under a
+# C/POSIX-locale GNU grep too, where `.` matches one byte and the em-dash is 3.
+check_pattern 'phase 1 intake' 'Phase 1.*Intake' "$skill_md"
+check_pattern 'phase 5 validate' 'Phase 5.*Validate' "$skill_md"
 check_pattern 'hard gate language' '(hard phase gate|hard user-confirmation|hard gates between)' "$skill_md"
 
 check_pattern 'flat route renamed' '^create-flat,' "$registry"

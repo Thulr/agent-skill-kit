@@ -10,6 +10,6 @@ jobs:
     container:
       image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
     env:
-      GIT_CONFIG_GLOBAL: /tmp/gha-home/.gitconfig
+      DISABLE_TELEMETRY: "1"
     steps:
       - run: echo ok

@@ -6,3 +6,5 @@ docs/superpowers/
 __pycache__/
 *.pyc
 skills-lock.json
+/_bmad/
+bmad*

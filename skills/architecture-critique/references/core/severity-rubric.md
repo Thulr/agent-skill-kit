@@ -1,0 +1,1 @@
+../../../_shared/architecture/core/severity-rubric.md

@@ -55,7 +55,7 @@ jobs:
           # ca-certificates is required for actions/checkout's HTTPS git fetch
           # (git only Recommends it, so --no-install-recommends drops it).
           until apt-get install -y --no-install-recommends \
-                ca-certificates git jq python3 python3-jsonschema; do
+                ca-certificates curl git jq python3 python3-jsonschema python3-yaml; do
             attempts=$((attempts + 1))
             if (( attempts >= max_attempts )); then
               echo "apt-get install failed after $attempts attempts" >&2
@@ -68,8 +68,52 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           clean: true
-          fetch-depth: 1
+          # fetch-depth: 0 (full history) is required by the gitleaks step so
+          # `gitleaks detect` can scan every commit, not just HEAD. The repo is
+          # ~2 MB / ~200 commits, so the marginal clone cost is negligible.
+          fetch-depth: 0
           persist-credentials: false
+
+      - name: Scan for secrets (gitleaks)
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Pinned binary + SHA256 from the upstream release checksum file at
+          # https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_checksums.txt
+          # Bump together when upgrading; mismatch is a hard fail.
+          version="8.30.1"
+          expected_sha="551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+          archive="gitleaks_${version}_linux_x64.tar.gz"
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${version}/${archive}"
+          attempts=0
+          max_attempts=5
+          until curl -fsSL "$url" -o "$archive"; do
+            attempts=$((attempts + 1))
+            if (( attempts >= max_attempts )); then
+              echo "gitleaks download failed after $attempts attempts" >&2
+              exit 1
+            fi
+            sleep $((attempts * 2))
+          done
+          actual_sha=$(sha256sum "$archive" | awk '{print $1}')
+          if [[ "$actual_sha" != "$expected_sha" ]]; then
+            echo "gitleaks checksum mismatch" >&2
+            echo "  expected: $expected_sha" >&2
+            echo "  actual:   $actual_sha" >&2
+            exit 1
+          fi
+          tar -xzf "$archive" gitleaks
+          chmod +x gitleaks
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # Default git-history mode scans every commit (requires fetch-depth: 0
+          # above). This catches add+remove-across-commits leaks and implicitly
+          # respects .gitignore (untracked files like local .env aren't in git).
+          ./gitleaks detect \
+            --source . \
+            --config .gitleaks.toml \
+            --no-banner \
+            --redact \
+            --verbose
 
       - name: List installable skills
         shell: bash

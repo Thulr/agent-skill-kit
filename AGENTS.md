@@ -36,7 +36,7 @@ install lanes that any path-based gate **must** enumerate:
 - `skills/<name>/` — published skills
 - `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
   release explicitly reopens experimental distribution
-- `.agents/skills/<name>/` — repo-local agent surface (skill-curator, skill-reviewer)
+- `.agents/skills/<name>/` — repo-local agent surface (informed-skill-curator, informed-skill-reviewer)
 
 ## Commands
 
@@ -45,6 +45,10 @@ install lanes that any path-based gate **must** enumerate:
   tests, and every `evals/run-static-checks.sh` across all three install lanes.
   **Must pass before commit and before PR.**
 - `just test` — alias for `just check` today; reserved for future per-skill tests.
+- `just install-hooks` — installs the [`pre-commit`](https://pre-commit.com)
+  framework (if missing) and wires the `gitleaks` secret-scanning hook into
+  `.git/hooks/pre-commit`. Runs an initial scan against the working tree.
+  Optional for contributors; CI runs the same scan unconditionally.
 - `bash scripts/list-installable-skills.sh` — lists installable skills locally;
   same pinned `skills` CLI call CI uses.
 - `bash scripts/check-shared-content.sh` — verifies every skill symlink into
@@ -71,7 +75,7 @@ CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](.
 
 Every skill under `skills/` or `skills/.experimental/` must ship:
 
-- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 800 words.
+- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 1200 words.
 - `skill.json` with `name`, `status: "published"` for installable skills,
   `maintainers` (resolvable GitHub handles, see Rule 4), and a non-empty
   `inspired_by` list. Use repository release tags (for example
@@ -244,6 +248,34 @@ is harness-agnostic; thin per-harness adapters under `.claude/hooks/`,
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the
 agent.
+
+## Secret scanning
+
+[`gitleaks`](https://github.com/gitleaks/gitleaks) v8.30.1 scans for committed
+credentials, API keys, and other high-entropy secrets using the upstream default
+ruleset, extended via [`.gitleaks.toml`](./.gitleaks.toml).
+
+- **CI gate.** The `Scan for secrets (gitleaks)` step in the `static-checks`
+  job runs `gitleaks detect` over the full git history on every PR and push
+  to `main` (requires `fetch-depth: 0` on the checkout). The binary is
+  downloaded from the pinned upstream release and verified against the
+  published SHA256 before it runs. A finding is a hard fail and blocks
+  merge.
+- **Local pre-commit.** `just install-hooks` installs the
+  [`pre-commit`](https://pre-commit.com) framework and wires up the gitleaks
+  hook (config: [`.pre-commit-config.yaml`](./.pre-commit-config.yaml)) so
+  leaks are caught before commit. Optional but recommended — the CI gate is
+  the load-bearing safety net for contributors who skip it.
+- **False positives.** Add an `[[allowlists]]` block in `.gitleaks.toml`
+  with `paths`, `regexes`, `stopwords`, or `commits`, and reference the
+  path/PR that needed the exception. Never allowlist a pattern "just in
+  case" — each entry silently disables real coverage.
+- **Bumping the pin.** The version is pinned in two places:
+  [`.pre-commit-config.yaml`](./.pre-commit-config.yaml) (`rev:`) and
+  [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) (`version` and
+  `expected_sha`). Update both together; run `pre-commit autoupdate` to bump
+  the hook locally, then refetch the checksum from the upstream release page
+  (`gitleaks_<version>_checksums.txt`) for the CI pin.
 
 ## Ownership and review
 

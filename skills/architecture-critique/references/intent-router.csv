@@ -1,0 +1,2 @@
+intent,name,when_to_use,registry_file,default_template
+audit,Architecture Audit,"Reviewing an existing codebase or module for clean-architecture violations","references/intents/audit.csv","templates/audit-report.md"

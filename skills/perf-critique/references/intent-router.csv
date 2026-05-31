@@ -1,0 +1,3 @@
+intent,name,when_to_use,registry_file,default_template
+audit,Perf and Observability Audit,"Reviewing an existing system or surface for perf / observability posture, gaps, or score","references/intents/audit.csv","templates/audit-report.md"
+diagnose,Diagnose Symptom,"A specific incident, regression, or symptom (p99 spike, throughput cliff, cardinality blowup, error-budget burn)","references/intents/diagnose.csv","templates/diagnose-runbook.md"

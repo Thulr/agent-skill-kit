@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+design,Architecture Design,"Proposing layer boundaries, ports, adapters, or context split for new work","references/intents/design.csv","templates/design-doc.md"
+refactor,Architecture Refactor,"Planning a sequenced, safe path from a tangled state toward cleaner boundaries","references/intents/refactor.csv","templates/refactor-runbook.md"
+explain,Architecture Explainer,"Explaining a principle, pattern, or distinction grounded in the canonical sources","references/intents/explain.csv","templates/explanation.md"

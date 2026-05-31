@@ -1,0 +1,3 @@
+scenario,intent,surface,prompt
+quickstart-redesign,design,dx-docs,Design a README and quickstart that gets developers to first success quickly.
+docs-telemetry-plan,measure,foundations,"Define documentation metrics, CI gates, and feedback loops for our docs program."

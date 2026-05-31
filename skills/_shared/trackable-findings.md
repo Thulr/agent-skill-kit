@@ -29,12 +29,12 @@ Every trackable finding gets a stable ID:
 
 Examples:
 
-- `CA-DEP-001` for clean-architecture dependency-rule findings.
-- `CA-BOUNDARY-004` for clean-architecture boundary findings.
+- `CA-DEP-001` for architecture-critique dependency-rule findings.
+- `CA-BOUNDARY-004` for architecture-critique boundary findings.
 - `AG-GATES-003` for project-agentification gate findings.
-- `DX-CLI-002` for dx-heuristics CLI findings.
-- `TEST-UNIT-004` for test-heuristics unit-test findings.
-- `SR-SOURCE-001` for skill-reviewer source-safety findings.
+- `DX-CLI-002` for dx-critique CLI findings.
+- `TEST-UNIT-004` for test-critique unit-test findings.
+- `SR-SOURCE-001` for informed-skill-reviewer source-safety findings.
 - `ED-L4L5-001` for evidence-driven-agent-rules maturity gaps.
 
 IDs are immutable once emitted. If a finding is split, keep the original as
@@ -81,8 +81,8 @@ Ledger files are Markdown and use this path by default:
 `docs/audits/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 
 The filename must start with the full skill name, for example
-`clean-architecture-findings-ledger-2026-05-19-payments.md` or
-`ux-heuristics-findings-ledger-2026-05-19-checkout.md`. If the target is not a
+`dx-critique-findings-ledger-2026-05-19-payments.md` or
+`project-agentification-findings-ledger-2026-05-19-gates.md`. If the target is not a
 repo or `docs/audits/` is not writable, fall back to
 `audit-artifacts/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and report the fallback path. Save workflow-state JSON alongside the ledger by

@@ -1,0 +1,1 @@
+../../../_shared/docs/core/severity-rubric.md

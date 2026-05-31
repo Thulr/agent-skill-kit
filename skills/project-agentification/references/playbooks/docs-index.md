@@ -16,6 +16,10 @@ the agent can treat as ground truth.
 Together these surfaces let an agent answer "where is this?" and "what does this repo look like?"
 in a single, token-efficient pass rather than an open-ended crawl.
 
+Use `docs-critique` / `docs-design` instead when the target is a public docs/help
+system serving developers, end users, or agents; keep this playbook focused on
+repo-local navigation artifacts for coding agents.
+
 ## Why it matters for agents
 
 - **llms.txt eliminates hallucinated endpoints.** Agents given a flat index of curated, plain-text

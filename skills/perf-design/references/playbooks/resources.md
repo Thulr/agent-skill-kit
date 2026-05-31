@@ -1,0 +1,1 @@
+../../../_shared/perf/playbooks/resources.md

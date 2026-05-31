@@ -1,0 +1,2 @@
+intent,name,when_to_use,registry_file,default_template
+design,DX Design,"Designing or shaping a new surface from scratch","references/intents/design.csv","templates/design-doc.md"

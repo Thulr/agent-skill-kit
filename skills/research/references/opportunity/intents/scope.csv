@@ -1,0 +1,16 @@
+surface,name,when_to_use,playbook,core_refs
+market,Market Scope,Decide whether market sizing/growth/structure is in scope at this stage.,references/opportunity/playbooks/market.md,references/opportunity/core/decision-gates.md
+customer,Customer Scope,Decide whether customer pain/JTBD work is in scope.,references/opportunity/playbooks/customer.md,references/opportunity/core/decision-gates.md
+competitive,Competitive Scope,Decide whether direct/substitute/do-nothing mapping is in scope.,references/opportunity/playbooks/competitive.md,references/opportunity/core/decision-gates.md
+domain,Domain Scope,Decide whether domain glossary/workflow/actor work is in scope.,references/opportunity/playbooks/domain.md,references/opportunity/core/decision-gates.md
+technical,Technical Scope,Decide whether feasibility/architecture/build-vs-buy is in scope.,references/opportunity/playbooks/technical.md,references/opportunity/core/decision-gates.md
+data,Data Scope,Decide whether data inventory/access/quality is in scope.,references/opportunity/playbooks/data.md,references/opportunity/core/confidence-rubric.md
+operational,Operational Scope,Decide whether delivery/support/staffing work is in scope.,references/opportunity/playbooks/operational.md,references/opportunity/core/decision-gates.md
+financial,Financial Scope,Decide whether unit-economics modeling is in scope.,references/opportunity/playbooks/financial.md,references/opportunity/core/decision-gates.md
+legal,Legal Scope,Decide whether legal/compliance/IP/privacy inventory is in scope.,references/opportunity/playbooks/legal.md,references/opportunity/core/decision-gates.md
+channel,Channel Scope,Decide whether channel discovery/economics work is in scope.,references/opportunity/playbooks/channel.md,references/opportunity/core/decision-gates.md
+gtm,GTM Scope,Decide whether positioning/messaging/launch work is in scope.,references/opportunity/playbooks/gtm.md,references/opportunity/core/decision-gates.md
+stakeholder,Stakeholder Scope,Decide whether buyer/user/approver mapping is in scope (B2B / enterprise).,references/opportunity/playbooks/stakeholder.md,references/opportunity/core/decision-gates.md
+risk,Risk Scope,Decide whether the risk register / kill-criteria work is in scope.,references/opportunity/playbooks/risk.md,references/opportunity/core/severity-rubric.md
+trend,Trend Scope,Decide whether trend / horizon / timing work is in scope.,references/opportunity/playbooks/trend.md,references/opportunity/core/decision-gates.md
+all,All Areas (Stage-Aware),Recommend the first-pass subset based on stage (pre-idea / idea / build / launch / scale).,references/opportunity/playbooks/market.md;references/opportunity/playbooks/customer.md;references/opportunity/playbooks/competitive.md;references/opportunity/playbooks/domain.md;references/opportunity/playbooks/technical.md;references/opportunity/playbooks/financial.md,references/opportunity/core/decision-gates.md

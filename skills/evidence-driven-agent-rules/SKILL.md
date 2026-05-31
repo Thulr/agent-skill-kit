@@ -216,6 +216,8 @@ live in the shared `references/empirical-warnings.md` (symlink to
 
 ## See also
 
+- `agent-experience` — the umbrella AX discipline; this skill is its
+  evidence/feedback-loop arm (the `promote-rules` route hands off here).
 - `project-agentification` — scaffolds the project-context-first
   AGENTS.md this skill's `promote` intent adds rules to. Pair them.
 - `skills/_shared/empirical-warnings.md` — W2–W10.

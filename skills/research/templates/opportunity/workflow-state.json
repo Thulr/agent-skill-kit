@@ -1,0 +1,79 @@
+{
+  "schema_version": "1",
+  "skill": "research",
+  "opportunity_slug": "<short-slug>",
+  "opportunity_statement": "<one-line>",
+  "stage": "pre-idea | idea | validation | build | launch | scale",
+  "lead": "<name>",
+  "scope": {
+    "areas_in_scope": ["market", "customer", "competitive", "domain", "technical", "financial"],
+    "areas_deferred": [
+      {"area": "legal", "reason": "<…>", "revisit_at": "<stage / milestone>"}
+    ],
+    "scope_plan_path": "<path to scope-plan.md>"
+  },
+  "investigations": [
+    {
+      "area": "market",
+      "artifact_path": "<path>",
+      "completed_at": "<ISO>",
+      "lead_persona": "investor",
+      "confidence_overall": "H",
+      "next_test": {"description": "<…>", "owner": "<…>", "deadline": "<ISO>"}
+    },
+    {
+      "area": "customer",
+      "artifact_path": "<path>",
+      "completed_at": "<ISO>",
+      "lead_persona": "founder",
+      "confidence_overall": "M",
+      "next_test": {"description": "<…>", "owner": "<…>", "deadline": "<ISO>"}
+    }
+  ],
+  "synthesis": {
+    "cross_area_brief_path": "<path>",
+    "produced_at": "<ISO>",
+    "top_facts": ["<F-1>", "<F-2>", "<F-3>"],
+    "top_assumptions": [
+      {"id": "OR-customer-002", "description": "<…>", "leverage": "high", "test": "<…>", "owner": "<…>", "deadline": "<ISO>", "confidence": "M"}
+    ],
+    "top_risks": [
+      {"id": "OR-risk-001", "description": "<…>", "severity": 4, "likelihood": "Med", "category": "platform", "mitigation": "<…>", "owner": "<…>", "status": "kill-criterion"}
+    ],
+    "open_contradictions": [
+      {"id": "OR-contradiction-001", "claim": "<…>", "view_a": "<…>", "view_b": "<…>", "resolving_test": "<…>"}
+    ]
+  },
+  "decision_gate": {
+    "status": "pending | Go | Conditional-Go | No-Go | Pivot | Defer",
+    "decided_at": "<ISO or null>",
+    "fadr_memo_path": "<path or null>",
+    "kill_criteria": [
+      {"id": "KC-1", "observable": "<…>", "deadline": "<ISO>", "witness": "<name>", "linked_risk": "OR-risk-001"}
+    ],
+    "review_trigger": "<event>",
+    "defer_evidence_by_date": null
+  },
+  "findings": [
+    {
+      "id": "OR-market-001",
+      "area": "market",
+      "severity": 2,
+      "likelihood": "Med",
+      "confidence": "H",
+      "fadr": "Fact",
+      "claim": "<…>",
+      "evidence": "<link>",
+      "mitigation": "<…>",
+      "owner": "<name>",
+      "status": "resolved",
+      "last_review": "<ISO>",
+      "linked_artifact": "<path>"
+    }
+  ],
+  "activity_log": [
+    {"date": "<ISO>", "action": "scope", "by": "<name>", "notes": "<link>"},
+    {"date": "<ISO>", "action": "investigate:market", "by": "<name>", "notes": "<link>"}
+  ],
+  "closeout": null
+}

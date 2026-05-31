@@ -1,0 +1,2 @@
+id,scenario,intent,surface,persona,when_to_pick
+S4,Designing a new SDK from scratch — want to lock the public shape before code is written,design,sdk,integrator,"Pre-implementation design check; you want heuristics applied to the shape, not the code"

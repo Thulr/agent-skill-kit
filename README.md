@@ -13,135 +13,121 @@ npx skills add Thulr/informed-skills
 [skills.sh](https://skills.sh) will prompt you to pick which skills to install. Per-skill install commands below; full options under [Install](#install).
 
 The current catalog focuses on software engineering, coding-agent operations,
-developer experience, test quality, architecture, systems performance and
-observability, user-facing product UX / accessibility, and UI design craft.
+developer experience, documentation experience, test quality, architecture,
+systems performance and observability, user-facing product UX / accessibility,
+UI design craft, and agent experience (designing repos, docs, and SDKs for AI
+agents).
 Other source-grounded domains can be added later, but they are not part of
 the published install surface today.
 
 ## Which skill should I use?
 
-| User need | Skill | vs neighbor |
+| User need | Skill | How it routes |
 |---|---|---|
-| Developer-facing APIs, SDKs, CLIs, docs, setup, errors, auth, telemetry, or onboarding | `dx-heuristics` | vs `ux-accessibility-heuristics` — `dx-heuristics` is the developer integrating; `ux-accessibility-heuristics` is the end user of the product. vs `perf-observability-heuristics` — `dx-heuristics` covers developer-inner-loop perf (local install, cold start, edit-test-debug); `perf-observability-heuristics` covers production / CI-farm runtime. |
-| Unit/integration/e2e/property/contract/snapshot/mutation/performance test quality | `test-heuristics` | vs `perf-observability-heuristics` — test-heuristics covers performance-*test* design (load tests, benchmarks as tests); `perf-observability-heuristics` covers the production system being tested. |
-| User-facing product UX, forms, navigation, checkout/signup friction, WCAG/accessibility basics | `ux-accessibility-heuristics` | vs `ui-design-craft` — `ux-accessibility-heuristics` *audits* an existing interface against usability and WCAG heuristics; `ui-design-craft` *creates and polishes* the visual artifact. vs `dx-heuristics` — `ux-accessibility-heuristics` is end users; `dx-heuristics` is developers integrating your API/SDK. |
-| Visual UI polish, frontend mockups, prototypes, design systems, motion, decks, or handoff | `ui-design-craft` | vs `ux-accessibility-heuristics` — `ui-design-craft` produces the artifact; `ux-accessibility-heuristics` audits it. Pair them when you need both. |
-| Dependency direction, ports/adapters, DDD, bounded contexts, architecture refactors | `clean-architecture` | vs `dx-heuristics` — `clean-architecture` is *internal* code structure (dependency direction, layering); `dx-heuristics` is *external* developer-facing interface design. vs `ux-accessibility-heuristics` — code architecture only; product UX routes there. |
-| Systems performance, observability, SLOs, p99/tail-latency, profiling, capacity, RED/USE/Four-Golden-Signals, distributed tracing, instrumentation strategy | `perf-observability-heuristics` | vs `dx-heuristics` — production / CI-farm runtime is owned by infra/platform → `perf-observability-heuristics`; developer-inner-loop perf on the developer's own machine → `dx-heuristics`. vs `test-heuristics` — `perf-observability-heuristics` is the live system; `test-heuristics` is the perf-test design. |
-| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
-| Record observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification` and add this skill later. |
+| **Critique** an existing software surface — audit, debug, or risk-scan: developer experience (APIs/SDKs/CLIs/dev-docs/setup/errors/auth/telemetry), documentation, systems performance & observability, test suites, product UX & accessibility, or code architecture | `dx-critique` · `docs-critique` · `perf-critique` · `test-critique` · `ux-critique` · `architecture-critique` | Pick the skill matching the surface; each routes intent (audit/debug/diagnose/…) × surface, dispatches reviewer lenses, scores by severity, and emits a findings report (+ optional tracking ledger). |
+| **Design or build** a new software surface — design/author/refactor/optimize/produce: APIs/SDKs/CLIs, documentation IA, perf & SLO instrumentation, test suites, code architecture, **or** visual UI (dashboards, design systems, prototypes, decks) | `dx-design` · `docs-design` · `perf-design` · `test-design` · `architecture-design` · `ui-design` | Pick the skill matching what you're building; each names a good-shaped pattern and emits a design doc / plan / runbook (or, for `ui-design`, the UI artifact itself), grounded in cited heuristics. |
+| Source-cited research: an open-ended topic report, **or** validating a named product/market/feature opportunity to a go/no-go | `research` | Pick the **frame**: `report` (primer / literature review / "research X for me", no decision) or `opportunity` (validate a named idea across 14 areas → F/A/D/R go/no-go/pivot). |
+| Design, review, or debug for AI agents as a consumer audience: agent-readable docs (llms.txt, AGENTS.md, MCP/tool descriptions, RAG/retrieval), AI/Agent SDK design (streaming, tools, structured output, agent loops, tracing), repo agent-readiness review, human-vs-agent audience conflicts | `agent-experience` | The **umbrella AX discipline**. Owns the AX review heuristics; routes to its three arms for the *doing* — `project-agentification` (harden a repo), `evidence-driven-agent-rules` (promote failures into rules), `eval-flywheel` (instrument loops). |
+| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | The repo-hardening **arm** of `agent-experience`. vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
+| Capture observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | The evidence/feedback **arm** of `agent-experience`. vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification`. |
+| Audit an AI app/agent's feedback loops, score them on the Optimization Staircase, and scaffold the smallest useful eval/optimization loop | `eval-flywheel` | The instrument-the-loop **arm** of `agent-experience`. vs the two agent-readiness skills — those harden *a repository* so coding agents work in it; `eval-flywheel` instruments *an AI product/agent you ship* so its outputs feed a measured loop (the model is the product). |
 
 **Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
 
-- *"Make our docs better"* — who's the audience? Humans using the product → `ux-accessibility-heuristics`; developers integrating it → `dx-heuristics`; coding agents reading the repo → `project-agentification`.
+- *"Make our docs better"* — auditing existing documentation → `docs-critique`; planning or reshaping docs IA → `docs-design`; developer-facing API/SDK friction beyond docs → `dx-critique`; humans using the product UI → `ux-critique`. Agent-readable docs (llms.txt, retrieval-friendly structure, chunk survivability) → `agent-experience`. Coding agents operating inside the repo → `project-agentification`.
+- *"Audit / review this"* (DX vs docs vs perf vs test vs UX vs architecture) — pick the matching `<domain>-critique` skill (`dx-critique` / `docs-critique` / `perf-critique` / `test-critique` / `ux-critique` / `architecture-critique`) for the surface.
 - *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
-- *"Our service is slow" / "our dashboards aren't useful" / "design SLOs"* — production system → `perf-observability-heuristics`; developer's own machine (local install time, cold start, edit-test-debug cycle) → `dx-heuristics`.
+- *"Our service is slow" / "design SLOs"* — diagnosing a slow or incident-y production system → `perf-critique`; designing SLOs / instrumentation / a profile-first optimization → `perf-design`; the developer's own machine (local install, cold start, edit-test-debug) → `dx-critique`.
+- *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `eval-flywheel`.
+- *"Make our app agent-friendly" / "design an Agent SDK" / "is our AGENTS.md agent-ready" / "review our llms.txt for agents"* — the **agent-experience** umbrella: it reviews the AX surface (agent-readable docs, AI/Agent SDK, repo readiness) and routes to `project-agentification` to harden the repo, `evidence-driven-agent-rules` to promote failures into rules, or `eval-flywheel` to instrument loops.
+- *"Research X"* — open-ended topic (primer, literature review, state-of-the-art) → `research` (`report` frame); validate a named product/business opportunity (go/no-go) → `research` (`opportunity` frame); comparing a fixed set of already-named options is out of scope for `research` (reach for a dedicated comparison/decision-matrix tool).
 
 ## Skills
 
-### dx-heuristics
+### Heuristic critique & design (per domain × function)
 
-Practical developer-experience review, design, debugging, and edge-case pass for any surface a developer has to install, call, debug, extend, test, or maintain — APIs, SDKs, CLIs, docs, errors, setup, inner-loop, migrations, contracts, contributor flows, auth, IDE integration, plugins, performance, and telemetry.
+Source-grounded heuristics for software surfaces, split so the skill name says
+what it does. A **`-critique`** skill audits, debugs, or risk-scans an *existing*
+surface (expert lenses → severity-scored findings report, with an optional
+tracking ledger); a **`-design`** skill shapes a *new* one (names the
+good-shaped pattern → design doc / plan / runbook). Pick the skill that matches
+your surface and whether you're reviewing or building.
 
-Grounded in canonical DX/UX literature (Norman's *Design of Everyday Things*, Nielsen's heuristics, Bloch's *How to Design a Good API*, and more — full provenance in [`skills/dx-heuristics/skill.json`](./skills/dx-heuristics/skill.json)). Routes by intent (`audit` / `design` / `debug` / `edge-pass`) and surface, then dispatches three parallel reviewer lenses (first-time integrator, maintainer, adversarial debugger) so feedback isn't single-perspective.
+| Domain | Critique an existing surface | Design / build a new one |
+|---|---|---|
+| Developer experience — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-critique` | `dx-design` |
+| Documentation experience — README/quickstarts, API refs, help centers, OpenAPI/MCP tool contracts | `docs-critique` | `docs-design` |
+| Systems performance & observability — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity | `perf-critique` | `perf-design` |
+| Test-suite quality — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-critique` | `test-design` |
+| Product UX & accessibility — usability, forms, navigation/IA, error/recovery, WCAG | `ux-critique` | *(to build UI → `ui-design`)* |
+| Visual UI craft — dashboards, design systems/tokens, prototypes, motion, slide decks, handoff | *(to audit usability → `ux-critique`)* | `ui-design` |
+| Clean architecture — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts | `architecture-critique` | `architecture-design` |
+
+Grounded in 120+ cited sources (Norman, Nielsen, Bloch, Gregg, the Google SRE
+book, Kleppmann, WCAG 2.2, Martin, Evans, and many more — per-skill provenance
+in each `skill.json`). A domain's `-critique` and `-design` skills share their
+heuristic playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`,
+so the pair stays in lockstep without drift. (These twelve skills replaced the
+merged `review-heuristics` skill — see
+[`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).)
+
+Install a domain's pair:
+
+```bash
+npx skills add Thulr/informed-skills --skill dx-critique --skill dx-design
+```
+
+### research
+
+Source-grounded research in **two decision-frames**. `report` — open-ended
+research on a topic with citations and no decision attached (primer, literature
+review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`).
+`opportunity` — validate a named product/business/market/feature opportunity
+across 14 areas (market, customer, competitive, domain, technical, data,
+operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending
+in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area.
+
+Every load-bearing claim is cited or marked as inference (report frame); every
+branch ends in a decision, not a note (opportunity frame). Grounded in
+canonical literature-review, product, strategy, and venture literature (full
+provenance in [`skills/research/skill.json`](./skills/research/skill.json)).
 
 Install just this skill:
 
 ```bash
-npx skills add Thulr/informed-skills --skill dx-heuristics
+npx skills add Thulr/informed-skills --skill research
 ```
 
-### test-heuristics
+### agent-experience
 
-Practical test-suite review, design, triage, strategy, and pruning across unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Core principle: *a test exists to catch the bugs that ship in this code class — and to be diagnosable when it fails.*
+The **umbrella agent-experience (AX) discipline** — designing, reviewing, and
+debugging software, repos, docs, and SDKs for AI agents as a first-class consumer
+audience (the agent-facing analog of UX and DX). It owns the AX review heuristics
+and routes to its three implementation arms for the *doing*.
 
-Grounded in canonical testing literature (full provenance in [`skills/test-heuristics/skill.json`](./skills/test-heuristics/skill.json)). Routes by intent (`triage` / `review` / `author` / `strategize` / `prune`) and surface, with the same parallel-lens discipline used by `dx-heuristics`.
+| Owns (review / design / debug) | Routes to (the doing) |
+|---|---|
+| Agent-readable docs (`llms.txt`, AGENTS.md, MCP/tool descriptions, RAG/retrieval, chunk survivability); AI/Agent SDK design (streaming, tools, structured output, agent loops, guardrails, tracing, MCP transport); repo agent-readiness review; human-vs-agent audience conflicts | `project-agentification` (harden a repo) · `evidence-driven-agent-rules` (promote observed failures into rules) · `eval-flywheel` (instrument eval/optimization loops) |
 
-Install just this skill:
+Standalone rather than a per-domain critique/design skill because it is a distinct
+discipline that routes *across* top-level skills (see
+[`docs/adr/0006`](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)).
+Grounded in the AGENTS.md convention, the Model Context Protocol, Mündler et al.
+on context-file evals, the OpenTelemetry GenAI conventions, and the AX/DX/UX
+documentation synthesis (full provenance in
+[`skills/agent-experience/skill.json`](./skills/agent-experience/skill.json)).
+
+Install the umbrella with its three implementation arms (so the harden / promote
+/ instrument routes resolve to installed skills):
 
 ```bash
-npx skills add Thulr/informed-skills --skill test-heuristics
+npx skills add Thulr/informed-skills --skill agent-experience \
+  --skill project-agentification --skill evidence-driven-agent-rules --skill eval-flywheel
 ```
 
-### ux-accessibility-heuristics
-
-Practical user-facing UX and accessibility review for product interfaces,
-forms, navigation, onboarding, checkout/signup flows, error/recovery states,
-keyboard access, focus, semantics, contrast, and dark-pattern risk.
-
-Grounded in usability literature and WCAG 2.2 (full provenance in
-[`skills/ux-accessibility-heuristics/skill.json`](./skills/ux-accessibility-heuristics/skill.json)).
-Routes by intent (`usability-audit` / `accessibility-audit` / `form-review`
-/ `navigation-review` / `error-recovery`) and distinguishes likely WCAG issues
-from checks that need manual or specialist confirmation.
-
-Install just this skill:
-
-```bash
-npx skills add Thulr/informed-skills --skill ux-accessibility-heuristics
-```
-
-### ui-design-craft
-
-Practical UI design craft for product screens, frontend mockups, prototypes,
-design systems, decks, motion/effects, host-integrated artifacts, handoff, and
-anti-slop visual review. Use it when the work needs visible design direction or
-a runnable artifact, not only a usability/accessibility inspection.
-
-Grounded in project-local design workflow notes plus canonical usability,
-accessibility, and design-system sources (full provenance in
-[`skills/ui-design-craft/skill.json`](./skills/ui-design-craft/skill.json)).
-Routes by intent (`product-ui` / `design-system` / `prototype` / `deck` /
-`motion-scene` / `host-handoff` / `quality-review`) and supports guided,
-autopilot, or question-heavy design modes.
-
-Install just this skill:
-
-```bash
-npx skills add Thulr/informed-skills --skill ui-design-craft
-```
-
-### perf-observability-heuristics
-
-Practical review, design, diagnosis, optimization, and program-level strategy
-for systems performance and observability across backend services, distributed
-systems, the browser / network tier, and database performance internals.
-Covers latency budgets, throughput / scalability, resource utilization,
-distributed tracing, structured logs, metrics, and SLO / error-budget
-programs.
-
-Grounded in canonical systems-performance, SRE, and observability literature
-spanning Gregg, the Google SRE book, Kleppmann, Gunther, Jain, Sridharan,
-Majors/Fong-Jones/Miranda, Sigelman et al. (Dapper), Dean & Barroso (Tail at
-Scale), Little, Wilkie (RED), Tene (coordinated omission), Grigorik, Souders,
-and Winand (full provenance in
-[`skills/perf-observability-heuristics/skill.json`](./skills/perf-observability-heuristics/skill.json)).
-Routes by intent (`audit` / `design` / `diagnose` / `optimize` / `strategize`)
-× surface (`latency` / `throughput` / `resources` / `tracing` / `logs` /
-`metrics` / `slos`), and dispatches three parallel reviewer lenses (on-call /
-SRE, profiler / workload, capacity-planner).
-
-DB-internals coverage is performance-only (index strategy, query plans, lock
-contention, connection pooling); schema design, normalization, and migration
-safety are reserved for a future `data-modeling-heuristics` skill.
-
-Install just this skill:
-
-```bash
-npx skills add Thulr/informed-skills --skill perf-observability-heuristics
-```
-
-### clean-architecture
-
-Audit, design, refactor toward, or explain clean-architecture concerns — dependency rule, layered/hexagonal/onion boundaries, DDD tactical and strategic patterns, cross-cutting concerns. Language-agnostic, full-stack-friendly for code architecture; route product UX, forms, navigation, and accessibility to `ux-accessibility-heuristics`.
-
-Routes by intent (`audit` / `design` / `refactor` / `explain`) × surface (`dependency-rule` / `boundaries` / `domain-model` / `bounded-context` / `cross-cutting`); `audit` also supports an `all`-fanout that tries to delegate one agent per surface whenever active user, project, session, or host policy permits parallel sub-agents. Otherwise the same three reviewer lenses run sequentially (dependency-auditor, boundary-designer, refactor-pragmatist) and the host synthesizes them. Grounded in 17 sources spanning Parnas → Cockburn → Palermo → Martin → Evans → Vernon → Fowler → Newman → Khononov → Hohpe & Woolf → Ousterhout + Flux/Elm (full provenance in [`skills/clean-architecture/skill.json`](./skills/clean-architecture/skill.json)).
-
-Install just this skill:
-
-```bash
-npx skills add Thulr/informed-skills --skill clean-architecture
-```
+`agent-experience` installs standalone too, but on its own it is **review-only**:
+its build/harden/measure routes point at the arm skills above, so install those
+alongside it to use the full discipline.
 
 ### project-agentification
 
@@ -167,6 +153,19 @@ Install just this skill:
 npx skills add Thulr/informed-skills --skill evidence-driven-agent-rules
 ```
 
+### eval-flywheel
+
+Audit a workspace's AI integrations, map them onto the **AI Optimization Staircase** (L1 system-prompt learning → L2 subroutine compilation → L3 sandbox + repair harness → L4 system benchmarking), score the loop mechanics that are missing, and scaffold the smallest useful eval/optimization loop. **For teams shipping an AI product or agent** who are still iterating on prompts by feel and want to move onto metric-driven reliability work.
+
+Diagnostic-first: presents a Loop Readiness Matrix (signal / interpreter / change surface / cadence / stop-rollback / owner) before recommending a tier, and never auto-writes learned rules without held-out evals + reviewed diff. Grounded in DSPy (Khattab et al.), Reflexion (Shinn et al.), Terminal-Bench / SWE-bench-style system benchmarks, and the feedback-loop eval/observability practice cluster (full provenance in [`skills/eval-flywheel/skill.json`](./skills/eval-flywheel/skill.json)).
+
+Install just this skill:
+
+```bash
+npx skills add Thulr/informed-skills --skill eval-flywheel
+```
+
+
 ## Install
 
 From GitHub:
@@ -179,14 +178,14 @@ Install specific skills or target agents:
 
 ```bash
 npx skills add Thulr/informed-skills --list
-npx skills add Thulr/informed-skills --skill dx-heuristics --skill other-skill
+npx skills add Thulr/informed-skills --skill dx-critique --skill dx-design
 npx skills add Thulr/informed-skills -a claude-code -a cursor -y
 ```
 
 From a subdirectory URL (single skill):
 
 ```bash
-npx skills add https://github.com/Thulr/informed-skills/tree/main/skills/dx-heuristics
+npx skills add https://github.com/Thulr/informed-skills/tree/main/skills/dx-critique
 ```
 
 Local checkout:
@@ -241,6 +240,13 @@ just check
 ```
 
 When an AI coding agent trips on this repo — wastes tokens, edits the wrong file, hallucinates a convention — record it in [`docs/reflection-log/`](./docs/reflection-log/) by copying `_template.md` to `YYYY-MM-DD-<slug>.md`. **The recording bar is low**: if you can write a non-trivial `## What to do differently` section, log it. The "three entries describing the same gap" threshold gates *promoting* the pattern into a rule, hook, or `AGENTS.md` sentence — not recording. See [`docs/reflection-log/README.md`](./docs/reflection-log/README.md) for the full workflow.
+
+## Development
+To install a skill from this checkout into `~/.agents/skills`:
+
+```bash
+npx --yes skills add . --skill <skill-name> --agent cline --global --copy -y
+```
 
 ## License
 

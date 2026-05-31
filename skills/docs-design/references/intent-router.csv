@@ -1,0 +1,3 @@
+intent,name,when_to_use,registry_file,default_template
+design,Docs Experience Design,"Plan or reshape documentation IA, help strategy, examples, agent docs, or API/tool contract docs before implementation","references/intents/design.csv","templates/design-doc.md"
+measure,Docs Experience Measurement,"Define telemetry, CI gates, sample tests, retrieval evals, feedback loops, or success metrics for documentation quality","references/intents/measure.csv","templates/measurement-plan.md"

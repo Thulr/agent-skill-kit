@@ -8,4 +8,5 @@ and rollback.
 
 - `adding-a-skill.md`
 - `changing-shared-schemas.md`
+- `renaming-or-removing-a-skill.md`
 

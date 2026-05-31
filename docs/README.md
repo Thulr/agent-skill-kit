@@ -15,3 +15,7 @@ Other docs in this repo:
 - `docs/reflection-log/` — per-failure entries; the evidence base that governs new rules/gates (see its `README.md` for the recording-bar vs. promotion-bar distinction)
 - `docs/agent-readiness-2026-05-15.md` — historical assessment (may be stale)
 
+**Dated docs** (reflection-log entries, older `docs/specs/`, research reports) use
+the skill names current at their date; see [`CHANGELOG.md`](../CHANGELOG.md) for
+renames and removals. They are point-in-time records and are not rewritten.
+

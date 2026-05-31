@@ -20,25 +20,16 @@ jobs:
       options: >-
         --user root
         --security-opt no-new-privileges
-    env:
-      # Pin tool state under /tmp inside the container so steps never depend on a
-      # writable HOME/cache default (defensive; also kept clean state on the
-      # former self-hosted runner, which persisted between jobs).
-      HOME: /tmp/gha-home
-      XDG_CACHE_HOME: /tmp/gha-cache
-      XDG_CONFIG_HOME: /tmp/gha-config
-      NPM_CONFIG_CACHE: /tmp/gha-npm-cache
-      npm_config_cache: /tmp/gha-npm-cache
-      TMPDIR: /tmp/gha-tmp
-      GIT_CONFIG_GLOBAL: /tmp/gha-home/.gitconfig
-      DISABLE_TELEMETRY: "1"
+    # No job-level env / "prepare dirs" step here. Those pinned HOME / XDG /
+    # npm-cache / TMPDIR / GIT_CONFIG_GLOBAL under /tmp to keep the *self-hosted*
+    # runner clean between persistent jobs. On an ephemeral GitHub-hosted runner
+    # the container is discarded after the job, so the container defaults (root's
+    # /root home + caches) are fine — and that env block, combined with the
+    # container `options`, tripped GitHub's workflow startup validation (the run
+    # failed at 0s with 0 jobs and a generic "workflow file issue", which is what
+    # had silently disabled CI). Steps run as root, so apt + git config --global
+    # + npx all work against the defaults.
     steps:
-      - name: Prepare isolated runtime dirs
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$NPM_CONFIG_CACHE" "$TMPDIR"
-
       - name: Install system deps
         shell: bash
         run: |

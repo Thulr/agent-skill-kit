@@ -10,9 +10,7 @@ jobs:
     container:
       image: node:22-bookworm-slim@sha256:6ed70fbf60557fb3a2faea5657d4105bace34c93449c2571919a1589fae30153
     env:
-      HOME: /tmp/gha-home
-      XDG_CACHE_HOME: /tmp/gha-cache
-      XDG_CONFIG_HOME: /tmp/gha-config
-      NPM_CONFIG_CACHE: /tmp/gha-npm-cache
+      npm_config_cache: /tmp/gha-npm-cache
+      TMPDIR: /tmp/gha-tmp
     steps:
       - run: echo ok

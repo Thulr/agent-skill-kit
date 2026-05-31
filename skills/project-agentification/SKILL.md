@@ -131,7 +131,7 @@ Cross-cutting warnings W2–W10 live in `references/empirical-warnings.md` (syml
 - `references/core/maturity-rubric.md` — Levels 1–3 (Engineering Agents). Levels 4–5 live in `evidence-driven-agent-rules`.
 - `references/core/severity-rubric.md` — 0–4 severity scale.
 - `references/empirical-warnings.md` — W2–W10 (symlink to `skills/_shared/empirical-warnings.md`). W1 lives in `evidence-driven-agent-rules`.
-- `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement; points to `review-heuristics` (architecture domain) for boundary design.
+- `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement; points to `architecture-design` (and `architecture-critique`) for boundary design.
 - `references/trackable-findings.md` — shared ledger, roadmap, GitHub issue, workflow-state, and verification closeout workflow.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me contract (symlink to `skills/_shared/modes.md`).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.

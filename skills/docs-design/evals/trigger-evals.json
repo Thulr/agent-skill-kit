@@ -1,0 +1,21 @@
+{
+  "skill": "docs-design",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "we're building a new product and have no docs yet — design the documentation information architecture, the mode taxonomy, and where the source of truth lives for each fact class", "should_activate": true, "expected_route": "design/foundations", "category": "positive"},
+    {"query": "design the structure of our developer docs from scratch — README, quickstart, reference, and a cookbook — for an SDK shipping in python, node, and go", "should_activate": true, "expected_route": "design/dx-docs", "category": "positive"},
+    {"query": "what should our MCP tool descriptions and structured error envelope look like so agents call the right tool and retry safely? design the contract docs before we ship", "should_activate": true, "expected_route": "design/api-contracts", "category": "positive"},
+    {"query": "design the in-product help and onboarding for a new feature — empty states, tooltips, and a help-center IA — before engineering builds it", "should_activate": true, "expected_route": "design/ux-help", "category": "positive"},
+    {"query": "our human docs and our agent docs keep pulling in different directions — design a resolution so one source can serve both without one audience losing", "should_activate": true, "expected_route": "design/audience-conflicts", "category": "positive"},
+    {"query": "define how we measure docs quality — time-to-first-hello-world, sample freshness, zero-result search rate — with thresholds, owners, and what each number triggers", "should_activate": true, "expected_route": "measure/dx-docs", "category": "positive"},
+    {"query": "set up the docs-as-code CI gates and accessibility checks for our docs program — what blocks merge, what feedback loop turns weak signals into backlog items?", "should_activate": true, "expected_route": "measure/foundations", "category": "positive"},
+    {"query": "we want a retrieval eval and a tool-call success metric for our agent-facing docs — design how to measure schema-description quality and error-code coverage", "should_activate": true, "expected_route": "measure/api-contracts", "category": "positive"},
+    {"query": "measure help-center deflection and onboarding activation, and tie article-helpfulness signals to an owner and an action — define the metric contract", "should_activate": true, "expected_route": "measure/ux-help", "category": "positive"},
+    {"query": "our quickstart has 9 steps and new devs keep getting stuck at auth — audit this existing README and tell me where people fall off and how bad each gap is", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "support keeps getting tickets that our refund example throws a 400 because the snippet is stale — diagnose why this keeps happening", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our agent keeps calling the wrong MCP tool because two descriptions are nearly identical — debug which one is wrong and what to tighten", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design a lower-friction consumer signup flow — the visual UI and form steps for general buyers, not docs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "claude code keeps tripping on our repo — wrong test commands, stale AGENTS.md, blocked pushes. design how to make the repo agent-ready", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this typescript function to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

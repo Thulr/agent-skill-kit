@@ -1,0 +1,1 @@
+../../../_shared/dx/core/score-rubric.md

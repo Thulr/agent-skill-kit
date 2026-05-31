@@ -229,7 +229,7 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 **Prompt:** `Our consumer signup form has a 60% drop-off rate. Reduce friction.`
 
-**Expected:** skill declines; routes the user to `review-heuristics` (ux domain) if visible.
+**Expected:** skill declines; routes the user to `ux-critique` if visible.
 
 **Fail if:** produces a prompt optimization plan for a form-completion task.
 
@@ -251,6 +251,6 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 **Prompt:** `Audit our docs site for developer experience issues.`
 
-**Expected:** skill defers to `review-heuristics` (dx domain). Same disambiguation rule as E1.
+**Expected:** skill defers to `docs-critique`. Same disambiguation rule as E1.
 
 **Fail if:** runs Step 1 Audit on docs (no AI integration points to find).

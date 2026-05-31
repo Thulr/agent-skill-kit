@@ -11,9 +11,9 @@ still be a terrible business because it's painful to operate.
   paths, runbooks / SOPs, QA and review steps, staffing assumptions,
   training requirements, vendor ops and handoffs, monitoring and
   observability of the *business* (not the system — see
-  `review-heuristics` `perf`), failure-mode analysis.
+  `perf-critique` / `perf-design`), failure-mode analysis.
 - Out: technical architecture (`technical.md`), unit economics
-  (`financial.md`), production / SRE perf (`review-heuristics` `perf`),
+  (`financial.md`), production / SRE perf (`perf-critique` / `perf-design`),
   legal contracts (`legal.md`).
 - Intents this surface answers: scope, investigate, synthesize, decide.
 

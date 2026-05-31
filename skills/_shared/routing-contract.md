@@ -21,7 +21,7 @@ selects which sub-tree to descend into. One row per domain/frame.
 
 | CSV | Columns | Used by |
 |---|---|---|
-| `domain-router.csv` | `domain,name,when_to_use,path` | `review-heuristics` |
+| `domain-router.csv` | `domain,name,when_to_use,path` | — (retired with the review-heuristics split; no current skill uses a domain layer) |
 | `frame-router.csv` | `frame,name,when_to_use,path` | `research` |
 
 `path` is the `references/<sub-tree>/` the route descends into; that sub-tree

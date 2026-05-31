@@ -1,6 +1,13 @@
 # ADR 0005: One-Engine-Many-Surfaces Skills Are Routed, Not Split
 
-**Status:** Accepted (2026-05-28)
+**Status:** Superseded in part (2026-05-30) by
+[ADR 0008](./0008-reverse-review-consolidation-split-by-domain-and-function.md),
+which reverses the **review-family** consolidation (`review-heuristics` →
+12 per-domain × per-function skills). What still stands: the research-frame
+consolidation (`research` = one skill routed `report | opportunity`) and the
+guidance against fragmenting an already-routed engine (`project-agentification`
+stays whole). 0008's `_shared/<domain>/` single-sourcing is how the split keeps
+0005's anti-drift property without one skill.
 
 ## Context
 
@@ -72,3 +79,10 @@ intent → surface — not as sibling skills and not split per surface.
 
 - **2026-05-28:** Original decision (this ADR). Triggered by a catalog-wide
   restructure; see `docs/specs/2026-05-28-catalog-consolidation/`.
+- **2026-05-30:** Superseded in part by
+  [ADR 0008](./0008-reverse-review-consolidation-split-by-domain-and-function.md).
+  The merged `review-heuristics` name described only the critique intent while
+  most intents produce artifacts; the consolidation also produced opaque/
+  misleading skill names and an all-or-nothing install. 0008 splits it back into
+  12 domain×function skills and keeps the anti-drift property via
+  `_shared/<domain>/` single-sourcing.

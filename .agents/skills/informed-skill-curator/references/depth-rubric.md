@@ -117,7 +117,7 @@ better).
 
 - **Flat:** `skills/example-minimal/` (or any single-file skill).
 - **Single-layer:** most user-facing skills with one intent registry.
-- **Two-level:** `skills/dx-heuristics/` (intent: audit/design/debug/edge-pass
+- **Two-level:** `skills/dx-critique/` (intent: audit/debug/edge-pass
   × surface: api/sdk/cli/docs/errors/...).
 - **Deeper:** none in this repo yet. When the first skill genuinely
   needs depth ≥3, add a worked example here and write a matching

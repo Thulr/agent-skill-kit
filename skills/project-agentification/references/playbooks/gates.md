@@ -210,7 +210,7 @@ Every harness in the inventory needs its own row in the scaffold's gate enumerat
   CI-caught violation as a missing hook test case.
 - **H5.** Agent repeatedly violates architectural boundaries → rank: (1) no boundary checks exist
   (dependency direction, forbidden imports, cycle detection); (2) checks exist but are not required
-  in CI; (3) boundary model is ambiguous — use `review-heuristics` (architecture domain) to define the boundary model,
+  in CI; (3) boundary model is ambiguous — use `architecture-design` to define the boundary model,
   then gate it.
 
 ## Empirical warnings

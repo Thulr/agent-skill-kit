@@ -1,0 +1,194 @@
+{
+  "name": "docs-design",
+  "description": "Heuristic DESIGN and MEASUREMENT of documentation experience — shape a new developer-docs, end-user help, or agent-readable surface from scratch (information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, API/tool-contract docs, error-copy shape, versioning, accessibility baseline), or define the telemetry, CI gates, sample tests, retrieval evals, feedback loops, and success metrics that keep docs true, grounded in canonical documentation literature. Emits a design doc with a concrete proposed structure and acceptance criteria, or a measurement plan with signals, thresholds, owners, and actions. To AUDIT or debug existing docs use docs-critique; for end-user visual UI use ux-critique; for repo-level agent hardening / AGENTS.md use agent-experience.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": [
+    "@Thulr"
+  ],
+  "tags": [
+    "design",
+    "measure",
+    "docs",
+    "documentation",
+    "documentation-experience",
+    "information-architecture",
+    "dx-docs",
+    "ux-help",
+    "ax-docs",
+    "agent-docs",
+    "readme",
+    "quickstart",
+    "api-reference",
+    "examples",
+    "changelog",
+    "help-center",
+    "onboarding",
+    "microcopy",
+    "error-copy",
+    "llms-txt",
+    "mcp",
+    "openapi",
+    "rag",
+    "retrieval",
+    "docs-as-code",
+    "telemetry",
+    "accessibility",
+    "heuristics"
+  ],
+  "inspired_by": [
+    {
+      "name": "Research Report — Effective Documentation Patterns and Practices for DX, AX, and UX",
+      "author": "Informed Skills research synthesis",
+      "kind": "research report",
+      "year": 2026,
+      "contribution": "Primary synthesis for the skill's cross-audience frame: shared foundations, DX/UX/AX divergences, unique AX requirements, and conflict-resolution patterns.",
+      "playbooks": [
+        "all",
+        "foundations",
+        "dx-docs",
+        "ux-help",
+        "api-contracts",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "The Documentation System",
+      "author": "Daniele Procida",
+      "kind": "framework",
+      "contribution": "Four-mode documentation taxonomy and the anti-mixing rule for tutorials, how-to guides, reference, and explanation.",
+      "playbooks": [
+        "foundations",
+        "dx-docs",
+        "ux-help"
+      ]
+    },
+    {
+      "name": "Docs as Code",
+      "author": "Anne Gentle and Write the Docs contributors",
+      "kind": "guide",
+      "year": 2017,
+      "contribution": "Version control, PR review, automated tests, link checks, and CI as the operational baseline for durable documentation.",
+      "playbooks": [
+        "foundations"
+      ]
+    },
+    {
+      "name": "Information Architecture: For the Web and Beyond",
+      "author": "Rosenfeld, Morville, and Arango",
+      "kind": "book",
+      "year": 2015,
+      "contribution": "Organization, labeling, navigation, search, card sorting, and IA vocabulary for docs systems.",
+      "playbooks": [
+        "foundations",
+        "ux-help",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Web Content Accessibility Guidelines 2.2",
+      "author": "World Wide Web Consortium",
+      "kind": "standard",
+      "year": 2023,
+      "contribution": "Accessibility floor for help and docs: focus visibility, target size, semantic structure, captions, transcripts, and consistent help.",
+      "playbooks": [
+        "foundations",
+        "ux-help"
+      ]
+    },
+    {
+      "name": "Improving API Usability",
+      "author": "Brad Myers and Jeffrey Stylos",
+      "kind": "research article",
+      "year": 2016,
+      "contribution": "Empirical grounding for treating examples as primary developer documentation rather than decorative supplements.",
+      "playbooks": [
+        "dx-docs",
+        "api-contracts"
+      ]
+    },
+    {
+      "name": "How to Design a Good API and Why It Matters",
+      "author": "Joshua Bloch",
+      "kind": "talk",
+      "year": 2006,
+      "contribution": "API design as documentation: self-documenting interfaces, least astonishment, and easy-to-use/hard-to-misuse contracts.",
+      "playbooks": [
+        "dx-docs",
+        "api-contracts"
+      ]
+    },
+    {
+      "name": "OpenAPI Specification 3.1.0",
+      "author": "OpenAPI Initiative",
+      "kind": "specification",
+      "year": 2021,
+      "contribution": "Schema-as-docs model for HTTP APIs, including descriptions and examples that tools and agents consume directly.",
+      "playbooks": [
+        "api-contracts"
+      ]
+    },
+    {
+      "name": "MCP Tool Descriptions Are Smelly!",
+      "author": "Md Hasan and coauthors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Evidence that tool-description quality changes agent task success and that more description can regress behavior when it is not targeted.",
+      "playbooks": [
+        "api-contracts"
+      ]
+    },
+    {
+      "name": "Agent Skills overview",
+      "author": "Anthropic",
+      "kind": "guide",
+      "year": 2025,
+      "contribution": "Progressive disclosure model for agent-readable instructions: metadata always loaded, instructions on trigger, resources on demand.",
+      "playbooks": [
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Evaluating repository-level context files for coding agents",
+      "author": "Gloaguen and coauthors",
+      "kind": "paper",
+      "year": 2026,
+      "contribution": "Empirical caution that maximalist always-loaded context can reduce task success and increase cost; grounds minimal, measured AX docs.",
+      "playbooks": [
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Help and Documentation",
+      "author": "Nielsen Norman Group",
+      "kind": "article",
+      "contribution": "Help in the moment of need, contextual help, and support for both search-first and browse-first help behavior.",
+      "playbooks": [
+        "ux-help",
+        "audience-conflicts"
+      ]
+    },
+    {
+      "name": "Stripe API Errors reference",
+      "author": "Stripe",
+      "kind": "reference",
+      "contribution": "Structured error envelope pattern: machine-readable code, user-facing message, offending parameter, and doc link.",
+      "playbooks": [
+        "api-contracts",
+        "dx-docs"
+      ]
+    },
+    {
+      "name": "Cloudflare documentation for AI tooling",
+      "author": "Cloudflare",
+      "kind": "guide",
+      "year": 2026,
+      "contribution": "Markdown-for-agents, retrieval-friendly content, token budgeting, and content negotiation as a way to serve humans and agents from one source.",
+      "playbooks": [
+        "audience-conflicts",
+        "foundations"
+      ]
+    }
+  ]
+}

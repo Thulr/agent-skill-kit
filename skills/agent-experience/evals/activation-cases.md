@@ -20,14 +20,14 @@ doing.
 ## Negative
 
 - "Refactor this React component." (code change, no agent-experience surface)
-- "Run a usability audit on our checkout flow." (end-user UX → `review-heuristics` ux)
-- "Review the p99 latency of our payments service." (systems perf → `review-heuristics` perf)
+- "Run a usability audit on our checkout flow." (end-user UX → `ux-critique`)
+- "Review the p99 latency of our payments service." (systems perf → `perf-critique`)
 
 ## Edge
 
 - "Make our REST API reference clearer for human developers." → human DX docs;
-  use `review-heuristics` (dx/docs), not AX. Only routes here when the reader is
-  an agent.
+  use `dx-critique` / `docs-critique` (or their `-design` siblings), not AX.
+  Only routes here when the reader is an agent.
 - "Should our product expose an MCP server, and how do we document it for
   agents?" → `repo-readiness` (review); the actual MCP scaffolding is a hand-off
   to `project-agentification`.

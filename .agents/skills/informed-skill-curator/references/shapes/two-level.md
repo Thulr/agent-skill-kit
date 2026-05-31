@@ -4,9 +4,9 @@
 
 The skill's invocation space is genuinely two-dimensional. Each dimension
 is orthogonal to the other, and the leaves at their intersection each need
-distinct content. The canonical example is `skills/dx-heuristics/`:
+distinct content. The canonical example is `skills/dx-critique/`:
 
-- Dimension 1 (intent): audit / design / debug / edge-pass
+- Dimension 1 (intent): audit / debug / edge-pass
 - Dimension 2 (surface): api / sdk / cli / docs / errors / ...
 - Each (intent, surface) leaf loads one playbook plus shared rubrics.
 
@@ -18,7 +18,7 @@ Pick this when:
 - The two axes share rubrics (severity scale, scoring, personas) that
   belong in one shared place.
 
-**Read `skills/dx-heuristics/` end-to-end as the canonical example before
+**Read `skills/dx-critique/` end-to-end as the canonical example before
 scaffolding a two-level skill of your own.** Copying its structure beats
 inventing one.
 
@@ -117,7 +117,7 @@ sections, registry rows pointing at nonexistent files — that a static
 check script becomes necessary, not optional.
 
 `evals/run-static-checks.sh` should verify (see
-`skills/dx-heuristics/evals/run-static-checks.sh` for a working
+`skills/dx-critique/evals/run-static-checks.sh` for a working
 implementation):
 
 - All expected files exist (SKILL.md, skill.json, both registry layers,

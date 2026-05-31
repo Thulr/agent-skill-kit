@@ -34,7 +34,7 @@
 # - `.claude/settings.json`, `.claude/hooks/*`: Claude Code hooks and tests
 #
 # Skills (the product)
-# - `skills/review-heuristics/`: published skill; heuristic review/design/debug across SEVEN domains (dx, docs, perf, test, ux, ui-craft, architecture) routed domain -> intent -> surface; 122 grounding sources; one shared references/review-workflow.md engine
+# - `skills/{dx,docs,perf,test,ux,architecture}-critique/` + `skills/{dx,docs,perf,test,architecture}-design/` + `skills/ui-design/`: 12 published heuristic skills, split per domain x function (critique = audit/debug/risk-scan an existing surface; design = shape a new one). Replaced the merged review-heuristics skill (ADR 0008); each domain's -critique/-design pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
 # - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
 # - `skills/agent-experience/`: published skill; the UMBRELLA agent-experience (AX) discipline — reviews AX surfaces (agent-readable docs/llms.txt, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below; standalone per ADR 0006
 # - `skills/project-agentification/`: published skill; AX repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (no eval prerequisite; scaffolds from project knowledge)

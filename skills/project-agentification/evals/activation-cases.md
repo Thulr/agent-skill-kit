@@ -29,8 +29,8 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 
 ## Negative — should NOT trigger
 
-1. "Audit our public API for DX issues." → `review-heuristics` (dx domain).
-2. "Review the error messages in our CLI." → `review-heuristics` (dx domain).
+1. "Audit our public API for DX issues." → `dx-critique`.
+2. "Review the error messages in our CLI." → `dx-critique`.
 3. "Write a unit test for this function." → general coding.
 4. "Bug fix in `src/foo.py`." → general coding.
 5. "What's the best way to deploy a Next.js app?" → not in scope.
@@ -38,7 +38,7 @@ Positive cases should trigger this skill. Negative cases should NOT trigger it (
 
 ## Edge cases — could be either; ask once
 
-1. "Make our docs better." → could be `review-heuristics` (dx/docs domains) or `project-agentification` (docs-index surface for agents). Ask: "for human readers or for AI agents?"
+1. "Make our docs better." → could be `docs-critique` / `docs-design` or `project-agentification` (docs-index surface for agents). Ask: "for human readers or for AI agents?"
 2. "Add a hook." → could mean Claude Code hook (this skill, `gates` playbook) or generic Git hook. Ask: "Claude Code PreToolUse/PostToolUse hook, or a Git hook?"
 3. "Set up CI for our agent." → overlaps with general DevOps, but activates when the question is about agent-specific gates, runner trust, or required-check enforcement.
 

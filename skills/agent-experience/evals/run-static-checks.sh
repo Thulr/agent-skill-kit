@@ -22,7 +22,7 @@ check_file "$trigger_evals"
 check_file "$activation_cases"
 check_file "$router"
 
-# ----- Umbrella playbooks (relocated from review-heuristics) + AX core refs + template -----
+# ----- AX umbrella playbooks + AX core refs + template -----
 for f in \
   references/playbooks/ax-docs.md \
   references/playbooks/ai-sdk.md \

@@ -12,10 +12,10 @@ and with what risk. This playbook strips wishful thinking — most
   security threat model at a high level, reliability and recovery,
   maintainability over 6–18 months, scalability path.
 - Out: pure code-architecture audit of an existing system
-  (`review-heuristics` `architecture`), DX of the resulting API
-  (`review-heuristics` `dx`), data quality and instrumentation (`data.md`),
+  (`architecture-critique`), DX of the resulting API
+  (`dx-critique` / `dx-design`), data quality and instrumentation (`data.md`),
   ops / SRE runbooks (`operational.md`), perf observability
-  (`review-heuristics` `perf`).
+  (`perf-critique` / `perf-design`).
 - Intents this surface answers: scope, investigate, synthesize, decide.
 
 ## Grounding

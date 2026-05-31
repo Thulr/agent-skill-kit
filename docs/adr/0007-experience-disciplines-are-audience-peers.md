@@ -82,3 +82,12 @@ same reason the peer model beats the nesting model one level down.
 - **2026-05-30:** Original decision (this ADR). Triggered by a maintainer asking
   whether DX is a subset of UX; the answer ("sibling, not subset") had no written
   home, so the model the catalog already assumed is recorded here.
+- **2026-05-30 (later):**
+  [ADR 0008](./0008-reverse-review-consolidation-split-by-domain-and-function.md)
+  splits `review-heuristics` into per-domain × per-function skills. The **peer
+  concept here is unchanged** — UX/DX/AX remain audience-differentiated peers of
+  experience design. Only the *structural* expression updates: where this ADR
+  says 0005 makes `dx`/`ux` "sibling **domains** of one review engine," post-0008
+  they are sibling **skills** (`dx-critique`/`dx-design`/`ux-critique`/…). The
+  audience matrix's canonical home moves with the content (see 0008 / the split
+  spec).

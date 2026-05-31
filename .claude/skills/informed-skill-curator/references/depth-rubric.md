@@ -66,7 +66,7 @@ Signals that a single-layer skill should become two-level:
 
 - **Flat:** `skills/example-minimal/` (or any single-file skill).
 - **Single-layer:** most user-facing skills with one intent registry.
-- **Two-level:** `skills/dx-heuristics/` (intent: audit/design/debug/edge-pass
+- **Two-level:** `skills/dx-critique/` (intent: audit/debug/edge-pass
   × surface: api/sdk/cli/docs/errors/...).
 
 Read the canonical example end-to-end before scaffolding your own at that
@@ -82,5 +82,5 @@ depth — copying structure beats inventing it.
   No routing is happening. Either collapse to flat, or differentiate the
   rows.
 - **Two-level because "it's the canonical shape."** Cargo-culting
-  dx-heuristics on a skill whose space isn't a real 2-axis matrix. Pick
+  dx-critique on a skill whose space isn't a real 2-axis matrix. Pick
   the shape the content asks for, not the prestigious one.

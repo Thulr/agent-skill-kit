@@ -10,8 +10,8 @@ editor-integration surfaces: this playbook covers the surface developers
 consume *through* an agent — Claude Code, Cursor, Codex, Copilot, Windsurf,
 Aider — when that agent is the integrator's daily driver. For the human
 developer-experience surfaces this sits alongside (content structure, editor
-integration, snippet samples, contributor onboarding), see the
-`review-heuristics` **dx** domain (`docs`, `ide`, `examples`, `contributor`).
+integration, snippet samples, contributor onboarding), see
+`dx-critique` / `dx-design` (`docs`, `ide`, `examples`, `contributor`).
 
 ## Grounding
 
@@ -130,10 +130,10 @@ integration, snippet samples, contributor onboarding), see the
 
 - → `ai-sdk.md` (sibling) for designing an AI/Agent SDK that serves agents
   as clients.
-- → `review-heuristics` **dx** domain (`docs`, `ide`, `examples`,
+- → `dx-critique` / `dx-design` (`docs`, `ide`, `examples`,
   `contributor`, `package`) for the human developer-experience surfaces this
   playbook sits alongside.
-- → `review-heuristics` **docs** domain for public docs sites, RAG-friendly
+- → `docs-critique` / `docs-design` for public docs sites, RAG-friendly
   docs, and the full human/agent audience-conflict treatment.
 - → `project-agentification` to actually scaffold and harden `AGENTS.md`,
   hooks, gates, sandbox, and MCP (the doing).

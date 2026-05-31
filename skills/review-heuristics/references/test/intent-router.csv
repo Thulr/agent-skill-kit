@@ -1,6 +1,0 @@
-intent,name,when_to_use,registry_file,default_template
-triage,Test triage,"A specific test is failing, flaky, or unacceptably slow",references/test/intents/triage.csv,templates/test/triage-runbook.md
-review,Test review,"Audit existing tests for quality, smells, redundancy, false-pass risk",references/test/intents/review.csv,templates/test/review-report.md
-author,Test authoring,"Design a new test or test plan for a new feature",references/test/intents/author.csv,templates/test/author-design.md
-strategize,Test strategy,"Decide what to test at which layer; shape the suite as a portfolio",references/test/intents/strategize.csv,templates/test/strategy-doc.md
-prune,Test pruning,"Decide which tests to delete (low value, redundant, characterizing dead code)",references/test/intents/prune.csv,templates/test/prune-plan.md

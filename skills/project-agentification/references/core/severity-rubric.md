@@ -1,6 +1,6 @@
 # Severity Rubric — 0–4
 
-Applied to every finding in `harden`, `scaffold`, `diagnose`, and to each gap in `assess`. Shares the 0–4 scale with `skills/review-heuristics/references/dx/core/severity-rubric.md`; adapted to agent-specific failure language.
+Applied to every finding in `harden`, `scaffold`, `diagnose`, and to each gap in `assess`. Shares the 0–4 scale with `skills/dx-critique/references/core/severity-rubric.md`; adapted to agent-specific failure language.
 
 | Score | Label | Description | Examples |
 |-------|-------|-------------|----------|

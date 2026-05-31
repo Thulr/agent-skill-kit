@@ -65,7 +65,7 @@ if [[ -f "$skill_md" ]]; then
 fi
 
 # ----- SKILL.md source-author leak gate -----
-# Mirrors the review-heuristics domains: no author last name or source title in SKILL.md.
+# Mirrors the per-domain critique/design skills: no author last name or source title in SKILL.md.
 
 author_stoplist=" Foundation Council Parliament Committee Group Working contributors "
 

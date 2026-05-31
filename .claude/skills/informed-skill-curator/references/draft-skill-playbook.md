@@ -14,7 +14,7 @@ skills/<skill-name>/
 
 There is no pack subdirectory — capability pack is recorded in
 `skill.json.tags`, not as a folder. The repo's existing skills
-(`skills/dx-heuristics/`, `skills/example-minimal/`) all follow this
+(`skills/dx-critique/`, `skills/example-minimal/`) all follow this
 convention.
 
 ## SKILL.md Rules
@@ -69,7 +69,7 @@ not "What does this skill do?". Workflow detail belongs in the body.
 
 `skill.json` is user-facing catalog metadata. Match the schema used by
 existing skills in this repo. The canonical example is
-`skills/dx-heuristics/skill.json`. Required fields:
+`skills/dx-critique/skill.json`. Required fields:
 
 ```json
 {
@@ -136,7 +136,7 @@ The eval set depends on the shape:
 Activation cases should include both **positive** cases (correct trigger
 + correct routing) and **negative** cases (near-miss prompts that share
 keywords but should not trigger). See
-`skills/dx-heuristics/evals/activation-cases.md` for a worked example
+`skills/dx-critique/evals/activation-cases.md` for a worked example
 with both.
 
 ## Draft Quality Bar

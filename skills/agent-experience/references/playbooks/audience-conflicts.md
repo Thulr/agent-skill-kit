@@ -13,8 +13,8 @@ would hide load-bearing facts from agents.
   agent context, plain language vs technical precision, pull-help vs always-on
   guidance, single-source vs forked human/agent docs.
 - Out: pure single-audience quality (use the relevant surface playbook); the full
-  **four-audience** treatment including Content-ops (use the `review-heuristics`
-  docs domain `audience-conflicts.md`, which this file is the AX-first cut of).
+  **four-audience** treatment including Content-ops (use the `docs-critique` /
+  `docs-design` `audience-conflicts.md`, which this file is the AX-first cut of).
 - Intents this surface answers: audit, design, debug.
 
 ## Grounding
@@ -85,5 +85,5 @@ would hide load-bearing facts from agents.
 
 - `references/core/audience-matrix.md` — AX excerpt + conflict rule.
 - `references/playbooks/ax-docs.md` — context budget and retrieval patterns.
-- `review-heuristics` docs domain — the full four-audience matrix and the
+- `docs-critique` / `docs-design` — the full four-audience matrix and the
   Content-ops audience, plus human-only surfaces (`ux-help`, `dx-docs`).

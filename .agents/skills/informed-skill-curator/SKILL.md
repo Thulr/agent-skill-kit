@@ -164,9 +164,9 @@ Goal: write the public skill files. **No file outside the approved
 plan's `public_path` set may be written without re-opening Phase 3.**
 
 1. Inspect existing public skills for current conventions. Read
-   `skills/dx-heuristics/` end-to-end if scaffolding a two-level skill;
-   read 2–3 single-layer skills (e.g. `ux-accessibility-heuristics`,
-   `test-heuristics`) if scaffolding single-layer. For depth ≥3 (no
+   `skills/dx-critique/` end-to-end if scaffolding a two-level skill;
+   read 2–3 single-layer skills (e.g. `ux-critique`,
+   `ui-design`) if scaffolding single-layer. For depth ≥3 (no
    canonical example exists yet), apply the two-level pattern
    recursively per `references/depth-rubric.md` §Going deeper.
 2. Scaffold `skills/<skill-name>/` from the matching
@@ -243,7 +243,7 @@ Every generated public skill must include:
 
 - `SKILL.md` — agent runtime instructions only.
 - `skill.json` — user-facing catalog metadata. Schema follows existing
-  skills in this repo; see `skills/dx-heuristics/skill.json` for the
+  skills in this repo; see `skills/dx-critique/skill.json` for the
   worked example with `inspired_by` as an object array.
 
 The rest of the file set depends on the chosen depth — see the matching
@@ -276,7 +276,7 @@ it short, paraphrased, and routed through the skill's own registry.
 - `references/shapes/flat.md` — anatomy for the simplest shape.
 - `references/shapes/single-layer.md` — anatomy for hub-and-spoke routing.
 - `references/shapes/two-level.md` — anatomy for intent × surface routing
-  (matches `skills/dx-heuristics/`).
+  (matches `skills/dx-critique/`).
 - `references/draft-skill-playbook.md` — cross-shape rules (path,
   `SKILL.md`/`skill.json` separation, evals, quality bar).
 - `references/validation-rubrics/{flat,single-layer,two-level}.md` —

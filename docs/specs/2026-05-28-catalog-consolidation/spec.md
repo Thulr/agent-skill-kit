@@ -1,7 +1,13 @@
 # Spec — catalog consolidation: merge the review and research families
 
 **Date:** 2026-05-28
-**Status:** approved (maintainer chose options below on 2026-05-28)
+**Status:** Phase ② (review-family merge) REVERSED on 2026-05-30 — see
+[`../2026-05-30-domain-function-split/`](../2026-05-30-domain-function-split/)
+and [ADR 0008](../../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
+The merged `review-heuristics` name hid that most intents produce artifacts
+rather than review; it is being split into 12 per-domain × per-function skills.
+The research-family merge and Phase ③ (`agent-experience` extraction) stand.
+**Original status:** approved (maintainer chose options below on 2026-05-28)
 **Triggered by:** maintainer request to evaluate the catalog and restructure it.
 
 ## Problem

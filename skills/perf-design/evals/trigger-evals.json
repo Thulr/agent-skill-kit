@@ -1,0 +1,23 @@
+{
+  "skill": "perf-design",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "design the SLO program for our new payments service from scratch — help me pick the SLIs, set the targets, and draft an error-budget policy with alerting we won't get paged on for noise", "should_activate": true, "expected_route": "design/slos", "category": "positive"},
+    {"query": "we're standing up a new go service and want to get instrumentation right up front. what RED/USE metrics and span attributes should we emit so we can actually debug it later?", "should_activate": true, "expected_route": "design/metrics", "category": "positive"},
+    {"query": "plan a tail-latency optimization pass for the checkout API — profile-first, with a before/after measurement gate on each change so we don't ship a regression", "should_activate": true, "expected_route": "optimize/latency", "category": "positive"},
+    {"query": "reduce our log bill by 40% without losing recovery value for the on-call rotation. sequence the cuts safely and tell me how to verify we didn't lose anything", "should_activate": true, "expected_route": "optimize/logs", "category": "positive"},
+    {"query": "design the trace context propagation and sampling topology for a new fan-out service before we write it — what should spans carry and what's the sampling strategy?", "should_activate": true, "expected_route": "design/tracing", "category": "positive"},
+    {"query": "set per-operation latency budgets up-front for a new API and pick how we measure them so coordinated omission doesn't make the numbers fiction", "should_activate": true, "expected_route": "design/latency", "category": "positive"},
+    {"query": "strategize our observability roadmap for the next few quarters, anchored on the SLO program, across logs, metrics, and traces — what's the adoption sequence?", "should_activate": true, "expected_route": "strategize/slos", "category": "positive"},
+    {"query": "we have a program-wide cardinality problem and need an instrumentation strategy across all services — a metric-selection and cardinality budget, not a per-service fix", "should_activate": true, "expected_route": "strategize/metrics", "category": "positive"},
+    {"query": "lift the throughput ceiling on our ingestion path — reduce queueing and coherency overhead. plan the sequence and measure before/after", "should_activate": true, "expected_route": "optimize/throughput", "category": "positive"},
+    {"query": "we want to design the capacity envelope and saturation alerting thresholds for a new fleet before launch — what headroom policy should we set?", "should_activate": true, "expected_route": "design/resources", "category": "edge"},
+    {"query": "our checkout API p99 doubled overnight and nobody changed anything. help me diagnose what's going on", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our observability stack across traces, logs, metrics, and slos before next quarter and score where the gaps are", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "on-call is being paged on noise — review our existing SLI selection and alert thresholds and tell us what's wrong", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design how our cli reads config — file vs env vs flag precedence, where the config file lives per-OS, and how we validate it up front", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our local build is slow — pnpm install is 45s and the jest suite is 8 minutes. design a faster inner loop for our developers", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design a lower-friction 3-step consumer signup flow to cut our 60% drop-off", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this go handler to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

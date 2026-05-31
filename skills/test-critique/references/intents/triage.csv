@@ -1,0 +1,10 @@
+surface,name,when_to_use,playbook,core_refs
+unit,Unit test,"A unit test is failing, flaky, or surprising",references/layers/unit.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+integration,Integration test,"An integration test is failing or flaky",references/layers/integration.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+e2e-ui,E2E/UI test,"An end-to-end or UI test is failing or flaky",references/layers/e2e-ui.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+exploratory,Exploratory session,"A session went off the rails (charter unclear, notes unactionable, no usable findings)",references/layers/exploratory.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md;references/core/oracles.md
+property-based,Property test,"A property-based test is failing or shrinking unexpectedly",references/layers/property-based.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+contract,Contract test,"A consumer contract test is failing",references/layers/contract.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+snapshot,Snapshot test,"A snapshot/approval test is failing",references/layers/snapshot.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+performance,Performance test,"A performance test is failing or noisy",references/layers/performance.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md
+mutation,Mutation test,"A mutation run is failing or a surviving mutant is unclear",references/layers/mutation.md,references/core/severity-rubric.md;references/core/personas.md;references/core/failure-modes.md

@@ -1,5 +1,0 @@
-intent,name,when_to_use,registry_file,default_template
-audit,Docs Experience Audit,"Review existing documentation/help/agent-readable surfaces for friction, drift, accessibility, retrieval, or audience conflict","references/docs/intents/audit.csv","templates/docs/audit-report.md"
-design,Docs Experience Design,"Plan or reshape documentation IA, help strategy, examples, agent docs, or API/tool contract docs before implementation","references/docs/intents/design.csv","templates/docs/design-doc.md"
-debug,Docs Experience Debug,"Diagnose a concrete docs failure such as support tickets, confused onboarding, bad agent tool calls, stale examples, or zero-result searches","references/docs/intents/debug.csv","templates/docs/debug-runbook.md"
-measure,Docs Experience Measurement,"Define telemetry, CI gates, sample tests, retrieval evals, feedback loops, or success metrics for documentation quality","references/docs/intents/measure.csv","templates/docs/measurement-plan.md"

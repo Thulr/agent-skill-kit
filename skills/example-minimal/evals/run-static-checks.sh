@@ -40,7 +40,7 @@ if [[ -f "$skill_md" ]]; then
   grep -Eq '^[[:space:]]+internal:[[:space:]]*true[[:space:]]*$' "$skill_md" \
     || fail "SKILL.md frontmatter must include: metadata.internal: true (keeps example-minimal hidden from npx skills add . --list)"
 
-  # Parity with other skills' word-count bound (see review-heuristics).
+  # Parity with other skills' word-count bound.
   wc=$(wc -w < "$skill_md")
   (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound)"
 fi

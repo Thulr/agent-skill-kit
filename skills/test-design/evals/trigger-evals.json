@@ -1,0 +1,24 @@
+{
+  "skill": "test-design",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "we're about to build a new payment-flow feature and i want to get the tests right up front. which layers should we cover and what oracle do we use? give me a test outline before i start writing", "should_activate": true, "expected_route": "author/all", "category": "positive"},
+    {"query": "help me author a unit test for this new discount-calculation function — i want it behavior-named and AAA, not coupled to the implementation", "should_activate": true, "expected_route": "author/unit", "category": "positive"},
+    {"query": "our e2e suite takes 45 minutes and everyone skips it. tell me which tests to delete and which to keep — i want a deletion list with rationale, not blanket cuts", "should_activate": true, "expected_route": "prune/e2e-ui", "category": "positive"},
+    {"query": "it's our quarterly test-pyramid review. where should we invest next quarter across unit/integration/e2e and where should we disinvest? shape the suite as a portfolio", "should_activate": true, "expected_route": "strategize/all", "category": "positive"},
+    {"query": "i'm chartering an exploratory testing session for our new onboarding flow — help me design the charter and pick oracles so the session actually produces something", "should_activate": true, "expected_route": "author/exploratory", "category": "positive"},
+    {"query": "we want to roll out mutation testing on the billing module — design the operators, scope, and cadence so it's a useful gate and not just noise", "should_activate": true, "expected_route": "author/mutation", "category": "positive"},
+    {"query": "design a consumer contract test for our new dependency on the inventory service — what should the pact actually assert?", "should_activate": true, "expected_route": "author/contract", "category": "positive"},
+    {"query": "we have a pile of old snapshot tests and a lot of them look redundant or unified-able. plan which ones to delete or merge", "should_activate": true, "expected_route": "prune/snapshot", "category": "positive"},
+    {"query": "just deciding our unit-test policy for the new repo — how much should we invest at the unit layer vs pushing things to integration?", "should_activate": true, "expected_route": "strategize/unit", "category": "positive"},
+    {"query": "we want to write a property-based test for our serializer round-trip — help me design the generators and the property", "should_activate": true, "expected_route": "author/property-based", "category": "positive"},
+    {"query": "we inherited ~5000 unit tests and nobody trusts them — review the suite and tell me which actually catch bugs vs which are theater", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "these tests pass locally but fail 1 in 5 runs in CI, always the integration ones touching the queue. triage it before we bump retries", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "this test passes even when i comment out the whole function it's supposed to test. what's going on — is it a false pass?", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design how our cli reads config — file vs env vs flag precedence and validation. what should we get right up front?", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our production reporting query is slow at 2pm — design a fix and trace what's saturating the database", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design a lower-friction 3-step consumer signup flow — our current form has a 60% drop-off", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "explain how the test pyramid and the testing trophy differ — i'm writing a one-pager for the team", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this typescript function to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

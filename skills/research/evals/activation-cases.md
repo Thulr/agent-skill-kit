@@ -51,7 +51,7 @@ These should NOT activate topic-research; they belong to other skills.
 - **"Fix the failing test in user_test.py."**
   → No skill — this is a coding task.
 - **"Audit our API docs for DX problems."**
-  → `dx-heuristics`. Review of existing artifact, not topic research.
+  → `dx-critique`. Review of existing artifact, not topic research.
 - **"What should we ship next quarter?"**
   → Strategy/prioritization, not topic research. Probably `nominal-group-technique` or a roadmap skill.
 - **"Critique my user research interview guide."**
@@ -139,9 +139,9 @@ skill it disambiguates from.
 - "do a premortem on this launch — assume it failed in 18 months and work backwards" → use `premortem` — risk playbook here borrows the heuristic, but the dedicated skill runs the full backwards-from-failure interview.
 - "critique this user-interview script — too leading, missing critical-incident probes?" → use `interview-guide-critique` — that skill audits research instruments; opportunity-research consumes interview output, doesn't critique it.
 - "review my user-persona docs for evidence gaps and stereotype risk" → use `persona-critique` — opportunity-research builds new ICPs from the customer playbook; doesn't audit existing persona docs.
-- "audit the clean-architecture of our microservices boundaries" → use `clean-architecture` — that's code-architecture review, not opportunity-research.
-- "review the developer experience of our public SDK — friction, errors, examples, docs" → use `dx-heuristics` — DX craft, not opportunity validation.
-- "run a usability audit on our checkout funnel" → use `ux-accessibility-heuristics` — end-user UX, not opportunity-research.
+- "audit the clean-architecture of our microservices boundaries" → use `architecture-critique` — that's code-architecture review, not opportunity-research.
+- "review the developer experience of our public SDK — friction, errors, examples, docs" → use `dx-critique` — DX craft, not opportunity validation.
+- "run a usability audit on our checkout funnel" → use `ux-critique` — end-user UX, not opportunity-research.
 - "set up a shared context file once so future reviews don't re-ask the same problem / audience / constraints questions" → use `validation-context` — it captures shared context; opportunity-research executes the actual research afterwards.
 - "compare these three CRM vendors we shortlisted last week" → use `tradeoff-analysis` — that skill compares named options; opportunity-research is for the upstream "which research areas matter?" pass.
 - "is this metric a good measure of activation, or can it be gamed?" → use `metric-sanity-check` — narrow metric critique; opportunity-research touches metrics inside artifacts but doesn't substitute for a metric audit.

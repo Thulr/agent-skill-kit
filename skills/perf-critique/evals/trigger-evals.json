@@ -1,0 +1,26 @@
+{
+  "skill": "perf-critique",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "our checkout API p99 doubled overnight from 400ms to 900ms and nobody changed anything we know of. help me figure out what's going on. it's a go service behind envoy with a postgres backend", "should_activate": true, "expected_route": "diagnose/latency", "category": "positive"},
+    {"query": "audit our observability stack across the board before next quarter's reliability push — traces, logs, metrics, slos. tell us where the biggest gaps are and score it", "should_activate": true, "expected_route": "audit/all", "category": "positive"},
+    {"query": "review our distributed tracing setup for sampling, span cardinality, and whether the dependency graph is actually complete. we keep losing spans across the kafka boundary", "should_activate": true, "expected_route": "audit/tracing", "category": "positive"},
+    {"query": "we're getting connection-pool exhaustion and slow queries during the 2pm batch window and the on-call can't tell which is causing which. walk me through diagnosing it", "should_activate": true, "expected_route": "diagnose/resources", "category": "positive"},
+    {"query": "on-call is getting paged constantly on what looks like noise. audit our SLI selection and alert thresholds — are these SLOs even reflecting user experience?", "should_activate": true, "expected_route": "audit/slos", "category": "positive"},
+    {"query": "run a USE-method pass on the API tier — utilization, saturation, errors for cpu, memory, disk, network. is anything quietly saturated?", "should_activate": true, "expected_route": "audit/resources", "category": "positive"},
+    {"query": "our prometheus bill exploded because some new label is high-cardinality and half our dashboards stopped loading. audit our metrics and instrumentation", "should_activate": true, "expected_route": "audit/metrics", "category": "positive"},
+    {"query": "we hit a throughput cliff around 4k rps — latency stays flat then falls off a cliff and requests start queueing. diagnose what's capping us", "should_activate": true, "expected_route": "diagnose/throughput", "category": "positive"},
+    {"query": "our error budget for the payments SLO burned 80% in three days and we don't know which dependency is eating it. help me trace the burn", "should_activate": true, "expected_route": "diagnose/slos", "category": "positive"},
+    {"query": "log volume blew up 5x last week, the on-call says the signal is lost in the noise, and traces don't correlate to the log lines. audit our logging posture", "should_activate": true, "expected_route": "audit/logs", "category": "positive"},
+    {"query": "verify whether PERF-latency-002 is fixed using docs/audits/perf-critique-workflow-state-2026-05-20-checkout.json and this PR diff, then update the ledger", "should_activate": true, "expected_route": "audit/closeout", "category": "positive"},
+    {"query": "our latency benchmark says p99 is 12ms but production feels way slower — i think the load generator is pausing when the system slows down. can you sanity-check our measurement?", "should_activate": true, "expected_route": "diagnose/latency", "category": "edge"},
+    {"query": "design the SLO program for our new payments service from scratch — pick the SLIs, set targets, and draft the error-budget policy", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "plan a tail-latency optimization pass for the checkout API, profile-first, with before/after measurement gates on each change", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "reduce our log bill by 40% without losing recovery value for the on-call rotation — what should we cut and what must we keep?", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our developers complain pnpm install takes 45s and the local jest run is 8 minutes. before we throw budget at it, what's worth speeding up first in our inner loop?", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our cli's --help output is dense and new joiners can't tell --region from --zone. take a pass at the help layout and tell me what to tighten", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our consumer signup form at example.com/signup has a 60% drop-off. help me reduce friction on the 4-step form", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "explain how distributed tracing context propagation works conceptually — i'm writing a one-pager for the platform team", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this go handler to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

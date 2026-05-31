@@ -29,11 +29,11 @@ Every trackable finding gets a stable ID:
 
 Examples:
 
-- `CA-DEP-001` for review-heuristics architecture-domain dependency-rule findings.
-- `CA-BOUNDARY-004` for review-heuristics architecture-domain boundary findings.
+- `CA-DEP-001` for architecture-critique dependency-rule findings.
+- `CA-BOUNDARY-004` for architecture-critique boundary findings.
 - `AG-GATES-003` for project-agentification gate findings.
-- `DX-CLI-002` for review-heuristics dx-domain CLI findings.
-- `TEST-UNIT-004` for review-heuristics test-domain unit-test findings.
+- `DX-CLI-002` for dx-critique CLI findings.
+- `TEST-UNIT-004` for test-critique unit-test findings.
 - `SR-SOURCE-001` for informed-skill-reviewer source-safety findings.
 - `ED-L4L5-001` for evidence-driven-agent-rules maturity gaps.
 
@@ -81,7 +81,7 @@ Ledger files are Markdown and use this path by default:
 `docs/audits/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 
 The filename must start with the full skill name, for example
-`review-heuristics-findings-ledger-2026-05-19-payments.md` or
+`dx-critique-findings-ledger-2026-05-19-payments.md` or
 `project-agentification-findings-ledger-2026-05-19-gates.md`. If the target is not a
 repo or `docs/audits/` is not writable, fall back to
 `audit-artifacts/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`

@@ -1,0 +1,4 @@
+id,scenario,intent,surface,persona,when_to_pick
+S2,Starting a new Go (or Java/.NET) service with two bounded contexts and unclear seam between them,design,context,service-architect,You're at greenfield and want the seam decided before code is written
+S3,Existing service has direct DB calls in handlers; want to introduce ports/adapters without a rewrite,refactor,boundary,backend-eng,You need a sequenced refactor plan that's reversible at each step
+S4,Team is new to the codebase and needs ports-and-adapters / hexagonal explained against the actual structure,explain,all,team-lead,"You want a grounded explainer that cites this codebase, not a textbook"

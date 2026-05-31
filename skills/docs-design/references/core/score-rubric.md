@@ -1,0 +1,1 @@
+../../../_shared/docs/core/score-rubric.md

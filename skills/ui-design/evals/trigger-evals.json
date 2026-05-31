@@ -1,0 +1,90 @@
+{
+  "skill": "ui-design",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Make this dashboard look less like a generic AI template — tighten the hierarchy, type, and spacing.",
+      "should_activate": true,
+      "expected_route": "product-ui",
+      "category": "positive"
+    },
+    {
+      "query": "Design a new analytics dashboard screen for our app from scratch.",
+      "should_activate": true,
+      "expected_route": "product-ui",
+      "category": "positive"
+    },
+    {
+      "query": "Prototype this onboarding flow as a clickable HTML mockup with a tweaks panel for density and color.",
+      "should_activate": true,
+      "expected_route": "prototype",
+      "category": "positive"
+    },
+    {
+      "query": "Author a design system with color/type tokens, components, and preview pages.",
+      "should_activate": true,
+      "expected_route": "design-system",
+      "category": "positive"
+    },
+    {
+      "query": "Turn these notes into an HTML slide deck with speaker notes for a stakeholder review.",
+      "should_activate": true,
+      "expected_route": "deck",
+      "category": "positive"
+    },
+    {
+      "query": "Add atmospheric motion and animated depth to this landing hero.",
+      "should_activate": true,
+      "expected_route": "motion-scene",
+      "category": "positive"
+    },
+    {
+      "query": "Prepare this prototype for standalone HTML export and direct editing in the artifact host.",
+      "should_activate": true,
+      "expected_route": "host-handoff",
+      "category": "positive"
+    },
+    {
+      "query": "Run an anti-slop visual review of this UI and give me a polish plan.",
+      "should_activate": true,
+      "expected_route": "quality-review",
+      "category": "positive"
+    },
+    {
+      "query": "Run a formal WCAG 2.2 accessibility audit of our checkout — no redesign, just findings.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Our signup form is confusing and users keep abandoning it — do a usability audit and list the heuristic violations.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Design the error envelope and pagination shape for our REST API before 1.0.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review the developer experience of this CLI's --help output.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Refactor this service into clean architecture layers.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "UI designer",
+      "should_activate": true,
+      "expected_route": null,
+      "category": "edge"
+    }
+  ]
+}

@@ -8,8 +8,8 @@ action under a context budget), and cost of error (silent failure at scale). See
 [ADR 0007](../../../../docs/adr/0007-experience-disciplines-are-audience-peers.md).
 
 The canonical **four-audience** matrix (Developer / End-user / Agent /
-Content-ops) lives in the `review-heuristics` docs domain
-(`references/docs/core/audience-matrix.md`); use it when a decision spans human
+Content-ops) lives in `docs-critique` / `docs-design`
+(`references/core/audience-matrix.md`); use it when a decision spans human
 and agent audiences at once. Use this excerpt when the agent is the audience
 under review.
 

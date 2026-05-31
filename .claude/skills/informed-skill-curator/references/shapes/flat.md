@@ -39,7 +39,7 @@ single-layer.
 
 ## skill.json
 
-Match the schema in `skills/dx-heuristics/skill.json`. For a flat skill,
+Match the schema in `skills/dx-critique/skill.json`. For a flat skill,
 `inspired_by[].playbooks` can be omitted or be a single value, since
 there's only one playbook (the SKILL.md itself).
 

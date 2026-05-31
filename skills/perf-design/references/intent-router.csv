@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+design,Perf and Observability Design,"Designing instrumentation, SLOs, tracing topology, or latency budgets up-front for a new or expanding system","references/intents/design.csv","templates/design-doc.md"
+optimize,Optimize Known-Slow Path,"Profile-first sequencing of safe improvements to a known-slow operation, with before / after measurement gates","references/intents/optimize.csv","templates/optimize-plan.md"
+strategize,Program-Level Strategy,"Cross-surface observability roadmap, SLO / error-budget program design, instrumentation budget across logs / metrics / traces","references/intents/strategize.csv","templates/strategy-doc.md"

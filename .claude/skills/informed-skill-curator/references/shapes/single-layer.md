@@ -64,7 +64,7 @@ single-layer is that detail lives in references, not in the navigator.
 
 ## skill.json
 
-Match the schema in `skills/dx-heuristics/skill.json`. For single-layer
+Match the schema in `skills/dx-critique/skill.json`. For single-layer
 skills, `inspired_by[].playbooks` can name the intent(s) each source
 informs, so future agents see the source → intent mapping.
 

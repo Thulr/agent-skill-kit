@@ -10,7 +10,7 @@ and provider-agnostic dispatch. Distinct from the underlying HTTP/RPC
 client layer (which an AI SDK *inherits* unchanged) and from `agent.md`
 (sibling — making your repo readable by coding agents). For
 retry/streaming/auth primitives, typed exception design, and tracing
-exporters, see the `review-heuristics` **dx** domain (`sdk`, `errors`,
+exporters, see `dx-critique` / `dx-design` (`sdk`, `errors`,
 `telemetry`).
 
 ## Grounding
@@ -165,7 +165,7 @@ exporters, see the `review-heuristics` **dx** domain (`sdk`, `errors`,
 
 ## Cross-references
 
-- → `review-heuristics` **dx** domain for the inherited HTTP-client floor
+- → `dx-critique` / `dx-design` for the inherited HTTP-client floor
   (`sdk`: retries with jitter, streaming iterators, typed errors, webhook
   verification), typed exception hierarchy (`errors`), tracing exporters
   (`telemetry`), per-provider sub-packages (`package`), and paste-runnable

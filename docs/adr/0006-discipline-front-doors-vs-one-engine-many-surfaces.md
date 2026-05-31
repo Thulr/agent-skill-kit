@@ -80,3 +80,10 @@ stands up AX.
 
 - **2026-05-30:** Original decision (this ADR). Triggered by standing up the
   `agent-experience` umbrella skill from AX content distributed across the catalog.
+- **2026-05-30 (later):**
+  [ADR 0008](./0008-reverse-review-consolidation-split-by-domain-and-function.md)
+  reverses 0005's review-family consolidation, but this ADR is undisturbed:
+  `agent-experience` remains a standalone front-door skill and the relocated AX
+  surfaces do **not** return to the per-domain skills. Where this ADR refers to
+  "the `dx`/`docs` domains of `review-heuristics`," read it post-0008 as the
+  `dx-critique`/`dx-design`/`docs-critique`/`docs-design` skills.

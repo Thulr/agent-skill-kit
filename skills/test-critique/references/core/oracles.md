@@ -1,0 +1,1 @@
+../../../_shared/test/core/oracles.md

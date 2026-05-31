@@ -14,8 +14,8 @@ description: >-
   rules, and eval-flywheel to INSTRUMENT an AI product's eval/optimization loops.
   Triggers on "make our app agent-friendly", "review our llms.txt for agents",
   "design an Agent SDK", "is this AGENTS.md agent-ready", "agent experience", "AX
-  review". For human-facing developer experience use review-heuristics (dx); for
-  end-user UX use review-heuristics (ux); to scaffold/harden a repo use
+  review". For human-facing developer experience use dx-critique / dx-design; for
+  end-user UX use ux-critique; to scaffold/harden a repo use
   project-agentification.
 license: MIT
 ---
@@ -90,7 +90,7 @@ The W1 ≥3-evidence floor lives in `evidence-driven-agent-rules` (see
 - `references/playbooks/` — `ax-docs`, `ai-sdk`, `agent` (repo-readiness),
   `audience-conflicts`.
 - `references/core/` — `severity-rubric.md`, `audience-matrix.md` (AX excerpt;
-  full four-audience matrix lives in `review-heuristics` docs).
+  full four-audience matrix lives in the `docs-critique` skill).
 - `references/{lenses,modes,empirical-warnings,agent-friendly-architecture,trackable-findings}.md`
   — shared, symlinked from `skills/_shared/`.
 - `skill.json` — provenance; `evals/` — gates.

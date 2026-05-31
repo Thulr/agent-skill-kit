@@ -40,7 +40,7 @@ the published install surface today.
 - *"Our service is slow" / "design SLOs"* — diagnosing a slow or incident-y production system → `perf-critique`; designing SLOs / instrumentation / a profile-first optimization → `perf-design`; the developer's own machine (local install, cold start, edit-test-debug) → `dx-critique`.
 - *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `eval-flywheel`.
 - *"Make our app agent-friendly" / "design an Agent SDK" / "is our AGENTS.md agent-ready" / "review our llms.txt for agents"* — the **agent-experience** umbrella: it reviews the AX surface (agent-readable docs, AI/Agent SDK, repo readiness) and routes to `project-agentification` to harden the repo, `evidence-driven-agent-rules` to promote failures into rules, or `eval-flywheel` to instrument loops.
-- *"Research X"* — open-ended topic (primer, literature review, state-of-the-art) → `research` (`report` frame); validate a named product/business opportunity (go/no-go) → `research` (`opportunity` frame); compare a fixed set of named options → `tradeoff-analysis`.
+- *"Research X"* — open-ended topic (primer, literature review, state-of-the-art) → `research` (`report` frame); validate a named product/business opportunity (go/no-go) → `research` (`opportunity` frame); comparing a fixed set of already-named options is out of scope for `research` (reach for a dedicated comparison/decision-matrix tool).
 
 ## Skills
 

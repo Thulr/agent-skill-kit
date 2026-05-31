@@ -11,13 +11,13 @@ former `topic-research` and `opportunity-research` skills when the two consolida
 ## Report frame (formerly topic-research)
 
 
-Natural-language activation and behavioral cases for the
-topic-research skill. Each case names the expected behavior (route
-selected, output produced, or refusal to activate).
+Natural-language activation and behavioral cases for the **report frame**. Each
+case names the expected behavior (route selected, output produced, or refusal to
+activate).
 
 ## Positive cases
 
-These should activate topic-research and route to the named depth.
+These should activate the report frame and route to the named depth.
 
 - **"Research the current state of developer documentation for AI APIs."**
   → `survey`. Topic is concrete, scope is moderate. Default depth.
@@ -38,28 +38,28 @@ These should activate topic-research and route to the named depth.
 
 ## Negative cases
 
-These should NOT activate topic-research; they belong to other skills.
+These should NOT activate the report frame; they belong to another frame or skill.
 
 - **"Validate whether building a docs-as-code SaaS is a good opportunity."**
-  → `opportunity-research`. Named opportunity to validate (go/no-go), not a topic to learn about.
+  → the **opportunity** frame. Named opportunity to validate (go/no-go), not a topic to learn about.
 - **"Review this design doc for weaknesses."**
   → `spec-red-team` or `proposal-red-team`. Critique of existing artifact.
 - **"Compare Postgres and MySQL for our workload."**
-  → `tradeoff-analysis`. Fixed options to compare, not open research.
+  → a dedicated comparison/tradeoff tool. Fixed options to compare, not open research.
 - **"Brainstorm names for our new SDK."**
-  → `bmad-brainstorming` or `novel-ideation`. Ideation, not research.
+  → a dedicated ideation tool. Ideation, not research.
 - **"Fix the failing test in user_test.py."**
   → No skill — this is a coding task.
 - **"Audit our API docs for DX problems."**
   → `dx-critique`. Review of existing artifact, not topic research.
 - **"What should we ship next quarter?"**
-  → Strategy/prioritization, not topic research. Probably `nominal-group-technique` or a roadmap skill.
+  → Strategy/prioritization, not topic research. A roadmap/prioritization tool.
 - **"Critique my user research interview guide."**
   → `interview-guide-critique`. Critique of existing instrument.
 
 ## Edge cases
 
-Cases that look like topic-research but require careful handling.
+Cases that look like report-frame research but require careful handling.
 
 - **"Research AI."** — Activates, but the topic is too broad. The skill
   must ask one blocker question to narrow scope before searching.
@@ -68,26 +68,26 @@ Cases that look like topic-research but require careful handling.
   though it sounds like a question, the user wants a primer-shaped
   output. Don't treat it as a one-line factual answer.
 - **"What does the research say about X — is it worth investing in?"** —
-  Mixed signal: "what does the research say" sounds like topic-research,
+  Mixed signal: "what does the research say" sounds like the report frame,
   but "is it worth investing in" is a decision frame. Ask one
-  disambiguating question: do they want the research report (this
-  skill) or the validation memo (opportunity-research)?
+  disambiguating question: do they want the research report (report
+  frame) or the validation memo (opportunity frame)?
 - **"Read these three papers and tell me what they say."** — Borderline.
   If the user provides specific sources, the search-strategy step is
   short-circuited. Can still produce a report-shaped output, but
   treat as `brief` and surface that the search was user-provided.
 - **"Do research on documentation for developer experience."** — Activates
-  as `survey`. This is the canonical example for which topic-research
+  as `survey`. This is the canonical example for which the report frame
   exists: catch-all "research X for me" without a decision frame.
 - **"Research and decide whether we should adopt Bun."** — Hybrid. The
-  research part fits topic-research; the decision part does not.
-  Surface the split: offer topic-research for the evidence base,
-  then point at tradeoff-analysis or opportunity-research for the
+  research part fits the report frame; the decision part does not.
+  Surface the split: offer the report frame for the evidence base,
+  then the opportunity frame (or a dedicated tradeoff tool) for the
   decision.
 
 ## Output requirements (behavioral)
 
-Every report produced by topic-research must include:
+Every report produced by the report frame must include:
 
 - A one-sentence research question with explicit in-scope / out-of-scope.
 - The depth mode applied.
@@ -98,17 +98,17 @@ Every report produced by topic-research must include:
 - A "what would change this report" pointer to evidence that would
   meaningfully revise the conclusions.
 
-A report missing any of these is not topic-research output.
+A report missing any of these is not valid report-frame output.
 
 ---
 
 ## Opportunity frame (formerly opportunity-research)
 
 
-Activation cases for the `opportunity-research` skill. The validator
+Activation cases for the **opportunity** frame. The validator
 counts bullets under `## positive`, `## negative`, and `## edge` /
 `## boundary` headers and verifies each negative names a sibling
-skill it disambiguates from.
+skill or frame it disambiguates from.
 
 ## Positive
 
@@ -133,22 +133,22 @@ skill it disambiguates from.
 
 ## Negative
 
-- "brainstorm 20 new feature ideas for our existing product" → use `morphological-analysis` or `scamper` or `novel-ideation` — opportunity-research is for validating a *named* opportunity, not generating candidates.
-- "red-team this pitch deck — what objections will leadership raise?" → use `proposal-red-team` — opportunity-research produces the underlying substrate; red-team adversarially reviews the finished artifact.
-- "stress-test our migration plan to mid-market — what could go wrong with the sequencing?" → use `plan-red-team` — opportunity-research does not review execution plans.
+- "brainstorm 20 new feature ideas for our existing product" → use a dedicated ideation tool (e.g. `morphological-analysis`, `scamper`, `novel-ideation`) — the opportunity frame validates a *named* opportunity, not generating candidates.
+- "red-team this pitch deck — what objections will leadership raise?" → use `proposal-red-team` — the opportunity frame produces the underlying substrate; red-team adversarially reviews the finished artifact.
+- "stress-test our migration plan to mid-market — what could go wrong with the sequencing?" → use `plan-red-team` — the opportunity frame does not review execution plans.
 - "do a premortem on this launch — assume it failed in 18 months and work backwards" → use `premortem` — risk playbook here borrows the heuristic, but the dedicated skill runs the full backwards-from-failure interview.
-- "critique this user-interview script — too leading, missing critical-incident probes?" → use `interview-guide-critique` — that skill audits research instruments; opportunity-research consumes interview output, doesn't critique it.
-- "review my user-persona docs for evidence gaps and stereotype risk" → use `persona-critique` — opportunity-research builds new ICPs from the customer playbook; doesn't audit existing persona docs.
-- "audit the clean-architecture of our microservices boundaries" → use `architecture-critique` — that's code-architecture review, not opportunity-research.
+- "critique this user-interview script — too leading, missing critical-incident probes?" → use `interview-guide-critique` — that skill audits research instruments; the opportunity frame consumes interview output, doesn't critique it.
+- "review my user-persona docs for evidence gaps and stereotype risk" → use `persona-critique` — the opportunity frame builds new ICPs from the customer playbook; doesn't audit existing persona docs.
+- "audit the clean-architecture of our microservices boundaries" → use `architecture-critique` — that's code-architecture review, not opportunity validation.
 - "review the developer experience of our public SDK — friction, errors, examples, docs" → use `dx-critique` — DX craft, not opportunity validation.
-- "run a usability audit on our checkout funnel" → use `ux-critique` — end-user UX, not opportunity-research.
-- "set up a shared context file once so future reviews don't re-ask the same problem / audience / constraints questions" → use `validation-context` — it captures shared context; opportunity-research executes the actual research afterwards.
-- "compare these three CRM vendors we shortlisted last week" → use `tradeoff-analysis` — that skill compares named options; opportunity-research is for the upstream "which research areas matter?" pass.
-- "is this metric a good measure of activation, or can it be gamed?" → use `metric-sanity-check` — narrow metric critique; opportunity-research touches metrics inside artifacts but doesn't substitute for a metric audit.
-- "review my survey questions for biased framing" → use `survey-question-review` — research-instrument audit, not opportunity-research.
+- "run a usability audit on our checkout funnel" → use `ux-critique` — end-user UX, not opportunity validation.
+- "set up a shared context file once so future reviews don't re-ask the same problem / audience / constraints questions" → use `validation-context` — it captures shared context; the opportunity frame executes the actual research afterwards.
+- "compare these three CRM vendors we shortlisted last week" → use a dedicated comparison tool — it compares already-named options; the opportunity frame is for the upstream "which research areas matter?" pass.
+- "is this metric a good measure of activation, or can it be gamed?" → use `metric-sanity-check` — narrow metric critique; the opportunity frame touches metrics inside artifacts but doesn't substitute for a metric audit.
+- "review my survey questions for biased framing" → use `survey-question-review` — research-instrument audit, not opportunity validation.
 
 ## Edge
 
-- "research this" (no object) → opportunity-research activates **only after** the user names the opportunity in one line. Fanning out 14 sub-agents without scope produces 14 disconnected dumps — the named failure mode in the source. Ask one blocker question first.
+- "research this" (no object) → the opportunity frame activates **only after** the user names the opportunity in one line. Fanning out 14 sub-agents without scope produces 14 disconnected dumps — the named failure mode in the source. Ask one blocker question first.
 - "should we enter this market?" (no opportunity named) → activates only if the user names the opportunity / segment in the same prompt or in a one-question clarification. Otherwise route to `scope/all` for stage-aware shortlist after the clarification.
 - "just give me the market size in dollars" → activates on `investigate/market` but emits a single artifact (`market-sizing.md`) and skips the F/A/D/R fold's full decision treatment unless the user opts in. The skill should not over-scope a narrow request into a 14-area fan-out.

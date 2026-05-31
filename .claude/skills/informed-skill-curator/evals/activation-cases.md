@@ -14,7 +14,7 @@
 
 - "Review this draft skill for source safety" -> use `informed-skill-reviewer`, not `informed-skill-curator`. Curator's Phase 5 is self-review *before* handoff; final review belongs to `informed-skill-reviewer`.
 - "Install a skill from GitHub" -> use `skill-installer`, not `informed-skill-curator`.
-- "Audit this repository's AGENTS.md" -> use `project-agentification`, not `informed-skill-curator`.
+- "Audit this repository's AGENTS.md" -> use `codebase-agent-readiness`, not `informed-skill-curator`.
 - "Just write the skill files without research" -> reject. Curator's Phase 1 and Phase 2 gates are hard for any candidate with no intake brief or dossier.
 - "Skip the plan and start scaffolding" -> reject. Phase 3 (Plan) gate is hard; no file write happens without an approved candidate plan.
 

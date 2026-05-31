@@ -1,4 +1,4 @@
-<!-- AGENTS.md template — informed-skills / project-agentification scaffold.
+<!-- AGENTS.md template — informed-skills / codebase-agent-readiness scaffold.
      Sub-surface: instruction-surface. Heuristics: scaffold H1 (WHAT/WHY/HOW),
      H2 (front-load constraints), H4 (≤200 lines per W2), H5 (bootstrap order).
 
@@ -27,7 +27,7 @@ This file is hand-curated from project knowledge — tech stack, repo
 layout, build / test / lint commands, and top-level invariants this
 project cares about. Do **not** autogenerate it (`/init`,
 `/Generate Cursor Rules`, etc. — see W9 in
-`skills/project-agentification/references/empirical-warnings.md`).
+`skills/codebase-agent-readiness/references/empirical-warnings.md`).
 The content quality bar is "specific to this project, verifiable by
 reading the file" — generic prose ("write clean code") belongs in
 lint config, not here.

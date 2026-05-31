@@ -13,7 +13,7 @@ latency metadata. Use when docs must drive calls, not just explain them.
   and operational metadata.
 - Out: general API ergonomics outside documentation (use a DX skill), full
   production observability design (use a performance/observability skill), and
-  agent context files (use the `agent-experience` skill).
+  agent context files (use the `design-for-agents` skill).
 - Intents this surface answers: audit, design, debug, measure.
 
 ## Grounding
@@ -92,7 +92,7 @@ latency metadata. Use when docs must drive calls, not just explain them.
 
 ## Cross-references
 
-- the `agent-experience` skill (ax-docs surface) — retrieval and agent context surfaces around
+- the `design-for-agents` skill (ax-docs surface) — retrieval and agent context surfaces around
   the contract.
 - `references/playbooks/dx-docs.md` — human API reference, quickstarts, and
   examples.

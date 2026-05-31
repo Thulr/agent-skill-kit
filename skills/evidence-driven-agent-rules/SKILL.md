@@ -1,6 +1,6 @@
 ---
 name: evidence-driven-agent-rules
-description: Use when building or operating coding-agent infrastructure where the feedback signal exists (eval suites, run-level telemetry, A/B baselines, skill catalogs under test) and you want to capture observed agent failures, promote recurring patterns into rules, and score advanced (Level 4–5) agent-readiness. Triggers on "reflection log," "agent failure log," "evidence-driven scaffolding," "W1 ≥3 floor," "promote pattern to rule," "post-incident eval case," "harness maturity Level 4 / Level 5," "Sovereign Engineering," "Spec Architecture," or "set up a feedback loop for agent failures." Pair with `project-agentification` for project-context-first AGENTS.md scaffolding — this skill layers the evidence-driven workflow on top. Do not use for first-pass agent-readiness scaffolding when no feedback signal exists yet; use `project-agentification` for that.
+description: Use when building or operating coding-agent infrastructure where the feedback signal exists (eval suites, run-level telemetry, A/B baselines, skill catalogs under test) and you want to capture observed agent failures, promote recurring patterns into rules, and score advanced (Level 4–5) agent-readiness. Triggers on "reflection log," "agent failure log," "evidence-driven scaffolding," "W1 ≥3 floor," "promote pattern to rule," "post-incident eval case," "harness maturity Level 4 / Level 5," "Sovereign Engineering," "Spec Architecture," or "set up a feedback loop for agent failures." Pair with `codebase-agent-readiness` for project-context-first AGENTS.md scaffolding — this skill layers the evidence-driven workflow on top. Do not use for first-pass agent-readiness scaffolding when no feedback signal exists yet; use `codebase-agent-readiness` for that.
 license: MIT
 ---
 
@@ -11,8 +11,8 @@ and score advanced (Level 4–5) agent-readiness. **For teams with a
 feedback signal** — eval suites, run-level telemetry, A/B baselines, or
 skill catalogs under test.
 
-Pair with `project-agentification`:
-- `project-agentification` scaffolds the project-context-first AGENTS.md
+Pair with `codebase-agent-readiness`:
+- `codebase-agent-readiness` scaffolds the project-context-first AGENTS.md
   any repo can use (stack, layout, commands, gates, sandbox). No
   failure-log dependency.
 - This skill layers the evidence-driven workflow on top — reflection
@@ -20,7 +20,7 @@ Pair with `project-agentification`:
   repos where the feedback signal actually exists.
 
 If the repo has no benchmark, no eval suite, no telemetry baseline, and
-no "we observed the agent doing X" stream, use `project-agentification`
+no "we observed the agent doing X" stream, use `codebase-agent-readiness`
 alone. This skill needs a signal to drive promotion.
 
 **Produces:** intent-specific output — `capture` writes the reflection-log scaffold (`docs/reflection-log/README.md` + `_template.md` + repo-root `README.md §Agents` pointer); `promote` proposes the smallest rule / hook / CI-gate diff plus the entries it cites; `assess-l4l5` writes a Level 4–5 maturity score, ceiling, and prioritized gaps. Tracked `assess-l4l5` runs also emit `evidence-driven-agent-rules-findings-ledger-<date>-<slug>.md` + `evidence-driven-agent-rules-workflow-state-<date>-<slug>.json`.
@@ -67,7 +67,7 @@ self-filter entries.
 
 The `promote` and `assess-l4l5` intents come later and require Stage 0
 already in place (the reflection log) and Stage 1 (AGENTS.md from
-`project-agentification`). Full staging dependency in
+`codebase-agent-readiness`). Full staging dependency in
 [`references/bootstrap-order.md`](./references/bootstrap-order.md).
 
 ## Activation
@@ -76,7 +76,7 @@ already in place (the reflection log) and Stage 1 (AGENTS.md from
   rules"`, `"use evidence-driven-agent-rules"`): show the intent menu
   inline (`capture` / `promote` / `assess-l4l5` — see §Workflow step 1
   below for what each does) and wait. No file inspection, no network
-  calls, no writes. (Unlike `project-agentification`, this skill's
+  calls, no writes. (Unlike `codebase-agent-readiness`, this skill's
   narrower scope doesn't ship a separate router CSV; the SKILL.md body
   is the router.)
 - **Concrete invocation** with intent inferable: skip to step 2 of the
@@ -103,7 +103,7 @@ already in place (the reflection log) and Stage 1 (AGENTS.md from
    `_template.md` from `templates/artifacts/reflection-log/`; add the
    `README.md §Agents` pointer block if it doesn't exist; refuse if
    AGENTS.md exists but doesn't link to the log (Stage 0 must be wired
-   into the always-loaded surface — see `project-agentification` for the
+   into the always-loaded surface — see `codebase-agent-readiness` for the
    AGENTS.md `§Reflection-log workflow` template section).
 4. **For `promote`:** group entries by `sub-surface:` (use `grep -l
    'sub-surface: <name>' docs/reflection-log/[0-9]*.md`); for any group
@@ -114,7 +114,7 @@ already in place (the reflection log) and Stage 1 (AGENTS.md from
    require the gate-hardening variant matrix and regression fixture before
    calling the change complete.
 5. **For `assess-l4l5`:** assume Levels 1–3 already scored by
-   `project-agentification` (require user confirmation); score Levels
+   `codebase-agent-readiness` (require user confirmation); score Levels
    4–5 against `references/core/maturity-rubric.md`; report ceiling and
    gaps. Assign stable IDs like `ED-L4L5-001` to trackable gaps using
    `references/trackable-findings.md`.
@@ -201,7 +201,7 @@ live in the shared `references/empirical-warnings.md` (symlink to
   (symlink to shared).
 - `references/agent-friendly-architecture.md` — shared note on repo structure graphs + boundary enforcement (used when promoting boundary-violation patterns into gates).
 - `references/core/maturity-rubric.md` — Levels 4–5 (extends
-  `project-agentification`'s Levels 1–3).
+  `codebase-agent-readiness`'s Levels 1–3).
 - `references/playbooks/reflection-log.md` — the only sub-surface this
   skill owns directly.
 - `references/playbooks/gate-hardening.md` — adversarial variant matrix and
@@ -216,9 +216,9 @@ live in the shared `references/empirical-warnings.md` (symlink to
 
 ## See also
 
-- `agent-experience` — the umbrella AX discipline; this skill is its
+- `design-for-agents` — the umbrella AX discipline; this skill is its
   evidence/feedback-loop arm (the `promote-rules` route hands off here).
-- `project-agentification` — scaffolds the project-context-first
+- `codebase-agent-readiness` — scaffolds the project-context-first
   AGENTS.md this skill's `promote` intent adds rules to. Pair them.
 - `skills/_shared/empirical-warnings.md` — W2–W10.
 - `skills/_shared/lenses.md` — the four pre-write + one post-write

@@ -14,7 +14,7 @@ workflow. **Scaffold in this order, never out of it:**
    (high — ≥3 entries describing the same gap).** Conflating the two
    causes reviewers and agents to self-filter entries.
 2. **Stage 1** — `AGENTS.md` exists. **This skill does not scaffold it
-   — use `project-agentification` for that.** Once it's there, this
+   — use `codebase-agent-readiness` for that.** Once it's there, this
    skill's `promote` workflow can add rules to it that trace to
    reflection-log entries.
 3. **Stage 2+** — hooks, gates, evals — each grounded in a promoted

@@ -1,6 +1,6 @@
 # Artifact templates
 
-Skeletons for the files the `project-agentification` `scaffold` intent
+Skeletons for the files the `codebase-agent-readiness` `scaffold` intent
 produces. Organized by surface (instruction-surface, gates, governance,
 skills, reflection-log).
 

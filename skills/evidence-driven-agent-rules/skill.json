@@ -1,6 +1,6 @@
 {
   "name": "evidence-driven-agent-rules",
-  "description": "For teams building or operating coding-agent infrastructure with a feedback signal (eval suites, run-level telemetry, A/B baselines, skill catalogs under test). Captures observed agent failures in a per-file reflection log, promotes recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entries floor, and scores Level 4–5 (Spec Architecture, Sovereign Engineering) maturity. Pair with `project-agentification` for project-context-first AGENTS.md scaffolding.",
+  "description": "For teams building or operating coding-agent infrastructure with a feedback signal (eval suites, run-level telemetry, A/B baselines, skill catalogs under test). Captures observed agent failures in a per-file reflection log, promotes recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entries floor, and scores Level 4–5 (Spec Architecture, Sovereign Engineering) maturity. Pair with `codebase-agent-readiness` for project-context-first AGENTS.md scaffolding.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -18,7 +18,7 @@
       "author": "Engineering Agents",
       "kind": "guide",
       "year": 2025,
-      "contribution": "Level 1–5 maturity rubric; reflection-log artifact as a Level 3 signal; 'weakest discipline is your ceiling.' This skill owns the Level 4–5 extension (Spec Architecture / Sovereign Engineering); `project-agentification` owns Levels 1–3.",
+      "contribution": "Level 1–5 maturity rubric; reflection-log artifact as a Level 3 signal; 'weakest discipline is your ceiling.' This skill owns the Level 4–5 extension (Spec Architecture / Sovereign Engineering); `codebase-agent-readiness` owns Levels 1–3.",
       "playbooks": ["reflection-log"]
     },
     {
@@ -35,7 +35,7 @@
       "author": "Agentic AI Foundation (Linux Foundation)",
       "kind": "spec",
       "year": 2025,
-      "contribution": "The instruction-surface artifact that this skill's `promote` workflow writes rules into. AGENTS.md scaffolding itself is handled by `project-agentification` (this skill assumes one already exists).",
+      "contribution": "The instruction-surface artifact that this skill's `promote` workflow writes rules into. AGENTS.md scaffolding itself is handled by `codebase-agent-readiness` (this skill assumes one already exists).",
       "playbooks": ["reflection-log"]
     },
     {

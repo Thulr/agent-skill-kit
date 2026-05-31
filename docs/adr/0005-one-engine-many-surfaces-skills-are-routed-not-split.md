@@ -5,7 +5,7 @@
 which reverses the **review-family** consolidation (`review-heuristics` →
 12 per-domain × per-function skills). What still stands: the research-frame
 consolidation (`research` = one skill routed `report | opportunity`) and the
-guidance against fragmenting an already-routed engine (`project-agentification`
+guidance against fragmenting an already-routed engine (`codebase-agent-readiness`
 stays whole). 0008's `_shared/<domain>/` single-sourcing is how the split keeps
 0005's anti-drift property without one skill.
 
@@ -48,11 +48,11 @@ intent → surface — not as sibling skills and not split per surface.
   domain contributes only its genuinely-varying data (playbooks, routing CSVs,
   rubrics, personas, lens identities) under `references/<domain>/`.
 - Conversely, a skill that is already one routed engine (e.g.
-  `project-agentification`: intent × surface across legibility/action/control)
+  `codebase-agent-readiness`: intent × surface across legibility/action/control)
   is **not** split into per-layer siblings. Routing depth is a feature, not a
   reason to fragment.
 - Genuinely distinct *methods* still get distinct skills (e.g.
-  `project-agentification` vs `evidence-driven-agent-rules` vs `eval-flywheel`
+  `codebase-agent-readiness` vs `evidence-driven-agent-rules` vs `eval-flywheel`
   vs `research`): different engines, not different surfaces of one engine.
 - `skills/_shared/` remains the home for primitives that are *identical* across
   consumers (modes, trackable-findings, lenses, empirical-warnings W2–W10,

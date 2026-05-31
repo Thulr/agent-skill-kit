@@ -4,7 +4,7 @@
 **Status:** Active
 **Decision record:** [ADR 0008](../../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md)
 (supersedes [ADR 0005](../../adr/0005-one-engine-many-surfaces-skills-are-routed-not-split.md) for the review family)
-**Reverses:** [`docs/specs/2026-05-28-catalog-consolidation/`](../2026-05-28-catalog-consolidation/) Phase ② (the review-family merge); the AX extraction (Phase ③ → `agent-experience`) stands.
+**Reverses:** [`docs/specs/2026-05-28-catalog-consolidation/`](../2026-05-28-catalog-consolidation/) Phase ② (the review-family merge); the AX extraction (Phase ③ → `design-for-agents`) stands.
 
 ## Problem
 
@@ -86,7 +86,7 @@ function. A source that grounds both critique and design of a surface (e.g.
 Bloch on `api`) appears in **both** `dx-critique` and `dx-design`. The recovered
 pre-consolidation per-domain `skill.json` files (`git show c21b802^:skills/<old>/skill.json`)
 are the partitioning reference; drop AX-only sources (`ai-sdk`/`agent` playbooks
-left for `agent-experience`). The `inspired_by.playbooks` static gate validates
+left for `design-for-agents`). The `inspired_by.playbooks` static gate validates
 each value against on-disk playbooks + intent markers, so design skills tag
 `design`/`design-intent`/`all`, critique skills tag `audit`/`audit-intent`/etc.
 

@@ -1,5 +1,5 @@
 {
-  "skill": "project-agentification",
+  "skill": "codebase-agent-readiness",
   "version": "0.1.0",
   "queries": [
     {"query": "Audit our repo for agent-readiness.", "should_activate": true, "expected_route": "assess", "category": "positive"},

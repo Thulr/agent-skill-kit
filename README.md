@@ -27,19 +27,19 @@ the published install surface today.
 | **Critique** an existing software surface — audit, debug, or risk-scan: developer experience (APIs/SDKs/CLIs/dev-docs/setup/errors/auth/telemetry), documentation, systems performance & observability, test suites, product UX & accessibility, or code architecture | `dx-critique` · `docs-critique` · `perf-critique` · `test-critique` · `ux-critique` · `architecture-critique` | Pick the skill matching the surface; each routes intent (audit/debug/diagnose/…) × surface, dispatches reviewer lenses, scores by severity, and emits a findings report (+ optional tracking ledger). |
 | **Design or build** a new software surface — design/author/refactor/optimize/produce: APIs/SDKs/CLIs, documentation IA, perf & SLO instrumentation, test suites, code architecture, **or** visual UI (dashboards, design systems, prototypes, decks) | `dx-design` · `docs-design` · `perf-design` · `test-design` · `architecture-design` · `ui-design` | Pick the skill matching what you're building; each names a good-shaped pattern and emits a design doc / plan / runbook (or, for `ui-design`, the UI artifact itself), grounded in cited heuristics. |
 | Source-cited research: an open-ended topic report, **or** validating a named product/market/feature opportunity to a go/no-go | `research` | Pick the **frame**: `report` (primer / literature review / "research X for me", no decision) or `opportunity` (validate a named idea across 14 areas → F/A/D/R go/no-go/pivot). |
-| Design, review, or debug for AI agents as a consumer audience: agent-readable docs (llms.txt, AGENTS.md, MCP/tool descriptions, RAG/retrieval), AI/Agent SDK design (streaming, tools, structured output, agent loops, tracing), repo agent-readiness review, human-vs-agent audience conflicts | `agent-experience` | The **umbrella AX discipline**. Owns the AX review heuristics; routes to its three arms for the *doing* — `project-agentification` (harden a repo), `evidence-driven-agent-rules` (promote failures into rules), `eval-flywheel` (instrument loops). |
-| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `project-agentification` | The repo-hardening **arm** of `agent-experience`. vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
-| Capture observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | The evidence/feedback **arm** of `agent-experience`. vs `project-agentification` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `project-agentification`. |
-| Audit an AI app/agent's feedback loops, score them on the Optimization Staircase, and scaffold the smallest useful eval/optimization loop | `eval-flywheel` | The instrument-the-loop **arm** of `agent-experience`. vs the two agent-readiness skills — those harden *a repository* so coding agents work in it; `eval-flywheel` instruments *an AI product/agent you ship* so its outputs feed a measured loop (the model is the product). |
+| Design, review, or debug for AI agents as a consumer audience: agent-readable docs (llms.txt, AGENTS.md, MCP/tool descriptions, RAG/retrieval), AI/Agent SDK design (streaming, tools, structured output, agent loops, tracing), repo agent-readiness review, human-vs-agent audience conflicts | `design-for-agents` | The **umbrella AX discipline**. Owns the AX review heuristics; routes to its three arms for the *doing* — `codebase-agent-readiness` (harden a repo), `evidence-driven-agent-rules` (promote failures into rules), `eval-flywheel` (instrument loops). |
+| Make a repo work better with coding agents; assess, harden, scaffold, or diagnose agent-readiness | `codebase-agent-readiness` | The repo-hardening **arm** of `design-for-agents`. vs `evidence-driven-agent-rules` — start here for first-pass scaffolding from project knowledge (no eval prerequisite). |
+| Capture observed agent failures and promote recurring patterns into rules/gates from evidence | `evidence-driven-agent-rules` | The evidence/feedback **arm** of `design-for-agents`. vs `codebase-agent-readiness` — needs a feedback signal (eval suites, run telemetry, A/B baselines). If the repo has none yet, start with `codebase-agent-readiness`. |
+| Audit an AI app/agent's feedback loops, score them on the Optimization Staircase, and scaffold the smallest useful eval/optimization loop | `eval-flywheel` | The instrument-the-loop **arm** of `design-for-agents`. vs the two agent-readiness skills — those harden *a repository* so coding agents work in it; `eval-flywheel` instruments *an AI product/agent you ship* so its outputs feed a measured loop (the model is the product). |
 
 **Ambiguous phrasings.** When the *user need* itself is ambiguous, ask one clarifier before routing:
 
-- *"Make our docs better"* — auditing existing documentation → `docs-critique`; planning or reshaping docs IA → `docs-design`; developer-facing API/SDK friction beyond docs → `dx-critique`; humans using the product UI → `ux-critique`. Agent-readable docs (llms.txt, retrieval-friendly structure, chunk survivability) → `agent-experience`. Coding agents operating inside the repo → `project-agentification`.
+- *"Make our docs better"* — auditing existing documentation → `docs-critique`; planning or reshaping docs IA → `docs-design`; developer-facing API/SDK friction beyond docs → `dx-critique`; humans using the product UI → `ux-critique`. Agent-readable docs (llms.txt, retrieval-friendly structure, chunk survivability) → `design-for-agents`. Coding agents operating inside the repo → `codebase-agent-readiness`.
 - *"Audit / review this"* (DX vs docs vs perf vs test vs UX vs architecture) — pick the matching `<domain>-critique` skill (`dx-critique` / `docs-critique` / `perf-critique` / `test-critique` / `ux-critique` / `architecture-critique`) for the surface.
-- *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `project-agentification`; generic Git or build hook → out of scope for this catalog.
+- *"Add a hook"* — Claude / Codex / Cursor agent gate (PreToolUse, PostToolUse) → `codebase-agent-readiness`; generic Git or build hook → out of scope for this catalog.
 - *"Our service is slow" / "design SLOs"* — diagnosing a slow or incident-y production system → `perf-critique`; designing SLOs / instrumentation / a profile-first optimization → `perf-design`; the developer's own machine (local install, cold start, edit-test-debug) → `dx-critique`.
-- *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `project-agentification`; building an eval/optimization loop for an AI product or agent you ship → `eval-flywheel`.
-- *"Make our app agent-friendly" / "design an Agent SDK" / "is our AGENTS.md agent-ready" / "review our llms.txt for agents"* — the **agent-experience** umbrella: it reviews the AX surface (agent-readable docs, AI/Agent SDK, repo readiness) and routes to `project-agentification` to harden the repo, `evidence-driven-agent-rules` to promote failures into rules, or `eval-flywheel` to instrument loops.
+- *"Improve our agent" / "make our AI better"* — making a coding-agent harness work better in this repo (AGENTS.md, hooks, MCP) → `codebase-agent-readiness`; building an eval/optimization loop for an AI product or agent you ship → `eval-flywheel`.
+- *"Make our app agent-friendly" / "design an Agent SDK" / "is our AGENTS.md agent-ready" / "review our llms.txt for agents"* — the **design-for-agents** umbrella: it reviews the AX surface (agent-readable docs, AI/Agent SDK, repo readiness) and routes to `codebase-agent-readiness` to harden the repo, `evidence-driven-agent-rules` to promote failures into rules, or `eval-flywheel` to instrument loops.
 - *"Research X"* — open-ended topic (primer, literature review, state-of-the-art) → `research` (`report` frame); validate a named product/business opportunity (go/no-go) → `research` (`opportunity` frame); comparing a fixed set of already-named options is out of scope for `research` (reach for a dedicated comparison/decision-matrix tool).
 
 ## Skills
@@ -98,16 +98,16 @@ Install just this skill:
 npx skills add Thulr/informed-skills --skill research
 ```
 
-### agent-experience
+### design-for-agents
 
-The **umbrella agent-experience (AX) discipline** — designing, reviewing, and
+The **umbrella design-for-agents (AX) discipline** — designing, reviewing, and
 debugging software, repos, docs, and SDKs for AI agents as a first-class consumer
 audience (the agent-facing analog of UX and DX). It owns the AX review heuristics
 and routes to its three implementation arms for the *doing*.
 
 | Owns (review / design / debug) | Routes to (the doing) |
 |---|---|
-| Agent-readable docs (`llms.txt`, AGENTS.md, MCP/tool descriptions, RAG/retrieval, chunk survivability); AI/Agent SDK design (streaming, tools, structured output, agent loops, guardrails, tracing, MCP transport); repo agent-readiness review; human-vs-agent audience conflicts | `project-agentification` (harden a repo) · `evidence-driven-agent-rules` (promote observed failures into rules) · `eval-flywheel` (instrument eval/optimization loops) |
+| Agent-readable docs (`llms.txt`, AGENTS.md, MCP/tool descriptions, RAG/retrieval, chunk survivability); AI/Agent SDK design (streaming, tools, structured output, agent loops, guardrails, tracing, MCP transport); repo agent-readiness review; human-vs-agent audience conflicts | `codebase-agent-readiness` (harden a repo) · `evidence-driven-agent-rules` (promote observed failures into rules) · `eval-flywheel` (instrument eval/optimization loops) |
 
 Standalone rather than a per-domain critique/design skill because it is a distinct
 discipline that routes *across* top-level skills (see
@@ -115,37 +115,37 @@ discipline that routes *across* top-level skills (see
 Grounded in the AGENTS.md convention, the Model Context Protocol, Mündler et al.
 on context-file evals, the OpenTelemetry GenAI conventions, and the AX/DX/UX
 documentation synthesis (full provenance in
-[`skills/agent-experience/skill.json`](./skills/agent-experience/skill.json)).
+[`skills/design-for-agents/skill.json`](./skills/design-for-agents/skill.json)).
 
 Install the umbrella with its three implementation arms (so the harden / promote
 / instrument routes resolve to installed skills):
 
 ```bash
-npx skills add Thulr/informed-skills --skill agent-experience \
-  --skill project-agentification --skill evidence-driven-agent-rules --skill eval-flywheel
+npx skills add Thulr/informed-skills --skill design-for-agents \
+  --skill codebase-agent-readiness --skill evidence-driven-agent-rules --skill eval-flywheel
 ```
 
-`agent-experience` installs standalone too, but on its own it is **review-only**:
+`design-for-agents` installs standalone too, but on its own it is **review-only**:
 its build/harden/measure routes point at the arm skills above, so install those
 alongside it to use the full discipline.
 
-### project-agentification
+### codebase-agent-readiness
 
 Assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry). **For any repo that wants coding agents to work well in it** — no eval / benchmark / telemetry prerequisites; scaffolds from project knowledge (stack, layout, commands, invariants).
 
-Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × surface (11 surfaces across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research (full provenance in [`skills/project-agentification/skill.json`](./skills/project-agentification/skill.json)).
+Routes by intent (`assess` / `harden` / `scaffold` / `diagnose`) × surface (11 surfaces across 3 layers: legibility / action / control), then dispatches four parallel reviewer lenses (cold-context-agent / maintainer / adversarial / auditor). Grounded in published research (full provenance in [`skills/codebase-agent-readiness/skill.json`](./skills/codebase-agent-readiness/skill.json)).
 
 Install just this skill:
 
 ```bash
-npx skills add Thulr/informed-skills --skill project-agentification
+npx skills add Thulr/informed-skills --skill codebase-agent-readiness
 ```
 
 ### evidence-driven-agent-rules
 
 Capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entries floor, and score Level 4–5 (Spec Architecture, Sovereign Engineering) maturity. **For teams with a feedback signal** — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test.
 
-Pair with `project-agentification`: that skill scaffolds the project-context-first AGENTS.md any repo can use; this skill layers the evidence-driven workflow on top for the subset of repos where the feedback signal exists. Provenance in [`skills/evidence-driven-agent-rules/skill.json`](./skills/evidence-driven-agent-rules/skill.json).
+Pair with `codebase-agent-readiness`: that skill scaffolds the project-context-first AGENTS.md any repo can use; this skill layers the evidence-driven workflow on top for the subset of repos where the feedback signal exists. Provenance in [`skills/evidence-driven-agent-rules/skill.json`](./skills/evidence-driven-agent-rules/skill.json).
 
 Install just this skill:
 

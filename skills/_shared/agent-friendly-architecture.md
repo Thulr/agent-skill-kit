@@ -1,6 +1,6 @@
 # Agent-friendly architecture patterns (shared)
 
-This note is shared between `project-agentification` and `evidence-driven-agent-rules` to avoid
+This note is shared between `codebase-agent-readiness` and `evidence-driven-agent-rules` to avoid
 drift. It summarizes what the recent repo-level agent literature actually supports about
 "architecture that helps agents work on existing projects".
 
@@ -31,7 +31,7 @@ Treat boundary constraints as **gates**, not prose:
 - CI-required checks / branch protection.
 
 Designing the boundary model (ports/adapters, dependency rule, bounded contexts) is owned by
-`architecture-critique` / `architecture-design`; `project-agentification` owns the enforcement surface.
+`architecture-critique` / `architecture-design`; `codebase-agent-readiness` owns the enforcement surface.
 
 ## 3) Parallelize work via stable “design rules” (contracts)
 

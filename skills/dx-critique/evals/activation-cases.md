@@ -85,7 +85,7 @@ playbook; names a target developer persona; emits the intent's template shape.
 
 ## N5 — AI-agent surface
 **Prompt:** `Claude Code keeps tripping on our repo — wrong test commands, blocked pushes, bad AGENTS.md. Make it agent-friendly.`
-**Expected:** defers to `agent-experience`; does not route through a DX playbook.
+**Expected:** defers to `design-for-agents`; does not route through a DX playbook.
 
 ## N6 — Concept explanation
 **Prompt:** `Explain how OAuth2 PKCE works for a one-pager.`

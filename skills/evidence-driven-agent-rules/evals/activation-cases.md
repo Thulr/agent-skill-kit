@@ -19,7 +19,7 @@ wired).
    - Refuses to act on groups < 3 (W1 floor).
 
 3. **"Score our repo against Level 4 / Level 5 of the Engineering Agents maturity rubric."** → `assess-l4l5`
-   - Requires user to confirm current Level 1–3 score (from `project-agentification`).
+   - Requires user to confirm current Level 1–3 score (from `codebase-agent-readiness`).
    - Refuses if Level 1–3 < 3 (fix lower-level gaps first).
    - Otherwise scores Levels 4–5 against `references/core/maturity-rubric.md`.
    - For 7+ gaps, any level-ceiling blocker, or a save/track request, saves
@@ -45,8 +45,8 @@ wired).
 1. **"Refactor our authentication module."** — unrelated coding task.
 2. **"Write a SQL migration to add a users table."** — unrelated coding task.
 3. **"Help me debug this failing test in Python."** — unrelated debugging.
-4. **"Set up an AGENTS.md for my repo."** — `project-agentification`'s job, not this skill's.
-5. **"Make my repo work well with Claude Code."** — `project-agentification`'s job; this skill is the evidence-driven layer on top.
+4. **"Set up an AGENTS.md for my repo."** — `codebase-agent-readiness`'s job, not this skill's.
+5. **"Make my repo work well with Claude Code."** — `codebase-agent-readiness`'s job; this skill is the evidence-driven layer on top.
 
 ## Edge
 
@@ -57,9 +57,9 @@ wired).
    workflow).
 
 2. **"Generate AGENTS.md from our observed failures."** — borderline
-   between this skill (uses the reflection log) and `project-agentification`
+   between this skill (uses the reflection log) and `codebase-agent-readiness`
    (scaffolds AGENTS.md). The right answer: run
-   `project-agentification` first to scaffold the project-context AGENTS.md,
+   `codebase-agent-readiness` first to scaffold the project-context AGENTS.md,
    then run this skill's `promote` workflow to layer in rules derived
    from the reflection log. State this explicitly rather than picking
    one.

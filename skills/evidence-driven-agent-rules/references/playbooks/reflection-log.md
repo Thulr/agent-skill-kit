@@ -91,12 +91,12 @@ naming.
   (layer-skipping, wrong-direction dependencies, forbidden imports,
   cycles), prefer structural fixes: architecture lints/tests as
   CI-required checks. Use `architecture-design` to define the boundary
-  model; use `project-agentification` gates guidance to enforce it.
+  model; use `codebase-agent-readiness` gates guidance to enforce it.
 
 ### assess-l4l5
 
 - **H1.** Assume Levels 1–3 already scored by
-  `project-agentification`. Require user to state the current
+  `codebase-agent-readiness`. Require user to state the current
   Level 1–3 score before running this; refuse if the score is < 3
   (fixing lower-level gaps is the priority).
 - **H2.** For Level 4 (Specification Architecture): verify
@@ -140,4 +140,4 @@ naming.
   empirical basis for W1's ≥3-entries promotion floor.
 - "AGENTS.md" — Agentic AI Foundation; the instruction-surface
   artifact `promote` writes rules into (scaffolded by
-  `project-agentification`, not this skill).
+  `codebase-agent-readiness`, not this skill).

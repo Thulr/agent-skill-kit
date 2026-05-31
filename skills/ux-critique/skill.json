@@ -1,6 +1,6 @@
 {
   "name": "ux-critique",
-  "description": "Heuristic CRITIQUE of end-user product UX and accessibility — usability audits, form friction, navigation/information-architecture, error/recovery copy, and WCAG/keyboard/screen-reader/contrast/focus reviews for the interfaces real people use. Use to AUDIT an existing user-facing flow for confusion, exclusion, or coercion and score it; emits a severity-rated, trackable findings report. Do NOT use to CRITIQUE developer-facing surfaces like APIs, SDKs, CLIs, or dev docs (use dx-critique), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for AI-agent-facing surfaces and AGENTS.md (use agent-experience). Grounded in usability literature and WCAG 2.2 (provenance below).",
+  "description": "Heuristic CRITIQUE of end-user product UX and accessibility — usability audits, form friction, navigation/information-architecture, error/recovery copy, and WCAG/keyboard/screen-reader/contrast/focus reviews for the interfaces real people use. Use to AUDIT an existing user-facing flow for confusion, exclusion, or coercion and score it; emits a severity-rated, trackable findings report. Do NOT use to CRITIQUE developer-facing surfaces like APIs, SDKs, CLIs, or dev docs (use dx-critique), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for AI-agent-facing surfaces and AGENTS.md (use design-for-agents). Grounded in usability literature and WCAG 2.2 (provenance below).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

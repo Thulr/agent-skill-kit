@@ -41,7 +41,7 @@ done
 # ----- SKILL.md frontmatter + word-count gate -----
 if [[ -f "$skill_md" ]]; then
   head -1 "$skill_md" | grep -q '^---$' || fail "SKILL.md missing YAML frontmatter delimiter (---)"
-  grep -Eq '^name: agent-experience$' "$skill_md" || fail "SKILL.md frontmatter must include: name: agent-experience"
+  grep -Eq '^name: design-for-agents$' "$skill_md" || fail "SKILL.md frontmatter must include: name: design-for-agents"
   grep -Eq '^description:' "$skill_md" || fail "SKILL.md frontmatter must include: description:"
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
   wc=$(wc -w < "$skill_md")
@@ -54,10 +54,10 @@ for s in empirical-warnings.md lenses.md modes.md agent-friendly-architecture.md
 done
 
 # ----- Shared JSON contracts -----
-validate_skill_json_contract "$repo_root" "$skill_json" "agent-experience"
-validate_trigger_evals_contract "$repo_root" "$trigger_evals" "agent-experience"
+validate_skill_json_contract "$repo_root" "$skill_json" "design-for-agents"
+validate_trigger_evals_contract "$repo_root" "$trigger_evals" "design-for-agents"
 
 if (( failures > 0 )); then
   exit 1
 fi
-echo "agent-experience static eval passed."
+echo "design-for-agents static eval passed."

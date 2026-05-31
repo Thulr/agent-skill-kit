@@ -85,11 +85,11 @@ Based on the weakest layer, the next stage to target is:
 If this report has 7+ findings, any severity 3–4 finding, or a save/track
 request, create both tracking artifacts now: the Markdown ledger from
 `templates/findings-ledger.md` at
-`docs/audits/project-agentification-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
+`docs/audits/codebase-agent-readiness-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and the workflow state from `templates/workflow-state.json` at
-`docs/audits/project-agentification-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
+`docs/audits/codebase-agent-readiness-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
 Create the directory if needed. If the target is not a repo or `docs/audits/`
-is not writable, use matching `audit-artifacts/project-agentification-...`
+is not writable, use matching `audit-artifacts/codebase-agent-readiness-...`
 paths. Report both saved paths; do not merely offer or inline tracking.
 Roadmaps, external issues, and non-tracking project-file edits require explicit
 confirmation.

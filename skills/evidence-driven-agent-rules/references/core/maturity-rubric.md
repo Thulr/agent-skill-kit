@@ -1,7 +1,7 @@
 
 # Maturity Rubric — Levels 4–5 (Extension)
 
-This file extends `project-agentification/references/core/maturity-rubric.md`
+This file extends `codebase-agent-readiness/references/core/maturity-rubric.md`
 (Levels 1–3) with the spec-architecture and sovereign-engineering levels
 that only apply to repos with eval/measurement infrastructure.
 
@@ -36,7 +36,7 @@ Level 3.
 
 ## How to use during `assess`
 
-1. Score Levels 1–3 against `project-agentification`'s rubric first.
+1. Score Levels 1–3 against `codebase-agent-readiness`'s rubric first.
 2. If overall is already < 3, skip this file — fixing the lower-level
    gaps is the priority.
 3. Otherwise, score the Level 4 / Level 5 signals using this file.

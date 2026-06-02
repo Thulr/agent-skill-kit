@@ -436,5 +436,10 @@
         "changelog"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Design a new developer-experience surface from scratch \u2014 API, SDK, CLI, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin contract, or package scheme."
+  }
 }

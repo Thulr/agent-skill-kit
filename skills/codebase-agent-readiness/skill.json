@@ -340,5 +340,11 @@
         "all"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "ax",
+    "function": "singleton",
+    "catalog_order": 2,
+    "catalog_summary": "assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite \u2014 it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/codebase-agent-readiness/skill.json`](./skills/codebase-agent-readiness/skill.json)."
+  }
 }

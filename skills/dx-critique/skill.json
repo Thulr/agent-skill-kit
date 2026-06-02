@@ -441,5 +441,10 @@
         "changelog"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass."
+  }
 }

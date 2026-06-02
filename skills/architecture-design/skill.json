@@ -162,5 +162,10 @@
       "contribution": "Deep modules with simple interfaces; defining errors out of existence; comments as design. Underwrites both boundary design and cross-cutting error handling.",
       "playbooks": ["boundaries"]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Set the dependency-rule invariant for new work, shape layer/port/adapter boundaries, model entities/aggregates/value objects, carve a bounded context, and sequence a safe refactor."
+  }
 }

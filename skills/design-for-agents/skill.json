@@ -134,5 +134,11 @@
         "audience-conflicts"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "ax",
+    "function": "singleton",
+    "catalog_order": 1,
+    "catalog_summary": "the umbrella discipline. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below for the *doing*. It is a distinct discipline that routes *across* top-level skills (see [`docs/adr/0006`](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)). Installed standalone it is **review-only** \u2014 its build/harden/measure routes point at the arms, so install those alongside it for the full discipline. Provenance in [`skills/design-for-agents/skill.json`](./skills/design-for-agents/skill.json)."
+  }
 }

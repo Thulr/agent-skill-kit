@@ -190,5 +190,10 @@
         "foundations"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Plan or reshape a docs surface before implementation — information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, and API/tool-contract docs."
+  }
 }

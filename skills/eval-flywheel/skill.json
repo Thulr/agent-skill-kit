@@ -80,5 +80,11 @@
         "all"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "ax",
+    "function": "singleton",
+    "catalog_order": 4,
+    "catalog_summary": "audit an AI product's feedback loops, map them onto the AI Optimization Staircase, score the missing loop mechanics, and scaffold the smallest useful eval/optimization loop. Diagnostic-first; never auto-writes learned rules without held-out evals plus a reviewed diff. Provenance in [`skills/eval-flywheel/skill.json`](./skills/eval-flywheel/skill.json)."
+  }
 }

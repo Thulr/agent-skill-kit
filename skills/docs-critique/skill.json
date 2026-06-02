@@ -189,5 +189,10 @@
         "foundations"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure."
+  }
 }

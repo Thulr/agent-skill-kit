@@ -162,5 +162,10 @@
       "contribution": "Deep modules with simple interfaces; defining errors out of existence; comments as design. Underwrites both boundary design and cross-cutting error handling.",
       "playbooks": ["boundaries"]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Audit a codebase for dependency-rule violations, layer/port/adapter boundary leakage, anemic domains, and bounded-context seams; emits severity-scored findings."
+  }
 }

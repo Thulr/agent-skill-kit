@@ -257,5 +257,10 @@
         "resources"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Audit a production or runtime system for latency, throughput, saturation, and observability gaps (tracing, logs, metrics) and score the findings."
+  }
 }

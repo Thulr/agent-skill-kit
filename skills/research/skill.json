@@ -330,5 +330,10 @@
         "channel"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "research",
+    "function": "singleton",
+    "catalog_summary": "Source-grounded research in **two decision-frames**. `report` \u2014 open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` \u2014 validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame). Provenance in [`skills/research/skill.json`](./skills/research/skill.json)."
+  }
 }

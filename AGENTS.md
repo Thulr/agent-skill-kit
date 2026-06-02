@@ -57,6 +57,13 @@ install lanes that any path-based gate **must** enumerate:
   `trigger-evals.json` schema against valid cases and known invalid cases.
 - `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
   against the canonical schema files under `schemas/`.
+- `python3 scripts/build-catalog.py [--check|--write]` — regenerates the README
+  §Pick a skill / §Catalog blocks from `skill.json` metadata + `catalog/catalog.json`.
+  `--check` (CI / `just check` default) fails if the committed README is stale;
+  `--write` rewrites it. **Do not hand-edit the content between the
+  `<!-- BEGIN/END GENERATED -->` markers in README.md** — change the source
+  (`metadata.catalog_summary` in the relevant `skill.json`, or family prose /
+  matrix rows in `catalog/catalog.json`) and run `--write`.
 
 CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 

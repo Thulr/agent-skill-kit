@@ -233,5 +233,10 @@
         "performance"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Author a new test or test plan, shape a cross-layer test strategy (what to test at which layer), or plan which low-value tests to delete."
+  }
 }

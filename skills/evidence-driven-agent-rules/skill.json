@@ -81,5 +81,11 @@
         "reflection-log"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "ax",
+    "function": "singleton",
+    "catalog_order": 3,
+    "catalog_summary": "capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 \u22653-entry floor. For teams with a feedback signal \u2014 eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/evidence-driven-agent-rules/skill.json`](./skills/evidence-driven-agent-rules/skill.json)."
+  }
 }

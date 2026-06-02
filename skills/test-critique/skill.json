@@ -212,5 +212,10 @@
         "performance"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Review a test suite for smells, redundancy, false-pass risk, brittleness, and flakiness and score it, or triage one failing, flaky, or slow test."
+  }
 }

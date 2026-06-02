@@ -83,5 +83,10 @@
       "contribution": "Scanning, recognition, clear navigation, and fast user confidence as practical usability criteria.",
       "playbooks": ["usability-audit", "navigation-review"]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "critique",
+    "catalog_summary": "Audit an end-user product UX or accessibility surface — usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks — and score it."
+  }
 }

@@ -16,6 +16,7 @@ npx skills add Thulr/informed-skills
 
 The catalog currently covers software engineering and coding-agent work — developer and documentation experience, test quality, architecture, performance and observability, product UX and accessibility, UI craft, and agent experience. Other source-grounded domains may be added later.
 
+<!-- BEGIN GENERATED: pick-a-skill (scripts/build-catalog.py) -->
 ## Pick a skill
 
 Two questions get you there: **which surface**, and are you **reviewing it** or **building it**?
@@ -45,7 +46,9 @@ For research and agent-facing work:
 - *"Make our docs better"* — audit existing docs → `docs-critique`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-critique`; agent-readable docs (llms.txt, retrieval) → `design-for-agents`.
 - *"Our service is slow" / "design SLOs"* — diagnose a slow or incident-y system → `perf-critique`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-critique`.
 - *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `codebase-agent-readiness`; build an eval loop for an AI product you ship → `eval-flywheel`.
+<!-- END GENERATED: pick-a-skill -->
 
+<!-- BEGIN GENERATED: catalog (scripts/build-catalog.py) -->
 ## Catalog
 
 What each skill is and what it's grounded in. To route by task use [Pick a skill](#pick-a-skill); to install see [Install](#install).
@@ -56,9 +59,22 @@ Source-grounded heuristics for software surfaces, split so the name says what it
 
 Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Martin, Evans, and many more (per-skill provenance in each `skill.json`). These twelve skills replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
 
+- **`architecture-critique`** *(critique)* — Audit a codebase for dependency-rule violations, layer/port/adapter boundary leakage, anemic domains, and bounded-context seams; emits severity-scored findings.
+- **`architecture-design`** *(design)* — Set the dependency-rule invariant for new work, shape layer/port/adapter boundaries, model entities/aggregates/value objects, carve a bounded context, and sequence a safe refactor.
+- **`docs-critique`** *(critique)* — Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure.
+- **`docs-design`** *(design)* — Plan or reshape a docs surface before implementation — information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, and API/tool-contract docs.
+- **`dx-critique`** *(critique)* — Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass.
+- **`dx-design`** *(design)* — Design a new developer-experience surface from scratch — API, SDK, CLI, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin contract, or package scheme.
+- **`perf-critique`** *(critique)* — Audit a production or runtime system for latency, throughput, saturation, and observability gaps (tracing, logs, metrics) and score the findings.
+- **`perf-design`** *(design)* — Design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, and metric selection up-front for a new or expanding system.
+- **`test-critique`** *(critique)* — Review a test suite for smells, redundancy, false-pass risk, brittleness, and flakiness and score it, or triage one failing, flaky, or slow test.
+- **`test-design`** *(design)* — Author a new test or test plan, shape a cross-layer test strategy (what to test at which layer), or plan which low-value tests to delete.
+- **`ui-design`** *(design)* — Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.
+- **`ux-critique`** *(critique)* — Audit an end-user product UX or accessibility surface — usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks — and score it.
+
 ### research
 
-Source-grounded research in **two decision-frames**. `report` — open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` — validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame). Provenance in [`skills/research/skill.json`](./skills/research/skill.json).
+- **`research`** — Source-grounded research in **two decision-frames**. `report` — open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` — validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame). Provenance in [`skills/research/skill.json`](./skills/research/skill.json).
 
 ### Agent experience (AX)
 
@@ -68,6 +84,7 @@ Designing, reviewing, and debugging software, repos, docs, and SDKs for AI agent
 - **`codebase-agent-readiness`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/codebase-agent-readiness/skill.json`](./skills/codebase-agent-readiness/skill.json).
 - **`evidence-driven-agent-rules`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/evidence-driven-agent-rules/skill.json`](./skills/evidence-driven-agent-rules/skill.json).
 - **`eval-flywheel`** — audit an AI product's feedback loops, map them onto the AI Optimization Staircase, score the missing loop mechanics, and scaffold the smallest useful eval/optimization loop. Diagnostic-first; never auto-writes learned rules without held-out evals plus a reviewed diff. Provenance in [`skills/eval-flywheel/skill.json`](./skills/eval-flywheel/skill.json).
+<!-- END GENERATED: catalog -->
 
 ## Install
 
@@ -131,6 +148,7 @@ Use `-g` / `--global` for user-wide installs; default is project scope. See `npx
 | `skills/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete |
 | `skills/_shared/` | Cross-skill primitives (e.g. `lenses.md`, `empirical-warnings.md` W2–W10). Each consuming skill symlinks the relevant files; `npx skills` dereferences at install time, shipping self-contained skills. Enforced by `scripts/check-shared-content.sh` |
 | `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
+| `catalog/catalog.json` | Family-level prose + routing matrix for the generated README §Pick a skill / §Catalog. Per-skill summaries live in each `skill.json` (`metadata.catalog_summary`). Rendered by `scripts/build-catalog.py`; the generated blocks are CI-checked, never hand-edited |
 | `scripts/` | Repo-wide scripts: instruction-surface symlink check, schema validator |
 | `skills/.experimental/<name>/` | Reserved lane kept empty for now; current product skills live in `skills/<name>/`, and prerelease maturity is communicated by repository release tags such as `0.0.1-alpha` |
 | `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |

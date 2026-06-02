@@ -81,6 +81,9 @@
     }
   ],
   "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.",
     "shape": "single-layer",
     "classification": "workflow-aware",
     "source_paths": [

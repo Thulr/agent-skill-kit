@@ -258,5 +258,10 @@
         "resources"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "design",
+    "catalog_summary": "Design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, and metric selection up-front for a new or expanding system."
+  }
 }

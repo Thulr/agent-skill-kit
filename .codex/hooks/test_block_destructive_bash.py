@@ -239,6 +239,26 @@ CASES = [
     ("xargs rm -rf /etc", True, "xargs rm"),
     ("xargs -I{} rm -rf /etc", True, "xargs -I rm"),
     ("watch -n1 rm -rf /etc", True, "watch -n rm"),
+    # watch runs its argument via `sh -c`; the quoted command-string form
+    # must be inspected, not treated as an opaque executable name.
+    ("watch 'rm -rf /etc'", True, "watch quoted rm string"),
+    ("watch -n 1 'rm -rf /etc'", True, "watch -n then quoted rm"),
+    ("watch 'rm -rf /etc; rm -rf /var'", True, "watch compound rm string"),
+
+    # xargs reading delete targets from stdin via a literal producer (echo/
+    # printf/find). Producer-tracing across `|` only; opaque producers (cat,
+    # $()) are a documented gap. reflection-log 2026-06-02-hook-xargs-stdin-targets.
+    ("echo /etc | xargs rm -rf", True, "echo | xargs rm -rf"),
+    ("printf '%s' /etc | xargs -I{} rm -rf {}", True, "printf | xargs -I{} rm"),
+    ("find /etc -print0 | xargs rm -rf", True, "find protected | xargs rm"),
+    ("echo /etc/passwd | xargs shred -u", True, "echo | xargs shred"),
+    ("echo $HOME | xargs rm -rf", True, "echo $HOME | xargs rm"),
+    ("echo ./build | xargs rm -rf", False, "echo relative | xargs rm"),
+    ("find . -name '*.tmp' | xargs rm -rf", False, "find . | xargs (cwd-local)"),
+    ("find /tmp -print | xargs rm -rf", False, "find /tmp | xargs (not protected)"),
+    ("echo /etc ; xargs rm -rf", False, "echo ; xargs (not piped)"),
+    ("cat list | xargs rm -rf", False, "opaque producer (documented gap)"),
+    ("echo /etc | xargs rm", False, "xargs rm without -r"),
     ("nohup find /etc -delete", True, "nohup find -delete"),
 
     # Non-rm deleters of protected files.
@@ -255,6 +275,8 @@ CASES = [
     ("find /etc -type f -name '*.log'", False, "find /etc read-only"),
     ("find -H . -name '*.tmp' -delete", False, "find -H then cwd-local ."),
     ("find -L /tmp/x -exec rm {} +", False, "find -L then /tmp (not protected)"),
+    ("watch 'ls -la'", False, "watch safe quoted string"),
+    ("watch -n 2 df -h", False, "watch safe command"),
     ("timeout 5 ls", False, "timeout ls"),
     ("nohup ./server", False, "nohup safe binary"),
     ("xargs ls", False, "xargs ls"),

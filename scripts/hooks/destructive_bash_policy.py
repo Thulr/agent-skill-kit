@@ -63,8 +63,9 @@ TRANSPARENT_WRAPPERS = frozenset(
         # Execution wrappers that run an arbitrary following command. Omitting
         # them let `nohup rm -rf /etc`, `timeout 5 rm -rf /etc`,
         # `xargs rm -rf /etc`, etc. through unchecked (reflection-log
-        # 2026-06-02-hook-wrapper-bypasses).
-        "nohup", "setsid", "stdbuf", "timeout", "flock", "watch", "xargs",
+        # 2026-06-02-hook-wrapper-bypasses). `watch` is handled separately
+        # (COMMAND_STRING_WRAPPERS) because it runs its argument via `sh -c`.
+        "nohup", "setsid", "stdbuf", "timeout", "flock", "xargs",
     ]
 )
 
@@ -81,6 +82,13 @@ SIMPLE_DELETERS = frozenset(["shred", "truncate", "unlink", "rmdir"])
 # (failure-log entry 9: `bash -c 'rm -rf /etc'` was treated as opaque). Handles
 # combined short flags like `-lc`.
 SHELL_LAUNCHERS = frozenset(["sh", "bash", "zsh", "dash", "ksh", "ash", "fish"])
+
+# Wrappers that run their *entire* post-option remainder as a shell command
+# string (not an argv exec). `watch` passes its argument to `sh -c`, so
+# `watch 'rm -rf /etc'` — a single quoted token — must be recursively inspected
+# as a command, not treated as an opaque executable name (reflection-log
+# 2026-06-02-hook-watch-command-string).
+COMMAND_STRING_WRAPPERS = frozenset(["watch"])
 
 # Per-wrapper flags that consume a following token as their value (long forms
 # with `=` are handled separately). Conservative: only include flags actually
@@ -310,6 +318,16 @@ def resolve_executable(argv):
         if _is_env_assignment(a):
             i += 1
             continue
+        if a in COMMAND_STRING_WRAPPERS:
+            # The whole remainder (after this wrapper's own option flags) is a
+            # shell command string run via `sh -c`. Recurse into it, however it
+            # was quoted: `watch 'rm -rf /etc'` or `watch -n1 rm -rf /etc`.
+            value_flags = WRAPPER_VALUE_FLAGS.get(a, frozenset())
+            i += 1
+            i = _skip_wrapper_flags(argv, i, value_flags, a, command_values)
+            if i < len(argv):
+                command_values.append(" ".join(argv[i:]))
+            return None, [], command_values
         if a in TRANSPARENT_WRAPPERS:
             value_flags = WRAPPER_VALUE_FLAGS.get(a, frozenset())
             wrapper_name = a
@@ -462,18 +480,13 @@ def _protected_path_reason(target, cwd=None):
     return None
 
 
-def check_find(argv, cwd=None):
-    """Block `find <protected-root> ... -delete` / `-exec rm` / `-execdir rm`.
-
-    Roots are the leading non-option operands (default `.`). The destructive
-    actions are `-delete` and `-exec`/`-execdir` invoking `rm` (incl. `/bin/rm`).
-    Relative/cwd-local roots (`.`, `/tmp`, ...) are allowed, matching `rm`.
+def _find_roots(argv):
+    """Return the starting-point operands of a `find` argv (default `["."]`).
 
     GNU find accepts global options *before* the path list —
     `find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]` — so
-    those are skipped first; otherwise `find -H /etc -delete` would collect an
-    empty root list, fall back to `.`, and slip a protected path past the gate
-    (reflection-log 2026-06-02-hook-find-option-bypass).
+    those are skipped first; otherwise `find -H /etc ...` would collect an empty
+    root list and fall back to `.` (reflection-log 2026-06-02-hook-find-option-bypass).
     """
     i = 0
     while i < len(argv):
@@ -494,8 +507,17 @@ def check_find(argv, cwd=None):
     while i < len(argv) and not argv[i].startswith(("-", "(", "!", ")")):
         roots.append(argv[i])
         i += 1
-    if not roots:
-        roots = ["."]
+    return roots or ["."]
+
+
+def check_find(argv, cwd=None):
+    """Block `find <protected-root> ... -delete` / `-exec rm` / `-execdir rm`.
+
+    Roots are the leading non-option operands (default `.`). The destructive
+    actions are `-delete` and `-exec`/`-execdir` invoking `rm` (incl. `/bin/rm`).
+    Relative/cwd-local roots (`.`, `/tmp`, ...) are allowed, matching `rm`.
+    """
+    roots = _find_roots(argv)
 
     has_delete = "-delete" in argv
     has_exec_rm = False
@@ -533,6 +555,149 @@ def check_simple_deleter(cmd, argv, cwd=None):
         reason = _protected_path_reason(arg, cwd=cwd)
         if reason:
             return f"{cmd} {reason}"
+    return None
+
+
+# ---------------------------------------------------------------------------
+# xargs reading delete targets from stdin — `echo /etc | xargs rm -rf`.
+# The targets cross a pipe boundary, so per-segment argv inspection misses them.
+# Producer-tracing closes the common forms WITHOUT false positives: we only
+# trace across a real `|`, and only when the upstream segment is a *literal*
+# producer (echo/printf) or a `find <root>` whose root we can resolve. Opaque
+# producers (cat file, $(...), command output) remain a documented limit —
+# CI branch protection is the backstop there (reflection-log
+# 2026-06-02-hook-xargs-stdin-targets).
+# ---------------------------------------------------------------------------
+
+_XARGS_DELETERS = frozenset(["rm"]) | SIMPLE_DELETERS
+
+
+def _split_pipeline_with_seps(command):
+    """Like split_pipeline but pair each segment with the operator before it.
+
+    Returns a list of (sep_before, [tokens]); sep_before is None for the first
+    segment. Used to restrict producer-tracing to `|` (stdout→stdin), never `;`
+    / `&&` / `||` (which do not feed the next command's stdin)."""
+    try:
+        lexer = shlex.shlex(command, posix=True, punctuation_chars=True)
+        lexer.whitespace_split = True
+        tokens = list(lexer)
+    except ValueError:
+        return None
+    result = []
+    current = []
+    sep_before = None
+    pending_sep = None
+    for tok in tokens:
+        if tok in PIPELINE_SEPARATORS or tok in SHELL_GROUP_DELIMITERS:
+            if current:
+                result.append((sep_before, current))
+                current = []
+            sep_before = tok
+            pending_sep = tok
+        else:
+            if not current:
+                sep_before = pending_sep
+            current.append(tok)
+    if current:
+        result.append((sep_before, current))
+    return result
+
+
+def _xargs_deleter_invocation(seg):
+    """If `seg` is `xargs [opts] <deleter> [args]`, return (replstr, deleter, args).
+
+    `replstr` is the `-I`/`-i` replacement token (e.g. `{}`) or None. Returns
+    None when the segment is not an xargs call of a recursive deleter."""
+    if "xargs" not in seg:
+        return None
+    i = seg.index("xargs") + 1
+    replstr = None
+    value_flags = WRAPPER_VALUE_FLAGS["xargs"]
+    while i < len(seg) and seg[i].startswith("-"):
+        tok = seg[i]
+        if tok == "--":
+            i += 1
+            break
+        if tok == "-I" or tok == "--replace":
+            if i + 1 < len(seg):
+                replstr = seg[i + 1]
+            i += 2
+            continue
+        if tok.startswith("-I") and len(tok) > 2:  # -I{} attached
+            replstr = tok[2:]
+            i += 1
+            continue
+        if tok.startswith("--replace="):
+            replstr = tok[len("--replace="):]
+            i += 1
+            continue
+        if tok == "-i":  # deprecated; default replstr {}
+            replstr = "{}"
+            i += 1
+            continue
+        flag, sep, _ = tok.partition("=")
+        if flag in value_flags and sep != "=":
+            i += 2
+            continue
+        i += 1
+    if i >= len(seg):
+        return None
+    deleter = os.path.basename(seg[i])
+    if deleter not in _XARGS_DELETERS:
+        return None
+    return replstr, deleter, seg[i + 1:]
+
+
+def _literal_producer_paths(seg):
+    """Literal path tokens a producer segment writes to stdout, or None if opaque.
+
+    Handles `echo PATHS`, `printf FORMAT PATHS`, and `find <root>` (the root is
+    the destructive surface). Anything else (cat, ls, $(...), command output) is
+    opaque to static inspection — return None so it is not traced."""
+    if not seg:
+        return None
+    cmd = os.path.basename(seg[0])
+    if cmd == "echo":
+        return [t for t in seg[1:]
+                if not (len(t) > 1 and t[0] == "-" and set(t[1:]) <= set("neE"))]
+    if cmd == "printf":
+        rest = seg[1:]
+        if rest and rest[0] == "--":
+            rest = rest[1:]
+        return rest[1:]  # drop the format string; remaining args are the data
+    if cmd == "find":
+        return _find_roots(seg[1:])
+    return None
+
+
+def check_xargs_stdin(command, cwd=None):
+    """Block `<literal-producer> | xargs <deleter>` of a protected path."""
+    segs = _split_pipeline_with_seps(command)
+    if not segs:
+        return None
+    for idx in range(1, len(segs)):
+        sep, seg = segs[idx]
+        if sep != "|":  # only a real pipe feeds xargs stdin
+            continue
+        parsed = _xargs_deleter_invocation(seg)
+        if not parsed:
+            continue
+        replstr, deleter, dargs = parsed
+        produced = _literal_producer_paths(segs[idx - 1][1])
+        if not produced:
+            continue
+        for path in produced:
+            if replstr and replstr in dargs:
+                eff = [path if t == replstr else t for t in dargs]
+            else:
+                eff = dargs + [path]
+            if deleter == "rm":
+                reason = check_rm(eff, cwd=cwd)
+            else:
+                reason = check_simple_deleter(deleter, eff, cwd=cwd)
+            if reason:
+                return f"{reason} (via xargs stdin)"
     return None
 
 
@@ -747,6 +912,11 @@ def check_command(command):
         if violation:
             return violation
         cwd = _update_cwd_from_cd(segment, cwd)
+
+    # Cross-segment: a literal producer piping delete targets into xargs.
+    violation = check_xargs_stdin(command, cwd=None)
+    if violation:
+        return violation
     return None
 
 

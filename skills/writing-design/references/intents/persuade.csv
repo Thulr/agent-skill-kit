@@ -1,0 +1,5 @@
+surface,name,when_to_use,playbook,core_refs
+talk-pitch,Talk / pitch,"Make a presentation, pitch, or launch post land and move the audience",references/playbooks/talk-pitch.md,references/core/persuasion-rubric.md;references/core/narrative-honesty-guard.md;references/core/audience-frame.md
+narrative,Narrative / essay,"Give an essay, case study, or vision narrative momentum and an arc",references/playbooks/narrative.md,references/core/persuasion-rubric.md;references/core/narrative-honesty-guard.md;references/core/audience-frame.md
+argument-memo,Argument / memo,"Frame a memo as where-we-are vs where-we-could-be to win the decision",references/playbooks/argument-memo.md,references/core/persuasion-rubric.md;references/core/narrative-honesty-guard.md;references/core/audience-frame.md
+general-prose,General prose,"Make a short announcement or post more compelling and memorable",references/playbooks/general-prose.md,references/core/persuasion-rubric.md;references/core/narrative-honesty-guard.md;references/core/audience-frame.md

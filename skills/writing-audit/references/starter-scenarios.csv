@@ -1,0 +1,6 @@
+id,scenario,intent,surface,persona,when_to_pick
+S1,"Tighten a bloated PRD without losing the author's voice",revise,argument-memo,scanner,The doc is twice as long as it needs to be
+S2,"Copyedit a blog post for mechanics and consistency before publishing",copyedit,general-prose,novice,Final polish pass
+S3,"Diagnose why a conference talk feels flat and doesn't land",diagnose,talk-pitch,decision-maker,The content is solid but the room doesn't move
+S4,"Find why a memo buries its recommendation and how to fix the structure",diagnose,argument-memo,decision-maker,Readers can't tell what's being asked
+S5,"Make a how-to less wordy and easier to follow to completion",revise,technical-doc,implementer,Readers fall off mid-procedure

@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+argument-memo,Argument / memo,"PRD, RFC, recommendation, decision or strategy memo",references/playbooks/argument-memo.md,references/core/structure-rubric.md;references/core/audience-frame.md
+technical-doc,Technical / task doc,"How-to, procedure, reference, explainer, AI playbook",references/playbooks/technical-doc.md,references/core/structure-rubric.md;references/core/audience-frame.md
+talk-pitch,Talk / pitch,"Presentation, pitch, launch post, exec summary",references/playbooks/talk-pitch.md,references/core/structure-rubric.md;references/core/audience-frame.md
+narrative,Narrative / essay,"Essay, case study, vision or change narrative, technical narrative",references/playbooks/narrative.md,references/core/structure-rubric.md;references/core/audience-frame.md
+general-prose,General prose,"Lead a short email, announcement, or note with the point (BLUF)",references/playbooks/general-prose.md,references/core/structure-rubric.md;references/core/audience-frame.md

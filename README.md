@@ -71,6 +71,8 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 - **`test-design`** *(design)* — Author a new test or test plan, shape a cross-layer test strategy (what to test at which layer), or plan which low-value tests to delete.
 - **`ui-design`** *(design)* — Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.
 - **`ux-audit`** *(audit)* — Audit an end-user product UX or accessibility surface — usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks — and score it.
+- **`writing-audit`** *(audit)* — Audit an existing piece of writing — revise wordy prose, copyedit mechanics while preserving voice, or diagnose why a draft buries the point or fails to land — routed by intent (revise/copyedit/diagnose) × genre, emitting a scored findings report.
+- **`writing-design`** *(design)* — Structure, draft, or add a persuasive arc to a new piece of writing — argument/memo, technical doc, talk/pitch, narrative, or general prose — routed by intent (structure/draft/persuade) × genre.
 
 ### research
 

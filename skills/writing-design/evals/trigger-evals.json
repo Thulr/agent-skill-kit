@@ -1,0 +1,26 @@
+{
+  "skill": "writing-design",
+  "version": "0.1.0",
+  "queries": [
+    { "query": "Help me outline this RFC before I write it", "should_activate": true, "expected_route": "structure/argument-memo", "category": "positive" },
+    { "query": "Turn these scattered notes into a recommendation memo that leads with the answer", "should_activate": true, "expected_route": "structure/argument-memo", "category": "positive" },
+    { "query": "How should I structure a how-to guide around what the user is trying to do?", "should_activate": true, "expected_route": "structure/technical-doc", "category": "positive" },
+    { "query": "I'm staring at a blank page — help me draft this design doc", "should_activate": true, "expected_route": "draft/argument-memo", "category": "positive" },
+    { "query": "Write a first pass of this launch announcement", "should_activate": true, "expected_route": "draft/general-prose", "category": "positive" },
+    { "query": "Make this conference talk actually land — give it an arc", "should_activate": true, "expected_route": "persuade/talk-pitch", "category": "positive" },
+    { "query": "Help me pitch this project to execs so they care", "should_activate": true, "expected_route": "persuade/talk-pitch", "category": "positive" },
+    { "query": "Add narrative momentum to this engineering blog post", "should_activate": true, "expected_route": "persuade/narrative", "category": "positive" },
+    { "query": "Outline a case study about how we cut latency", "should_activate": true, "expected_route": "structure/narrative", "category": "positive" },
+    { "query": "Frame this strategy memo as where we are vs where we could be", "should_activate": true, "expected_route": "persuade/argument-memo", "category": "positive" },
+    { "query": "This draft is wordy — tighten it", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Copyedit this blog post for grammar and consistency", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Why does this section drag and bury the point?", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Design the information architecture for our whole docs site", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "How should our API reference and tutorials fit together as a set?", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Research what's known about RAG retrieval and write it up", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Review this signup form for usability friction", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Audit our SDK's error messages for friction", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Write the README for this repo", "should_activate": true, "expected_route": "draft/general-prose", "category": "edge" },
+    { "query": "Make our error messages clearer", "should_activate": true, "expected_route": "draft/general-prose", "category": "edge" }
+  ]
+}

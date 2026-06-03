@@ -1,0 +1,1 @@
+../../../_shared/writing/core/clarity-rubric.md

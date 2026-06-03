@@ -1,0 +1,1 @@
+../../../_shared/writing/playbooks/narrative.md

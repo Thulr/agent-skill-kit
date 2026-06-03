@@ -1,0 +1,1 @@
+../../../_shared/writing/core/structure-rubric.md

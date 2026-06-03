@@ -23,7 +23,7 @@ three.
 
 | ID | Severity | Lens | Finding | Recommendation | Verification |
 | --- | --- | --- | --- | --- | --- |
-| UI-001 | S2 | Visual craft | <issue> | <fix> | <how to verify> |
+| UI-001 | 2 | Visual craft | <issue> | <fix> | <how to verify> |
 
 ## Commitments Checked
 

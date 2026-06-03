@@ -52,11 +52,11 @@ Run at least three lenses:
 
 ## Severity
 
-- **S0:** taste note; optional.
-- **S1:** polish issue visible to careful reviewers.
-- **S2:** quality issue most users will notice.
-- **S3:** task, brand, accessibility, or export problem that blocks approval.
-- **S4:** legal/IP, privacy, destructive, or seriously misleading output.
+- **0:** taste note; optional.
+- **1:** polish issue visible to careful reviewers.
+- **2:** quality issue most users will notice.
+- **3:** task, brand, accessibility, or export problem that blocks approval.
+- **4:** excludes users (keyboard-inoperable or content not perceivable), legal/IP, privacy, destructive, or seriously misleading output.
 
 ## Anti-Slop Pass
 
@@ -69,4 +69,4 @@ the design before adding more detail.
 
 This skill can flag accessibility risk, focus gaps, contrast problems, and
 motion concerns. For a formal WCAG-oriented audit, hand off to the
-`ux` domain after the visual direction is stable.
+`ux-audit` skill after the visual direction is stable.

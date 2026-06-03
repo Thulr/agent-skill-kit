@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: Use to PRODUCE test-suite artifacts — author a new test or test plan for a feature, shape a cross-layer test strategy (what to test at which layer, as a portfolio), or plan which tests to delete (low-value, redundant, characterizing dead code). Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on "write tests for this feature", "what should I test and at which layer", "design our test strategy", "which tests should we delete", "is our test pyramid right". Do NOT use to REVIEW or triage existing tests for smells, flakiness, or false-pass (use test-critique), or for production-system performance/SLOs (use perf-design).
+description: Use to PRODUCE test-suite artifacts — author a new test or test plan for a feature, shape a cross-layer test strategy (what to test at which layer, as a portfolio), or plan which tests to delete (low-value, redundant, characterizing dead code). Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on "write tests for this feature", "what should I test and at which layer", "design our test strategy", "which tests should we delete", "is our test pyramid right". Do NOT use to REVIEW or triage existing tests for smells, flakiness, or false-pass (use test-audit), or for production-system performance/SLOs (use perf-design).
 license: MIT
 ---
 
@@ -37,7 +37,7 @@ the most familiar layer.
 
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to
    `author`, `strategize`, or `prune`. Ambiguous → ask once. (Reviewing or
-   triaging *existing* tests instead? That is `test-critique`.)
+   triaging *existing* tests instead? That is `test-audit`.)
 2. **Pick layer.** Load the intent's CSV from `references/intents/<intent>.csv`.
    Match to one layer, or `all` (strategize) for a cross-layer portfolio.
    Ambiguous → ask once with the CSV menu.
@@ -72,7 +72,7 @@ running a command.
 
 - `references/intent-router.csv` — level-1 router (author / strategize / prune).
 - `references/intents/<intent>.csv` — level-2 router (layer) per intent.
-- `references/layers/<layer>.md` — layer references (shared with test-critique).
+- `references/layers/<layer>.md` — layer references (shared with test-audit).
 - `references/core/{personas,failure-modes,oracles}.md` — personas, failure
   taxonomy, and consistency oracles.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).

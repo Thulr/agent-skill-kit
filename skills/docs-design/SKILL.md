@@ -1,6 +1,6 @@
 ---
 name: docs-design
-description: Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, API/tool-contract docs, error-copy shape, versioning, accessibility baseline, agent context files), or define the telemetry, CI gates, sample tests, retrieval evals, feedback loops, and success metrics that keep docs true. Triggers on "design our docs IA", "how should we structure the quickstart/reference", "what should our tool descriptions look like", "how do we measure docs quality", "set up docs CI gates / freshness checks". Emits a design doc with a concrete proposed structure and acceptance criteria, or a measurement plan with signals, thresholds, owners, and actions. Do NOT use to AUDIT or debug existing docs (use docs-critique), for end-user visual UI design (use ux-critique), or for repo-level agent hardening / AGENTS.md design (use design-for-agents).
+description: Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, API/tool-contract docs, error-copy shape, versioning, accessibility baseline, agent context files), or define the telemetry, CI gates, sample tests, retrieval evals, feedback loops, and success metrics that keep docs true. Triggers on "design our docs IA", "how should we structure the quickstart/reference", "what should our tool descriptions look like", "how do we measure docs quality", "set up docs CI gates / freshness checks". Emits a design doc with a concrete proposed structure and acceptance criteria, or a measurement plan with signals, thresholds, owners, and actions. Do NOT use to AUDIT or debug existing docs (use docs-audit), for end-user visual UI design (use ux-audit), or for repo-level agent hardening / AGENTS.md design (use agent-experience).
 license: MIT
 ---
 
@@ -37,7 +37,7 @@ concretely rather than describing principles abstractly.
 
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to one
    of: `design`, `measure`. Ambiguous → ask once. (Auditing or debugging
-   *existing* docs instead? That is `docs-critique`.)
+   *existing* docs instead? That is `docs-audit`.)
 2. **Pick surface.** Load the intent's CSV from
    `references/intents/<intent>.csv`. Match to one or more surfaces. Ambiguous →
    ask once with the CSV menu.
@@ -76,7 +76,7 @@ artifact or running a check.
 
 - `references/intent-router.csv` — level-1 router (design / measure).
 - `references/intents/<intent>.csv` — level-2 router (surface) per intent.
-- `references/playbooks/<surface>.md` — surface playbooks (shared with docs-critique).
+- `references/playbooks/<surface>.md` — surface playbooks (shared with docs-audit).
 - `references/core/personas.md`, `references/core/audience-matrix.md` — audiences.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.

@@ -3,7 +3,7 @@
 Activation + behavioral cases for `architecture-design` — designing a target
 clean architecture for new work, sequencing a safe refactor toward it, or
 explaining a principle (intents: `design`, `refactor`, `explain`). Auditing and
-scoring an *existing* codebase for violations is `architecture-critique`; those
+scoring an *existing* codebase for violations is `architecture-audit`; those
 appear here as **negatives**.
 
 ## Static verification
@@ -75,12 +75,12 @@ the menu; does not inspect first.
 
 ## N1 — Audit an existing codebase
 **Prompt:** `Our domain is anemic and our use cases import the JPA impls — audit it and score how bad it is.`
-**Expected:** recognizes this is **critique** of existing code; defers to `architecture-critique`.
+**Expected:** recognizes this is **critique** of existing code; defers to `architecture-audit`.
 **Fail if:** produces a design doc instead of a scored findings report.
 
 ## N2 — Closeout against saved findings
 **Prompt:** `Verify whether CA-DEP-002 is fixed using the saved workflow-state JSON.`
-**Expected:** defers to `architecture-critique` (audit closeout).
+**Expected:** defers to `architecture-audit` (audit closeout).
 
 ## N3 — Developer-facing surface design
 **Prompt:** `Pin down the public API contracts for our SDK before 1.0.`
@@ -88,11 +88,11 @@ the menu; does not inspect first.
 
 ## N4 — End-user UI design
 **Prompt:** `Design a lower-friction consumer signup flow.`
-**Expected:** recognizes end-user audience; defers to `ui-design` (or `ux-critique`).
+**Expected:** recognizes end-user audience; defers to `ui-design` (or `ux-audit`).
 
 ## N5 — AI/Agent SDK design
 **Prompt:** `Design the agent loop and tool-call contract for our AI/Agent SDK.`
-**Expected:** defers to `design-for-agents`; does not route through an architecture playbook.
+**Expected:** defers to `agent-experience`; does not route through an architecture playbook.
 
 ## N6 — Internal function refactor
 **Prompt:** `Refactor this function to use early returns.`

@@ -11,7 +11,7 @@ A recurring question — "isn't DX just a subset of UX?" — has no written answ
 the catalog, yet the structure already takes a side. The canonical audience
 matrix (`review-heuristics/references/docs/core/audience-matrix.md`) is a **flat**
 table, not a nesting; `dx` and `ux` are **sibling** domains under
-`review-heuristics` (0005); and `design-for-agents` calls itself "the agent-facing
+`review-heuristics` (0005); and `agent-experience` calls itself "the agent-facing
 analog of UX **and** DX" (0006). Three places encode peers, none states *why*, so
 the next contributor can read the structure either way — and "DX ⊂ UX" is the
 tempting default, because a developer *is* a kind of user and Nielsen/Norman
@@ -56,7 +56,7 @@ same reason the peer model beats the nesting model one level down.
 - The audience matrix stays **flat by design** and now states the model
   explicitly (parent discipline + the three differentiators + an explicit
   "DX is not a subset of UX" note), citing this ADR. Both copies — the canonical
-  `review-heuristics` matrix and the `design-for-agents` AX excerpt — carry the
+  `review-heuristics` matrix and the `agent-experience` AX excerpt — carry the
   framing.
 - Routing language treats `dx`, `ux`, and agent experience as **peers**: the
   `domain-router` `when_to_use` text for `dx`/`ux` names the sibling disciplines
@@ -88,6 +88,6 @@ same reason the peer model beats the nesting model one level down.
   concept here is unchanged** — UX/DX/AX remain audience-differentiated peers of
   experience design. Only the *structural* expression updates: where this ADR
   says 0005 makes `dx`/`ux` "sibling **domains** of one review engine," post-0008
-  they are sibling **skills** (`dx-critique`/`dx-design`/`ux-critique`/…). The
+  they are sibling **skills** (`dx-audit`/`dx-design`/`ux-audit`/…). The
   audience matrix's canonical home moves with the content (see 0008 / the split
   spec).

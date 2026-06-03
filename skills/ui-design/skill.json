@@ -1,6 +1,6 @@
 {
   "name": "ui-design",
-  "description": "Generative visual UI design and polish — produce product screens and dashboards, design systems and tokens, interactive prototypes, slide decks, motion/effects, and artifact handoff, then run a self-polish anti-slop quality-review pass. Grounded in canonical usability, accessibility, and design-system sources plus project-local design workflow notes. Emits a runnable or viewable visual artifact plus a design brief. To AUDIT an existing interface's usability or accessibility (no new visual design) use ux-critique; for developer-facing API/SDK/CLI surfaces use dx-design.",
+  "description": "Generative visual UI design and polish — produce product screens and dashboards, design systems and tokens, interactive prototypes, slide decks, motion/effects, and artifact handoff, then run a self-polish anti-slop quality-review pass. Grounded in canonical usability, accessibility, and design-system sources plus project-local design workflow notes. Emits a runnable or viewable visual artifact plus a design brief. To AUDIT an existing interface's usability or accessibility (no new visual design) use ux-audit; for developer-facing API/SDK/CLI surfaces use dx-design.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

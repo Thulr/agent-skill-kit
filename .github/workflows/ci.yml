@@ -147,6 +147,7 @@ jobs:
         run: |
           python3 .claude/hooks/test_block_destructive_bash.py
           python3 .codex/hooks/test_block_destructive_bash.py
+          python3 .cursor/hooks/test_block_destructive_bash.py
 
       - name: Run skill static checks
         shell: bash

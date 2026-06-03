@@ -59,11 +59,11 @@ Reached with the maintainer on 2026-05-28.
 - **Consolidate the shared engine in `skills/_shared/`** and add a routing-CSV
   contract + static check, extending the Rule-2 schema pattern to CSV headers.
 - **Do NOT split the agent-infra giants** (`project-agentification`,
-  `evidence-driven-agent-rules`). The original restructuring proposal
+  `agent-rules`). The original restructuring proposal
   included splitting these on a "<800-word SKILL.md cap violation." That
   evidence does not hold: the word cap is enforced **per skill** in each
   `run-static-checks.sh`, and these skills deliberately set no cap
-  (`project-agentification`, `evidence-driven-agent-rules`) or a raised one
+  (`project-agentification`, `agent-rules`) or a raised one
   (`opportunity-research`: `< 1200`, currently 962). `just check` is green
   for all three. More importantly, splitting `project-agentification` (one
   engine, many surfaces) directly contradicts merging the review family
@@ -75,7 +75,7 @@ Reached with the maintainer on 2026-05-28.
 ## Target catalog
 
 Published, installable: `review-heuristics`, `research`,
-`project-agentification`, `evidence-driven-agent-rules`, `eval-flywheel`.
+`project-agentification`, `agent-rules`, `agent-evals`.
 Internal template: `example-minimal`. Repo-local: `informed-skill-curator`,
 `informed-skill-reviewer`.
 
@@ -123,7 +123,7 @@ skills/research/
 
 1. `just check` is green after the change.
 2. `npx skills add . --list` shows `review-heuristics`, `research`,
-   `project-agentification`, `evidence-driven-agent-rules`, `eval-flywheel`
+   `project-agentification`, `agent-rules`, `agent-evals`
    (and not the 9 merged-away names).
 3. `review-heuristics` routes all 7 former domains; every former playbook,
    intent CSV, rubric, and template is reachable under `references/<domain>/`
@@ -146,7 +146,7 @@ skills/research/
 
 ## Out of scope
 
-- Splitting `project-agentification` / `evidence-driven-agent-rules` (dropped,
+- Splitting `project-agentification` / `agent-rules` (dropped,
   see Decisions).
 - Changes to the `npx skills` tool.
 - Re-grading activation accuracy with a live model (Stage 1.5 runner, future).

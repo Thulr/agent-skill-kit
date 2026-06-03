@@ -78,7 +78,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'good-shaped pattern' 'good-shaped pattern' "$skill_md"
-  check_pattern 'routes critique elsewhere' 'architecture-critique' "$skill_md"
+  check_pattern 'routes critique elsewhere' 'architecture-audit' "$skill_md"
 fi
 
 # ----- design-doc template shape -----
@@ -96,7 +96,7 @@ if [[ -f "$intent_router" ]]; then
   rows=$(grep -cE '^(design|refactor|explain),' "$intent_router")
   (( rows == 3 )) || fail "intent-router.csv: expected 3 data rows, got $rows"
   for i in "${INTENTS[@]}"; do check_pattern "$i intent" "^$i," "$intent_router"; done
-  grep -Eq '^audit,' "$intent_router" && fail "intent-router.csv: 'audit' belongs in architecture-critique, not architecture-design"
+  grep -Eq '^audit,' "$intent_router" && fail "intent-router.csv: 'audit' belongs in architecture-audit, not architecture-design"
 fi
 
 # ----- Playbook structure gates (shared playbooks, via symlink) -----

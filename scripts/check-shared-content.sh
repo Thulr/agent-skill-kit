@@ -4,7 +4,7 @@
 # via a relative symlink to the canonical source, not via a regular-file copy.
 #
 # Background: `npx skills` dereferences symlinks at install time (verified
-# 2026-05-16 — see docs/specs/2026-05-16-evidence-driven-agent-rules-split/spec.md
+# 2026-05-16 — see docs/specs/2026-05-16-agent-rules-split/spec.md
 # §Q1), so the symlink approach gives single-source-of-truth at maintenance
 # time AND self-contained skills at install time. The one regression vector
 # is a maintainer accidentally replacing a symlink with an edited regular

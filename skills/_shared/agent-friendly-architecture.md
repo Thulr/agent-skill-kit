@@ -1,6 +1,6 @@
 # Agent-friendly architecture patterns (shared)
 
-This note is shared between `codebase-agent-readiness` and `evidence-driven-agent-rules` to avoid
+This note is shared between `agent-readiness` and `agent-rules` to avoid
 drift. It summarizes what the recent repo-level agent literature actually supports about
 "architecture that helps agents work on existing projects".
 
@@ -12,7 +12,9 @@ from raw source alone under context limits.
 Prefer a deterministic, machine-readable structure map that the agent can treat as ground truth:
 
 - Build/test graphs (targets, runners, tests, dependency edges) as JSON (e.g., RIG-style maps;
-  arXiv:2601.10112).
+  arXiv:2601.10112) — RIG reports **+12.2% mean accuracy and −53.9% completion time** across Claude
+  Code / Cursor / Codex, with larger gains in multilingual repos. This is the marquee evidence for
+  handing the agent a structure graph.
 - Repository-level code graphs for navigation/retrieval (e.g., arXiv:2410.14684).
 - Whole-repo symbol maps with a fixed token budget (Tree-sitter → dependency graph → PageRank),
   as a fallback when a richer graph isn’t available.
@@ -31,7 +33,23 @@ Treat boundary constraints as **gates**, not prose:
 - CI-required checks / branch protection.
 
 Designing the boundary model (ports/adapters, dependency rule, bounded contexts) is owned by
-`architecture-critique` / `architecture-design`; `codebase-agent-readiness` owns the enforcement surface.
+`architecture-audit` / `architecture-design`; `agent-readiness` owns the enforcement surface.
+
+## 2b) Legibility-first at the source level (not just the graph)
+
+Beyond a machine-queryable graph, the agent-specific design literature (Meng & Jackson, *What You
+See Is What It Does*, SPLASH 2025, arXiv:2508.14511; Earendil's practitioner cut) reframes "good
+architecture" for an LLM with finite context as **legibility**: a unit's behavior should be readable
+from the unit, without tracing hidden magic. Concrete moves an `assess`/`harden` pass can check:
+
+- **Grep-unique names** — symbols findable with one search, not overloaded common words.
+- **Visible control flow / workflow phases** — explicit phases over implicit dispatch (dynamic
+  imports, reflection, implicit ORM hooks).
+- **Less hidden magic** — one obvious interface per risky surface; minimize action-at-a-distance.
+
+Caveat: "legible" ≠ "tidy for a human reader" — the bar is the model's context budget. And named
+clean/hex/onion *styles* are unvalidated as agent-success drivers; legibility + enforced boundaries
+(§2) are the evidenced lever, the dependency rule is necessary but not sufficient.
 
 ## 3) Parallelize work via stable “design rules” (contracts)
 

@@ -1,6 +1,6 @@
 # ADR 0008: Reverse the Review Consolidation — Skills Split by Domain × Function
 
-**Status:** Accepted (2026-05-30). Supersedes [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) **for the review family only**; updates the structural claims in [ADR 0007](./0007-experience-disciplines-are-audience-peers.md). Does **not** disturb [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) (`design-for-agents` stays standalone).
+**Status:** Accepted (2026-05-30). Supersedes [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) **for the review family only**; updates the structural claims in [ADR 0007](./0007-experience-disciplines-are-audience-peers.md). Does **not** disturb [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) (`agent-experience` stays standalone).
 
 ## Context
 
@@ -40,17 +40,17 @@ skill and a `-design` skill.
 
 | Skill | Function | Intents |
 |---|---|---|
-| `dx-critique` | critique | audit, debug, edge-pass |
+| `dx-audit` | critique | audit, debug, edge-pass |
 | `dx-design` | produce | design |
-| `docs-critique` | critique | audit, debug |
+| `docs-audit` | critique | audit, debug |
 | `docs-design` | produce | design, measure |
-| `perf-critique` | critique | audit, diagnose |
+| `perf-audit` | critique | audit, diagnose |
 | `perf-design` | produce | design, optimize, strategize |
-| `test-critique` | critique | review, triage |
+| `test-audit` | critique | review, triage |
 | `test-design` | produce | author, strategize, prune |
-| `ux-critique` | critique (pure) | usability / accessibility / form / nav / error audits |
+| `ux-audit` | critique (pure) | usability / accessibility / form / nav / error audits |
 | `ui-design` | produce (pure, self-polishes) | product-ui, design-system, prototype, deck, motion, host-handoff, quality-review |
-| `architecture-critique` | critique | audit |
+| `architecture-audit` | critique | audit |
 | `architecture-design` | produce | design, refactor, explain |
 
 - **Critique skills** run lenses → score → severity → stable finding IDs →
@@ -69,7 +69,7 @@ skill and a `-design` skill.
 - **Scope is the review family only.** This does not reverse 0005's
   research-frame consolidation (`research` stays one skill routed
   `report | opportunity`) or its guidance against fragmenting an already-routed
-  engine (`codebase-agent-readiness` stays whole). `design-for-agents` (0006)
+  engine (`agent-readiness` stays whole). `agent-experience` (0006)
   stands — AX content does not return to the per-domain skills.
 
 The principle, stated to compete with 0005: **when a merged skill's name and
@@ -81,8 +81,8 @@ mega-skill.
 ## Consequences
 
 - Published skills go from one `review-heuristics` to **12** domain×function
-  skills (alongside `research`, `codebase-agent-readiness`,
-  `evidence-driven-agent-rules`, `design-for-agents`, `eval-flywheel`,
+  skills (alongside `research`, `agent-readiness`,
+  `agent-rules`, `agent-experience`, `agent-evals`,
   `loop-architect`). The umbrella description's keyword pile-up collapses into
   12 sharp descriptions.
 - Each new skill carries domain×function-scoped `skill.json.inspired_by`
@@ -99,7 +99,7 @@ mega-skill.
   `_shared/<domain>/` single-sourcing and the shared schema/eval gates that
   already validate every lane.
 - **Risk — seam prompts.** "Review my API *design doc*" sits between
-  `dx-critique` and `dx-design`. Accepted; each pair cross-links the sibling in
+  `dx-audit` and `dx-design`. Accepted; each pair cross-links the sibling in
   its description and `when_to_use`.
 - ADR 0005 is marked Superseded-in-part. ADR 0007's *peer concept* (UX/DX/AX are
   audience-differentiated peers) stands unchanged; its structural sentence that

@@ -1,6 +1,6 @@
 {
   "name": "dx-design",
-  "description": "Heuristic DESIGN of developer-experience surfaces \u2014 shape a new API, SDK, CLI, developer-doc IA, error envelope, setup/first-run flow, auth model, plugin contract, package, logging/config scheme, changelog, or telemetry contract from scratch, grounded in canonical DX literature. Emits a design doc with a concrete good-shaped pattern, the heuristics it satisfies, anti-patterns avoided, and testable acceptance criteria. To AUDIT or debug an existing surface use dx-critique; for end-user visual UI use ui-design; for AI-agent-facing surfaces use design-for-agents.",
+  "description": "Heuristic DESIGN of developer-experience surfaces \u2014 shape a new API, SDK, CLI, developer-doc IA, error envelope, setup/first-run flow, auth model, plugin contract, package, logging/config scheme, changelog, or telemetry contract from scratch, grounded in canonical DX literature. Emits a design doc with a concrete good-shaped pattern, the heuristics it satisfies, anti-patterns avoided, and testable acceptance criteria. To AUDIT or debug an existing surface use dx-audit; for end-user visual UI use ui-design; for AI-agent-facing surfaces use agent-experience.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

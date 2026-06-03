@@ -4,7 +4,7 @@
 
 The skill's invocation space is genuinely two-dimensional. Each dimension
 is orthogonal to the other, and the leaves at their intersection each need
-distinct content. The canonical example is `skills/dx-critique/`:
+distinct content. The canonical example is `skills/dx-audit/`:
 
 - Dimension 1 (intent): audit / debug / edge-pass
 - Dimension 2 (surface): api / sdk / cli / docs / errors / ...
@@ -18,7 +18,7 @@ Pick this when:
 - The two axes share rubrics (severity scale, scoring, personas) that
   belong in one shared place.
 
-**Read `skills/dx-critique/` end-to-end as the canonical example before
+**Read `skills/dx-audit/` end-to-end as the canonical example before
 scaffolding a two-level skill of your own.** Copying its structure beats
 inventing one.
 
@@ -117,7 +117,7 @@ sections, registry rows pointing at nonexistent files — that a static
 check script becomes necessary, not optional.
 
 `evals/run-static-checks.sh` should verify (see
-`skills/dx-critique/evals/run-static-checks.sh` for a working
+`skills/dx-audit/evals/run-static-checks.sh` for a working
 implementation):
 
 - All expected files exist (SKILL.md, skill.json, both registry layers,

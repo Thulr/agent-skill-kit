@@ -4,7 +4,7 @@ Activation + behavioral cases for `ui-design` — generatively producing and
 polishing visual UI artifacts (screens, design systems, prototypes, decks,
 motion, handoff bundles), including a self-polish anti-slop pass. Auditing an
 existing interface's usability/accessibility with no new visual design is
-`ux-critique`; developer-facing API/SDK/CLI surfaces are `dx-design`. Those
+`ux-audit`; developer-facing API/SDK/CLI surfaces are `dx-design`. Those
 appear here as **negatives**.
 
 ## Static verification
@@ -70,12 +70,12 @@ anti-slop self-polish pass.
 
 ## N1 — Pure accessibility audit
 **Prompt:** `Run a formal WCAG 2.2 accessibility audit of our checkout — no redesign.`
-**Expected:** recognizes this is an **audit** of an existing interface with no new visual design; defers to `ux-critique`.
+**Expected:** recognizes this is an **audit** of an existing interface with no new visual design; defers to `ux-audit`.
 **Fail if:** produces a visual redesign for an audit-only request.
 
 ## N2 — Usability audit of an existing flow
 **Prompt:** `Our signup form is confusing — list the heuristic violations.`
-**Expected:** defers to `ux-critique` (usability audit, not visual production).
+**Expected:** defers to `ux-audit` (usability audit, not visual production).
 
 ## N3 — Developer API design
 **Prompt:** `Design the error envelope and pagination for our REST API before 1.0.`

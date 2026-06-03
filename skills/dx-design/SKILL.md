@@ -1,6 +1,6 @@
 ---
 name: dx-design
-description: Use to DESIGN or shape a new developer-experience surface from scratch — an API, SDK, CLI, developer-doc IA, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin or extension contract, package/publish scheme, logging/config design, changelog convention, or telemetry/consent contract. Triggers on "design a new API/SDK/CLI", "what should we get right up front", "shape the public surface before we write code", "what should our error envelope look like". Emits a design doc with a concrete good-shaped pattern and acceptance criteria. Do NOT use to AUDIT or debug an existing surface (use dx-critique), for end-user visual UI (use ui-design), or for AI-agent-facing surfaces / AI/Agent SDK design (use design-for-agents).
+description: Use to DESIGN or shape a new developer-experience surface from scratch — an API, SDK, CLI, developer-doc IA, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin or extension contract, package/publish scheme, logging/config design, changelog convention, or telemetry/consent contract. Triggers on "design a new API/SDK/CLI", "what should we get right up front", "shape the public surface before we write code", "what should our error envelope look like". Emits a design doc with a concrete good-shaped pattern and acceptance criteria. Do NOT use to AUDIT or debug an existing surface (use dx-audit), for end-user visual UI (use ui-design), or for AI-agent-facing surfaces / AI/Agent SDK design (use agent-experience).
 license: MIT
 ---
 
@@ -36,7 +36,7 @@ than describing principles abstractly.
 
 1. **Confirm intent = design.** This skill is single-intent (`design`). If the
    ask is actually to audit, debug, or risk-scan an *existing* surface, route to
-   `dx-critique` instead.
+   `dx-audit` instead.
 2. **Pick surface.** Load `references/intents/design.csv`. Match the prompt to
    one surface (or a small set). Ambiguous → ask once with the CSV menu.
 3. **Load grounded context.** Load only the chosen row's playbook
@@ -70,7 +70,7 @@ artifact or running a command.
 
 - `references/intent-router.csv` — single-intent router (`design`).
 - `references/intents/design.csv` — surface router for design.
-- `references/playbooks/<surface>.md` — surface playbooks (shared with dx-critique).
+- `references/playbooks/<surface>.md` — surface playbooks (shared with dx-audit).
 - `references/core/personas.md` — target developer persona list.
 - `references/first-impressions-checklist.md` — first-impressions items (README design).
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).

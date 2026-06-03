@@ -71,7 +71,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'mode support' '^## Modes' "$skill_md"
   check_pattern 'subagent dispatch' '^## Subagent dispatch' "$skill_md"
-  check_pattern 'routes audits elsewhere' 'ux-critique' "$skill_md"
+  check_pattern 'routes audits elsewhere' 'ux-audit' "$skill_md"
   check_pattern 'routes dev surfaces elsewhere' 'dx-design' "$skill_md"
 fi
 

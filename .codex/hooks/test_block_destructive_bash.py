@@ -202,6 +202,57 @@ CASES = [
     ("bash -c 'ls'", False, "bash -c ls"),
     ("sh -c 'echo hi'", False, "sh -c echo"),
     ("bash -lc 'ls'", False, "bash -lc ls"),
+
+    # ----- Round-5 bypasses (dx-heuristics edge-pass, 2026-06-02) -----
+    # reflection-log: 2026-06-02-hook-find-delete-bypass / -wrapper-bypasses /
+    # -nonrm-deleters.
+
+    # find -delete / -exec rm of protected roots.
+    ("find /etc -delete", True, "find /etc -delete"),
+    ("find / -delete", True, "find / -delete"),
+    ("find ~ -delete", True, "find ~ -delete"),
+    ("find $HOME -delete", True, "find $HOME -delete"),
+    ("find /etc -type f -exec rm -rf {} +", True, "find /etc -exec rm"),
+    ("find / -type f -exec rm -rf {} +", True, "find / -exec rm"),
+    ("find /Users -execdir rm -rf {} +", True, "find -execdir rm"),
+    ("find /etc -exec /bin/rm -rf {} +", True, "find -exec /bin/rm"),
+
+    # Execution wrappers that were opaque.
+    ("nohup rm -rf /etc", True, "nohup rm"),
+    ("nohup bash -c 'rm -rf /etc'", True, "nohup bash -c rm"),
+    ("timeout 5 rm -rf /etc", True, "timeout DURATION rm"),
+    ("timeout -s9 5 rm -rf /etc", True, "timeout -s9 rm"),
+    ("timeout --signal=KILL 5 rm -rf /etc", True, "timeout --signal= rm"),
+    ("flock /tmp/x rm -rf /etc", True, "flock lockfile rm"),
+    ("flock -w 5 /tmp/x rm -rf /etc", True, "flock -w lockfile rm"),
+    ("flock -c 'rm -rf /etc' /tmp/x", True, "flock -c rm"),
+    ("flock /tmp/x -c 'rm -rf /etc'", True, "flock lockfile -c rm"),
+    ("setsid rm -rf /etc", True, "setsid rm"),
+    ("setsid -f rm -rf /etc", True, "setsid -f rm"),
+    ("stdbuf -oL rm -rf /etc", True, "stdbuf -oL rm"),
+    ("xargs rm -rf /etc", True, "xargs rm"),
+    ("xargs -I{} rm -rf /etc", True, "xargs -I rm"),
+    ("watch -n1 rm -rf /etc", True, "watch -n rm"),
+    ("nohup find /etc -delete", True, "nohup find -delete"),
+
+    # Non-rm deleters of protected files.
+    ("shred -u /etc/passwd", True, "shred /etc/passwd"),
+    ("shred -n 3 -u /etc/shadow", True, "shred -n /etc/shadow"),
+    ("truncate -s 0 /etc/passwd", True, "truncate /etc/passwd"),
+    ("unlink /etc/passwd", True, "unlink /etc/passwd"),
+    ("rmdir /etc", True, "rmdir /etc"),
+    ("shred -u $HOME/.ssh/id_rsa", True, "shred under $HOME"),
+
+    # ----- Round-5 negatives: must remain allowed -----
+    ("find . -name '*.tmp' -delete", False, "find . -delete (cwd-local)"),
+    ("find /tmp -delete", False, "find /tmp -delete (not protected)"),
+    ("find /etc -type f -name '*.log'", False, "find /etc read-only"),
+    ("timeout 5 ls", False, "timeout ls"),
+    ("nohup ./server", False, "nohup safe binary"),
+    ("xargs ls", False, "xargs ls"),
+    ("truncate -s 0 /tmp/scratch", False, "truncate /tmp file"),
+    ("unlink ./local.sock", False, "unlink local file"),
+    ("shred -u ./secret.key", False, "shred local file"),
 ]
 
 

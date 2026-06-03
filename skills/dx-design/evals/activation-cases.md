@@ -2,7 +2,7 @@
 
 Activation + behavioral cases for `dx-design` — designing a *new* developer
 surface before the code exists. Auditing or debugging an existing surface is
-`dx-critique`; those appear here as **negatives**.
+`dx-audit`; those appear here as **negatives**.
 
 ## Static verification
 
@@ -58,20 +58,20 @@ a concrete good-shaped pattern + acceptance criteria.
 
 ## N1 — Audit an existing surface
 **Prompt:** `Our CLI --help is dense and confusing — review it and tell me what to tighten.`
-**Expected:** recognizes this is **critique** of an existing surface; defers to `dx-critique`.
+**Expected:** recognizes this is **critique** of an existing surface; defers to `dx-audit`.
 **Fail if:** produces a design doc for a surface that already ships.
 
 ## N2 — Debug a reported issue
 **Prompt:** `Users hit "auth failed" after rotating keys — what's wrong?`
-**Expected:** defers to `dx-critique` (debug).
+**Expected:** defers to `dx-audit` (debug).
 
 ## N3 — End-user UI design
 **Prompt:** `Design a lower-friction consumer signup flow.`
-**Expected:** recognizes end-user audience; defers to `ui-design` / `ux-critique`.
+**Expected:** recognizes end-user audience; defers to `ui-design` / `ux-audit`.
 
 ## N4 — AI/Agent SDK design
 **Prompt:** `Design the agent loop and tool-call contract for our AI/Agent SDK.`
-**Expected:** defers to `design-for-agents`; does not route through a DX playbook.
+**Expected:** defers to `agent-experience`; does not route through a DX playbook.
 
 ## N5 — Internal refactor
 **Prompt:** `Refactor this function to use early returns.`

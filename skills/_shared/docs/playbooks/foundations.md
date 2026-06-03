@@ -93,7 +93,7 @@ Use it before specializing into a single audience.
 
 - `references/playbooks/dx-docs.md` — developer-facing page and example shape.
 - `references/playbooks/ux-help.md` — in-product and help-center surfaces.
-- the `design-for-agents` skill (ax-docs surface) — retrieval and agent-readable rendering.
+- the `agent-experience` skill (ax-docs surface) — retrieval and agent-readable rendering.
 - `references/playbooks/audience-conflicts.md` — when shared foundations pull in
   different directions by audience.
 - `references/core/audience-matrix.md` — shared audience vocabulary.

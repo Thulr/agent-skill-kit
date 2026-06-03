@@ -1,0 +1,24 @@
+{
+  "skill": "architecture-audit",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "our spring monolith has entities that are basically getter/setter bags and all the logic lives in fat service classes. can you audit whether our domain is anemic and tell me how bad it is?", "should_activate": true, "expected_route": "audit/domain-model", "category": "positive"},
+    {"query": "i think we have layer violations — our use-case classes import the JPA repository implementations directly and a couple domain entities have @Entity annotations from hibernate. audit the dependency direction across our modules", "should_activate": true, "expected_route": "audit/dependency-rule", "category": "positive"},
+    {"query": "review our hexagonal setup — i'm not sure our ports and adapters are actually right, feels like framework types are leaking into the core. score how clean the boundaries are", "should_activate": true, "expected_route": "audit/boundaries", "category": "positive"},
+    {"query": "we split billing and catalog into two bounded contexts but they share a giant database table and import each other's models. audit the context seam and tell me where the boundary is broken", "should_activate": true, "expected_route": "audit/bounded-context", "category": "positive"},
+    {"query": "transactions and error handling are smeared across every layer in our codebase — controllers open db transactions, the domain throws HTTP-shaped exceptions. audit how cross-cutting concerns flow through the layers", "should_activate": true, "expected_route": "audit/cross-cutting", "category": "positive"},
+    {"query": "do a full architecture review of this service across dependency direction, boundaries, the domain model, and context seams before our quarterly review", "should_activate": true, "expected_route": "audit/all", "category": "positive"},
+    {"query": "verify whether CA-DEP-002 is fixed using docs/audits/architecture-audit-workflow-state-2026-05-22-billing.json and this PR diff", "should_activate": true, "expected_route": "audit/dependency-rule", "category": "positive"},
+    {"query": "we suspect business rules have leaked out of our entities into a pile of *Service classes. run a structured pass and score the domain model 0-10", "should_activate": true, "expected_route": "audit/domain-model", "category": "positive"},
+    {"query": "audit our package graph for cycles between top-level modules and any place an outer module is imported by an inner one", "should_activate": true, "expected_route": "audit/dependency-rule", "category": "positive"},
+    {"query": "we're starting a new go service with two bounded contexts and an unclear seam between them. help me decide where the boundary should go before we write code", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our handlers call the database directly. plan a sequenced, reversible refactor to introduce ports and adapters without a big rewrite", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "the team is new to this codebase — explain ports-and-adapters and the dependency rule against our actual structure, not a textbook", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our cli's --help output is dense and new joiners can't tell --region from --zone. take a pass at the help layout and tell me what to tighten", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit the accessibility of our checkout page for WCAG 2.2 AA compliance, here's the page html", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our consumer signup form has a 60% drop-off. help me reduce friction on the 4-step form", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "the production database is hot at 2pm every day on our reporting query, help me trace what's causing it. postgres 14 with pgbouncer", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this typescript function to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Claude Code keeps tripping on our repo — wrong test commands, blocked pushes, bad AGENTS.md. make it agent-friendly", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

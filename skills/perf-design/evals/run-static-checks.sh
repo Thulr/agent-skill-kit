@@ -77,7 +77,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'good-shaped pattern' 'good-shaped pattern' "$skill_md"
-  check_pattern 'routes critique elsewhere' 'perf-critique' "$skill_md"
+  check_pattern 'routes critique elsewhere' 'perf-audit' "$skill_md"
 fi
 
 # ----- template shapes -----
@@ -93,7 +93,7 @@ if [[ -f "$intent_router" ]]; then
   (( rows == 3 )) || fail "intent-router.csv: expected 3 data rows, got $rows"
   for i in "${INTENTS[@]}"; do check_pattern "$i intent" "^$i," "$intent_router"; done
   for bad in audit diagnose; do
-    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in perf-critique, not perf-design"
+    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in perf-audit, not perf-design"
   done
 fi
 

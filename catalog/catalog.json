@@ -3,15 +3,15 @@
   "pick_a_skill": {
     "intro": "Two questions get you there: **which surface**, and are you **reviewing it** or **building it**?",
     "primary": {
-      "columns": ["Surface", "Review it → `-critique`", "Build it → `-design`"],
+      "columns": ["Surface", "Review it → `-audit`", "Build it → `-design`"],
       "rows": [
-        {"surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry", "critique": "`dx-critique`", "design": "`dx-design`"},
-        {"surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts", "critique": "`docs-critique`", "design": "`docs-design`"},
-        {"surface": "**Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity", "critique": "`perf-critique`", "design": "`perf-design`"},
-        {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-critique`", "design": "`test-design`"},
-        {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-critique`", "design": "→ `ui-design`"},
-        {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ux-critique`", "design": "`ui-design`"},
-        {"surface": "**Clean architecture** — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts", "critique": "`architecture-critique`", "design": "`architecture-design`"}
+        {"surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry", "critique": "`dx-audit`", "design": "`dx-design`"},
+        {"surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts", "critique": "`docs-audit`", "design": "`docs-design`"},
+        {"surface": "**Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity", "critique": "`perf-audit`", "design": "`perf-design`"},
+        {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
+        {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},
+        {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ux-audit`", "design": "`ui-design`"},
+        {"surface": "**Clean architecture** — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts", "critique": "`architecture-audit`", "design": "`architecture-design`"}
       ]
     },
     "secondary": {
@@ -19,18 +19,18 @@
       "columns": ["Need", "Skill"],
       "rows": [
         {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
-        {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`design-for-agents` *(umbrella)*"},
-        {"need": "↳ harden a repo for coding agents", "skill": "`codebase-agent-readiness`"},
-        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`evidence-driven-agent-rules`"},
-        {"need": "↳ instrument an AI product's eval / optimization loops", "skill": "`eval-flywheel`"}
+        {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`agent-experience` *(umbrella)*"},
+        {"need": "↳ harden a repo for coding agents", "skill": "`agent-readiness`"},
+        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`agent-rules`"},
+        {"need": "↳ instrument an AI product's eval / optimization loops", "skill": "`agent-evals`"}
       ]
     },
     "unsure": [
       "**Still unsure?** The three boundaries people hit most:",
       "",
-      "- *\"Make our docs better\"* — audit existing docs → `docs-critique`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-critique`; agent-readable docs (llms.txt, retrieval) → `design-for-agents`.",
-      "- *\"Our service is slow\" / \"design SLOs\"* — diagnose a slow or incident-y system → `perf-critique`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-critique`.",
-      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `codebase-agent-readiness`; build an eval loop for an AI product you ship → `eval-flywheel`."
+      "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `agent-experience`.",
+      "- *\"Our service is slow\" / \"design SLOs\"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.",
+      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `agent-readiness`; build an eval loop for an AI product you ship → `agent-evals`."
     ]
   },
   "catalog": {
@@ -38,9 +38,9 @@
     "families": [
       {
         "id": "heuristics",
-        "title": "Heuristic critique & design pairs",
+        "title": "Heuristic audit & design pairs",
         "intro": [
-          "Source-grounded heuristics for software surfaces, split so the name says what it does. A **`-critique`** skill audits, debugs, or risk-scans an *existing* surface (expert lenses → severity-scored findings report, with an optional tracking ledger); a **`-design`** skill shapes a *new* one (names the good-shaped pattern → design doc / plan / runbook). A domain's pair shares its playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`, so the two stay in lockstep without drift.",
+          "Source-grounded heuristics for software surfaces, split so the name says what it does. A **`-audit`** skill audits, debugs, or risk-scans an *existing* surface (expert lenses → severity-scored findings report, with an optional tracking ledger); a **`-design`** skill shapes a *new* one (names the good-shaped pattern → design doc / plan / runbook). A domain's pair shares its playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`, so the two stay in lockstep without drift.",
           "",
           "Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Martin, Evans, and many more (per-skill provenance in each `skill.json`). These twelve skills replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md)."
         ]

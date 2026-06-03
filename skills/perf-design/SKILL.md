@@ -1,6 +1,6 @@
 ---
 name: perf-design
-description: Use to DESIGN or optimize the performance and observability of a production or runtime system — design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, or metric selection up-front for a new or expanding system; plan a profile-first optimization pass on a known-slow path with before/after measurement gates; or shape a program-level observability and reliability strategy across logs, metrics, and traces. Triggers on "design our SLOs", "what spans/metrics should we emit", "plan a tail-latency optimization", "cut our log bill without losing recovery value", "observability roadmap". Emits a design doc, optimization plan, or strategy doc with concrete good-shaped patterns and acceptance criteria. Do NOT use to AUDIT or diagnose an existing system (use perf-critique), for developer-facing or local build/inner-loop performance (use dx-design), or for end-user product UX (use ux-design).
+description: Use to DESIGN or optimize the performance and observability of a production or runtime system — design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, or metric selection up-front for a new or expanding system; plan a profile-first optimization pass on a known-slow path with before/after measurement gates; or shape a program-level observability and reliability strategy across logs, metrics, and traces. Triggers on "design our SLOs", "what spans/metrics should we emit", "plan a tail-latency optimization", "cut our log bill without losing recovery value", "observability roadmap". Emits a design doc, optimization plan, or strategy doc with concrete good-shaped patterns and acceptance criteria. Do NOT use to AUDIT or diagnose an existing system (use perf-audit), for developer-facing or local build/inner-loop performance (use dx-design), or for end-user product UX (use ux-design).
 license: MIT
 ---
 
@@ -38,7 +38,7 @@ profile-gated change concretely rather than describing principles abstractly.
 
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to one
    of: `design`, `optimize`, `strategize`. Ambiguous → ask once. (Auditing or
-   diagnosing an *existing* system instead? Route to `perf-critique`.)
+   diagnosing an *existing* system instead? Route to `perf-audit`.)
 2. **Pick surface.** Load the intent's CSV from
    `references/intents/<intent>.csv`. Match the prompt to one surface (or a
    small set). Ambiguous → ask once with the CSV menu.
@@ -74,7 +74,7 @@ acceptance criteria checkable by reading the artifact or running a measurement.
 
 - `references/intent-router.csv` — level-1 router (design / optimize / strategize).
 - `references/intents/<intent>.csv` — level-2 router (surface) per intent.
-- `references/playbooks/<surface>.md` — surface playbooks (shared with perf-critique).
+- `references/playbooks/<surface>.md` — surface playbooks (shared with perf-audit).
 - `references/core/personas.md` — target persona list.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.

@@ -91,7 +91,7 @@ project-specific content from project knowledge." The rationale shifts from
 *measured success delta* to *content quality verifiable by reading the
 file*. The ≥3 floor is removed entirely.
 
-### `evidence-driven-agent-rules` (new skill)
+### `agent-rules` (new skill)
 
 Audience: teams building or operating coding-agent infrastructure where
 eval suites, run-level telemetry, or A/B baselines exist (agent product
@@ -136,8 +136,8 @@ land:
    does not require a log-entry citation in the heading.
 3. The Mündler "~3% / >20%" claim does not appear in
    `project-agentification` as load-bearing evidence. (It may appear as
-   "see also `evidence-driven-agent-rules`" cross-reference.)
-4. A new skill exists at `skills/.experimental/evidence-driven-agent-rules/`
+   "see also `agent-rules`" cross-reference.)
+4. A new skill exists at `skills/.experimental/agent-rules/`
    with a valid `SKILL.md`, `skill.json`, `evals/`, that passes
    `just check`.
 5. The four lenses live in exactly one canonical location at maintenance
@@ -149,7 +149,7 @@ land:
    users get the canonical content but not the directory structure.
 6. `docs/reflection-log/` in this repo continues to function (paths
    resolve, README is accurate). Cross-references in this repo's
-   `AGENTS.md` and `README.md` point to `evidence-driven-agent-rules` for
+   `AGENTS.md` and `README.md` point to `agent-rules` for
    the workflow doc, not `project-agentification`.
 7. The new skill scaffolds the reflection log into target repos exactly as
    `project-agentification` does today (no behavioral regression for the
@@ -157,7 +157,7 @@ land:
 8. `npx skills add . --list` shows both skills.
 9. Downstream install of `project-agentification` alone does **not** pull
    in the reflection-log artifact templates (or `_shared/` content that
-   only `evidence-driven-agent-rules` consumes).
+   only `agent-rules` consumes).
 
 ## Open questions
 
@@ -202,7 +202,7 @@ single-source-of-truth that disappears at install. Best of both worlds.
   behavior with none of that overhead.
 - **Defer the shared dir.** Ships broken cross-refs ("see
   `project-agentification` §Lenses" from a separately-installed
-  `evidence-driven-agent-rules`).
+  `agent-rules`).
 - **Copy-at-install via `npx skills` tool changes.** This repo doesn't
   own the tool.
 - **Owning our own installer** (like BMAD-METHOD's `npx bmad-method`).
@@ -228,7 +228,7 @@ pattern stops fitting and divergence becomes silent — drop it from
 ### Q2. Maturity rubric scope — RESOLVED
 
 **Decision:** **split — Levels 1–3 in `project-agentification`; Levels
-4–5 in `evidence-driven-agent-rules`.** The rubric lives in each skill's
+4–5 in `agent-rules`.** The rubric lives in each skill's
 own `references/core/maturity-rubric.md`; it does **not** go in
 `_shared/` because each skill ships a different subset (Q1 scope
 discipline: only put genuinely-identical content in `_shared/`).
@@ -236,7 +236,7 @@ discipline: only put genuinely-identical content in `_shared/`).
 Cross-link in both directions: `project-agentification`'s rubric ends
 with "Levels 4–5 (Spec Architecture, Sovereign Engineering) require
 infrastructure outside this skill's scope — see
-`evidence-driven-agent-rules`." `evidence-driven-agent-rules`'s rubric
+`agent-rules`." `agent-rules`'s rubric
 opens with "Levels 1–3 are described in `project-agentification`'s
 maturity rubric; this file extends with Levels 4–5."
 
@@ -248,28 +248,28 @@ harness-engineering concerns where the feedback signal exists.
 ### Q3. `empirical-warnings.md` split — RESOLVED
 
 **Decision:** **W2–W10 to `_shared/empirical-warnings.md`; W1 stays
-sole-tenant in `evidence-driven-agent-rules/references/empirical-warnings-w1.md`.**
+sole-tenant in `agent-rules/references/empirical-warnings-w1.md`.**
 
 W2/W3/W4/W5/W6/W7/W8/W9/W10 apply identically to both audiences
 (content quality, length budgets, hooks-over-prose, attack surface,
 sandbox, etc.) — these meet the "genuinely identical" filter for
 `_shared/`. W1 (the ≥3 floor + Mündler citations) is the failure-driven
-core of `evidence-driven-agent-rules` and does **not** fit either skill
+core of `agent-rules` and does **not** fit either skill
 the same way.
 
 **Numbering:** keep W1 as a per-skill standalone file (`empirical-warnings-w1.md`)
-in `evidence-driven-agent-rules` so the shared file numbers cleanly W2–W10
+in `agent-rules` so the shared file numbers cleanly W2–W10
 without gaps. Both skills' `SKILL.md` and playbooks reference warnings by
 their canonical W-number (W1, W2, …); the file split is invisible to
 citations.
 
-Cross-link: `evidence-driven-agent-rules/references/empirical-warnings-w1.md`
+Cross-link: `agent-rules/references/empirical-warnings-w1.md`
 ends with "W2–W10 live in `_shared/empirical-warnings.md` — same numbering."
 
 ### Q4. Reflection-log artifact templates — RESOLVED
 
 **Decision:** **move `templates/artifacts/reflection-log/` to
-`evidence-driven-agent-rules`; `project-agentification` keeps a one-line
+`agent-rules`; `project-agentification` keeps a one-line
 "see also" pointer in its `governance` playbook** (where reflection log
 already gets a brief mention).
 
@@ -297,9 +297,9 @@ catches.
 No annotated this-repo-only copy is needed; the genericized text is
 clear enough.
 
-### Q6. Naming sanity check on `evidence-driven-agent-rules` — RESOLVED
+### Q6. Naming sanity check on `agent-rules` — RESOLVED
 
-**Decision:** **keep `evidence-driven-agent-rules`.** Maintainer
+**Decision:** **keep `agent-rules`.** Maintainer
 selected it during initial sequencing discussion; long but
 self-descriptive. No alternative was a clear improvement.
 

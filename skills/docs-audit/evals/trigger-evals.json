@@ -1,0 +1,25 @@
+{
+  "skill": "docs-audit",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "our quickstart has 9 steps and new devs keep getting stuck around the auth step — copy this README and tell me where people fall off and how bad each gap is", "should_activate": true, "expected_route": "audit/dx-docs", "category": "positive"},
+    {"query": "support keeps getting tickets that our refund example in the docs throws a 400 — the snippet is from the old API. why does this keep happening and what do we fix?", "should_activate": true, "expected_route": "debug/dx-docs", "category": "positive"},
+    {"query": "our coding agent keeps calling the wrong MCP tool because two of our tool descriptions are basically identical. diagnose why and what to tighten in the descriptions", "should_activate": true, "expected_route": "debug/api-contracts", "category": "positive"},
+    {"query": "review our openapi descriptions and error docs — could an integrator (or an agent) call these endpoints correctly without reading our source code? score it", "should_activate": true, "expected_route": "audit/api-contracts", "category": "positive"},
+    {"query": "users say our in-product empty states and tooltips don't tell them what to do next, and our help-center articles bury the recovery step. audit the help surface", "should_activate": true, "expected_route": "audit/ux-help", "category": "positive"},
+    {"query": "people search our help center for 'cancel plan' and get zero results even though the article exists under 'subscription lifecycle'. why, and is this a help-content problem?", "should_activate": true, "expected_route": "debug/ux-help", "category": "positive"},
+    {"query": "do a full docs audit across our dev docs, help center, and llms.txt — i think the same fix for agents is hurting human readers and i want the conflicts named", "should_activate": true, "expected_route": "audit/all", "category": "positive"},
+    {"query": "our docs site has no version markers, headings are named after internal services, and accessibility is questionable — audit the overall documentation system and score it", "should_activate": true, "expected_route": "audit/foundations", "category": "positive"},
+    {"query": "we shipped a v2 string change to the product but the docs still describe the v1 label and nobody caught it for weeks — debug how this drift got through", "should_activate": true, "expected_route": "debug/foundations", "category": "positive"},
+    {"query": "our tooltip-only guidance reads fine to humans but our agent retrieval can't see it, and the prose we wrote for agents is too vague for people. audit this audience conflict", "should_activate": true, "expected_route": "audit/audience-conflicts", "category": "positive"},
+    {"query": "review this terraform module's variable and output docs — can a developer who has never seen it use it without opening the source?", "should_activate": true, "expected_route": "audit/dx-docs", "category": "positive"},
+    {"query": "design our docs information architecture from scratch — mode taxonomy, versioning model, and where the source of truth lives for a brand new product", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "what telemetry and CI gates should we set up to measure docs quality — TTFHW, sample freshness, zero-result search rate — with thresholds and owners?", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design the structure for a new examples directory and a cookbook for an SDK shipping in three languages before we write anything", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our consumer signup form at example.com/signup has a 60% drop-off. help me reduce friction on the 4-step form", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit the accessibility of our checkout page for WCAG 2.2 AA compliance, here's the page html", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "claude code keeps tripping on our repo — wrong test commands, blocked pushes, our AGENTS.md is stale. make the repo agent-friendly", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "explain how OAuth2 PKCE flow works — i'm writing a one-pager for our security team", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "refactor this typescript function to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

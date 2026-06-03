@@ -36,7 +36,10 @@ to keep the report from collapsing into the model's prior beliefs.
    new sources stop adding new claims. Apply
    [`source-triage.md`](./source-triage.md): prefer primary over secondary,
    recent over dated unless seminal, independent over vendor-aligned,
-   peer-reviewed or institutional over editorial.
+   peer-reviewed or institutional over editorial. Treat a zero-result query as
+   *ambiguous* — no matches can mean the answer is genuinely absent or that the
+   query was wrong; rewrite, broaden, or switch tools before recording a coverage
+   gap, so a bad query never masquerades as a finding.
 5. **Synthesize against the template.** Fill
    [`../../templates/report/research-report.md`](../../templates/report/research-report.md):
    topic statement, search strategy, background, current state, key debates,
@@ -45,6 +48,13 @@ to keep the report from collapsing into the model's prior beliefs.
    [`confidence-rubric.md`](./confidence-rubric.md). Cite at the point of
    claim. Mark synthesis ("inferred from X+Y") explicitly — never present
    synthesis as if it were sourced.
+6.5. **Verify claims against sources (adversarial pass).** Before emitting,
+   re-check every load-bearing claim against the source it cites: does the source
+   actually say it? LLM research reports fail not only on weak inputs but by
+   *fabricating* citations and sub-answers that input source-triage cannot catch
+   (process-aware eval; DeepHalluBench). Re-open or re-fetch the cited source for
+   each load-bearing claim; drop or downgrade any claim its source doesn't support,
+   and flag any citation you could not confirm.
 7. **Emit the report.** Write to
    `docs/research/research-report-<YYYY-MM-DD>-<topic-slug>.md`. Fall back to
    `research-output/research-report-<YYYY-MM-DD>-<topic-slug>.md` if
@@ -62,11 +72,15 @@ methodology used.
 
 ## Subagent dispatch
 
-Optional. For `deep-dive` topics with several distinct sub-questions, spawn one
-sub-agent per sub-question, each producing one section of the final report
-against its slice of the search plan. The main agent integrates sections and
-applies confidence end-to-end. Skip sub-agents for `brief` and most `survey`
-runs — coordination overhead exceeds parallelism benefit at small scale.
+For `deep-dive`, the canonical Deep Research shape is the **default**, not an
+add-on: explicitly decompose the question into sub-questions, fan out one
+isolated-context worker per sub-question (each runs its slice of the search plan
+and returns findings, not finished prose), then make a **separate synthesis pass**
+that integrates the workers' findings and applies confidence end-to-end. Keep
+research and writing separate and sequential — they want opposite autonomy budgets
+(wide exploration vs tight, faithful drafting), so a file hand-off between them
+beats one agent doing both. Skip sub-agents for `brief` and most `survey` runs —
+coordination overhead exceeds parallelism benefit at small scale.
 
 ## Reference map
 

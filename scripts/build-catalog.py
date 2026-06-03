@@ -30,7 +30,7 @@ README = ROOT / "README.md"
 CATALOG = ROOT / "catalog" / "catalog.json"
 
 FAMILIES = ("heuristics", "research", "ax")
-FUNCTIONS = ("critique", "design", "singleton")
+FUNCTIONS = ("audit", "design", "singleton")
 REQUIRED_META = ("family", "function", "catalog_summary")
 
 INTERNAL_RE = re.compile(
@@ -111,7 +111,7 @@ def sort_key(item: tuple[str, dict]):
 def render_bullet(name: str, meta: dict) -> str:
     fn = meta.get("function")
     summary = meta.get("catalog_summary", "")
-    tag = f" *({fn})*" if fn in ("critique", "design") else ""
+    tag = f" *({fn})*" if fn in ("audit", "design") else ""
     return f"- **`{name}`**{tag} — {summary}"
 
 

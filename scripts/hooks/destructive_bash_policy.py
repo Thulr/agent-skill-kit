@@ -35,6 +35,11 @@ Blocked patterns (see AGENTS.md §Forbidden actions):
     without `-f` / `--force`, with or without `--` terminator) of `/`,
     protected system dirs, `~` / `$HOME` / `${HOME}`, or anywhere under
     them. Path traversal forms (`/tmp/../etc`) are canonicalized first.
+  - `find <protected-root> … -delete` / `-exec rm` / `-execdir rm`, and the
+    non-`rm` deleters `shred` / `truncate` / `unlink` / `rmdir` of a
+    protected path. Execution wrappers `nohup` / `timeout` / `flock` /
+    `setsid` / `stdbuf` / `watch` / `xargs` (plus the existing `sudo` / `env`
+    / `nice` / …) are unwrapped before the command is identified.
 """
 
 import json
@@ -53,8 +58,24 @@ PROTECTED_TOP_DIRS = frozenset(
 )
 
 TRANSPARENT_WRAPPERS = frozenset(
-    ["sudo", "doas", "command", "exec", "time", "nice", "ionice", "env"]
+    [
+        "sudo", "doas", "command", "exec", "time", "nice", "ionice", "env",
+        # Execution wrappers that run an arbitrary following command. Omitting
+        # them let `nohup rm -rf /etc`, `timeout 5 rm -rf /etc`,
+        # `xargs rm -rf /etc`, etc. through unchecked (reflection-log
+        # 2026-06-02-hook-wrapper-bypasses).
+        "nohup", "setsid", "stdbuf", "timeout", "flock", "watch", "xargs",
+    ]
 )
+
+# Wrappers that consume a fixed number of positional tokens (after their option
+# flags) before the wrapped command: `timeout DURATION cmd`, `flock LOCKFILE cmd`.
+WRAPPER_POSITIONAL_ARGS = {"timeout": 1, "flock": 1}
+
+# Non-`rm` commands that destroy a target path outright. Blocked when a target
+# resolves to a protected dir, `/`, or $HOME (reflection-log
+# 2026-06-02-hook-nonrm-deleters).
+SIMPLE_DELETERS = frozenset(["shred", "truncate", "unlink", "rmdir"])
 
 # Shell launchers whose `-c "<cmd>"` value must be inspected as its own command
 # (failure-log entry 9: `bash -c 'rm -rf /etc'` was treated as opaque). Handles
@@ -77,6 +98,19 @@ WRAPPER_VALUE_FLAGS = {
     "env": frozenset(["-u", "--unset", "-S", "--split-string"]),
     "nice": frozenset(["-n", "--adjustment"]),
     "ionice": frozenset(["-c", "-n", "-p", "-P", "-u"]),
+    "stdbuf": frozenset(["-i", "-o", "-e", "--input", "--output", "--error"]),
+    "timeout": frozenset(["-s", "--signal", "-k", "--kill-after"]),
+    "flock": frozenset(
+        ["-w", "--timeout", "-E", "--conflict-exit-code", "-c", "--command"]
+    ),
+    "watch": frozenset(["-n", "--interval"]),
+    "xargs": frozenset(
+        [
+            "-I", "-i", "-n", "--max-args", "-P", "--max-procs", "-d",
+            "--delimiter", "-E", "-s", "--max-chars", "-a", "--arg-file",
+            "-L", "--max-lines",
+        ]
+    ),
 }
 
 # (wrapper, flag) pairs where the consumed value is a command string and must
@@ -85,6 +119,9 @@ WRAPPER_COMMAND_VALUE_FLAGS = frozenset(
     [
         ("env", "-S"),
         ("env", "--split-string"),
+        # `flock -c '<cmd>'` / `flock --command '<cmd>'` run the value via a shell.
+        ("flock", "-c"),
+        ("flock", "--command"),
     ]
 )
 
@@ -278,6 +315,15 @@ def resolve_executable(argv):
             wrapper_name = a
             i += 1
             i = _skip_wrapper_flags(argv, i, value_flags, wrapper_name, command_values)
+            # Some wrappers take positional args (a duration, a lockfile) between
+            # their flags and the wrapped command. Consume them, then re-skip
+            # flags so trailing options like `flock LOCKFILE -c '<cmd>'` are seen.
+            positional = WRAPPER_POSITIONAL_ARGS.get(wrapper_name, 0)
+            if positional:
+                while positional > 0 and i < len(argv) and not argv[i].startswith("-"):
+                    i += 1
+                    positional -= 1
+                i = _skip_wrapper_flags(argv, i, value_flags, wrapper_name, command_values)
             continue
         break
     if i >= len(argv):
@@ -370,6 +416,103 @@ def check_rm(argv, cwd=None):
             if normalized_rel == ".." or normalized_rel.startswith("../"):
                 return f"rm -r of cwd-escape path ({target!r})"
 
+    return None
+
+
+# ---------------------------------------------------------------------------
+# find -delete / -exec rm, and non-rm deleters (shred/truncate/unlink/rmdir).
+# These destroy protected paths without invoking `rm` (reflection-log
+# 2026-06-02-hook-find-delete-bypass / 2026-06-02-hook-nonrm-deleters).
+# ---------------------------------------------------------------------------
+
+
+def _protected_path_reason(target, cwd=None):
+    """Return a short reason if `target` resolves to a protected location.
+
+    Shared by `find` and the simple deleters. Mirrors `check_rm`'s protected-path
+    logic (home, `/`, protected top dirs, `..` escapes, cwd-resolved relatives)
+    but returns only the reason fragment, or None when the target is safe.
+    """
+    if target in _HOME_EXACT:
+        return f"of {target}"
+    if any(target.startswith(p) for p in _HOME_PREFIXES):
+        return f"under $HOME ({target!r})"
+    if target == "/" or target.rstrip("/") == "":
+        return "of /"
+    if target.startswith("/"):
+        normalized = os.path.normpath(target)
+        if normalized == "/":
+            return "of /"
+        head = _first_path_component(normalized)
+        if head in PROTECTED_TOP_DIRS:
+            return f"under protected dir {head}"
+        return None
+    # Relative target.
+    if cwd is not None:
+        joined = os.path.normpath(os.path.join(cwd, target))
+        if joined == "/":
+            return f"of / (relative {target!r} from cwd={cwd})"
+        if joined.startswith("/"):
+            head = _first_path_component(joined)
+            if head in PROTECTED_TOP_DIRS:
+                return f"under protected dir {head} (relative {target!r} from cwd={cwd})"
+    normalized_rel = os.path.normpath(target)
+    if normalized_rel == ".." or normalized_rel.startswith("../"):
+        return f"of cwd-escape path ({target!r})"
+    return None
+
+
+def check_find(argv, cwd=None):
+    """Block `find <protected-root> ... -delete` / `-exec rm` / `-execdir rm`.
+
+    Roots are the leading non-option operands (default `.`). The destructive
+    actions are `-delete` and `-exec`/`-execdir` invoking `rm` (incl. `/bin/rm`).
+    Relative/cwd-local roots (`.`, `/tmp`, ...) are allowed, matching `rm`.
+    """
+    roots = []
+    i = 0
+    while i < len(argv) and not argv[i].startswith(("-", "(", "!", ")")):
+        roots.append(argv[i])
+        i += 1
+    if not roots:
+        roots = ["."]
+
+    has_delete = "-delete" in argv
+    has_exec_rm = False
+    for j, a in enumerate(argv):
+        if a in ("-exec", "-execdir") and j + 1 < len(argv):
+            if os.path.basename(argv[j + 1]) == "rm":
+                has_exec_rm = True
+                break
+    if not (has_delete or has_exec_rm):
+        return None
+
+    action = "-delete" if has_delete else "-exec rm"
+    for root in roots:
+        reason = _protected_path_reason(root, cwd=cwd)
+        if reason:
+            return f"find {action} {reason}"
+    return None
+
+
+def check_simple_deleter(cmd, argv, cwd=None):
+    """Block `shred`/`truncate`/`unlink`/`rmdir` of a protected target.
+
+    Non-option tokens are candidate targets; option values like the `0` in
+    `truncate -s 0` are harmless (they don't resolve to a protected path), so a
+    precise per-command value-flag table isn't needed.
+    """
+    after_double_dash = False
+    for arg in argv:
+        if not after_double_dash:
+            if arg == "--":
+                after_double_dash = True
+                continue
+            if arg.startswith("-"):
+                continue
+        reason = _protected_path_reason(arg, cwd=cwd)
+        if reason:
+            return f"{cmd} {reason}"
     return None
 
 
@@ -522,6 +665,10 @@ def check_segment(tokens, cwd=None):
         return None
     if cmd == "rm":
         return check_rm(rest, cwd=cwd)
+    if cmd == "find":
+        return check_find(rest, cwd=cwd)
+    if cmd in SIMPLE_DELETERS:
+        return check_simple_deleter(cmd, rest, cwd=cwd)
     if cmd == "git":
         return check_git(rest)
     return None

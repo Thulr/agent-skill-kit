@@ -5,10 +5,10 @@ reference agent-engineering literature. Every playbook that touches one
 of these patterns should backlink to the relevant anchor.
 
 > **W1 — "Don't autogenerate AGENTS.md / CLAUDE.md"** lives separately
-> in the `evidence-driven-agent-rules` skill
+> in the `agent-rules` skill
 > (`references/empirical-warnings-w1.md`) because it's the failure-driven
 > core of that skill and doesn't fit the project-context-first audience
-> of `codebase-agent-readiness`. Both files use the same canonical
+> of `agent-readiness`. Both files use the same canonical
 > numbering — citations to W1 resolve to the EDAR file.
 
 ## W2 — AGENTS.md ≤ 200 lines

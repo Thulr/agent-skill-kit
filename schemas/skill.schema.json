@@ -70,8 +70,8 @@
           "description": "Catalog family the skill belongs to. Single source of truth for README catalog grouping; consumed by scripts/build-catalog.py. Required on every published (non-internal) skill."
         },
         "function": {
-          "enum": ["critique", "design", "singleton"],
-          "description": "Where the skill sits in the critique/design matrix. 'singleton' for skills with no paired counterpart. Consumed by scripts/build-catalog.py."
+          "enum": ["audit", "design", "singleton"],
+          "description": "Where the skill sits in the audit/design matrix. 'singleton' for skills with no paired counterpart. Consumed by scripts/build-catalog.py."
         },
         "catalog_order": {
           "type": "integer",

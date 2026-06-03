@@ -468,9 +468,29 @@ def check_find(argv, cwd=None):
     Roots are the leading non-option operands (default `.`). The destructive
     actions are `-delete` and `-exec`/`-execdir` invoking `rm` (incl. `/bin/rm`).
     Relative/cwd-local roots (`.`, `/tmp`, ...) are allowed, matching `rm`.
+
+    GNU find accepts global options *before* the path list —
+    `find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]` — so
+    those are skipped first; otherwise `find -H /etc -delete` would collect an
+    empty root list, fall back to `.`, and slip a protected path past the gate
+    (reflection-log 2026-06-02-hook-find-option-bypass).
     """
-    roots = []
     i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a in ("-H", "-L", "-P"):
+            i += 1
+        elif a == "-D":  # -D takes a following debugopts argument
+            i += 2
+        elif a.startswith("-O"):  # -Olevel, attached (e.g. -O3)
+            i += 1
+        elif a == "--":  # end of options; the rest are paths/expression
+            i += 1
+            break
+        else:
+            break
+
+    roots = []
     while i < len(argv) and not argv[i].startswith(("-", "(", "!", ")")):
         roots.append(argv[i])
         i += 1

@@ -216,6 +216,12 @@ CASES = [
     ("find / -type f -exec rm -rf {} +", True, "find / -exec rm"),
     ("find /Users -execdir rm -rf {} +", True, "find -execdir rm"),
     ("find /etc -exec /bin/rm -rf {} +", True, "find -exec /bin/rm"),
+    # Leading GNU find global options must not hide the protected root.
+    ("find -H /etc -delete", True, "find -H then /etc"),
+    ("find -O3 /etc -delete", True, "find -O3 then /etc"),
+    ("find -L -- /usr -exec rm {} +", True, "find -L -- then /usr exec rm"),
+    ("find -P -D tree /etc -delete", True, "find -D debugopts then /etc"),
+    ("find -H -L -P /var -delete", True, "find stacked -H -L -P then /var"),
 
     # Execution wrappers that were opaque.
     ("nohup rm -rf /etc", True, "nohup rm"),
@@ -247,6 +253,8 @@ CASES = [
     ("find . -name '*.tmp' -delete", False, "find . -delete (cwd-local)"),
     ("find /tmp -delete", False, "find /tmp -delete (not protected)"),
     ("find /etc -type f -name '*.log'", False, "find /etc read-only"),
+    ("find -H . -name '*.tmp' -delete", False, "find -H then cwd-local ."),
+    ("find -L /tmp/x -exec rm {} +", False, "find -L then /tmp (not protected)"),
     ("timeout 5 ls", False, "timeout ls"),
     ("nohup ./server", False, "nohup safe binary"),
     ("xargs ls", False, "xargs ls"),

@@ -98,7 +98,7 @@ audience worse.
 - `references/core/audience-matrix.md` — shared conflict vocabulary.
 - `references/playbooks/ux-help.md` — hidden help, onboarding, and in-product
   guidance.
-- the `design-for-agents` skill (ax-docs surface) — context budget and retrieval patterns.
+- the `agent-experience` skill (ax-docs surface) — context budget and retrieval patterns.
 - `references/playbooks/api-contracts.md` — structured fields and operational
   metadata.
 - `references/playbooks/foundations.md` — single source of truth and IA.

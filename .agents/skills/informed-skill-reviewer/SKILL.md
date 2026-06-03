@@ -33,7 +33,7 @@ safety, usefulness, progressive disclosure, templates, evals, and validation.
   through the skill's router shape: `references/intent-router.csv` alone
   (single-axis), `references/intent-router.csv` plus
   `references/intents/*.csv` (two-axis intent × surface), or
-  `references/surface-router.csv` (codebase-agent-readiness's level-2 picker).
+  `references/surface-router.csv` (agent-readiness's level-2 picker).
 - Check that provenance is concise and user-facing in `skill.json`, while any
   public grounding references are short, paraphrased, registry-mapped, and
   useful for execution rather than source explanation.

@@ -3,7 +3,7 @@
 Activation + behavioral cases for `docs-design` — designing *new* documentation
 or defining how to measure it (design / measure) across developer docs, end-user
 help, and agent-readable docs. Auditing or debugging *existing* docs is
-`docs-critique`; those appear here as **negatives**.
+`docs-audit`; those appear here as **negatives**.
 
 ## Static verification
 
@@ -61,20 +61,20 @@ or write from a vague invocation; routes `intent-router.csv` →
 
 ## N1 — Audit existing docs
 **Prompt:** `Our quickstart has 9 steps and devs get stuck at auth — audit this README and tell me what's wrong.`
-**Expected:** recognizes this is **critique** of existing docs; defers to `docs-critique`.
+**Expected:** recognizes this is **critique** of existing docs; defers to `docs-audit`.
 **Fail if:** produces a design doc for docs that already ship.
 
 ## N2 — Debug a docs failure
 **Prompt:** `Our refund example throws a 400 because the snippet is stale — why?`
-**Expected:** defers to `docs-critique` (debug).
+**Expected:** defers to `docs-audit` (debug).
 
 ## N3 — End-user UI design
 **Prompt:** `Design a lower-friction consumer signup flow.`
-**Expected:** recognizes end-user visual UI; defers to `ux-critique` / `ui-design`.
+**Expected:** recognizes end-user visual UI; defers to `ux-audit` / `ui-design`.
 
 ## N4 — Repo agent hardening
 **Prompt:** `Make our repo agent-ready — wrong test commands, stale AGENTS.md.`
-**Expected:** defers to `design-for-agents`; does not route through a docs playbook.
+**Expected:** defers to `agent-experience`; does not route through a docs playbook.
 
 ## N5 — Internal refactor
 **Prompt:** `Refactor this function to use early returns.`

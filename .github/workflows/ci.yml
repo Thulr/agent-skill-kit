@@ -138,11 +138,16 @@ jobs:
         shell: bash
         run: python3 scripts/check-doc-links.py
 
+      - name: Check generated catalog is in sync
+        shell: bash
+        run: python3 scripts/build-catalog.py --check
+
       - name: Test destructive-bash hook
         shell: bash
         run: |
           python3 .claude/hooks/test_block_destructive_bash.py
           python3 .codex/hooks/test_block_destructive_bash.py
+          python3 .cursor/hooks/test_block_destructive_bash.py
 
       - name: Run skill static checks
         shell: bash

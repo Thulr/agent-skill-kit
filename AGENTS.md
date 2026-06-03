@@ -9,12 +9,12 @@ This file is hand-curated. Most sections describe project context (stack,
 layout, commands, invariants) and trace to project knowledge. Load-bearing
 rules in the §Load-bearing rules section trace to observed agent failures
 recorded in [`docs/reflection-log/`](./docs/reflection-log/) (this repo
-runs the evidence-driven feedback loop — see `evidence-driven-agent-rules`
+runs the evidence-driven feedback loop — see `agent-rules`
 — because it's a skill catalog where skill efficacy is the thing under
 measurement). Do **not** autogenerate this file
 (`/init`, `/Generate Cursor Rules`, etc. — see W9 in
 [`empirical-warnings.md`](./skills/_shared/empirical-warnings.md), or W1 in
-[`evidence-driven-agent-rules`](./skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md)
+[`agent-rules`](./skills/agent-rules/references/empirical-warnings-w1.md)
 for the failure-driven floor).
 
 Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
@@ -57,6 +57,13 @@ install lanes that any path-based gate **must** enumerate:
   `trigger-evals.json` schema against valid cases and known invalid cases.
 - `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
   against the canonical schema files under `schemas/`.
+- `python3 scripts/build-catalog.py [--check|--write]` — regenerates the README
+  §Pick a skill / §Catalog blocks from `skill.json` metadata + `catalog/catalog.json`.
+  `--check` (CI / `just check` default) fails if the committed README is stale;
+  `--write` rewrites it. **Do not hand-edit the content between the
+  `<!-- BEGIN/END GENERATED -->` markers in README.md** — change the source
+  (`metadata.catalog_summary` in the relevant `skill.json`, or family prose /
+  matrix rows in `catalog/catalog.json`) and run `--write`.
 
 CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
@@ -243,7 +250,7 @@ is harness-agnostic; thin per-harness adapters under `.claude/hooks/`,
 - **Copilot / Aider / Windsurf / AGENTS.md-only harnesses** — no native
   PreToolUse-equivalent. CI branch protection is the load-bearing gate
   for these. See the per-harness gate-primitives table in
-  [`skills/codebase-agent-readiness/references/playbooks/gates.md`](./skills/codebase-agent-readiness/references/playbooks/gates.md).
+  [`skills/agent-readiness/references/playbooks/gates.md`](./skills/agent-readiness/references/playbooks/gates.md).
 
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the
@@ -303,4 +310,4 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
 - [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
 - [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
-- [`skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md`](./skills/evidence-driven-agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `evidence-driven-agent-rules`)
+- [`skills/agent-rules/references/empirical-warnings-w1.md`](./skills/agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `agent-rules`)

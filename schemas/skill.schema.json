@@ -59,7 +59,30 @@
       }
     },
     "metadata": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "internal": {
+          "type": "boolean",
+          "description": "When true, the skill is hidden from catalog listings unless INSTALL_INTERNAL_SKILLS=1 (e.g. example-minimal)."
+        },
+        "family": {
+          "enum": ["heuristics", "research", "ax"],
+          "description": "Catalog family the skill belongs to. Single source of truth for README catalog grouping; consumed by scripts/build-catalog.py. Required on every published (non-internal) skill."
+        },
+        "function": {
+          "enum": ["audit", "design", "singleton"],
+          "description": "Where the skill sits in the audit/design matrix. 'singleton' for skills with no paired counterpart. Consumed by scripts/build-catalog.py."
+        },
+        "catalog_order": {
+          "type": "integer",
+          "description": "Optional explicit ordering within a family (lower first); skills without it sort by name after ordered ones."
+        },
+        "catalog_summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One-line markdown summary rendered as the skill's bullet in the generated README catalog. Required on every published (non-internal) skill."
+        }
+      }
     }
   }
 }

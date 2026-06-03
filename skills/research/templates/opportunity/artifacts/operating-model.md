@@ -77,7 +77,7 @@ End-to-end, with handoffs and queues.
 | Time-to-activation | <…> | <…> | <…> |
 
 (System monitoring — uptime, latency, errors — route to
-`perf-critique` / `perf-design`.)
+`perf-audit` / `perf-design`.)
 
 ## Failure modes (≥5 pre-mortemed)
 

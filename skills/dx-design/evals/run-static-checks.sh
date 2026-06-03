@@ -75,7 +75,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'good-shaped pattern' 'good-shaped pattern' "$skill_md"
-  check_pattern 'routes critique elsewhere' 'dx-critique' "$skill_md"
+  check_pattern 'routes critique elsewhere' 'dx-audit' "$skill_md"
 fi
 
 # ----- design-doc template shape -----
@@ -87,7 +87,7 @@ if [[ -f "$intent_router" ]]; then
   rows=$(grep -cE '^design,' "$intent_router")
   (( rows == 1 )) || fail "intent-router.csv: expected 1 design row, got $rows"
   for bad in audit debug edge-pass; do
-    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in dx-critique, not dx-design"
+    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in dx-audit, not dx-design"
   done
 fi
 

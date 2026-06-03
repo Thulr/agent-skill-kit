@@ -78,8 +78,13 @@ Out of scope: tactical patterns inside one context (see
    subdomain consumed widely: OHS with a published language. Two
    supporting subdomains owned by the same team: shared kernel,
    accepted carefully.
-5. **(design) Align context boundaries with team boundaries (Conway).**
-   A context owned by no one is a context with no model discipline.
+5. **(design) Align context boundaries with team boundaries (Conway / mirroring).**
+   A context owned by no one is a context with no model discipline. The mirroring hypothesis
+   (MacCormack, Baldwin & Rusnak 2012) finds loosely-coupled organizations produce more modular
+   architectures — and an **agent swarm is an organization**: parallel agents working under stable,
+   ownership-gated contracts (design rules) collide far less than agents sharing files. Carve
+   contexts so each can be owned by one agent/team, and treat the interfaces between them as
+   high-blast-radius artifacts.
 6. **(design) Choose deployment topology *after* boundaries are
    stable.** Modular monolith first; service extraction only when the
    boundary has proven stable under change.

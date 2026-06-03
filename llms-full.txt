@@ -36,10 +36,10 @@
 # Skills (the product)
 # - `skills/{dx,docs,perf,test,ux,architecture}-critique/` + `skills/{dx,docs,perf,test,architecture}-design/` + `skills/ui-design/`: 12 published heuristic skills, split per domain x function (critique = audit/debug/risk-scan an existing surface; design = shape a new one). Replaced the merged review-heuristics skill (ADR 0008); each domain's -critique/-design pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
 # - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
-# - `skills/design-for-agents/`: published skill; the UMBRELLA design-for-agents (AX) discipline — reviews AX surfaces (agent-readable docs/llms.txt, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below; standalone per ADR 0006
-# - `skills/codebase-agent-readiness/`: published skill; AX repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (no eval prerequisite; scaffolds from project knowledge)
-# - `skills/evidence-driven-agent-rules/`: published skill; AX evidence/feedback arm — pairs with codebase-agent-readiness for repos with a feedback signal (eval/telemetry/baseline)
-# - `skills/eval-flywheel/`: published skill; AX instrument-the-loop arm — audit AI integrations, map the AI Optimization Staircase (L1->L4), scaffold the smallest useful eval/optimization loop
+# - `skills/agent-experience/`: published skill; the UMBRELLA agent-experience (AX) discipline — reviews AX surfaces (agent-readable docs/llms.txt, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below; standalone per ADR 0006
+# - `skills/agent-readiness/`: published skill; AX repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (no eval prerequisite; scaffolds from project knowledge)
+# - `skills/agent-rules/`: published skill; AX evidence/feedback arm — pairs with agent-readiness for repos with a feedback signal (eval/telemetry/baseline)
+# - `skills/agent-evals/`: published skill; AX instrument-the-loop arm — audit AI integrations, map the AI Optimization Staircase (L1->L4), scaffold the smallest useful eval/optimization loop
 # - `skills/.experimental/`: reserved and currently empty
 # - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10, modes.md, trackable-findings.md, routing-contract.md, templates/); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless

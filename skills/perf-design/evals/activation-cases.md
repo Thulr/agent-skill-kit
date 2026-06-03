@@ -4,7 +4,7 @@ Activation + behavioral cases for `perf-design` — designing instrumentation,
 SLOs, tracing topology, and latency budgets *before* a problem ships;
 profile-first optimization of a known-slow path; and program-level observability
 / reliability strategy (design / optimize / strategize). Auditing or diagnosing
-an *existing* system is `perf-critique`; those appear here as **negatives**.
+an *existing* system is `perf-audit`; those appear here as **negatives**.
 Developer-facing or local build/inner-loop perf is `dx-design`; end-user product
 UX is `ux-design`.
 
@@ -68,16 +68,16 @@ criteria.
 
 ## N1 — Diagnose a live incident
 **Prompt:** `Our p99 doubled overnight — diagnose it.`
-**Expected:** recognizes this is **diagnose** of an existing system; defers to `perf-critique`.
+**Expected:** recognizes this is **diagnose** of an existing system; defers to `perf-audit`.
 **Fail if:** produces a design doc for a live regression.
 
 ## N2 — Audit an existing system
 **Prompt:** `Audit our observability stack and score the gaps.`
-**Expected:** recognizes this is **audit**; defers to `perf-critique`.
+**Expected:** recognizes this is **audit**; defers to `perf-audit`.
 
 ## N3 — Review existing SLOs/alerts
 **Prompt:** `On-call is paged on noise — review our existing SLIs and thresholds.`
-**Expected:** recognizes critique of an existing posture; defers to `perf-critique`.
+**Expected:** recognizes critique of an existing posture; defers to `perf-audit`.
 
 ## N4 — Developer-facing / local build perf
 **Prompt:** `Our local build is slow — design a faster inner loop for developers.`

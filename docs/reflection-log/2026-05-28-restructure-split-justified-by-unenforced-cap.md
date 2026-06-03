@@ -11,7 +11,7 @@ related: []
 ## What happened
 
 During a catalog-restructure analysis, a multi-agent pass recommended splitting
-`project-agentification` (1804 words) and `evidence-driven-agent-rules` (1551
+`project-agentification` (1804 words) and `agent-rules` (1551
 words) into ~7 smaller skills. Its single load-bearing justification was that
 these skills "violate the catalog's own <800-word SKILL.md contract."
 
@@ -21,7 +21,7 @@ had already tuned it for exactly these skills:
 
 - `project-agentification/evals/run-static-checks.sh` — **no** SKILL.md word
   cap (only a 900–3200 *playbook* bound).
-- `evidence-driven-agent-rules/evals/run-static-checks.sh` — **no** word cap.
+- `agent-rules/evals/run-static-checks.sh` — **no** word cap.
 - `opportunity-research/evals/run-static-checks.sh` — cap deliberately raised to
   `< 1200` (file was 962).
 
@@ -48,4 +48,4 @@ it: `grep -nE 'wc|word|[0-9]{3,}' skills/*/evals/run-static-checks.sh` to see th
 
 This entry + `docs/specs/2026-05-28-catalog-consolidation/` (the restructure that
 dropped the split and shipped the consolidation instead). The merged catalog
-keeps `project-agentification` and `evidence-driven-agent-rules` whole.
+keeps `project-agentification` and `agent-rules` whole.

@@ -2,7 +2,7 @@
 #
 # Asserts that the harness-specific instruction files are symlinks to the
 # portable AGENTS.md, per the instruction-surface playbook H2-harden
-# (skills/codebase-agent-readiness/references/playbooks/instruction-surface.md)
+# (skills/agent-readiness/references/playbooks/instruction-surface.md)
 # and W8 (empirical-warnings.md): harness-specific and portable layers drift
 # silently when not symlinked. Canonical pattern: vercel/next.js.
 #

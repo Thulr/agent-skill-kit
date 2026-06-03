@@ -9,17 +9,17 @@ map those tables don't give you.
 
 Published skills fall into three shapes:
 
-- **Per-domain critique/design pairs** — a `<domain>-critique` skill audits/debugs
+- **Per-domain audit/design pairs** — a `<domain>-audit` skill audits/debugs
   an existing surface (lenses → severity-scored findings + optional ledger); a
   `<domain>-design` skill shapes a new one (good-shaped pattern → design doc).
   Domains: `dx`, `docs`, `perf`, `test`, `architecture`. A domain's pair shares
   its playbooks/lenses/rubrics from `skills/_shared/<domain>/` (one source, two
   skills). See [ADR 0008](../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
-- **Single-function skills** — `ux-critique` (critique only) and `ui-design`
+- **Single-function skills** — `ux-audit` (audit only) and `ui-design`
   (build/polish only) are domains that only do one side.
-- **Discipline / orchestration skills** — `design-for-agents` is the agent-
+- **Discipline / orchestration skills** — `agent-experience` is the agent-
   experience umbrella that routes to its three implementation arms,
-  `codebase-agent-readiness`, `evidence-driven-agent-rules`, and `eval-flywheel`
+  `agent-readiness`, `agent-rules`, and `agent-evals`
   (see [ADR 0006](../adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md));
   `research` is one skill routed by decision-frame (`report` | `opportunity`).
 

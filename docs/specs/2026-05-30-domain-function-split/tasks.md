@@ -7,7 +7,7 @@ Tracks the execution of [`spec.md`](./spec.md). See ADR 0008.
 - [ ] **T2** — `_shared/dx/`: move `playbooks/`, `core/personas.md`,
   `subagent-dispatch.md`, `first-impressions-checklist.md` (git mv); rewrite
   `references/dx/` → `references/` paths inside the moved files.
-- [ ] **T3** — Build `dx-critique` (audit/debug/edge-pass): SKILL.md, skill.json
+- [ ] **T3** — Build `dx-audit` (audit/debug/edge-pass): SKILL.md, skill.json
   (critique-scoped provenance), evals (recover + specialize), local rubrics +
   templates, symlinks into `_shared/dx/`.
 - [ ] **T4** — Build `dx-design` (design): SKILL.md, skill.json (design-scoped),
@@ -16,7 +16,7 @@ Tracks the execution of [`spec.md`](./spec.md). See ADR 0008.
   recipe.
 - [ ] **T6** — Fan out: `docs`, `perf`, `test`, `architecture` critique+design
   pairs (parallel subagents following T2–T5).
-- [ ] **T7** — `ux` → `ux-critique` rename (pure critique).
+- [ ] **T7** — `ux` → `ux-audit` rename (pure critique).
 - [ ] **T8** — `ui-craft` → `ui-design` rename (pure produce; keep quality-review
   as self-polish).
 - [ ] **T9** — Delete `skills/review-heuristics/`.

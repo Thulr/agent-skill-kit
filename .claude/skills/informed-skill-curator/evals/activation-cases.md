@@ -4,7 +4,7 @@
 
 - "Turn this book into a skill proposal" -> routes to `curate-source`, opens Phase 1 (Intake) and loads `templates/intake-brief.md` before research.
 - "Create a flat skill from this article" -> routes to `create-flat`, runs all five phases (Intake -> Research -> Plan -> Scaffold -> Validate) with hard gates, and emits the required eval artifacts.
-- "Create a two-level routing skill like dx-critique" -> routes to `create-two-level`, uses the two-level shape, and requires parallel sub-agent review in Phase 5.
+- "Create a two-level routing skill like dx-audit" -> routes to `create-two-level`, uses the two-level shape, and requires parallel sub-agent review in Phase 5.
 - "Is this skill flat or hub-and-spoke?" -> routes to `pick-shape` (sub-task of Phase 3), loads only the depth rubric plus shape references.
 - "Propose skills from this source but don't write files yet" -> routes to `proposal-only`, stops after the Phase 3 (Plan) gate.
 - "Audience for this skill is unclear -- can you help me think through it?" -> opens Phase 1 (Intake) in Grill Me mode and walks the intake brief slots one question at a time.
@@ -14,7 +14,7 @@
 
 - "Review this draft skill for source safety" -> use `informed-skill-reviewer`, not `informed-skill-curator`. Curator's Phase 5 is self-review *before* handoff; final review belongs to `informed-skill-reviewer`.
 - "Install a skill from GitHub" -> use `skill-installer`, not `informed-skill-curator`.
-- "Audit this repository's AGENTS.md" -> use `codebase-agent-readiness`, not `informed-skill-curator`.
+- "Audit this repository's AGENTS.md" -> use `agent-readiness`, not `informed-skill-curator`.
 - "Just write the skill files without research" -> reject. Curator's Phase 1 and Phase 2 gates are hard for any candidate with no intake brief or dossier.
 - "Skip the plan and start scaffolding" -> reject. Phase 3 (Plan) gate is hard; no file write happens without an approved candidate plan.
 

@@ -79,7 +79,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'proposed structure' 'proposed structure' "$skill_md"
-  check_pattern 'routes critique elsewhere' 'docs-critique' "$skill_md"
+  check_pattern 'routes critique elsewhere' 'docs-audit' "$skill_md"
 fi
 
 # ----- design-doc + measurement-plan template shapes -----
@@ -94,7 +94,7 @@ if [[ -f "$intent_router" ]]; then
   (( rows == 2 )) || fail "intent-router.csv: expected 2 data rows, got $rows"
   for i in "${INTENTS[@]}"; do check_pattern "$i intent" "^$i," "$intent_router"; done
   for bad in audit debug edge-pass; do
-    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in docs-critique, not docs-design"
+    grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in docs-audit, not docs-design"
   done
 fi
 

@@ -71,19 +71,19 @@ to their owning skills.
 
 - Move Levels 4–5 content out of
   `project-agentification/references/core/maturity-rubric.md` into a
-  draft file at `docs/specs/2026-05-16-evidence-driven-agent-rules-split/maturity-rubric-l4-l5.md`
+  draft file at `docs/specs/2026-05-16-agent-rules-split/maturity-rubric-l4-l5.md`
   for Slice 4 to consume.
 - Update `project-agentification`'s rubric to cap at Level 3 with a
-  pointer to `evidence-driven-agent-rules` for Levels 4–5.
+  pointer to `agent-rules` for Levels 4–5.
 - Acceptance: `just check` green; `assess` intent on
   `project-agentification` no longer claims to score Levels 4–5.
 
 ### Slice 4 — new skill scaffold (PR #15)
 
-**Goal:** stand up `evidence-driven-agent-rules` with the
+**Goal:** stand up `agent-rules` with the
 reflection-log workflow + W1 + Levels 4–5 + Mündler citations.
 
-- Create `skills/.experimental/evidence-driven-agent-rules/` with:
+- Create `skills/.experimental/agent-rules/` with:
   - `SKILL.md` (frontmatter + bootstrap order + workflow steps for the
     evidence-driven scaffolding mode)
   - `skill.json` (provenance, inspired_by: Engineering Agents, Mündler
@@ -116,13 +116,13 @@ update its scaffold to project-context-first.
     or refuse"; instead "collect project knowledge (stack, layout,
     monorepo scope, build/test commands, top-level invariants)."
   - Reference map: remove `reflection-log` sub-surface entries; add a
-    "see also: `evidence-driven-agent-rules`" line.
+    "see also: `agent-rules`" line.
 - `references/playbooks/instruction-surface.md`: scaffold heuristics no
   longer require "every section traces to a failure"; rationale shifts
   to content-quality / project-specificity.
 - `references/playbooks/governance.md`: trim the reflection-log
   references (governance H4/H5 mentioning the log) to "see
-  `evidence-driven-agent-rules` for the reflection-log workflow."
+  `agent-rules` for the reflection-log workflow."
 - `references/layer-router.csv`: remove the `reflection-log` sub-surface
   row if it has one.
 - `templates/artifacts/instruction-surface/AGENTS.md` (the template
@@ -137,7 +137,7 @@ update its scaffold to project-context-first.
 - `templates/artifacts/instruction-surface/README-agents-section.md`:
   remove the reflection-log pointer prose; replace with optional "if
   this repo has an evidence-driven workflow, see
-  `evidence-driven-agent-rules`."
+  `agent-rules`."
 - `templates/scaffold-bundle.md`: remove the reflection-log rows.
 - `evals/trigger-evals.json` + `evals/activation-cases.md`: prune queries
   that route to reflection-log scaffolding.
@@ -151,13 +151,13 @@ cross-references point to the right skill.
 
 - `AGENTS.md`: the §Reflection-log workflow section continues to point
   at `docs/reflection-log/` but its W1 citation now references
-  `evidence-driven-agent-rules` instead of `project-agentification`.
-- `README.md`: skills table adds `evidence-driven-agent-rules` row;
+  `agent-rules` instead of `project-agentification`.
+- `README.md`: skills table adds `agent-rules` row;
   description copy updated.
 - `llms.txt` / `llms-full.txt`: add the new skill entry; update
   reflection-log description if needed.
 - `docs/reflection-log/README.md`: its W1 footnote points at
-  `evidence-driven-agent-rules`.
+  `agent-rules`.
 - `docs/reflection-log/<entries>.md`: entries that mention W1 update
   their citation paths. Use a script if there are many.
 - `constitution.md`: §Architecture principles entry 3 (Evidence before

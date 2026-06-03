@@ -4,7 +4,7 @@
 **Status:** Active
 **Decision record:** [ADR 0008](../../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md)
 (supersedes [ADR 0005](../../adr/0005-one-engine-many-surfaces-skills-are-routed-not-split.md) for the review family)
-**Reverses:** [`docs/specs/2026-05-28-catalog-consolidation/`](../2026-05-28-catalog-consolidation/) Phase ② (the review-family merge); the AX extraction (Phase ③ → `design-for-agents`) stands.
+**Reverses:** [`docs/specs/2026-05-28-catalog-consolidation/`](../2026-05-28-catalog-consolidation/) Phase ② (the review-family merge); the AX extraction (Phase ③ → `agent-experience`) stands.
 
 ## Problem
 
@@ -32,17 +32,17 @@ bought by single-sourcing domain-shared substrate in `skills/_shared/<domain>/`.
 
 | Skill | Function | Intents | Emits |
 |---|---|---|---|
-| `dx-critique` | critique | audit, debug, edge-pass | audit-report (+multi), debug-runbook, edge-checklist, ledger |
+| `dx-audit` | critique | audit, debug, edge-pass | audit-report (+multi), debug-runbook, edge-checklist, ledger |
 | `dx-design` | produce | design | design-doc |
-| `docs-critique` | critique | audit, debug | audit-report, debug-runbook |
+| `docs-audit` | critique | audit, debug | audit-report, debug-runbook |
 | `docs-design` | produce | design, measure | design-doc, measurement-plan |
-| `perf-critique` | critique | audit, diagnose | audit-report (+multi), diagnose-runbook |
+| `perf-audit` | critique | audit, diagnose | audit-report (+multi), diagnose-runbook |
 | `perf-design` | produce | design, optimize, strategize | design-doc, optimize-plan, strategy-doc |
-| `test-critique` | critique | review, triage | review-report (+multi), triage-runbook |
+| `test-audit` | critique | review, triage | review-report (+multi), triage-runbook |
 | `test-design` | produce | author, strategize, prune | author-design, strategy-doc, prune-plan |
-| `ux-critique` | critique (pure) | usability / accessibility / form / nav / error audits | audit-report, ledger |
+| `ux-audit` | critique (pure) | usability / accessibility / form / nav / error audits | audit-report, ledger |
 | `ui-design` | produce (pure, self-polishes) | product-ui, design-system, prototype, deck, motion-scene, host-handoff, quality-review | UI artifacts, review-report |
-| `architecture-critique` | critique | audit | audit-report (+multi), ledger |
+| `architecture-audit` | critique | audit | audit-report (+multi), ledger |
 | `architecture-design` | produce | design, refactor, explain | design-doc, refactor-runbook, explanation |
 
 `ux` (pure critique) and `ui-craft` (pure produce) are single-skill renames.
@@ -74,7 +74,7 @@ templates (`audit-report.md`, `debug-runbook.md`, `edge-checklist.md`,
 `intents/{design,…}.csv`, `starter-scenarios.csv` (design rows), design
 templates (`design-doc.md`, runbooks, plans), `modes.md` (symlink).
 
-`ux-critique` and `ui-design` keep their existing one-layer (`detail_files`/
+`ux-audit` and `ui-design` keep their existing one-layer (`detail_files`/
 `templates`) routers; nothing to share between siblings, so no `_shared/ux` or
 `_shared/ui` subtree is required (keep their content local).
 
@@ -83,10 +83,10 @@ templates (`design-doc.md`, runbooks, plans), `modes.md` (symlink).
 Each new skill's `skill.json.inspired_by` is the subset of the unioned
 122-source list whose `playbooks` tags map to that skill's surfaces **and**
 function. A source that grounds both critique and design of a surface (e.g.
-Bloch on `api`) appears in **both** `dx-critique` and `dx-design`. The recovered
+Bloch on `api`) appears in **both** `dx-audit` and `dx-design`. The recovered
 pre-consolidation per-domain `skill.json` files (`git show c21b802^:skills/<old>/skill.json`)
 are the partitioning reference; drop AX-only sources (`ai-sdk`/`agent` playbooks
-left for `design-for-agents`). The `inspired_by.playbooks` static gate validates
+left for `agent-experience`). The `inspired_by.playbooks` static gate validates
 each value against on-disk playbooks + intent markers, so design skills tag
 `design`/`design-intent`/`all`, critique skills tag `audit`/`audit-intent`/etc.
 
@@ -127,11 +127,11 @@ base, then specialize:
 
 1. ✅ ADR 0008 + supersede 0005 / reconcile 0006-0007 (done).
 2. ✅ This spec.
-3. Build `dx-critique` + `dx-design` as the proven template; `just check` green
+3. Build `dx-audit` + `dx-design` as the proven template; `just check` green
    on the pair (and `_shared/dx/`).
 4. Fan out `docs` / `perf` / `test` / `architecture` pairs (parallel subagents
    following this recipe once dx is proven).
-5. `ux` → `ux-critique`; `ui-craft` → `ui-design` (renames).
+5. `ux` → `ux-audit`; `ui-craft` → `ui-design` (renames).
 6. Delete `review-heuristics`; rewrite catalog surface + repoint AGENTS.md refs.
 7. `just check` green across all lanes; confirm `npx skills add . --list`.
 

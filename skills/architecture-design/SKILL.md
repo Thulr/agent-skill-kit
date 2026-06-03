@@ -1,6 +1,6 @@
 ---
 name: architecture-design
-description: Use to DESIGN, refactor toward, or EXPLAIN a target clean architecture — set the dependency-rule invariant for new work, shape layer/port/adapter boundaries, model entities/aggregates/value objects, carve a bounded context, sequence a safe refactor toward ports and adapters, or explain a principle like the dependency rule or aggregate vs entity. Triggers on "design the boundaries for this new service", "refactor toward ports and adapters", "plan a strangler-fig extraction", "how should we split this bounded context", "explain the dependency rule against our code". Do NOT use to AUDIT and score an existing codebase for violations (use architecture-critique), for developer-facing API/SDK/CLI surfaces (use dx-design), or for product UX / forms / navigation / accessibility (use ux-critique or ui-design).
+description: Use to DESIGN, refactor toward, or EXPLAIN a target clean architecture — set the dependency-rule invariant for new work, shape layer/port/adapter boundaries, model entities/aggregates/value objects, carve a bounded context, sequence a safe refactor toward ports and adapters, or explain a principle like the dependency rule or aggregate vs entity. Triggers on "design the boundaries for this new service", "refactor toward ports and adapters", "plan a strangler-fig extraction", "how should we split this bounded context", "explain the dependency rule against our code". Do NOT use to AUDIT and score an existing codebase for violations (use architecture-audit), for developer-facing API/SDK/CLI surfaces (use dx-design), or for product UX / forms / navigation / accessibility (use ux-audit or ui-design).
 license: MIT
 ---
 
@@ -38,7 +38,7 @@ boundary — rather than restating principles abstractly.
 1. **Pick intent.** Load `references/intent-router.csv`. Match the prompt to one
    of: `design` (target shape for new work), `refactor` (sequenced safe path),
    `explain` (grounded concept walkthrough). Ambiguous → ask once. (Auditing an
-   *existing* surface for violations is `architecture-critique` instead.)
+   *existing* surface for violations is `architecture-audit` instead.)
 2. **Pick surface.** Load the intent's CSV from
    `references/intents/<intent>.csv`. Match to one surface (or a small set):
    `dependency-rule`, `boundaries`, `domain-model`, `bounded-context`,
@@ -69,13 +69,13 @@ good-shaped pattern (or step sequence / worked example), the grounding sources
 from `skill.json.inspired_by`, and acceptance criteria checkable by reading the
 artifact or running a command. Surface school disagreements explicitly rather
 than flattening them. For audit/scoring of an existing codebase, route to
-`architecture-critique`.
+`architecture-audit`.
 
 ## Reference map
 
 - `references/intent-router.csv` — intent router (`design` / `refactor` / `explain`).
 - `references/intents/<intent>.csv` — surface router per intent.
-- `references/playbooks/<surface>.md` — surface playbooks (shared with architecture-critique).
+- `references/playbooks/<surface>.md` — surface playbooks (shared with architecture-audit).
 - `references/core/{personas,glossary}.md` — target persona list and terms.
 - `references/core/severity-rubric.md` — used by `refactor` to weigh what to fix first.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).

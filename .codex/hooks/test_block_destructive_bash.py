@@ -202,6 +202,98 @@ CASES = [
     ("bash -c 'ls'", False, "bash -c ls"),
     ("sh -c 'echo hi'", False, "sh -c echo"),
     ("bash -lc 'ls'", False, "bash -lc ls"),
+
+    # ----- Round-5 bypasses (dx-heuristics edge-pass, 2026-06-02) -----
+    # reflection-log: 2026-06-02-hook-find-delete-bypass / -wrapper-bypasses /
+    # -nonrm-deleters.
+
+    # find -delete / -exec rm of protected roots.
+    ("find /etc -delete", True, "find /etc -delete"),
+    ("find / -delete", True, "find / -delete"),
+    ("find ~ -delete", True, "find ~ -delete"),
+    ("find $HOME -delete", True, "find $HOME -delete"),
+    ("find /etc -type f -exec rm -rf {} +", True, "find /etc -exec rm"),
+    ("find / -type f -exec rm -rf {} +", True, "find / -exec rm"),
+    ("find /Users -execdir rm -rf {} +", True, "find -execdir rm"),
+    ("find /etc -exec /bin/rm -rf {} +", True, "find -exec /bin/rm"),
+    # Leading GNU find global options must not hide the protected root.
+    ("find -H /etc -delete", True, "find -H then /etc"),
+    ("find -O3 /etc -delete", True, "find -O3 then /etc"),
+    ("find -L -- /usr -exec rm {} +", True, "find -L -- then /usr exec rm"),
+    ("find -P -D tree /etc -delete", True, "find -D debugopts then /etc"),
+    ("find -H -L -P /var -delete", True, "find stacked -H -L -P then /var"),
+
+    # Execution wrappers that were opaque.
+    ("nohup rm -rf /etc", True, "nohup rm"),
+    ("nohup bash -c 'rm -rf /etc'", True, "nohup bash -c rm"),
+    ("timeout 5 rm -rf /etc", True, "timeout DURATION rm"),
+    ("timeout -s9 5 rm -rf /etc", True, "timeout -s9 rm"),
+    ("timeout --signal=KILL 5 rm -rf /etc", True, "timeout --signal= rm"),
+    ("flock /tmp/x rm -rf /etc", True, "flock lockfile rm"),
+    ("flock -w 5 /tmp/x rm -rf /etc", True, "flock -w lockfile rm"),
+    ("flock -c 'rm -rf /etc' /tmp/x", True, "flock -c rm"),
+    ("flock /tmp/x -c 'rm -rf /etc'", True, "flock lockfile -c rm"),
+    ("setsid rm -rf /etc", True, "setsid rm"),
+    ("setsid -f rm -rf /etc", True, "setsid -f rm"),
+    ("stdbuf -oL rm -rf /etc", True, "stdbuf -oL rm"),
+    ("xargs rm -rf /etc", True, "xargs rm"),
+    ("xargs -I{} rm -rf /etc", True, "xargs -I rm"),
+    ("watch -n1 rm -rf /etc", True, "watch -n rm"),
+    # watch runs its argument via `sh -c`; the quoted command-string form
+    # must be inspected, not treated as an opaque executable name.
+    ("watch 'rm -rf /etc'", True, "watch quoted rm string"),
+    ("watch -n 1 'rm -rf /etc'", True, "watch -n then quoted rm"),
+    ("watch 'rm -rf /etc; rm -rf /var'", True, "watch compound rm string"),
+
+    # xargs reading delete targets from stdin via a literal producer (echo/
+    # printf/find). Producer-tracing across `|` only; opaque producers (cat,
+    # $()) are a documented gap. reflection-log 2026-06-02-hook-xargs-stdin-targets.
+    ("echo /etc | xargs rm -rf", True, "echo | xargs rm -rf"),
+    ("printf '%s' /etc | xargs -I{} rm -rf {}", True, "printf | xargs -I{} rm"),
+    ("find /etc -print0 | xargs rm -rf", True, "find protected | xargs rm"),
+    ("echo /etc/passwd | xargs shred -u", True, "echo | xargs shred"),
+    ("echo $HOME | xargs rm -rf", True, "echo $HOME | xargs rm"),
+    ("echo ./build | xargs rm -rf", False, "echo relative | xargs rm"),
+    ("find . -name '*.tmp' | xargs rm -rf", False, "find . | xargs (cwd-local)"),
+    ("find /tmp -print | xargs rm -rf", False, "find /tmp | xargs (not protected)"),
+    ("echo /etc ; xargs rm -rf", False, "echo ; xargs (not piped)"),
+    ("cat list | xargs rm -rf", False, "opaque producer (documented gap)"),
+    ("echo /etc | xargs rm", False, "xargs rm without -r"),
+
+    # find -exec/-execdir runs the rm itself; inspect its argv for a literal
+    # protected target even when the find root is safe.
+    ("find /tmp -exec rm -rf /etc \\;", True, "find safe-root -exec rm protected"),
+    ("find . -exec rm -rf /etc \\;", True, "find . -exec rm protected"),
+    ("find /var/tmp -execdir rm -rf /System \\;", True, "find -execdir rm protected"),
+    ("find /tmp -exec rm -rf {} +", False, "find -exec rm {} placeholder, safe root"),
+    ("find . -exec rm -rf {} \\;", False, "find . -exec rm {} cwd-local"),
+    # xargs stdin target resolves against the cwd set by a preceding cd.
+    ("cd / && echo etc | xargs rm -rf", True, "cd / then relative | xargs rm"),
+    ("cd /tmp && echo build | xargs rm -rf", False, "cd /tmp then safe | xargs"),
+    ("nohup find /etc -delete", True, "nohup find -delete"),
+
+    # Non-rm deleters of protected files.
+    ("shred -u /etc/passwd", True, "shred /etc/passwd"),
+    ("shred -n 3 -u /etc/shadow", True, "shred -n /etc/shadow"),
+    ("truncate -s 0 /etc/passwd", True, "truncate /etc/passwd"),
+    ("unlink /etc/passwd", True, "unlink /etc/passwd"),
+    ("rmdir /etc", True, "rmdir /etc"),
+    ("shred -u $HOME/.ssh/id_rsa", True, "shred under $HOME"),
+
+    # ----- Round-5 negatives: must remain allowed -----
+    ("find . -name '*.tmp' -delete", False, "find . -delete (cwd-local)"),
+    ("find /tmp -delete", False, "find /tmp -delete (not protected)"),
+    ("find /etc -type f -name '*.log'", False, "find /etc read-only"),
+    ("find -H . -name '*.tmp' -delete", False, "find -H then cwd-local ."),
+    ("find -L /tmp/x -exec rm {} +", False, "find -L then /tmp (not protected)"),
+    ("watch 'ls -la'", False, "watch safe quoted string"),
+    ("watch -n 2 df -h", False, "watch safe command"),
+    ("timeout 5 ls", False, "timeout ls"),
+    ("nohup ./server", False, "nohup safe binary"),
+    ("xargs ls", False, "xargs ls"),
+    ("truncate -s 0 /tmp/scratch", False, "truncate /tmp file"),
+    ("unlink ./local.sock", False, "unlink local file"),
+    ("shred -u ./secret.key", False, "shred local file"),
 ]
 
 

@@ -32,7 +32,7 @@
 ## Activation case seeds
 
 - Positive: cross-audience audit, README quickstart, help-center deflection, llms.txt/RAG docs, OpenAPI/MCP descriptions, tooltips-vs-agents conflict, docs telemetry.
-- Negative siblings: `dx-heuristics`, `ux-accessibility-heuristics`, `ui-design-craft`, `project-agentification`, `evidence-driven-agent-rules`, `perf-observability-heuristics`, `test-heuristics`, `topic-research`.
+- Negative siblings: `dx-heuristics`, `ux-accessibility-heuristics`, `ui-design-craft`, `project-agentification`, `agent-rules`, `perf-observability-heuristics`, `test-heuristics`, `topic-research`.
 - Edge: ambiguous "make our docs better" and AGENTS.md/error-message boundary prompts.
 
 ## Grounding map

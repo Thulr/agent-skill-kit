@@ -2,7 +2,7 @@
 
 Activation + behavioral cases for `test-design` — producing test-suite artifacts
 (author / strategize / prune). Reviewing or triaging *existing* tests is
-`test-critique`; those appear here as **negatives**.
+`test-audit`; those appear here as **negatives**.
 
 ## Static verification
 
@@ -59,12 +59,12 @@ concrete good-shaped artifact.
 
 ## N1 — Review an existing suite
 **Prompt:** `We inherited ~5000 unit tests and nobody trusts them — review the suite and tell me which actually catch bugs.`
-**Expected:** recognizes this is **critique** of an existing suite; defers to `test-critique`.
+**Expected:** recognizes this is **critique** of an existing suite; defers to `test-audit`.
 **Fail if:** produces an authoring outline for a suite that already exists.
 
 ## N2 — Triage a failing/flaky test
 **Prompt:** `These integration tests fail 1 in 5 runs in CI — what's wrong?`
-**Expected:** defers to `test-critique` (triage).
+**Expected:** defers to `test-audit` (triage).
 
 ## N3 — DX surface design
 **Prompt:** `Design how our CLI reads config — file vs env vs flag precedence.`
@@ -76,7 +76,7 @@ concrete good-shaped artifact.
 
 ## N5 — End-user UI design
 **Prompt:** `Design a lower-friction consumer signup flow.`
-**Expected:** recognizes end-user audience; defers (ui-design / ux-critique).
+**Expected:** recognizes end-user audience; defers (ui-design / ux-audit).
 
 ## N6 — Internal refactor
 **Prompt:** `Refactor this function to use early returns.`

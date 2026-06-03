@@ -105,5 +105,5 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
 - → `migration.md` for upgrade guide patterns.
 - → `readme.md` for the README that funnels evaluators into the docs site.
 - → `examples.md` for the runnable samples docs link out to.
-- → the `design-for-agents` skill for retrieval-friendly structuring optimized for AI agents.
+- → the `agent-experience` skill for retrieval-friendly structuring optimized for AI agents.
 - → the `docs` domain for cross-audience docs spanning DX, UX, and AX.

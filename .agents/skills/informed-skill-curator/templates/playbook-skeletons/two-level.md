@@ -2,7 +2,7 @@
 
 One file per surface under `references/playbooks/<surface>.md`.
 Two-level playbooks are the canonical example — see
-`skills/dx-critique/references/playbooks/` for working playbooks
+`skills/dx-audit/references/playbooks/` for working playbooks
 that match this skeleton. **Every section here is required**: the
 static check and the validation rubric verify them.
 

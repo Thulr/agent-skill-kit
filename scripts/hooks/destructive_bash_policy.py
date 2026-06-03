@@ -520,12 +520,25 @@ def check_find(argv, cwd=None):
     roots = _find_roots(argv)
 
     has_delete = "-delete" in argv
+
+    # `-exec`/`-execdir rm <args> ;|+` runs that rm itself. The rm can name a
+    # literal protected target even when the find root is safe
+    # (`find /tmp -exec rm -rf /etc \;`), so inspect its argv through check_rm —
+    # not just whether the starting point is protected.
     has_exec_rm = False
     for j, a in enumerate(argv):
-        if a in ("-exec", "-execdir") and j + 1 < len(argv):
-            if os.path.basename(argv[j + 1]) == "rm":
-                has_exec_rm = True
-                break
+        if a in ("-exec", "-execdir") and j + 1 < len(argv) \
+                and os.path.basename(argv[j + 1]) == "rm":
+            has_exec_rm = True
+            exec_args = []
+            k = j + 2
+            while k < len(argv) and argv[k] not in (";", "+"):
+                exec_args.append(argv[k])
+                k += 1
+            reason = check_rm(exec_args, cwd=cwd)
+            if reason:
+                return f"find -exec {reason}"
+
     if not (has_delete or has_exec_rm):
         return None
 
@@ -676,6 +689,13 @@ def check_xargs_stdin(command, cwd=None):
     segs = _split_pipeline_with_seps(command)
     if not segs:
         return None
+    # Simulated cwd before each segment, so a relative produced target after a
+    # preceding `cd` resolves: `cd / && echo etc | xargs rm -rf` -> rm of /etc.
+    seg_cwds = []
+    cur = cwd
+    for _sep, seg in segs:
+        seg_cwds.append(cur)
+        cur = _update_cwd_from_cd(seg, cur)
     for idx in range(1, len(segs)):
         sep, seg = segs[idx]
         if sep != "|":  # only a real pipe feeds xargs stdin
@@ -687,15 +707,16 @@ def check_xargs_stdin(command, cwd=None):
         produced = _literal_producer_paths(segs[idx - 1][1])
         if not produced:
             continue
+        seg_cwd = seg_cwds[idx]
         for path in produced:
             if replstr and replstr in dargs:
                 eff = [path if t == replstr else t for t in dargs]
             else:
                 eff = dargs + [path]
             if deleter == "rm":
-                reason = check_rm(eff, cwd=cwd)
+                reason = check_rm(eff, cwd=seg_cwd)
             else:
-                reason = check_simple_deleter(deleter, eff, cwd=cwd)
+                reason = check_simple_deleter(deleter, eff, cwd=seg_cwd)
             if reason:
                 return f"{reason} (via xargs stdin)"
     return None

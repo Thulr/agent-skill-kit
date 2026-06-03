@@ -42,10 +42,19 @@ backstop for those forms. General lesson: when a tool consumes stdin, model the
 *producer* side too, but bound the heuristic to producers you can resolve
 literally so the gate never fires on a safe command.
 
+## Follow-up (same PR, Codex re-review)
+
+The first cut called `check_xargs_stdin` with `cwd=None`, so a relative produced
+target after a preceding `cd` was not resolved
+(`cd / && echo etc | xargs rm -rf` slipped through). Fixed by tracking the
+simulated cwd across pipeline segments inside `check_xargs_stdin` (mirroring the
+main segment loop's `_update_cwd_from_cd` walk) and resolving each produced path
+against the cwd in effect at the xargs segment.
+
 ## Closed by
 
 This change set: `scripts/hooks/destructive_bash_policy.py`
 (`check_xargs_stdin` + `_split_pipeline_with_seps` + `_xargs_deleter_invocation`
-+ `_literal_producer_paths` + `_find_roots` extraction; `check_command` wiring)
-and the xargs-stdin fixtures in `.claude` / `.codex` / `.cursor`
-`test_block_destructive_bash.py`. (Commit SHA on commit.)
++ `_literal_producer_paths` + `_find_roots` extraction; per-segment cwd tracking;
+`check_command` wiring) and the xargs-stdin fixtures in `.claude` / `.codex` /
+`.cursor` `test_block_destructive_bash.py`. (Commit SHA on commit.)

@@ -259,6 +259,17 @@ CASES = [
     ("echo /etc ; xargs rm -rf", False, "echo ; xargs (not piped)"),
     ("cat list | xargs rm -rf", False, "opaque producer (documented gap)"),
     ("echo /etc | xargs rm", False, "xargs rm without -r"),
+
+    # find -exec/-execdir runs the rm itself; inspect its argv for a literal
+    # protected target even when the find root is safe.
+    ("find /tmp -exec rm -rf /etc \\;", True, "find safe-root -exec rm protected"),
+    ("find . -exec rm -rf /etc \\;", True, "find . -exec rm protected"),
+    ("find /var/tmp -execdir rm -rf /System \\;", True, "find -execdir rm protected"),
+    ("find /tmp -exec rm -rf {} +", False, "find -exec rm {} placeholder, safe root"),
+    ("find . -exec rm -rf {} \\;", False, "find . -exec rm {} cwd-local"),
+    # xargs stdin target resolves against the cwd set by a preceding cd.
+    ("cd / && echo etc | xargs rm -rf", True, "cd / then relative | xargs rm"),
+    ("cd /tmp && echo build | xargs rm -rf", False, "cd /tmp then safe | xargs"),
     ("nohup find /etc -delete", True, "nohup find -delete"),
 
     # Non-rm deleters of protected files.

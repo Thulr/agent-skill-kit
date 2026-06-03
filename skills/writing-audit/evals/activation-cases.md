@@ -35,7 +35,7 @@ Near-miss prompts that share keywords but should route to a **sibling skill**.
 ## Boundary / edge
 
 - "Review this microcopy on our settings screen" → activates (`revise` × `general-prose`) when the ask is the prose quality of the copy; if it's the control's usability or placement, prefer `ux-audit`.
-- "Edit our API docs for clarity" → activates (`revise`/`copyedit` × `technical-doc`) for the prose itself; if it's reference structure, retrieval, or mode-mixing across the doc set, prefer `docs-audit`.
+- "Edit our API docs for clarity" → default `revise` × `technical-doc` (use `copyedit` only for an explicit grammar/consistency pass) for the prose itself; if it's reference structure, retrieval, or mode-mixing across the doc set, prefer `docs-audit`.
 
 ## Notes
 

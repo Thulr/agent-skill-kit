@@ -34,7 +34,7 @@ Near-miss prompts that share keywords but should route to a **sibling skill**.
 
 ## Boundary / edge
 
-- "Write the README for this repo" → activates (`draft`/`structure` × `general-prose`) when the ask is composing the README's prose and arc; if it's README-as-onboarding-IA or first-impression scoring, prefer `docs-design` or `dx-audit`.
+- "Write the README for this repo" → default `draft` × `general-prose` (use `structure` only for an explicit outline/structure ask) when composing the README's prose and arc; if it's README-as-onboarding-IA or first-impression scoring, prefer `docs-design` or `dx-audit`.
 - "Make our error messages clearer" → activates (`draft` × `general-prose`) only when the focus is the wording/craft of the copy; if it's error-UX taxonomy, affordances, or envelope design, prefer `dx-audit` / `dx-design`.
 
 ## Notes

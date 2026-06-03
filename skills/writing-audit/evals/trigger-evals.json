@@ -1,0 +1,26 @@
+{
+  "skill": "writing-audit",
+  "version": "0.1.0",
+  "queries": [
+    { "query": "Tighten this PRD — it's bloated", "should_activate": true, "expected_route": "revise/argument-memo", "category": "positive" },
+    { "query": "Cut the clutter in this paragraph", "should_activate": true, "expected_route": "revise/general-prose", "category": "positive" },
+    { "query": "Make this how-to less wordy and easier to follow", "should_activate": true, "expected_route": "revise/technical-doc", "category": "positive" },
+    { "query": "Copyedit this blog post for grammar and consistency", "should_activate": true, "expected_route": "copyedit/general-prose", "category": "positive" },
+    { "query": "Proofread and check this spec for consistency", "should_activate": true, "expected_route": "copyedit/technical-doc", "category": "positive" },
+    { "query": "Why does my talk feel flat?", "should_activate": true, "expected_route": "diagnose/talk-pitch", "category": "positive" },
+    { "query": "This memo buries the recommendation — what's wrong structurally?", "should_activate": true, "expected_route": "diagnose/argument-memo", "category": "positive" },
+    { "query": "Review this essay's structure — does it build?", "should_activate": true, "expected_route": "diagnose/narrative", "category": "positive" },
+    { "query": "Score the stickiness of this launch post", "should_activate": true, "expected_route": "diagnose/talk-pitch", "category": "positive" },
+    { "query": "Edit this announcement for clarity without losing my voice", "should_activate": true, "expected_route": "revise/general-prose", "category": "positive" },
+    { "query": "Help me outline this RFC before drafting", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Draft a first version of this talk", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Give this blog post a narrative arc", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Audit our docs site for retrieval and audience conflict", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Why does the agent call the wrong tool from our docs?", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Review our CLI's flags and help output for friction", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Heuristic review of this checkout flow", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Research and summarize the state of LLM eval methods", "should_activate": false, "expected_route": null, "category": "negative" },
+    { "query": "Review this microcopy on our settings screen", "should_activate": true, "expected_route": "revise/general-prose", "category": "edge" },
+    { "query": "Edit our API docs for clarity", "should_activate": true, "expected_route": "revise/technical-doc", "category": "edge" }
+  ]
+}

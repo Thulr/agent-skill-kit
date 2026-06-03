@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+structure,Structure & outline,"Organize ideas before drafting — shape a memo, doc, talk, or narrative so it leads with the right thing",references/intents/structure.csv,templates/outline-plan.md
+draft,Draft,"Get a first pass down without stalling; turn an outline or notes into prose",references/intents/draft.csv,templates/draft-scaffold.md
+persuade,Persuade & narrate,"Add a persuasive arc, narrative momentum, or stickiness to a piece",references/intents/persuade.csv,templates/persuasion-plan.md

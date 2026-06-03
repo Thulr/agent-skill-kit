@@ -1,0 +1,1 @@
+../../../_shared/writing/core/narrative-honesty-guard.md

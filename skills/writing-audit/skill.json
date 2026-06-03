@@ -1,0 +1,121 @@
+{
+  "name": "writing-audit",
+  "description": "Heuristic AUDIT of an existing piece of writing — revise wordy prose at the line level, copyedit mechanics and consistency while preserving voice, or diagnose why a draft drags, buries the point, or fails to land — grounded in canonical revision, copyediting, structure, and storytelling literature. Routed by intent (revise/copyedit/diagnose) × genre. Emits a scored findings report with severity-rated findings, concrete fixes, and the reader each finding costs. To write or structure something new use writing-design; to audit a documentation system use docs-audit; for product UI copy as a usability surface use ux-audit.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": [
+    "@Thulr"
+  ],
+  "tags": [
+    "audit",
+    "writing-audit",
+    "writing",
+    "communication",
+    "heuristics",
+    "editing",
+    "copyediting",
+    "revision",
+    "proofreading",
+    "prose",
+    "clarity",
+    "structure",
+    "critique",
+    "rhetoric"
+  ],
+  "inspired_by": [
+    {
+      "name": "Revising Prose",
+      "author": "Richard Lanham",
+      "kind": "book",
+      "year": 1979,
+      "contribution": "The paramedic-style pass — find buried actions under to-be verbs and nominalizations, collapse preposition strings, report a before/after tightening ratio.",
+      "playbooks": ["revise-intent"]
+    },
+    {
+      "name": "On Writing Well",
+      "author": "William Zinsser",
+      "kind": "book",
+      "year": 1976,
+      "contribution": "The clutter taxonomy at the line level — qualifiers, throat-clearing windups, redundancy, euphemism.",
+      "playbooks": ["general-prose"]
+    },
+    {
+      "name": "The Sense of Style",
+      "author": "Steven Pinker",
+      "kind": "book",
+      "year": 2014,
+      "contribution": "The curse-of-knowledge scan against a target reader; given-before-new coherence.",
+      "playbooks": ["general-prose", "technical-doc"]
+    },
+    {
+      "name": "Dreyer's English",
+      "author": "Benjamin Dreyer",
+      "kind": "book",
+      "year": 2019,
+      "contribution": "Mechanics and consistency, the wan-intensifier ban, the writer's pet-word tics, and real rules versus superstitions.",
+      "playbooks": ["copyedit-intent"]
+    },
+    {
+      "name": "The Pyramid Principle",
+      "author": "Barbara Minto",
+      "kind": "book",
+      "year": 1987,
+      "contribution": "The answer-first and MECE diagnostic — flag a buried recommendation and non-exclusive, non-exhaustive groups.",
+      "playbooks": ["argument-memo", "technical-doc"]
+    },
+    {
+      "name": "Writing Software Documentation: A Task-Oriented Approach",
+      "author": "Thomas Barker",
+      "kind": "book",
+      "year": 1998,
+      "contribution": "The task-completeness diagnostic — flag feature-tour structure, fused steps, and orphaned procedures.",
+      "playbooks": ["technical-doc"]
+    },
+    {
+      "name": "The Story Grid",
+      "author": "Shawn Coyne",
+      "kind": "book",
+      "year": 2015,
+      "contribution": "The editor's test — does this section turn? — and the five-part section check for a flat draft.",
+      "playbooks": ["narrative"]
+    },
+    {
+      "name": "Poetics",
+      "author": "Aristotle",
+      "kind": "book",
+      "year": null,
+      "contribution": "The causal-necessity and reversal-recognition test that distinguishes a narrative from an episodic recap (public domain).",
+      "playbooks": ["narrative"]
+    },
+    {
+      "name": "Story",
+      "author": "Robert McKee",
+      "kind": "book",
+      "year": 1997,
+      "contribution": "The missing-turning-point flag — a section where no value flips can be cut or merged.",
+      "playbooks": ["narrative"]
+    },
+    {
+      "name": "Made to Stick",
+      "author": "Chip Heath & Dan Heath",
+      "kind": "book",
+      "year": 2007,
+      "contribution": "The stickiness scan and curse-of-knowledge check for a pitch or explainer that doesn't land.",
+      "playbooks": ["talk-pitch", "narrative"]
+    },
+    {
+      "name": "Building a StoryBrand",
+      "author": "Donald Miller",
+      "kind": "book",
+      "year": 2017,
+      "contribution": "The org-centric versus audience-as-hero flag and the few-second stranger (grunt) test.",
+      "playbooks": ["talk-pitch"]
+    }
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "audit",
+    "catalog_summary": "Audit an existing piece of writing — revise wordy prose, copyedit mechanics while preserving voice, or diagnose why a draft buries the point or fails to land — routed by intent (revise/copyedit/diagnose) × genre, emitting a scored findings report."
+  }
+}

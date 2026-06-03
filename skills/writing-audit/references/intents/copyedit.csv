@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+argument-memo,Argument / memo,"Copyedit a PRD, RFC, recommendation, or strategy memo",references/playbooks/argument-memo.md,references/core/mechanics-rubric.md;references/core/severity-rubric.md;references/core/voice-guard.md
+technical-doc,Technical / task doc,"Copyedit a how-to, procedure, or explainer",references/playbooks/technical-doc.md,references/core/mechanics-rubric.md;references/core/severity-rubric.md;references/core/voice-guard.md
+talk-pitch,Talk / pitch,"Copyedit a talk, pitch, or exec summary",references/playbooks/talk-pitch.md,references/core/mechanics-rubric.md;references/core/severity-rubric.md;references/core/voice-guard.md
+narrative,Narrative / essay,"Copyedit an essay, case study, or narrative",references/playbooks/narrative.md,references/core/mechanics-rubric.md;references/core/severity-rubric.md;references/core/voice-guard.md
+general-prose,General prose,"Copyedit an email, announcement, blog post, or short note",references/playbooks/general-prose.md,references/core/mechanics-rubric.md;references/core/severity-rubric.md;references/core/voice-guard.md

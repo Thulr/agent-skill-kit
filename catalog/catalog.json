@@ -7,6 +7,7 @@
       "rows": [
         {"surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry", "critique": "`dx-audit`", "design": "`dx-design`"},
         {"surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts", "critique": "`docs-audit`", "design": "`docs-design`"},
+        {"surface": "**Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose", "critique": "`writing-audit`", "design": "`writing-design`"},
         {"surface": "**Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity", "critique": "`perf-audit`", "design": "`perf-design`"},
         {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
         {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},

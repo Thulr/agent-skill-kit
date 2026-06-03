@@ -1,0 +1,6 @@
+id,scenario,intent,surface,persona,when_to_pick
+S1,"Outline an RFC before writing — lead with the recommendation, group the rationale MECE",structure,argument-memo,decision-maker,You have the analysis and need it to land top-down
+S2,"Reorganize a how-to around user tasks instead of product features",structure,technical-doc,novice,A feature-tour doc nobody can follow to completion
+S3,"Draft a first pass of a launch announcement without stalling on the blank page",draft,general-prose,scanner,Perfectionist paralysis on a short, time-sensitive piece
+S4,"Give a conference talk a real arc that moves the room toward one idea",persuade,talk-pitch,decision-maker,The content is solid but the talk falls flat
+S5,"Shape a vision narrative around a genuine turning point, not a flat recap",persuade,narrative,decision-maker,A change story that currently reads as 'and then, and then'

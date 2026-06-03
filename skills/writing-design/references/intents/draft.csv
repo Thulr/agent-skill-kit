@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+argument-memo,Argument / memo,"First pass of a PRD, RFC, recommendation, or strategy memo",references/playbooks/argument-memo.md,references/core/draft-discipline.md;references/core/clarity-rubric.md;references/core/voice-guard.md
+technical-doc,Technical / task doc,"First pass of a how-to, procedure, or explainer",references/playbooks/technical-doc.md,references/core/draft-discipline.md;references/core/clarity-rubric.md;references/core/voice-guard.md
+talk-pitch,Talk / pitch,"First pass of a talk, pitch, or launch post",references/playbooks/talk-pitch.md,references/core/draft-discipline.md;references/core/clarity-rubric.md;references/core/voice-guard.md
+narrative,Narrative / essay,"First pass of an essay, case study, or narrative",references/playbooks/narrative.md,references/core/draft-discipline.md;references/core/clarity-rubric.md;references/core/voice-guard.md
+general-prose,General prose,"First pass of an email, announcement, blog post, or short note",references/playbooks/general-prose.md,references/core/draft-discipline.md;references/core/clarity-rubric.md;references/core/voice-guard.md

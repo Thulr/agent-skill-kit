@@ -25,6 +25,7 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 |---|---|---|
 | **Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
 | **Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
+| **Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose | `writing-audit` | `writing-design` |
 | **Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity | `perf-audit` | `perf-design` |
 | **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
@@ -71,6 +72,8 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 - **`test-design`** *(design)* — Author a new test or test plan, shape a cross-layer test strategy (what to test at which layer), or plan which low-value tests to delete.
 - **`ui-design`** *(design)* — Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.
 - **`ux-audit`** *(audit)* — Audit an end-user product UX or accessibility surface — usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks — and score it.
+- **`writing-audit`** *(audit)* — Audit an existing piece of writing — revise wordy prose, copyedit mechanics while preserving voice, or diagnose why a draft buries the point or fails to land — routed by intent (revise/copyedit/diagnose) × genre, emitting a scored findings report.
+- **`writing-design`** *(design)* — Structure, draft, or add a persuasive arc to a new piece of writing — argument/memo, technical doc, talk/pitch, narrative, or general prose — routed by intent (structure/draft/persuade) × genre.
 
 ### research
 

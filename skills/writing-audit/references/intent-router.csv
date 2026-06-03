@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+revise,Revise for clarity,"Tighten existing prose — cut clutter, fix murky sentences at the line and paragraph level",references/intents/revise.csv,templates/revision-report.md
+copyedit,Copyedit,"Mechanics, grammar, consistency, and house-style on an existing draft; preserve voice",references/intents/copyedit.csv,templates/copyedit-report.md
+diagnose,Diagnose structure & impact,"Find why a draft drags, buries the point, or fails to land — structure and persuasion gaps",references/intents/diagnose.csv,templates/diagnosis-report.md

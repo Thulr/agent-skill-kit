@@ -210,6 +210,22 @@ def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
     if data.get("name") != expected_name:
         fail(failures, f"{rel}/skill.json: name must be {expected_name}, got {data.get('name')!r}")
 
+    # Single canonical routing string: skill.json description must mirror the
+    # SKILL.md frontmatter description verbatim. Marketing/provenance belongs in
+    # metadata.catalog_summary (drives the README) + inspired_by, not a second
+    # divergent description that drifts (the perf-design ux-design dead route
+    # lived independently in both copies). Internal templates are exempt.
+    skill_md_path = skill_dir / "SKILL.md"
+    if not is_internal(skill_dir) and skill_md_path.exists():
+        md_desc = re.search(r"(?m)^description:[ \t]*(.+?)[ \t]*$", skill_md_path.read_text())
+        if md_desc and data.get("description") != md_desc.group(1):
+            fail(
+                failures,
+                f"{rel}: skill.json description must match the SKILL.md frontmatter "
+                f"description verbatim (single routing string; put marketing/provenance "
+                f"in metadata.catalog_summary)",
+            )
+
     if not is_internal(skill_dir) and data.get("status") != "published":
         fail(
             failures,

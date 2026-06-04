@@ -1,6 +1,6 @@
 {
   "name": "test-design",
-  "description": "Heuristic DESIGN of test-suite artifacts — author a new test or test plan for a feature, shape a cross-layer test strategy (what to test at which layer, as a portfolio), or plan which tests to delete (low-value, redundant, characterizing dead code), across unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance layers. Emits a test outline, a layer-investment strategy doc, or a deletion/quarantine plan. To REVIEW or triage existing tests use test-audit; for production-system performance/SLOs use perf-design. Grounded in canonical testing literature (provenance below).",
+  "description": "Use to PRODUCE test-suite artifacts \u2014 author a new test or test plan for a feature, shape a cross-layer test strategy (what to test at which layer, as a portfolio), or plan which tests to delete (low-value, redundant, characterizing dead code). Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on \"write tests for this feature\", \"what should I test and at which layer\", \"design our test strategy\", \"which tests should we delete\", \"is our test pyramid right\". Do NOT use to REVIEW or triage existing tests for smells, flakiness, or false-pass (use test-audit), or for production-system performance/SLOs (use perf-design).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

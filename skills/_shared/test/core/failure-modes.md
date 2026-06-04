@@ -85,7 +85,7 @@ Cost: every red light becomes an investigation. The on-call (persona 2) cannot t
 Heuristics in layer playbooks tag the mode(s) they prevent:
 
 ```
-- **Mock at the seam, not the type** *(review, author)* *(brittleness, false-pass)*
+- **Mock at the seam, not the type** *(audit, author)* *(brittleness, false-pass)*
 ```
 
 ## Cross-references

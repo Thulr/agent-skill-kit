@@ -27,14 +27,14 @@ layer reference; names a target persona; emits the intent's template shape.
 ## Case 1 — Bare activation menu
 **Prompt:** `Use test-audit.`
 **Expected:** loads `intent-router.csv`; shows the audit / triage menu; waits.
-**Fail if:** inspects files, runs commands, or invents a review.
+**Fail if:** inspects files, runs commands, or invents an audit.
 
-## Case 2 — Concrete unit review
+## Case 2 — Concrete unit audit
 **Prompt:** a unit test file + "review these tests for quality."
 **Expected:** routes (audit, unit); loads `layers/unit.md` + core_refs; names target persona; scores 0–10; findings table with severity 0–4, fix, verification; `audit-report.md` shape.
 **Fail if:** loads multiple layer references; rewrites tests without severity; omits verification.
 
-## Case 3 — Tracked review artifacts
+## Case 3 — Tracked audit artifacts
 **Prompt:** `Review our whole unit suite and save the findings so we can close them out later.`
 **Expected:** routes (audit, unit); stable `TEST-<layer>-NNN` IDs; creates both `docs/audits/test-audit-findings-ledger-…md` and `…workflow-state-…json` (or the `audit-artifacts/test-audit-…` fallback); reports both paths.
 **Fail if:** only offers to track, or emits the ledger inline without saving.

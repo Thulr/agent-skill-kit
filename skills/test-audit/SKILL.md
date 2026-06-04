@@ -10,8 +10,8 @@ Test-suite audit and triage for any layer a team relies on to catch regressions.
 Provenance lives in `skill.json`; this file is runtime routing only.
 
 **Produces:** an intent-specific report — `audit-report.md` (or
-`audit-report-multi.md` for a cross-layer review) / `triage-runbook.md`;
-tracked reviews also emit `test-audit-findings-ledger-<date>-<slug>.md` +
+`audit-report-multi.md` for a cross-layer audit) / `triage-runbook.md`;
+tracked audits also emit `test-audit-findings-ledger-<date>-<slug>.md` +
 `test-audit-workflow-state-<date>-<slug>.json`.
 
 ## Core principle
@@ -52,10 +52,10 @@ nobody can tell what behavior it pins, that is a finding worth recording.
    `triage`, rank hypotheses before naming a fix. If sub-agents ran, synthesize
    their findings here.
 7. **Apply severity and IDs** from `references/core/severity-rubric.md` and
-   `references/trackable-findings.md` to every review finding or triage cause.
+   `references/trackable-findings.md` to every audit finding or triage cause.
    Use stable IDs like `TEST-<layer>-NNN`.
 8. **Emit output.** Audit → `templates/audit-report.md` (or
-   `audit-report-multi.md` for a cross-layer review). Triage →
+   `audit-report-multi.md` for a cross-layer audit). Triage →
    `templates/triage-runbook.md`.
 9. **Create, resume, or close tracking state.** For audit outputs with 7+
    findings, any severity 3–4, or a save/track/closeout request, load

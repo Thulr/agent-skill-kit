@@ -1,6 +1,6 @@
 # Subagent dispatch
 
-Load this file when SKILL.md routes to subagent dispatch — typically for `review` or `prune`, often for `author`, sometimes for `triage`.
+Load this file when SKILL.md routes to subagent dispatch — typically for `audit` or `prune`, often for `author`, sometimes for `triage`.
 
 ## Why three lenses
 
@@ -64,8 +64,8 @@ After all three sub-agents return, the synthesizing pass (the orchestrator, not 
 2. **Preserve disagreements** as open questions, not silent winners. If the intent reader thinks something is fine and the refactor adversary thinks it's brittle, surface it.
 3. **Rank by severity** using `references/core/severity-rubric.md`.
 4. **Tag failure modes** using `references/core/failure-modes.md`.
-5. **Score 0–10** using `references/core/score-rubric.md` for review activity.
-6. **Emit template-shaped output** for the activity (review-report, prune-plan, etc.).
+5. **Score 0–10** using `references/core/score-rubric.md` for audit activity.
+6. **Emit template-shaped output** for the activity (audit-report, prune-plan, etc.).
 
 ## When to skip
 
@@ -77,9 +77,9 @@ After all three sub-agents return, the synthesizing pass (the orchestrator, not 
 
 If sub-agents are unavailable in the current environment, run the same three lenses sequentially. Switch persona explicitly between passes — write down "switching to refactor adversary lens" before the second pass — the discipline of changing lens matters more than the parallelism. Sequential is slower and slightly more anchored, but still beats a single undifferentiated review.
 
-## Cross-layer fan-out (`review` intent only)
+## Cross-layer fan-out (`audit` intent only)
 
-When the user picks `--surface=all` for a `review`, iterate the rows of `references/intents/review.csv` and fan out one sub-agent **per surface row** — do not hardcode the surface list here; the CSV is the source of truth and surfaces may be added or renamed. The orchestrator does **not** load the layer playbooks itself — each spawned surface agent loads only its own playbook (`references/layers/<surface>.md`).
+When the user picks `--surface=all` for a `audit`, iterate the rows of `references/intents/audit.csv` and fan out one sub-agent **per surface row** — do not hardcode the surface list here; the CSV is the source of truth and surfaces may be added or renamed. The orchestrator does **not** load the layer playbooks itself — each spawned surface agent loads only its own playbook (`references/layers/<surface>.md`).
 
 ### Each layer sub-agent
 
@@ -95,7 +95,7 @@ After all layer sub-agents return:
 1. **Rank findings cross-layer** by severity, highest first
 2. **Surface the worst-offending layers** in a per-layer score table
 3. **Suite-wide path to 10/10** — top 3 fixes that lift overall test quality most, not per-layer polish
-4. **Emit `templates/review-report-multi.md`** rather than the single-layer template; append each layer's full report at the end
+4. **Emit `templates/audit-report-multi.md`** rather than the single-layer template; append each layer's full report at the end
 
 ### When to skip cross-layer mode
 

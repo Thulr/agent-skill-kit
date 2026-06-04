@@ -24,7 +24,7 @@ Has good intentions and a legitimate need to restructure the SUT. Cares: which t
 
 ## How to use
 
-For `review`: pick the persona most at risk from the test as written, and report findings in their voice.
+For `audit`: pick the persona most at risk from the test as written, and report findings in their voice.
 For `author`: write for at least personas 1 and 2 simultaneously.
 For `triage`: persona 2 is always relevant.
 For `strategize` and `prune`: persona 3 is the primary lens.

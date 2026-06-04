@@ -95,6 +95,7 @@ if [[ -f "$intent_router" ]]; then
   for bad in audit triage; do
     grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in test-audit, not test-design"
   done
+  grep -Eq '^review,' "$intent_router" && fail "intent-router.csv: 'review' is the retired intent name; use 'audit'"
 fi
 
 # ----- Layer-reference structure gates (shared layers, via symlink) -----

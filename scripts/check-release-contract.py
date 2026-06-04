@@ -183,6 +183,7 @@ def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> None:
     for key in ("name", "description"):
         if not meta.get(key):
             fail(failures, f"{rel}/SKILL.md: frontmatter missing required key '{key}'")
+    return meta
 
 
 def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
@@ -198,7 +199,7 @@ def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
         if not (skill_dir / item).exists():
             fail(failures, f"{rel}: missing required artifact {item}")
 
-    check_skill_md_frontmatter(skill_dir, failures)
+    meta = check_skill_md_frontmatter(skill_dir, failures)
 
     data = load_json(skill_dir / "skill.json", failures)
     if data is None:
@@ -211,20 +212,19 @@ def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
         fail(failures, f"{rel}/skill.json: name must be {expected_name}, got {data.get('name')!r}")
 
     # Single canonical routing string: skill.json description must mirror the
-    # SKILL.md frontmatter description verbatim. Marketing/provenance belongs in
+    # parsed SKILL.md frontmatter description. Marketing/provenance belongs in
     # metadata.catalog_summary (drives the README) + inspired_by, not a second
     # divergent description that drifts (the perf-design ux-design dead route
-    # lived independently in both copies). Internal templates are exempt.
-    skill_md_path = skill_dir / "SKILL.md"
-    if not is_internal(skill_dir) and skill_md_path.exists():
-        md_desc = re.search(r"(?m)^description:[ \t]*(.+?)[ \t]*$", skill_md_path.read_text())
-        if md_desc and data.get("description") != md_desc.group(1):
-            fail(
-                failures,
-                f"{rel}: skill.json description must match the SKILL.md frontmatter "
-                f"description verbatim (single routing string; put marketing/provenance "
-                f"in metadata.catalog_summary)",
-            )
+    # lived independently in both copies). Compares the PARSED YAML value, not the
+    # raw token, so quoted or '>-' block-scalar descriptions are handled; skips
+    # when PyYAML is unavailable (meta is None) or for internal templates.
+    if meta and not is_internal(skill_dir) and data.get("description") != meta.get("description"):
+        fail(
+            failures,
+            f"{rel}: skill.json description must match the SKILL.md frontmatter "
+            f"description (single routing string; put marketing/provenance in "
+            f"metadata.catalog_summary)",
+        )
 
     if not is_internal(skill_dir) and data.get("status") != "published":
         fail(

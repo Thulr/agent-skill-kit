@@ -1,6 +1,6 @@
 {
   "name": "test-audit",
-  "description": "Heuristic AUDIT of an existing test suite — review tests for smells, redundancy, false-pass risk, brittleness, and flakiness and score them, or triage one test that is failing, flaky, or unacceptably slow, across unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance layers. Use to REVIEW a suite for credibility and score it, or DIAGNOSE a specific failing/flaky/slow test; emits a scored findings report with a severity-rated, trackable ledger. To AUTHOR, strategize, or prune tests use test-design; for production-system performance/SLOs use perf-audit. Grounded in canonical testing literature (provenance below).",
+  "description": "Use to AUDIT an existing test suite \u2014 review tests for smells, redundancy, false-pass risk, brittleness, and flakiness and score them, or triage one specific test that is failing, flaky, or unacceptably slow. Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on \"review these tests\", \"are these tests any good\", \"this test is flaky\", \"why does CI fail intermittently\", \"triage this failing test\", \"do our tests actually catch bugs\". Do NOT use to AUTHOR new tests, shape suite strategy, or pick tests to delete (use test-design), or for production-system performance/SLOs (use perf-audit).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

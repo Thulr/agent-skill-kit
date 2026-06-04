@@ -6,7 +6,7 @@ profile-first optimization of a known-slow path; and program-level observability
 / reliability strategy (design / optimize / strategize). Auditing or diagnosing
 an *existing* system is `perf-audit`; those appear here as **negatives**.
 Developer-facing or local build/inner-loop perf is `dx-design`; end-user product
-UX is `ux-design`.
+UX design is `ui-design`; a UX/accessibility audit is `ux-audit`.
 
 ## Static verification
 
@@ -89,7 +89,7 @@ criteria.
 
 ## N6 — End-user product UX
 **Prompt:** `Design a lower-friction consumer signup flow.`
-**Expected:** recognizes end-user audience; defers to `ux-design`.
+**Expected:** recognizes an end-user UX design task; defers to `ui-design`.
 
 ## N7 — Internal code refactor
 **Prompt:** `Refactor this handler to use early returns.`

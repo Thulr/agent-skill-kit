@@ -1,6 +1,6 @@
 {
   "name": "architecture-audit",
-  "description": "Heuristic AUDIT of an existing codebase's clean architecture — audit and score dependency-rule violations, layer/port/adapter boundary leakage, anemic domain models, bounded-context seams, and cross-cutting concerns. Use to REVIEW an existing module for architectural erosion; emits a scored findings report with severity-rated, trackable findings (CA- IDs) and a closeout ledger. To DESIGN, refactor toward, or explain a target architecture use architecture-design; for developer-facing API/SDK/CLI surfaces use dx-audit; for product UX, forms, navigation, and accessibility use ux-audit. Opinionated terrain; surfaces school disagreements explicitly. Language-agnostic, full-stack-friendly. Grounded in the canonical architecture literature (provenance below).",
+  "description": "Use to AUDIT an existing codebase or module for clean-architecture concerns \u2014 audit it for dependency-rule violations, layer/port/adapter boundary leakage, anemic domain models, bounded-context seams, and cross-cutting concerns, then score it. Triggers on \"architecture review\", \"layer-violation audit\", \"is our domain anemic\", \"audit dependency direction\", \"DDD / bounded context review\", \"are our ports and adapters right\". Do NOT use to DESIGN, refactor toward, or explain a target architecture (use architecture-design), for developer-facing API/SDK/CLI surfaces (use dx-audit), or for product UX / forms / navigation / accessibility (use ux-audit).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

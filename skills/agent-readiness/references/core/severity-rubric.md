@@ -1,6 +1,6 @@
 # Severity Rubric — 0–4
 
-Applied to every finding in `harden`, `scaffold`, `diagnose`, and to each gap in `assess`. Shares the 0–4 scale with `skills/dx-audit/references/core/severity-rubric.md`; adapted to agent-specific failure language.
+Applied to every finding in `harden`, `scaffold`, `diagnose`, and to each gap in `assess`. Uses the catalog-standard 0–4 numeric range, but the labels below are agent-specific and deliberately differ from other skills' (dx-audit, for instance, puts 'Cosmetic' at 1, not 0) — compare findings across skills by number, not label.
 
 | Score | Label | Description | Examples |
 |-------|-------|-------------|----------|

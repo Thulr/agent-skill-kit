@@ -1,6 +1,6 @@
 {
   "name": "agent-rules",
-  "description": "Use when you operate coding-agent infrastructure with a feedback signal \u2014 eval suites, run-level telemetry, A/B baselines, or a skill catalog under test \u2014 and want to capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules, hooks, or CI gates via the three-entry floor, and score Level 4-5 (Spec Architecture, Sovereign Engineering) maturity. Triggers on 'reflection log', 'agent failure log', 'promote this pattern into a rule', 'post-incident eval case', 'harness maturity Level 4 or 5', 'set up a feedback loop for agent failures'. Do NOT use for first-pass agent-readiness scaffolding when no feedback signal exists yet (use agent-readiness), or to instrument an AI product's eval and optimization loops (use agent-evals).",
+  "description": "Use when you operate coding-agent infrastructure with a feedback signal \u2014 eval suites, run-level telemetry, A/B baselines, or a skill catalog under test \u2014 and want to capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules, hooks, or CI gates via the three-entry floor, and score Level 4-5 (Specification Architecture, Sovereign Engineering) maturity. Triggers on 'reflection log', 'agent failure log', 'promote this pattern into a rule', 'post-incident eval case', 'harness maturity Level 4 or 5', 'set up a feedback loop for agent failures'. Do NOT use for first-pass agent-readiness scaffolding when no feedback signal exists yet (use agent-readiness), or to instrument an AI product's eval and optimization loops (use agent-evals).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -35,7 +35,7 @@
       "author": "Engineering Agents",
       "kind": "guide",
       "year": 2025,
-      "contribution": "Level 1\u20135 maturity rubric; reflection-log artifact as a Level 3 signal; 'weakest discipline is your ceiling.' This skill owns the Level 4\u20135 extension (Spec Architecture / Sovereign Engineering); `agent-readiness` owns Levels 1\u20133.",
+      "contribution": "Level 1\u20135 maturity rubric; reflection-log artifact as a Level 3 signal; 'weakest discipline is your ceiling.' This skill owns the Level 4\u20135 extension (Specification Architecture / Sovereign Engineering); `agent-readiness` owns Levels 1\u20133.",
       "playbooks": [
         "reflection-log"
       ]

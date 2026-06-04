@@ -4,7 +4,7 @@ description: Use to ASSESS, HARDEN, SCAFFOLD, or DIAGNOSE a repository's agent-r
 license: MIT
 ---
 
-# Project Agentification
+# Agent Readiness
 
 Assess, harden, scaffold, and diagnose a repository's agent-readiness.
 Harness-agnostic; portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry).

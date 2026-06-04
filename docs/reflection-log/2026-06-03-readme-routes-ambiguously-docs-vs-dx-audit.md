@@ -99,7 +99,7 @@ promote.
 Not yet closed. The reciprocal docs↔dx cedes (docs-audit, dx-audit, docs-design,
 dx-design descriptions + their skill.json mirrors) and the documented
 double-claim (`$comment`) in the docs-audit/dx-audit evals landed on branch
-`fix/docs-dx-routing-fence` (PR pending code-owner review; `just check` green).
+`fix/docs-dx-routing-fence` (PR #48, pending code-owner review; `just check` green).
 The systemic gap — description fences cover the function axis but not the surface
 axis, and the disambiguator lived in catalog prose rather than the routing
 field — is narrowed for this pair but has no general rule or lint, and is below

@@ -30,13 +30,13 @@ Tests that compare current output against an approved reference (snapshot, golde
 
 ## Heuristics
 
-- **Snapshots reviewed, not rubber-stamped** *(review, author)* *(false-pass)* — every diff inspected before approval. `--update-all` without review is the worst anti-pattern in this layer; it converts every snapshot into a tautology.
-- **One assertion per snapshot file** *(review, author)* *(confusion)* — small, focused snapshots beat one mega-snapshot. A snapshot whose diff spans 500 lines is unreviewable; reviewers default to "looks fine, ship."
-- **Snapshot represents intent, not just output** *(review)* *(confusion)* — name + scope reveal what's being approved. "renders user card with name and avatar" beats "snapshot 4." A snapshot whose intent isn't clear becomes a maintenance burden.
-- **Stable across irrelevant axes** *(review)* *(flakiness)* — strip dates, IDs, ordering, hashes, locale-dependent formatting, line endings before snapshotting. Use serializers that normalize the variation away.
-- **Right things snapshotted** *(review, strategize)* *(gap, brittleness)* — output shape, generated code, rendered DOM, public API response — not arbitrary internals. Snapshots of internals are brittleness machines; snapshots of nothing (where a focused assertion would be clearer) are confusion machines.
-- **Updates require diff review in PR** *(review)* *(false-pass)* — process gate: snapshot diffs appear in the PR; the reviewer is expected to read them. CI can fail when snapshots change without a corresponding PR description note.
-- **Snapshot churn budgeted** *(review, prune)* *(cost)* — snapshots that change every PR are signaling something (over-broad scope, unstable inputs); they should be redesigned or deleted, not maintained.
+- **Snapshots reviewed, not rubber-stamped** *(audit, author)* *(false-pass)* — every diff inspected before approval. `--update-all` without review is the worst anti-pattern in this layer; it converts every snapshot into a tautology.
+- **One assertion per snapshot file** *(audit, author)* *(confusion)* — small, focused snapshots beat one mega-snapshot. A snapshot whose diff spans 500 lines is unreviewable; reviewers default to "looks fine, ship."
+- **Snapshot represents intent, not just output** *(audit)* *(confusion)* — name + scope reveal what's being approved. "renders user card with name and avatar" beats "snapshot 4." A snapshot whose intent isn't clear becomes a maintenance burden.
+- **Stable across irrelevant axes** *(audit)* *(flakiness)* — strip dates, IDs, ordering, hashes, locale-dependent formatting, line endings before snapshotting. Use serializers that normalize the variation away.
+- **Right things snapshotted** *(audit, strategize)* *(gap, brittleness)* — output shape, generated code, rendered DOM, public API response — not arbitrary internals. Snapshots of internals are brittleness machines; snapshots of nothing (where a focused assertion would be clearer) are confusion machines.
+- **Updates require diff review in PR** *(audit)* *(false-pass)* — process gate: snapshot diffs appear in the PR; the reviewer is expected to read them. CI can fail when snapshots change without a corresponding PR description note.
+- **Snapshot churn budgeted** *(audit, prune)* *(cost)* — snapshots that change every PR are signaling something (over-broad scope, unstable inputs); they should be redesigned or deleted, not maintained.
 
 ## Quick diagnostic
 

@@ -2,7 +2,7 @@
 
 An *oracle* is a principle that tells you whether a test result is right or wrong. Most tests have an explicit oracle (an `assert` clause). Exploratory testing relies on softer oracles. This file distills two widely-used heuristic mnemonics from the rapid-software-testing tradition. Use them in:
 - `exploratory` sessions to drive variation
-- `review` mode to check whether a layer's tests cover any oracle other than "the function returned the value I hard-coded"
+- `audit` mode to check whether a layer's tests cover any oracle other than "the function returned the value I hard-coded"
 - as raw material for the **bug-shape hunter** lens prompt
 
 ## SFDIPOT — coverage of testable aspects
@@ -41,7 +41,7 @@ A failure to satisfy any of these is potentially a bug. Useful when there's no s
 
 When a tester says "this is wrong" and can't point at a spec, the conversation goes faster if they cite an oracle: "this violates *Standards* — it's not WCAG-compliant," or "this violates *History* — version 2.3 returned 200 here, this returns 204."
 
-## Using oracles in `review` mode
+## Using oracles in `audit` mode
 
 For each layer, ask: *which oracles does this test or test class actually validate?* Most automated test suites validate Function and a slice of Data. Suites that never test Time, Platform, or Operations are prone to mode 4 (gap).
 

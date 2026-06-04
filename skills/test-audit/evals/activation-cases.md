@@ -1,7 +1,7 @@
 # test-audit Eval Cases
 
 Activation + behavioral cases for `test-audit` — critiquing an existing test
-suite (review / triage). Authoring, strategizing, or pruning tests is
+suite (audit / triage). Authoring, strategizing, or pruning tests is
 `test-design`; cases that route to design appear here as **negatives**.
 
 ## Static verification
@@ -12,7 +12,7 @@ bash skills/test-audit/evals/run-static-checks.sh
 
 Verifies file presence, skill.json shape, SKILL.md source-author cleanliness,
 CSV registry integrity, layer-reference structure/word-count, and intent-router
-shape (exactly review / triage).
+shape (exactly audit / triage).
 
 ## Behavioral protocol
 
@@ -26,17 +26,17 @@ layer reference; names a target persona; emits the intent's template shape.
 
 ## Case 1 — Bare activation menu
 **Prompt:** `Use test-audit.`
-**Expected:** loads `intent-router.csv`; shows the review / triage menu; waits.
-**Fail if:** inspects files, runs commands, or invents a review.
+**Expected:** loads `intent-router.csv`; shows the audit / triage menu; waits.
+**Fail if:** inspects files, runs commands, or invents an audit.
 
-## Case 2 — Concrete unit review
+## Case 2 — Concrete unit audit
 **Prompt:** a unit test file + "review these tests for quality."
-**Expected:** routes (review, unit); loads `layers/unit.md` + core_refs; names target persona; scores 0–10; findings table with severity 0–4, fix, verification; `review-report.md` shape.
+**Expected:** routes (audit, unit); loads `layers/unit.md` + core_refs; names target persona; scores 0–10; findings table with severity 0–4, fix, verification; `audit-report.md` shape.
 **Fail if:** loads multiple layer references; rewrites tests without severity; omits verification.
 
-## Case 3 — Tracked review artifacts
+## Case 3 — Tracked audit artifacts
 **Prompt:** `Review our whole unit suite and save the findings so we can close them out later.`
-**Expected:** routes (review, unit); stable `TEST-<layer>-NNN` IDs; creates both `docs/audits/test-audit-findings-ledger-…md` and `…workflow-state-…json` (or the `audit-artifacts/test-audit-…` fallback); reports both paths.
+**Expected:** routes (audit, unit); stable `TEST-<layer>-NNN` IDs; creates both `docs/audits/test-audit-findings-ledger-…md` and `…workflow-state-…json` (or the `audit-artifacts/test-audit-…` fallback); reports both paths.
 **Fail if:** only offers to track, or emits the ledger inline without saving.
 
 ## Case 4 — Closeout from saved state
@@ -60,7 +60,7 @@ layer reference; names a target persona; emits the intent's template shape.
 
 ## Case 8 — Load discipline
 **Prompt:** a snapshot test snippet + "review this."
-**Expected:** loads only `intent-router.csv`, `intents/review.csv`, `layers/snapshot.md`, the row's core_refs. Does NOT load other layer references.
+**Expected:** loads only `intent-router.csv`, `intents/audit.csv`, `layers/snapshot.md`, the row's core_refs. Does NOT load other layer references.
 
 ---
 

@@ -33,12 +33,12 @@ Time-boxed, charter-driven sessions where a tester investigates the system to di
 
 - **Has a charter** *(author)* *(gap)* — explicit "explore [target] with [resources] to discover [information]" framing. Without a charter, the session has no oracle and no end condition.
 - **Time-boxed session** *(author, strategize)* *(cost)* — 30–90 minutes, then debrief. Open-ended sessions decay into rabbit holes; the time-box forces focus and produces clean checkpoints.
-- **Note-taking with oracle attached** *(review, author)* *(gap)* — every observation is linked to an oracle from `core/oracles.md` (e.g., "violates *Standards* — not WCAG-compliant," or "violates *Image* — error message uses competitor's terminology"). "Looks weird" is not a finding.
-- **Reproducer captured before triage** *(review, triage)* *(confusion, gap)* — record the steps to reproduce *before* reasoning about cause. The steps are durable; the theory of cause may be wrong.
-- **Findings convert to automated tests** *(review, prune)* *(cost)* — bugs found in exploration become regression-purpose unit or integration tests; sessions feed the automated suite, they don't replace it. A bug found twice is a process failure.
-- **Variant exploration tracked** *(review)* *(gap)* — sessions deliberately vary along an SFDIPOT axis the previous session didn't. Tracking which axes have been covered in the last N sessions surfaces the systematic gap.
-- **Brittleness check** *(review)* *(brittleness)* — exploratory sessions often surface UI fragility (selectors that aren't semantic, copy that's hardcoded, layouts that break at unusual widths) — treat these as findings against the e2e/UI layer's brittleness mode, not just as "small things."
-- **Session is reviewable** *(review)* *(confusion, flakiness)* — the charter, notes, and reproducer steps are written down; another tester (or the same one in three months) can resume the line of investigation. A session whose value died with the tester wasn't really a session.
+- **Note-taking with oracle attached** *(audit, author)* *(gap)* — every observation is linked to an oracle from `core/oracles.md` (e.g., "violates *Standards* — not WCAG-compliant," or "violates *Image* — error message uses competitor's terminology"). "Looks weird" is not a finding.
+- **Reproducer captured before triage** *(audit, triage)* *(confusion, gap)* — record the steps to reproduce *before* reasoning about cause. The steps are durable; the theory of cause may be wrong.
+- **Findings convert to automated tests** *(audit, prune)* *(cost)* — bugs found in exploration become regression-purpose unit or integration tests; sessions feed the automated suite, they don't replace it. A bug found twice is a process failure.
+- **Variant exploration tracked** *(audit)* *(gap)* — sessions deliberately vary along an SFDIPOT axis the previous session didn't. Tracking which axes have been covered in the last N sessions surfaces the systematic gap.
+- **Brittleness check** *(audit)* *(brittleness)* — exploratory sessions often surface UI fragility (selectors that aren't semantic, copy that's hardcoded, layouts that break at unusual widths) — treat these as findings against the e2e/UI layer's brittleness mode, not just as "small things."
+- **Session is reviewable** *(audit)* *(confusion, flakiness)* — the charter, notes, and reproducer steps are written down; another tester (or the same one in three months) can resume the line of investigation. A session whose value died with the tester wasn't really a session.
 
 ## Quick diagnostic
 

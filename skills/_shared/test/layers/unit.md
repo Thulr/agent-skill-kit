@@ -33,14 +33,14 @@ Tests of a single function, class, or module in isolation, with no I/O. Routes t
 
 ## Heuristics
 
-- **AAA visibility** *(review, author)* *(confusion)* — Arrange / Act / Assert visually separable in the test body. Good: blank lines, comments, or one-line each. Bad: 30 lines of intermixed setup and assertions.
-- **Behavior-named tests** *(review, author)* *(confusion, brittleness)* — test name describes the behavior under test, not the function name and not the test number. Renaming the SUT method should not require renaming the test.
-- **One behavior per test** *(review, author)* *(confusion)* — each test exercises one logical behavior. Multiple assertions are fine when they verify facets of one outcome; multiple unrelated assertions are not.
-- **Mock at the seam, not the type** *(review, author)* *(brittleness, false-pass)* — mocks belong at architectural seams (an abstraction the SUT depends on by interface), not at concrete library types. Mocking a concrete HTTP client couples the test to that library; mocking the `PaymentGateway` port doesn't.
-- **No assertions on implementation** *(review)* *(brittleness, false-pass)* — do not assert on call counts, call order, or internal state unless the contract really is "X is called Y times in Z order." Asserting on side-channels turns the test into an implementation lock.
-- **Magic literals named** *(review, author)* *(confusion)* — every meaningful literal gets a constant or local with an intent-bearing name.
-- **Fast-by-default** *(review, prune)* *(cost)* — unit tests target <10ms. >100ms gets investigated; usually means real I/O has crept in. If genuinely needed, move to integration layer.
-- **Independent** *(review)* *(flakiness)* — tests run in any order, individually or together. No shared mutable state via globals or class attributes.
+- **AAA visibility** *(audit, author)* *(confusion)* — Arrange / Act / Assert visually separable in the test body. Good: blank lines, comments, or one-line each. Bad: 30 lines of intermixed setup and assertions.
+- **Behavior-named tests** *(audit, author)* *(confusion, brittleness)* — test name describes the behavior under test, not the function name and not the test number. Renaming the SUT method should not require renaming the test.
+- **One behavior per test** *(audit, author)* *(confusion)* — each test exercises one logical behavior. Multiple assertions are fine when they verify facets of one outcome; multiple unrelated assertions are not.
+- **Mock at the seam, not the type** *(audit, author)* *(brittleness, false-pass)* — mocks belong at architectural seams (an abstraction the SUT depends on by interface), not at concrete library types. Mocking a concrete HTTP client couples the test to that library; mocking the `PaymentGateway` port doesn't.
+- **No assertions on implementation** *(audit)* *(brittleness, false-pass)* — do not assert on call counts, call order, or internal state unless the contract really is "X is called Y times in Z order." Asserting on side-channels turns the test into an implementation lock.
+- **Magic literals named** *(audit, author)* *(confusion)* — every meaningful literal gets a constant or local with an intent-bearing name.
+- **Fast-by-default** *(audit, prune)* *(cost)* — unit tests target <10ms. >100ms gets investigated; usually means real I/O has crept in. If genuinely needed, move to integration layer.
+- **Independent** *(audit)* *(flakiness)* — tests run in any order, individually or together. No shared mutable state via globals or class attributes.
 - **Characterization for legacy code** *(author)* *(gap, false-pass)* — when pinning behavior of code you cannot easily change, write tests that capture *current* behavior even if it seems wrong; they protect the refactor.
 
 ## Quick diagnostic

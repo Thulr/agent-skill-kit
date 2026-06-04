@@ -1,4 +1,4 @@
-# Cross-Layer Test Review Report
+# Cross-Layer Test Audit Report
 
 **Layers reviewed:** [comma-separated]
 **Persona:** suite operator (primary)
@@ -41,7 +41,7 @@ offer tracking. Roadmaps and external issues require explicit confirmation.
 
 ## Per-layer reports (full)
 
-[Append the full single-layer review-report.md content for each layer]
+[Append the full single-layer audit-report.md content for each layer]
 
 ## Grounding sources applied
 

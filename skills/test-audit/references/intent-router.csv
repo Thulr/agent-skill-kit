@@ -1,3 +1,3 @@
 intent,name,when_to_use,registry_file,default_template
-review,Test review,"Audit existing tests for quality, smells, redundancy, false-pass risk",references/intents/review.csv,templates/review-report.md
+audit,Test audit,"Audit existing tests for quality, smells, redundancy, false-pass risk",references/intents/audit.csv,templates/audit-report.md
 triage,Test triage,"A specific test is failing, flaky, or unacceptably slow",references/intents/triage.csv,templates/triage-runbook.md

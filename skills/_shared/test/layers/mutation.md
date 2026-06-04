@@ -30,13 +30,13 @@ A meta-technique: mutate the SUT (flip a `>` to `>=`, replace `return x` with `r
 
 ## Heuristics
 
-- **Targets are scoped** *(review, strategize)* *(cost)* — run mutation testing against modules under change, not the whole repo. Whole-repo mutation is impractical except as a quarterly audit; per-PR mutation should target the diff.
-- **Equivalent mutants triaged, not chased** *(review)* *(cost, confusion)* — known-equivalent mutants are suppressed with a justification comment, not silently ignored. Suppression without rationale is technical debt that turns into noise.
-- **Mutation score is a thermometer, not a goal** *(review, strategize)* *(false-pass)* — surviving mutants are the signal; the percent score is a temperature reading. Targeting "X% mutation score" creates the same gaming dynamic as line-coverage targets: engineers add weak tests to bump the number, the suite gets worse.
-- **Surviving mutants reveal weak assertions** *(review)* *(false-pass)* — the typical fix is a stronger assertion in an existing test, not always a new test. The unit-test author sees the surviving mutant and tightens the relevant assertion. New tests come second.
+- **Targets are scoped** *(audit, strategize)* *(cost)* — run mutation testing against modules under change, not the whole repo. Whole-repo mutation is impractical except as a quarterly audit; per-PR mutation should target the diff.
+- **Equivalent mutants triaged, not chased** *(audit)* *(cost, confusion)* — known-equivalent mutants are suppressed with a justification comment, not silently ignored. Suppression without rationale is technical debt that turns into noise.
+- **Mutation score is a thermometer, not a goal** *(audit, strategize)* *(false-pass)* — surviving mutants are the signal; the percent score is a temperature reading. Targeting "X% mutation score" creates the same gaming dynamic as line-coverage targets: engineers add weak tests to bump the number, the suite gets worse.
+- **Surviving mutants reveal weak assertions** *(audit)* *(false-pass)* — the typical fix is a stronger assertion in an existing test, not always a new test. The unit-test author sees the surviving mutant and tightens the relevant assertion. New tests come second.
 - **Run gated for cost** *(strategize)* *(cost)* — sampled / on-demand / nightly. Not on every PR. Diff-targeted mutation testing on PR is acceptable if the per-PR cost stays under the suite's overall budget.
 - **Used when other signals plateau** *(strategize)* *(cost)* — diminishing returns once coverage and bug-shape thinking are exhausted; mutation is the final-mile signal. Reaching for it before basic test hygiene is in place produces a wall of noise.
-- **Report links survivors to candidate tests** *(review, author)* *(confusion)* — for triage to be feasible, the report should suggest which existing test ought to have caught each surviving mutant. Without that link, mutation reports become unactionable.
+- **Report links survivors to candidate tests** *(audit, author)* *(confusion)* — for triage to be feasible, the report should suggest which existing test ought to have caught each surviving mutant. Without that link, mutation reports become unactionable.
 
 ## Quick diagnostic
 

@@ -32,13 +32,13 @@ Tests that measure speed, throughput, or resource use under load — micro-bench
 
 ## Heuristics
 
-- **Explicit thresholds** *(review, author)* *(confusion)* — p50 / p99 / p999 bounds, not "should be fast." A perf test without thresholds is documentation, not a test.
+- **Explicit thresholds** *(audit, author)* *(confusion)* — p50 / p99 / p999 bounds, not "should be fast." A perf test without thresholds is documentation, not a test.
 - **Tied to SLO** *(strategize)* *(gap)* — perf gates enforce something a user or SLA cares about. Otherwise the test is theatre — and worse, it diverts attention from the perf problems that do matter.
-- **Stable environment** *(review)* *(flakiness)* — known infra, warmup runs, multiple measurement runs, statistical significance. CI runners are the worst place for *absolute* perf tests; relative regression detection works better there.
-- **Workload represents real shape** *(review, author)* *(gap)* — production-shaped distribution (mostly small payloads with a long tail), not synthetic uniform distributions. The real bugs live in the tail.
-- **Captures the failure mode that matters** *(review)* *(gap)* — saturation? latency tail? throughput? Use the USE method (utilization / saturation / errors) to choose what to measure. The wrong metric measured perfectly is still the wrong test.
-- **Regression-detected, not absolute** *(review, strategize)* *(brittleness)* — flag the *delta from baseline*, not absolute numbers. Absolute thresholds in CI are flake generators because the runner's load varies. Baseline-relative thresholds (e.g., "no more than 10% slower than last week's median") are stable.
-- **Profiling artifacts captured** *(review, triage)* *(confusion)* — when a perf test fails, the trace, flame graph, or profile is captured automatically. Without it, the failure is undebuggable; the on-call has to reproduce locally to find anything.
+- **Stable environment** *(audit)* *(flakiness)* — known infra, warmup runs, multiple measurement runs, statistical significance. CI runners are the worst place for *absolute* perf tests; relative regression detection works better there.
+- **Workload represents real shape** *(audit, author)* *(gap)* — production-shaped distribution (mostly small payloads with a long tail), not synthetic uniform distributions. The real bugs live in the tail.
+- **Captures the failure mode that matters** *(audit)* *(gap)* — saturation? latency tail? throughput? Use the USE method (utilization / saturation / errors) to choose what to measure. The wrong metric measured perfectly is still the wrong test.
+- **Regression-detected, not absolute** *(audit, strategize)* *(brittleness)* — flag the *delta from baseline*, not absolute numbers. Absolute thresholds in CI are flake generators because the runner's load varies. Baseline-relative thresholds (e.g., "no more than 10% slower than last week's median") are stable.
+- **Profiling artifacts captured** *(audit, triage)* *(confusion)* — when a perf test fails, the trace, flame graph, or profile is captured automatically. Without it, the failure is undebuggable; the on-call has to reproduce locally to find anything.
 
 ## Quick diagnostic
 

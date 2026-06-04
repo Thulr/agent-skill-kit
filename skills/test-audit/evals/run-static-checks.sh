@@ -11,7 +11,7 @@ intent_router="$skill_dir/references/intent-router.csv"
 layer_dir="$skill_dir/references/layers"
 
 SKILL_NAME="test-audit"
-INTENTS=(review triage)
+INTENTS=(audit triage)
 
 failures=0
 fail() { printf 'FAIL %s\n' "$1" >&2; failures=$((failures + 1)); }
@@ -31,8 +31,8 @@ check_file "$skill_dir/references/core/score-rubric.md"
 check_file "$skill_dir/references/core/personas.md"
 check_file "$skill_dir/references/core/failure-modes.md"
 check_file "$skill_dir/references/trackable-findings.md"
-check_file "$skill_dir/templates/review-report.md"
-check_file "$skill_dir/templates/review-report-multi.md"
+check_file "$skill_dir/templates/audit-report.md"
+check_file "$skill_dir/templates/audit-report-multi.md"
 check_file "$skill_dir/templates/triage-runbook.md"
 check_file "$skill_dir/templates/findings-ledger.md"
 check_file "$skill_dir/templates/workflow-state.json"
@@ -97,23 +97,24 @@ check_pattern 'tracking fallback path preserved' "audit-artifacts/$SKILL_NAME-" 
 check_pattern 'roadmaps and issues opt-in' 'roadmaps,' "$skill_md"
 check_pattern 'closeout resumes saved state' 'saved state first' "$skill_md"
 check_pattern 'closeout verifies before status update' 'verification rule' "$skill_md"
-check_pattern 'review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report.md"
-check_pattern 'multi review report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/review-report-multi.md"
-check_pattern 'review report forbids mere offer' 'do not merely' "$skill_dir/templates/review-report.md"
-check_pattern 'review report preserves fallback path' "audit-artifacts/$SKILL_NAME-" "$skill_dir/templates/review-report.md"
+check_pattern 'audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report.md"
+check_pattern 'multi audit report has findings ledger section' '^## Findings ledger' "$skill_dir/templates/audit-report-multi.md"
+check_pattern 'audit report forbids mere offer' 'do not merely' "$skill_dir/templates/audit-report.md"
+check_pattern 'audit report preserves fallback path' "audit-artifacts/$SKILL_NAME-" "$skill_dir/templates/audit-report.md"
 check_pattern 'ledger template has skill field' '^\*\*Skill:\*\*' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'ledger template has skill-prefixed markdown path' '<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>\.md' "$skill_dir/templates/findings-ledger.md"
 check_pattern 'workflow-state template has state_file' '"state_file": "docs/audits/<skill-name>-workflow-state-<YYYY-MM-DD>-<scope-slug>\.json"' "$skill_dir/templates/workflow-state.json"
-check_pattern 'review CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/review.csv"
+check_pattern 'audit CSV loads tracking reference' 'references/trackable-findings\.md' "$skill_dir/references/intents/audit.csv"
 
-# ----- Intent router structure (critique = review, triage) -----
+# ----- Intent router structure (critique = audit, triage) -----
 if [[ -f "$intent_router" ]]; then
-  rows=$(grep -cE '^(review|triage),' "$intent_router")
+  rows=$(grep -cE '^(audit|triage),' "$intent_router")
   (( rows == 2 )) || fail "intent-router.csv: expected 2 data rows, got $rows"
   for i in "${INTENTS[@]}"; do check_pattern "$i intent" "^$i," "$intent_router"; done
   for bad in author strategize prune; do
     grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in test-design, not test-audit"
   done
+  grep -Eq '^review,' "$intent_router" && fail "intent-router.csv: 'review' is the retired intent name; use 'audit'"
 fi
 
 # ----- Layer-reference structure gates (shared layers, via symlink) -----
@@ -125,7 +126,7 @@ for surface in $all_surfaces; do
                  '^## Quick diagnostic' '^## Cross-references'; do
     grep -Eq -- "$section" "$lf" || fail "$surface.md missing section ${section#^## }"
   done
-  awk '/^## Heuristics/{f=1;next} /^## /{f=0} f && /\((review|triage|author|strategize|prune)/{found=1} END{ if(!found) exit 1 }' \
+  awk '/^## Heuristics/{f=1;next} /^## /{f=0} f && /\((audit|triage|author|strategize|prune)/{found=1} END{ if(!found) exit 1 }' \
     "$lf" || fail "$surface.md: Heuristics has no intent tags"
   wc=$(wc -w < "$lf")
   (( wc < 400 || wc > 1500 )) && fail "$surface.md word count $wc outside 400-1500"

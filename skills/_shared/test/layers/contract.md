@@ -30,13 +30,13 @@ Tests that verify the *contract* between a consumer and a provider — usually t
 
 ## Heuristics
 
-- **Consumer-driven, not provider-driven** *(review, author)* *(gap)* — the consumer states what it actually uses; the provider verifies that subset. Provider-driven contracts overspecify (the provider declares everything it returns, most of which no consumer reads) and underspecify (they miss what the consumer expects but the provider doesn't think to declare).
-- **Tests the wire shape, not the impl** *(review)* *(brittleness)* — JSON structure, headers, status codes — not internal class names or field types. An internal rename in either service should not require a contract change.
-- **Versioned and broker-published** *(review)* *(gap)* — pacts shared via a known mechanism (broker, repo, registry); both sides know which version is canonical. Without versioning, evolution becomes a coordination nightmare.
-- **Provider verification runs in provider's CI** *(review)* *(gap)* — the provider cannot ship a breaking change without seeing it. Verification only on the consumer side means the consumer catches the break after the fact, in production or in the next consumer build.
-- **States are explicit** *(review, author)* *(false-pass)* — "given an active user exists with id=42" is part of the contract; implicit setup hides the assumptions and lets the test pass for the wrong reasons.
+- **Consumer-driven, not provider-driven** *(audit, author)* *(gap)* — the consumer states what it actually uses; the provider verifies that subset. Provider-driven contracts overspecify (the provider declares everything it returns, most of which no consumer reads) and underspecify (they miss what the consumer expects but the provider doesn't think to declare).
+- **Tests the wire shape, not the impl** *(audit)* *(brittleness)* — JSON structure, headers, status codes — not internal class names or field types. An internal rename in either service should not require a contract change.
+- **Versioned and broker-published** *(audit)* *(gap)* — pacts shared via a known mechanism (broker, repo, registry); both sides know which version is canonical. Without versioning, evolution becomes a coordination nightmare.
+- **Provider verification runs in provider's CI** *(audit)* *(gap)* — the provider cannot ship a breaking change without seeing it. Verification only on the consumer side means the consumer catches the break after the fact, in production or in the next consumer build.
+- **States are explicit** *(audit, author)* *(false-pass)* — "given an active user exists with id=42" is part of the contract; implicit setup hides the assumptions and lets the test pass for the wrong reasons.
 - **Decoupled from end-to-end** *(strategize)* *(cost)* — contract tests *replace* most cross-service e2e tests; running both is duplication. The whole value of contract testing is the dramatic reduction in expensive cross-service e2e coverage.
-- **Backward compatibility checked** *(review, author)* *(gap, brittleness)* — new contract versions should be additive when possible; breaking changes flagged explicitly and coordinated with consumer rollout. The contract suite is the early-warning system for SemVer commitments.
+- **Backward compatibility checked** *(audit, author)* *(gap, brittleness)* — new contract versions should be additive when possible; breaking changes flagged explicitly and coordinated with consumer rollout. The contract suite is the early-warning system for SemVer commitments.
 
 ## Quick diagnostic
 

@@ -1,3 +1,3 @@
 id,scenario,activity,layer,persona,when_to_pick
 S1,"Suite is flaky — same tests pass locally, fail intermittently in CI; want to triage before rerunning",triage,integration,maintainer,You have a flake incident and need to rank hypotheses before patching
-S2,Suite has 5000 unit tests and we don't trust them — want to know which ones actually catch bugs and which are theater,review,unit,maintainer,You inherited a suite and want a credibility audit on the unit layer
+S2,Suite has 5000 unit tests and we don't trust them — want to know which ones actually catch bugs and which are theater,audit,unit,maintainer,You inherited a suite and want a credibility audit on the unit layer

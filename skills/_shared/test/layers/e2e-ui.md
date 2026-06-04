@@ -32,13 +32,13 @@ Tests that drive the system through its real UI (or a top-level API surface) end
 
 ## Heuristics
 
-- **Minimum journey, not full clickthrough** *(review, author, strategize)* *(cost, brittleness)* — pick the few flows that prove end-to-end (login → search → checkout). E2E is not the place to exhaustively test combinations; that's what the unit and integration layers are for.
-- **Semantic selectors** *(review, author)* *(brittleness)* — query by accessibility role + accessible name (`getByRole('button', { name: 'Submit' })`), not by CSS class, ID, or DOM structure. Semantic selectors survive UI restyling and improve accessibility as a side effect.
-- **Wait for state, not for time** *(review)* *(flakiness)* — explicit waits on signals (network idle, element visible, attribute set). Never `sleep(N)`. The wait library should expose intention-revealing primitives, not generic timers.
-- **Hermetic from external services** *(review, author)* *(flakiness, cost)* — record/replay (VCR / Polly / network mock) or test doubles at the network boundary. Don't call real third parties from CI; their availability is not your responsibility to monitor through your test suite.
-- **Retry the infrastructure, never the assertion** *(review)* *(false-pass)* — page-load may be retried; element-find may be retried; the truthiness of the assertion is never retried. An assertion that "becomes true on the third try" is a false-pass waiting to ship.
-- **Failure artifacts captured by default** *(review, author)* *(confusion)* — screenshot, DOM snapshot, console log, network log, and ideally video on every failure. Without these, the test is undebuggable in CI.
-- **Quarantine before delete** *(review, prune)* *(flakiness)* — flaky tests move to a tagged quarantine bucket with a deadline (e.g., 7 days), with an owner. After the deadline, deflake or delete. Auto-retry without quarantine is signal erosion.
+- **Minimum journey, not full clickthrough** *(audit, author, strategize)* *(cost, brittleness)* — pick the few flows that prove end-to-end (login → search → checkout). E2E is not the place to exhaustively test combinations; that's what the unit and integration layers are for.
+- **Semantic selectors** *(audit, author)* *(brittleness)* — query by accessibility role + accessible name (`getByRole('button', { name: 'Submit' })`), not by CSS class, ID, or DOM structure. Semantic selectors survive UI restyling and improve accessibility as a side effect.
+- **Wait for state, not for time** *(audit)* *(flakiness)* — explicit waits on signals (network idle, element visible, attribute set). Never `sleep(N)`. The wait library should expose intention-revealing primitives, not generic timers.
+- **Hermetic from external services** *(audit, author)* *(flakiness, cost)* — record/replay (VCR / Polly / network mock) or test doubles at the network boundary. Don't call real third parties from CI; their availability is not your responsibility to monitor through your test suite.
+- **Retry the infrastructure, never the assertion** *(audit)* *(false-pass)* — page-load may be retried; element-find may be retried; the truthiness of the assertion is never retried. An assertion that "becomes true on the third try" is a false-pass waiting to ship.
+- **Failure artifacts captured by default** *(audit, author)* *(confusion)* — screenshot, DOM snapshot, console log, network log, and ideally video on every failure. Without these, the test is undebuggable in CI.
+- **Quarantine before delete** *(audit, prune)* *(flakiness)* — flaky tests move to a tagged quarantine bucket with a deadline (e.g., 7 days), with an owner. After the deadline, deflake or delete. Auto-retry without quarantine is signal erosion.
 
 ## Quick diagnostic
 

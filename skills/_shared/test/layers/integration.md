@@ -32,13 +32,13 @@ Tests that exercise the SUT against real collaborators across one boundary at a 
 
 ## Heuristics
 
-- **Real I/O at the boundary** *(review, author)* *(false-pass)* — uses the real DB / queue / HTTP collaborator (or a high-fidelity emulator like testcontainers), not an in-process fake. If you're stubbing the thing the integration test is supposed to integrate with, it's a unit test pretending.
-- **Owns its data lifecycle** *(review, author)* *(flakiness, brittleness)* — creates the fixtures it needs and removes them; doesn't depend on database seed order or another test's leftover rows. Transaction-rollback or unique-per-run identifiers both work.
-- **Single failure surface per test** *(review, author)* *(confusion)* — exercises one boundary at a time. A test that crosses three boundaries fails ambiguously and triages slowly.
-- **Replays real error shapes** *(review, author)* *(gap)* — connection drop, timeout, partial write, retry-creates-duplicate, deadlock. Happy-path-only integration tests are gap factories.
-- **Environment-independent** *(review)* *(flakiness)* — passes when run alone and in the full suite; on Linux and macOS; in CI and locally; on a fresh DB and a re-seeded one. Differences here are bugs in the test, not bugs in the runner.
-- **Tagged & isolated from unit run** *(review, strategize)* *(cost)* — opt-in via flag (`--integration`, `pytest -m integration`, separate CI job) so the unit suite stays fast. The fast-feedback loop is the most valuable property of the test suite.
-- **Idempotent or transactional** *(review, author)* *(flakiness)* — rerunnable without manual cleanup. Either wrap each test in a rolled-back transaction, or use unique-per-run identifiers (UUIDs, timestamped names) so the test can be re-run after a crash.
+- **Real I/O at the boundary** *(audit, author)* *(false-pass)* — uses the real DB / queue / HTTP collaborator (or a high-fidelity emulator like testcontainers), not an in-process fake. If you're stubbing the thing the integration test is supposed to integrate with, it's a unit test pretending.
+- **Owns its data lifecycle** *(audit, author)* *(flakiness, brittleness)* — creates the fixtures it needs and removes them; doesn't depend on database seed order or another test's leftover rows. Transaction-rollback or unique-per-run identifiers both work.
+- **Single failure surface per test** *(audit, author)* *(confusion)* — exercises one boundary at a time. A test that crosses three boundaries fails ambiguously and triages slowly.
+- **Replays real error shapes** *(audit, author)* *(gap)* — connection drop, timeout, partial write, retry-creates-duplicate, deadlock. Happy-path-only integration tests are gap factories.
+- **Environment-independent** *(audit)* *(flakiness)* — passes when run alone and in the full suite; on Linux and macOS; in CI and locally; on a fresh DB and a re-seeded one. Differences here are bugs in the test, not bugs in the runner.
+- **Tagged & isolated from unit run** *(audit, strategize)* *(cost)* — opt-in via flag (`--integration`, `pytest -m integration`, separate CI job) so the unit suite stays fast. The fast-feedback loop is the most valuable property of the test suite.
+- **Idempotent or transactional** *(audit, author)* *(flakiness)* — rerunnable without manual cleanup. Either wrap each test in a rolled-back transaction, or use unique-per-run identifiers (UUIDs, timestamped names) so the test can be re-run after a crash.
 
 ## Quick diagnostic
 

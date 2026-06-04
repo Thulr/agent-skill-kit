@@ -92,7 +92,7 @@ if [[ -f "$intent_router" ]]; then
   rows=$(grep -cE '^(author|strategize|prune),' "$intent_router")
   (( rows == 3 )) || fail "intent-router.csv: expected 3 data rows, got $rows"
   for i in "${INTENTS[@]}"; do check_pattern "$i intent" "^$i," "$intent_router"; done
-  for bad in review triage; do
+  for bad in audit triage; do
     grep -Eq "^$bad," "$intent_router" && fail "intent-router.csv: '$bad' belongs in test-audit, not test-design"
   done
 fi
@@ -106,7 +106,7 @@ for surface in $all_surfaces; do
                  '^## Quick diagnostic' '^## Cross-references'; do
     grep -Eq -- "$section" "$lf" || fail "$surface.md missing section ${section#^## }"
   done
-  awk '/^## Heuristics/{f=1;next} /^## /{f=0} f && /\((review|triage|author|strategize|prune)/{found=1} END{ if(!found) exit 1 }' \
+  awk '/^## Heuristics/{f=1;next} /^## /{f=0} f && /\((audit|triage|author|strategize|prune)/{found=1} END{ if(!found) exit 1 }' \
     "$lf" || fail "$surface.md: Heuristics has no intent tags"
   wc=$(wc -w < "$lf")
   (( wc < 400 || wc > 1500 )) && fail "$surface.md word count $wc outside 400-1500"

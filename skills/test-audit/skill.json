@@ -9,7 +9,7 @@
   ],
   "tags": [
     "critique",
-    "test-review",
+    "test-audit",
     "triage",
     "test-quality",
     "heuristics",
@@ -69,7 +69,7 @@
       "contribution": "The four-quadrant test-value model: protection-against-regressions x resistance-to-refactoring x fast-feedback x maintainability. Anchors the false-pass mode and the score rubric's robustness dimension.",
       "playbooks": [
         "unit",
-        "review-intent"
+        "audit-intent"
       ]
     },
     {

@@ -30,12 +30,12 @@ Tests that state a *property* of the SUT (an invariant, a round-trip, a metamorp
 
 ## Heuristics
 
-- **Names a real invariant, not a tautology** *(review, author)* *(false-pass)* — `reverse(reverse(x)) == x` good; `f(x) == f(x)` worthless. The property should be falsifiable by a wrong implementation. If you can't construct a wrong implementation that breaks it, the property says nothing.
-- **Generators cover the meaningful space** *(review, author)* *(gap)* — boundaries (empty, single, max), unusual characters (unicode, control codes, very long), malformed inputs, edge numerics (zero, negative, NaN, max). Default generators usually produce only easy inputs; the bugs are at the edges.
-- **Shrinking enabled & inspected** *(review)* *(confusion)* — failures shrink to the minimal counterexample; the test report shows it. A failing input of 10,000 elements that doesn't shrink is undebuggable.
-- **Run-count tuned to signal** *(review, strategize)* *(gap, cost)* — default ~100 runs catches obvious bugs; rare conditions need ~10,000+. Tuning per property based on the rarity of the bug-class it's targeting.
-- **Properties supplement example-based, don't replace them** *(review, strategize)* *(confusion)* — concrete examples keep regression-purpose tests legible and grep-able; properties carry the spec-purpose work. Both are needed; neither alone is sufficient.
-- **Seeded for reproducibility** *(review)* *(flakiness, confusion)* — failing runs report the seed; rerunning with the seed reproduces. Without this, property tests become flaky by design.
+- **Names a real invariant, not a tautology** *(audit, author)* *(false-pass)* — `reverse(reverse(x)) == x` good; `f(x) == f(x)` worthless. The property should be falsifiable by a wrong implementation. If you can't construct a wrong implementation that breaks it, the property says nothing.
+- **Generators cover the meaningful space** *(audit, author)* *(gap)* — boundaries (empty, single, max), unusual characters (unicode, control codes, very long), malformed inputs, edge numerics (zero, negative, NaN, max). Default generators usually produce only easy inputs; the bugs are at the edges.
+- **Shrinking enabled & inspected** *(audit)* *(confusion)* — failures shrink to the minimal counterexample; the test report shows it. A failing input of 10,000 elements that doesn't shrink is undebuggable.
+- **Run-count tuned to signal** *(audit, strategize)* *(gap, cost)* — default ~100 runs catches obvious bugs; rare conditions need ~10,000+. Tuning per property based on the rarity of the bug-class it's targeting.
+- **Properties supplement example-based, don't replace them** *(audit, strategize)* *(confusion)* — concrete examples keep regression-purpose tests legible and grep-able; properties carry the spec-purpose work. Both are needed; neither alone is sufficient.
+- **Seeded for reproducibility** *(audit)* *(flakiness, confusion)* — failing runs report the seed; rerunning with the seed reproduces. Without this, property tests become flaky by design.
 - **Model-based property when applicable** *(author)* *(brittleness, gap)* — compare the SUT against a simpler reference model that's obviously correct (or against the spec). Catches bugs the SUT-vs-itself properties miss.
 
 ## Quick diagnostic

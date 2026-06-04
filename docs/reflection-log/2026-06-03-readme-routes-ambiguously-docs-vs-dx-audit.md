@@ -3,7 +3,7 @@ date: 2026-06-03
 harness: claude-code
 sub-surface: skills
 severity: 2
-status: open
+status: resolved
 related: []
 ---
 # README/dev-doc queries route ambiguously between docs-audit and dx-audit — the disambiguator lives in catalog prose, not the descriptions
@@ -96,11 +96,15 @@ promote.
 
 ## Closed by
 
-Not yet closed. The reciprocal docs↔dx cedes (docs-audit, dx-audit, docs-design,
-dx-design descriptions + their skill.json mirrors) and the documented
-double-claim (`$comment`) in the docs-audit/dx-audit evals landed on branch
-`fix/docs-dx-routing-fence` (PR #48, pending code-owner review; `just check` green).
-The systemic gap — description fences cover the function axis but not the surface
-axis, and the disambiguator lived in catalog prose rather than the routing
-field — is narrowed for this pair but has no general rule or lint, and is below
-the W1 ≥3 floor for promoting one.
+PR #48. Reciprocal docs↔dx cedes added to the docs-audit, dx-audit, docs-design,
+and dx-design descriptions (+ their skill.json mirrors); the dx-design cede
+narrowed to "the documentation system itself" so it no longer collides with
+dx-design's own `developer-doc IA` scope item (Codex review catch); and the
+terraform/README double-claim kept in both evals but documented with a
+`$comment` in each. `just check` green.
+
+The cross-cutting generalization — a lint asserting reciprocal cedes across every
+shared-surface skill pair — is intentionally **not** promoted: this is the first
+such observation, below the W1 ≥3 floor. `## What to do differently` names the
+next two collisions (`perf-audit`↔`dx-audit`, `ux-audit`↔`docs-audit`) that would
+take the count to three and justify a rule or routing-lint gate.

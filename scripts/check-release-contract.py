@@ -21,6 +21,13 @@ VALIDATE = ROOT / "scripts" / "validate-against-schema.py"
 
 ROUTE_RE = re.compile(r"^[a-z0-9][a-z0-9._/-]*$")
 
+# Hard ceiling on the parsed SKILL.md frontmatter `description`. The Codex CLI
+# and the `skills` loader both reject a description over 1024 chars and SKIP the
+# skill (observed: Codex logged "invalid description: exceeds maximum length of
+# 1024 characters" and refused to load docs-design/docs-audit). The skill.json
+# description mirrors this string, so gating the parsed value covers both files.
+MAX_DESCRIPTION_CHARS = 1024
+
 
 def fail(failures: list[str], message: str) -> None:
     failures.append(message)
@@ -141,7 +148,7 @@ def check_trigger_evals(skill_dir: Path, expected_name: str, failures: list[str]
             )
 
 
-def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> None:
+def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> dict | None:
     """Assert SKILL.md frontmatter is parseable YAML with name + description.
 
     Per-skill run-static-checks.sh only `grep`s for `^description:`, which a
@@ -183,6 +190,15 @@ def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> None:
     for key in ("name", "description"):
         if not meta.get(key):
             fail(failures, f"{rel}/SKILL.md: frontmatter missing required key '{key}'")
+    description = meta.get("description")
+    if isinstance(description, str) and len(description) > MAX_DESCRIPTION_CHARS:
+        fail(
+            failures,
+            f"{rel}/SKILL.md: description is {len(description)} chars, over the "
+            f"{MAX_DESCRIPTION_CHARS}-char limit; the Codex CLI and skills loader "
+            f"silently skip the skill — trim routing prose (move marketing/provenance "
+            f"to metadata.catalog_summary) until it fits",
+        )
     return meta
 
 

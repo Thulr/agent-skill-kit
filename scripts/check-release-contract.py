@@ -148,7 +148,7 @@ def check_trigger_evals(skill_dir: Path, expected_name: str, failures: list[str]
             )
 
 
-def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> None:
+def check_skill_md_frontmatter(skill_dir: Path, failures: list[str]) -> dict | None:
     """Assert SKILL.md frontmatter is parseable YAML with name + description.
 
     Per-skill run-static-checks.sh only `grep`s for `^description:`, which a

@@ -1,0 +1,22 @@
+{
+  "skill": "product-discovery",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "we keep shipping features every sprint but none of our north-star metrics move — help me reframe this roadmap around outcomes instead of output", "should_activate": true, "expected_route": "frame-outcomes", "category": "positive"},
+    {"query": "leadership measures us by features shipped and velocity — are we a feature factory, and how do i turn these roadmap items into outcomes?", "should_activate": true, "expected_route": "frame-outcomes", "category": "positive"},
+    {"query": "help me build an opportunity solution tree rooted in our activation outcome, down to opportunities and assumption tests", "should_activate": true, "expected_route": "map-opportunities", "category": "positive"},
+    {"query": "what job are our customers actually hiring this product for, and which of their needs are underserved? map the job to be done", "should_activate": true, "expected_route": "define-jobs", "category": "positive"},
+    {"query": "write desired-outcome statements for our onboarding job and rank them by importance versus satisfaction", "should_activate": true, "expected_route": "define-jobs", "category": "positive"},
+    {"query": "what is the riskiest assumption behind this bet and what's the cheapest experiment to test it before we build?", "should_activate": true, "expected_route": "test-assumptions", "category": "positive"},
+    {"query": "map the desirability, viability, and feasibility assumptions for this feature and tell me which to de-risk first", "should_activate": true, "expected_route": "test-assumptions", "category": "positive"},
+    {"query": "scope an mvp that's the smallest thing that actually tests whether people want this, not just a small v1", "should_activate": true, "expected_route": "scope-mvp", "category": "positive"},
+    {"query": "is this a good idea? i'm not sure how to even think about it yet", "should_activate": true, "expected_route": "frame-outcomes", "category": "edge"},
+    {"query": "turn our discovery findings into a committed quarterly roadmap and sequence the releases", "should_activate": true, "expected_route": "frame-outcomes", "category": "edge"},
+    {"query": "validate the market size and competitive landscape for this idea and give me a go/no-go recommendation with sources", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "help me write and run the actual customer discovery interview for this problem", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our checkout flow for usability problems and accessibility issues", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "make our dashboard look modern — pick a color system, type scale, and build a component library", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "review this terraform module's variable docs so a new developer can use it", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our p99 latency doubled at 2pm, help me trace what's saturating the database", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

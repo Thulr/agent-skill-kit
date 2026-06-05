@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 CATALOG = ROOT / "catalog" / "catalog.json"
 
-FAMILIES = ("heuristics", "research", "ax")
+FAMILIES = ("heuristics", "research", "ax", "discovery")
 FUNCTIONS = ("audit", "design", "singleton")
 REQUIRED_META = ("family", "function", "catalog_summary")
 

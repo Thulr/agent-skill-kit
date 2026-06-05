@@ -32,11 +32,12 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ux-audit` | `ui-design` |
 | **Clean architecture** — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts | `architecture-audit` | `architecture-design` |
 
-For research and agent-facing work:
+For research, discovery, and agent-facing work:
 
 | Need | Skill |
 |---|---|
 | **Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision | `research` |
+| **Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews | `customer-interviewing` |
 | **Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness | `agent-experience` *(umbrella)* |
 | ↳ harden a repo for coding agents | `agent-readiness` |
 | ↳ promote observed agent failures into rules / gates | `agent-rules` |
@@ -78,6 +79,14 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 ### research
 
 - **`research`** — Source-grounded research in **two decision-frames**. `report` — open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` — validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame). Provenance in [`skills/research/skill.json`](./skills/research/skill.json).
+
+### Product discovery & planning
+
+Source-grounded product discovery — talking to customers, framing the right problem, and deciding what to build before building it. Each skill paraphrases the canonical discovery literature into operational moves (provenance in each `skill.json`), and is fenced against the desk-research (`research`) and interface-evaluation (`ux-audit`) surfaces it borders.
+
+- **`customer-interviewing`** — Plan, sharpen, run, or synthesize customer discovery interviews — set a learning goal and recruit the right people, rewrite questions that lead or fish for compliments, coach the live conversation, and turn raw notes into evidence-backed interview snapshots that separate what people did from what they say they'll do.
+- **`product-discovery`** — Decide what to build and why before building it — reframe outputs as measurable outcomes (and spot feature-factory risk), map an opportunity solution tree, define the customer's job-to-be-done and underserved needs, surface and test the riskiest desirability/viability/feasibility assumptions, and scope an MVP toward product-market fit.
+- **`journey-storymapping`** — Shape or fix a product experience with narrative structure — map an experience as a story arc with the user as protagonist (concept/origin/usage stories), diagnose a flat or broken experience by finding the missing beat, and craft concept or origin stories to align a team or pitch the vision.
 
 ### Agent experience (AX)
 

@@ -16,10 +16,11 @@
       ]
     },
     "secondary": {
-      "lead": "For research and agent-facing work:",
+      "lead": "For research, discovery, and agent-facing work:",
       "columns": ["Need", "Skill"],
       "rows": [
         {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
+        {"need": "**Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews", "skill": "`customer-interviewing`"},
         {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`agent-experience` *(umbrella)*"},
         {"need": "↳ harden a repo for coding agents", "skill": "`agent-readiness`"},
         {"need": "↳ promote observed agent failures into rules / gates", "skill": "`agent-rules`"},
@@ -50,6 +51,13 @@
         "id": "research",
         "title": "research",
         "intro": []
+      },
+      {
+        "id": "discovery",
+        "title": "Product discovery & planning",
+        "intro": [
+          "Source-grounded product discovery — talking to customers, framing the right problem, and deciding what to build before building it. Each skill paraphrases the canonical discovery literature into operational moves (provenance in each `skill.json`), and is fenced against the desk-research (`research`) and interface-evaluation (`ux-audit`) surfaces it borders."
+        ]
       },
       {
         "id": "ax",

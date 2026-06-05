@@ -61,8 +61,9 @@ process gaps, and measurement plans that cannot drive backlog work."
 
 1. Deduplicate findings by mechanism, not by page. Below Load-bearing (see
    `references/calibration.md`), also collapse same-mechanism per-artifact
-   findings into one systemic finding at the max severity it subsumes — never a
-   severity-4 — and defer the remainder to the report's "Later — as it grows".
+   findings of severity ≤ 3 into one systemic finding at the highest severity it
+   subsumes, and route deferred best-practice to "Later — as it grows". Keep
+   every severity-4 explicit — never collapsed, never deferred.
 2. Preserve audience disagreements instead of flattening them.
 3. Assign severity using `references/core/severity-rubric.md`.
 4. If one lens proposes a fix that harms another lens, route through

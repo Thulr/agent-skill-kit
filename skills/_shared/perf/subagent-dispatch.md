@@ -100,9 +100,10 @@ the lenses deliberately did not:
 1. **Deduplicate** findings by heuristic + location. If two lenses
    reported the same issue, collapse into one finding and note which
    lenses flagged it. Below Load-bearing (`references/calibration.md`), also
-   collapse same-mechanism per-artifact findings into one systemic finding at
-   the max severity it subsumes — never a severity-4 — and defer the remainder
-   to the report's "Later — as it grows".
+   collapse same-mechanism per-artifact findings of severity ≤ 3 into one
+   systemic finding at the highest severity it subsumes, and route deferred
+   best-practice to "Later — as it grows". Keep every severity-4 explicit —
+   never collapsed, never deferred.
 2. **Preserve disagreements** as open questions, not silent winners. If
    the on-call lens flags a blind spot the profiler does not see, that is
    signal — surface it.

@@ -132,9 +132,10 @@ After the three lenses return, the host agent:
 1. **Deduplicate.** When two or more lenses report the same finding,
    keep the higher-severity copy and note which other lenses also
    flagged it. Below Load-bearing (`references/calibration.md`), also collapse
-   same-mechanism per-artifact findings into one systemic finding at the max
-   severity it subsumes — never a severity-4 — and defer the remainder to the
-   report's "Later — as it grows".
+   same-mechanism per-artifact findings of severity ≤ 3 into one systemic
+   finding at the highest severity it subsumes, and route deferred best-practice
+   to "Later — as it grows". Keep every severity-4 explicit — never collapsed,
+   never deferred.
 2. **Preserve disagreements** as `Open questions` in the output. Do not
    resolve them silently — name the disagreement and the trade-off
    between the lenses' framings.

@@ -74,10 +74,12 @@ finding** — "API reference is absent; for an internal 12-endpoint tool,
 document the 3 most-used inline in the README" — not twelve near-identical
 findings.
 
-The collapsed finding **inherits the max severity** of the gaps it subsumes, so
-a severity-4 is never buried inside a roll-up. Calibration reshapes *how many
-findings you write and which surfaces you run* — it never edits the severity
-rubric or the score caps. A critical finding is critical at every tier.
+Collapse **only gaps of severity ≤ 3**. Keep every **severity-4** finding
+explicit and standalone — never collapsed into a roll-up and never deferred to
+"Later". The systemic finding takes the highest severity it subsumes.
+Calibration reshapes *how many findings you write and which surfaces you run* —
+it never edits the severity rubric or the score caps. A critical finding is
+critical at every tier.
 
 ## Output
 

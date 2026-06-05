@@ -79,6 +79,11 @@ state; reruns that finding's verification rule; updates status only if it passes
 **Expected:** loads only `intent-router.csv`, `intents/audit.csv`,
 `playbooks/boundaries.md`, the row's core_refs. Does NOT load other playbooks.
 
+## Case 9 — Right-size to project scale (calibration)
+**Prompt:** `Architecture audit of my ~15-file prototype service — no external consumers, still pre-release.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows to 1–2 surfaces (no `all` fan-out); collapses same-mechanism findings; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows".
+**Fail if:** scores all five surfaces and files equal-weight findings as if it were a multi-context production system.
+
 ---
 
 # Negative cases — should not trigger (or should defer)

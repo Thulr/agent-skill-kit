@@ -46,6 +46,11 @@ reach for a pointing device to recover, that is a UX problem worth a finding.
 4. **Choose lenses.** Use at least two: first-time user, returning user,
    keyboard-only user, assistive-tech user, stressed/error-state user, or
    policy/ethics reviewer.
+   Then **calibrate to project scale** per `references/calibration.md`: infer the
+   tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
+   Load-bearing, narrow scope and collapse same-mechanism gaps into one systemic
+   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   not the severity rubric.
 5. **Apply the playbook.** Prefer concrete observations over generic advice. For
    accessibility, treat the WCAG baseline as a floor and state its limits:
    automated scans are not enough — keyboard, focus, semantics, contrast, and
@@ -90,6 +95,7 @@ WCAG failures from issues that need manual or specialist confirmation.
 - `references/core/severity-rubric.md` — the 0–4 severity scale.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `templates/audit-report.md` — output shape.
 - `templates/findings-ledger.md` and `templates/workflow-state.json` — tracking
   artifacts.

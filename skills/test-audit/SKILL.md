@@ -43,6 +43,11 @@ nobody can tell what behavior it pins, that is a finding worth recording.
    reference from `references/layers/<layer>.md` plus its `core_refs`. Do not
    load other layer references.
 4. **Identify the target persona** from `references/core/personas.md`.
+   Then **calibrate to project scale** per `references/calibration.md`: infer the
+   tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
+   Load-bearing, narrow scope and collapse same-mechanism gaps into one systemic
+   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   not the severity rubric.
 5. **Spawn sub-agents in parallel (default for `audit`).** One lens per agent —
    intent reader, refactor adversary, bug-shape hunter. See "Subagent dispatch";
    fall back to sequential only if the host has no delegation primitive. Triage
@@ -96,6 +101,7 @@ secret-bound work. Spawn three lenses in parallel — **intent reader**,
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — the 0–4 and 0–10 scales.
 - `references/core/{personas,failure-modes,oracles}.md` — personas, failure

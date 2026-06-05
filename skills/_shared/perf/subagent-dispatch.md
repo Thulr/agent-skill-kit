@@ -88,7 +88,9 @@ For each spawned sub-agent, use this prompt shape:
 > synthesize across lenses — your peers are running in parallel.
 
 Pass the same artifact, same playbook, same intent to all three. Vary
-only the persona and the persona-specific lens.
+only the persona and the persona-specific lens. Also pass the project tier
+(`references/calibration.md`); below Load-bearing, a lens reports one systemic
+finding per mechanism, not one per artifact.
 
 ## Synthesis
 
@@ -97,7 +99,10 @@ the lenses deliberately did not:
 
 1. **Deduplicate** findings by heuristic + location. If two lenses
    reported the same issue, collapse into one finding and note which
-   lenses flagged it.
+   lenses flagged it. Below Load-bearing (`references/calibration.md`), also
+   collapse same-mechanism per-artifact findings into one systemic finding at
+   the max severity it subsumes — never a severity-4 — and defer the remainder
+   to the report's "Later — as it grows".
 2. **Preserve disagreements** as open questions, not silent winners. If
    the on-call lens flags a blind spot the profiler does not see, that is
    signal — surface it.

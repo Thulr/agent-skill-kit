@@ -3,6 +3,7 @@
 **Target reader:** <who they are>
 **Genre / playbook applied:** <genre>
 **Grounding:** <the inspired_by sources behind these findings>
+**Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
 
 ## Findings
 

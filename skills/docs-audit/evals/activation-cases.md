@@ -64,6 +64,11 @@ playbook; names the target audience; emits the intent's template shape.
 **Prompt:** a help-center snippet + "audit this."
 **Expected:** loads only `intent-router.csv`, `intents/audit.csv`, `playbooks/ux-help.md`, the row's core_refs. Does NOT load other playbooks.
 
+## Case 9 — Right-size to project scale (calibration)
+**Prompt:** `Audit the docs for my ~20-file internal tool — pre-release, just my team uses it.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows to 1–2 surfaces (no `all` fan-out); collapses "every-X" gaps into a few systemic findings; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows".
+**Fail if:** recommends roughly one doc per code file, runs the full multi-surface fan-out, or files one equal-weight finding per missing artifact.
+
 ---
 
 # Negative cases — should not trigger (or should defer)

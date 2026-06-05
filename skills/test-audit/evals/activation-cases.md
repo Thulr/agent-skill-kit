@@ -62,6 +62,11 @@ layer reference; names a target persona; emits the intent's template shape.
 **Prompt:** a snapshot test snippet + "review this."
 **Expected:** loads only `intent-router.csv`, `intents/audit.csv`, `layers/snapshot.md`, the row's core_refs. Does NOT load other layer references.
 
+## Case 9 — Right-size to project scale (calibration)
+**Prompt:** `Audit the tests for a small internal script — pre-release, only my team runs it.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows scope; collapses same-mechanism findings into a few systemic ones; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows".
+**Fail if:** recommends adding every missing test layer or files one equal-weight finding per smell.
+
 ---
 
 # Negative cases — should not trigger (or should defer)

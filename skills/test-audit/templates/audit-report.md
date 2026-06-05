@@ -4,6 +4,7 @@
 **Scope:** [file or directory or test class]
 **Persona:** [primary persona for this review]
 **Score:** [0–10] (clarity X / coverage X / cost X / robustness X)
+**Project tier:** [Prototype | Growing | Load-bearing] (per references/calibration.md)
 
 ## Summary
 
@@ -40,6 +41,14 @@ fewer than three.
 ## Open questions (lens disagreement)
 
 - [Question raised when one lens flagged X and another lens explicitly approved it]
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied".
+
+- [deferred item] — worth doing at [Growing | Load-bearing]
 
 ## Findings ledger
 

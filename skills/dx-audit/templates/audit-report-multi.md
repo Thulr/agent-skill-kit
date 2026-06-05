@@ -20,6 +20,7 @@
 
 ## Scope
 - Surfaces audited: <e.g., all 14, or listed subset>
+- Project tier: <Prototype | Growing | Load-bearing> — an `all` fan-out usually implies Load-bearing (per references/calibration.md)
 - Target developer: <persona from references/core/personas.md>
 - Trigger: <pre-ship / release / customer signal / scheduled review>
 

@@ -7,20 +7,18 @@ license: MIT
 # DX Critique
 
 Developer-experience audit, debugging, and edge-case risk-scan for any surface
-a developer installs, calls, debugs, extends, or maintains. Provenance lives in
-`skill.json`; this file is runtime routing only.
+a developer installs, calls, or extends. Provenance lives in `skill.json`; this
+file is runtime routing only.
 
 **Produces:** an intent-specific report — `audit-report.md` (or
-`audit-report-multi.md` for surface = `all`) / `debug-runbook.md` /
-`edge-checklist.md`; tracked audits also emit
-`dx-audit-findings-ledger-<date>-<slug>.md` +
-`dx-audit-workflow-state-<date>-<slug>.json`.
+`audit-report-multi.md` for `all`) / `debug-runbook.md` / `edge-checklist.md`;
+tracked audits also emit a findings-ledger + workflow-state file.
 
 ## Core principle
 
 **Make the paved path obvious and failure states actionable.** If a competent
-developer has to guess, hunt through source, copy from a stale example, or
-debug an avoidable setup issue, that is a DX problem worth a finding.
+developer must guess, hunt through source, copy a stale example, or debug
+avoidable setup, that is a DX problem worth a finding.
 
 ## Activation
 
@@ -43,18 +41,18 @@ debug an avoidable setup issue, that is a DX problem worth a finding.
    Ambiguous → ask once with the CSV menu.
 3. **Load grounded context.** Load only the chosen CSV row's files: one playbook
    from `references/playbooks/<surface>.md` plus its `core_refs`. Do not load
-   other playbooks. Skip for surface = `all` — each spawned surface agent loads
-   its own playbook in step 5.
+   other playbooks. Skip for `all` — each surface agent loads its own playbook.
 4. **Identify the target developer persona** from `references/core/personas.md`.
+   Then **calibrate to project scale** per `references/calibration.md` —
+   tier-gate scope, collapse same-mechanism gaps, split fixes Now vs Later.
 5. **Spawn sub-agents in parallel (default for `audit` and `edge-pass`).**
-   Single-surface: one lens per agent — first-time integrator, maintainer,
-   adversarial debugger. Audit + `all`: one surface per agent, each running the
-   three lenses sequentially inside itself. See "Subagent dispatch"; fall back
-   to sequential only if the host has no delegation primitive.
+   Single-surface: one lens per agent; audit + `all`: one surface per agent
+   running the three lenses sequentially. See "Subagent dispatch"; fall back to
+   sequential only if the host lacks a delegation primitive.
 6. **Apply the playbook.** Use the heuristics tagged for this intent. For
-   `audit`, score the surface 0–10 using `references/core/score-rubric.md`; for
-   `debug`, rank hypotheses before naming fixes; for `edge-pass`, scan every
-   category in the playbook. If sub-agents ran, synthesize their findings here.
+   `audit`, score 0–10 using `references/core/score-rubric.md`; for `debug`, rank
+   hypotheses before naming fixes; for `edge-pass`, scan every playbook category.
+   If sub-agents ran, synthesize their findings here.
 7. **Apply severity and IDs** from `references/core/severity-rubric.md` and
    `references/trackable-findings.md` to every audit/edge-pass finding or risk.
    Use stable IDs like `DX-<surface>-NNN`.
@@ -82,8 +80,8 @@ invocation; default to Guided Draft on concrete invocations.
 ## Output requirements
 
 Every output names the target developer persona, the playbook(s) applied, the
-intent-specific load-bearing section (findings / prevention / re-run trigger),
-verification per finding, and the grounding sources from `skill.json.inspired_by`.
+intent-specific load-bearing section, verification per finding, and the
+grounding sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
@@ -100,6 +98,7 @@ deterministic or secret-bound work. Spawn three lenses in parallel —
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — the 0–4 and 0–10 scales.
 - `references/core/personas.md` — target developer persona list.

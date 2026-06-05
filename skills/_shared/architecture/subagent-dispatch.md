@@ -115,6 +115,10 @@ Each agent returns: a list of findings/proposals with severity, citing
 heuristic numbers from the playbook. No prose summary at the top.
 ```
 
+Pass each agent the project tier (`references/calibration.md`); below
+Load-bearing, a lens reports one systemic finding per mechanism, not one per
+artifact.
+
 If the host has no delegation primitive, run sequentially. If active policy
 requires fresh explicit user permission that has not been granted, ask once;
 run sequentially only if permission is absent, declined, unsafe, or still
@@ -127,7 +131,10 @@ After the three lenses return, the host agent:
 
 1. **Deduplicate.** When two or more lenses report the same finding,
    keep the higher-severity copy and note which other lenses also
-   flagged it.
+   flagged it. Below Load-bearing (`references/calibration.md`), also collapse
+   same-mechanism per-artifact findings into one systemic finding at the max
+   severity it subsumes — never a severity-4 — and defer the remainder to the
+   report's "Later — as it grows".
 2. **Preserve disagreements** as `Open questions` in the output. Do not
    resolve them silently — name the disagreement and the trade-off
    between the lenses' framings.

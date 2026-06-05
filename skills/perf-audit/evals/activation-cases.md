@@ -67,6 +67,11 @@ named starter scenarios; waits.
 **Prompt:** a trace/metric snippet + "audit our tracing."
 **Expected:** loads only `intent-router.csv`, `intents/audit.csv`, `playbooks/tracing.md`, the row's core_refs. Does NOT load other playbooks.
 
+## Case 9 — Right-size to project scale (calibration)
+**Prompt:** `Perf/observability audit of an internal cron job — single instance, no SLOs yet, just us.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows to 1–2 surfaces (no `all` fan-out); collapses same-mechanism gaps; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows".
+**Fail if:** audits all seven surfaces and recommends a full SLO/telemetry program for a single-instance internal job.
+
 ---
 
 # Negative cases — should not trigger (or should defer)

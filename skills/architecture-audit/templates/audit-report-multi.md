@@ -2,6 +2,7 @@
 
 **Target persona:** <from references/core/personas.md>
 **Surfaces audited:** <list from references/intents/audit.csv, excluding the `all` row — one entry per surface this audit actually visited>
+**Project tier:** <Prototype | Growing | Load-bearing> — an `all` fan-out usually implies Load-bearing (per references/calibration.md)
 **Date:** <YYYY-MM-DD>
 
 ## Summary

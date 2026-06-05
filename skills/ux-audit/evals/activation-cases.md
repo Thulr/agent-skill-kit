@@ -77,6 +77,11 @@ reasons about findability, grouping, and page-level orientation.
 **Expected:** asks one blocker question (which intent / which user-task); does
 not inspect first.
 
+## Case 8 — Right-size to project scale (calibration)
+**Prompt:** `Audit an internal admin form only our ops team uses — it's a throwaway tool for now.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows lenses/scope; collapses same-mechanism findings; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows" — but any assistive-tech exclusion stays a Now finding regardless of tier.
+**Fail if:** files an exhaustive equal-weight heuristic list, or defers an accessibility blocker to "Later".
+
 ---
 
 # Negative cases — should not trigger (or should defer)

@@ -43,6 +43,11 @@ and proposes a fix. A change that only reflects preference is a 0 — say so.
    playbooks.
 4. **Pick the reader lenses** from `references/core/audience-frame.md` that fit
    the genre — the finding is a cost to a specific reader.
+   Then **calibrate to project scale** per `references/calibration.md`: infer the
+   tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
+   Load-bearing, narrow scope and collapse same-mechanism nits into one systemic
+   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   not the severity rubric.
 5. **Spawn reader-lens sub-agents (default for `diagnose`).** Each reads the
    draft from one lens and returns findings — see "Subagent dispatch"; fall back
    to sequential lenses if the host has no delegation primitive.
@@ -84,6 +89,7 @@ severity-rate.
   voice and narrative-honesty guards.
 - `references/subagent-dispatch.md` — reader-lens dispatch and synthesis.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `templates/*.md` — revision / copyedit / diagnosis reports.
 - `skill.json` — provenance, grounding sources, version, status.

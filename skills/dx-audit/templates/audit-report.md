@@ -17,6 +17,7 @@
 - Target: 10/10
 - Target developer: <persona from references/core/personas.md>
 - Intended outcome: <task the developer should accomplish>
+- Project tier: <Prototype | Growing | Load-bearing> (per references/calibration.md)
 - Playbook(s) applied: <e.g., cli.md, errors.md>
 
 ## Summary
@@ -55,6 +56,14 @@ One block per finding. Repeat as needed.
 1. <Highest leverage fix>
 2. <Next fix>
 3. <Polish or hardening>
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied".
+
+- <deferred item> — worth doing at <Growing | Load-bearing>
 
 ## Findings ledger
 

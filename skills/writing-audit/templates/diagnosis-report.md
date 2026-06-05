@@ -3,6 +3,7 @@
 **Target reader / lenses:** <which reader lenses were applied>
 **Genre / playbook applied:** <genre>
 **Grounding:** <the inspired_by sources behind these findings>
+**Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
 
 ## Score
 
@@ -20,6 +21,15 @@ are about structure and impact — fix by restructuring, not polishing.
 | --- | --- | --- | --- | --- |
 | 1 | <0–4> | <section> | <buried answer / no turn / no stakes / org-centric / episodic> | <restructure> |
 | 2 | | | | |
+
+## Later — as it grows
+
+Restructuring that isn't worth it at the current **Project tier**. For a
+throwaway or internal draft, fix the few highest-cost structural problems and
+list the rest here rather than reworking the whole piece. At Load-bearing
+(published / high-stakes), write "none — full pass applied".
+
+- <deferred structural issue> — worth fixing at <Growing | Load-bearing>
 
 ## Honesty check
 

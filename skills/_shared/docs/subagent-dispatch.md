@@ -2,7 +2,9 @@
 
 Use parallel lenses for broad audits, design reviews, and measurement plans. If
 subagents are unavailable, run the lenses sequentially and mark that the review
-was single-threaded.
+was single-threaded. Each lens is told the project tier
+(`references/calibration.md`) and sizes its findings to it — below Load-bearing,
+one systemic finding per mechanism, not one per artifact.
 
 ## When to dispatch
 
@@ -57,7 +59,11 @@ process gaps, and measurement plans that cannot drive backlog work."
 
 ## Synthesis rules
 
-1. Deduplicate findings by mechanism, not by page.
+1. Deduplicate findings by mechanism, not by page. Below Load-bearing (see
+   `references/calibration.md`), also collapse same-mechanism per-artifact
+   findings of severity ≤ 3 into one systemic finding at the highest severity it
+   subsumes, and route deferred best-practice to "Later — as it grows". Keep
+   every severity-4 explicit — never collapsed, never deferred.
 2. Preserve audience disagreements instead of flattening them.
 3. Assign severity using `references/core/severity-rubric.md`.
 4. If one lens proposes a fix that harms another lens, route through

@@ -3,6 +3,7 @@
 **Target persona:** <from references/core/personas.md>
 **Playbook applied:** `references/playbooks/<surface>.md`
 **Score:** <0–10 from references/core/score-rubric.md> — <Exemplary / Healthy / Mixed / Eroded / Inverted / Absent>
+**Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
 **Date:** <YYYY-MM-DD>
 
 ## Summary
@@ -43,6 +44,14 @@ surface prefixes: `CA-DEP`, `CA-BOUNDARY`, `CA-DOMAIN`, `CA-CONTEXT`, or
 ### CA-DEP-002 — ...
 
 (repeat per finding)
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied".
+
+- <deferred item> — worth doing at <Growing | Load-bearing>
 
 ## Findings ledger
 

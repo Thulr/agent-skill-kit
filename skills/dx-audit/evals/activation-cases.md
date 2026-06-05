@@ -62,6 +62,11 @@ playbook; names a target developer persona; emits the intent's template shape.
 **Prompt:** a CLI snippet + "audit this."
 **Expected:** loads only `intent-router.csv`, `intents/audit.csv`, `playbooks/cli.md`, the row's core_refs. Does NOT load other playbooks.
 
+## Case 9 — Right-size to project scale (calibration)
+**Prompt:** `Audit the DX of a single-command CLI I built for my team — not published, no external users.`
+**Expected:** infers **Prototype** tier per `references/calibration.md`; narrows to 1–2 surfaces (no `all` fan-out); collapses same-mechanism gaps into a few systemic findings; the report names the `Project tier` and splits fixes into "Now" vs "Later — as it grows".
+**Fail if:** runs the full multi-surface fan-out or files one equal-weight finding per missing best-practice.
+
 ---
 
 # Negative cases — should not trigger (or should defer)

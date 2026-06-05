@@ -2,6 +2,7 @@
 
 **Layers reviewed:** [comma-separated]
 **Persona:** suite operator (primary)
+**Project tier:** [Prototype | Growing | Load-bearing] — an `all` fan-out usually implies Load-bearing (per references/calibration.md)
 
 ## Per-layer scores
 

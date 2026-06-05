@@ -12,9 +12,8 @@ the database tier. Provenance lives in `skill.json`; this file is runtime
 routing only.
 
 **Produces:** an intent-specific report — `audit-report.md` (or
-`audit-report-multi.md` for surface = `all`) / `diagnose-runbook.md`; tracked
-audits also emit `perf-audit-findings-ledger-<date>-<slug>.md` +
-`perf-audit-workflow-state-<date>-<slug>.json`.
+`audit-report-multi.md` for `all`) / `diagnose-runbook.md`; tracked audits also
+emit a findings-ledger + workflow-state file.
 
 ## Core principle
 
@@ -44,24 +43,23 @@ finding worth recording.
    Ambiguous → ask once with the CSV menu.
 3. **Load grounded context.** Load only the chosen CSV row's files: one playbook
    from `references/playbooks/<surface>.md` plus its `core_refs`. Do not load
-   other playbooks. Skip for surface = `all` — each spawned surface agent loads
-   its own playbook in step 5.
+   other playbooks. Skip for `all` — each surface agent loads its own playbook.
 4. **Identify the target persona** from `references/core/personas.md`.
+   Then **calibrate to project scale** per `references/calibration.md` —
+   tier-gate scope, collapse same-mechanism gaps, split fixes Now vs Later.
 5. **Spawn sub-agents in parallel (default for `audit`).** Single-surface: one
-   lens per agent — capacity planner, on-call diagnostician, instrumentation
-   reviewer. Audit + `all`: one surface per agent, each running the lenses
+   lens per agent; audit + `all`: one surface per agent running the lenses
    sequentially. See "Subagent dispatch"; fall back to sequential only if the
-   host has no delegation primitive.
+   host lacks a delegation primitive.
 6. **Apply the playbook.** Use the heuristics tagged for this intent. For
-   `audit`, score the surface 0–10 using `references/core/score-rubric.md`; for
-   `diagnose`, rank hypotheses before naming fixes and name the disconfirming
-   measurement for each. If sub-agents ran, synthesize their findings here.
+   `audit`, score 0–10 using `references/core/score-rubric.md`; for `diagnose`,
+   rank hypotheses before naming fixes and name the disconfirming measurement for
+   each. If sub-agents ran, synthesize their findings here.
 7. **Apply severity and IDs** from `references/core/severity-rubric.md` and
    `references/trackable-findings.md` to every audit finding or risk. Use stable
    IDs like `PERF-<surface>-NNN`.
 8. **Emit output.** Audit → `templates/audit-report.md` (or
    `audit-report-multi.md` for `all`). Diagnose → `templates/diagnose-runbook.md`.
-   Every output names the measurement method, not just the metric.
 9. **Create, resume, or close tracking state.** For audit outputs with 7+
    findings, any severity 3–4, or a save/track/closeout request, load
    `references/trackable-findings.md`. If the request names an existing ledger,
@@ -83,9 +81,8 @@ invocation; default to Guided Draft on concrete invocations.
 ## Output requirements
 
 Every output names the target persona, the playbook(s) applied, the
-intent-specific load-bearing section (findings / root cause), the measurement
-method per finding or hypothesis, and the grounding sources from
-`skill.json.inspired_by`.
+intent-specific load-bearing section, the measurement method per finding or
+hypothesis, and the grounding sources from `skill.json.inspired_by`.
 
 ## Subagent dispatch
 
@@ -102,6 +99,7 @@ secret-bound work. Spawn three lenses in parallel — **capacity planner**,
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — the 0–4 and 0–10 scales.
 - `references/core/personas.md` — target persona list.

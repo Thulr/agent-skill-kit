@@ -6,6 +6,7 @@
 - Target: 10/10
 - Target persona: <persona from references/core/personas.md>
 - Intended outcome: <reliability / performance posture the team should hold>
+- Project tier: <Prototype | Growing | Load-bearing> (per references/calibration.md)
 - Playbook(s) applied: <e.g., latency.md, slos.md>
 
 ## Summary
@@ -41,6 +42,14 @@ One block per finding. Repeat as needed. Each finding cites the playbook heurist
 1. <Highest leverage fix>
 2. <Next fix>
 3. <Polish or hardening>
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied".
+
+- <deferred item> — worth doing at <Growing | Load-bearing>
 
 ## Findings ledger
 

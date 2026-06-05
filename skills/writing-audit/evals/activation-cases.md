@@ -36,6 +36,7 @@ Near-miss prompts that share keywords but should route to a **sibling skill**.
 
 - "Review this microcopy on our settings screen" → activates (`revise` × `general-prose`) when the ask is the prose quality of the copy; if it's the control's usability or placement, prefer `ux-audit`.
 - "Edit our API docs for clarity" → default `revise` × `technical-doc` (use `copyedit` only for an explicit grammar/consistency pass) for the prose itself; if it's reference structure, retrieval, or mode-mixing across the doc set, prefer `docs-audit`.
+- "Tighten this rough internal draft, just for my team" → activates (`revise` × `general-prose`) but **right-sizes to Prototype tier** per `references/calibration.md`: fix the few highest-cost items and list the rest under "Later — as it grows" rather than filing every nit. The report names the `Project tier`.
 
 ## Notes
 

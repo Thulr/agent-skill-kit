@@ -11,10 +11,8 @@ direction, layer/port/adapter boundaries, domain modeling, bounded-context
 seams, and cross-cutting concerns. Provenance lives in `skill.json`; this file
 is runtime routing only.
 
-**Produces:** an `audit-report.md` (or `audit-report-multi.md` for surface =
-`all`); tracked audits also emit
-`architecture-audit-findings-ledger-<date>-<slug>.md` +
-`architecture-audit-workflow-state-<date>-<slug>.json`.
+**Produces:** an `audit-report.md` (or `audit-report-multi.md` for `all`) plus a
+findings-ledger + workflow-state file when tracked.
 
 ## Core principle
 
@@ -46,14 +44,15 @@ guess from names.
    `references/subagent-dispatch.md`. Ambiguous → ask once with the CSV menu.
 3. **Load grounded context.** Load only the chosen CSV row's files: one playbook
    from `references/playbooks/<surface>.md` plus its `core_refs`. Do not load
-   other playbooks. Skip for surface = `all` — each spawned surface agent loads
-   its own playbook in step 5.
+   other playbooks. Skip for `all` — each surface agent loads its own playbook.
 4. **Identify the target persona** from `references/core/personas.md`.
+   Then **calibrate to project scale** per `references/calibration.md`: below
+   Load-bearing, narrow scope, collapse same-mechanism gaps into one systemic
+   finding, and split fixes Now vs Later.
 5. **Spawn sub-agents in parallel (default when permitted).** Single-surface:
-   one lens per agent — dependency-auditor, boundary-designer, domain-modeler.
-   Audit + `all`: one surface per agent, each running the lenses sequentially
-   inside itself. See "Subagent dispatch"; fall back to sequential only if the
-   host has no delegation primitive.
+   one lens per agent; audit + `all`: one surface per agent running the lenses
+   sequentially. See "Subagent dispatch"; fall back to sequential only if the
+   host lacks a delegation primitive.
 6. **Apply the playbook.** Use the heuristics tagged `(audit)`. Score the
    surface 0–10 using `references/core/score-rubric.md`. If sub-agents ran,
    synthesize their findings here, preserving disagreements as open questions.
@@ -105,6 +104,7 @@ secret-bound work. Spawn three lenses in parallel — **dependency-auditor**,
 - `references/audit-mechanics.md` — finding IDs, scoring, closeout mechanics.
 - `references/trackable-findings.md` — ledger, workflow-state, closeout rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — the 0–4 and 0–10 scales.
 - `references/core/{personas,glossary}.md` — target persona list and terms.

@@ -5,6 +5,7 @@
 **Interface state:** <screen, flow, component, error state>
 **Lenses used:** <first-time user / keyboard-only / assistive-tech / returning / stressed user / policy>
 **Playbooks applied:** <files>
+**Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
 
 ## Summary
 
@@ -42,6 +43,15 @@ Ordered by severity.
 - **Fix:** <specific design/content/code change>
 - **Verification:** <keyboard pass, screen-reader check, contrast check, user task, analytics, or regression test>
 - **WCAG note:** <likely criterion, not applicable, or needs specialist confirmation>
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied". Exception: any
+assistive-tech exclusion is never deferrable, whatever the tier.
+
+- <deferred item> — worth doing at <Growing | Load-bearing>
 
 ## Findings ledger
 

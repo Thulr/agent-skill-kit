@@ -157,6 +157,13 @@ fi
 # ----- trigger-evals contract -----
 validate_trigger_evals_contract "$repo_root" "$skill_dir/evals/trigger-evals.json" "$SKILL_NAME"
 
+# ----- Calibration: project-scale right-sizing -----
+check_pattern 'SKILL.md has calibration step' 'calibrate to project scale' "$skill_md"
+for t in revision-report copyedit-report diagnosis-report; do
+  check_pattern "$t declares project tier" 'Project tier' "$skill_dir/templates/$t.md"
+  check_pattern "$t has Later/as-it-grows bucket" 'as it grows' "$skill_dir/templates/$t.md"
+done
+
 if (( failures > 0 )); then
   printf '\n%s static eval failed with %d issue(s).\n' "$SKILL_NAME" "$failures" >&2
   exit 1

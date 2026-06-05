@@ -3,6 +3,7 @@
 ## Summary
 
 - **Intent:** audit
+- **Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
 - **Surface(s):** <foundations | dx-docs | ux-help | ax-docs | api-contracts | audience-conflicts | all>
 - **Primary audience:** <persona>
 - **Secondary / harmed audiences:** <personas or none>
@@ -25,11 +26,22 @@
 
 - <conflict if any: audience helped, audience harmed, proposed resolution>
 
-## Prioritized fixes
+## Prioritized fixes — Now
+
+Sized to the **Project tier**: below Load-bearing, list only the proportional set
+here; push deferred best-practice to "Later — as it grows".
 
 1. <highest leverage fix and owner>
 2. <next fix>
 3. <measurement or gate>
+
+## Later — as it grows
+
+Best-practice that doesn't pay off at the current **Project tier**. Keep it as a
+checklist to revisit when the project moves up a tier — don't file it as findings
+now. At Load-bearing, write "none — full coverage applied".
+
+- <deferred item> — worth doing at <Growing | Load-bearing>
 
 ## Verification plan
 

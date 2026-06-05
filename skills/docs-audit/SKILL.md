@@ -47,6 +47,11 @@ finding.
    loads its own playbook in step 5.
 4. **Identify the target audience** from `references/core/personas.md` and the
    shared `references/core/audience-matrix.md` — developer, end user, or agent.
+   Then **calibrate to project scale** per `references/calibration.md`: infer the
+   tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
+   Load-bearing, narrow scope and collapse same-mechanism gaps into one systemic
+   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   not the severity rubric.
 5. **Spawn sub-agents in parallel (default for broad audits).** One lens per
    agent — developer-docs, end-user help, agent-retrieval, content-operations —
    per `references/subagent-dispatch.md`. Fall back to sequential only if the
@@ -89,6 +94,7 @@ deterministic or secret-bound work. Spawn the four lenses in parallel —
 - `references/playbooks/<surface>.md` — surface playbooks (shared with docs-design).
 - `references/subagent-dispatch.md` — the four lens prompts and merge rules.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
+- `references/calibration.md` — project-scale tiers + every-X collapse rule (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/core/{severity,score}-rubric.md` — the 0–4 and 0–10 scales.
 - `references/core/personas.md`, `references/core/audience-matrix.md` — audiences.

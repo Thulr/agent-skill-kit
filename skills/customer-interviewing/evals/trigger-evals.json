@@ -1,0 +1,22 @@
+{
+  "skill": "customer-interviewing",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "here's my customer interview question list before tomorrow's call — are these good questions or am i leading the witness?", "should_activate": true, "expected_route": "critique-questions", "category": "positive"},
+    {"query": "rewrite 'would you use a feature that auto-summarizes your meetings?' into something that won't just get me a polite yes", "should_activate": true, "expected_route": "critique-questions", "category": "positive"},
+    {"query": "we have a churn problem and i want to talk to customers about it — help me plan the interviews, who to talk to and how many", "should_activate": true, "expected_route": "prep", "category": "positive"},
+    {"query": "i want to set up continuous discovery interviewing — a sustainable weekly cadence and a way to actually recruit participants", "should_activate": true, "expected_route": "prep", "category": "positive"},
+    {"query": "i freeze up in user interviews and end up pitching my idea and filling every silence. how do i actually run the conversation?", "should_activate": true, "expected_route": "conduct", "category": "positive"},
+    {"query": "how do i get past surface-level answers and ask good follow-ups without leading people during a discovery interview?", "should_activate": true, "expected_route": "conduct", "category": "positive"},
+    {"query": "i did six discovery interviews this week, now what? how do i make sense of them and share what i learned with the team?", "should_activate": true, "expected_route": "synthesize", "category": "positive"},
+    {"query": "turn my messy interview notes into a one-page snapshot per person that the team can actually use", "should_activate": true, "expected_route": "synthesize", "category": "positive"},
+    {"query": "i'm about to talk to 5 users about why they cancelled — help me get ready", "should_activate": true, "expected_route": "prep", "category": "edge"},
+    {"query": "how should i interview internal stakeholders about their requirements for the new dashboard?", "should_activate": true, "expected_route": "critique-questions", "category": "edge"},
+    {"query": "should we build this b2b saas idea? validate the market size and give me a go/no-go recommendation", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "run a usability test on our checkout flow and tell me where users get stuck and drop off", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "turn our research findings into a polished stakeholder memo with a clear narrative", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design an nps survey to send to our entire user base and a plan to analyze the scores", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "write the prd and acceptance criteria for the feature we just scoped", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "do a heuristic accessibility review of our signup form for wcag issues", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

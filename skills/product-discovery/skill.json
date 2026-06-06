@@ -1,0 +1,86 @@
+{
+  "name": "product-discovery",
+  "description": "Use to decide what to build and why before building it — reframe a feature/output request as a measurable outcome and diagnose feature-factory risk, map an opportunity solution tree from a desired outcome down to opportunities and assumption tests, define the customer's job-to-be-done and rank underserved needs, surface and test the riskiest desirability/viability/feasibility assumptions behind a bet, or scope an MVP toward product-market fit. Triggers on 'reframe this roadmap around outcomes', 'build an opportunity solution tree', 'what job are customers hiring us for', 'what is our riskiest assumption and how do we test it', 'scope an MVP', 'are we a feature factory'. Do NOT use to run or synthesize the customer interviews that feed discovery (use customer-interviewing), to do sourced desk/market validation ending in a go/no-go memo (use research), or to audit a built interface (use ux-audit).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": [
+    "@Thulr"
+  ],
+  "tags": [
+    "discovery",
+    "product-discovery",
+    "product-management",
+    "outcomes",
+    "opportunity-solution-tree",
+    "jobs-to-be-done",
+    "assumptions",
+    "experiments",
+    "mvp",
+    "product-market-fit"
+  ],
+  "inspired_by": [
+    {
+      "name": "Inspired",
+      "author": "Marty Cagan",
+      "kind": "book",
+      "year": 2017,
+      "contribution": "Outcomes over output, and the four product risks — value, usability, feasibility, and viability — as the risks product discovery exists to reduce before committing to build.",
+      "playbooks": ["frame-outcomes", "test-assumptions"]
+    },
+    {
+      "name": "Escaping the Build Trap",
+      "author": "Melissa Perri",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "The build trap / feature factory; product strategy as deployable decisions; and the product-kata problem-solving loop that keeps teams oriented on outcomes.",
+      "playbooks": ["frame-outcomes"]
+    },
+    {
+      "name": "Continuous Discovery Habits",
+      "author": "Teresa Torres",
+      "kind": "book",
+      "year": 2021,
+      "contribution": "The opportunity solution tree — rooting discovery in a desired outcome and branching down through opportunities to solutions and the assumptions each would need true.",
+      "playbooks": ["map-opportunities"]
+    },
+    {
+      "name": "Jobs to Be Done: Theory to Practice",
+      "author": "Tony Ulwick",
+      "kind": "book",
+      "year": 2016,
+      "contribution": "Outcome-driven innovation — job mapping, solution-free desired-outcome statements, and ranking underserved needs by importance versus satisfaction.",
+      "playbooks": ["define-jobs"]
+    },
+    {
+      "name": "The Jobs To Be Done Playbook",
+      "author": "Jim Kalbach",
+      "kind": "book",
+      "year": 2020,
+      "contribution": "Making jobs-to-be-done actionable for product teams — practical job mapping and applying the job lens to product decisions.",
+      "playbooks": ["define-jobs"]
+    },
+    {
+      "name": "Testing Business Ideas",
+      "author": "David Bland and Alexander Osterwalder",
+      "kind": "book",
+      "year": 2019,
+      "contribution": "Assumptions mapping across desirability, viability, and feasibility, and choosing the cheapest experiment that produces evidence on the riskiest, least-evidenced assumption first.",
+      "playbooks": ["test-assumptions"]
+    },
+    {
+      "name": "The Lean Product Playbook",
+      "author": "Dan Olsen",
+      "kind": "book",
+      "year": 2015,
+      "contribution": "The lean product process and product-market-fit pyramid — target customer to underserved needs to value proposition to a minimal MVP feature set, iterated toward fit.",
+      "playbooks": ["scope-mvp"]
+    }
+  ],
+  "metadata": {
+    "family": "discovery",
+    "function": "singleton",
+    "catalog_order": 2,
+    "catalog_summary": "Decide what to build and why before building it — reframe outputs as measurable outcomes (and spot feature-factory risk), map an opportunity solution tree, define the customer's job-to-be-done and underserved needs, surface and test the riskiest desirability/viability/feasibility assumptions, and scope an MVP toward product-market fit."
+  }
+}

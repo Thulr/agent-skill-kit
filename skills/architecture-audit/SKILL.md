@@ -4,7 +4,7 @@ description: Use to AUDIT an existing codebase or module for clean-architecture 
 license: MIT
 ---
 
-# Architecture Critique
+# Architecture Audit
 
 Clean-architecture audit for an existing codebase or module — dependency
 direction, layer/port/adapter boundaries, domain modeling, bounded-context

@@ -4,7 +4,7 @@ description: Use to AUDIT an existing test suite — review tests for smells, re
 license: MIT
 ---
 
-# Test Critique
+# Test Audit
 
 Test-suite audit and triage for any layer a team relies on to catch regressions.
 Provenance lives in `skill.json`; this file is runtime routing only.

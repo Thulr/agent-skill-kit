@@ -4,7 +4,7 @@ description: Use to AUDIT existing documentation — score a docs/help/agent-rea
 license: MIT
 ---
 
-# Docs Critique
+# Docs Audit
 
 Documentation-experience audit and debugging for any surface someone reads to
 learn, integrate, recover, or retrieve — developer docs, end-user help, and

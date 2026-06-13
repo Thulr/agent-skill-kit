@@ -4,7 +4,7 @@ description: Use to AUDIT an EXISTING piece of writing — tighten wordy prose a
 license: MIT
 ---
 
-# Writing Critique
+# Writing Audit
 
 Audit and diagnosis of an existing piece of writing — at the line, the
 mechanics, and the structure. Provenance lives in `skill.json`; this file is

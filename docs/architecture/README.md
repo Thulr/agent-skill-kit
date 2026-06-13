@@ -12,7 +12,7 @@ Published skills fall into three shapes:
 - **Per-domain audit/design pairs** — a `<domain>-audit` skill audits/debugs
   an existing surface (lenses → severity-scored findings + optional ledger); a
   `<domain>-design` skill shapes a new one (good-shaped pattern → design doc).
-  Domains: `dx`, `docs`, `perf`, `test`, `architecture`. A domain's pair shares
+  Domains: `architecture`, `docs`, `dx`, `perf`, `test`, `writing`. A domain's pair shares
   its playbooks/lenses/rubrics from `skills/_shared/<domain>/` (one source, two
   skills). See [ADR 0008](../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
 - **Single-function skills** — `ux-audit` (audit only) and `ui-design`

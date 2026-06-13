@@ -114,6 +114,10 @@ jobs:
         shell: bash
         run: bash scripts/list-installable-skills.sh
 
+      - name: Test skill inventory
+        shell: bash
+        run: python3 scripts/test-skill-inventory.py
+
       - name: Check instruction-surface symlinks
         shell: bash
         run: bash scripts/check-instruction-surface.sh
@@ -125,6 +129,18 @@ jobs:
       - name: Test trigger evals schema
         shell: bash
         run: python3 scripts/test-trigger-evals-schema.py
+
+      - name: Test shared skill static checker
+        shell: bash
+        run: python3 scripts/test-check-skill-static.py
+
+      - name: Test routing graph
+        shell: bash
+        run: python3 scripts/test-routing-graph.py
+
+      - name: Test catalog taxonomy
+        shell: bash
+        run: python3 scripts/test-catalog-taxonomy.py
 
       - name: Check shared-content symlinks
         shell: bash
@@ -141,6 +157,10 @@ jobs:
       - name: Check generated catalog is in sync
         shell: bash
         run: python3 scripts/build-catalog.py --check
+
+      - name: Check catalog taxonomy
+        shell: bash
+        run: python3 scripts/check-catalog-taxonomy.py
 
       - name: Test destructive-bash hook
         shell: bash
@@ -160,13 +180,4 @@ jobs:
           # (the runner UID doesn't match the in-container root). Re-add it
           # here so every static-check script can resolve repo_root.
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          shopt -s nullglob
-          failed=0
-          for script in skills/*/evals/run-static-checks.sh skills/.experimental/*/evals/run-static-checks.sh .agents/skills/*/evals/run-static-checks.sh; do
-            echo "::group::$script"
-            if ! bash "$script"; then
-              failed=1
-            fi
-            echo "::endgroup::"
-          done
-          exit $failed
+          python3 scripts/run-skill-static-checks.py

@@ -21,86 +21,22 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
+
+from catalog_taxonomy import CatalogTaxonomy
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 CATALOG = ROOT / "catalog" / "catalog.json"
+TAXONOMY = CatalogTaxonomy(ROOT)
 
-FAMILIES = ("heuristics", "research", "ax", "discovery")
-FUNCTIONS = ("audit", "design", "singleton")
-REQUIRED_META = ("family", "function", "catalog_summary")
-
-INTERNAL_RE = re.compile(
-    r"(?m)^metadata:\s*\n(?:^[ \t]+[^\n]*\n)*^[ \t]+internal:\s*true\s*$"
-)
 BACKTICK_RE = re.compile(r"`([^`]+)`")
 
 
 def fail(failures: list[str], message: str) -> None:
     failures.append(message)
     print(f"FAIL {message}", file=sys.stderr)
-
-
-def is_internal(skill_dir: Path) -> bool:
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.exists():
-        return False
-    return bool(INTERNAL_RE.search(skill_md.read_text()))
-
-
-def _git_ignored(paths: list[Path]) -> set[Path]:
-    """Subset of `paths` that git ignores (local clutter is not a release
-    artifact). No-op on a clean CI checkout. Mirrors check-release-contract.py."""
-    if not paths:
-        return set()
-    by_str = {str(p): p for p in paths}
-    try:
-        proc = subprocess.run(
-            ["git", "check-ignore", "--stdin"],
-            cwd=ROOT, text=True, capture_output=True, input="\n".join(by_str),
-        )
-    except OSError:
-        return set()
-    if proc.returncode not in (0, 1):
-        return set()
-    return {by_str[line] for line in proc.stdout.splitlines() if line in by_str}
-
-
-def public_skills(failures: list[str]) -> dict[str, dict]:
-    """name -> metadata dict, for every published (non-internal) skill in the
-    skills/ lane. The catalog covers this lane only; .agents/ is repo-local
-    tooling and skills/.experimental/ is reserved-empty."""
-    dirs = [
-        p for p in (ROOT / "skills").iterdir()
-        if p.is_dir() and p.name not in {"_shared", ".experimental"}
-    ]
-    ignored = _git_ignored(dirs)
-    skills: dict[str, dict] = {}
-    for d in sorted(p for p in dirs if p not in ignored):
-        if is_internal(d):
-            continue
-        manifest = d / "skill.json"
-        if not manifest.exists():
-            fail(failures, f"{d.name}: missing skill.json")
-            continue
-        data = json.loads(manifest.read_text())
-        meta = data.get("metadata", {})
-        name = data.get("name", d.name)
-        for key in REQUIRED_META:
-            if not meta.get(key):
-                fail(failures, f"{name}: skill.json metadata.{key} is required "
-                               f"for the catalog but is missing/empty")
-        if meta.get("family") and meta["family"] not in FAMILIES:
-            fail(failures, f"{name}: metadata.family {meta['family']!r} not one "
-                           f"of {FAMILIES}")
-        if meta.get("function") and meta["function"] not in FUNCTIONS:
-            fail(failures, f"{name}: metadata.function {meta['function']!r} not "
-                           f"one of {FUNCTIONS}")
-        skills[name] = meta
-    return skills
 
 
 def sort_key(item: tuple[str, dict]):
@@ -197,7 +133,9 @@ def main() -> int:
 
     failures: list[str] = []
     cat = json.loads(CATALOG.read_text())
-    skills = public_skills(failures)
+    skills = TAXONOMY.public_skill_metadata()
+    for failure in TAXONOMY.validate():
+        fail(failures, failure)
 
     # cross-check: every skill named in the routing matrix exists
     known = set(skills)

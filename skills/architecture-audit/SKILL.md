@@ -4,7 +4,7 @@ description: Use to AUDIT an existing codebase or module for clean-architecture 
 license: MIT
 ---
 
-# Architecture Critique
+# Architecture Audit
 
 Clean-architecture audit for an existing codebase or module — dependency
 direction, layer/port/adapter boundaries, domain modeling, bounded-context
@@ -91,7 +91,7 @@ flattening them.
 
 **Default for `audit` when delegation is permitted;** skip tiny deterministic or
 secret-bound work. Spawn three lenses in parallel — **dependency-auditor**,
-**boundary-designer**, **domain-modeler** — per
+**boundary-designer**, **refactor-pragmatist** — per
 `references/subagent-dispatch.md`, then synthesize.
 
 ## Reference map

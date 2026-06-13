@@ -89,4 +89,5 @@ the strongest. Skip for a single tightly-scoped piece.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `templates/*.md` — outline / draft / persuasion outputs.
+- `evals/` — activation cases, static checks, trigger evals.
 - `skill.json` — provenance, grounding sources, version, status.

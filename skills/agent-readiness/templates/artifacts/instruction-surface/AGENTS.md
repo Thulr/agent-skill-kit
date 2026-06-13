@@ -97,7 +97,7 @@ non-zero exit:
 - <Action 1 — e.g., "git push --force / -f / --force-with-lease[=...] to main">.
 - <Action 2>.
 
-<List the per-harness equivalents for every harness in the step 4.5 inventory,
+<List the per-harness equivalents for every harness in the step 4 inventory,
 referencing `templates/artifacts/gates/` for each.>
 
 <!-- Reflection-log workflow is optional. If this project keeps a

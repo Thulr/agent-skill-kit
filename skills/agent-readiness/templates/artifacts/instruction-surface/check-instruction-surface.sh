@@ -8,7 +8,7 @@
 #
 # Customization: SYMLINKS array below maps each harness-specific instruction
 # file to its required target (relative to the symlink's own directory).
-# Add a row for every harness in the step 4.5 inventory that ships an
+# Add a row for every harness in the step 4 inventory that ships an
 # instruction file (Codex AGENTS.override.md, Windsurf .windsurfrules, etc.
 # — only when those files exist in this repo).
 #

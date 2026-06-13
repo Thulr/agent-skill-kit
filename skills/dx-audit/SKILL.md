@@ -4,7 +4,7 @@ description: Use to AUDIT an existing developer-experience surface — audit it 
 license: MIT
 ---
 
-# DX Critique
+# DX Audit
 
 Developer-experience audit, debugging, and edge-case risk-scan for any surface
 a developer installs, calls, or extends. Provenance lives in `skill.json`; this

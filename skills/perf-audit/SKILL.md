@@ -4,7 +4,7 @@ description: Use to AUDIT the performance and observability posture of a product
 license: MIT
 ---
 
-# Perf Critique
+# Perf Audit
 
 Performance and observability audit and incident-diagnosis for any production
 system — backend services, distributed systems, the browser/network tier, and

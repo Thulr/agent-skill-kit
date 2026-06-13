@@ -4,7 +4,7 @@ description: Use to AUDIT an existing end-user product UX or accessibility surfa
 license: MIT
 ---
 
-# UX Critique
+# UX Audit
 
 End-user usability and accessibility audit for any interface real people use —
 flows, forms, navigation, error states, and assistive-technology paths.

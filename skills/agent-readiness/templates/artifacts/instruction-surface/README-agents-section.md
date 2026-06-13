@@ -8,7 +8,7 @@
      Prescribed by instruction-surface scaffold H5. Required when:
      - The project intends to ship an `AGENTS.md` soon (the README
        block is the bridge for the period before it lands).
-     - Any harness in the step 4.5 inventory loads README at session
+     - Any harness in the step 4 inventory loads README at session
        start (true for Copilot, common for Claude Code and Cursor).
 
      Once AGENTS.md lands, the §Agents section here can shrink to a

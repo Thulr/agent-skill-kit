@@ -4,7 +4,7 @@ description: Use to AUDIT existing documentation — score a docs/help/agent-rea
 license: MIT
 ---
 
-# Docs Critique
+# Docs Audit
 
 Documentation-experience audit and debugging for any surface someone reads to
 learn, integrate, recover, or retrieve — developer docs, end-user help, and
@@ -53,9 +53,8 @@ finding.
    finding at max severity, and split fixes Now vs Later; tier reshapes emission,
    not the severity rubric.
 5. **Spawn sub-agents in parallel (default for broad audits).** One lens per
-   agent — developer-docs, end-user help, agent-retrieval, content-operations —
-   per `references/subagent-dispatch.md`. Fall back to sequential only if the
-   host has no delegation primitive; mark the review single-threaded.
+   agent — see "Subagent dispatch" below for the four. Fall back to sequential
+   only if the host has no delegation primitive; mark the review single-threaded.
 6. **Apply the playbook.** Use the heuristics tagged for this intent. For
    `audit`, score the surface 0–10 using `references/core/score-rubric.md`; for
    `debug`, rank hypotheses by mechanism (absence, findability, ambiguity,

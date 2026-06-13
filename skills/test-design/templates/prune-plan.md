@@ -16,18 +16,6 @@
 | Test | Layer | Why quarantine | Deadline |
 |---|---|---|---|
 
-## Findings ledger
-
-If this prune plan has 7+ candidates, any severity 3–4 candidate, or a
-save/track request, create both tracking artifacts now: the Markdown ledger
-from `templates/findings-ledger.md` at
-`docs/audits/test-design-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
-and the workflow state from `templates/workflow-state.json` at
-`docs/audits/test-design-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`.
-If the target is not a repo or `docs/audits/` is not writable, use matching
-`audit-artifacts/test-design-...` paths. Report both paths; do not merely
-offer tracking. Roadmaps and external issues require explicit confirmation.
-
 ## Verification
 
 [How we'll know the prune was right: suite runtime drop, no escape uptick, etc.]

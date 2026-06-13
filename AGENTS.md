@@ -82,7 +82,11 @@ CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](.
 
 Every skill under `skills/` or `skills/.experimental/` must ship:
 
-- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`) — under 1200 words.
+- `SKILL.md` with YAML frontmatter (`name`, `description`, `license`). Aim under ~1200
+  words, but the binding cap is each skill's `evals/run-static-checks.sh`, which may raise
+  or omit it for deliberately complex skills (e.g. `agent-readiness`). Treat this figure as
+  a default, not a uniform hard gate — see
+  [`docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md`](./docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md).
 - `skill.json` with `name`, `status: "published"` for installable skills,
   `maintainers` (resolvable GitHub handles, see Rule 4), and a non-empty
   `inspired_by` list. Use repository release tags (for example

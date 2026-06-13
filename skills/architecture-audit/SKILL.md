@@ -91,7 +91,7 @@ flattening them.
 
 **Default for `audit` when delegation is permitted;** skip tiny deterministic or
 secret-bound work. Spawn three lenses in parallel — **dependency-auditor**,
-**boundary-designer**, **domain-modeler** — per
+**boundary-designer**, **refactor-pragmatist** — per
 `references/subagent-dispatch.md`, then synthesize.
 
 ## Reference map

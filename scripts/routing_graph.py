@@ -50,6 +50,7 @@ class RoutingGraph:
     skill_dir: Path
     csvs: list[CsvDocument] = field(default_factory=list)
     route_ids: set[str] = field(default_factory=set)
+    nested_route_prefixes: set[str] = field(default_factory=set)
     target_paths: set[Path] = field(default_factory=set)
     failures: list[str] = field(default_factory=list)
 
@@ -174,6 +175,7 @@ def collect_route_ids(graph: RoutingGraph) -> None:
                 graph.route_ids.update(f"{intent}/{suffix}" for suffix in VIRTUAL_ROUTE_SUFFIXES)
                 nested = first_existing_csv(graph.skill_dir, doc.path, registry)
                 if nested and nested.resolve() in by_path:
+                    graph.nested_route_prefixes.add(intent)
                     nested_doc = by_path[nested.resolve()]
                     for nested_row in nested_doc.rows:
                         surface = nested_row.get("surface", "").strip()
@@ -186,12 +188,14 @@ def collect_route_ids(graph: RoutingGraph) -> None:
                 graph.route_ids.update(f"{frame}/{suffix}" for suffix in VIRTUAL_ROUTE_SUFFIXES)
                 nested = first_existing_csv(graph.skill_dir, doc.path, frame_path)
                 if nested and nested.resolve() in by_path:
+                    graph.nested_route_prefixes.add(frame)
                     nested_doc = by_path[nested.resolve()]
                     for nested_row in nested_doc.rows:
                         nested_intent = nested_row.get("intent", "").strip()
                         nested_registry = nested_row.get("registry_file", "").strip()
                         if nested_intent:
                             graph.route_ids.add(f"{frame}/{nested_intent}")
+                            graph.nested_route_prefixes.add(f"{frame}/{nested_intent}")
                             graph.route_ids.update(
                                 f"{frame}/{nested_intent}/{suffix}"
                                 for suffix in VIRTUAL_ROUTE_SUFFIXES
@@ -240,10 +244,15 @@ def check_trigger_routes(graph: RoutingGraph) -> None:
     for route in sorted(expected_trigger_routes(graph.skill_dir, graph)):
         if route in graph.route_ids:
             continue
+        parts = route.split("/")
+        prefixes = {"/".join(parts[:index]) for index in range(1, len(parts))}
+        if prefixes & graph.nested_route_prefixes:
+            graph.fail(f"evals/trigger-evals.json expected_route {route!r} is not in routing graph")
+            continue
         # Some single-route skills use route IDs as output modes below a valid
         # first-segment route. This still catches drift in the routed seam while
         # preserving current single-skill vocabulary.
-        prefix = route.split("/", 1)[0]
+        prefix = parts[0]
         if prefix in graph.route_ids:
             continue
         graph.fail(f"evals/trigger-evals.json expected_route {route!r} is not in routing graph")

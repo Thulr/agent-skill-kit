@@ -50,11 +50,51 @@ def build_fixture(root: Path) -> Path:
     return skill
 
 
+def build_one_layer_fixture(root: Path) -> Path:
+    skill = root / "one-layer"
+    write(
+        skill / "references" / "intent-router.csv",
+        "intent,when_to_pick,output_template,additional_rubric\n"
+        "assess,Use it,templates/assess-report.md,\n",
+    )
+    write(skill / "templates" / "assess-report.md", "# Assess\n")
+    write(
+        skill / "evals" / "trigger-evals.json",
+        json.dumps(
+            {
+                "skill": "one-layer",
+                "version": "0.1.0",
+                "queries": [
+                    {
+                        "query": "close out assessment",
+                        "should_activate": True,
+                        "expected_route": "assess/closeout",
+                        "category": "positive",
+                    }
+                ],
+            }
+        ),
+    )
+    return skill
+
+
 def run_case(name: str, mutate=None, should_pass: bool = True) -> bool:
     with tempfile.TemporaryDirectory(prefix="routing-graph-") as tmp:
         skill = build_fixture(Path(tmp))
         if mutate:
             mutate(skill)
+        graph = build_routing_graph(skill)
+    passed = not graph.failures
+    if passed == should_pass:
+        print(f"OK   {name}")
+        return True
+    print(f"FAIL {name}: expected pass={should_pass}, failures={graph.failures}", file=sys.stderr)
+    return False
+
+
+def run_one_layer_case(name: str, should_pass: bool = True) -> bool:
+    with tempfile.TemporaryDirectory(prefix="routing-graph-") as tmp:
+        skill = build_one_layer_fixture(Path(tmp))
         graph = build_routing_graph(skill)
     passed = not graph.failures
     if passed == should_pass:
@@ -101,11 +141,34 @@ def main() -> int:
             ),
             False,
         ),
+        (
+            "nested surface route drift",
+            lambda skill: write(
+                skill / "evals" / "trigger-evals.json",
+                json.dumps(
+                    {
+                        "skill": "skill",
+                        "version": "0.1.0",
+                        "queries": [
+                            {
+                                "query": "audit typo",
+                                "should_activate": True,
+                                "expected_route": "audit/not-a-real-surface",
+                                "category": "positive",
+                            }
+                        ],
+                    }
+                ),
+            ),
+            False,
+        ),
     ]
     failures = 0
     for name, mutate, should_pass in cases:
         if not run_case(name, mutate, should_pass):
             failures += 1
+    if not run_one_layer_case("one-layer subroute fallback remains allowed"):
+        failures += 1
     if failures:
         print(f"routing graph tests failed with {failures} issue(s).", file=sys.stderr)
         return 1

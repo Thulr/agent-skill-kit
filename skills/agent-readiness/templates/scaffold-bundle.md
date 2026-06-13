@@ -18,7 +18,7 @@
 - <promoted-pattern 1 — optional>
 - <promoted-pattern 2 — optional>
 
-## Harness inventory (step 4.5)
+## Harness inventory (step 4)
 
 > **Required for `instruction-surface` and `gates` surfaces.** Names every harness in use on this repo so the scaffold produces per-harness equivalents — not just the one whose dotfile happens to exist. Filesystem signals tell you which harnesses are *known*, not which are *all in use*.
 
@@ -35,7 +35,7 @@
 > **Template column required.** Every proposed file should cite a starting
 > template from `templates/artifacts/<surface>/` (see `templates/artifacts/README.md`).
 > If no template fits, name that explicitly in the row — the post-write
-> auditor (step 8.5) treats "no template cited" as a shape-compliance miss
+> auditor (step 8) treats "no template cited" as a shape-compliance miss
 > unless the writer states why no template applies.
 
 | Path | Action | Failure closed | Severity | Template | Preview |
@@ -87,7 +87,7 @@ If any proposed file already exists, the skill will refuse to overwrite without 
 - **Skipped:** <paths>
 - **Conflicts:** <paths and reasons>
 
-## Post-write audit (step 8.5)
+## Post-write audit (step 8)
 
 > **Required.** A fresh-context auditor sub-agent (see `references/lenses.md` §Post-write auditor) inspects the diff against the chosen playbook(s) and classifies every `harden` heuristic. Severity 3+ `miss` entries surface to the user as must-do before the scaffold is considered done. **Self-attestation is not allowed** — the auditor must be dispatched separately and its findings included verbatim.
 

@@ -80,7 +80,7 @@ and README's agent-facing role shrinks to "see AGENTS.md."
   3. A CI / static-check step that asserts both files are symlinks pointing at the correct
      target and that the target resolves — fails the build on divergence. Step 1 + 2 without
      step 3 decays the moment a contributor "fixes" a symlink to a regular file. The post-write
-     auditor (workflow step 8.5) treats this heuristic as `applied` only when all three are
+     auditor (workflow step 8) treats this heuristic as `applied` only when all three are
      present.
   Add a one-line declaration to `AGENTS.md` so future agents do not try to "fix" the divergence
   by editing `CLAUDE.md` directly: *"`CLAUDE.md` is a symlink to `AGENTS.md`. Edit `AGENTS.md`

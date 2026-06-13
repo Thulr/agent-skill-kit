@@ -23,7 +23,7 @@ Aider's auto-lint and auto-test and Factory.ai's linter-as-direction pattern bot
 
 ### Per-harness gate primitives
 
-Different harnesses expose different enforcement points. **Scaffold per-harness equivalents for every harness in the step 4.5 inventory** — not just the one whose dotfile happens to exist.
+Different harnesses expose different enforcement points. **Scaffold per-harness equivalents for every harness in the step 4 inventory** — not just the one whose dotfile happens to exist.
 
 | Harness | Hard-block primitive (forbidden) | Approval primitive (ask-first) | Reactive primitive (lint-on-write) | Notes |
 |---|---|---|---|---|
@@ -122,7 +122,7 @@ Every harness in the inventory needs its own row in the scaffold's gate enumerat
 - **Do not scaffold gates from generic templates.** Each gate must be traceable to a named action
   class in the three-tier table; a hardcoded `rm` pattern without a tier assignment is security
   theater, not a gate strategy.
-- **Require the step 4.5 harness inventory.** Without it, the scaffold defaults to whichever
+- **Require the step 4 harness inventory.** Without it, the scaffold defaults to whichever
   harness's dotfile happens to exist — repeating the failure logged at
   `docs/reflection-log/2026-05-16-gates-scope-inferred-from-dotfile-presence.md` (`.claude/`
   present, Claude-only hook produced, other harnesses punted on). Refuse to scaffold gates until
@@ -179,7 +179,7 @@ Every harness in the inventory needs its own row in the scaffold's gate enumerat
   exhaustive variant categories is the regression vector logged at
   `docs/reflection-log/2026-05-16-hook-argv-bypasses-round2.md` and
   `docs/reflection-log/2026-05-16-hook-path-cwd-bypasses-round3.md`. The post-write auditor
-  (workflow step 8.5) treats this heuristic as `applied` only when both the hook and its test
+  (workflow step 8) treats this heuristic as `applied` only when both the hook and its test
   fixture are in the diff and the fixture covers all 13 categories above.
 
 - **H6.** **Prefer argv parsing (`shlex`-tokenized) over regex-on-string for hook predicates.**

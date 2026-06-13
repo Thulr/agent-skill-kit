@@ -13,11 +13,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+from skill_inventory import SkillInventory
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_SCHEMA = ROOT / "schemas" / "skill.schema.json"
 TRIGGER_SCHEMA = ROOT / "schemas" / "trigger-evals.schema.json"
 VALIDATE = ROOT / "scripts" / "validate-against-schema.py"
+INVENTORY = SkillInventory(ROOT)
 
 ROUTE_RE = re.compile(r"^[a-z0-9][a-z0-9._/-]*$")
 
@@ -35,11 +38,7 @@ def fail(failures: list[str], message: str) -> None:
 
 
 def is_internal(skill_dir: Path) -> bool:
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.exists():
-        return False
-    text = skill_md.read_text()
-    return bool(re.search(r"(?m)^metadata:\s*\n(?:^[ \t]+[^\n]*\n)*^[ \t]+internal:\s*true\s*$", text))
+    return INVENTORY.is_internal(skill_dir)
 
 
 def load_json(path: Path, failures: list[str]) -> dict | None:
@@ -62,54 +61,12 @@ def validate_schema(path: Path, schema: Path, failures: list[str]) -> None:
         fail(failures, f"{path.relative_to(ROOT)}: schema validation failed")
 
 
-def _git_ignored(paths: list[Path]) -> set[Path]:
-    """Return the subset of `paths` that git ignores.
-
-    Gitignored directories are not release artifacts — a developer's local
-    install (e.g. a `bmad*` skill set dropped under `.agents/skills/`, which
-    `.gitignore` excludes) must not gate the release contract. CI runs on a
-    clean checkout, so this filter is a no-op there; it only spares local
-    working trees that carry ignored clutter. Falls back to "nothing ignored"
-    (the original behavior) if git is unavailable or errors.
-    """
-    if not paths:
-        return set()
-    by_str = {str(p): p for p in paths}
-    try:
-        proc = subprocess.run(
-            ["git", "check-ignore", "--stdin"],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            input="\n".join(by_str),
-        )
-    except OSError:
-        return set()
-    if proc.returncode not in (0, 1):  # 0 = some ignored, 1 = none; >1 = error
-        return set()
-    return {by_str[line] for line in proc.stdout.splitlines() if line in by_str}
-
-
 def public_skill_dirs() -> list[Path]:
-    dirs = [
-        p
-        for p in (ROOT / "skills").iterdir()
-        if p.is_dir() and p.name not in {"_shared", ".experimental"}
-    ]
-    experimental = ROOT / "skills" / ".experimental"
-    if experimental.exists():
-        dirs.extend(p for p in experimental.iterdir() if p.is_dir())
-    ignored = _git_ignored(dirs)
-    return sorted(p for p in dirs if p not in ignored)
+    return INVENTORY.release_skill_dirs()
 
 
 def repo_local_skill_dirs() -> list[Path]:
-    base = ROOT / ".agents" / "skills"
-    if not base.exists():
-        return []
-    dirs = [p for p in base.iterdir() if p.is_dir()]
-    ignored = _git_ignored(dirs)
-    return sorted(p for p in dirs if p not in ignored)
+    return INVENTORY.repo_local_skill_dirs()
 
 
 def check_trigger_evals(skill_dir: Path, expected_name: str, failures: list[str]) -> None:
@@ -252,12 +209,7 @@ def check_public_skill(skill_dir: Path, failures: list[str]) -> None:
 
 
 def check_experimental_lane_empty(failures: list[str]) -> None:
-    experimental = ROOT / "skills" / ".experimental"
-    if not experimental.exists():
-        return
-    for path in experimental.iterdir():
-        if path.name == ".gitkeep":
-            continue
+    for path in INVENTORY.experimental_lane_entries():
         fail(failures, f"skills/.experimental must stay empty; found {path.relative_to(ROOT)}")
 
 

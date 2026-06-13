@@ -1,4 +1,5 @@
 surface,name,when_to_use,playbook,core_refs
+foundations,Cross-audience foundations,"Diagnose systemic documentation drift, versioning gaps, ownership failures, or missing telemetry behind a concrete docs failure","references/playbooks/foundations.md","references/core/severity-rubric.md;references/core/personas.md;references/core/audience-matrix.md"
 dx-docs,Developer documentation,"Developers fail a quickstart, copy stale samples, cannot find reference, or misunderstand upgrade docs","references/playbooks/dx-docs.md","references/core/severity-rubric.md;references/core/personas.md;references/core/audience-matrix.md"
 ux-help,End-user help,"Users abandon onboarding, miss hidden help, open tickets after articles, or cannot recover from errors","references/playbooks/ux-help.md","references/core/severity-rubric.md;references/core/personas.md;references/core/audience-matrix.md"
 api-contracts,API and tool contracts,"Agents or developers call the wrong endpoint/tool, misread parameters, retry unsafely, or branch on unstable errors","references/playbooks/api-contracts.md","references/core/severity-rubric.md;references/core/personas.md;references/core/audience-matrix.md"

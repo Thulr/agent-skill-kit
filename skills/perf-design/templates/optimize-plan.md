@@ -43,6 +43,10 @@ Ordered, each with explicit before / after measurement. Smallest blast-radius fi
 
 - <skill.json inspired_by entry> - <step or measurement-method choice it informed>
 
+## Findings ledger
+
+If this optimization pass produced 7+ findings, any severity 3-4 finding, or a save / track request, create both tracking artifacts now: the Markdown ledger from `templates/findings-ledger.md` at `docs/audits/perf-design-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md` and the workflow state from `templates/workflow-state.json` at `docs/audits/perf-design-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`. Create the directory if needed. If the target is not a repo or `docs/audits/` is not writable, use matching `audit-artifacts/perf-design-...` paths. Populate and report both saved paths; do not merely offer or inline tracking. Roadmaps and external issues require explicit confirmation.
+
 ## Accepted trade-offs
 
 - <Intentional compromises, e.g., reduced sampling vs diagnose-ability, hedged requests vs duplicate work>

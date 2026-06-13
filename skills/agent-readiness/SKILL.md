@@ -67,11 +67,13 @@ this skill fits, and when to pair it with `agent-rules` — is in
    and always `references/core/severity-rubric.md` (every finding carries a severity). For
    `assess`, also load `references/core/maturity-rubric.md`. These playbooks carry
    cross-harness implementation tables; static checks keep them bounded, not free-form dumps.
-4. **For `scaffold`, collect project knowledge and harness inventory.** Ask for (a) tech
-   stack and runtimes, (b) repo layout and which directories the scaffold covers, (c)
-   build / test / lint commands, (d) invariants the agent must not break, and (e) which
-   harnesses are actually in use (Claude Code, Cursor, Codex, Copilot, Aider, Windsurf, or
-   AGENTS.md-only). **Do not infer the harness set from dotfiles** — `.claude/` proves
+4. **Collect project knowledge and the harness inventory.** For `scaffold`, ask for (a)
+   tech stack and runtimes, (b) repo layout and which directories the scaffold covers, (c)
+   build / test / lint commands, and (d) invariants the agent must not break. For
+   `scaffold`, **and for `harden` touching `instruction-surface` or `gates`**, also ask
+   **(e) which harnesses are actually in use** (Claude Code, Cursor, Codex, Copilot, Aider,
+   Windsurf, or AGENTS.md-only) — those surfaces emit per-harness output, so the set must be
+   known, not guessed. **Do not infer the harness set from dotfiles** — `.claude/` proves
    Claude Code is used, not that it is the only one. Default to per-harness equivalents for
    every harness named. Hand-curate; the quality bar is "specific to this project,
    verifiable by reading the file," not "measured against a benchmark."

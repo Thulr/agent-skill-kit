@@ -1,20 +1,20 @@
 <p align="center">
-  <img src="./docs/informed-skills.png" alt="informed-skills — Agent Skills distilled from books and papers" width="800">
+  <img src="./docs/agent-skill-kit.png" alt="agent-skill-kit — the Agent Skills I use" width="800">
 </p>
 
-# informed-skills
+# agent-skill-kit
 
-**[Agent Skills](https://agentskills.io) with citations.** An *informed heuristic* uses domain knowledge to estimate more accurately than a blind rule of thumb — every skill here cites the books, papers, and research it's grounded in, so you can check the work. Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
+**The [Agent Skills](https://agentskills.io) I actually use.** A personal kit for coding-agent work — most grounded in cited sources (so you can check the work), all earned in real use. Skills worth using that I didn't write I link to rather than re-author (see **Skills I also use**, below). Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
 
 ```bash
-npx skills add Thulr/informed-skills
+npx skills add Thulr/agent-skill-kit
 ```
 
 [skills.sh](https://skills.sh) prompts you to pick which skills to install — see [Install](#install) for options.
 
 **First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `design-for-agent-users`. Each skill names the cited sources it applied.
 
-The catalog currently covers software engineering and coding-agent work — developer and documentation experience, test quality, architecture, performance and observability, product UX and accessibility, UI craft, and agent experience. Other source-grounded domains may be added later.
+The kit currently covers software-engineering and coding-agent work — developer and documentation experience, test quality, minimal/modular code, performance and observability, product UX and accessibility, UI craft, and agent experience. More skills I rely on get added as I go.
 
 <!-- BEGIN GENERATED: pick-a-skill (scripts/build-catalog.py) -->
 ## Pick a skill
@@ -30,7 +30,7 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 | **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ux-audit` | `ui-design` |
-| **Clean architecture** — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts | `architecture-audit` | `architecture-design` |
+| **Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel | `minimal-modular-code` | `minimal-modular-code` |
 
 For research, discovery, and agent-facing work:
 
@@ -59,14 +59,13 @@ What each skill is and what it's grounded in. To route by task use [Pick a skill
 
 Source-grounded heuristics for software surfaces, split so the name says what it does. A **`-audit`** skill audits, debugs, or risk-scans an *existing* surface (expert lenses → severity-scored findings report, with an optional tracking ledger); a **`-design`** skill shapes a *new* one (names the good-shaped pattern → design doc / plan / runbook). A domain's pair shares its playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`, so the two stay in lockstep without drift.
 
-Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Martin, Evans, and many more (per-skill provenance in each `skill.json`). These twelve skills replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
+Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout, Parnas, and many more (per-skill provenance in each `skill.json`). The `-audit`/`-design` pairs replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md). `minimal-modular-code` is the family's one singleton — a single skill spanning review and design for code minimality and parallel-readiness; it replaced the former clean-architecture pair (see [`docs/adr/0009`](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md)).
 
-- **`architecture-audit`** *(audit)* — Audit a codebase for dependency-rule violations, layer/port/adapter boundary leakage, anemic domains, and bounded-context seams; emits severity-scored findings.
-- **`architecture-design`** *(design)* — Set the dependency-rule invariant for new work, shape layer/port/adapter boundaries, model entities/aggregates/value objects, carve a bounded context, and sequence a safe refactor.
 - **`docs-audit`** *(audit)* — Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure.
 - **`docs-design`** *(design)* — Plan or reshape a docs surface before implementation — information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, and API/tool-contract docs.
 - **`dx-audit`** *(audit)* — Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass.
 - **`dx-design`** *(design)* — Design a new developer-experience surface from scratch — API, SDK, CLI, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin contract, or package scheme.
+- **`minimal-modular-code`** — Keep code minimal and right-sized for AI coding agents: DO (keep a change minimal — reuse, subtract, avoid the wrong abstraction, check blast radius), REVIEW (audit existing code or a repo for slop and parallel-readiness, then score it), DESIGN (shape right-sized module boundaries and work-partitioning, sequence a safe refactor, or explain a principle). Replaces the clean-architecture audit/design pair under a minimalism thesis.
 - **`perf-audit`** *(audit)* — Audit a production or runtime system for latency, throughput, saturation, and observability gaps (tracing, logs, metrics) and score the findings.
 - **`perf-design`** *(design)* — Design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, and metric selection up-front for a new or expanding system.
 - **`test-audit`** *(audit)* — Review a test suite for smells, redundancy, false-pass risk, brittleness, and flakiness and score it, or triage one failing, flaky, or slow test.
@@ -98,34 +97,42 @@ Designing, reviewing, and debugging software, repos, docs, and SDKs for AI agent
 - **`agent-evals`** — audit an AI product's feedback loops, map them onto the AI Optimization Staircase, score the missing loop mechanics, and scaffold the smallest useful eval/optimization loop. Diagnostic-first; never auto-writes learned rules without held-out evals plus a reviewed diff. Provenance in [`skills/agent-evals/skill.json`](./skills/agent-evals/skill.json).
 <!-- END GENERATED: catalog -->
 
+## Skills I also use
+
+Good skills I rely on but didn't write — installed from their own homes, linked here rather than re-authored.
+
+<!-- Add entries as you adopt them, e.g.:
+- [`owner/skill-name`](https://github.com/owner/skill-name) — what it's for and when you reach for it.
+-->
+
 ## Install
 
 From GitHub:
 
 ```bash
-npx skills add Thulr/informed-skills
+npx skills add Thulr/agent-skill-kit
 ```
 
 Target specific skills or agents:
 
 ```bash
-npx skills add Thulr/informed-skills --list
-npx skills add Thulr/informed-skills --skill dx-audit
-npx skills add Thulr/informed-skills -a claude-code -a cursor -y
+npx skills add Thulr/agent-skill-kit --list
+npx skills add Thulr/agent-skill-kit --skill dx-audit
+npx skills add Thulr/agent-skill-kit -a claude-code -a cursor -y
 ```
 
 Common bundles:
 
 ```bash
 # a domain's audit + design pair
-npx skills add Thulr/informed-skills --skill dx-audit --skill dx-design
+npx skills add Thulr/agent-skill-kit --skill dx-audit --skill dx-design
 
 # the agent-experience (AX) discipline: design-for-agent-users umbrella + its three arms
-npx skills add Thulr/informed-skills --skill design-for-agent-users \
+npx skills add Thulr/agent-skill-kit --skill design-for-agent-users \
   --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures --skill agent-evals
 
 # research only
-npx skills add Thulr/informed-skills --skill research
+npx skills add Thulr/agent-skill-kit --skill research
 ```
 
 > **Renamed skills (2026-06-17).** The agent skills now read as use cases:
@@ -137,14 +144,14 @@ npx skills add Thulr/informed-skills --skill research
 From a subdirectory URL (single skill):
 
 ```bash
-npx skills add https://github.com/Thulr/informed-skills/tree/main/skills/dx-audit
+npx skills add https://github.com/Thulr/agent-skill-kit/tree/main/skills/dx-audit
 ```
 
 Local checkout:
 
 ```bash
-git clone https://github.com/Thulr/informed-skills.git
-cd informed-skills
+git clone https://github.com/Thulr/agent-skill-kit.git
+cd agent-skill-kit
 npx skills add . --list
 npx skills add .
 ```

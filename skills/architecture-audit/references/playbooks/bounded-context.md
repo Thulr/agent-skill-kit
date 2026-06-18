@@ -1,1 +1,0 @@
-../../../_shared/architecture/playbooks/bounded-context.md

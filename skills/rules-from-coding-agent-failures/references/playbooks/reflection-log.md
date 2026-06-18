@@ -96,7 +96,7 @@ naming.
 - **H5.** If the recurring gap is *architectural boundary violations*
   (layer-skipping, wrong-direction dependencies, forbidden imports,
   cycles), prefer structural fixes: architecture lints/tests as
-  CI-required checks. Use `architecture-design` to define the boundary
+  CI-required checks. Use `minimal-modular-code` to define the boundary
   model; use `harden-repo-for-coding-agents` gates guidance to enforce it.
 - **H6. Prune/expire promoted rules.** When promoting, record an expiry
   condition (the model capability or failure pattern the rule assumes).

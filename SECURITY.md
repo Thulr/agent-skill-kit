@@ -1,6 +1,6 @@
 # Security policy
 
-`informed-skills` publishes [Agent Skills](https://agentskills.io) that load into
+`agent-skill-kit` publishes [Agent Skills](https://agentskills.io) that load into
 downstream agent sessions (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider).
 A vulnerability in a published skill can affect every consumer; treat reports
 accordingly.
@@ -9,7 +9,7 @@ accordingly.
 
 **Do not open a public issue or PR for a security report.**
 
-Use [GitHub Security Advisories](https://github.com/Thulr/informed-skills/security/advisories/new)
+Use [GitHub Security Advisories](https://github.com/Thulr/agent-skill-kit/security/advisories/new)
 to file a private report. We will:
 
 - Acknowledge receipt within **7 days**.

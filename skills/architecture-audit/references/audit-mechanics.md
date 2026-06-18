@@ -1,1 +1,0 @@
-../../_shared/architecture/audit-mechanics.md

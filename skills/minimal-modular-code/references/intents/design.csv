@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+minimalism,Design the smallest thing,"YAGNI: design only what a present need forces; defer speculative generality",references/playbooks/minimalism.md,references/core/personas.md;references/core/glossary.md
+legibility,Design for legibility,"Concepts plus explicit synchronizations; grep-unique names; machine-queryable structure",references/playbooks/legibility.md,references/core/personas.md;references/core/glossary.md
+boundaries,Shape boundaries,"Dependency direction, deep modules, the seam you need (not a speculative hexagon)",references/playbooks/boundaries.md,references/core/personas.md;references/core/severity-rubric.md;references/core/glossary.md
+parallel-readiness,Partition work for agents,"Design rules as contracts; same-layer modules to parallel agents; ownership gates",references/playbooks/parallel-readiness.md,references/core/personas.md;references/core/glossary.md
+enforcement,Specify the gates,"Which invariants become lint/arch-test/CI gates; what to route to a human",references/playbooks/enforcement.md,references/core/personas.md;references/core/severity-rubric.md;references/core/glossary.md

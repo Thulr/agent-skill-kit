@@ -1,0 +1,275 @@
+{
+  "name": "minimal-modular-code",
+  "description": "Use to keep code MINIMAL and right-sized for AI coding agents. DO — keep an in-progress change minimal (reuse before adding, subtract, avoid the wrong abstraction, check blast radius). REVIEW — audit existing code or a repo for slop (duplication, dead code, over-engineering) and parallel-readiness (coupling, boundaries, gate coverage), then score it. DESIGN — shape right-sized boundaries and work-partitioning so many agents work in parallel, sequence a safe refactor, or explain a principle. Triggers on 'is this over-engineered', 'reduce the slop', 'audit our coupling/boundaries', 'structure this repo for parallel agents'. Do NOT use to wire enforcement gates/hooks/AGENTS.md (use harden-repo-for-coding-agents), for developer API/SDK/CLI surfaces (use dx-audit / dx-design), for product UX (use ux-audit / ui-design), or to tighten prose (use writing-audit).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": [
+    "@Thulr"
+  ],
+  "tags": [
+    "minimalism",
+    "anti-slop",
+    "modularity",
+    "legibility",
+    "parallel-agents",
+    "right-sizing",
+    "reuse",
+    "yagni",
+    "wrong-abstraction",
+    "deep-modules",
+    "information-hiding",
+    "dependency-direction",
+    "blast-radius",
+    "design-rules",
+    "refactor",
+    "code-review",
+    "audit",
+    "design",
+    "complexity",
+    "heuristics"
+  ],
+  "inspired_by": [
+    {
+      "name": "On the Criteria To Be Used in Decomposing Systems into Modules",
+      "author": "David Parnas",
+      "kind": "paper",
+      "year": 1972,
+      "contribution": "Information hiding: hide the likely-to-change decision behind a stable interface. The criterion behind module decomposition and the basis for partitioning work across agents along stable seams.",
+      "playbooks": ["boundaries", "parallel-readiness"]
+    },
+    {
+      "name": "A Philosophy of Software Design",
+      "author": "John Ousterhout",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "Complexity is the core problem; deep modules (powerful behavior behind a simple interface) beat many shallow units; minimal means minimal surface, not fewest lines or smallest classes; define errors out of existence.",
+      "playbooks": ["minimalism", "legibility", "boundaries"]
+    },
+    {
+      "name": "Simple Made Easy",
+      "author": "Rich Hickey",
+      "kind": "talk",
+      "year": 2011,
+      "contribution": "Simple (one concept, un-braided) is objective and distinct from easy (familiar/near-at-hand); avoid complecting independent concerns.",
+      "playbooks": ["minimalism", "boundaries"]
+    },
+    {
+      "name": "The Emperor's Old Clothes (ACM Turing Award Lecture)",
+      "author": "C. A. R. Hoare",
+      "kind": "talk",
+      "year": 1980,
+      "contribution": "Make a design so simple there are obviously no deficiencies, rather than so complex there are no obvious ones; the first is far harder and the point of the craft.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "Selected writings (EWD340 The Humble Programmer; EWD1036; EWD1284)",
+      "author": "Edsger W. Dijkstra",
+      "kind": "essay",
+      "year": 1972,
+      "contribution": "Keep programs within the limited size of the skull and avoid clever tricks; count lines as 'spent', not 'produced'; elegance is functional, deciding success vs failure.",
+      "playbooks": ["minimalism", "legibility"]
+    },
+    {
+      "name": "No Silver Bullet: Essence and Accident in Software Engineering",
+      "author": "Frederick P. Brooks",
+      "kind": "paper",
+      "year": 1986,
+      "contribution": "Essential vs accidental complexity: minimalism removes accidental complexity but cannot dissolve the problem's inherent difficulty — don't oversell simplicity as a fix for hard problems.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "The Wrong Abstraction",
+      "author": "Sandi Metz",
+      "kind": "article",
+      "year": 2016,
+      "contribution": "Duplication is far cheaper than the wrong abstraction; prefer duplication until the right abstraction is evident; re-inline a bad abstraction rather than patch it with parameters and conditionals.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "Yagni",
+      "author": "Martin Fowler",
+      "kind": "article",
+      "year": 2015,
+      "contribution": "Cut speculative features, but YAGNI does not apply to keeping code malleable — the carve-out that separates over-engineering from the boundary investment that enables parallel work.",
+      "playbooks": ["minimalism", "parallel-readiness"]
+    },
+    {
+      "name": "People systematically overlook subtractive changes",
+      "author": "Adams, Converse, Hales & Klotz",
+      "kind": "paper",
+      "year": 2021,
+      "contribution": "People default to adding and overlook advantageous subtraction unless explicitly cued; 'what can be removed?' must be a deliberate step, for humans and agents alike.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "Software Reuse",
+      "author": "Charles W. Krueger",
+      "kind": "paper",
+      "year": 1992,
+      "contribution": "Build systems from existing software rather than from scratch; concise, expressive abstractions are what make reuse possible — search and reuse before writing new code.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "The Thing: Why I Am a Catholic (Chesterton's Fence)",
+      "author": "G. K. Chesterton",
+      "kind": "book",
+      "year": 1929,
+      "contribution": "Do not remove a thing until you understand why it was put there. The guardrail on deletion: subtract deliberately, but gate removal on understanding.",
+      "playbooks": ["minimalism"]
+    },
+    {
+      "name": "Structure and Interpretation of Computer Programs",
+      "author": "Harold Abelson & Gerald Jay Sussman",
+      "kind": "book",
+      "year": 1985,
+      "contribution": "Programs are written for people to read, and only incidentally for machines to execute — legibility is the primary audience constraint.",
+      "playbooks": ["legibility"]
+    },
+    {
+      "name": "Literate Programming",
+      "author": "Donald E. Knuth",
+      "kind": "paper",
+      "year": 1984,
+      "contribution": "Reframe coding as explaining to human beings what the computer should do, rather than only instructing the machine.",
+      "playbooks": ["legibility"]
+    },
+    {
+      "name": "The Elements of Style",
+      "author": "William Strunk Jr. & E. B. White",
+      "kind": "book",
+      "year": 1959,
+      "contribution": "Omit needless words; concise means no wasted elements (a machine no unnecessary parts), not fewest characters — the line between concise and cryptic.",
+      "playbooks": ["minimalism", "legibility"]
+    },
+    {
+      "name": "Succinctness is Power",
+      "author": "Paul Graham",
+      "kind": "essay",
+      "year": 2002,
+      "contribution": "Succinctness measured in semantic elements is power; terseness measured in characters or one-letter names (code golf) is not — the conciseness-vs-cleverness distinction.",
+      "playbooks": ["minimalism", "legibility"]
+    },
+    {
+      "name": "The Elements of Programming Style",
+      "author": "Brian W. Kernighan & P. J. Plauger",
+      "kind": "book",
+      "year": 1978,
+      "contribution": "Write clearly, don't be too clever; don't sacrifice clarity for small gains in efficiency — write below your maximum cleverness so the code stays debuggable.",
+      "playbooks": ["legibility"]
+    },
+    {
+      "name": "Learning a Metric for Code Readability",
+      "author": "Raymond P. L. Buse & Westley R. Weimer",
+      "kind": "paper",
+      "year": 2010,
+      "contribution": "Readability is a measurable human judgment that correlates with defects and is driven by local features; over-dense lines measurably reduce it — fewer lines is not automatically more readable.",
+      "playbooks": ["legibility"]
+    },
+    {
+      "name": "A Complexity Measure",
+      "author": "Thomas J. McCabe",
+      "kind": "paper",
+      "year": 1976,
+      "contribution": "Cyclomatic complexity counts independent paths; a testability/complexity smell signal that flags code that has grown past easy comprehension.",
+      "playbooks": ["minimalism", "legibility"]
+    },
+    {
+      "name": "Cognitive Complexity: A new way of measuring understandability",
+      "author": "G. Ann Campbell",
+      "kind": "paper",
+      "year": 2018,
+      "contribution": "An understandability-oriented complexity metric (penalize nesting and breaks in linear flow, ignore shorthand that readably condenses) used as a refactor signal, not a target.",
+      "playbooks": ["legibility"]
+    },
+    {
+      "name": "How Do Committees Invent?",
+      "author": "Melvin E. Conway",
+      "kind": "article",
+      "year": 1968,
+      "contribution": "A system's structure mirrors the communication structure of the organization that builds it; a fleet of loosely-coupled agents will produce loosely-coupled code, fine only if boundaries are enforced.",
+      "playbooks": ["parallel-readiness"]
+    },
+    {
+      "name": "Exploring the duality between product and organizational architectures: A test of the 'mirroring' hypothesis",
+      "author": "Alan MacCormack, Carliss Baldwin & John Rusnak",
+      "kind": "paper",
+      "year": 2012,
+      "contribution": "Loosely-coupled organizations produce measurably more modular products — the empirical form of Conway's Law and the default mental model for multi-agent work.",
+      "playbooks": ["parallel-readiness"]
+    },
+    {
+      "name": "Design Rules: The Power of Modularity",
+      "author": "Carliss Y. Baldwin & Kim B. Clark",
+      "kind": "book",
+      "year": 2000,
+      "contribution": "Freeze a small set of stable design rules (interfaces, standards); hidden modules evolve independently beneath them. The contract-and-owner pattern: invest in the interface, keep the implementation cheap and replaceable.",
+      "playbooks": ["parallel-readiness", "boundaries"]
+    },
+    {
+      "name": "Splitting the Organization and Integrating the Code: Conway's Law Revisited",
+      "author": "James D. Herbsleb & Rebecca E. Grinter",
+      "kind": "paper",
+      "year": 1999,
+      "contribution": "Modularity is necessary but not sufficient; without explicit, frozen interfaces the collision moves to integration — invest in interface contracts and integration tests when work is split across agents.",
+      "playbooks": ["parallel-readiness", "enforcement"]
+    },
+    {
+      "name": "Design Rule Hierarchies and Parallelism in Software Development Tasks",
+      "author": "Sunny Wong, Yuanfang Cai, et al.",
+      "kind": "paper",
+      "year": 2009,
+      "contribution": "Modules in the same design-rule-hierarchy layer are independent and parallelizable; cross-layer dependencies need coordination — the concrete rule for partitioning work across agents.",
+      "playbooks": ["parallel-readiness"]
+    },
+    {
+      "name": "What You See Is What It Does: A Structural Pattern for Legible Software",
+      "author": "Eagon Meng & Daniel Jackson",
+      "kind": "paper",
+      "year": 2025,
+      "arxiv": "2508.14511",
+      "contribution": "Structure software as independent concepts plus explicit synchronizations so a unit's behavior is readable from the unit — legibility recast for an LLM with a finite context window.",
+      "playbooks": ["legibility", "boundaries"]
+    },
+    {
+      "name": "Repository Intelligence Graph: Deterministic Architectural Map for LLM Code Assistants",
+      "author": "Tsvi Cherny-Shahar & Amiram Yehudai",
+      "kind": "paper",
+      "year": 2026,
+      "arxiv": "2601.10112",
+      "contribution": "Handing agents a deterministic build/test/dependency map improves mean accuracy and cuts completion time; the same map both helps one agent and partitions work and detects when two agents' modules touch.",
+      "playbooks": ["legibility", "parallel-readiness"]
+    },
+    {
+      "name": "CodePlan: Repository-level Coding using LLMs and Planning",
+      "author": "Ramakrishna Bairi et al.",
+      "kind": "paper",
+      "year": 2024,
+      "arxiv": "2309.12499",
+      "contribution": "Repository-level edits need explicit dependency and change-impact analysis to sequence safely — compute the blast radius of a change before dispatching it.",
+      "playbooks": ["parallel-readiness", "enforcement"]
+    },
+    {
+      "name": "Hierarchical Evaluation of Software Design Capabilities of Large Language Models of Code",
+      "author": "Mootez Saad et al.",
+      "kind": "paper",
+      "year": 2025,
+      "arxiv": "2511.20933",
+      "contribution": "LLM coupling reasoning is brittle under noise (F1 drops over 50% in noisy open-ended scenarios) — enforce architectural boundaries with structural checks (lint/arch-tests/CI), not agent reasoning.",
+      "playbooks": ["enforcement"]
+    },
+    {
+      "name": "The Friction Is Your Judgment",
+      "author": "Armin Ronacher & Cristina Poncela-Cubeiro",
+      "kind": "talk",
+      "year": 2026,
+      "contribution": "Agent speed moves the bottleneck to review; route mechanical defects (format, types, forbidden imports, missing tests) back to the agent via gates, and surface judgment calls (migrations, permissions, dependencies, reliability, architecture/boundary changes) to a human.",
+      "playbooks": ["enforcement"]
+    }
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "singleton",
+    "catalog_summary": "Keep code minimal and right-sized for AI coding agents: DO (keep a change minimal — reuse, subtract, avoid the wrong abstraction, check blast radius), REVIEW (audit existing code or a repo for slop and parallel-readiness, then score it), DESIGN (shape right-sized module boundaries and work-partitioning, sequence a safe refactor, or explain a principle). Replaces the clean-architecture audit/design pair under a minimalism thesis."
+  }
+}

@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/Thulr/informed-skills/blob/main/schemas/skill.schema.json",
+  "$id": "https://github.com/Thulr/agent-skill-kit/blob/main/schemas/skill.schema.json",
   "title": "Skill manifest (skill.json)",
   "description": "Canonical shape for skills/<name>/skill.json and the reserved skills/.experimental/<name>/skill.json lane. Per-skill scripts assert name match via jq after schema validation passes.",
   "type": "object",
-  "required": ["name", "description", "version", "license", "status", "maintainers", "inspired_by"],
+  "required": ["name", "description", "version", "license", "status", "maintainers"],
   "additionalProperties": true,
   "properties": {
     "name": {
@@ -40,7 +40,7 @@
     },
     "inspired_by": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": ["name", "author", "kind", "contribution"],

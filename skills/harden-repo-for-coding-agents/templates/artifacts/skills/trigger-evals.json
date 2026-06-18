@@ -28,5 +28,5 @@
 
   "//queries": "Non-empty list. Each query is an object with required fields: 'query' (non-empty string), 'should_activate' (bool). Optional: 'expected_route' (string or null), 'category' (one of: positive | negative | edge — or null/absent for single-route skills). Maintain a minimum of 3 positive + 3 negative + 1 edge case to give the description-optimization loop meaningful signal.",
 
-  "//grading": "Future: a runner that grades activation against a model lives in a future informed-skill-curator iteration; this file is parsed and validated for now, not yet executed."
+  "//grading": "Future: a runner that grades activation against a model lives in a future skill-curator iteration; this file is parsed and validated for now, not yet executed."
 }

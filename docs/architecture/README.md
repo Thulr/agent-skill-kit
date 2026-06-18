@@ -12,11 +12,14 @@ Published skills fall into three shapes:
 - **Per-domain audit/design pairs** — a `<domain>-audit` skill audits/debugs
   an existing surface (lenses → severity-scored findings + optional ledger); a
   `<domain>-design` skill shapes a new one (good-shaped pattern → design doc).
-  Domains: `architecture`, `docs`, `dx`, `perf`, `test`, `writing`. A domain's pair shares
+  Domains: `docs`, `dx`, `perf`, `test`, `writing`. A domain's pair shares
   its playbooks/lenses/rubrics from `skills/_shared/<domain>/` (one source, two
   skills). See [ADR 0008](../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
 - **Single-function skills** — `ux-audit` (audit only) and `ui-design`
-  (build/polish only) are domains that only do one side.
+  (build/polish only) are domains that only do one side; `minimal-modular-code`
+  is a single skill spanning review and design for code minimality and
+  parallel-readiness (it replaced the former `architecture` pair — see
+  [ADR 0009](../adr/0009-replace-architecture-pair-with-minimal-modular-code.md)).
 - **Discipline / orchestration skills** — `design-for-agent-users` is the agent-
   experience umbrella that routes to its three implementation arms,
   `harden-repo-for-coding-agents`, `rules-from-coding-agent-failures`, and `agent-evals`
@@ -33,7 +36,7 @@ Three lanes; every path-based gate must cover all three (AGENTS.md Rule 1):
 - `skills/<name>/` — published, installable skills (the product).
 - `skills/.experimental/<name>/` — reserved lane, kept empty for now.
 - `.agents/skills/<name>/` — repo-local authoring/review skills
-  (`informed-skill-curator`, `informed-skill-reviewer`), mirrored to
+  (`skill-curator`, `skill-reviewer`), mirrored to
   `.claude/skills/` for Claude Code.
 
 `skills/_shared/` holds cross-skill primitives — catalog-wide singletons

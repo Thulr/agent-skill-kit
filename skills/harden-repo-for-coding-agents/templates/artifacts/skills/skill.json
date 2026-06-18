@@ -4,7 +4,7 @@
   "name": "<skill-name-must-match-directory>",
   "version": "0.1.0",
   "status": "published",
-  "//status": "Installable skills in informed-skills use published status; prerelease maturity is communicated by the repository release tag.",
+  "//status": "Installable skills in agent-skill-kit use published status; prerelease maturity is communicated by the repository release tag.",
 
   "license": "MIT",
 

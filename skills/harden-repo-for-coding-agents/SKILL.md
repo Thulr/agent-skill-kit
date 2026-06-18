@@ -145,7 +145,7 @@ here, since most repos have no failure signal yet. If yours does, pair the two s
 - `references/core/{maturity,severity}-rubric.md` — Levels 1–3 maturity (4–5 in `rules-from-coding-agent-failures`) and the 0–4 severity scale.
 - `references/empirical-warnings.md` — W2–W10 (shared symlink).
 - `references/trackable-findings.md` — ledger, roadmap, issue, workflow-state, and closeout rules.
-- `references/agent-friendly-architecture.md` — repo-structure + boundary note; points to `architecture-design`/`-audit`.
+- `references/agent-friendly-architecture.md` — repo-structure + boundary note; points to `minimal-modular-code`.
 - `references/modes.md`, `references/scope.md`, `references/starter-scenarios.csv` — modes contract, fit guidance, worked examples.
 - `templates/*.md` — four intent output templates, plus the shared tracking artifacts
   (`findings-ledger`, `roadmap`, `github-issue`, `workflow-state.json`).

@@ -1,1 +1,0 @@
-../../../_shared/architecture/core/glossary.md

@@ -1,4 +1,4 @@
 intent,name,when_to_use,registry_file,default_template
-do,Keep a change minimal,"Mid-change: write, reuse, or subtract while coding, before finishing",intents/do.csv,templates/change-plan.md
-review,Audit and score existing code,"Audit existing code or a repo for slop and parallel-readiness, then score it",intents/review.csv,templates/audit-report.md
-design,"Shape boundaries, refactor, or explain","Plan right-sized boundaries and work-partitioning, sequence a refactor, or explain a principle",intents/design.csv,templates/design-doc.md
+do,Keep a change minimal,"Mid-change: write, reuse, or subtract while coding, before finishing",references/intents/do.csv,templates/change-plan.md
+review,Audit and score existing code,"Audit existing code or a repo for slop and parallel-readiness, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Shape boundaries, refactor, or explain","Plan right-sized boundaries and work-partitioning, sequence a refactor, or explain a principle",references/intents/design.csv,templates/design-doc.md

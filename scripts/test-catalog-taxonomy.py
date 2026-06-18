@@ -87,7 +87,7 @@ def build_repo(root: Path) -> None:
     # isolated from the writing-pair checks.
     for name, family in (
         ("research", "research"),
-        ("agent-experience", "ax"),
+        ("design-for-agent-users", "ax"),
         ("product-discovery", "discovery"),
     ):
         skill(root, name, family, "singleton")

@@ -99,5 +99,5 @@ Filename order = chronological order. To get a table view: `ls -1 [0-9]*.md`.
 ## See also
 
 - [`docs/agent-readiness-2026-05-15.md`](../agent-readiness-2026-05-15.md) — the audit that motivated creating this log.
-- [`skills/agent-rules/`](../../skills/agent-rules/) — the skill that owns this workflow (recording-bar / promotion-bar / W1 >=3 floor / promote-pattern-to-rule).
+- [`skills/rules-from-coding-agent-failures/`](../../skills/rules-from-coding-agent-failures/) — the skill that owns this workflow (recording-bar / promotion-bar / W1 >=3 floor / promote-pattern-to-rule).
 - [`skills/_shared/empirical-warnings.md`](../../skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting don'ts that govern when prose vs. gates vs. evidence-driven scaffolding is the right tool.

@@ -9,6 +9,8 @@ guidance against fragmenting an already-routed engine (`agent-readiness`
 stays whole). 0008's `_shared/<domain>/` single-sourcing is how the split keeps
 0005's anti-drift property without one skill.
 
+> **Rename note (2026-06-17):** the agent skills were renamed by use case — `agent-experience` → `design-for-agent-users`, `agent-readiness` → `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`. This ADR keeps the original names as written; see [`CHANGELOG.md`](../../CHANGELOG.md).
+
 ## Context
 
 The catalog grew a family of seven heuristics skills (`dx-heuristics`,

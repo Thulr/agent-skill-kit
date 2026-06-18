@@ -5,6 +5,8 @@
 [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) already
 assumed structurally; supersedes neither.
 
+> **Rename note (2026-06-17):** the agent skills were renamed by use case — `agent-experience` → `design-for-agent-users`, `agent-readiness` → `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`. This ADR keeps the original names as written; see [`CHANGELOG.md`](../../CHANGELOG.md).
+
 ## Context
 
 A recurring question — "isn't DX just a subset of UX?" — has no written answer in

@@ -37,7 +37,7 @@ None.
    `<old>-findings-ledger-`/`-workflow-state-` **ledger filename prefixes**), and
    `evals/trigger-evals.json` `skill`. Confirm the description still leads with
    what the skill does.
-4. **Watch identifier-vs-concept.** A hyphenated token (`agent-experience`) is
+4. **Watch identifier-vs-concept.** A hyphenated token (`design-for-agent-users`) is
    the *skill id* and should change; a spaced/Title phrase (`agent experience
    (AX)`) may be a *discipline concept* that should stay. Review prose hits, do
    not blanket-replace the spaced form.

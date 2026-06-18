@@ -2,6 +2,8 @@
 
 **Status:** Accepted (2026-05-30). Supersedes [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) **for the review family only**; updates the structural claims in [ADR 0007](./0007-experience-disciplines-are-audience-peers.md). Does **not** disturb [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) (`agent-experience` stays standalone).
 
+> **Rename note (2026-06-17):** the agent skills were renamed by use case — `agent-experience` → `design-for-agent-users`, `agent-readiness` → `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`. This ADR keeps the original names as written; see [`CHANGELOG.md`](../../CHANGELOG.md).
+
 ## Context
 
 ADR 0005 (2026-05-28) collapsed seven heuristics skills into one routed

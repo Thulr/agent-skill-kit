@@ -17,7 +17,8 @@ without asking you.>
 ## What to do differently
 
 <The smallest hook, rule, or gate that closes this gap. Cite W1–W10 from
-`skills/.experimental/agent-readiness/references/empirical-warnings.md`
+`skills/_shared/empirical-warnings.md` (W2–W10) and
+`skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md` (W1)
 where applicable. If this points to a skill-level fix (template, playbook
 heuristic), name the file + heuristic ID.>
 

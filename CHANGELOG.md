@@ -7,6 +7,19 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 ## [Unreleased]
 
 ### Changed
+- **Renamed the agent-facing skills by use case** so each name states the job
+  it does: `agent-experience` → `design-for-agent-users`, `agent-readiness` →
+  `harden-repo-for-coding-agents`, and `agent-rules` → `rules-from-coding-agent-failures`
+  (`agent-evals` unchanged). The old `--skill agent-experience`,
+  `--skill agent-readiness`, and `--skill agent-rules` install commands no
+  longer resolve — install the new names instead. Emitted audit-artifact
+  filename prefixes moved with them (e.g.
+  `agent-readiness-findings-ledger-*` → `harden-repo-for-coding-agents-findings-ledger-*`,
+  `agent-rules-findings-ledger-*` → `rules-from-coding-agent-failures-findings-ledger-*`).
+  Discipline concepts (`agent experience`/AX, the noun "agent-readiness")
+  keep their names. Resolves the rename half of finding DX-MA-04. (See the
+  rename notes on [ADR 0005–0008](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)
+  and [`docs/runbooks/renaming-or-removing-a-skill.md`](./docs/runbooks/renaming-or-removing-a-skill.md).)
 - **Split `review-heuristics` into 12 per-domain × per-function skills:**
   `dx-audit`/`dx-design`, `docs-audit`/`docs-design`,
   `perf-audit`/`perf-design`, `test-audit`/`test-design`, `ux-audit`,

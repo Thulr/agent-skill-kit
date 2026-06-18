@@ -92,7 +92,7 @@ the menu; does not inspect first.
 
 ## N5 — AI/Agent SDK design
 **Prompt:** `Design the agent loop and tool-call contract for our AI/Agent SDK.`
-**Expected:** defers to `agent-experience`; does not route through an architecture playbook.
+**Expected:** defers to `design-for-agent-users`; does not route through an architecture playbook.
 
 ## N6 — Internal function refactor
 **Prompt:** `Refactor this function to use early returns.`

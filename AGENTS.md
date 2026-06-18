@@ -9,12 +9,12 @@ This file is hand-curated. Most sections describe project context (stack,
 layout, commands, invariants) and trace to project knowledge. Load-bearing
 rules in the §Load-bearing rules section trace to observed agent failures
 recorded in [`docs/reflection-log/`](./docs/reflection-log/) (this repo
-runs the evidence-driven feedback loop — see `agent-rules`
+runs the evidence-driven feedback loop — see `rules-from-coding-agent-failures`
 — because it's a skill catalog where skill efficacy is the thing under
 measurement). Do **not** autogenerate this file
 (`/init`, `/Generate Cursor Rules`, etc. — see W9 in
 [`empirical-warnings.md`](./skills/_shared/empirical-warnings.md), or W1 in
-[`agent-rules`](./skills/agent-rules/references/empirical-warnings-w1.md)
+[`rules-from-coding-agent-failures`](./skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md)
 for the failure-driven floor).
 
 Trust and follow these instructions; don't re-explore repo layout/commands if they're already spelled out here.
@@ -84,7 +84,7 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
 
 - `SKILL.md` with YAML frontmatter (`name`, `description`, `license`). Aim under ~1200
   words, but the binding cap is each skill's `evals/run-static-checks.sh`, which may raise
-  or omit it for deliberately complex skills (e.g. `agent-readiness`). Treat this figure as
+  or omit it for deliberately complex skills (e.g. `harden-repo-for-coding-agents`). Treat this figure as
   a default, not a uniform hard gate — see
   [`docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md`](./docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md).
 - `skill.json` with `name`, `status: "published"` for installable skills,
@@ -254,7 +254,7 @@ is harness-agnostic; thin per-harness adapters under `.claude/hooks/`,
 - **Copilot / Aider / Windsurf / AGENTS.md-only harnesses** — no native
   PreToolUse-equivalent. CI branch protection is the load-bearing gate
   for these. See the per-harness gate-primitives table in
-  [`skills/agent-readiness/references/playbooks/gates.md`](./skills/agent-readiness/references/playbooks/gates.md).
+  [`skills/harden-repo-for-coding-agents/references/playbooks/gates.md`](./skills/harden-repo-for-coding-agents/references/playbooks/gates.md).
 
 If a blocked command is genuinely intended (e.g., maintenance from
 outside an agent session), run it manually in a terminal — not via the
@@ -314,4 +314,4 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
 - [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
 - [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
-- [`skills/agent-rules/references/empirical-warnings-w1.md`](./skills/agent-rules/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `agent-rules`)
+- [`skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md`](./skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `rules-from-coding-agent-failures`)

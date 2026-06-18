@@ -21,18 +21,18 @@
       "rows": [
         {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
         {"need": "**Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews", "skill": "`customer-interviewing`"},
-        {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`agent-experience` *(umbrella)*"},
-        {"need": "↳ harden a repo for coding agents", "skill": "`agent-readiness`"},
-        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`agent-rules`"},
+        {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`design-for-agent-users` *(umbrella)*"},
+        {"need": "↳ harden a repo for coding agents", "skill": "`harden-repo-for-coding-agents`"},
+        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"},
         {"need": "↳ instrument an AI product's eval / optimization loops", "skill": "`agent-evals`"}
       ]
     },
     "unsure": [
       "**Still unsure?** The three boundaries people hit most:",
       "",
-      "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `agent-experience`.",
+      "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `design-for-agent-users`.",
       "- *\"Our service is slow\" / \"design SLOs\"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.",
-      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `agent-readiness`; build an eval loop for an AI product you ship → `agent-evals`."
+      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; build an eval loop for an AI product you ship → `agent-evals`."
     ]
   },
   "catalog": {

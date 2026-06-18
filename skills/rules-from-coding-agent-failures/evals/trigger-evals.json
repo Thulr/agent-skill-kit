@@ -1,0 +1,22 @@
+{
+  "skill": "rules-from-coding-agent-failures",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "Set up a reflection log for tracking agent failures in this repo.", "should_activate": true, "expected_route": "capture", "category": "positive"},
+    {"query": "Scaffold docs/reflection-log/ for this project.", "should_activate": true, "expected_route": "capture", "category": "positive"},
+    {"query": "We've been recording agent failures and have a few patterns now — promote them into rules.", "should_activate": true, "expected_route": "promote", "category": "positive"},
+    {"query": "Find any sub-surfaces with 3+ entries and propose a rule that closes the gap.", "should_activate": true, "expected_route": "promote", "category": "positive"},
+    {"query": "Promote these hook bypass entries into a hardened gate with regression fixtures.", "should_activate": true, "expected_route": "promote", "category": "positive"},
+    {"query": "Score our repo against Level 4 / Level 5 of the Engineering Agents maturity rubric.", "should_activate": true, "expected_route": "assess-l4l5", "category": "positive"},
+    {"query": "Are we at Sovereign Engineering level yet?", "should_activate": true, "expected_route": "assess-l4l5", "category": "positive"},
+    {"query": "Help me set up the feedback loop so agent failures become AGENTS.md rules.", "should_activate": true, "expected_route": "capture", "category": "positive"},
+    {"query": "Add a new entry to our reflection log.", "should_activate": true, "expected_route": "capture", "category": "edge"},
+    {"query": "We have 5 failures in the reflection log about gates — what rule should we add?", "should_activate": true, "expected_route": "promote", "category": "positive"},
+    {"query": "Write the W1 ≥3 promotion floor into our process.", "should_activate": true, "expected_route": "capture", "category": "positive"},
+    {"query": "Refactor our authentication module.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Write a SQL migration to add a users table.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Help me debug this failing test in Python.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Set up an AGENTS.md for my repo.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Make my repo work well with Claude Code.", "should_activate": false, "expected_route": null, "category": "negative"}
+  ]
+}

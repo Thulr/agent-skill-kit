@@ -50,9 +50,9 @@ here.
   `route,trigger_examples,detail_files,templates,notes`, but rows mix two kinds
   — *load-a-playbook* rows (non-empty `detail_files`) and
   *hand-off-to-a-sibling-skill* rows (empty `detail_files`; `notes` names the
-  target top-level skill). Used by `agent-experience`'s `ax-router.csv`, which
-  both reviews AX surfaces and routes out to `agent-readiness` /
-  `agent-rules` / `agent-evals`. This is the only router shape
+  target top-level skill). Used by `design-for-agent-users`'s `ax-router.csv`, which
+  both reviews AX surfaces and routes out to `harden-repo-for-coding-agents` /
+  `rules-from-coding-agent-failures` / `agent-evals`. This is the only router shape
   that routes across top-level skills; it is reserved for umbrella disciplines
   (see ADR 0006), not for splitting one engine.
 
@@ -63,7 +63,7 @@ One row per surface reachable from an intent.
 `surface,name,when_to_use,playbook,core_refs` — `playbook` points at
 `playbooks/<surface>.md`; `core_refs` lists shared rubric/persona files. An
 `output_template` column may be added when the surface emits a specific
-artifact (e.g. `research`'s `decide` intents). `agent-readiness`'s
+artifact (e.g. `research`'s `decide` intents). `harden-repo-for-coding-agents`'s
 `surface-router.csv` retains `layer,sub_surface,what_it_covers` grouping
 columns.
 

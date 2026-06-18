@@ -17,9 +17,9 @@ Published skills fall into three shapes:
   skills). See [ADR 0008](../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
 - **Single-function skills** — `ux-audit` (audit only) and `ui-design`
   (build/polish only) are domains that only do one side.
-- **Discipline / orchestration skills** — `agent-experience` is the agent-
+- **Discipline / orchestration skills** — `design-for-agent-users` is the agent-
   experience umbrella that routes to its three implementation arms,
-  `agent-readiness`, `agent-rules`, and `agent-evals`
+  `harden-repo-for-coding-agents`, `rules-from-coding-agent-failures`, and `agent-evals`
   (see [ADR 0006](../adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md));
   `research` is one skill routed by decision-frame (`report` | `opportunity`).
 

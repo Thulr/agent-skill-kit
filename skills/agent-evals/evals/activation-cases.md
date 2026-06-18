@@ -241,7 +241,7 @@ this file for the canonical invocation order. Behavior on missing keys:
 
 **Prompt:** "Audit this repo so coding assistants stop tripping on it. AGENTS.md is auto-generated and wrong."
 
-**Expected:** skill defers to `agent-readiness` (the agent-readiness skill). agent-evals is for **AI integration points inside the workspace**, not for **the workspace's own ergonomics for coding agents**. If activated by mistake, it should explicitly disambiguate before acting.
+**Expected:** skill defers to `harden-repo-for-coding-agents` (the repo-hardening skill). agent-evals is for **AI integration points inside the workspace**, not for **the workspace's own ergonomics for coding agents**. If activated by mistake, it should explicitly disambiguate before acting.
 
 **Fail if:** loads its own playbook to audit AGENTS.md / hooks / MCP servers — wrong skill.
 

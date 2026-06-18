@@ -2,6 +2,8 @@
 
 **Status:** Accepted (2026-05-30). Qualifies [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md); does not supersede it.
 
+> **Rename note (2026-06-17):** the agent skills were renamed by use case — `agent-experience` → `design-for-agent-users`, `agent-readiness` → `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`. This ADR keeps the original names as written; see [`CHANGELOG.md`](../../CHANGELOG.md).
+
 ## Context
 
 ADR 0005 collapsed seven heuristics skills into one routed `review-heuristics`

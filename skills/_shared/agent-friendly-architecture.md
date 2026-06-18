@@ -1,6 +1,6 @@
 # Agent-friendly architecture patterns (shared)
 
-This note is shared between `agent-readiness` and `agent-rules` to avoid
+This note is shared between `design-for-agent-users`, `harden-repo-for-coding-agents`, and `rules-from-coding-agent-failures` to avoid
 drift. It summarizes what the recent repo-level agent literature actually supports about
 "architecture that helps agents work on existing projects".
 
@@ -33,7 +33,7 @@ Treat boundary constraints as **gates**, not prose:
 - CI-required checks / branch protection.
 
 Designing the boundary model (ports/adapters, dependency rule, bounded contexts) is owned by
-`architecture-audit` / `architecture-design`; `agent-readiness` owns the enforcement surface.
+`architecture-audit` / `architecture-design`; `harden-repo-for-coding-agents` owns the enforcement surface.
 
 ## 2b) Legibility-first at the source level (not just the graph)
 

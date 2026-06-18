@@ -1,6 +1,6 @@
 ---
 name: agent-evals
-description: Use to AUDIT an AI product's or workspace's integrations, score their feedback-loop readiness on the AI Optimization Staircase, and scaffold the smallest useful evaluation and optimization loop plus post-readiness improvement controllers. For teams shipping an AI product or agent who still iterate on prompts by feel and want metric-driven reliability. Covers eval suites, prompt and program optimizers, trace-and-eval flywheels, held-out benchmarks, and production experiments. Triggers on 'audit our AI integration', 'build an eval or optimization loop', 'are our prompts actually measured', 'map us onto the optimization staircase', 'set up a trace-and-eval flywheel'. Do NOT use to harden a repository for coding agents (use agent-readiness) or to promote observed agent failures into AGENTS.md rules from an existing signal (use agent-rules) — agent-evals instruments the AI product you ship, those harden the repo agents work in.
+description: Use to AUDIT an AI product's or workspace's integrations, score their feedback-loop readiness on the AI Optimization Staircase, and scaffold the smallest useful evaluation and optimization loop plus post-readiness improvement controllers. For teams shipping an AI product or agent who still iterate on prompts by feel and want metric-driven reliability. Covers eval suites, prompt and program optimizers, trace-and-eval flywheels, held-out benchmarks, and production experiments. Triggers on 'audit our AI integration', 'build an eval or optimization loop', 'are our prompts actually measured', 'map us onto the optimization staircase', 'set up a trace-and-eval flywheel'. Do NOT use to harden a repository for coding agents (use harden-repo-for-coding-agents) or to promote observed agent failures into AGENTS.md rules from an existing signal (use rules-from-coding-agent-failures) — agent-evals instruments the AI product you ship, those harden the repo agents work in.
 license: MIT
 ---
 
@@ -14,7 +14,7 @@ when a controller repeats the loop.
 
 - User wants evals, prompt optimization, trace replay, production loops, benchmarks, or `/agent-evals`.
 - Workspace has hardcoded prompts, raw rules files, unmonitored agent loops, no golden set, or trace data that does not feed improvement.
-- Part of the **agent-experience** discipline — the instrument-the-loop arm; `agent-experience` routes here to build eval/optimization loops.
+- Part of the **agent-experience** discipline — the instrument-the-loop arm; `design-for-agent-users` routes here to build eval/optimization loops.
 
 ## The AI Optimization Staircase
 

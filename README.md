@@ -12,7 +12,7 @@ npx skills add Thulr/informed-skills
 
 [skills.sh](https://skills.sh) prompts you to pick which skills to install — see [Install](#install) for options.
 
-**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `agent-experience`. Each skill names the cited sources it applied.
+**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `design-for-agent-users`. Each skill names the cited sources it applied.
 
 The catalog currently covers software engineering and coding-agent work — developer and documentation experience, test quality, architecture, performance and observability, product UX and accessibility, UI craft, and agent experience. Other source-grounded domains may be added later.
 
@@ -38,16 +38,16 @@ For research, discovery, and agent-facing work:
 |---|---|
 | **Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision | `research` |
 | **Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews | `customer-interviewing` |
-| **Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness | `agent-experience` *(umbrella)* |
-| ↳ harden a repo for coding agents | `agent-readiness` |
-| ↳ promote observed agent failures into rules / gates | `agent-rules` |
+| **Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness | `design-for-agent-users` *(umbrella)* |
+| ↳ harden a repo for coding agents | `harden-repo-for-coding-agents` |
+| ↳ promote observed agent failures into rules / gates | `rules-from-coding-agent-failures` |
 | ↳ instrument an AI product's eval / optimization loops | `agent-evals` |
 
 **Still unsure?** The three boundaries people hit most:
 
-- *"Make our docs better"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `agent-experience`.
+- *"Make our docs better"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `design-for-agent-users`.
 - *"Our service is slow" / "design SLOs"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.
-- *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `agent-readiness`; build an eval loop for an AI product you ship → `agent-evals`.
+- *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; build an eval loop for an AI product you ship → `agent-evals`.
 <!-- END GENERATED: pick-a-skill -->
 
 <!-- BEGIN GENERATED: catalog (scripts/build-catalog.py) -->
@@ -92,9 +92,9 @@ Source-grounded product discovery — talking to customers, framing the right pr
 
 Designing, reviewing, and debugging software, repos, docs, and SDKs for AI agents as a first-class consumer audience — the agent-facing analog of UX and DX.
 
-- **`agent-experience`** — the umbrella discipline. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below for the *doing*. It is a distinct discipline that routes *across* top-level skills (see [`docs/adr/0006`](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)). Installed standalone it is **review-only** — its build/harden/measure routes point at the arms, so install those alongside it for the full discipline. Provenance in [`skills/agent-experience/skill.json`](./skills/agent-experience/skill.json).
-- **`agent-readiness`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/agent-readiness/skill.json`](./skills/agent-readiness/skill.json).
-- **`agent-rules`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/agent-rules/skill.json`](./skills/agent-rules/skill.json).
+- **`design-for-agent-users`** — the umbrella discipline. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below for the *doing*. It is a distinct discipline that routes *across* top-level skills (see [`docs/adr/0006`](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)). Installed standalone it is **review-only** — its build/harden/measure routes point at the arms, so install those alongside it for the full discipline. Provenance in [`skills/design-for-agent-users/skill.json`](./skills/design-for-agent-users/skill.json).
+- **`harden-repo-for-coding-agents`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/harden-repo-for-coding-agents/skill.json`](./skills/harden-repo-for-coding-agents/skill.json).
+- **`rules-from-coding-agent-failures`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json).
 - **`agent-evals`** — audit an AI product's feedback loops, map them onto the AI Optimization Staircase, score the missing loop mechanics, and scaffold the smallest useful eval/optimization loop. Diagnostic-first; never auto-writes learned rules without held-out evals plus a reviewed diff. Provenance in [`skills/agent-evals/skill.json`](./skills/agent-evals/skill.json).
 <!-- END GENERATED: catalog -->
 
@@ -120,13 +120,19 @@ Common bundles:
 # a domain's audit + design pair
 npx skills add Thulr/informed-skills --skill dx-audit --skill dx-design
 
-# the agent-experience set (umbrella + its three arms)
-npx skills add Thulr/informed-skills --skill agent-experience \
-  --skill agent-readiness --skill agent-rules --skill agent-evals
+# the agent-experience (AX) discipline: design-for-agent-users umbrella + its three arms
+npx skills add Thulr/informed-skills --skill design-for-agent-users \
+  --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures --skill agent-evals
 
 # research only
 npx skills add Thulr/informed-skills --skill research
 ```
+
+> **Renamed skills (2026-06-17).** The agent skills now read as use cases:
+> `agent-experience` → `design-for-agent-users`, `agent-readiness` →
+> `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`
+> (`agent-evals` unchanged). The old `--skill <old-name>` commands no longer
+> resolve — install the new names. See [`CHANGELOG.md`](./CHANGELOG.md).
 
 From a subdirectory URL (single skill):
 

@@ -12,7 +12,7 @@ Score each category as pass, fix, or block.
   `references/intent-router.csv` alone (single-axis), or
   `references/intent-router.csv` plus `references/intents/*.csv` (two-axis
   with intent × surface), or `references/surface-router.csv` (used by
-  `agent-readiness` for its level-2 surface picker).
+  `harden-repo-for-coding-agents` for its level-2 surface picker).
 - `skill.json.name` matches frontmatter `name`.
 - `skill.json.status` is `draft`, `reviewed`, or `published`, and installable
   public skills in this repo use `published` before shipping. `reviewed` is

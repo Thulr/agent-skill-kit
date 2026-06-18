@@ -2,7 +2,7 @@
 
 Used by `risk` playbook + the F/A/D/R fold + every artifact that lists
 risks. Same 0–4 scale this repo uses elsewhere (the `<domain>-audit`
-skills, `agent-readiness`) so severities are comparable across skills.
+skills, `harden-repo-for-coding-agents`) so severities are comparable across skills.
 
 | Score | Label | What it means here | Examples |
 |---:|---|---|---|

@@ -82,7 +82,7 @@ Ledger files are Markdown and use this path by default:
 
 The filename must start with the full skill name, for example
 `dx-audit-findings-ledger-2026-05-19-payments.md` or
-`agent-readiness-findings-ledger-2026-05-19-gates.md`. If the target is not a
+`harden-repo-for-coding-agents-findings-ledger-2026-05-19-gates.md`. If the target is not a
 repo or `docs/audits/` is not writable, fall back to
 `audit-artifacts/<skill-name>-findings-ledger-<YYYY-MM-DD>-<scope-slug>.md`
 and report the fallback path. Save workflow-state JSON alongside the ledger by

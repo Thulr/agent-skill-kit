@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# install-hooks.sh — set up local git hooks for informed-skills.
+# install-hooks.sh — set up local git hooks for agent-skill-kit.
 #
 # Installs the pre-commit framework (https://pre-commit.com) if missing,
 # wires it into .git/hooks, and runs an initial scan against the working

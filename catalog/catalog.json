@@ -12,7 +12,7 @@
         {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
         {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},
         {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ux-audit`", "design": "`ui-design`"},
-        {"surface": "**Clean architecture** — dependency rule, layered/hexagonal/onion boundaries, ports/adapters, DDD, bounded contexts", "critique": "`architecture-audit`", "design": "`architecture-design`"}
+        {"surface": "**Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel", "critique": "`minimal-modular-code`", "design": "`minimal-modular-code`"}
       ]
     },
     "secondary": {
@@ -44,7 +44,7 @@
         "intro": [
           "Source-grounded heuristics for software surfaces, split so the name says what it does. A **`-audit`** skill audits, debugs, or risk-scans an *existing* surface (expert lenses → severity-scored findings report, with an optional tracking ledger); a **`-design`** skill shapes a *new* one (names the good-shaped pattern → design doc / plan / runbook). A domain's pair shares its playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`, so the two stay in lockstep without drift.",
           "",
-          "Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Martin, Evans, and many more (per-skill provenance in each `skill.json`). These twelve skills replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md)."
+          "Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout, Parnas, and many more (per-skill provenance in each `skill.json`). The `-audit`/`-design` pairs replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md). `minimal-modular-code` is the family's one singleton — a single skill spanning review and design for code minimality and parallel-readiness; it replaced the former clean-architecture pair (see [`docs/adr/0009`](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md))."
         ]
       },
       {

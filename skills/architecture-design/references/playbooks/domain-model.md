@@ -1,1 +1,0 @@
-../../../_shared/architecture/playbooks/domain-model.md

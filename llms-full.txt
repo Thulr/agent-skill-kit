@@ -1,4 +1,4 @@
-# informed-skills — LLM Index (full)
+# agent-skill-kit — LLM Index (full)
 #
 # This is a repo for shipping installable "Agent Skills".
 # Treat changes under `skills/`, `skills/.experimental/`, `.agents/skills/`, and
@@ -54,8 +54,8 @@
 # - `evals/activation-cases.md` (behavioral examples)
 #
 # Repo-local authoring skills (not published)
-# - `.agents/skills/informed-skill-curator/`
-# - `.agents/skills/informed-skill-reviewer/`
+# - `.agents/skills/skill-curator/`
+# - `.agents/skills/skill-reviewer/`
 #
 # Docs
 # - `docs/reflection-log/`: per-failure entries (evidence-first workflow); see its `README.md` for the recording-bar vs. promotion-bar distinction

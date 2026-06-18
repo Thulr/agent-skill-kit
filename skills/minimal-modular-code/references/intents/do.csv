@@ -1,0 +1,5 @@
+surface,name,when_to_use,playbook,core_refs
+minimalism,Minimal change,"Reuse before adding; subtract; avoid the wrong abstraction",references/playbooks/minimalism.md,references/core/personas.md
+legibility,Legible change,"Name precisely; keep control flow visible; write for the next reader",references/playbooks/legibility.md,references/core/personas.md
+boundaries,Respect boundaries,"Keep dependency direction right; prefer deep modules; don't leak across seams",references/playbooks/boundaries.md,references/core/personas.md
+parallel-readiness,Protect parallelism,"Check blast radius before editing; don't destabilize a shared contract",references/playbooks/parallel-readiness.md,references/core/personas.md

@@ -1,0 +1,7 @@
+surface,name,when_to_use,playbook,core_refs
+minimalism,Slop audit,"Duplication, dead code, over-engineering, verbosity",references/playbooks/minimalism.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/trackable-findings.md
+legibility,Legibility audit,"Naming, control-flow visibility, readability cost",references/playbooks/legibility.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/trackable-findings.md
+boundaries,Coupling and boundary audit,"Dependency direction, deep vs shallow modules, leaky seams",references/playbooks/boundaries.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/trackable-findings.md
+parallel-readiness,Parallel-readiness audit,"Work-partitionability, contract stability, blast radius",references/playbooks/parallel-readiness.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/trackable-findings.md
+enforcement,Gate-coverage audit,"Are boundaries and invariants enforced by gates, not prose; mechanical-vs-judgment routing",references/playbooks/enforcement.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md;references/trackable-findings.md
+all,Full fan-out,"Audit the whole repo across every surface (one agent per surface)",,

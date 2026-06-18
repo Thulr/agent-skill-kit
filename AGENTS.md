@@ -1,9 +1,10 @@
-# AGENTS.md — informed-skills
+# AGENTS.md — agent-skill-kit
 
-A catalog of [Agent Skills](https://agentskills.io) grounded in cited literature.
-The published skills here ARE the product; downstream consumers install them via
-`npx skills add Thulr/informed-skills`. Treat every PR to `skills/`, `.agents/`, or
-`.github/` as a release artifact, not internal scaffolding.
+A kit of [Agent Skills](https://agentskills.io) the maintainer actually uses — most
+grounded in cited sources, all earned in real coding-agent work; skills worth using
+that live elsewhere are linked from the README rather than re-authored. Downstream
+consumers install them via `npx skills add Thulr/agent-skill-kit`. Treat every PR to
+`skills/`, `.agents/`, or `.github/` as a release artifact, not internal scaffolding.
 
 This file is hand-curated. Most sections describe project context (stack,
 layout, commands, invariants) and trace to project knowledge. Load-bearing
@@ -36,7 +37,7 @@ install lanes that any path-based gate **must** enumerate:
 - `skills/<name>/` — published skills
 - `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
   release explicitly reopens experimental distribution
-- `.agents/skills/<name>/` — repo-local agent surface (informed-skill-curator, informed-skill-reviewer)
+- `.agents/skills/<name>/` — repo-local agent surface (skill-curator, skill-reviewer)
 
 ## Commands
 
@@ -88,9 +89,11 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
   a default, not a uniform hard gate — see
   [`docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md`](./docs/reflection-log/2026-05-28-restructure-split-justified-by-unenforced-cap.md).
 - `skill.json` with `name`, `status: "published"` for installable skills,
-  `maintainers` (resolvable GitHub handles, see Rule 4), and a non-empty
-  `inspired_by` list. Use repository release tags (for example
-  `0.0.1-alpha`) for catalog-level maturity, not per-skill draft status.
+  `maintainers` (resolvable GitHub handles, see Rule 4), and — **encouraged but no
+  longer required** — an `inspired_by` list crediting any cited sources the skill
+  draws on (the schema accepts an absent or empty list for skills you use that aren't
+  literature-derived). Use repository release tags (for example `0.0.1-alpha`) for
+  catalog-level maturity, not per-skill draft status.
 - `evals/run-static-checks.sh` — exits 0 on success; runs in `just check` and CI.
 - `evals/trigger-evals.json` — canonical schema below.
 - `evals/activation-cases.md` — natural-language behavioral cases (positive, negative, boundary).

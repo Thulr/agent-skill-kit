@@ -1,4 +1,4 @@
-# Constitution — informed-skills
+# Constitution — agent-skill-kit
 
 **Ratified:** 2026-05-16  
 **Version:** 0.1.0
@@ -8,13 +8,15 @@ maintained. When other docs conflict, this wins.
 
 ## Purpose
 
-`informed-skills` publishes installable Agent Skills grounded in cited literature.
-The published skill directories are the product.
+`agent-skill-kit` publishes the installable Agent Skills the maintainer uses in real
+coding-agent work. Most are grounded in cited sources, but grounding is encouraged,
+not required; skills worth using that live elsewhere are linked from the README
+rather than re-authored. The published skill directories are the product.
 
 ## Non-goals
 
-- This repo is not a generic “agent repo template”; it is evidence-driven and
-  hand-curated from observed failures.
+- This repo is not a generic “agent repo template”; it is a curated, hand-maintained
+  kit, not an auto-generated one.
 - This repo does not optimize for rapid, unaudited iteration. Skill files load
   into downstream agent sessions and are treated as production artifacts.
 

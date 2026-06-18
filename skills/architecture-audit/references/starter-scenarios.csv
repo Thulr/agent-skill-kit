@@ -1,2 +1,0 @@
-id,scenario,intent,surface,persona,when_to_pick
-S1,"Rails (or Django/Spring) monolith with anemic domain models — services contain all logic, entities are dataclasses",audit,domain,backend-eng,You suspect business rules have leaked out of entities into service classes and want a structured pass

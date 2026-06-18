@@ -1,4 +1,4 @@
-# Pre-commit hooks for informed-skills.
+# Pre-commit hooks for agent-skill-kit.
 #
 # Install: `just install-hooks`  (or `pre-commit install` if you already
 # have the framework). CI runs the same gitleaks scan as a safety net,

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for improving informed-skills. The published skills under `skills/` **are**
+Thanks for improving agent-skill-kit. The published skills under `skills/` **are**
 the product, so any change to `skills/`, `.agents/`, or `.github/` is a release
 artifact — treat it at production-review depth.
 

@@ -139,7 +139,7 @@ skill or frame it disambiguates from.
 - "do a premortem on this launch — assume it failed in 18 months and work backwards" → use `premortem` — risk playbook here borrows the heuristic, but the dedicated skill runs the full backwards-from-failure interview.
 - "critique this user-interview script — too leading, missing critical-incident probes?" → use `interview-guide-critique` — that skill audits research instruments; the opportunity frame consumes interview output, doesn't critique it.
 - "review my user-persona docs for evidence gaps and stereotype risk" → use `persona-critique` — the opportunity frame builds new ICPs from the customer playbook; doesn't audit existing persona docs.
-- "audit the clean-architecture of our microservices boundaries" → use `architecture-audit` — that's code-architecture review, not opportunity validation.
+- "audit the clean-architecture of our microservices boundaries" → use `minimal-modular-code` — that's code-craft / minimalism review, not opportunity validation.
 - "review the developer experience of our public SDK — friction, errors, examples, docs" → use `dx-audit` — DX craft, not opportunity validation.
 - "run a usability audit on our checkout funnel" → use `ux-audit` — end-user UX, not opportunity validation.
 - "set up a shared context file once so future reviews don't re-ask the same problem / audience / constraints questions" → use `validation-context` — it captures shared context; the opportunity frame executes the actual research afterwards.

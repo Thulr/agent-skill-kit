@@ -17,10 +17,10 @@ anti-patterns from references/depth-rubric.md.
 
 Exit codes:
   0 — no blocking findings (warnings/notes may still print)
-  1 — blocking findings (skill is not ready for informed-skill-reviewer handoff)
+  1 — blocking findings (skill is not ready for skill-reviewer handoff)
   2 — usage error or could not read the skill directory
 
-This is invoked by informed-skill-curator's Phase 5 validation. The LLM
+This is invoked by skill-curator's Phase 5 validation. The LLM
 self-review (parallel sub-agents grading per-shape rubrics) is a
 separate concern; this script runs the *deterministic* layer.
 """
@@ -182,10 +182,10 @@ def check_inspired_by(
     inspired_by = skill_json.get("inspired_by")
     if not isinstance(inspired_by, list) or not inspired_by:
         report.add(
-            SEVERITY_BLOCKING,
+            SEVERITY_NOTE,
             "inspired_by present",
             "skill.json:inspired_by",
-            "missing or empty",
+            "absent or empty — encouraged, not required; add it if the skill derives from cited sources",
         )
         return
 

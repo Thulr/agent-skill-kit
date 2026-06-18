@@ -29,12 +29,12 @@ Every trackable finding gets a stable ID:
 
 Examples:
 
-- `CA-DEP-001` for architecture-audit dependency-rule findings.
-- `CA-BOUNDARY-004` for architecture-audit boundary findings.
+- `MM-BND-001` for minimal-modular-code boundary findings.
+- `MM-MIN-004` for minimal-modular-code slop findings.
 - `AG-GATES-003` for agent-readiness gate findings.
 - `DX-CLI-002` for dx-audit CLI findings.
 - `TEST-UNIT-004` for test-audit unit-test findings.
-- `SR-SOURCE-001` for informed-skill-reviewer source-safety findings.
+- `SR-SOURCE-001` for skill-reviewer source-safety findings.
 - `ED-L4L5-001` for agent-rules maturity gaps.
 
 IDs are immutable once emitted. If a finding is split, keep the original as
@@ -181,8 +181,8 @@ Example:
 
 ```text
 Since 2026-04-15 (payments scope):
-  Closed since last run: 2   (CA-DEP-003, CA-BOUNDARY-001)
-  Regressions:           1   (CA-DEP-005 — re-opened by PR #214)
+  Closed since last run: 2   (MM-BND-003, MM-MIN-001)
+  Regressions:           1   (MM-BND-005 — re-opened by PR #214)
   Still open:            4
   New this run:          3
   Score delta:           4 → 6   (Eroded → Mixed)

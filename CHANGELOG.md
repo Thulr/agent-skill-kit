@@ -1,12 +1,31 @@
 # Changelog
 
-Notable changes to the informed-skills catalog. Format follows
+Notable changes to the agent-skill-kit catalog. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); catalog maturity is
 tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 
 ## [Unreleased]
 
 ### Changed
+- **Renamed the project `informed-skills` → `agent-skill-kit`** and reframed it from a
+  cited-literature catalog to a personal kit of the skills the maintainer uses (with README
+  links to other useful skills rather than re-authoring them). The install command is now
+  `npx skills add Thulr/agent-skill-kit`; the old `Thulr/informed-skills` path stops resolving
+  once the GitHub repo is renamed. The per-skill `inspired_by` requirement is **lightened from
+  required to encouraged** (cited grounding is no longer a hard schema gate). Renamed the
+  repo-local authoring skills `informed-skill-curator` → `skill-curator` and
+  `informed-skill-reviewer` → `skill-reviewer`.
+  (See [ADR 0010](./docs/adr/0010-rename-to-agent-skill-kit.md).)
+- **Replaced the clean-architecture audit/design pair with one `minimal-modular-code` skill.**
+  Added `minimal-modular-code` — a single skill (intents **DO** keep an in-progress change
+  minimal, **REVIEW** audit existing code or a repo for slop and parallel-readiness, **DESIGN**
+  shape right-sized boundaries / sequence a refactor / explain a principle) for writing
+  minimal, legible code and structuring a repo so many coding agents can work in parallel. It
+  absorbs the dependency-direction, deep-module, and information-hiding heuristics plus the
+  audit machinery (severity / score / calibration / tracking) under a minimalism thesis, and
+  drops the clean-architecture/DDD maximalism (aggregates, bounded contexts, prescriptive
+  ports / hexagon / onion). Finding-ID prefix is `MM-*` (was `CA-*`).
+  (See [ADR 0009](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md).)
 - **Renamed the agent-facing skills by use case** so each name states the job
   it does: `agent-experience` → `design-for-agent-users`, `agent-readiness` →
   `harden-repo-for-coding-agents`, and `agent-rules` → `rules-from-coding-agent-failures`
@@ -40,9 +59,14 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
   self-hosted runner had stopped reporting, leaving the required check dead.
 
 ### Removed
+- **The `architecture-audit` and `architecture-design` skills**, their
+  `--skill architecture-audit` / `--skill architecture-design` install commands, and the
+  `skills/_shared/architecture/` substrate. Install `minimal-modular-code` instead —
+  `npx skills add Thulr/agent-skill-kit --skill minimal-modular-code`. (Replaced under
+  [ADR 0009](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md).)
 - The `review-heuristics` skill and its `--skill review-heuristics` install
   command. Install the per-domain skills instead — e.g.
-  `npx skills add Thulr/informed-skills --skill dx-audit --skill dx-design`.
+  `npx skills add Thulr/agent-skill-kit --skill dx-audit --skill dx-design`.
 
 ### Added
 - `CHANGELOG.md` (this file) and `CONTRIBUTING.md`.

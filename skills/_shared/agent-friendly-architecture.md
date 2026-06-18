@@ -32,8 +32,8 @@ Treat boundary constraints as **gates**, not prose:
 - Architecture tests (dependency direction, slice/cycle rules).
 - CI-required checks / branch protection.
 
-Designing the boundary model (ports/adapters, dependency rule, bounded contexts) is owned by
-`architecture-audit` / `architecture-design`; `harden-repo-for-coding-agents` owns the enforcement surface.
+Designing the boundary model (dependency direction, deep modules, right-sized seams) is owned by
+`minimal-modular-code`; `harden-repo-for-coding-agents` owns the enforcement surface.
 
 ## 2b) Legibility-first at the source level (not just the graph)
 

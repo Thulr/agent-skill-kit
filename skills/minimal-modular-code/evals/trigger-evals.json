@@ -1,0 +1,78 @@
+{
+  "skill": "minimal-modular-code",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "This PR feels over-engineered — can you trim the slop before I merge?",
+      "should_activate": true,
+      "expected_route": "review/minimalism",
+      "category": "positive"
+    },
+    {
+      "query": "The agent reimplemented a helper we already have. Audit the repo for duplication and missed reuse.",
+      "should_activate": true,
+      "expected_route": "review/minimalism",
+      "category": "positive"
+    },
+    {
+      "query": "I'm about to add a feature — help me keep the change minimal and reuse what's there.",
+      "should_activate": true,
+      "expected_route": "do/minimalism",
+      "category": "positive"
+    },
+    {
+      "query": "Audit our module coupling and boundaries and score them.",
+      "should_activate": true,
+      "expected_route": "review/boundaries",
+      "category": "positive"
+    },
+    {
+      "query": "Structure this repo so four agents can work in parallel without colliding.",
+      "should_activate": true,
+      "expected_route": "design/parallel-readiness",
+      "category": "positive"
+    },
+    {
+      "query": "Design the module boundaries for this new service, kept minimal.",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "positive"
+    },
+    {
+      "query": "Are these names and this control flow legible enough, or too clever?",
+      "should_activate": true,
+      "expected_route": "review/legibility",
+      "category": "positive"
+    },
+    {
+      "query": "Set up AGENTS.md and a pre-commit hook so Claude Code works in our repo.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review our REST API's error responses and pagination for external developers.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Our signup form is confusing users — can you run a UX audit?",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Tighten the wording of this announcement blog post.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Should I add an abstraction here now, or just duplicate it for the second case?",
+      "should_activate": true,
+      "expected_route": "do/minimalism",
+      "category": "edge"
+    }
+  ]
+}

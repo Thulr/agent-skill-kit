@@ -1,4 +1,4 @@
-<!-- AGENTS.md template — informed-skills / harden-repo-for-coding-agents scaffold.
+<!-- AGENTS.md template — agent-skill-kit / harden-repo-for-coding-agents scaffold.
      Sub-surface: instruction-surface. Heuristics: scaffold H1 (WHAT/WHY/HOW),
      H2 (front-load constraints), H4 (≤200 lines per W2), H5 (bootstrap order).
 

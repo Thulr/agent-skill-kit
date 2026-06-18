@@ -39,7 +39,7 @@ to a reader with a finite context window.
    `minimalism`, `legibility`, `boundaries`, `parallel-readiness`, `enforcement` — or `all`
    for a REVIEW fan-out. Ambiguous → ask once with the menu.
 3. **Load grounded context.** Load only the chosen row's `playbook` plus its `core_refs`.
-   Do not load other playbooks.
+   Do not load other playbooks (the `review`/`all` row carries none — each surface agent loads its own; see step 6).
 4. **Identify the target persona** from `references/core/personas.md`.
 5. **Then calibrate to project scale** (REVIEW / DESIGN) per `references/calibration.md`:
    below Load-bearing, narrow scope, collapse same-mechanism gaps into one systemic finding,

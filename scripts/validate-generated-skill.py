@@ -182,10 +182,10 @@ def check_inspired_by(
     inspired_by = skill_json.get("inspired_by")
     if not isinstance(inspired_by, list) or not inspired_by:
         report.add(
-            SEVERITY_BLOCKING,
+            SEVERITY_NOTE,
             "inspired_by present",
             "skill.json:inspired_by",
-            "missing or empty",
+            "absent or empty — encouraged, not required; add it if the skill derives from cited sources",
         )
         return
 

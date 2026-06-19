@@ -68,7 +68,9 @@ performance.
   the tool, the flag, and an example command.
 - **Perf CI gates** *(design)* — benchmarks run in CI; merges that exceed the
   regression threshold are blocked, not just flagged. Silent regressions
-  compound.
+  compound. For repeatability, the harness discards warm-up runs, isolates the
+  measured process from noisy neighbours, and writes timestamped result
+  artifacts so a number can be traced to the run that produced it.
 - **Bundle and dep size discipline** *(audit, design)* — install footprint and
   bundle size are measured in CI; growth above a watermark requires deliberate
   sign-off, not passive accumulation.
@@ -79,6 +81,11 @@ performance.
 - **Cold-start bound** *(audit, design)* — CLI and SDK initialization time is
   documented, measured, and enforced. A startup that varies from 200 ms to 4 s
   depending on environment is a latency bug.
+- **Staged latency budget** *(design, audit)* — decompose an operation's budget
+  across its pipeline stages and attribute time to each, so a regression points
+  at the stage that slipped. Track first-response (the moment the user sees
+  anything happen) separately from end-to-end completion — they are different
+  budgets and a stall in one is invisible in the other.
 
 ## Quick diagnostic
 
@@ -90,6 +97,7 @@ performance.
 | Do benchmarks run in CI? | Silent regressions | Add a benchmark suite with a regression threshold |
 | Is bundle / install size monitored? | Bloat creeps in | Add a size check with a documented ceiling |
 | Is cold start bounded? | Variable startup surprises | Profile initialization; document and cap the limit |
+| Is first-response tracked apart from end-to-end? | Stalls hide in the average | Budget each pipeline stage; report first-response separately |
 
 ## Cross-references
 

@@ -42,6 +42,10 @@ failure messages, `telemetry.md` for collected data, `cli.md` for
 - A `doctor` or `status` subcommand reports installed version, runtime
   version, config file in use, declared env vars, and the result of a
   smoke check.
+- The startup banner prints the resolved runtime state on boot — derived
+  limits (worker, pool, cache sizes), bound ports, effective config loaded,
+  detected CPU/GPU — and the docs cite those exact lines when explaining how
+  to confirm a setting took effect.
 - A `--version` flag and a `version` subcommand both work; the output
   includes the git commit hash or build identifier when relevant.
 - Secrets are masked in all log output regardless of level — API keys,
@@ -72,6 +76,9 @@ failure messages, `telemetry.md` for collected data, `cli.md` for
   when disks fill up.
 - Trace IDs exist in the server-side logs but never make it to client-side
   output, so a user reporting an issue cannot supply the ID support needs.
+- Boot is silent about resolved limits and bound ports, so a misconfiguration
+  (wrong config picked up, half the workers the user expected) only surfaces
+  later as a confusing runtime symptom instead of a visible line at startup.
 
 ## Heuristics
 
@@ -80,7 +87,16 @@ failure messages, `telemetry.md` for collected data, `cli.md` for
   developer can predict which level a given event belongs to.
 - **Single verbosity dial** *(design, audit)* — one knob (flag, env var, or
   config key) raises verbosity. `-v` / `-vv` / `-vvv` or `LOG_LEVEL=debug`
-  is enough; users should not have to edit a config file to debug.
+  is enough; users should not have to edit a config file to debug. The
+  corollary holds the other way too: the default level stays terse so the
+  signal isn't buried, and the dial is the only thing that opens the firehose.
+- **Startup banner emits load-bearing facts** *(audit, design)* — on boot the
+  tool prints the config and capacity facts a reader needs to diagnose
+  misconfiguration: derived limits (worker, pool, cache sizes), bound ports,
+  the effective config actually loaded, and detected CPU/GPU. The docs point
+  at those exact banner lines by name. Unlike `doctor` / `status`, this is
+  unprompted — it lands in the log stream every run, so a captured log already
+  carries the runtime's resolved state without a second command.
 - **Structured when piped, human when TTY** *(design, audit)* — output
   detects whether stdout is a TTY and switches between human-readable and
   structured (JSON or logfmt) automatically, or an explicit flag controls it.
@@ -124,6 +140,7 @@ failure messages, `telemetry.md` for collected data, `cli.md` for
 | Is there a `doctor` or `status` command? | Users guess at install state | Add introspection subcommand |
 | Does `--version` include a build identifier? | Cannot trace back to a commit | Embed git SHA or build tag in version output |
 | Are trace IDs propagated to user-facing output? | Support cannot match logs | Surface trace ID in CLI and error responses |
+| Does boot log resolved limits, ports, and effective config? | Misconfig surfaces only later | Emit a startup banner; cite its lines in the docs |
 
 ## Cross-references
 

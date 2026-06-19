@@ -34,6 +34,12 @@ contributor uses, and `docs.md` for first-PR doc patterns.
   can follow, not confined to one person's memory.
 - Issue templates separate bug reports from feature requests so the right
   context is collected up front.
+- The tracker is for repo work; usage questions are routed to a Q&A channel,
+  and a written triage → confirm → owner lifecycle moves issues forward.
+- PRs that change a user-facing API ship docs, an example, and a stated
+  backward-compatibility verdict in the same change.
+- Non-trivial contributions start with a proposal issue, so scope is agreed
+  before code is written.
 - "Good first issue" labels have a curated, maintained list with clear
   acceptance criteria a stranger can act on.
 - A code of conduct exists and maintainers respond to violations visibly.
@@ -54,6 +60,12 @@ contributor uses, and `docs.md` for first-PR doc patterns.
   missing context, and nobody has audited them recently.
 - The code of conduct is decorative; violations go unaddressed or are handled
   inconsistently.
+- The tracker is a mix of support questions and real work; nothing is triaged,
+  so actionable issues drown and questions go unanswered.
+- An API or flag changes with no docs update, no example, and no compatibility
+  note; downstream callers discover the break at upgrade time.
+- A contributor writes a large PR with no prior alignment and it is rejected on
+  direction, wasting their effort and the reviewer's.
 
 ## Heuristics
 
@@ -84,6 +96,25 @@ contributor uses, and `docs.md` for first-PR doc patterns.
   differentiated; a bug report collects reproduction steps and expected
   behavior, while a feature request collects motivation and alternatives
   considered.
+- **Issue-triage contract** *(design, audit)* — the tracker is reserved for
+  actionable repo work (bugs, confirmed features, tasks); "how do I" usage
+  questions route to a Q&A channel (Discussions, forum) instead. Every new
+  issue runs a stated lifecycle: triage (label, reproduce or confirm), confirm
+  (a maintainer marks it accepted/needs-info), then owner (someone is assigned
+  or it is left open for contributors). An untriaged backlog is a triage
+  contract that exists on paper only.
+- **API-change review gate** *(design, audit)* — a PR that touches a
+  user-facing API, CLI flag, or wire format does not merge without three
+  things in the same PR: updated docs, an updated or new example, and an
+  explicit backward-compatibility review (does this break callers? does it
+  need a SemVer major or a deprecation path?). This is the PR-time enforcement
+  counterpart to a versioning policy — a SemVer rule no reviewer checks is not
+  enforced. Pairs with `migration.md` for the deprecation mechanics.
+- **Proposal before non-trivial work** *(design)* — for anything beyond a
+  small fix, contributors open a proposal issue and get scope aligned with a
+  maintainer before writing code. This trades a short up-front exchange for not
+  burning a large PR that gets rejected on direction. State the threshold (e.g.
+  "more than a localized bug fix") so the bar is not a guess.
 
 ## Quick diagnostic
 
@@ -95,9 +126,14 @@ contributor uses, and `docs.md` for first-PR doc patterns.
 | Are release steps scripted or documented? | Single-person dependency on every ship | Script and commit the checklist |
 | Can a stranger close a "good first issue" without help? | Bus factor 1 on contributor ramp | Audit and refresh the label set |
 | Is PR lead time monitored? | Silent accumulation of friction | Add a basic tracking dashboard |
+| Do usage questions go to Q&A, not the tracker? | Backlog is noise; real work drowns | Route "how do I" out; run triage → confirm → owner |
+| Do API-changing PRs require docs + example + compat review? | Silent breaks reach callers | Add the gate to the PR template and review checklist |
+| Is non-trivial work scoped via a proposal issue first? | Large PRs rejected on direction | Require a proposal issue above a stated threshold |
 
 ## Cross-references
 
 - → `setup.md` for fresh-fork install and environment bootstrap.
 - → `inner-loop.md` for the local dev loop a contributor uses day-to-day.
 - → `docs.md` for first-PR doc patterns.
+- → `migration.md` for the deprecation and backward-compatibility mechanics
+  the API-change review gate refers to.

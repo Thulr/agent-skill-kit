@@ -27,7 +27,8 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
 - Missing dependencies are detected before any work begins, and the error
   names the missing dep and the install command.
 - A documented smoke test lets the user confirm setup worked ("run
-  `cli check` — should print `ok`").
+  `cli check` — should print `ok`"), and it passes on a fresh clone with
+  no secrets — checks needing paid credentials skip and say so.
 - Setup works on a fresh machine without tribal knowledge or private Slack
   context.
 - A clean uninstall path is documented alongside the install path.
@@ -47,6 +48,8 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
 - Verified only on the maintainer's machine; fails on fresh environments.
 - Setup mutates global state (system Python, global `~/.npmrc`) without
   warning the user.
+- The quickstart's first verification fails on a fresh clone because a
+  default test hard-requires a paid API key the new user does not have.
 - Re-running setup breaks the existing install — no idempotency.
 - No documented way to undo the setup after the fact.
 
@@ -90,6 +93,19 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
   generate projects (CLIs, frameworks), a `<tool> init` or `npx create-X`
   command scaffolds a working starter so the user can paste-and-go without
   hand-rolling a project layout.
+- **Adoptable in a thin slice** *(design, audit)* — a broad SDK or framework
+  documents a minimal first use that touches only a fraction of the surface;
+  the new user reaches a working result before learning the full API, and
+  nothing in the quickstart forces config they don't yet need.
+- **Pinned installer in the quickstart** *(design, audit)* — the bootstrap
+  command names the exact version so the documented first run is reproducible
+  (e.g. `uv tool install <pkg> --from git+<url>@<tag>`), not a floating
+  `@latest`. Distinct from the committed runtime pin: this pins the *installer
+  invocation* the reader copies, not the project's own runtime manifest.
+- **Credential-optional first verification** *(audit, debug)* — the smoke
+  test or default test command passes on a fresh clone with zero secrets;
+  checks needing optional paid credentials skip rather than fail, and the
+  output names exactly which checks were skipped and why.
 
 ## Quick diagnostic
 
@@ -99,6 +115,7 @@ edit-run-test cycle after setup, `docs.md` for setup-doc patterns, and
 | Are env vars in `.env.example`? | Hidden config, ask-in-Slack | Create and commit example file |
 | Does setup fail-fast on missing deps? | Cryptic mid-run failures | Add preflight check before work |
 | Is there a smoke-test command? | Users guess whether it worked | Add `check` or `doctor` subcommand |
+| Does first verification pass with no secrets? | Fails without a paid key | Skip credential checks and name what was skipped |
 | Is setup idempotent? | Re-run breaks the install | Make operations safe-upsert |
 | Is fresh-machine tested? | Works for maintainer only | Add CI fresh-install job |
 

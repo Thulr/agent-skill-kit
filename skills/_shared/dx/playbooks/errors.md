@@ -26,14 +26,8 @@ typed-exception design.
   compiler-quality error messages are achievable in production systems.
 - **Stripe API error contract** — error responses carry a stable
   machine-readable `code`, a description naming the offending parameter,
-  a `request_id`, and a `doc_url`. Supports programmatic recovery, human
-  triage, and post-hoc support. Translates unchanged to SDK exception
-  envelopes consumed by agents.
-- **Agent-callable surfaces (WorkOS practitioner framing)** — when an
-  LLM consumes an error, it cannot read tooltips or recover from
-  ambiguity the way humans do. It decides on surfaced text alone, at
-  machine speed. Agent-consumable errors must be deterministic,
-  structured, and name the failing input in a format the model parses.
+  a `request_id`, and a `doc_url`, supporting programmatic recovery, human
+  triage, and post-hoc support. Translates unchanged to SDK exception envelopes.
 
 ## Good signals
 
@@ -53,15 +47,6 @@ typed-exception design.
   variants, not stringly-typed sentinel strings.
 - Secrets never appear in error output, logs, or stack traces regardless of
   verbosity level.
-- For agent-callable surfaces, errors are a typed envelope with discrete
-  fields (`code`, parameter-specific `message`, `recovery_hint`), not
-  narrative text. The schema is stable across SDK versions.
-- Tool-execution failures returned to the LLM name *which input* was
-  problematic and *why*, in the same tool-result shape the model
-  produced — so the agent can reissue with a corrected argument.
-- The error persisted on the tool-call telemetry span is the exact shape
-  the LLM saw, so replay or offline eval can simulate the recovery path
-  without re-running against production.
 
 ## Common failures
 
@@ -80,14 +65,6 @@ typed-exception design.
   failure modes, forcing callers to parse the message to branch.
 - Validation fires deep in the call stack rather than at the boundary, surfacing
   partial side-effects alongside the error.
-- Errors returned to agents are free text; the LLM cannot branch on
-  failure mode and retries blindly or hallucinates a recovery.
-- Tool errors omit the offending parameter; the model retries with the
-  same bad argument.
-- The error stored on a tool-call span is reshaped before persistence;
-  replay sees a different error than runtime.
-- Error wording changes across SDK versions with no stable code; agents
-  that branched on last release's text quietly mis-route.
 
 ## Heuristics
 
@@ -113,9 +90,10 @@ typed-exception design.
 - **Class-of-error prevention** *(design)* — when the same error recurs, fix
   the class (add a lint rule, tighten a typed contract, add a schema check),
   not just the instance.
-- **"Did you mean" pointer** *(design, audit)* — when a near-match exists
-  (typo'd flag, missing import, unrecognized field), point at the closest
-  valid alternative. Absence of a suggestion forces the user to scan the docs.
+- **"Did you mean" pointer** *(design, audit)* — when an unrecognized command,
+  flag, field, or symbol is within Levenshtein distance two of a known one, the
+  error points at the closest valid alternative (`Did you mean <closest>?`).
+  Absent suggestion forces a documentation hunt.
 - **Secret hygiene** *(audit)* — secrets are masked in all error paths: logs,
   structured error objects, `--verbose` output, and exception messages. Audit
   every log sink when adding debug context.
@@ -123,24 +101,14 @@ typed-exception design.
   stable, documented code (e.g. `auth.token_expired`, `db.constraint_violation`);
   codes do not change between versions and a public catalog page lists them
   with cause and fix.
+- **Retryable discriminator** *(design, audit)* — the error contract marks each
+  code/class as retryable or not (a `retryable` boolean or a transient-vs-terminal
+  field), so a caller decides whether to back off and retry or fail fast without
+  parsing prose. Retry mechanics live in `sdk.md`.
 - **TTY-aware rendering** *(audit, design)* — error output adapts to TTY vs
   pipe: colored and indented in a terminal, plain and parseable when piped
   to a log file or CI runner. The same root cause produces the same message
   text in both forms.
-- **"Did you mean" specifically for typos** *(design, audit)* — when an
-  unrecognized command, flag, field, or symbol is within Levenshtein
-  distance two of a known one, the error includes a "Did you mean
-  `<closest>`?" pointer. Absent suggestion forces a documentation hunt.
-- **Agent-readable error envelope** *(design, audit)* — for LLM-callable
-  surfaces, errors are a typed structure with `code`, parameter-specific
-  `message`, and `recovery_hint`. The schema is part of the public
-  contract and does not break between minor versions.
-- **Tool-error feedback shaped for retry** *(design, audit, debug)* —
-  failed tool calls return the same JSON shape the LLM produced, naming
-  the offending input; the error path does not collapse to free text.
-- **Replay-ready error capture** *(design, audit)* — the error stored
-  on the tool-call span is identical to what the LLM saw, so offline
-  replay and eval simulate the recovery path without hitting production.
 
 ## Quick diagnostic
 
@@ -151,9 +119,6 @@ typed-exception design.
 | Are correlation IDs included? | Support is blind | Attach `request_id` to every server error |
 | Are messages deterministic? | Same cause, different wording | Canonicalize message copy |
 | Are secrets masked in all error paths? | Leakage in verbose/logs | Audit all log sinks and error serializers |
-| Agent-callable errors return a typed envelope? | LLM cannot branch on failure mode | Add a stable structured-error schema to the public contract |
-| Tool errors name the offending input in the LLM's own shape? | Agent retries with the same bad argument | Echo the parameter; keep the tool-result schema on the failure path |
-| Span-attribute error matches what the LLM saw at runtime? | Replay sees a different error than runtime | Persist the runtime error shape verbatim |
 
 ## Cross-references
 

@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+sdk-design,Design SDK shape,"Shape the loop, streaming, stop conditions, handoffs, edges",references/playbooks/sdk-design.md,references/core/personas.md
+tools-and-mcp,Design tools and MCP,"Shape typed tools, hooks, MCP trust boundary, delegated auth",references/playbooks/tools-and-mcp.md,references/core/personas.md
+structured-output,Design structured output,"Shape schema-typed output, refusal typing, semantic retry",references/playbooks/structured-output.md,references/core/personas.md
+errors-and-retry,Design errors and retry,"Shape the typed error envelope and retry-shaped tool feedback",references/playbooks/errors-and-retry.md,references/core/personas.md
+sdk-telemetry,Design SDK telemetry,"Shape per-step spans, content-capture toggle, boundary redaction",references/playbooks/sdk-telemetry.md,references/core/personas.md

@@ -1,0 +1,22 @@
+{
+  "skill": "agent-dx",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "design the public surface of our Agent SDK — the loop, stop conditions, streaming, and how handoffs work", "should_activate": true, "expected_route": "design/sdk-design", "category": "positive"},
+    {"query": "review our MCP tool surface — are the tool descriptions and schemas safe for an agent to call, and is the trust boundary right", "should_activate": true, "expected_route": "review/tools-and-mcp", "category": "positive"},
+    {"query": "our agent keeps retrying the same broken tool call — shape the tool errors so the model can actually recover", "should_activate": true, "expected_route": "do/errors-and-retry", "category": "positive"},
+    {"query": "are our structured outputs actually validated, or are we just asking the model for JSON and hoping? review it", "should_activate": true, "expected_route": "review/structured-output", "category": "positive"},
+    {"query": "is our agent telemetry leaking raw prompts and PII into spans? audit the SDK instrumentation", "should_activate": true, "expected_route": "review/sdk-telemetry", "category": "positive"},
+    {"query": "design how our agent acts on a user's behalf without holding their durable token — delegated auth and token exchange for tool calls", "should_activate": true, "expected_route": "design/tools-and-mcp", "category": "positive"},
+    {"query": "full agent-DX review of our Agent SDK across the loop, tools, structured output, errors, and telemetry — score each surface", "should_activate": true, "expected_route": "review/all", "category": "positive"},
+    {"query": "we're adding a tool to the SDK — derive its JSON schema from the function signature instead of hand-writing it", "should_activate": true, "expected_route": "do/tools-and-mcp", "category": "positive"},
+    {"query": "review our public REST API and SDK for human developers — install-to-first-call, error messages, pagination", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our llms.txt and AGENTS.md so coding agents can read our docs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "scaffold our repo's AGENTS.md, hooks, and CI gates so Claude Code stops tripping", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "set up an eval and optimization loop for our shipped AI product and watch the metrics over time", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "tighten the prose in this blog post", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "review our end-user checkout flow for usability and accessibility", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our SDK is consumed by both humans writing integrations and an agent loop — review the error envelope for the agent's ability to branch and recover", "should_activate": true, "expected_route": "review/errors-and-retry", "category": "edge"},
+    {"query": "should our agent's tracing follow OTel GenAI or OpenInference, and how do we keep structural spans when we turn raw content capture off", "should_activate": true, "expected_route": "design/sdk-telemetry", "category": "edge"}
+  ]
+}

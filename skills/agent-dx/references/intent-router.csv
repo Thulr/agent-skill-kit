@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+do,Keep an agent-facing change minimal and correct,"Mid-change: writing or changing an SDK/tool/structured-output/error/telemetry surface an agent consumes",references/intents/do.csv,templates/change-plan.md
+review,Audit and score an agent-facing surface,"Audit an existing AI/Agent SDK, tool surface, structured output, error envelope, or SDK telemetry for agent-consumability, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Shape a new agent-facing surface, or explain","Design a new AI/Agent SDK, tool, structured-output, error, or telemetry surface, sequence a hardening refactor, or explain a principle",references/intents/design.csv,templates/design-doc.md

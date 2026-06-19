@@ -1,6 +1,6 @@
 ---
 name: rules-from-coding-agent-failures
-description: Use when you operate coding-agent infrastructure with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test — and want to capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules, hooks, or CI gates via the three-entry floor, and score Level 4-5 (Specification Architecture, Sovereign Engineering) maturity. Triggers on 'reflection log', 'agent failure log', 'promote this pattern into a rule', 'post-incident eval case', 'harness maturity Level 4 or 5', 'set up a feedback loop for agent failures'. Do NOT use for first-pass agent-readiness scaffolding when no feedback signal exists yet (use harden-repo-for-coding-agents), or to instrument an AI product's eval and optimization loops (use agent-evals).
+description: Use when you operate coding-agent infrastructure with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test — and want to capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules, hooks, or CI gates via the three-entry floor, and score Level 4-5 (Specification Architecture, Sovereign Engineering) maturity. Triggers on 'reflection log', 'agent failure log', 'promote this pattern into a rule', 'post-incident eval case', 'harness maturity Level 4 or 5', 'set up a feedback loop for agent failures'. Do NOT use for first-pass agent-readiness scaffolding when no feedback signal exists yet (use harden-repo-for-coding-agents), or to design or operate an AI product's eval and optimization loops (use agent-test / agent-ops).
 license: MIT
 ---
 
@@ -128,4 +128,4 @@ stable `ED-L4L5-NNN` IDs.
 
 - `harden-repo-for-coding-agents` — scaffolds the project-context AGENTS.md that this skill's `promote`
   adds rules to. Pair them.
-- `design-for-agent-users` — the umbrella AX discipline; this is its evidence-and-feedback-loop arm.
+- `agent-ops` — the agent-family front-door; this is its evidence-and-feedback-loop arm.

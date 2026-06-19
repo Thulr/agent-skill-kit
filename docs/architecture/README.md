@@ -20,10 +20,11 @@ Published skills fall into three shapes:
   is a single skill spanning review and design for code minimality and
   parallel-readiness (it replaced the former `architecture` pair — see
   [ADR 0009](../adr/0009-replace-architecture-pair-with-minimal-modular-code.md)).
-- **Discipline / orchestration skills** — `design-for-agent-users` is the agent-
-  experience umbrella that routes to its three implementation arms,
-  `harden-repo-for-coding-agents`, `rules-from-coding-agent-failures`, and `agent-evals`
-  (see [ADR 0006](../adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md));
+- **Agent-mirror family** — agent-facing work organized by *actor* (an agent is an
+  actor, not a peer audience): `agent-dx` / `agent-docs` / `agent-ux` / `agent-ops` /
+  `agent-test`, with `agent-ops` the front-door routing to the standalone arms
+  `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures`
+  (see [ADR 0011](../adr/0011-actor-axis-agent-mirror-family.md));
   `research` is one skill routed by decision-frame (`report` | `opportunity`).
 
 `ux`/`dx`/agent-experience are **audience-differentiated peers** of one parent

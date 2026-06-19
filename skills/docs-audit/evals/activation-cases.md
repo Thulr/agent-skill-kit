@@ -92,7 +92,7 @@ playbook; names the target audience; emits the intent's template shape.
 
 ## N5 — Repo agent hardening
 **Prompt:** `Claude Code trips on our repo — wrong test commands, stale AGENTS.md. Make it agent-friendly.`
-**Expected:** defers to `design-for-agent-users`; does not route through a docs playbook.
+**Expected:** defers to `agent-docs`; does not route through a docs playbook.
 
 ## N6 — Concept explanation
 **Prompt:** `Explain how OAuth2 PKCE works for a one-pager.`

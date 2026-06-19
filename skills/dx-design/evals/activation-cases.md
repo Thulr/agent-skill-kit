@@ -71,7 +71,7 @@ a concrete good-shaped pattern + acceptance criteria.
 
 ## N4 — AI/Agent SDK design
 **Prompt:** `Design the agent loop and tool-call contract for our AI/Agent SDK.`
-**Expected:** defers to `design-for-agent-users`; does not route through a DX playbook.
+**Expected:** defers to `agent-dx` (SDK/tool) or `agent-docs` (AGENTS.md); does not route through a DX playbook.
 
 ## N5 — Internal refactor
 **Prompt:** `Refactor this function to use early returns.`

@@ -89,3 +89,11 @@ stands up AX.
   surfaces do **not** return to the per-domain skills. Where this ADR refers to
   "the `dx`/`docs` domains of `review-heuristics`," read it post-0008 as the
   `dx-audit`/`dx-design`/`docs-audit`/`docs-design` skills.
+- **2026-06-18:**
+  [ADR 0011](./0011-actor-axis-agent-mirror-family.md) reorganizes the agent half of
+  the catalog by actor. The front-door **test** here is unchanged; only its canonical
+  **instance** moves — `design-for-agent-users` (was `agent-experience`) retires and
+  `agent-ops` inherits the umbrella hand-off router. 0011 also corrects a 0006
+  over-citation: `rules-from-coding-agent-failures` stays standalone because it is *out
+  of* the agent-actor family (human-operator governance), not because it passes this
+  test. `harden-repo-for-coding-agents` continues to pass independently and is kept whole.

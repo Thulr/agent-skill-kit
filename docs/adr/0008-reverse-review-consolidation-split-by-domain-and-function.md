@@ -114,3 +114,11 @@ mega-skill.
   of `review-heuristics`: it housed far more than reviews, and the merged name
   hid what each part did. See
   [`docs/specs/2026-05-30-domain-function-split/`](../specs/2026-05-30-domain-function-split/).
+- **2026-06-18:**
+  [ADR 0011](./0011-actor-axis-agent-mirror-family.md) explicitly does **not** lift this
+  audit/design pair-split to the agent family — the agent mirrors are single skills
+  (do/review/design), because neither 0008 pathology (a name that lies over the engine,
+  all-or-nothing multi-domain install) applies to a one-domain skill. 0008's
+  `_shared/<domain>/` anti-drift mechanism is reused as `_shared/agent/<domain>/`, and
+  the canonical docs `audience-matrix.md` is rewritten to the actor-axis framing while
+  staying canonical in the review family.

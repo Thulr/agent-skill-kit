@@ -88,3 +88,9 @@ intent → surface — not as sibling skills and not split per surface.
   misleading skill names and an all-or-nothing install. 0008 splits it back into
   12 domain×function skills and keeps the anti-drift property via
   `_shared/<domain>/` single-sourcing.
+- **2026-06-18:**
+  [ADR 0011](./0011-actor-axis-agent-mirror-family.md) reaffirms one-engine-many-surfaces
+  for the agent family: each agent mirror is a single routed skill (the ADR-0009
+  singleton default), and the agent front-door (`agent-ops`) reuses the existing
+  sanctioned umbrella hand-off router with **no** new CSV variant — honoring this ADR's
+  anti-fork discipline.

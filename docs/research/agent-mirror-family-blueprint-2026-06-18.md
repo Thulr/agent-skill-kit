@@ -1,6 +1,6 @@
 # Agent-mirror family — blueprint & migration map (2026-06-18)
 
-> Working design doc for reorganizing the catalog by **actor**. Will be formalized as an ADR (supersedes [ADR 0007](../adr/0007-experience-disciplines-are-audience-peers.md)). Status: in progress.
+> Working design doc for reorganizing the catalog by **actor**. **Formalized as [ADR 0011](../adr/0011-actor-axis-agent-mirror-family.md) (Accepted 2026-06-18)**, which supersedes the structural claim of [ADR 0007](../adr/0007-experience-disciplines-are-audience-peers.md) and updates 0005/0006/0008. Status: **accepted — see the ADR for the binding decision and the locked decomposition cut** (this doc is the design rationale + the verbatim seed content for `agent-dx`).
 
 ## The actor model
 

@@ -1,6 +1,10 @@
 # ADR 0007: Experience Disciplines Are Audience-Differentiated Peers, Not Nested
 
-**Status:** Accepted (2026-05-30). Names the conceptual model that
+**Status:** Accepted (2026-05-30); **structural claim superseded by
+[ADR 0011](./0011-actor-axis-agent-mirror-family.md) (2026-06-18)** — the three-peer
+enumeration is retired for an actor × role grid (agent is an actor *type*, not a third
+peer audience), while this ADR's load-bearing result ("DX is not a subset of UX") is
+preserved and re-derived there. Names the conceptual model that
 [ADR 0005](./0005-one-engine-many-surfaces-skills-are-routed-not-split.md) and
 [ADR 0006](./0006-discipline-front-doors-vs-one-engine-many-surfaces.md) already
 assumed structurally; supersedes neither.
@@ -93,3 +97,11 @@ same reason the peer model beats the nesting model one level down.
   they are sibling **skills** (`dx-audit`/`dx-design`/`ux-audit`/…). The
   audience matrix's canonical home moves with the content (see 0008 / the split
   spec).
+- **2026-06-18:**
+  [ADR 0011](./0011-actor-axis-agent-mirror-family.md) supersedes the **structural**
+  claim. "Agent" is an actor *type* that can play user/developer/operator, not a third
+  peer audience, so the catalog cuts on an actor × role grid and mirrors per
+  human-experience domain (`agent-dx`/`agent-docs`/`agent-ux`/`agent-ops`/`agent-test`)
+  rather than housing AX in one peer skill. The peer *result* carries forward: "DX is
+  not a subset of UX" becomes "roles do not nest within an actor column," and the
+  staffing/measurement rule is unchanged.

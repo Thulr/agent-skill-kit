@@ -23,4 +23,7 @@ add a new ADR that links back.
 - `0006-discipline-front-doors-vs-one-engine-many-surfaces.md`
 - `0007-experience-disciplines-are-audience-peers.md`
 - `0008-reverse-review-consolidation-split-by-domain-and-function.md` (supersedes 0005 in part)
+- `0009-replace-architecture-pair-with-minimal-modular-code.md`
+- `0010-rename-to-agent-skill-kit.md`
+- `0011-actor-axis-agent-mirror-family.md` (supersedes 0007 structurally; updates 0005/0006/0008)
 

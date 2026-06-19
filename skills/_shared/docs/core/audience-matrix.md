@@ -1,16 +1,20 @@
 # Audience Matrix
 
-DX, UX, and AX are **audience-differentiated peers of one parent discipline —
-experience design** (designing a system for the cognition and goals of whoever is
-on the other side). They are **peers, not nested: DX is not a subset of UX.** DX
-inherits UX's cognitive theory (mental models, friction, feedback, error
-recovery) but not its practice — each peer differs by **substrate** (what the
-audience reads), **success metric** (what "good" optimizes for), and **cost of
-error** (re-clickable for UX, contract-permanent for DX, silent-at-scale for AX).
-Content-ops is the cross-cutting closure layer, not a fourth audience. See
-[ADR 0007](../../../../docs/adr/0007-experience-disciplines-are-audience-peers.md)
-for the full model and [ADR 0006](../../../../docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)
-for why AX is packaged as its own skill while dx/ux stay routed domains.
+A doc can serve more than one **audience**, and a fix for one can harm another.
+The audiences that matter are the **developer** (DX), the **end user** (UX), the
+**agent** (AX), and **content operations** (a cross-cutting closure layer, not a
+fourth reader). They sit on an **actor × role** grid, not a nesting of disciplines:
+an **agent is an actor type** (it can read in any role), not a peer audience beside
+developer and end-user — so agent-NATIVE documentation (llms.txt, AGENTS.md, tool
+descriptions, machine-readable reference) is owned by the `agent-docs` skill, while
+this matrix covers the human and dual-audience docs an agent may also read. The
+roles differ by **substrate** (what the audience reads), **success metric** (what
+"good" optimizes for), and **cost of error** (re-clickable for UX,
+contract-permanent for DX, silent-at-scale for AX); "DX is not a subset of UX"
+holds as "roles do not nest within an actor column." The model is recorded in
+[ADR 0011](../../../../docs/adr/0011-actor-axis-agent-mirror-family.md), which
+superseded the audience-peer framing of
+[ADR 0007](../../../../docs/adr/0007-experience-disciplines-are-audience-peers.md).
 
 Use this matrix before recommending changes to multi-audience documentation. The
 columns map to the differentiators above: *Optimizes for* ≈ success metric,

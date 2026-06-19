@@ -1,0 +1,7 @@
+surface,name,when_to_use,playbook,core_refs
+all,Full agent-ops review,"Audit every operations surface and score each (fan-out)",,references/core/severity-rubric.md;references/core/score-rubric.md;references/calibration.md;references/trackable-findings.md
+observability,Review observability,"Audit traces/trajectories/drift monitoring and score",references/playbooks/observability.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+optimization-loop,Review optimization loop,"Audit loop readiness and trace-to-eval and score",references/playbooks/optimization-loop.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+autonomous-controller,Review autonomy controls,"Audit controller preconditions, gates, and circuit-breakers and score",references/playbooks/autonomous-controller.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+cost-and-reliability,Review cost and reliability,"Audit budgets, reliability math, and the release gate and score",references/playbooks/cost-and-reliability.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+maturity-and-governance,Review maturity and governance,"Audit maturity placement, provenance, and routing and score",references/playbooks/maturity-and-governance.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md

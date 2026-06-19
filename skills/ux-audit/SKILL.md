@@ -1,6 +1,6 @@
 ---
 name: ux-audit
-description: Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on "UX audit", "heuristic evaluation", "users are confused", "signup/checkout drop-off", "IA review", "accessibility/WCAG review", "is this form usable". Do NOT use to AUDIT developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-audit), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for AI-agent-facing surfaces and AGENTS.md (use design-for-agent-users).
+description: Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on "UX audit", "heuristic evaluation", "users are confused", "signup/checkout drop-off", "IA review", "accessibility/WCAG review", "is this form usable". Do NOT use to AUDIT developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-audit), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for agent-operable UI/app interaction surfaces (use agent-ux), or agent-native docs like AGENTS.md/llms.txt (use agent-docs).
 license: MIT
 ---
 

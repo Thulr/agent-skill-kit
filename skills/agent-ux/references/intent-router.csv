@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+do,Build or fix an agent-facing interaction surface,"Mid-change: making a UI/app/computer-use surface an agent perceives and acts through",references/intents/do.csv,templates/change-plan.md
+review,Audit and score an agent-facing interaction surface,"Audit a UI/app for machine-readable state, deterministic actions, agent agency/approval, or human-vs-agent conflict, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Shape an agent-facing interaction surface, or explain","Design machine-readable state, deterministic actions, an approval/agency surface, resolve a human-vs-agent conflict, or explain a principle",references/intents/design.csv,templates/design-doc.md

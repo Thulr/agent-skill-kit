@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+observability,Observability,"Wire/inspect traces, trajectories, drift and cost monitoring for a running agent",references/playbooks/observability.md,references/core/personas.md
+optimization-loop,Optimization loop,"Stand up the trace-and-eval flywheel; score loop readiness; convert traces to evals",references/playbooks/optimization-loop.md,references/core/personas.md
+autonomous-controller,Autonomous controller,"Gate and operate an autonomous-improvement controller with circuit-breakers",references/playbooks/autonomous-controller.md,references/core/personas.md
+cost-and-reliability,Cost and reliability,"Set cost/iteration budgets, reliability targets, and a decomposed release gate",references/playbooks/cost-and-reliability.md,references/core/personas.md
+maturity-and-governance,Maturity and governance,"Place on the maturity ladder, set provenance/governance, and route work to siblings",references/playbooks/maturity-and-governance.md,references/core/personas.md

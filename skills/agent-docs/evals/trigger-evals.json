@@ -1,0 +1,22 @@
+{
+  "skill": "agent-docs",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "audit our AGENTS.md — is it hand-curated, are the CLAUDE.md and cursor mirrors in sync, and do the rules trace to real failures?", "should_activate": true, "expected_route": "review/agents-md", "category": "positive"},
+    {"query": "curate an llms.txt for our docs so an agent fetches the right pages first instead of crawling the whole site", "should_activate": true, "expected_route": "do/llms-txt", "category": "positive"},
+    {"query": "our coding agent keeps calling the wrong tool because two MCP tool descriptions are nearly identical — fix the descriptions", "should_activate": true, "expected_route": "do/tool-descriptions", "category": "positive"},
+    {"query": "will our reference docs survive retrieval? agents pull a paragraph that says 'see above' and can't use it", "should_activate": true, "expected_route": "review/machine-reference", "category": "positive"},
+    {"query": "our always-loaded context file is huge — what should the agent load up front vs retrieve on demand?", "should_activate": true, "expected_route": "design/context-budget", "category": "positive"},
+    {"query": "design the AGENTS.md contract for our repo so agents know our commands, invariants, and load-bearing rules", "should_activate": true, "expected_route": "design/agents-md", "category": "positive"},
+    {"query": "full agent-docs review across our AGENTS.md, llms.txt, tool descriptions, reference, and context budget — score each", "should_activate": true, "expected_route": "review/all", "category": "positive"},
+    {"query": "our skill exists but the agent never triggers it — tune the description so it activates on the right prompts", "should_activate": true, "expected_route": "do/tool-descriptions", "category": "positive"},
+    {"query": "audit our human docs site and help center for confusing onboarding and zero-result search", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design the typed tool schema and structured-output validation for our Agent SDK", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "scaffold our repo's AGENTS.md, hooks, and CI gates and wire the do-not-autogenerate enforcement", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "set up a trace-and-eval loop and watch our agent's quality drift in production", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "promote this recurring agent failure into an AGENTS.md rule from our reflection log", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "tighten the prose in our marketing landing page", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our docs serve both human readers and an agent, and the same page needs to work for both — where does the agent-native part live?", "should_activate": true, "expected_route": "review/machine-reference", "category": "edge"},
+    {"query": "should the agent's invariants live in AGENTS.md prose or a CI gate? our markdown rule keeps getting ignored", "should_activate": true, "expected_route": "review/agents-md", "category": "edge"}
+  ]
+}

@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+do,Operate an agent system change safely,"Mid-change: wiring observability, a loop, an autonomy controller, a budget, or a release gate for a running agent system",references/intents/do.csv,templates/change-plan.md
+review,Audit and score an agent operations posture,"Audit a running agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Shape an agent operations loop, assess maturity, or explain","Design observability, a trace-and-eval loop, an autonomy controller, reliability/release gates; assess maturity and route the work to the right sibling; or explain a principle",references/intents/design.csv,templates/design-doc.md

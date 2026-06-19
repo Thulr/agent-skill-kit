@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+observability,Design observability,"Shape what to trace, trajectory capture, and drift/cost monitoring",references/playbooks/observability.md,references/core/personas.md
+optimization-loop,Design the optimization loop,"Shape the trace-and-eval flywheel, cadence, and stop/rollback",references/playbooks/optimization-loop.md,references/core/personas.md
+autonomous-controller,Design the autonomy controller,"Shape controller preconditions, gates, circuit-breakers, and rollback",references/playbooks/autonomous-controller.md,references/core/personas.md
+cost-and-reliability,Design cost and reliability,"Shape budgets, reliability targets, and a failure-mode-decomposed release gate",references/playbooks/cost-and-reliability.md,references/core/personas.md
+maturity-and-governance,Assess maturity and route,"Place on the maturity ladder, set governance/provenance, and route work to siblings",references/playbooks/maturity-and-governance.md,references/core/personas.md

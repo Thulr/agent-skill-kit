@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+all,Full agent-UX review,"Audit every agent-facing interaction surface and score each (fan-out)",,references/core/severity-rubric.md;references/core/score-rubric.md;references/calibration.md;references/trackable-findings.md
+machine-readable-state,Review machine-readable state,"Audit perceivable state/actions/results and human-only affordances and score",references/playbooks/machine-readable-state.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+deterministic-actions,Review deterministic actions,"Audit selector stability and retry-safety and score",references/playbooks/deterministic-actions.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+approval-and-agency,Review approval and agency,"Audit in-path gating of irreversible actions and on-behalf consent and score",references/playbooks/approval-and-agency.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+audience-conflicts,Review audience conflicts,"Audit human-vs-agent trade-offs and dual paths and score",references/playbooks/audience-conflicts.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md

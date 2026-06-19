@@ -1,0 +1,7 @@
+surface,name,when_to_use,playbook,core_refs
+all,Full agent-DX review,"Audit every agent-facing surface and score each (fan-out)",,references/core/severity-rubric.md;references/core/score-rubric.md;references/calibration.md;references/trackable-findings.md
+sdk-design,Review SDK shape,"Audit loop/streaming/stop/handoff/edges and score",references/playbooks/sdk-design.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+tools-and-mcp,Review tools and MCP,"Audit tool schemas, hooks, MCP trust boundary, auth and score",references/playbooks/tools-and-mcp.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+structured-output,Review structured output,"Audit schema typing, refusal, semantic retry and score",references/playbooks/structured-output.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+errors-and-retry,Review errors and retry,"Audit the error envelope and retry-shaped feedback and score",references/playbooks/errors-and-retry.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+sdk-telemetry,Review SDK telemetry,"Audit spans, capture toggle, redaction and score",references/playbooks/sdk-telemetry.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md

@@ -106,7 +106,7 @@ not inspect first.
 
 ## N5 — AI-agent surface
 **Prompt:** `Claude Code keeps tripping on our repo — bad AGENTS.md, wrong test commands. Make it agent-friendly.`
-**Expected:** defers to `design-for-agent-users`; does not route through a UX playbook.
+**Expected:** defers to `harden-repo-for-coding-agents` (repo-readiness; AGENTS.md content design is `agent-docs`); does not route through a UX playbook.
 
 ## N6 — Production performance debugging
 **Prompt:** `Our reporting query is slow in production at 2pm. Trace what's saturating Postgres.`

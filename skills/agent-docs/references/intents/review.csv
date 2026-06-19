@@ -1,0 +1,7 @@
+surface,name,when_to_use,playbook,core_refs
+all,Full agent-docs review,"Audit every agent-native doc surface and score each (fan-out)",,references/core/severity-rubric.md;references/core/score-rubric.md;references/calibration.md;references/trackable-findings.md
+agents-md,Review AGENTS.md,"Audit curation, mirror parity, evidence-promoted rules, persona/ops boundary and score",references/playbooks/agents-md.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+llms-txt,Review llms.txt/index,"Audit the agent index, placement, and single-source discipline and score",references/playbooks/llms-txt.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+tool-descriptions,Review tool descriptions,"Audit tool/MCP description clarity and disambiguation and score",references/playbooks/tool-descriptions.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+machine-reference,Review machine reference,"Audit chunk survivability, stable anchors, and glossary bridge and score",references/playbooks/machine-reference.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+context-budget,Review context budget,"Audit the load-budget tiers and everything-dump risk and score",references/playbooks/context-budget.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md

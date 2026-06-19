@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+eval-design,Eval design,"Name the failure modes and design the smallest eval that gates the change",references/playbooks/eval-design.md,references/core/personas.md
+judge-calibration,Judge calibration,"Calibrate an LLM-as-judge against a human-labeled set before it gates anything",references/playbooks/judge-calibration.md,references/core/personas.md
+trajectory-tests,Trajectory tests,"Reassemble spans and assert on the path — tool order, hand-offs, loops",references/playbooks/trajectory-tests.md,references/core/personas.md
+benchmark-design,Benchmark design,"Build a held-out, replayable benchmark that gates a model swap or release",references/playbooks/benchmark-design.md,references/core/personas.md
+activation-evals,Activation evals,"Test whether an agent/skill activates and routes correctly (positive/negative/edge)",references/playbooks/activation-evals.md,references/core/personas.md

@@ -28,6 +28,8 @@ credentials.
 - Long-running operations (>500ms) show progress, not silence.
 - Exit codes are stable and documented (0 success, non-zero categorized).
 - JSON output (`--json`) round-trips through `jq` without parsing tricks.
+- Data lands on stdout, diagnostics on stderr — `tool | jq` stays clean.
+- Unknown flags and stray positionals fail with a named validation error.
 - Destructive commands prompt by default; `--yes` / `-y` opts out and is
   documented in `--help`.
 
@@ -39,6 +41,9 @@ credentials.
   distinct prefix).
 - Errors print a stack trace; success prints nothing — asymmetric feedback.
 - TTY-only output (color, spinners) breaks piped/CI usage.
+- Progress and logs print to stdout, corrupting `tool | jq` pipelines.
+- An unknown flag or typo silently no-ops instead of erroring — users never
+  learn the command did nothing.
 - Smoke-test path is undocumented; new users ask the maintainer.
 - Exit codes change between versions; scripts break silently.
 
@@ -56,6 +61,17 @@ credentials.
   unless `--yes` / `-y` is passed. Document the flag in `--help`.
 - **Pipe-safe output** *(audit)* — JSON output is the same shape whether
   stdout is a TTY or a pipe. Colors auto-disable for non-TTY.
+- **Stream separation** *(audit, design)* — primary/parseable output goes to
+  stdout; errors, progress, prompts, and logs go to stderr. Verify with
+  `tool … | jq`: the pipe returns clean data with no diagnostics mixed in.
+- **Strict parser contract** *(audit, design)* — unknown flags and excess
+  positionals fail with a clear validation error, never a silent no-op
+  ("parse, don't validate"). `--help` states any ordering constraints; when
+  ordering is unspecified, default to a predictable, position-independent
+  parse.
+- **Wizard echoes the script form** *(design)* — when a required input is
+  missing, an interactive prompt/`--wizard` mode collects it, then prints the
+  equivalent fully-flagged command so the same run is scriptable next time.
 - **Exit-code contract** *(audit)* — exit codes are stable across versions and
   documented; scripts can rely on them.
 - **Affordant prefixes** *(audit, design)* — output uses consistent visual
@@ -91,6 +107,8 @@ credentials.
 | Are subcommand names verbs matching user tasks? | Users guess wrong | Rename to user-task verbs |
 | Is there a documented smoke-test path? | Tribal-knowledge support | Add `check` or `doctor` subcommand |
 | Does output differ between TTY and pipe? | CI/scripts break silently | Detect TTY; auto-disable color |
+| Is data on stdout and diagnostics on stderr? | `tool \| jq` chokes | Route progress/logs/prompts to stderr |
+| Do unknown flags / extra args error? | Typos silently no-op | Fail with a named validation error |
 | Are exit codes documented? | Scripts can't trust them | Document; add tests for stability |
 | Do destructive commands prompt? | Accidental data loss | Prompt unless `--yes` |
 

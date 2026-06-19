@@ -36,6 +36,9 @@ get here, `sdk.md` for the language-specific shape examples must match, and
 - Examples are versioned alongside the main product; the CI for the main
   product exercises the examples or the examples exercise themselves against
   the latest published version.
+- At least one canonical example doubles as a test fixture — its request
+  shape or output is asserted against the real system, so a contract change
+  breaks the build instead of silently outdating the example.
 - Examples cover both the simplest "hello world" and at least one realistic
   end-to-end flow per supported language.
 - Sample code mirrors the idioms a real integrator would write — not
@@ -98,6 +101,13 @@ get here, `sdk.md` for the language-specific shape examples must match, and
 - **Snippet-source parity** *(audit)* — the README example, the docs
   snippets, and the IDE hover examples come from the same curated source;
   any one of them changing flags a review of the others.
+- **Example-as-fixture** *(audit, design)* — at least one canonical example
+  is reused as a validation fixture: a request-schema assertion, or a
+  contract/smoke test that runs the example against a live or recorded call.
+  Divergence between the documented example and real behavior then fails the
+  build rather than surfacing as a user bug report. Extends *Snippet-source
+  parity* and *CI-tested against current SDK*: parity keeps the copies in
+  sync; this keeps the canonical copy honest against the running system.
 - **Secret-clean** *(audit)* — samples contain no real credentials, no
   production endpoints, and no values that would be a security issue if
   cloned and run as-is.
@@ -109,6 +119,7 @@ get here, `sdk.md` for the language-specific shape examples must match, and
 | Is there at least one runnable example per supported language? | Users blocked at "how do I start" | Add a sample per language, owned by the project |
 | Does each sample run end-to-end in under five minutes? | First-try friction | Profile clone-to-result; cut setup steps |
 | Is each example tested in CI? | Stale samples accumulate | Add example CI against the current published SDK |
+| Is a canonical example reused as a validation fixture? | Documented example can drift from real behavior unnoticed | Assert one example's request schema or output in CI |
 | Does each sample carry its own README and expected output? | Users cannot verify success | Add per-sample READMEs with output blocks |
 | Do samples reflect real integrator patterns? | Bad model copied downstream | Rewrite samples to match production-quality code |
 | Are samples curated rather than community-dumped? | Mixed quality, unclear ownership | Define an audit gate for sample contributions |

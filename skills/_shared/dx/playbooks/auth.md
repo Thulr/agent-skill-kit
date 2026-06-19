@@ -32,6 +32,10 @@ auth-related response shapes.
   cross-environment paste errors obvious before the request fires.
 - Expiry warnings are issued before failure — users get notice (e.g. 7 days
   ahead) so they can rotate without an outage.
+- Only a hash of each key is stored; the full secret is shown once at creation
+  and a leaked datastore yields no usable credentials.
+- Scopes are enforced server-side from the credential; client-asserted scopes
+  or roles in the request body are ignored.
 
 ## Common failures
 
@@ -49,6 +53,10 @@ auth-related response shapes.
   offered as a starting point.
 - Revocation takes hours to propagate; a credential marked revoked still
   authenticates requests.
+- Full API keys are stored in plaintext and re-displayable, so a datastore leak
+  hands out live credentials.
+- Scopes are checked only in the client, or trusted from a role in the request
+  body, so a caller can grant itself permissions the server never verifies.
 
 ## Heuristics
 
@@ -74,6 +82,14 @@ auth-related response shapes.
 - **Least-privilege default** *(design)* — new keys start with minimal scope.
   Broadening permissions requires an explicit deliberate step, not an implicit
   default.
+- **Hashed key storage, shown once** *(audit, design)* — store only a hash of
+  each API key; display the full secret a single time at creation and never
+  again. A leaked datastore must not yield usable credentials, and "lost key"
+  resolves by rotation, not retrieval.
+- **Server-side scope enforcement** *(audit, design)* — enforce scopes on the
+  server from the credential itself; never trust client-asserted scopes or a
+  role passed in the request body. The client cannot be the authority on what
+  it is allowed to do.
 
 ## Quick diagnostic
 
@@ -85,6 +101,8 @@ auth-related response shapes.
 | Does revocation propagate within a time bound? | Ghost tokens remain valid | Add and document invalidation propagation |
 | Are test and live keys visually distinct? | Cross-environment paste errors | Add a prefix or format distinction between environments |
 | Are scopes least-privilege by default? | Blanket admin permissions | Re-default new keys to minimum required scope |
+| Are keys stored hashed and shown only once? | Plaintext, re-displayable keys | Hash at rest; surface the secret once at creation |
+| Are scopes enforced server-side from the credential? | Client-asserted scopes trusted | Move scope checks to the server, derived from the key |
 
 ## Cross-references
 

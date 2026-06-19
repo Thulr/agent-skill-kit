@@ -78,6 +78,13 @@ parity.
 - **Editor-agnostic language server** *(design)* — when cross-file analysis
   is needed, implement via the language-server protocol so every conforming
   editor benefits rather than writing per-editor plugins.
+- **Pick the editor layer by latency and scope** *(design, audit)* — put
+  per-keystroke, in-file work (syntax highlighting, structural folding,
+  bracket matching) on a fast incremental parser that re-parses on every
+  edit; reserve the language server for cross-file semantics (resolution,
+  type-aware completion, rename) where the round-trip cost is justified.
+  Don't pay LSP latency for what an in-process parse answers, or lose
+  cross-file accuracy by forcing it through a syntactic parser.
 - **Tested snippet packs** *(audit, design)* — snippets are compiled and
   exercised in CI against the current API; a failing snippet blocks release.
 

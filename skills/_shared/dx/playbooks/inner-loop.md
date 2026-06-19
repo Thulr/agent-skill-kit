@@ -34,6 +34,8 @@ the PR loop layered on top of the inner loop.
   setup time, not at PR time.
 - Hot reload is the default dev mode for UI and server-rendered surfaces.
 - One command runs the full test suite with no setup ritual.
+- Each PR exposes a runnable preview (ephemeral deploy or one-command
+  stand-up) so behavior is observed before merge, not inferred from the diff.
 
 ## Common failures
 
@@ -94,6 +96,12 @@ the PR loop layered on top of the inner loop.
   runner (Nx, Turborepo, Bazel, or equivalent) builds and tests only the
   changed packages and their dependents; full-graph rebuilds are reserved
   for release time.
+- **Per-PR preview environment** *(design, audit)* — each PR spins up an
+  ephemeral deploy (or a one-command local stand-up of the changed surface)
+  so the change is runnable and observable before merge, not just green in
+  CI. The preview URL or run command is posted on the PR; reviewers and the
+  author exercise behavior instead of inferring it from the diff, compressing
+  the edit-observe round-trip out to the reviewer.
 
 ## Quick diagnostic
 
@@ -105,6 +113,7 @@ the PR loop layered on top of the inner loop.
 | Is there a documented pre-PR command? | Tribal knowledge gate | Add `make pre-pr` or equivalent |
 | Does watch mode rebuild incrementally? | Full rebuild on every save | Switch to incremental watcher config |
 | Do local and CI results agree? | "Works on CI only" surprises | Pin runtime versions; add fresh-install CI job |
+| Can a change be run before merge? | Reviewers read the diff blind | Add a per-PR preview deploy or one-command stand-up |
 
 ## Cross-references
 

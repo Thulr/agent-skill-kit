@@ -42,6 +42,10 @@ guide patterns.
   transitions are each documented with a release version.
 - Old paths remain functional for at least one full release after the
   deprecated warning is first emitted.
+- Deprecated paths emit usage telemetry, and removal is gated on observed
+  traffic dropping to near-zero rather than on a fixed sunset date alone.
+- High-risk migrations ship an explicit risk note (lock behavior, backfill
+  size, rollback path, blast radius) reviewed separately from the test result.
 
 ## Common failures
 
@@ -61,6 +65,10 @@ guide patterns.
   version combinations without warning.
 - Migration docs describe the steps but not the rationale; users can't reason
   about edge cases or non-standard environments.
+- Deprecated path removed on a calendar deadline while live callers still hit
+  it, because no usage signal was instrumented to prove the path was idle.
+- A high-risk migration treated as safe because tests passed — no one assessed
+  lock behavior, backfill size, rollback path, or blast radius before deploy.
 
 ## Heuristics
 
@@ -88,6 +96,19 @@ guide patterns.
   assume integrators depend on behaviors that were never officially documented.
   The deprecation window must be long enough for them to discover, adapt, and
   ship — not just long enough for users who read changelogs.
+- **Usage-gated removal** *(audit, design)* — emit a metric or log on every
+  call to a deprecated path, then gate removal on observed traffic falling to
+  near-zero, not on a calendar window alone. A timer that expires while real
+  callers remain is a scheduled outage. This subsumes additive-params and
+  new-name migrations — both are expand-contract moves whose old path you keep
+  until the meter reads empty. (Stripe gates removal of dated API versions on
+  per-account usage, not a fixed sunset.)
+- **Migration risk is a judgment call, not a CI result** *(audit, design)* —
+  a green test suite proves the migration runs, not that it is safe to run.
+  High-risk migrations — data backfills, lock-taking DDL, dependency additions
+  — carry an explicit risk note covering lock behavior, backfill size, rollback
+  path, and blast radius, reviewed by a human separately from the test result.
+  Reviewing the risk note is a distinct gate from reading the green check.
 
 ## Quick diagnostic
 
@@ -99,6 +120,8 @@ guide patterns.
 | Does every deprecation warning point to a replacement? | Users don't know what to do | Add remediation pointer to every warning |
 | Is the compatibility matrix documented and tested? | Ad hoc version combinations in the wild | Publish and test supported version pairs |
 | Do schema migrations include a down path? | Forward-only deploys with no rollback | Add and test down migrations |
+| Is removal gated on observed deprecated-path usage? | Calendar removal may break live callers | Instrument per-call usage and remove only when traffic is near-zero |
+| Do high-risk migrations carry a risk note reviewed apart from tests? | Green tests mistaken for safe-to-run | Require a lock/backfill/rollback/blast-radius note, reviewed by a human |
 
 ## Cross-references
 

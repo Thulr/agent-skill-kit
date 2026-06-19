@@ -4,7 +4,7 @@
 
 Client libraries and language bindings on top of an API: method naming,
 type models, error handling, retry and timeout defaults, pagination, and
-testability seams. Routes to `api.md` for the underlying HTTP/RPC contract,
+testability seams. Routes to `api.md` for the HTTP/RPC contract,
 `errors.md` for exception and error-message copy, and `ide.md` for
 autocomplete and hover-doc shape.
 
@@ -24,128 +24,127 @@ autocomplete and hover-doc shape.
 
 - Method and type names follow the idioms and casing conventions of the
   target language, not the HTTP or wire format.
-- One obvious way to accomplish each common task — the happy path is never
-  a choice between three equivalent methods.
+- One obvious way to accomplish each common task — the happy path is
+  never a choice between three equivalent methods.
 - Domain types model the business object, not the wire shape; callers work
   with `Invoice`, not `CreateInvoiceResponseBody`.
 - Errors are typed: a tiered exception hierarchy keyed to HTTP semantics
   (`APIError` → `RateLimitError`, `AuthenticationError`, etc.), not string
   comparison.
-- Retry policy is exponential backoff with **full jitter** plus a
-  per-client retry budget (token bucket), and honors a server-supplied
-  `Retry-After` / `x-amz-retry-after` header on `429` / `503`.
-- Streaming exposes language-native iterators; unknown event shapes do
-  not crash the iterator (forward-compatible).
-- Middleware / plugin pipeline composes auth, signing, logging, retry,
-  and telemetry — none hard-coded into the call path.
-- Authentication is a strategy interface, not a hard-coded bearer
-  token — supports OAuth, request signing, instance profiles, app
-  installations.
-- Long-running operations expose a waiter with declarative acceptors
-  and a bounded `maxWaitTime`, not a manual sleep-loop.
-- Webhook signature verification ships as a helper (HMAC + timestamp
-  tolerance + constant-time compare + secret rotation), not rolled
-  by hand at every callsite.
-- Both sync and async surfaces exist with identical method shapes.
-- A deterministic test boundary (spec-generated HTTP mock or swappable
-  transport) is published, not just an internal fixture.
-- The SDK ships a test seam — a `TestClient`, an interface, or an injected
-  transport — so unit tests run offline.
-- The thread-safety or concurrency model is documented; users don't have to
-  guess whether a client instance is safe to share.
+- Retry, streaming, auth, waiters, and webhook verification are deep
+  built-ins — full-jitter retry with budget and `Retry-After`,
+  forward-compatible iterators, a pluggable auth strategy, declarative
+  waiters, and a signature helper — none rolled at the callsite.
+- A published test seam lets unit tests run offline; both sync and async
+  surfaces exist with identical shapes; the concurrency model is
+  documented.
 
 ## Common failures
 
-- Pass-through wrappers that expose HTTP request and response shapes
+- Pass-through wrappers that expose HTTP request/response shapes
   verbatim — the SDK adds no abstraction value.
 - Methods with eight or more positional parameters and no options object;
   call sites are unreadable and argument order is easy to swap.
 - All errors caught and re-thrown as a generic `Exception` or `Error` —
   callers can't distinguish a network failure from a validation failure.
 - "Retry 3x" with no jitter, no budget, no `Retry-After` honoring —
-  failing clients synchronize into a thundering herd and stacked
-  retries multiply load.
-- Streaming returns raw chunks the caller reassembles; or the iterator
-  panics on an event type the SDK predates.
-- Auth is hard-coded; a second scheme requires forking.
-- Eventually-consistent operations have no waiter; every caller writes
-  their own polling loop.
-- Webhook verification is a copy-paste snippet in the docs; integrators
-  get timestamp tolerance wrong or use non-constant-time compare.
+  failing clients synchronize into a thundering herd.
+- Streaming returns raw chunks, or the iterator panics on an event type
+  the SDK predates; auth is hard-coded and a second scheme requires
+  forking; eventually-consistent operations have no waiter; webhook
+  verification is a copy-paste snippet integrators get wrong.
 - No test seam: unit tests hit the network and carry credentials.
-- Pagination exposes raw cursors and requires manual looping.
-- Concurrency safety is unspecified; users guess.
-- Sync-only in a primarily-async ecosystem (or vice versa); consumers
-  thread-pool-wrap or run-loop-bridge at every callsite.
+- Pagination exposes raw cursors and requires manual looping; concurrency
+  safety is unspecified, so users guess.
+- Sync-only in an async ecosystem (or vice versa); consumers bridge
+  colors at every callsite.
 
 ## Heuristics
 
-- **Deep-module shape** *(design)* — the public surface area is small;
-  complexity (auth, serialization, retry, rate-limit backoff) is handled
-  inside, not delegated to callers.
-- **Idiomatic-for-language** *(audit, design)* — naming, error
-  handling, and lifecycle look native: Python uses snake_case + context
-  managers; Go returns `(value, error)`. A Java port in Python is a
-  failure.
+- **Deep-module shape** *(design)* — the public surface is small;
+  complexity (auth, serialization, retry, backoff) is handled inside,
+  not delegated to callers.
+- **Idiomatic-for-language** *(audit, design)* — naming, errors, and
+  lifecycle look native (Python snake_case + context managers; Go
+  `(value, error)`). A Java port in Python is a failure.
 - **Typed errors** *(design, debug)* — each failure class has a distinct
-  exception or `Result` variant; callers can catch what they can handle and
-  let the rest propagate.
+  exception or `Result` variant; callers catch what they handle and let
+  the rest propagate.
 - **Full-jitter retry with budget** *(design, audit)* — backoff is
   `random(0, min(cap, base × 2^retry))`; a per-client token-bucket
   blocks further retries once the failure rate drains the budget;
-  `Retry-After` / `x-amz-retry-after` is honored without added jitter.
-  Defaults are safe and documented; a `RetryPolicy` lets callers tune
-  without forking.
+  `Retry-After` / `x-amz-retry-after` is honored without added jitter,
+  including a producer-side `429` carrying a concrete wait time.
+  Defaults are safe; a `RetryPolicy` lets callers tune without forking.
 - **Middleware pipeline** *(design, audit)* — auth, logging, retry,
-  signing, and telemetry plug into named stages of the request
-  lifecycle; new behavior is composable without forking the call path.
+  signing, and telemetry plug into named lifecycle stages; new behavior
+  is composable without forking the call path.
 - **Pluggable auth strategy** *(design, audit)* — `authStrategy` (or
   credential-provider chain) accepts OAuth, request signing, app
-  installations, custom HMAC without forking the client.
+  installations, and custom HMAC without forking the client.
 - **Waiters / pollers** *(design, audit)* — eventually-consistent
   operations expose a waiter with declarative acceptors, a bounded
-  `maxWaitTime`, and exponential-backoff-with-jitter polling. No
-  manual sleep loops in user code.
+  `maxWaitTime`, and backoff-with-jitter polling — no manual sleep loops.
+  For durable execution, distinguish at-most-once steps from retried
+  activities, pair side effects with compensation finalizers, and pass
+  large payloads by reference, not inline.
 - **Streaming as iterator** *(design, audit)* — SSE / chunked
-  responses surface as language-native iterators; the event union is
-  open so unknown event types do not crash forward-compatible clients.
+  responses surface as language-native iterators; the open event union
+  means unknown event types do not crash forward-compatible clients.
 - **Webhook signature helper** *(design, audit)* — `verify(payload,
   signature, secret)` is a one-call helper doing HMAC, timestamp
   tolerance, constant-time compare, multi-secret rotation, and
-  scheme-pinning to block downgrade.
+  scheme-pinning.
 - **Dual sync/async surface** *(design)* — both `Client()` and
-  `AsyncClient()` (or the language equivalent) with identical method
-  shapes; consumers pick without thread-pool or run-loop contortions.
-- **Deterministic test boundary** *(design, audit)* — a published
-  HTTP-mock artifact (generated from the API spec) or a swappable
-  transport lets consumers write integration tests without hitting
-  the real network or carrying credentials.
-- **Offline testability** *(design)* — a `TestClient`, injected transport,
-  or interface seam is part of the public API; the README shows how to use it
-  in a unit test.
+  `AsyncClient()` (or equivalent) with identical method shapes;
+  consumers pick without color-bridging contortions.
+- **Deterministic test boundary** *(design, audit)* — a published test
+  seam (`TestClient`, injected transport, or spec-generated HTTP mock) is
+  part of the public API, so consumers test offline without the real
+  network or credentials; the README shows it in a unit test.
 - **Documented concurrency** *(audit, design)* — the library is either
-  thread-safe by default (document it) or explicitly not (mark it clearly
-  and explain the correct pattern).
-- **Pagination iterators** *(design)* — paginated list responses are exposed
-  as async iterators or generators; the caller writes `for item in
-  client.list(...)` rather than managing cursor state in a loop.
-- **Robustness on read** *(audit)* — unknown or optional fields in API
-  responses are ignored or preserved, not panicked or discarded silently;
+  thread-safe by default (document it) or explicitly not (mark it and
+  explain the correct pattern).
+- **Pagination iterators** *(design)* — paginated lists surface as async
+  iterators or generators; the caller writes `for item in client.list(...)`
+  instead of managing cursor state.
+- **Robustness on read** *(audit)* — unknown or optional response fields
+  are ignored or preserved, not panicked or discarded silently;
   serialization out is strict.
+- **Parse, don't validate** *(design, audit)* — decoding returns the
+  usable typed value (`parse(str) -> URL`), not a boolean validity check
+  the caller re-decodes after. Once it parses, the type proves the
+  invariant; downstream code never re-validates.
+- **Caller-transparent batch-coalescing** *(design)* — expose a narrow
+  per-item interface (`.load(key)` returning one value) and coalesce
+  concurrent calls into a single backend batch behind it; callers never
+  hand-roll batch coordination.
+- **Adoption friction as a design axis** *(audit, design)* — minimize the
+  assumptions the library forces on the consumer's stack (runtime, build
+  step, type system, framework); the fewer assumed, the thinner the slice
+  a consumer can adopt. Weigh adoption cost as a first-class constraint.
+- **Per-call cost bound and fallback** *(design, audit)* — calls to
+  metered or degradable backends carry an explicit cost/budget bound and
+  a documented fallback or provider-switch contract; a consumer caps
+  spend and reroutes without forking.
 - **Version disclosure** *(audit, design)* — the SDK exposes its own
-  version (`client.version`, `__version__`) and includes it in the
-  User-Agent. Support traces any request to a specific SDK build.
+  version (`client.version`, `__version__`) and sends it in the
+  User-Agent, so support traces any request to a specific build.
 - **Cancellation and deadlines** *(design, audit)* — long-running
   methods accept a native cancellation token (`context.Context`,
-  `AbortSignal`, `asyncio.timeout`); cancel without leaking
+  `AbortSignal`, `asyncio.timeout`) and cancel without leaking
   connections.
+- **Resource-safety finalizers** *(design, audit)* — client and
+  connection lifecycles run cleanup on success, failure, AND
+  cancellation/interrupt (bracket / try-with-resources / RAII), so no
+  exit path leaks a handle — not just on cancel.
 - **Debug-mode logging hook** *(design, audit)* — a logger interface and
-  `debug` mode emit request/response data with secrets masked. Callers
-  don't monkey-patch internals to see the wire.
+  `debug` mode emit request/response data with secrets masked, so callers
+  never monkey-patch internals to see the wire.
 - **Pinned-and-printable construction** *(audit, design)* — the
   constructor accepts every option a script would override (base URL,
-  timeout, retry policy, transport) and exposes them on the instance
-  so integrators can verify effective configuration at runtime.
+  timeout, retry policy, transport) and exposes them on the instance, so
+  integrators verify effective config at runtime.
 
 ## Quick diagnostic
 
@@ -158,10 +157,10 @@ autocomplete and hover-doc shape.
 | Does retry use full jitter and honor `Retry-After`? | Thundering herd on recovery | Switch to full-jitter backoff + retry budget; honor server timing |
 | Is auth a strategy interface? | Second auth scheme requires forking | Accept a credential-provider chain or `authStrategy` |
 | Do long operations expose a waiter? | Callers write manual polling loops | Ship declarative waiters with acceptors and bounded timeouts |
-| Is streaming exposed as a native iterator? | Callers reassemble chunks | Return an async iterator with an open event union |
+| Is streaming a native iterator with an open event union? | Callers reassemble chunks | Return an async iterator |
 | Is webhook verification a one-call helper? | Each integrator rolls crypto | Ship HMAC + timestamp + constant-time helper |
-| Are both sync and async surfaces available? | Wrong-color contortions at every callsite | Add the missing surface with identical method shapes |
-| Is pagination exposed as an iterator? | Callers manage cursors manually | Provide an async iterator or generator |
+| Does decoding return the usable typed value? | Caller re-validates after a boolean check | Parse, don't validate |
+| Do finalizers run on success, failure, AND cancel? | A handle leaks on some exit path | Wrap lifecycles in bracket / try-with-resources |
 | Is thread-safety documented? | Users guess, concurrency bugs emerge | Add a Concurrency section to the README |
 
 ## Cross-references

@@ -1,0 +1,5 @@
+surface,name,when_to_use,playbook,core_refs
+machine-readable-state,Design machine-readable state,"Shape the structured state/action/result surface an agent perceives",references/playbooks/machine-readable-state.md,references/core/personas.md
+deterministic-actions,Design deterministic actions,"Shape stable semantic handles and idempotent, retry-safe actions",references/playbooks/deterministic-actions.md,references/core/personas.md
+approval-and-agency,Design approval and agency,"Shape the mechanical-vs-judgment gate and on-behalf consent UX",references/playbooks/approval-and-agency.md,references/core/personas.md
+audience-conflicts,Design the audience reconciliation,"Shape dual visible+machine-readable paths and one-source-many-renderings",references/playbooks/audience-conflicts.md,references/core/personas.md

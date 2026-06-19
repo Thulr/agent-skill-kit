@@ -1,0 +1,5 @@
+surface,name,when_to_use,playbook,core_refs
+machine-readable-state,Machine-readable state,"Expose state, actions, and results as structure an agent can perceive",references/playbooks/machine-readable-state.md,references/core/personas.md
+deterministic-actions,Deterministic actions,"Make controls targetable by stable handles and actions retry-safe",references/playbooks/deterministic-actions.md,references/core/personas.md
+approval-and-agency,Approval and agency,"Gate irreversible actions in-path; make on-behalf consent visible and scoped",references/playbooks/approval-and-agency.md,references/core/personas.md
+audience-conflicts,Audience conflicts,"Resolve human-visual vs agent-actor tension on the same surface",references/playbooks/audience-conflicts.md,references/core/personas.md

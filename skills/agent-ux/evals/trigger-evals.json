@@ -1,0 +1,22 @@
+{
+  "skill": "agent-ux",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "our computer-use agent can't tell what state our app is in — the status is just a colored badge. make the state machine-readable", "should_activate": true, "expected_route": "do/machine-readable-state", "category": "positive"},
+    {"query": "our agent keeps clicking the wrong control because we target by pixel coordinates — review how it should target elements", "should_activate": true, "expected_route": "review/deterministic-actions", "category": "positive"},
+    {"query": "should our agent be allowed to fire the 'delete account' button on its own, or does that need confirmation? design the approval surface", "should_activate": true, "expected_route": "design/approval-and-agency", "category": "positive"},
+    {"query": "our UI is great for humans but an agent acting on it can't see the rules buried in tooltips — resolve this human-vs-agent conflict", "should_activate": true, "expected_route": "design/audience-conflicts", "category": "positive"},
+    {"query": "make our web app agent-operable so a computer-use agent can perceive and act on it safely — full review and score", "should_activate": true, "expected_route": "review/all", "category": "positive"},
+    {"query": "an agent retried our checkout and double-charged the customer — make the action idempotent and retry-safe", "should_activate": true, "expected_route": "do/deterministic-actions", "category": "positive"},
+    {"query": "when an agent acts on a user's account, how do we show it's acting on their behalf with scoped, revocable consent?", "should_activate": true, "expected_route": "design/approval-and-agency", "category": "positive"},
+    {"query": "our action results only show as a toast that vanishes — the agent can't tell if the save worked. review the state surface", "should_activate": true, "expected_route": "review/machine-readable-state", "category": "positive"},
+    {"query": "redesign our marketing homepage to convert better for human visitors", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "run a WCAG accessibility audit of our product for human users with disabilities", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "curate our llms.txt and AGENTS.md so an agent can read our docs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design the typed tool schema and token-exchange for our Agent SDK", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "set up a trace-and-eval loop to watch our agent's quality in production", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "review our human checkout flow for friction and drop-off", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our app already exposes a good accessibility tree for screen readers — does that also make it agent-operable, or is there more?", "should_activate": true, "expected_route": "review/machine-readable-state", "category": "edge"},
+    {"query": "an agent acts on behalf of a user — is the consent UX our job here or the SDK's token-exchange?", "should_activate": true, "expected_route": "design/approval-and-agency", "category": "edge"}
+  ]
+}

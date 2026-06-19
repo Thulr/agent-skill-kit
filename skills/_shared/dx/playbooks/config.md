@@ -44,9 +44,10 @@ flags that override config.
   than hard-coded locations.
 - Secrets are never inlined in committed config files; the path is via env
   vars, a secret manager, or a separate uncommitted file.
-- If the config format supports interpolation (`$VAR`, `$(cmd)`, template
-  expansion), the docs state plainly that loading config executes code, and
-  the tool warns before evaluating config from an unreviewed directory.
+- If the config format evaluates commands or expressions at load time
+  (`$(cmd)`, backticks, shell-eval — not plain `$VAR` substitution), the docs
+  state plainly that loading config executes code, and the tool warns before
+  evaluating config from an unreviewed directory.
 - Hot-reload behavior is documented when supported, and explicitly stated
   as "requires restart" when not.
 
@@ -70,9 +71,11 @@ flags that override config.
   guess whether the env var is overriding their change.
 - A boolean config key accepts "true", "True", "1", "yes", and "on" in
   different parts of the codebase, producing surprising mixed behavior.
-- A config format silently evaluates `$VAR`/`$(cmd)` at load time, yet the
-  docs describe it as plain data; a checked-in or cloned config file thereby
-  runs arbitrary commands the moment the tool starts.
+- A config format silently evaluates commands or expressions (`$(cmd)`,
+  backticks, eval) at load time, yet the docs describe it as plain data; a
+  checked-in or cloned config file thereby runs arbitrary commands the moment
+  the tool starts. (Plain `$VAR` substitution is fine; command evaluation is
+  the risk.)
 
 ## Heuristics
 
@@ -98,11 +101,12 @@ flags that override config.
 - **No secrets in committed files** *(audit)* — committed config carries
   no real credentials; secrets route via env vars, a secret manager, or an
   uncommitted local file. A pre-commit secret scan catches regressions.
-- **Config interpolation is code execution** *(audit, design)* — if the
-  format expands `$VAR`/`$(cmd)` at load time, treat config as code, not
-  data: document it as executable, treat a checked-in or cloned config file
-  as untrusted code, and warn before evaluating config from an unreviewed
-  directory. This is execution risk, distinct from the static-leakage concern
+- **Config command-execution is a code surface** *(audit, design)* — plain
+  `$VAR` interpolation is benign substitution, but if the format evaluates
+  *commands or arbitrary expressions* at load time (`$(cmd)`, backticks,
+  shell-eval, template logic), treat config as code, not data: document it as
+  executable, treat a checked-in or cloned config as untrusted code, and warn
+  before loading config from an unreviewed directory. This is execution risk, distinct from the static-leakage concern
   of "No secrets in committed files."
 - **Backwards-compatible key renames** *(design, audit)* — when a config
   key changes name, the old name is accepted with a deprecation warning for
@@ -125,7 +129,7 @@ flags that override config.
 | Is the example config kept in sync with the schema? | Examples fail validation | CI-validate the example against the schema |
 | Do config paths follow platform conventions? | Multi-user/multi-platform breaks | Adopt XDG and OS-specific defaults |
 | Are secrets kept out of committed config? | Credential leak | Add a secret scan and uncommitted secrets path |
-| If config interpolates `$VAR`/`$(cmd)`, is it documented as code execution? | Cloned/checked-in config runs arbitrary commands | Document load-time execution; warn before evaluating config from an unreviewed dir |
+| If config evaluates commands/expressions (`$(cmd)`, not plain `$VAR`), is it documented as code execution? | Cloned/checked-in config runs arbitrary commands | Document load-time execution; warn before evaluating config from an unreviewed dir |
 | Is reload behavior documented per key? | Surprises after edit | Annotate reload semantics on each key |
 
 ## Cross-references

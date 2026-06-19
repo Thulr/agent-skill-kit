@@ -1,7 +1,7 @@
 """Shared Anthropic SDK boilerplate for skill-local eval graders.
 
-First consumer: skills/agent-evals/evals/phase2-grader.py. Kept
-deliberately minimal — three functions — until a second skill adopts it.
+Originally used by: skills/agent-evals/evals/phase2-grader.py (retired in
+ADR 0011). Kept deliberately minimal — three functions — until a skill adopts it.
 At that point the API can be refactored without breaking external users
 since this lives under scripts/, not skills/.
 

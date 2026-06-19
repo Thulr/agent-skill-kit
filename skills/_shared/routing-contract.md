@@ -50,9 +50,10 @@ here.
   `route,trigger_examples,detail_files,templates,notes`, but rows mix two kinds
   — *load-a-playbook* rows (non-empty `detail_files`) and
   *hand-off-to-a-sibling-skill* rows (empty `detail_files`; `notes` names the
-  target top-level skill). Used by `design-for-agent-users`'s `ax-router.csv`, which
-  both reviews AX surfaces and routes out to `harden-repo-for-coding-agents` /
-  `rules-from-coding-agent-failures` / `agent-evals`. This is the only router shape
+  target top-level skill). `agent-ops` inherits this front-door role for the agent-mirror family, routing
+  out to `agent-dx` / `agent-docs` / `agent-test` / `harden-repo-for-coding-agents` /
+  `rules-from-coding-agent-failures` — expressed as a SKILL.md routing-out section
+  rather than this CSV variant. This is the only router shape
   that routes across top-level skills; it is reserved for umbrella disciplines
   (see ADR 0006), not for splitting one engine.
 

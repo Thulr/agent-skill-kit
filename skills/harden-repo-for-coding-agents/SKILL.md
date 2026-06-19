@@ -1,6 +1,6 @@
 ---
 name: harden-repo-for-coding-agents
-description: Use to ASSESS, HARDEN, SCAFFOLD, or DIAGNOSE a repository's agent-readiness for coding-agent harnesses such as Claude Code, Cursor, Codex, Copilot, Windsurf, and Aider. Covers AGENTS.md, SKILL.md, and MCP scaffolding, PreToolUse and other hooks, CI gates, sandbox and approval design, and repo-level agent failure modes; harness-agnostic and portable-first (AGENTS.md, MCP, OpenTelemetry); ships an opinionated checklist grounded in published research. Triggers on 'make this repo work with Claude Code / Cursor / Codex', 'scaffold our AGENTS.md', 'add an agent hook or gate', 'why did the agent trip on our repo', 'score our agent-readiness'. Do NOT use to design agent-facing products like SDKs or llms.txt docs (use design-for-agent-users), to promote recurring failures into rules from a feedback signal (use rules-from-coding-agent-failures), or to instrument an AI product's eval loops (use agent-evals).
+description: Use to ASSESS, HARDEN, SCAFFOLD, or DIAGNOSE a repository's agent-readiness for coding-agent harnesses such as Claude Code, Cursor, Codex, Copilot, Windsurf, and Aider. Covers AGENTS.md, SKILL.md, and MCP scaffolding, PreToolUse and other hooks, CI gates, sandbox and approval design, and repo-level agent failure modes; harness-agnostic and portable-first (AGENTS.md, MCP, OpenTelemetry); ships an opinionated checklist grounded in published research. Triggers on 'make this repo work with Claude Code / Cursor / Codex', 'scaffold our AGENTS.md', 'add an agent hook or gate', 'why did the agent trip on our repo', 'score our agent-readiness'. Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx) or agent-native docs like llms.txt/AGENTS.md (use agent-docs), to promote recurring failures into rules from a feedback signal (use rules-from-coding-agent-failures), or to design or operate an AI product's eval loops (use agent-test / agent-ops).
 license: MIT
 ---
 
@@ -9,8 +9,8 @@ license: MIT
 Assess, harden, scaffold, and diagnose a repository's agent-readiness for coding-agent
 harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and
 portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry). Grounding lives in `skill.json`;
-this file is runtime routing only. This is the **repo-hardening arm** of the
-`design-for-agent-users` discipline, which routes here to harden a repo.
+this file is runtime routing only. This is the **repo-hardening arm** of the agent-mirror family; `agent-ops`
+(the family front-door) routes here to harden a repo.
 
 **Produces:** an intent-specific report — `assess-report.md`, `harden-recommendation.md`,
 `scaffold-bundle.md`, or `diagnose-runbook.md`. Tracked assessments also emit

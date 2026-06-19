@@ -6,6 +6,26 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 
 ## [Unreleased]
 
+### Added
+- **The agent-mirror family — agent-facing work reorganized by *actor* (ADR-0011).** Five new
+  skills, each the agent-actor analog of a human-experience domain, routing do/review/design:
+  `agent-dx` (agent as developer — SDK/tool/error/telemetry), `agent-docs` (reader — AGENTS.md,
+  llms.txt, tool descriptions, machine-readable reference), `agent-ux` (end-user — agent-operable
+  UI / computer-use), `agent-ops` (operator + the family front-door — observability,
+  trace-and-eval loops, autonomy, reliability), and `agent-test` (subject under measurement —
+  evals, LLM-judges, benchmarks, activation tests).
+  (See [ADR 0011](./docs/adr/0011-actor-axis-agent-mirror-family.md).)
+
+### Removed
+- **Retired the `design-for-agent-users` umbrella and `agent-evals`**, decomposing them into the
+  agent-mirror family above: `design-for-agent-users` → `agent-dx` + `agent-docs` + `agent-ux` +
+  `agent-ops`; `agent-evals` → `agent-test` (eval/judge/benchmark design) + `agent-ops` (loop
+  operation, observability, autonomy, maturity). `harden-repo-for-coding-agents` and
+  `rules-from-coding-agent-failures` stay standalone as arms `agent-ops` routes out to. The
+  `--skill design-for-agent-users` and `--skill agent-evals` install commands no longer resolve;
+  inbound references across the catalog were repointed to the successors. Supersedes ADR-0007's
+  audience-peer model with an actor × role grid.
+
 ### Changed
 - **Renamed the project `informed-skills` → `agent-skill-kit`** and reframed it from a
   cited-literature catalog to a personal kit of the skills the maintainer uses (with README

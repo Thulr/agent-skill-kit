@@ -21,18 +21,21 @@
       "rows": [
         {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
         {"need": "**Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews", "skill": "`customer-interviewing`"},
-        {"need": "**Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness", "skill": "`design-for-agent-users` *(umbrella)*"},
-        {"need": "↳ harden a repo for coding agents", "skill": "`harden-repo-for-coding-agents`"},
-        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"},
-        {"need": "↳ instrument an AI product's eval / optimization loops", "skill": "`agent-evals`"}
+        {"need": "**Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes", "skill": "`agent-dx`"},
+        {"need": "**Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents", "skill": "`agent-docs`"},
+        {"need": "**Agent as end-user** — an agent-operable UI / app / computer-use surface", "skill": "`agent-ux`"},
+        {"need": "**Agent as operator** — observability, trace-and-eval loops, autonomy, reliability (the agent-family front-door)", "skill": "`agent-ops`"},
+        {"need": "**Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests", "skill": "`agent-test`"},
+        {"need": "↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox)", "skill": "`harden-repo-for-coding-agents`"},
+        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"}
       ]
     },
     "unsure": [
       "**Still unsure?** The three boundaries people hit most:",
       "",
-      "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `design-for-agent-users`.",
+      "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-native docs (llms.txt, AGENTS.md, retrieval) → `agent-docs`.",
       "- *\"Our service is slow\" / \"design SLOs\"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.",
-      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; build an eval loop for an AI product you ship → `agent-evals`."
+      "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; design evals/benchmarks for an AI product → `agent-test`; operate its trace-and-eval loop, autonomy, and reliability → `agent-ops`."
     ]
   },
   "catalog": {
@@ -63,7 +66,7 @@
         "id": "ax",
         "title": "Agent experience (AX)",
         "intro": [
-          "Designing, reviewing, and debugging software, repos, docs, and SDKs for AI agents as a first-class consumer audience — the agent-facing analog of UX and DX."
+          "The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator + the family front-door), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md)."
         ]
       }
     ]

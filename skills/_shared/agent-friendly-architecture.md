@@ -1,6 +1,6 @@
 # Agent-friendly architecture patterns (shared)
 
-This note is shared between `design-for-agent-users`, `harden-repo-for-coding-agents`, and `rules-from-coding-agent-failures` to avoid
+This note is shared between `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` to avoid
 drift. It summarizes what the recent repo-level agent literature actually supports about
 "architecture that helps agents work on existing projects".
 

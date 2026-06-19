@@ -12,7 +12,7 @@ npx skills add Thulr/agent-skill-kit
 
 [skills.sh](https://skills.sh) prompts you to pick which skills to install — see [Install](#install) for options.
 
-**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `design-for-agent-users`. Each skill names the cited sources it applied.
+**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `agent-docs`. Each skill names the cited sources it applied.
 
 The kit currently covers software-engineering and coding-agent work — developer and documentation experience, test quality, minimal/modular code, performance and observability, product UX and accessibility, UI craft, and agent experience. More skills I rely on get added as I go.
 
@@ -38,16 +38,19 @@ For research, discovery, and agent-facing work:
 |---|---|
 | **Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision | `research` |
 | **Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews | `customer-interviewing` |
-| **Build for AI agents** — agent-readable docs (llms.txt, AGENTS.md, MCP), AI/Agent SDK design, repo agent-readiness | `design-for-agent-users` *(umbrella)* |
-| ↳ harden a repo for coding agents | `harden-repo-for-coding-agents` |
+| **Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes | `agent-dx` |
+| **Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents | `agent-docs` |
+| **Agent as end-user** — an agent-operable UI / app / computer-use surface | `agent-ux` |
+| **Agent as operator** — observability, trace-and-eval loops, autonomy, reliability (the agent-family front-door) | `agent-ops` |
+| **Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests | `agent-test` |
+| ↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox) | `harden-repo-for-coding-agents` |
 | ↳ promote observed agent failures into rules / gates | `rules-from-coding-agent-failures` |
-| ↳ instrument an AI product's eval / optimization loops | `agent-evals` |
 
 **Still unsure?** The three boundaries people hit most:
 
-- *"Make our docs better"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-readable docs (llms.txt, retrieval) → `design-for-agent-users`.
+- *"Make our docs better"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-native docs (llms.txt, AGENTS.md, retrieval) → `agent-docs`.
 - *"Our service is slow" / "design SLOs"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.
-- *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; build an eval loop for an AI product you ship → `agent-evals`.
+- *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; design evals/benchmarks for an AI product → `agent-test`; operate its trace-and-eval loop, autonomy, and reliability → `agent-ops`.
 <!-- END GENERATED: pick-a-skill -->
 
 <!-- BEGIN GENERATED: catalog (scripts/build-catalog.py) -->
@@ -89,12 +92,10 @@ Source-grounded product discovery — talking to customers, framing the right pr
 
 ### Agent experience (AX)
 
-Designing, reviewing, and debugging software, repos, docs, and SDKs for AI agents as a first-class consumer audience — the agent-facing analog of UX and DX.
+The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator + the family front-door), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md).
 
-- **`design-for-agent-users`** — the umbrella discipline. Owns the AX review heuristics (agent-readable docs, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below for the *doing*. It is a distinct discipline that routes *across* top-level skills (see [`docs/adr/0006`](./docs/adr/0006-discipline-front-doors-vs-one-engine-many-surfaces.md)). Installed standalone it is **review-only** — its build/harden/measure routes point at the arms, so install those alongside it for the full discipline. Provenance in [`skills/design-for-agent-users/skill.json`](./skills/design-for-agent-users/skill.json).
 - **`harden-repo-for-coding-agents`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/harden-repo-for-coding-agents/skill.json`](./skills/harden-repo-for-coding-agents/skill.json).
 - **`rules-from-coding-agent-failures`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json).
-- **`agent-evals`** — audit an AI product's feedback loops, map them onto the AI Optimization Staircase, score the missing loop mechanics, and scaffold the smallest useful eval/optimization loop. Diagnostic-first; never auto-writes learned rules without held-out evals plus a reviewed diff. Provenance in [`skills/agent-evals/skill.json`](./skills/agent-evals/skill.json).
 - **`agent-docs`** — Agent-as-reader: the agent-native documentation an AI agent reads and acts on — DO (write/fix an AGENTS.md, llms.txt, tool description, machine-readable reference, or context budget), REVIEW (audit findability, chunk survivability, trigger clarity, and budget, then score it), DESIGN (shape the AGENTS.md contract, curated index, tool descriptions, reference, or budget tiers). Narrowed to agent-native artifacts; human/dual-audience docs stay in docs-audit / docs-design.
 - **`agent-dx`** — Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe — DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). Sits atop the human HTTP-client floor in dx-audit / dx-design.
 - **`agent-ops`** — Agent-as-operator and the agent-family front-door: operate a running agent system — DO (wire observability/loop/autonomy/budgets/gates), REVIEW (audit observability, optimization loop, autonomy controls, reliability/cost, and maturity, then score it), DESIGN (shape the loop, gate autonomy, decompose the release gate, place maturity and route work to siblings). Operates what agent-dx instruments; routes building out to the family.
@@ -132,19 +133,22 @@ Common bundles:
 # a domain's audit + design pair
 npx skills add Thulr/agent-skill-kit --skill dx-audit --skill dx-design
 
-# the agent-experience (AX) discipline: design-for-agent-users umbrella + its three arms
-npx skills add Thulr/agent-skill-kit --skill design-for-agent-users \
-  --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures --skill agent-evals
+# the agent-mirror family (agent as developer / reader / end-user / operator / subject) + arms
+npx skills add Thulr/agent-skill-kit --skill agent-dx --skill agent-docs --skill agent-ux \
+  --skill agent-ops --skill agent-test \
+  --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures
 
 # research only
 npx skills add Thulr/agent-skill-kit --skill research
 ```
 
-> **Renamed skills (2026-06-17).** The agent skills now read as use cases:
-> `agent-experience` → `design-for-agent-users`, `agent-readiness` →
-> `harden-repo-for-coding-agents`, `agent-rules` → `rules-from-coding-agent-failures`
-> (`agent-evals` unchanged). The old `--skill <old-name>` commands no longer
-> resolve — install the new names. See [`CHANGELOG.md`](./CHANGELOG.md).
+> **Agent skills reorganized by actor (2026-06-19).** The agent half of the catalog is now
+> organized by *actor* (an agent is an actor, not a peer audience): the `design-for-agent-users`
+> umbrella and `agent-evals` retired, decomposing into five role mirrors — `agent-dx`,
+> `agent-docs`, `agent-ux`, `agent-ops`, `agent-test` — alongside the standalone arms
+> `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` that `agent-ops` routes
+> out to. The old `--skill design-for-agent-users` / `--skill agent-evals` commands no longer
+> resolve. See [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md) and [`CHANGELOG.md`](./CHANGELOG.md).
 
 From a subdirectory URL (single skill):
 

@@ -36,10 +36,9 @@
 # Skills (the product)
 # - `skills/{dx,docs,perf,test,ux,architecture}-critique/` + `skills/{dx,docs,perf,test,architecture}-design/` + `skills/ui-design/`: 12 published heuristic skills, split per domain x function (critique = audit/debug/risk-scan an existing surface; design = shape a new one). Replaced the merged review-heuristics skill (ADR 0008); each domain's -critique/-design pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
 # - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
-# - `skills/design-for-agent-users/`: published skill; the UMBRELLA agent-experience (AX) discipline — reviews AX surfaces (agent-readable docs/llms.txt, AI/Agent SDK design, repo agent-readiness, human-vs-agent audience conflicts) and routes to the three arms below; standalone per ADR 0006
-# - `skills/harden-repo-for-coding-agents/`: published skill; AX repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (no eval prerequisite; scaffolds from project knowledge)
-# - `skills/rules-from-coding-agent-failures/`: published skill; AX evidence/feedback arm — pairs with harden-repo-for-coding-agents for repos with a feedback signal (eval/telemetry/baseline)
-# - `skills/agent-evals/`: published skill; AX instrument-the-loop arm — audit AI integrations, map the AI Optimization Staircase (L1->L4), scaffold the smallest useful eval/optimization loop
+# - `skills/agent-{dx,docs,ux,ops,test}/`: the agent-mirror family (ADR 0011) — each the agent-actor analog of a human-experience domain (agent as developer/reader/end-user/operator/subject), routing do/review/design; agent-ops is the family front-door, routing out to the two arms below
+# - `skills/harden-repo-for-coding-agents/`: published skill; repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (agent-ops routes here)
+# - `skills/rules-from-coding-agent-failures/`: published skill; evidence/feedback arm — promote observed agent failures into AGENTS.md rules/gates via the >=3-entry floor
 # - `skills/.experimental/`: reserved and currently empty
 # - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10, modes.md, trackable-findings.md, routing-contract.md, templates/); not a standalone skill; consumers symlink in their references/
 # - `skills/example-minimal/`: internal template contract (hidden unless

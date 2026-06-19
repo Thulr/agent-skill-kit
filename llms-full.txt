@@ -34,7 +34,7 @@
 # - `.claude/settings.json`, `.claude/hooks/*`: Claude Code hooks and tests
 #
 # Skills (the product)
-# - `skills/{dx,docs,perf,test,ux,architecture}-critique/` + `skills/{dx,docs,perf,test,architecture}-design/` + `skills/ui-design/`: 12 published heuristic skills, split per domain x function (critique = audit/debug/risk-scan an existing surface; design = shape a new one). Replaced the merged review-heuristics skill (ADR 0008); each domain's -critique/-design pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
+# - `skills/{dx,docs,perf,test,writing}-{audit,design}/` + `skills/ux-audit/` + `skills/ui-design/` + `skills/minimal-modular-code/`: the heuristic audit/design family — an `-audit` skill audits/debugs/risk-scans an existing surface, a `-design` skill shapes a new one; `minimal-modular-code` is the one singleton (replaced the clean-architecture pair, ADR 0009). Replaced the merged review-heuristics skill (ADR 0008); each domain's pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
 # - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
 # - `skills/agent-{dx,docs,ux,ops,test}/`: the agent-mirror family (ADR 0011) — each the agent-actor analog of a human-experience domain (agent as developer/reader/end-user/operator/subject), routing do/review/design; agent-ops is the family front-door, routing out to the two arms below
 # - `skills/harden-repo-for-coding-agents/`: published skill; repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (agent-ops routes here)

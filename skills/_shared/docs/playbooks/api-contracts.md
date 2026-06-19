@@ -92,8 +92,9 @@ latency metadata. Use when docs must drive calls, not just explain them.
 
 ## Cross-references
 
-- the `agent-docs` skill — retrieval and agent context surfaces around
-  the contract.
+- the `agent-docs` skill — agent-native tool-description *discovery* clarity (why an
+  agent calls the wrong tool), llms.txt/AGENTS.md, and retrieval; this playbook owns
+  contract-doc completeness, agent-docs owns agent discovery clarity.
 - `references/playbooks/dx-docs.md` — human API reference, quickstarts, and
   examples.
 - `references/playbooks/audience-conflicts.md` — when polished human docs conflict

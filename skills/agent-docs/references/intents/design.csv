@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+agents-md,Design the AGENTS.md contract,"Shape AGENTS.md content, mirror strategy, and evidence-rule promotion",references/playbooks/agents-md.md,references/core/personas.md
+llms-txt,Design the llms.txt/index,"Shape the curated agent index and placement-by-access-pattern",references/playbooks/llms-txt.md,references/core/personas.md
+tool-descriptions,Design tool descriptions,"Shape trigger descriptions that disambiguate and activate correctly",references/playbooks/tool-descriptions.md,references/core/personas.md
+machine-reference,Design machine reference,"Shape chunk-survivable reference with a stable-anchor contract",references/playbooks/machine-reference.md,references/core/personas.md
+context-budget,Design the context budget,"Shape the always-loaded / on-demand / memory tiers and progressive disclosure",references/playbooks/context-budget.md,references/core/personas.md

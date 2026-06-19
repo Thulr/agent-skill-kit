@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+agents-md,AGENTS.md contract,"Hand-curate AGENTS.md, keep harness mirrors in sync, promote evidence-backed rules",references/playbooks/agents-md.md,references/core/personas.md
+llms-txt,llms.txt and agent index,"Curate the agent entry-point index, place facts by access pattern, single-source",references/playbooks/llms-txt.md,references/core/personas.md
+tool-descriptions,Tool descriptions,"Make tool/MCP descriptions discoverable and disambiguated for an agent",references/playbooks/tool-descriptions.md,references/core/personas.md
+machine-reference,Machine-readable reference,"Make reference chunk-survivable with stable anchors and a glossary bridge",references/playbooks/machine-reference.md,references/core/personas.md
+context-budget,Context budget,"Tier always-loaded vs on-demand vs memory; avoid the everything-dump",references/playbooks/context-budget.md,references/core/personas.md

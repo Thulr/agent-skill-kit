@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+do,Write or fix an agent-native doc,"Mid-change: writing or fixing an AGENTS.md, llms.txt, tool description, machine-readable reference, or context-budget surface an agent reads",references/intents/do.csv,templates/change-plan.md
+review,Audit and score an agent-native doc surface,"Audit an AGENTS.md, llms.txt/agent index, tool descriptions, machine-readable reference, or context budget for agent-readability, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Shape an agent-native doc surface, or explain","Design an AGENTS.md contract, an llms.txt/agent index, tool descriptions, a machine-readable reference, or a context-budget tiering, or explain a principle",references/intents/design.csv,templates/design-doc.md

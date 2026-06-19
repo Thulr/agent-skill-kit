@@ -1,0 +1,7 @@
+surface,name,when_to_use,playbook,core_refs
+all,Full agent-test review,"Audit every measurement surface and score each (fan-out)",,references/core/severity-rubric.md;references/core/score-rubric.md;references/calibration.md;references/trackable-findings.md
+eval-design,Review eval design,"Audit failure-mode coverage and eval-tier fit and score",references/playbooks/eval-design.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+judge-calibration,Review judge calibration,"Audit judge calibration, bias checks, and explanations and score",references/playbooks/judge-calibration.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+trajectory-tests,Review trajectory tests,"Audit path-grading vs span-grading and score",references/playbooks/trajectory-tests.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+benchmark-design,Review benchmark design,"Audit held-out discipline, per-slice scoring, and gaming resistance and score",references/playbooks/benchmark-design.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md
+activation-evals,Review activation evals,"Audit trigger coverage, false/missed activation, and disambiguation and score",references/playbooks/activation-evals.md,references/core/severity-rubric.md;references/core/score-rubric.md;references/core/personas.md

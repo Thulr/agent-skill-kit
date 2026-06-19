@@ -1,0 +1,22 @@
+{
+  "skill": "agent-test",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "design the eval suite for our agent — we keep chasing one pass-rate and can't tell what actually broke", "should_activate": true, "expected_route": "design/eval-design", "category": "positive"},
+    {"query": "is our LLM-as-judge actually trustworthy, or could it be certifying regressions? review it", "should_activate": true, "expected_route": "review/judge-calibration", "category": "positive"},
+    {"query": "our per-step evals are green but the agent fails the run — write tests that grade the whole trajectory", "should_activate": true, "expected_route": "do/trajectory-tests", "category": "positive"},
+    {"query": "build a held-out benchmark to gate our model swap, with a baseline and rollback", "should_activate": true, "expected_route": "design/benchmark-design", "category": "positive"},
+    {"query": "test whether our skill actually activates on the right prompts and stays quiet on the wrong ones", "should_activate": true, "expected_route": "do/activation-evals", "category": "positive"},
+    {"query": "audit our agent's whole eval and benchmark suite for trustworthiness and score it", "should_activate": true, "expected_route": "review/all", "category": "positive"},
+    {"query": "calibrate our judge against human labels and check it for position and length bias", "should_activate": true, "expected_route": "design/judge-calibration", "category": "positive"},
+    {"query": "are these benchmark fixtures actually held out, or did they leak from training? review the benchmark", "should_activate": true, "expected_route": "review/benchmark-design", "category": "positive"},
+    {"query": "set up a trace-and-eval optimization loop and watch quality drift in production over time", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design the streaming and tool surface of our Agent SDK", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our llms.txt and AGENTS.md so coding agents can read our docs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "scaffold our repo's CI gates and hooks so the agent's tests run on every PR", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "review our human test suite for flaky unit and integration tests", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "promote this recurring agent failure into an AGENTS.md rule", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "we have a trace-to-eval step — is the candidate it produces good enough to actually gate a change, or is it skeleton metadata?", "should_activate": true, "expected_route": "review/eval-design", "category": "edge"},
+    {"query": "our judge and our deterministic schema check disagree on the same output — which should gate, and how do we test that?", "should_activate": true, "expected_route": "design/judge-calibration", "category": "edge"}
+  ]
+}

@@ -1,0 +1,6 @@
+surface,name,when_to_use,playbook,core_refs
+eval-design,Design an eval suite,"Shape the failure-mode ontology and the tier-appropriate eval",references/playbooks/eval-design.md,references/core/personas.md
+judge-calibration,Design a calibrated judge,"Shape the human-labeled calibration set, bias checks, and explanation contract",references/playbooks/judge-calibration.md,references/core/personas.md
+trajectory-tests,Design trajectory tests,"Shape path-level assertions on tool order, hand-offs, and loop counts",references/playbooks/trajectory-tests.md,references/core/personas.md
+benchmark-design,Design a held-out benchmark,"Shape a replayable, disjoint, per-slice benchmark with baseline and rollback",references/playbooks/benchmark-design.md,references/core/personas.md
+activation-evals,Design activation evals,"Shape positive/negative/edge trigger and disambiguation cases, re-run on change",references/playbooks/activation-evals.md,references/core/personas.md

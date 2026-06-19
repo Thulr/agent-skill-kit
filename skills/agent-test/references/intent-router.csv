@@ -1,0 +1,4 @@
+intent,name,when_to_use,registry_file,default_template
+do,Build a measurement instrument,"Mid-change: writing an eval, judge, trajectory test, benchmark, or activation eval for an agent or skill",references/intents/do.csv,templates/change-plan.md
+review,Audit and score a test/eval suite,"Audit an agent's eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it",references/intents/review.csv,templates/audit-report.md
+design,"Design an eval/judge/benchmark, or explain","Design an eval suite, calibrate a judge, shape trajectory tests, a held-out benchmark, or activation evals, or explain a principle",references/intents/design.csv,templates/design-doc.md

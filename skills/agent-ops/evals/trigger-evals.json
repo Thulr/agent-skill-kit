@@ -1,0 +1,22 @@
+{
+  "skill": "agent-ops",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "our agent traces look rich but nothing improves — are these traces actually usable, and is our loop closing? review it", "should_activate": true, "expected_route": "review/observability", "category": "positive"},
+    {"query": "set up a trace-and-eval flywheel for our shipped agent so production traces turn into evals and fixes", "should_activate": true, "expected_route": "do/optimization-loop", "category": "positive"},
+    {"query": "we want to let our agent auto-apply prompt improvements — is that safe to enable, and what gates do we need", "should_activate": true, "expected_route": "review/autonomous-controller", "category": "positive"},
+    {"query": "our multi-step agent passes per-step evals but fails in production and our spend is unbounded — design the reliability and cost controls", "should_activate": true, "expected_route": "design/cost-and-reliability", "category": "positive"},
+    {"query": "where are we on the agent optimization maturity ladder and what should we build next", "should_activate": true, "expected_route": "design/maturity-and-governance", "category": "positive"},
+    {"query": "make our agent system production-ready — we're not sure where to even start", "should_activate": true, "expected_route": "design/maturity-and-governance", "category": "positive"},
+    {"query": "full agent-ops review of our running agent across observability, loop, autonomy, reliability and maturity — score each", "should_activate": true, "expected_route": "review/all", "category": "positive"},
+    {"query": "our release gate is one pass-rate number and a guardrail regression shipped — design a gate that decomposes by failure mode", "should_activate": true, "expected_route": "design/cost-and-reliability", "category": "positive"},
+    {"query": "design the streaming and stop-condition surface of our Agent SDK", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "design our LLM-as-judge and held-out benchmark for grading the agent's outputs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our llms.txt and AGENTS.md so coding agents can read our docs", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "scaffold our repo's AGENTS.md, hooks, and CI gates so Claude Code stops tripping", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "audit our production web service for p99 latency and SLO gaps", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "promote this recurring agent failure into an AGENTS.md rule from our reflection log", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "our agent observability and our human-service observability overlap — we want to watch agent loop quality drift, not generic service latency", "should_activate": true, "expected_route": "review/observability", "category": "edge"},
+    {"query": "we have a trace-to-eval step but want to know whether we're ready to hand it to an autonomous controller", "should_activate": true, "expected_route": "review/optimization-loop", "category": "edge"}
+  ]
+}

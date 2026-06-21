@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
-  "maintainers": ["@Thulr"],
+  "maintainers": ["@justinramos101"],
   "tags": [
     "artifact-host", "host-integration", "postmessage", "iframe", "prototype",
     "decks", "speaker-notes", "direct-edit", "bundling", "export", "handoff"

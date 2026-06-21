@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
-  "maintainers": ["@Thulr"],
+  "maintainers": ["@justinramos101"],
   "tags": ["cursor", "cursor-agent", "code-review", "second-opinion", "interop", "cross-agent", "model-diversity", "delegation", "cli", "external-reviewer"],
   "inspired_by": [
     {

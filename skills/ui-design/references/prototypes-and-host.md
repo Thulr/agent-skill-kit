@@ -62,3 +62,11 @@ ask; do not guess.
 Verify click paths, keyboard path, reload persistence, tweak persistence,
 direct-edit text persistence, and that host-only panels or overlays are hidden
 before capture/export.
+
+## Full host protocol
+
+This page is the designer's slice — enough to emit a host-cooperative artifact.
+For the complete integration *contract* (exact `postMessage` types, the EDITMODE
+persistence block, fixed-canvas scaling, speaker-notes sync, comment/scene
+anchor resolution, direct-edit overrides, and bundling/export), use the
+`artifact-host-integration` skill.

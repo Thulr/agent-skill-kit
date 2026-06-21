@@ -30,6 +30,7 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 | **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ux-audit` | `ui-design` |
+| **Artifact ↔ host integration** — embeddable HTML artifacts: the postMessage / persistence-marker / comment-anchor / fixed-canvas / export contract between an artifact and its editing host | → `ui-design` | `artifact-host-integration` |
 | **Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel | `minimal-modular-code` | `minimal-modular-code` |
 
 For research, discovery, and agent-facing work:
@@ -64,6 +65,7 @@ Source-grounded heuristics for software surfaces, split so the name says what it
 
 Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout, Parnas, and many more (per-skill provenance in each `skill.json`). The `-audit`/`-design` pairs replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md). `minimal-modular-code` is the family's one singleton — a single skill spanning review and design for code minimality and parallel-readiness; it replaced the former clean-architecture pair (see [`docs/adr/0009`](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md)).
 
+- **`artifact-host-integration`** — Implement the contract between a portable HTML artifact and its editing host — postMessage tweak-panel handshake, on-disk persistence markers, fixed-canvas scaling, speaker-notes sync, comment/scene anchors, direct-edit-ready markup, and standalone bundling/export.
 - **`docs-audit`** *(audit)* — Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure.
 - **`docs-design`** *(design)* — Plan or reshape a docs surface before implementation — information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, and API/tool-contract docs.
 - **`dx-audit`** *(audit)* — Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass.

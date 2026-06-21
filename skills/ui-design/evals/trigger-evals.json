@@ -39,7 +39,7 @@
       "category": "positive"
     },
     {
-      "query": "Prepare this prototype for standalone HTML export and direct editing in the artifact host.",
+      "query": "I've finished the visual design of this dashboard — prepare a handoff brief covering the layout, type and color tokens, and components for the engineers.",
       "should_activate": true,
       "expected_route": "host-handoff",
       "category": "positive"

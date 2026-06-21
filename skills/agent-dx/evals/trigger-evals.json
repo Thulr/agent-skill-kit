@@ -17,6 +17,6 @@
     {"query": "tighten the prose in this blog post", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "review our end-user checkout flow for usability and accessibility", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "our SDK is consumed by both humans writing integrations and an agent loop — review the error envelope for the agent's ability to branch and recover", "should_activate": true, "expected_route": "review/errors-and-retry", "category": "edge"},
-    {"query": "should our agent's tracing follow OTel GenAI or OpenInference, and how do we keep structural spans when we turn raw content capture off", "should_activate": true, "expected_route": "design/sdk-telemetry", "category": "edge"}
+    {"query": "as we instrument our Agent SDK, should the spans it emits follow OTel GenAI or OpenInference, and how do we keep structural spans when content capture is off", "should_activate": true, "expected_route": "design/sdk-telemetry", "category": "edge"}
   ]
 }

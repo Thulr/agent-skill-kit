@@ -21,6 +21,6 @@
     { "query": "Review this signup form for usability friction", "should_activate": false, "expected_route": null, "category": "negative" },
     { "query": "Audit our SDK's error messages for friction", "should_activate": false, "expected_route": null, "category": "negative" },
     { "query": "Write the README for this repo", "should_activate": true, "expected_route": "draft/general-prose", "category": "edge" },
-    { "query": "Make our error messages clearer", "should_activate": true, "expected_route": "draft/general-prose", "category": "edge" }
+    { "query": "Draft error-message templates and a voice guide for our new product", "should_activate": true, "expected_route": "draft/general-prose", "category": "edge" }
   ]
 }

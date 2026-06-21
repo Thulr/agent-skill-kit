@@ -58,10 +58,13 @@ Out of scope (open a normal issue instead):
 
 ## Defenses already in place
 
-- `.github/CODEOWNERS` requires review on `skills/**`, `.agents/**`, `.github/**`,
-  `Justfile`, `README.md`.
-- Branch protection on `main` requires CI plus at least one code-owner approval;
-  self-merges are blocked at the GitHub layer (verified on PR #5).
+- `.github/CODEOWNERS` records the owner of `skills/**`, `.agents/**`, `.github/**`,
+  `Justfile`, `README.md` for review routing.
+- A branch-protection ruleset on `main` requires the `static-checks` CI check and
+  routes every change through a pull request; direct pushes, force-pushes, and
+  branch deletion are blocked at the GitHub layer. As a single-maintainer repo it
+  does not require a separate approving review (GitHub can't self-approve a solo
+  PR).
 - Each skill ships static checks (`evals/run-static-checks.sh`) that gate on
   `SKILL.md` structure, `skill.json` provenance, and source-author leakage.
 - `.claude/hooks/block-destructive-bash.py` blocks destructive Bash actions

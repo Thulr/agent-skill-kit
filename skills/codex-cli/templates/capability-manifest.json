@@ -1,0 +1,46 @@
+{
+  "skill": "codex-cli",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "id": "review-git-changes",
+      "description": "Invoke Codex CLI to review uncommitted, branch, or commit changes.",
+      "input_artifacts": ["git-status", "git-diff", "repository-path"],
+      "output_artifacts": ["review-report"],
+      "side_effect_profile": "external-cli-review",
+      "required_tools": ["codex", "git"],
+      "compatible_handoffs": ["apply-review-feedback", "summarize-review-findings"]
+    },
+    {
+      "id": "delegate-technical-question",
+      "description": "Invoke Codex CLI for a read-only second opinion on a technical question.",
+      "input_artifacts": ["prompt", "repository-path", "optional-context-files"],
+      "output_artifacts": ["analysis-response"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["codex"],
+      "compatible_handoffs": ["apply-review-feedback", "write-implementation-plan"]
+    },
+    {
+      "id": "diagnose-codex-cli",
+      "description": "Run Codex doctor checks and summarize setup blockers.",
+      "input_artifacts": ["local-environment"],
+      "output_artifacts": ["diagnostic-summary"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["codex"],
+      "compatible_handoffs": ["setup-codex-cli"]
+    },
+    {
+      "id": "cross-project-agent-reflection",
+      "description": "Invoke Codex CLI from a neutral directory to identify recurring Codex mistakes, user feedback patterns, and workflow improvements across projects.",
+      "input_artifacts": ["date-window", "optional-context-files", "optional-reflection-report"],
+      "output_artifacts": ["agent-self-reflection"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["codex"],
+      "compatible_handoffs": ["agent-workflow-reflection", "evidence-driven-rule-promotion"]
+    }
+  ],
+  "bus_safety": {
+    "allowed": ["artifact references", "scope", "run ids", "non-secret assumptions"],
+    "forbidden": ["secrets", "tokens", "credentials", "raw sensitive data", "user identity facts"]
+  }
+}

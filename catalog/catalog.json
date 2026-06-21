@@ -8,7 +8,6 @@
         {"surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry", "critique": "`dx-audit`", "design": "`dx-design`"},
         {"surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts", "critique": "`docs-audit`", "design": "`docs-design`"},
         {"surface": "**Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose", "critique": "`writing-audit`", "design": "`writing-design`"},
-        {"surface": "**Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity", "critique": "`perf-audit`", "design": "`perf-design`"},
         {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
         {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},
         {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ux-audit`", "design": "`ui-design`"},
@@ -17,25 +16,27 @@
       ]
     },
     "secondary": {
-      "lead": "For research, discovery, and agent-facing work:",
+      "lead": "For research and agent-facing work:",
       "columns": ["Need", "Skill"],
       "rows": [
         {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
-        {"need": "**Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews", "skill": "`customer-interviewing`"},
         {"need": "**Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes", "skill": "`agent-dx`"},
         {"need": "**Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents", "skill": "`agent-docs`"},
         {"need": "**Agent as end-user** — an agent-operable UI / app / computer-use surface", "skill": "`agent-ux`"},
         {"need": "**Agent as operator** — observability, trace-and-eval loops, autonomy, reliability (the agent-family front-door)", "skill": "`agent-ops`"},
         {"need": "**Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests", "skill": "`agent-test`"},
         {"need": "↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox)", "skill": "`harden-repo-for-coding-agents`"},
-        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"}
+        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"},
+        {"need": "**Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects", "skill": "`codex-cli`"},
+        {"need": "**Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview", "skill": "`claude-code-cli`"},
+        {"need": "**Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent`", "skill": "`cursor-cli`"},
+        {"need": "**Trim your agent's context budget** — audit idle MCP servers and unused plugins/skills/commands/subagents by per-session token cost, then prune safely", "skill": "`context-budget-audit`"}
       ]
     },
     "unsure": [
-      "**Still unsure?** The three boundaries people hit most:",
+      "**Still unsure?** The two boundaries people hit most:",
       "",
       "- *\"Make our docs better\"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-native docs (llms.txt, AGENTS.md, retrieval) → `agent-docs`.",
-      "- *\"Our service is slow\" / \"design SLOs\"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.",
       "- *\"Improve our agent\"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; design evals/benchmarks for an AI product → `agent-test`; operate its trace-and-eval loop, autonomy, and reliability → `agent-ops`."
     ]
   },
@@ -57,17 +58,24 @@
         "intro": []
       },
       {
-        "id": "discovery",
-        "title": "Product discovery & planning",
-        "intro": [
-          "Source-grounded product discovery — talking to customers, framing the right problem, and deciding what to build before building it. Each skill paraphrases the canonical discovery literature into operational moves (provenance in each `skill.json`), and is fenced against the desk-research (`research`) and interface-evaluation (`ux-audit`) surfaces it borders."
-        ]
-      },
-      {
         "id": "ax",
         "title": "Agent experience (AX)",
         "intro": [
           "The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator + the family front-door), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md)."
+        ]
+      },
+      {
+        "id": "interop",
+        "title": "Cross-agent interop & tooling",
+        "intro": [
+          "Skills that drive *another* coding agent or CLI as part of your own workflow — an independent second-opinion reviewer, an external analysis pass, a cross-project reflection — rather than auditing or designing a surface themselves. The pragmatic \"tools the maintainer actually reaches for\" corner of the kit, grouped by what you *do with them* (grouping nod to [`mattpocock/skills`](https://github.com/mattpocock/skills)); distinct from the source-grounded audit/design pairs and from the agent-experience family, which shape surfaces *for* agents rather than *using* one as an instrument. See [`docs/adr/0012`](./docs/adr/0012-interop-family-for-cross-agent-tooling.md)."
+        ]
+      },
+      {
+        "id": "context",
+        "title": "Context budget & agent-setup hygiene",
+        "intro": [
+          "Audit and reclaim the per-session context an agent's *local setup* costs — the MCP servers, plugins, skills, slash commands, and subagents that load into every session whether or not you use them. Distinct from the agent-experience family (which shapes surfaces *for* agents) and from `harden-repo-for-coding-agents` (which hardens a repo's agent config): this family measures what is loaded, estimates its always-on token cost from real usage evidence, and gates safe pruning. One skill today; introduced per [`docs/adr/0013`](./docs/adr/0013-context-budget-family.md)."
         ]
       }
     ]

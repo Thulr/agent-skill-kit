@@ -1,0 +1,37 @@
+{
+  "skill": "claude-code-cli",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "id": "review-git-changes",
+      "description": "Invoke Claude Code CLI to review git working tree or branch diffs in read-only mode.",
+      "input_artifacts": ["git-status", "git-diff", "repository-path"],
+      "output_artifacts": ["review-report"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["claude", "git"],
+      "compatible_handoffs": ["apply-review-feedback", "summarize-review-findings"]
+    },
+    {
+      "id": "delegate-technical-question",
+      "description": "Invoke Claude Code CLI for a read-only second opinion on a technical question.",
+      "input_artifacts": ["prompt", "repository-path", "optional-context-files"],
+      "output_artifacts": ["analysis-response"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["claude"],
+      "compatible_handoffs": ["apply-review-feedback", "write-implementation-plan"]
+    },
+    {
+      "id": "cross-project-agent-reflection",
+      "description": "Invoke Claude Code CLI from a neutral directory to identify recurring Claude Code mistakes, user feedback patterns, and workflow improvements across projects.",
+      "input_artifacts": ["date-window", "optional-context-files", "optional-reflection-report"],
+      "output_artifacts": ["agent-self-reflection"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["claude"],
+      "compatible_handoffs": ["agent-workflow-reflection", "evidence-driven-rule-promotion"]
+    }
+  ],
+  "bus_safety": {
+    "allowed": ["artifact references", "scope", "run ids", "non-secret assumptions"],
+    "forbidden": ["secrets", "tokens", "credentials", "raw sensitive data", "user identity facts"]
+  }
+}

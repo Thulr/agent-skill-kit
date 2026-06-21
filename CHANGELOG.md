@@ -6,7 +6,32 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 
 ## [Unreleased]
 
+### Removed
+- **Five skills moved out of the catalog** (to a local junk drawer; not deleted from
+  history): `customer-interviewing`, `journey-storymapping`, `product-discovery` (the
+  entire `discovery` family), and the `perf-audit` / `perf-design` pair (plus their
+  shared substrate `skills/_shared/perf/`). The `discovery` catalog family block and
+  the `Performance & observability` routing-matrix row were removed accordingly; the
+  `discovery` family id is retained in the schema/taxonomy enum so the family can be
+  re-added without a migration. Cross-skill "Do NOT use … (use perf-audit)" routing
+  fences in remaining skills were left intact in case these skills return.
+
 ### Added
+- **The `context` family — audit and reclaim your agent's per-session context budget (ADR-0013).**
+  One skill, `context-budget-audit`: a read-only stdlib Python engine that inventories the MCP
+  servers, plugins, skills, slash commands, and subagents loaded into every session, estimates
+  each one's always-on token cost, scans recent transcripts for genuine usage evidence (idle MCP
+  servers surfaced first as the usual biggest win), and gates safe pruning — skills are
+  copy-validate-removed into a repo; MCP/plugin config edits are handed back as commands, never
+  executed. (See [ADR 0013](./docs/adr/0013-context-budget-family.md).)
+- **The `interop` family — drive another coding-agent CLI as a read-only external reviewer (ADR-0012).**
+  Three skills, each wrapping a different agent CLI for second-opinion review, analysis, and
+  prompt-prep — useful when you want a take from a *different* model/provider before shipping:
+  `codex-cli` (Codex via native `codex review` / `codex exec`), `claude-code-cli` (Claude Code via
+  `claude -p --permission-mode plan`, plus hosted `claude ultrareview`), and `cursor-cli`
+  (`cursor-agent -p --mode plan`, with multi-model diversity — gpt-5, sonnet-4, …). All default to
+  read-only, verify their command contracts against the installed CLIs, and ship `--dry-run` paths.
+  (See [ADR 0012](./docs/adr/0012-interop-family-for-cross-agent-tooling.md).)
 - **The agent-mirror family — agent-facing work reorganized by *actor* (ADR-0011).** Five new
   skills, each the agent-actor analog of a human-experience domain, routing do/review/design:
   `agent-dx` (agent as developer — SDK/tool/error/telemetry), `agent-docs` (reader — AGENTS.md,

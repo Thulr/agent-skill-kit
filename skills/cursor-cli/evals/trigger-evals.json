@@ -1,0 +1,18 @@
+{
+  "skill": "cursor-cli",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "Ask Cursor to review the changes I just made to my working tree.", "should_activate": true, "expected_route": "review-working-tree", "category": "positive"},
+    {"query": "Get a second opinion from Cursor on this branch before I open the PR.", "should_activate": true, "expected_route": "review-branch", "category": "positive"},
+    {"query": "Have gpt-5 review this caching design via Cursor.", "should_activate": true, "expected_route": "second-opinion", "category": "positive"},
+    {"query": "Review my staged changes with a different model through Cursor.", "should_activate": true, "expected_route": "review-working-tree", "category": "positive"},
+    {"query": "Prepare the Cursor prompt to review my changes, but don't run it.", "should_activate": true, "expected_route": "prompt-prep", "category": "positive"},
+    {"query": "Cursor agent keeps failing — check my cursor-agent setup and auth.", "should_activate": true, "expected_route": "diagnose", "category": "positive"},
+    {"query": "Refactor this React component to use hooks.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Ask Codex to review my changes.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Ask Claude Code to review my changes.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Audit our CLI's developer experience and score the friction.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Review my changes.", "should_activate": false, "expected_route": null, "category": "edge"},
+    {"query": "Get a second opinion on this code from gpt-5.", "should_activate": true, "expected_route": "second-opinion", "category": "edge"}
+  ]
+}

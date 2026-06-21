@@ -1,0 +1,84 @@
+{
+  "skill": "codex-cli",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Ask Codex to review the changes Cursor just made.",
+      "should_activate": true,
+      "expected_route": "review-uncommitted",
+      "category": "positive"
+    },
+    {
+      "query": "Get a second opinion from Codex on this branch before I open the PR.",
+      "should_activate": true,
+      "expected_route": "review-branch",
+      "category": "positive"
+    },
+    {
+      "query": "Have Codex review commit abc123 for regressions.",
+      "should_activate": true,
+      "expected_route": "review-commit",
+      "category": "positive"
+    },
+    {
+      "query": "Ask Codex what it thinks about this migration plan — does the rollback path hold up?",
+      "should_activate": true,
+      "expected_route": "second-opinion",
+      "category": "positive"
+    },
+    {
+      "query": "Ask Codex what recurring mistakes it keeps making across my projects and what feedback I keep repeating.",
+      "should_activate": true,
+      "expected_route": "cross-project-reflection",
+      "category": "positive"
+    },
+    {
+      "query": "Prepare the Codex prompt and command to review my changes, but don't run it yet.",
+      "should_activate": true,
+      "expected_route": "prompt-prep",
+      "category": "positive"
+    },
+    {
+      "query": "Codex keeps failing — check my Codex auth and sandbox setup.",
+      "should_activate": true,
+      "expected_route": "diagnose",
+      "category": "positive"
+    },
+    {
+      "query": "What would the other LLM provider say about this API boundary? Run it past Codex.",
+      "should_activate": true,
+      "expected_route": "second-opinion",
+      "category": "positive"
+    },
+    {
+      "query": "Refactor this React component to use hooks.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Harden this repo's AGENTS.md and add pre-commit hooks for coding agents.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Audit our CLI's developer experience and score the friction.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review my changes.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "edge"
+    },
+    {
+      "query": "Get a second opinion on this architecture decision from a different model.",
+      "should_activate": true,
+      "expected_route": "second-opinion",
+      "category": "edge"
+    }
+  ]
+}

@@ -7,12 +7,12 @@ map those tables don't give you.
 
 ## Skill taxonomy
 
-Published skills fall into three shapes:
+Published skills fall into five shapes:
 
 - **Per-domain audit/design pairs** — a `<domain>-audit` skill audits/debugs
   an existing surface (lenses → severity-scored findings + optional ledger); a
   `<domain>-design` skill shapes a new one (good-shaped pattern → design doc).
-  Domains: `docs`, `dx`, `perf`, `test`, `writing`. A domain's pair shares
+  Domains: `docs`, `dx`, `test`, `writing`. A domain's pair shares
   its playbooks/lenses/rubrics from `skills/_shared/<domain>/` (one source, two
   skills). See [ADR 0008](../adr/0008-reverse-review-consolidation-split-by-domain-and-function.md).
 - **Single-function skills** — `ux-audit` (audit only) and `ui-design`
@@ -26,6 +26,16 @@ Published skills fall into three shapes:
   `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures`
   (see [ADR 0011](../adr/0011-actor-axis-agent-mirror-family.md));
   `research` is one skill routed by decision-frame (`report` | `opportunity`).
+- **Cross-agent interop** — skills that drive *another* coding agent or CLI as
+  part of your own workflow (an independent second-opinion reviewer, an external
+  analysis pass) rather than auditing or designing a surface themselves.
+  `codex-cli`, `claude-code-cli`, and `cursor-cli` wrap the external Codex /
+  Claude Code / Cursor CLIs as read-only reviewers; grouped by what you *do with
+  them* (see [ADR 0012](../adr/0012-interop-family-for-cross-agent-tooling.md)).
+- **Context budget** — `context-budget-audit` audits the per-session context an
+  agent's *local setup* costs (MCP servers, plugins, skills, commands,
+  subagents), estimates token cost from usage evidence, and gates pruning
+  (see [ADR 0013](../adr/0013-context-budget-family.md)).
 
 `ux`/`dx`/agent-experience are **audience-differentiated peers** of one parent
 discipline, not nested ([ADR 0007](../adr/0007-experience-disciplines-are-audience-peers.md)).

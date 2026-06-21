@@ -1,0 +1,6 @@
+use_case,name,when_to_use,detail_files,artifact_templates,script,subagent_roles,risk_level
+default-audit,Default Audit,"Bare invocation or request to find context/token waste, idle MCP servers, unused plugins/skills/commands/subagents, or pruneable items in active local stores","references/audit-framework.md;references/recommendation-rubric.md",,"scripts/audit_context_budget.py","prune skeptic",medium
+scoped-audit,Scoped Audit,"User asks to audit only specific kinds (e.g. just MCP servers or plugins), all history, a faster recent-only pass, or a non-default home","references/audit-framework.md;references/recommendation-rubric.md",,"scripts/audit_context_budget.py","prune skeptic",medium
+act-on-named-items,Act On Named Items,"User names items to remove, disable, delete, or move into this repo after an audit","references/recommendation-rubric.md",,,"prune skeptic;repository steward",high
+move-named-skills,Move Named Skills,"User names skill directories to move into this repo and remove from active stores after validation","references/recommendation-rubric.md",,,"repository steward",high
+eval-skill,Evaluate This Skill,"Validate registry references, script behavior, default audit behavior, and act safety","references/audit-framework.md;references/recommendation-rubric.md","evals/context-budget-audit-eval-suite.json","scripts/audit_context_budget.py",,medium

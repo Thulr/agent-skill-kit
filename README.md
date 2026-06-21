@@ -26,19 +26,17 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 | **Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
 | **Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
 | **Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose | `writing-audit` | `writing-design` |
-| **Performance & observability** — latency, p99/tail, throughput, SLOs, tracing, logs, metrics, capacity | `perf-audit` | `perf-design` |
 | **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ux-audit` | `ui-design` |
 | **Artifact ↔ host integration** — embeddable HTML artifacts: the postMessage / persistence-marker / comment-anchor / fixed-canvas / export contract between an artifact and its editing host | → `ui-design` | `artifact-host-integration` |
 | **Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel | `minimal-modular-code` | `minimal-modular-code` |
 
-For research, discovery, and agent-facing work:
+For research and agent-facing work:
 
 | Need | Skill |
 |---|---|
 | **Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision | `research` |
-| **Talk to customers** — plan, sharpen, run, or synthesize customer discovery interviews | `customer-interviewing` |
 | **Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes | `agent-dx` |
 | **Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents | `agent-docs` |
 | **Agent as end-user** — an agent-operable UI / app / computer-use surface | `agent-ux` |
@@ -46,11 +44,14 @@ For research, discovery, and agent-facing work:
 | **Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests | `agent-test` |
 | ↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox) | `harden-repo-for-coding-agents` |
 | ↳ promote observed agent failures into rules / gates | `rules-from-coding-agent-failures` |
+| **Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects | `codex-cli` |
+| **Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview | `claude-code-cli` |
+| **Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent` | `cursor-cli` |
+| **Trim your agent's context budget** — audit idle MCP servers and unused plugins/skills/commands/subagents by per-session token cost, then prune safely | `context-budget-audit` |
 
-**Still unsure?** The three boundaries people hit most:
+**Still unsure?** The two boundaries people hit most:
 
 - *"Make our docs better"* — audit existing docs → `docs-audit`; reshape docs IA → `docs-design`; API/SDK friction beyond the docs → `dx-audit`; agent-native docs (llms.txt, AGENTS.md, retrieval) → `agent-docs`.
-- *"Our service is slow" / "design SLOs"* — diagnose a slow or incident-y system → `perf-audit`; design SLOs and instrumentation → `perf-design`; the developer's own machine (local install, cold start) → `dx-audit`.
 - *"Improve our agent"* — make a coding-agent harness work in this repo (AGENTS.md, hooks, MCP) → `harden-repo-for-coding-agents`; design evals/benchmarks for an AI product → `agent-test`; operate its trace-and-eval loop, autonomy, and reliability → `agent-ops`.
 <!-- END GENERATED: pick-a-skill -->
 
@@ -71,8 +72,6 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 - **`dx-audit`** *(audit)* — Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass.
 - **`dx-design`** *(design)* — Design a new developer-experience surface from scratch — API, SDK, CLI, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin contract, or package scheme.
 - **`minimal-modular-code`** — Keep code minimal and right-sized for AI coding agents: DO (keep a change minimal — reuse, subtract, avoid the wrong abstraction, check blast radius), REVIEW (audit existing code or a repo for slop and parallel-readiness, then score it), DESIGN (shape right-sized module boundaries and work-partitioning, sequence a safe refactor, or explain a principle). Replaces the clean-architecture audit/design pair under a minimalism thesis.
-- **`perf-audit`** *(audit)* — Audit a production or runtime system for latency, throughput, saturation, and observability gaps (tracing, logs, metrics) and score the findings.
-- **`perf-design`** *(design)* — Design instrumentation, SLOs/error-budget policy, tracing topology, latency budgets, and metric selection up-front for a new or expanding system.
 - **`test-audit`** *(audit)* — Review a test suite for smells, redundancy, false-pass risk, brittleness, and flakiness and score it, or triage one failing, flaky, or slow test.
 - **`test-design`** *(design)* — Author a new test or test plan, shape a cross-layer test strategy (what to test at which layer), or plan which low-value tests to delete.
 - **`ui-design`** *(design)* — Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.
@@ -83,14 +82,6 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 ### research
 
 - **`research`** — Source-grounded research in **two decision-frames**. `report` — open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` — validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame). Provenance in [`skills/research/skill.json`](./skills/research/skill.json).
-
-### Product discovery & planning
-
-Source-grounded product discovery — talking to customers, framing the right problem, and deciding what to build before building it. Each skill paraphrases the canonical discovery literature into operational moves (provenance in each `skill.json`), and is fenced against the desk-research (`research`) and interface-evaluation (`ux-audit`) surfaces it borders.
-
-- **`customer-interviewing`** — Plan, sharpen, run, or synthesize customer discovery interviews — set a learning goal and recruit the right people, rewrite questions that lead or fish for compliments, coach the live conversation, and turn raw notes into evidence-backed interview snapshots that separate what people did from what they say they'll do.
-- **`product-discovery`** — Decide what to build and why before building it — reframe outputs as measurable outcomes (and spot feature-factory risk), map an opportunity solution tree, define the customer's job-to-be-done and underserved needs, surface and test the riskiest desirability/viability/feasibility assumptions, and scope an MVP toward product-market fit.
-- **`journey-storymapping`** — Shape or fix a product experience with narrative structure — map an experience as a story arc with the user as protagonist (concept/origin/usage stories), diagnose a flat or broken experience by finding the missing beat, and craft concept or origin stories to align a team or pitch the vision.
 
 ### Agent experience (AX)
 
@@ -103,6 +94,20 @@ The agent-mirror family: an **AI agent is an actor** (not a peer audience), so e
 - **`agent-ops`** — Agent-as-operator and the agent-family front-door: operate a running agent system — DO (wire observability/loop/autonomy/budgets/gates), REVIEW (audit observability, optimization loop, autonomy controls, reliability/cost, and maturity, then score it), DESIGN (shape the loop, gate autonomy, decompose the release gate, place maturity and route work to siblings). Operates what agent-dx instruments; routes building out to the family.
 - **`agent-test`** — Agent-as-subject-under-measurement: design the measurement an AI agent or skill is judged by — DO (write the smallest gating eval/judge/test), REVIEW (audit an eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it), DESIGN (shape a failure-mode-first suite, calibrate a judge, build a held-out benchmark, design activation evals). Designs what agent-ops then operates.
 - **`agent-ux`** — Agent-as-end-user: the interaction surface an AI agent acts through (a UI, app, or computer-use target), often on a human's behalf — DO (make it perceivable, targetable, safe to act on), REVIEW (audit machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it), DESIGN (shape the state, action handles, approval gate, or dual path). Net-new; the agent-actor analog of human UX.
+
+### Cross-agent interop & tooling
+
+Skills that drive *another* coding agent or CLI as part of your own workflow — an independent second-opinion reviewer, an external analysis pass, a cross-project reflection — rather than auditing or designing a surface themselves. The pragmatic "tools the maintainer actually reaches for" corner of the kit, grouped by what you *do with them* (grouping nod to [`mattpocock/skills`](https://github.com/mattpocock/skills)); distinct from the source-grounded audit/design pairs and from the agent-experience family, which shape surfaces *for* agents rather than *using* one as an instrument. See [`docs/adr/0012`](./docs/adr/0012-interop-family-for-cross-agent-tooling.md).
+
+- **`claude-code-cli`** — Drive the external **Claude Code CLI** (`claude -p`) as an independent second-opinion reviewer and analysis agent — review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--permission-mode plan`), get a second opinion on a decision/bug/plan, run cross-project reflection, or hand off to a hosted `claude ultrareview`. Routes through a use-case registry, defaults to read-only, never bypasses permissions without an explicit ask, and presents output as an external opinion to reconcile against local evidence. Provenance in [`skills/claude-code-cli/skill.json`](./skills/claude-code-cli/skill.json).
+- **`codex-cli`** — Drive the external **Codex CLI** as an independent second-opinion reviewer and analysis agent — `codex review` for uncommitted/branch/commit diffs, `codex exec` (read-only sandbox) for second opinions and repo analysis, plus cross-project reflection, setup diagnostics, and prompt-prep (`--dry-run`) modes. Routes through a use-case registry, defaults to read-only, and never bypasses Codex approvals/sandbox without an explicit ask. Reach for it when you want a different LLM provider's take on code or docs before shipping. Provenance in [`skills/codex-cli/skill.json`](./skills/codex-cli/skill.json).
+- **`cursor-cli`** — Drive the external **Cursor CLI** (`cursor-agent -p`) as an independent second-opinion reviewer and analysis agent — review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--mode plan`) or get a second opinion on a decision/bug/plan. Its edge over the other interop skills is **model diversity**: cursor-agent can run many providers' models (gpt-5, sonnet-4, …), so you can review code with a *different* model than wrote it. Routes through a use-case registry, defaults to read-only, never drops the guard with `--force`/`--yolo` without an explicit ask. Provenance in [`skills/cursor-cli/skill.json`](./skills/cursor-cli/skill.json).
+
+### Context budget & agent-setup hygiene
+
+Audit and reclaim the per-session context an agent's *local setup* costs — the MCP servers, plugins, skills, slash commands, and subagents that load into every session whether or not you use them. Distinct from the agent-experience family (which shapes surfaces *for* agents) and from `harden-repo-for-coding-agents` (which hardens a repo's agent config): this family measures what is loaded, estimates its always-on token cost from real usage evidence, and gates safe pruning. One skill today; introduced per [`docs/adr/0013`](./docs/adr/0013-context-budget-family.md).
+
+- **`context-budget-audit`** — Audit per-session **context/token budget** across your local agent setup — idle MCP servers, disabled/unused plugins, unused skills, slash commands, and subagents. A read-only stdlib Python engine (`scripts/audit_context_budget.py`) inventories each surface, estimates its always-on token cost, scans recent transcripts for genuine usage evidence, and shows a prune-decision view sorted by reclaimable context (idle MCP servers surfaced first as the usual biggest win) alongside the aggregate context footprint by kind. Removal is gated: skills are copy-validate-removed into a repo, command/subagent files deleted on confirmation, and MCP/plugin config edits handed back as commands rather than executed. Provenance in [`skills/context-budget-audit/skill.json`](./skills/context-budget-audit/skill.json).
 <!-- END GENERATED: catalog -->
 
 ## Skills I also use

@@ -121,8 +121,12 @@ class PiJudge(Judge):
         return f"{head}SKILLS (name: description):\n{skills}\n\nMESSAGES (id<TAB>text):\n{msgs}"
 
     def route(self, queries: list[dict], pool: dict[str, str], *, nonce: str = "") -> dict[str, str]:
+        # Hermetic judge. -nt disables tools; -nc/-ns/-np/-ne stop pi from appending the
+        # repo's AGENTS.md/CLAUDE.md, installed skills, prompt templates, and extensions to
+        # the (replacement) system prompt. Without these the judge would see the repo's own
+        # routing docs — biasing results and making the audit non-reproducible off this checkout.
         cmd = [
-            "pi", "-p", "-nt", "--no-session",
+            "pi", "-p", "-nt", "-nc", "-ns", "-np", "-ne", "--no-session",
             "--provider", self.provider, "--model", self.model,
             "--thinking", self.thinking, "--mode", "text",
             "--system-prompt", JUDGE_SYSTEM,

@@ -3,7 +3,7 @@
 A kit of [Agent Skills](https://agentskills.io) the maintainer actually uses — most
 grounded in cited sources, all earned in real coding-agent work; skills worth using
 that live elsewhere are linked from the README rather than re-authored. Downstream
-consumers install them via `npx skills add Thulr/agent-skill-kit`. Treat every PR to
+consumers install them via `npx skills add justinramos101/agent-skill-kit`. Treat every PR to
 `skills/`, `.agents/`, or `.github/` as a release artifact, not internal scaffolding.
 
 This file is hand-curated. Most sections describe project context (stack,

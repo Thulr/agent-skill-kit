@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/Thulr/agent-skill-kit/blob/main/schemas/skill.schema.json",
+  "$id": "https://github.com/justinramos101/agent-skill-kit/blob/main/schemas/skill.schema.json",
   "title": "Skill manifest (skill.json)",
   "description": "Canonical shape for skills/<name>/skill.json and the reserved skills/.experimental/<name>/skill.json lane. Per-skill scripts assert name match via jq after schema validation passes.",
   "type": "object",

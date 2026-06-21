@@ -7,7 +7,7 @@
 **The [Agent Skills](https://agentskills.io) I actually use.** A personal kit for coding-agent work — most grounded in cited sources (so you can check the work), all earned in real use. Skills worth using that I didn't write I link to rather than re-author (see **Skills I also use**, below). Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
 
 ```bash
-npx skills add Thulr/agent-skill-kit
+npx skills add justinramos101/agent-skill-kit
 ```
 
 [skills.sh](https://skills.sh) prompts you to pick which skills to install — see [Install](#install) for options.
@@ -123,30 +123,30 @@ Good skills I rely on but didn't write — installed from their own homes, linke
 From GitHub:
 
 ```bash
-npx skills add Thulr/agent-skill-kit
+npx skills add justinramos101/agent-skill-kit
 ```
 
 Target specific skills or agents:
 
 ```bash
-npx skills add Thulr/agent-skill-kit --list
-npx skills add Thulr/agent-skill-kit --skill dx-audit
-npx skills add Thulr/agent-skill-kit -a claude-code -a cursor -y
+npx skills add justinramos101/agent-skill-kit --list
+npx skills add justinramos101/agent-skill-kit --skill dx-audit
+npx skills add justinramos101/agent-skill-kit -a claude-code -a cursor -y
 ```
 
 Common bundles:
 
 ```bash
 # a domain's audit + design pair
-npx skills add Thulr/agent-skill-kit --skill dx-audit --skill dx-design
+npx skills add justinramos101/agent-skill-kit --skill dx-audit --skill dx-design
 
 # the agent-mirror family (agent as developer / reader / end-user / operator / subject) + arms
-npx skills add Thulr/agent-skill-kit --skill agent-dx --skill agent-docs --skill agent-ux \
+npx skills add justinramos101/agent-skill-kit --skill agent-dx --skill agent-docs --skill agent-ux \
   --skill agent-ops --skill agent-test \
   --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures
 
 # research only
-npx skills add Thulr/agent-skill-kit --skill research
+npx skills add justinramos101/agent-skill-kit --skill research
 ```
 
 > **Agent skills reorganized by actor (2026-06-19).** The agent half of the catalog is now
@@ -160,13 +160,13 @@ npx skills add Thulr/agent-skill-kit --skill research
 From a subdirectory URL (single skill):
 
 ```bash
-npx skills add https://github.com/Thulr/agent-skill-kit/tree/main/skills/dx-audit
+npx skills add https://github.com/justinramos101/agent-skill-kit/tree/main/skills/dx-audit
 ```
 
 Local checkout:
 
 ```bash
-git clone https://github.com/Thulr/agent-skill-kit.git
+git clone https://github.com/justinramos101/agent-skill-kit.git
 cd agent-skill-kit
 npx skills add . --list
 npx skills add .

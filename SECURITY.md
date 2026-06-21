@@ -9,7 +9,7 @@ accordingly.
 
 **Do not open a public issue or PR for a security report.**
 
-Use [GitHub Security Advisories](https://github.com/Thulr/agent-skill-kit/security/advisories/new)
+Use [GitHub Security Advisories](https://github.com/justinramos101/agent-skill-kit/security/advisories/new)
 to file a private report. We will:
 
 - Acknowledge receipt within **7 days**.
@@ -19,7 +19,7 @@ to file a private report. We will:
   to remain anonymous).
 
 If you cannot file via Security Advisories, email the repo owner via the
-contact listed on their GitHub profile (`@Thulr`). Include a working
+contact listed on their GitHub profile (`@justinramos101`). Include a working
 proof-of-concept where possible.
 
 ## What counts as a security issue

@@ -4,7 +4,7 @@
 #
 # Repo purpose
 # - A catalog of installable "Agent Skills" (the product is the skill folders).
-# - Downstream users install via: `npx skills add Thulr/agent-skill-kit`
+# - Downstream users install via: `npx skills add justinramos101/agent-skill-kit`
 #
 # Where to look first
 # - `README.md` (human overview, install, layout)

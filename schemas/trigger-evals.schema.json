@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/Thulr/agent-skill-kit/blob/main/schemas/trigger-evals.schema.json",
+  "$id": "https://github.com/justinramos101/agent-skill-kit/blob/main/schemas/trigger-evals.schema.json",
   "title": "Trigger evals (evals/trigger-evals.json)",
   "description": "Canonical shape for every skill's evals/trigger-evals.json. Per-skill scripts assert the 'skill' field matches the skill name via jq after schema validation passes.",
   "type": "object",

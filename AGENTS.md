@@ -31,8 +31,8 @@ Trust and follow these instructions; don't re-explore repo layout/commands if th
 
 ## Layout
 
-See [README.md §Layout](./README.md#layout) for the canonical table. The three
-install lanes that any path-based gate **must** enumerate:
+See [CONTRIBUTING.md §Repository layout](./CONTRIBUTING.md#repository-layout) for the
+canonical table. The three install lanes that any path-based gate **must** enumerate:
 
 - `skills/<name>/` — published skills
 - `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
@@ -67,12 +67,12 @@ install lanes that any path-based gate **must** enumerate:
 - `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
   against the canonical schema files under `schemas/`.
 - `python3 scripts/build-catalog.py [--check|--write]` — regenerates the README
-  §Pick a skill / §Catalog blocks from `skill.json` metadata + `catalog/catalog.json`.
-  `--check` (CI / `just check` default) fails if the committed README is stale;
-  `--write` rewrites it. **Do not hand-edit the content between the
-  `<!-- BEGIN/END GENERATED -->` markers in README.md** — change the source
-  (`metadata.catalog_summary` in the relevant `skill.json`, or family prose /
-  matrix rows in `catalog/catalog.json`) and run `--write`.
+  §Pick a skill block and the `CATALOG.md` file from `skill.json` metadata +
+  `catalog/catalog.json`. `--check` (CI / `just check` default) fails if either is
+  stale; `--write` rewrites them. **Do not hand-edit the README §Pick a skill block
+  (between the `<!-- BEGIN/END GENERATED -->` markers) or `CATALOG.md` at all** —
+  change the source (`metadata.catalog_summary` in the relevant `skill.json`, or
+  family prose / matrix rows in `catalog/catalog.json`) and run `--write`.
 
 CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 

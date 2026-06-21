@@ -25,6 +25,6 @@
   "metadata": {
     "family": "context",
     "function": "singleton",
-    "catalog_summary": "Audit per-session **context/token budget** across your local agent setup — idle MCP servers, disabled/unused plugins, unused skills, slash commands, and subagents. A read-only stdlib Python engine (`scripts/audit_context_budget.py`) inventories each surface, estimates its always-on token cost, scans recent transcripts for genuine usage evidence, and shows a prune-decision view sorted by reclaimable context (idle MCP servers surfaced first as the usual biggest win) alongside the aggregate context footprint by kind. Removal is gated: skills are copy-validate-removed into a repo, command/subagent files deleted on confirmation, and MCP/plugin config edits handed back as commands rather than executed. Provenance in [`skills/context-budget-audit/skill.json`](./skills/context-budget-audit/skill.json)."
+    "catalog_summary": "Audit the per-session **context/token cost** of your local agent setup — idle MCP servers, unused plugins, skills, slash commands, and subagents. A read-only Python engine inventories each surface, estimates its always-on token cost, checks recent transcripts for real usage, and ranks what's safe to prune — idle MCP servers are usually the biggest win. Removal is gated, never automatic."
   }
 }

@@ -33,6 +33,6 @@
   "metadata": {
     "family": "interop",
     "function": "singleton",
-    "catalog_summary": "Drive the external **Codex CLI** as an independent second-opinion reviewer and analysis agent — `codex review` for uncommitted/branch/commit diffs, `codex exec` (read-only sandbox) for second opinions and repo analysis, plus cross-project reflection, setup diagnostics, and prompt-prep (`--dry-run`) modes. Routes through a use-case registry, defaults to read-only, and never bypasses Codex approvals/sandbox without an explicit ask. Reach for it when you want a different LLM provider's take on code or docs before shipping. Provenance in [`skills/codex-cli/skill.json`](./skills/codex-cli/skill.json)."
+    "catalog_summary": "Drive the external **Codex CLI** as an independent second-opinion reviewer and analysis agent — `codex review` for uncommitted/branch/commit diffs, `codex exec` (read-only sandbox) for second opinions and repo analysis, plus cross-project reflection, setup diagnostics, and prompt-prep (`--dry-run`) modes. Routes through a use-case registry, defaults to read-only, and never bypasses Codex approvals/sandbox without an explicit ask. Reach for it when you want a different LLM provider's take on code or docs before shipping."
   }
 }

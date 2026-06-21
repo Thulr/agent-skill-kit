@@ -19,6 +19,6 @@
   "metadata": {
     "family": "interop",
     "function": "singleton",
-    "catalog_summary": "Drive the external **Cursor CLI** (`cursor-agent -p`) as an independent second-opinion reviewer and analysis agent — review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--mode plan`) or get a second opinion on a decision/bug/plan. Its edge over the other interop skills is **model diversity**: cursor-agent can run many providers' models (gpt-5, sonnet-4, …), so you can review code with a *different* model than wrote it. Routes through a use-case registry, defaults to read-only, never drops the guard with `--force`/`--yolo` without an explicit ask. Provenance in [`skills/cursor-cli/skill.json`](./skills/cursor-cli/skill.json)."
+    "catalog_summary": "Drive the external **Cursor CLI** (`cursor-agent -p`) as an independent second-opinion reviewer and analysis agent — review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--mode plan`) or get a second opinion on a decision/bug/plan. Its edge over the other interop skills is **model diversity**: cursor-agent can run many providers' models (gpt-5, sonnet-4, …), so you can review code with a *different* model than wrote it. Routes through a use-case registry, defaults to read-only, never drops the guard with `--force`/`--yolo` without an explicit ask."
   }
 }

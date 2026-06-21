@@ -65,6 +65,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-reader: the agent-native documentation an AI agent reads and acts on — DO (write/fix an AGENTS.md, llms.txt, tool description, machine-readable reference, or context budget), REVIEW (audit findability, chunk survivability, trigger clarity, and budget, then score it), DESIGN (shape the AGENTS.md contract, curated index, tool descriptions, reference, or budget tiers). Narrowed to agent-native artifacts; human/dual-audience docs stay in docs-audit / docs-design."
+    "catalog_summary": "Agent-as-reader: the agent-native docs an AI agent reads and acts on — AGENTS.md, llms.txt, tool descriptions, machine-readable reference, context budget. Write or fix one, audit an existing one for findability and trigger clarity, or design the contract from scratch. Human and dual-audience docs stay in `docs-audit` / `docs-design`."
   }
 }

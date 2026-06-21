@@ -1,0 +1,12 @@
+{
+  "run_id": "",
+  "skill": "claude-code-cli",
+  "status": "not_started",
+  "phase": "scope-selection",
+  "scope": "",
+  "artifacts": [],
+  "assumptions": [],
+  "blockers": [],
+  "next_action": "",
+  "resume_instructions": ""
+}

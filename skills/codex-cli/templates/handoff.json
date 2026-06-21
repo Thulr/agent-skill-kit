@@ -1,0 +1,16 @@
+{
+  "handoff_id": "",
+  "source_skill": "codex-cli",
+  "source_run_id": "",
+  "requested_capability": "",
+  "suggested_receiver": "",
+  "input_artifacts": [],
+  "constraints": [],
+  "assumptions": [],
+  "user_decisions": [],
+  "expected_output": "",
+  "safety_notes": [
+    "Do not apply Codex recommendations without verifying file references.",
+    "Do not include secrets or raw sensitive data in handoff artifacts."
+  ]
+}

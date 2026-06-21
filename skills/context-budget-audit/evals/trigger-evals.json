@@ -1,0 +1,19 @@
+{
+  "skill": "context-budget-audit",
+  "version": "0.1.0",
+  "queries": [
+    {"query": "What's eating my context? Audit it.", "should_activate": true, "expected_route": "default-audit", "category": "positive"},
+    {"query": "Find token/context waste across my agent setup — what am I not using?", "should_activate": true, "expected_route": "default-audit", "category": "positive"},
+    {"query": "Audit just my MCP servers for idle ones.", "should_activate": true, "expected_route": "scoped-audit", "category": "positive"},
+    {"query": "Which of my plugins are wasting context?", "should_activate": true, "expected_route": "scoped-audit", "category": "positive"},
+    {"query": "Remove the memdb MCP server, it's idle.", "should_activate": true, "expected_route": "act-on-named-items", "category": "positive"},
+    {"query": "Move foo-skill and bar-skill into this repo and remove them from the root folders.", "should_activate": true, "expected_route": "move-named-skills", "category": "positive"},
+    {"query": "Trim my agent setup — find unused skills and subagents.", "should_activate": true, "expected_route": "default-audit", "category": "positive"},
+    {"query": "Refactor this React component to use hooks.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Harden this repo's AGENTS.md and add pre-commit hooks for coding agents.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Set up observability and a trace-and-eval loop for our AI agent in production.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "Ask Codex to review my changes.", "should_activate": false, "expected_route": null, "category": "negative"},
+    {"query": "My Claude setup feels bloated — what can I trim?", "should_activate": true, "expected_route": "default-audit", "category": "edge"},
+    {"query": "How many tokens does my system prompt use?", "should_activate": false, "expected_route": null, "category": "edge"}
+  ]
+}

@@ -26,4 +26,6 @@ add a new ADR that links back.
 - `0009-replace-architecture-pair-with-minimal-modular-code.md`
 - `0010-rename-to-agent-skill-kit.md`
 - `0011-actor-axis-agent-mirror-family.md` (supersedes 0007 structurally; updates 0005/0006/0008)
+- `0012-interop-family-for-cross-agent-tooling.md` (updates 0011; adds the `interop` family with `codex-cli`)
+- `0013-context-budget-family.md` (updates 0012; adds the `context` family with `context-budget-audit`)
 

@@ -1,0 +1,72 @@
+{
+  "skill": "claude-code-cli",
+  "version": "0.1.0",
+  "queries": [
+    {
+      "query": "Ask Claude Code to review the changes Cursor just made to my working tree.",
+      "should_activate": true,
+      "expected_route": "review-working-tree",
+      "category": "positive"
+    },
+    {
+      "query": "Get a second opinion from Claude on this branch before I open the PR.",
+      "should_activate": true,
+      "expected_route": "review-branch",
+      "category": "positive"
+    },
+    {
+      "query": "Have Claude Code weigh in on whether this caching design is sound.",
+      "should_activate": true,
+      "expected_route": "second-opinion",
+      "category": "positive"
+    },
+    {
+      "query": "Ask Claude Code what recurring mistakes it keeps making across my projects.",
+      "should_activate": true,
+      "expected_route": "cross-project-reflection",
+      "category": "positive"
+    },
+    {
+      "query": "Kick off a Claude ultrareview of this branch.",
+      "should_activate": true,
+      "expected_route": "ultrareview",
+      "category": "positive"
+    },
+    {
+      "query": "Prepare the Claude Code prompt to review my staged changes, but don't run it.",
+      "should_activate": true,
+      "expected_route": "prompt-prep",
+      "category": "positive"
+    },
+    {
+      "query": "Refactor this React component to use hooks.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Ask Codex to review my changes.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Audit our CLI's developer experience and score the friction.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Review my changes.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "edge"
+    },
+    {
+      "query": "Have another agent review what Cursor wrote and give an independent take.",
+      "should_activate": true,
+      "expected_route": "review-working-tree",
+      "category": "edge"
+    }
+  ]
+}

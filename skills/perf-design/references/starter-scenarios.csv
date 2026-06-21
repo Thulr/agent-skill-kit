@@ -1,5 +1,0 @@
-scenario,intent,surface,prompt
-design SLOs for a new service,design,slos,Design the SLO program for our new payments service.
-optimize tail latency,optimize,latency,Plan a tail-latency optimization pass for the checkout API; profile-first.
-observability roadmap,strategize,slos,"Strategize our observability roadmap, anchored on the SLO program, across logs, metrics, and traces."
-cut log bill,optimize,logs,Reduce our log bill by 40% without losing recovery value for the on-call rotation.

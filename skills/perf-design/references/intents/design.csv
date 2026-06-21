@@ -1,8 +1,0 @@
-surface,name,when_to_use,playbook,core_refs
-latency,Latency budgets,"Set per-operation latency budgets up-front; pick the measurement method","references/playbooks/latency.md","references/core/severity-rubric.md;references/core/personas.md"
-throughput,Throughput targets,"Design for a target RPS / concurrency curve; pick the load model","references/playbooks/throughput.md","references/core/severity-rubric.md;references/core/personas.md"
-resources,Resource headroom,"Plan capacity envelope; choose saturation alerting thresholds","references/playbooks/resources.md","references/core/severity-rubric.md;references/core/personas.md"
-tracing,Tracing topology,"Design trace context propagation, sampling, span attributes","references/playbooks/tracing.md","references/core/severity-rubric.md;references/core/personas.md"
-logs,Structured-log schema,"Design log schema, correlation IDs, severity discipline","references/playbooks/logs.md","references/core/severity-rubric.md;references/core/personas.md"
-metrics,Metric selection,"Pick RED / USE / Four-Golden-Signal metrics for the surface","references/playbooks/metrics.md","references/core/severity-rubric.md;references/core/personas.md"
-slos,SLO and error-budget design,"Pick SLIs, set SLO targets, draft error-budget policy and alerting","references/playbooks/slos.md","references/core/severity-rubric.md;references/core/personas.md"

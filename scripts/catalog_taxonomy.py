@@ -10,7 +10,7 @@ from pathlib import Path
 from skill_inventory import SkillInventory
 
 
-FAMILIES = ("heuristics", "research", "ax", "discovery")
+FAMILIES = ("heuristics", "research", "ax", "discovery", "interop", "context")
 FUNCTIONS = ("audit", "design", "singleton")
 REQUIRED_META = ("family", "function", "catalog_summary")
 BACKTICK_RE = re.compile(r"`([^`]+)`")

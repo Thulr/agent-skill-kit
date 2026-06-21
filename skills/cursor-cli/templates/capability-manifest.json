@@ -1,0 +1,37 @@
+{
+  "skill": "cursor-cli",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "id": "review-git-changes",
+      "description": "Invoke cursor-agent (read-only --mode plan) to review working-tree, staged, unstaged, or branch changes.",
+      "input_artifacts": ["git-status", "git-diff", "repository-path"],
+      "output_artifacts": ["review-report"],
+      "side_effect_profile": "external-cli-review",
+      "required_tools": ["cursor-agent", "git"],
+      "compatible_handoffs": ["apply-review-feedback", "summarize-review-findings"]
+    },
+    {
+      "id": "delegate-technical-question",
+      "description": "Invoke cursor-agent for a read-only second opinion, optionally under a different model (gpt-5, sonnet-4).",
+      "input_artifacts": ["prompt", "repository-path", "optional-context-files"],
+      "output_artifacts": ["analysis-response"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["cursor-agent"],
+      "compatible_handoffs": ["apply-review-feedback", "write-implementation-plan"]
+    },
+    {
+      "id": "diagnose-cursor-cli",
+      "description": "Probe cursor-agent version, auth, and model availability; surface workspace-trust blockers.",
+      "input_artifacts": ["local-environment"],
+      "output_artifacts": ["diagnostic-summary"],
+      "side_effect_profile": "external-cli-read-only",
+      "required_tools": ["cursor-agent"],
+      "compatible_handoffs": ["setup-cursor-cli"]
+    }
+  ],
+  "bus_safety": {
+    "allowed": ["artifact references", "scope", "run ids", "non-secret assumptions"],
+    "forbidden": ["secrets", "tokens", "credentials", "raw sensitive data", "user identity facts"]
+  }
+}

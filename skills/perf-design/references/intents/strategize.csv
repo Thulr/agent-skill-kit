@@ -1,8 +1,0 @@
-surface,name,when_to_use,playbook,core_refs
-slos,SLO and error-budget program,"Multi-quarter SLO / error-budget program scope and adoption sequence","references/playbooks/slos.md","references/core/severity-rubric.md;references/core/personas.md"
-metrics,Instrumentation strategy,"Program-level metric selection and cardinality budget across services","references/playbooks/metrics.md","references/core/severity-rubric.md;references/core/personas.md"
-tracing,Tracing strategy,"Program-level trace coverage, sampling, and propagation discipline","references/playbooks/tracing.md","references/core/severity-rubric.md;references/core/personas.md"
-logs,Logging strategy,"Program-level log volume, retention, and correlation discipline","references/playbooks/logs.md","references/core/severity-rubric.md;references/core/personas.md"
-latency,Latency strategy,"Multi-quarter latency-budget program; tail-latency reduction as a roadmap item","references/playbooks/latency.md","references/core/severity-rubric.md;references/core/personas.md"
-throughput,Throughput strategy,"Capacity / scalability roadmap; load-shedding posture","references/playbooks/throughput.md","references/core/severity-rubric.md;references/core/personas.md"
-resources,Resource strategy,"Capacity envelope and headroom policy across the fleet","references/playbooks/resources.md","references/core/severity-rubric.md;references/core/personas.md"

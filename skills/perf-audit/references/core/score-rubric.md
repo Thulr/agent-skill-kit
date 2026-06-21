@@ -1,1 +1,0 @@
-../../../_shared/perf/core/score-rubric.md

@@ -93,7 +93,7 @@
       "category": "positive"
     },
     {
-      "query": "I want to understand who the actual customer is for a tool that helps lawyers draft initial pleadings — JTBD plus pain severity, not feature requests",
+      "query": "research the customer segment for a tool that helps lawyers draft initial pleadings — who they are, willingness to pay, and where they turn today, from public sources",
       "should_activate": true,
       "expected_route": "opportunity/investigate/customer",
       "category": "positive"

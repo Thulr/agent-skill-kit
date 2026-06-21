@@ -1,0 +1,32 @@
+{
+  "name": "artifact-host-integration",
+  "description": "Use to IMPLEMENT or wire the contract between a portable HTML artifact and its hosting/editing shell — the postMessage handshake for a live tweaks panel, the EDITMODE persistence block, fixed-canvas (1920×1080) scaling and print/export, speaker-notes slide sync, comment/scene anchors (data-comment-anchor, data-screen-label) and mentioned-element resolution, direct-edit-ready markup, and standalone bundling / PPTX / PDF handoff. For agents emitting host-cooperative artifacts and engineers building the host side. Triggers on \"wire up the tweaks panel\", \"persist edits back to the artifact source\", \"sync speaker notes to slides\", \"make this direct-edit ready\", \"scale a 1920x1080 deck to the viewport\", \"bundle this to standalone HTML\", \"resolve which element the user commented on\". Do NOT use for visual / UI craft or preparing a design for handoff — layout, type, color, components, motion, anti-slop, handoff briefs (use ui-design); not for general API / SDK / CLI design (use dx-design).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "status": "published",
+  "maintainers": ["@Thulr"],
+  "tags": [
+    "artifact-host", "host-integration", "postmessage", "iframe", "prototype",
+    "decks", "speaker-notes", "direct-edit", "bundling", "export", "handoff"
+  ],
+  "inspired_by": [
+    {
+      "name": "Claude design host integration source pack",
+      "author": "Project-local source notes",
+      "kind": "notes",
+      "year": 2026,
+      "contribution": "Artifact-host postMessage protocol, EDITMODE persistence block, fixed-canvas scaling and export hooks, speaker-notes sync, comment/scene anchors and mentioned-element resolution, direct-edit-ready markup conventions, and standalone bundling/handoff.",
+      "playbooks": ["architecture", "tweak-panel", "fixed-canvas", "speaker-notes", "mentioned-elements", "direct-edit", "bundling-export"]
+    }
+  ],
+  "metadata": {
+    "family": "heuristics",
+    "function": "singleton",
+    "catalog_summary": "Implement the contract between a portable HTML artifact and its editing host — postMessage tweak-panel handshake, on-disk persistence markers, fixed-canvas scaling, speaker-notes sync, comment/scene anchors, direct-edit-ready markup, and standalone bundling/export.",
+    "shape": "single-layer",
+    "classification": "workflow-aware",
+    "source_paths": [
+      "claude-design-host-integration/"
+    ]
+  }
+}

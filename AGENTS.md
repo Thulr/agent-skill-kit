@@ -46,6 +46,14 @@ install lanes that any path-based gate **must** enumerate:
   tests, and every `evals/run-static-checks.sh` across all three install lanes.
   **Must pass before commit and before PR.**
 - `just test` — alias for `just check` today; reserved for future per-skill tests.
+- `just eval [args]` — model-graded **activation-routing** eval (the "Stage 1.5"
+  runner): shows a judge every published skill's `description` and checks which skill
+  each `trigger-evals.json` query routes to. **Opt-in, not part of `just check`** — it
+  makes live judge calls via [`pi`](https://www.npmjs.com/package/pi) (default provider
+  `openai-codex`, i.e. Codex via pi) and is non-deterministic. Scope with
+  `just eval --skills a,b`; `--judge mock` runs the pipeline offline. Backed by
+  [`scripts/run-trigger-evals.py`](./scripts/run-trigger-evals.py); its logic is covered
+  in `just check` by `scripts/test-run-trigger-evals.py` (offline mock backend).
 - `just install-hooks` — installs the [`pre-commit`](https://pre-commit.com)
   framework (if missing) and wires the `gitleaks` secret-scanning hook into
   `.git/hooks/pre-commit`. Runs an initial scan against the working tree.
@@ -130,9 +138,12 @@ the schema file, not against the example.
 
 `category` is `"positive" | "negative" | "edge"`. `expected_route` is required
 and uses `null` when the skill is single-route or should not activate. Each skill's
-`run-static-checks.sh` validates the shape; a runner that grades activation
-against a model lives in a future Stage 1.5 — file is parsed and validated for
-now, not yet executed.
+`run-static-checks.sh` validates the **shape** in `just check`. **Activation itself**
+— does each query route to the intended skill against the whole catalog's
+descriptions — is graded by the opt-in `just eval` runner
+([`scripts/run-trigger-evals.py`](./scripts/run-trigger-evals.py)), the realized
+"Stage 1.5". It is deliberately *not* in `just check` (live judge calls via `pi`,
+non-deterministic); treat its findings as signal, not a hard gate.
 
 ## Load-bearing rules
 

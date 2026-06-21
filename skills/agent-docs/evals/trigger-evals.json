@@ -16,7 +16,7 @@
     {"query": "set up a trace-and-eval loop and watch our agent's quality drift in production", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "promote this recurring agent failure into an AGENTS.md rule from our reflection log", "should_activate": false, "expected_route": null, "category": "negative"},
     {"query": "tighten the prose in our marketing landing page", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "our docs serve both human readers and an agent, and the same page needs to work for both — where does the agent-native part live?", "should_activate": true, "expected_route": "review/machine-reference", "category": "edge"},
-    {"query": "should the agent's invariants live in AGENTS.md prose or a CI gate? our markdown rule keeps getting ignored", "should_activate": true, "expected_route": "review/agents-md", "category": "edge"}
+    {"query": "review our llms.txt and machine-readable reference for whether an AI agent can actually consume them — stable anchors, retrieval-safe chunks, no 'see above' — this is our agent-native layer, not the human docs site", "should_activate": true, "expected_route": "review/machine-reference", "category": "edge"},
+    {"query": "review our AGENTS.md — are the invariants phrased and placed so an agent actually follows them, instead of getting ignored?", "should_activate": true, "expected_route": "review/agents-md", "category": "edge"}
   ]
 }

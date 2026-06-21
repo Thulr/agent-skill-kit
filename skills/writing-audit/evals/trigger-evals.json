@@ -20,7 +20,7 @@
     { "query": "Review our CLI's flags and help output for friction", "should_activate": false, "expected_route": null, "category": "negative" },
     { "query": "Heuristic review of this checkout flow", "should_activate": false, "expected_route": null, "category": "negative" },
     { "query": "Research and summarize the state of LLM eval methods", "should_activate": false, "expected_route": null, "category": "negative" },
-    { "query": "Review this microcopy on our settings screen", "should_activate": true, "expected_route": "revise/general-prose", "category": "edge" },
+    { "query": "Review the wording of this paragraph in our onboarding email", "should_activate": true, "expected_route": "revise/general-prose", "category": "edge" },
     { "query": "Edit our API docs for clarity", "should_activate": true, "expected_route": "revise/technical-doc", "category": "edge" }
   ]
 }

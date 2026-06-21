@@ -12,6 +12,7 @@
         {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
         {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},
         {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ux-audit`", "design": "`ui-design`"},
+        {"surface": "**Artifact ↔ host integration** — embeddable HTML artifacts: the postMessage / persistence-marker / comment-anchor / fixed-canvas / export contract between an artifact and its editing host", "critique": "→ `ui-design`", "design": "`artifact-host-integration`"},
         {"surface": "**Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel", "critique": "`minimal-modular-code`", "design": "`minimal-modular-code`"}
       ]
     },

@@ -28,7 +28,7 @@ it on load.
 On every active-slide change, post:
 
 ```js
-window.parent.postMessage({ slideIndexChanged: i }, '*');
+window.parent.postMessage({ slideIndexChanged: i }, HOST_ORIGIN);
 ```
 
 The artifact **must** post:
@@ -42,7 +42,7 @@ until the first navigation, then catches up.
 const notes = JSON.parse(document.querySelector('#speaker-notes').textContent);
 function goToSlide(i) {
   document.querySelectorAll('section').forEach((s, j) => s.toggleAttribute('data-active', i === j));
-  window.parent.postMessage({ slideIndexChanged: i }, '*');
+  window.parent.postMessage({ slideIndexChanged: i }, HOST_ORIGIN);
 }
 goToSlide(0); // post on load
 ```

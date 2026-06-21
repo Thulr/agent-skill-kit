@@ -60,3 +60,28 @@ message. Posting availability first races the host's reply: the toggle appears,
 the user clicks it, the activate message arrives at a window with no handler,
 and the control silently does nothing. This ordering bug recurs across every
 handshake — make the listener live first, then announce.
+
+## Origin security
+
+`postMessage` is cross-origin by definition, so a **hosted** artifact (anything an
+untrusted page could embed) must pin the host's origin. Snippets in these
+playbooks use `HOST_ORIGIN` for that pinned value:
+
+- **Inbound:** verify `event.origin === HOST_ORIGIN` before acting on a message;
+  drop anything else. An unchecked listener lets any embedding page toggle edit
+  mode or feed the artifact commands.
+- **Outbound:** post with that exact origin, never `targetOrigin: '*'` — `'*'`
+  leaks edit/persistence payloads to whatever page is embedding the artifact.
+
+```js
+// Pin to the editor's origin; inject it at build, or learn it from the first
+// trusted handshake message and pin thereafter.
+const HOST_ORIGIN = "https://your-host.example";
+window.addEventListener('message', (e) => {
+  if (e.origin !== HOST_ORIGIN) return;        // ignore foreign senders
+  // ...handle e.data...
+});
+```
+
+`'*'` / no origin check is acceptable **only** for a purely local `file://`
+preview that is never embedded by an untrusted page.

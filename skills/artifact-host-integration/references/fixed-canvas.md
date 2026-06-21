@@ -82,7 +82,7 @@ produces one page each.
 ```js
 function goToSlide(i) {
   document.querySelectorAll('.canvas section').forEach((s, j) => s.toggleAttribute('data-active', i === j));
-  window.parent.postMessage({ slideIndexChanged: i }, '*'); // keeps host speaker notes in sync
+  window.parent.postMessage({ slideIndexChanged: i }, HOST_ORIGIN); // keeps host speaker notes in sync
 }
 ```
 

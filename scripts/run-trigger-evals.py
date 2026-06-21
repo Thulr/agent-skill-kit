@@ -186,10 +186,12 @@ def route_sharded(judge: Judge, queries: list[dict], pool: dict[str, str],
     return preds
 
 
-def grade(query: dict, predicted: str) -> bool:
+def grade(query: dict, predicted: str, valid_labels: set[str]) -> bool:
     """Positive/edge-true: must fire its skill. Negative/edge-false: must NOT fire it.
-    An unknown/errored prediction is always a failure (never a silent negative pass)."""
-    if predicted in ("<error>", "<missing>"):
+    Any prediction outside the candidate pool (the skill names plus "none") — judge
+    typos, hallucinated names, <error>/<missing> — is always a failure, never a silent
+    negative pass (where any non-SUT label would otherwise count as correctly avoided)."""
+    if predicted not in valid_labels:
         return False
     sut = query["skill_under_test"]
     return predicted == sut if query["should_activate"] else predicted != sut
@@ -209,11 +211,11 @@ def escalate(judge: Judge, failed: list[dict], pool: dict[str, str], rounds: int
     return final
 
 
-def build_rows(queries: list[dict], preds: dict[str, str]) -> list[dict]:
+def build_rows(queries: list[dict], preds: dict[str, str], valid_labels: set[str]) -> list[dict]:
     rows = []
     for q in queries:
         predicted = preds.get(q["id"], "<missing>")
-        rows.append({**q, "predicted": predicted, "ok": grade(q, predicted)})
+        rows.append({**q, "predicted": predicted, "ok": grade(q, predicted, valid_labels)})
     return rows
 
 
@@ -279,6 +281,7 @@ def main() -> int:
     if not queries:
         print("FAIL: no queries collected", file=sys.stderr)
         return 1
+    valid_labels = set(pool) | {"none"}  # any other prediction is an invalid routing, not a pass
 
     judge: Judge = (MockJudge(args.mock_mode) if args.judge == "mock"
                     else PiJudge(args.provider, args.model, args.thinking, args.timeout))
@@ -292,13 +295,13 @@ def main() -> int:
         print(f"FAIL: judge error during sweep: {exc}", file=sys.stderr)
         return 1
 
-    rows = build_rows(queries, preds)
+    rows = build_rows(queries, preds, valid_labels)
     failed = [r for r in rows if not r["ok"]]
     if failed and args.escalate_rounds > 0:
         print(f"Escalating {len(failed)} misroute(s) to {args.escalate_rounds}-round majority vote...\n")
         escalated = escalate(judge, failed, pool, args.escalate_rounds)
         preds.update(escalated)
-        rows = build_rows(queries, preds)
+        rows = build_rows(queries, preds, valid_labels)
 
     report = render_report(rows)
     print(report)

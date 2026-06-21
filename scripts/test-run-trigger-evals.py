@@ -35,13 +35,16 @@ def main() -> int:
             print(f"FAIL {name}", file=sys.stderr)
             failures += 1
 
-    # ----- grade(): the four routing outcomes -----
+    # ----- grade(): routing outcomes + invalid-label rejection -----
     pos = {"skill_under_test": "x", "should_activate": True}
     neg = {"skill_under_test": "x", "should_activate": False}
-    check("grade: positive fires its skill", m.grade(pos, "x") is True)
-    check("grade: positive routed elsewhere fails", m.grade(pos, "y") is False)
-    check("grade: negative routed to SUT fails (over-trigger)", m.grade(neg, "x") is False)
-    check("grade: negative routed away passes", m.grade(neg, "y") is True)
+    labels = {"x", "y", "none"}
+    check("grade: positive fires its skill", m.grade(pos, "x", labels) is True)
+    check("grade: positive routed elsewhere fails", m.grade(pos, "y", labels) is False)
+    check("grade: negative routed to SUT fails (over-trigger)", m.grade(neg, "x", labels) is False)
+    check("grade: negative routed away passes", m.grade(neg, "y", labels) is True)
+    check("grade: unknown label on a negative fails (not a silent pass)", m.grade(neg, "ui design", labels) is False)
+    check("grade: <error> always fails", m.grade(neg, "<error>", labels) is False)
 
     # ----- discovery: pool excludes the internal template, includes real skills -----
     pool = m.discover_pool(ROOT)
@@ -53,11 +56,12 @@ def main() -> int:
     required = {"id", "skill_under_test", "category", "should_activate", "query"}
     check("collect_queries: non-empty", len(queries) > 0)
     check("collect_queries: every row well-formed", all(required <= set(q) for q in queries))
+    pool_labels = set(pool) | {"none"}
 
     # ----- pipeline (oracle): full coverage, zero failures -----
     oracle = m.MockJudge("oracle")
     preds = m.route_sharded(oracle, queries, pool, 25, 4)
-    rows = m.build_rows(queries, preds)
+    rows = m.build_rows(queries, preds, pool_labels)
     check("oracle: complete coverage", all(r["predicted"] != "<missing>" for r in rows))
     check("oracle: zero failures", all(r["ok"] for r in rows))
     m.render_report(rows)  # must not raise
@@ -65,10 +69,10 @@ def main() -> int:
     # ----- pipeline (adversary): scorer detects failures; they survive escalation -----
     adversary = m.MockJudge("adversary")
     adv_preds = m.route_sharded(adversary, queries, pool, 25, 4)
-    adv_failed = [r for r in m.build_rows(queries, adv_preds) if not r["ok"]]
+    adv_failed = [r for r in m.build_rows(queries, adv_preds, pool_labels) if not r["ok"]]
     check("adversary: failures detected", len(adv_failed) > 0)
     escalated = m.escalate(adversary, adv_failed, pool, 2)
-    adv_rows = m.build_rows(queries, {**adv_preds, **escalated})
+    adv_rows = m.build_rows(queries, {**adv_preds, **escalated}, pool_labels)
     check("adversary: failures survive escalation", any(not r["ok"] for r in adv_rows))
 
     # ----- end-to-end exit codes via the CLI (offline mock backend) -----

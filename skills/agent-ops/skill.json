@@ -53,6 +53,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-operator and the agent-family front-door: operate a running agent system — DO (wire observability/loop/autonomy/budgets/gates), REVIEW (audit observability, optimization loop, autonomy controls, reliability/cost, and maturity, then score it), DESIGN (shape the loop, gate autonomy, decompose the release gate, place maturity and route work to siblings). Operates what agent-dx instruments; routes building out to the family."
+    "catalog_summary": "Agent-as-operator, and the front door to the agent family. Operate a running agent system: observability, trace-and-eval loops, autonomy, budgets, gates. Wire them up, audit them and score maturity, or design the loop and route work to the right sibling skill. Start here when you're not sure which agent skill you need."
   }
 }

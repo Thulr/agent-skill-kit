@@ -51,6 +51,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-subject-under-measurement: design the measurement an AI agent or skill is judged by — DO (write the smallest gating eval/judge/test), REVIEW (audit an eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it), DESIGN (shape a failure-mode-first suite, calibrate a judge, build a held-out benchmark, design activation evals). Designs what agent-ops then operates."
+    "catalog_summary": "Agent-as-subject: design the measurement an AI agent or skill is judged by — evals, LLM-as-judge, trajectory tests, benchmarks, activation tests. Write the smallest gating eval, audit an existing suite or judge for trustworthiness, or design a failure-mode-first suite or held-out benchmark."
   }
 }

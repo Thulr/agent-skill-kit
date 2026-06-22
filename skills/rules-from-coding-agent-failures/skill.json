@@ -86,6 +86,6 @@
     "family": "ax",
     "function": "singleton",
     "catalog_order": 3,
-    "catalog_summary": "capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 \u22653-entry floor. For teams with a feedback signal \u2014 eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json)."
+    "catalog_summary": "Capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test."
   }
 }

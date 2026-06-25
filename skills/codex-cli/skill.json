@@ -1,6 +1,6 @@
 {
   "name": "codex-cli",
-  "description": "Use when an agent should invoke the Codex CLI as an external reviewer or analysis agent — get a second opinion from another LLM provider, review uncommitted/branch/commit changes with `codex review`, run read-only repo analysis via `codex exec`, ask Codex for cross-project self-reflection about recurring agent mistakes and user workflow patterns, diagnose Codex setup, or prepare a delegated Codex prompt without running it. Triggers on 'ask Codex to review my changes', 'get a second opinion from Codex', 'what would the other model say about this', 'review this with Codex before I push'. Do NOT use to harden a repo's own agent config (use harden-repo-for-coding-agents), to promote observed failures into AGENTS.md rules (use rules-from-coding-agent-failures), or to run this kit's own heuristic review skills like dx-audit/ux-audit — codex-cli shells out to the external Codex CLI as an independent reviewer rather than auditing a surface itself.",
+  "description": "Invoke Codex CLI as an external reviewer. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'review this before I push'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -24,7 +24,7 @@
       "author": "OpenAI",
       "kind": "tool",
       "year": 2025,
-      "contribution": "The `codex` command-line agent this skill wraps: `codex review` for native diff review (uncommitted / branch / commit), `codex exec` for read-only delegated analysis, and `codex doctor` for setup diagnostics — plus the sandbox and approval-policy flags the playbooks default to read-only and refuse to bypass without explicit user request.",
+      "contribution": "The `codex` command-line agent this skill wraps: `codex review` for native diff review (uncommitted / branch / commit), `codex exec` for read-only delegated analysis, and `codex doctor` for setup diagnostics \u2014 plus the sandbox and approval-policy flags the playbooks default to read-only and refuse to bypass without explicit user request.",
       "playbooks": [
         "all"
       ]
@@ -33,6 +33,6 @@
   "metadata": {
     "family": "interop",
     "function": "singleton",
-    "catalog_summary": "Drive the external **Codex CLI** as an independent second-opinion reviewer and analysis agent — `codex review` for uncommitted/branch/commit diffs, `codex exec` (read-only sandbox) for second opinions and repo analysis, plus cross-project reflection, setup diagnostics, and prompt-prep (`--dry-run`) modes. Routes through a use-case registry, defaults to read-only, and never bypasses Codex approvals/sandbox without an explicit ask. Reach for it when you want a different LLM provider's take on code or docs before shipping."
+    "catalog_summary": "Drive the external **Codex CLI** as an independent second-opinion reviewer and analysis agent \u2014 `codex review` for uncommitted/branch/commit diffs, `codex exec` (read-only sandbox) for second opinions and repo analysis, plus cross-project reflection, setup diagnostics, and prompt-prep (`--dry-run`) modes. Routes through a use-case registry, defaults to read-only, and never bypasses Codex approvals/sandbox without an explicit ask. Reach for it when you want a different LLM provider's take on code or docs before shipping. Provenance in [`skills/codex-cli/skill.json`](./skills/codex-cli/skill.json)."
   }
 }

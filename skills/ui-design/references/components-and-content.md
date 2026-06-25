@@ -25,8 +25,20 @@ Use boring, legible structures and make them distinctive through tokens.
 
 ## Content Rules
 
-Copy is part of visual quality. No filler. If a section feels empty, solve the
-composition rather than adding generic words.
+Copy is part of visual quality. **Every element must earn its place.** If a
+section feels empty, solve the composition rather than adding generic words.
+
+Avoid filler of any kind:
+
+- Fake metrics or decorative stats that have no real backing.
+- Generic feature grids with no substantive content difference.
+- Unnecessary icons placed just to fill visual space.
+- Placeholder testimonials or fake customer names.
+- AI-generated fluff sections (generic "Why Choose Us", "Our Mission" blocks).
+- Stock-photo or generic decorative imagery that communicates nothing.
+
+When real content is missing, use honest placeholders. Do not fabricate data
+that implies claims about the product.
 
 Default voice when no system exists:
 
@@ -41,7 +53,8 @@ Default voice when no system exists:
 ## Content Tropes to Cut
 
 Avoid product chrome that says "Let's get started", "Awesome", "AI assistant
-is ready", "Click here", "Discover", "Unlock", or "Supercharge". Replace
+is ready", "Click here", "Discover", "Unlock", "Supercharge", or vague labels
+like "Insights", "Growth", "Scale", "Optimize" without real content. Replace
 generic actions with the action itself: "Open", "Save", "Connect runtime",
 "Create note".
 

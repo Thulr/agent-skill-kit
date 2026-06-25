@@ -1,6 +1,6 @@
 ---
 name: dx-design
-description: Use to DESIGN or shape a new developer-experience surface from scratch — an API, SDK, CLI, developer-doc IA, error envelope, setup/first-run flow, auth model, migration/deprecation path, plugin or extension contract, package/publish scheme, logging/config design, changelog convention, or telemetry/consent contract. Triggers on "design a new API/SDK/CLI", "what should we get right up front", "shape the public surface before we write code", "what should our error envelope look like". Emits a design doc with a concrete good-shaped pattern and acceptance criteria. Do NOT use to AUDIT or debug an existing surface (use dx-audit), to design the documentation system itself — mode taxonomy, source-of-truth, retrieval, and cross-audience help (use docs-design), for end-user visual UI (use ui-design), for AI/Agent SDK, tool, error, or telemetry surface design an agent consumes (use agent-dx), or for AGENTS.md and agent-readable docs (use agent-docs).
+description: "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'."
 license: MIT
 ---
 
@@ -15,6 +15,10 @@ routing only.
 snippet, type signature, schema, or example interaction), the heuristics it
 satisfies, the anti-patterns it avoids, and testable acceptance criteria.
 
+## Boundaries
+
+Do NOT use to AUDIT or debug an existing surface (use dx-audit), to design the documentation system itself (use docs-design), for end-user visual UI (use ui-design), for AI/Agent SDK/tool/error/telemetry surface design an agent consumes (use agent-dx), or for AGENTS.md and agent-readable docs (use agent-docs).
+
 ## Core principle
 
 **Design the paved path before it sets.** The cheapest time to fix a DX problem
@@ -24,13 +28,9 @@ than describing principles abstractly.
 
 ## Activation
 
-- **Bare invocation** (`"use dx-design"`, `"design a DX surface"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
-  show the surface menu, offer the mode choice. Wait. No file inspection, no
-  network calls, no writes.
+- **Bare invocation** (`"use dx-design"`, `"design a DX surface"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with the surface inferable: skip to step 2.
-- **Concrete invocation with ambiguous surface**: ask one blocker question
-  naming the candidate surfaces; do not inspect private systems first.
+- **Concrete invocation with ambiguous surface**: ask one — e.g., *"Are you designing an API, CLI, SDK, or error envelope?"* or *"Is the primary surface the setup flow or the auth model?"*
 
 ## Workflow
 
@@ -52,6 +52,8 @@ than describing principles abstractly.
 6. **Emit output.** Write `templates/design-doc.md`: goal + target developer,
    the good-shaped pattern, heuristics applied, anti-patterns avoided, testable
    acceptance criteria, edge cases handled, open trade-offs, out-of-scope.
+
+> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

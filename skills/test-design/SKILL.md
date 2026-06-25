@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: Use to PRODUCE test-suite artifacts — author a new test or test plan for a feature, shape a cross-layer test strategy (what to test at which layer, as a portfolio), or plan which tests to delete (low-value, redundant, characterizing dead code). Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on "write tests for this feature", "what should I test and at which layer", "design our test strategy", "which tests should we delete", "is our test pyramid right". Do NOT use to REVIEW or triage existing tests for smells, flakiness, or false-pass (use test-audit), or for production-system performance/SLOs (use perf-design).
+description: "Produce test-suite artifacts - author tests for a feature, shape cross-layer strategy, or plan deletions. Triggers: 'write tests for this feature', 'design our test strategy', 'which tests should we delete'."
 license: MIT
 ---
 
@@ -16,6 +16,10 @@ test outline, the heuristics it satisfies, the failure modes it prevents) /
 `strategy-doc.md` (layer-by-layer investment with rationale) / `prune-plan.md`
 (deletion and quarantine candidates with reasons).
 
+## Boundaries
+
+Do NOT use to REVIEW or triage existing tests for smells, flakiness, or false-pass (use test-audit).
+
 ## Core principle
 
 **Decide what a test is for before you write it.** Spec, regression,
@@ -25,13 +29,9 @@ the most familiar layer.
 
 ## Activation
 
-- **Bare invocation** (`"use test-design"`, `"design our tests"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
-  then show the intent menu with named starter scenarios on top and offer the
-  mode choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** (`"use test-design"`, `"design our tests"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and layer inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or layer; do not inspect private systems first.
+- **Concrete invocation with ambiguous scope**: ask one — e.g., *"Are you authoring, strategizing, or pruning?"* or *"Which test layer — unit, integration, e2e, or property-based?"*
 
 ## Workflow
 
@@ -54,6 +54,8 @@ the most familiar layer.
    parallel sketches and synthesize the strongest.
 6. **Emit output.** Author → `templates/author-design.md`. Strategize →
    `templates/strategy-doc.md`. Prune → `templates/prune-plan.md`.
+
+> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

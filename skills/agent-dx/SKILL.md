@@ -1,6 +1,6 @@
 ---
 name: agent-dx
-description: Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep an in-progress AI/Agent SDK, tool, structured-output, error, or telemetry change minimal and agent-consumable. REVIEW — audit an agent-facing SDK/tool/error/telemetry surface for stable contracts, agent recovery, and trust-boundary safety, then score it. DESIGN — shape a new agent-facing surface (loop, tools, MCP, structured output, error envelope, SDK telemetry) or explain a principle. Triggers on 'design our Agent SDK', 'are our tool schemas agent-safe', 'review our MCP tool surface', 'shape retry-able tool errors for the model', 'is our agent telemetry leaking PII'. Do NOT use for human developer API/SDK/CLI surfaces (use dx-audit / dx-design), agent-readable docs/AGENTS.md/llms.txt (use agent-docs), repo agent-hardening gates/hooks (use harden-repo-for-coding-agents), or operating eval/observability loops (use agent-ops).
+description: "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW — audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN — shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII'"
 license: MIT
 ---
 
@@ -14,6 +14,10 @@ through. Provenance lives in `skill.json`; this file is runtime routing only.
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
 `explanation.md` (DESIGN).
 
+## Boundaries
+
+Do NOT use for human developer surfaces (use dx-audit / dx-design), agent-readable docs (use agent-docs), or repo agent-hardening (use harden-repo-for-coding-agents).
+
 ## Core principle
 
 **An agent consumes the surface alone, at machine speed, with no tooltip to fall back on.** So
@@ -24,12 +28,9 @@ not hoped for; the trust boundary closed by default. It sits *atop* the HTTP-cli
 
 ## Activation
 
-- **Bare invocation** (`"use agent-dx"`, `"review our MCP tool surface"`, `"start"`): load
-  `references/intent-router.csv`, show the intent menu, offer the mode. Wait. No file
-  inspection, network calls, or writes.
+- **Bare invocation** (`"use agent-dx"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
-- **Ambiguous scope**: ask one blocker question naming the candidate intent or surface; do not
-  inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing an SDK, tool schema, structured-output envelope, or telemetry surface?"* or *"Is this a contract/recovery review or a trust-boundary audit?"*
 
 ## Workflow
 
@@ -64,6 +65,8 @@ not hoped for; the trust boundary closed by default. It sits *atop* the HTTP-cli
    `audit-artifacts/agent-dx-...` if `docs/audits/` is unwritable). Report both paths; keep
    roadmaps, issues, and non-tracking edits opt-in.
 
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+
 ## Modes
 
 Guided Draft (default), Autopilot, Grill Me — see `references/modes.md`. Offer at bare
@@ -91,7 +94,7 @@ ordering by severity.
 - `references/playbooks/<surface>.md` — sdk-design, tools-and-mcp, structured-output,
   errors-and-retry, sdk-telemetry.
 - `references/subagent-dispatch.md` — three-lens prompts and synthesis.
-- `references/core/{severity-rubric,score-rubric,personas,glossary}.md` — scales, audience, terms.
+- `references/core/*.md` — severity, score, personas, glossary.
 - `references/{calibration,trackable-findings,modes}.md` — shared (symlinks).
 - `templates/*.md` — change-plan, audit-report, design-doc, refactor-runbook, explanation, plus
   the shared tracking artifacts.

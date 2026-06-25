@@ -1,6 +1,6 @@
 ---
 name: agent-ux
-description: Use for AGENT UX — the interaction surface an AI agent acts THROUGH as an end user (a UI, app, or computer-use target), often on a human's behalf. DO — make a surface an agent can perceive, target, and act on safely. REVIEW — audit a surface for machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it. DESIGN — shape the machine-readable state, the stable action handles, the approval/authority gate, or the human/agent dual path, or explain a principle. Triggers on 'can our agent actually use this UI', 'make our app agent-operable', 'should the agent confirm this action', 'our agent clicks the wrong control', 'expose our app state for computer-use'. Do NOT use for human-only product UX or visual design (use ux-audit / ui-design), docs an agent reads (use agent-docs), the SDK/tool schema or token-exchange mechanism (use agent-dx), or operating the agent loop (use agent-ops).
+description: "Use for AGENT UX — the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO — make surfaces agent-perceivable/targetable/actionable. REVIEW — audit for machine-readable state, deterministic actions, agency/approval. DESIGN — shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action'"
 license: MIT
 ---
 
@@ -15,6 +15,10 @@ routing only.
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
 `explanation.md` (DESIGN).
 
+## Boundaries
+
+Do NOT use for human-only product UX or visual design (use ux-audit / ui-design), docs an agent reads (use agent-docs), the SDK/tool schema or token-exchange mechanism (use agent-dx), or operating the agent loop (use agent-ops).
+
 ## Core principle
 
 **An agent can act only on what it can perceive, can act safely only on what it can target
@@ -23,12 +27,9 @@ target by stable handle, not coordinates; gate the irreversible action in-path.
 
 ## Activation
 
-- **Bare invocation** (`"use agent-ux"`, `"can our agent use this UI"`, `"start"`): load
-  `references/intent-router.csv`, show the intent menu, offer the mode. Wait. No file inspection,
-  network calls, or writes.
+- **Bare invocation** (`"use agent-ux"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
-- **Ambiguous scope**: ask one blocker question naming the candidate intent or surface; if the
-  surface is human-only, route to `ux-audit` / `ui-design`. Do not inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing a UI, a computer-use target, or an approval flow?"* or *"Is this about machine-readable state or action handles?"*
 
 ## Workflow
 
@@ -61,6 +62,8 @@ target by stable handle, not coordinates; gate the irreversible action in-path.
    workflow state at `docs/audits/agent-ux-workflow-state-<YYYY-MM-DD>-<scope-slug>.json` (fall
    back to `audit-artifacts/agent-ux-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

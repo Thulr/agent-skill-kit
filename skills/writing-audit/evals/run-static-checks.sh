@@ -35,7 +35,7 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --calibration-report templates/copyedit-report.md \
   --calibration-report templates/diagnosis-report.md \
   --require-pattern 'intent-router routing::SKILL.md::intent-router\.csv' \
-  --require-pattern 'bare activation::SKILL.md::show the intent menu' \
+  --require-pattern 'bare activation::SKILL.md::show a compact menu' \
   --require-pattern 'applies severity rubric::SKILL.md::severity-rubric' \
   --require-pattern 'routes creation to sibling::SKILL.md::writing-design' \
   --require-pattern 'revision-report has findings::templates/revision-report.md::^## Findings' \

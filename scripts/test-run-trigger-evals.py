@@ -50,7 +50,7 @@ def main() -> int:
     pool = m.discover_pool(ROOT)
     check("discover_pool: non-empty", len(pool) > 0)
     check("discover_pool: excludes example-minimal (internal)", "example-minimal" not in pool)
-    check("discover_pool: includes artifact-host-integration", "artifact-host-integration" in pool)
+    check("discover_pool: includes ui-design (absorbed artifact-host-integration)", "ui-design" in pool)
 
     queries = m.collect_queries(ROOT, sorted(pool))
     required = {"id", "skill_under_test", "category", "should_activate", "query"}
@@ -78,7 +78,7 @@ def main() -> int:
     # ----- end-to-end exit codes via the CLI (offline mock backend) -----
     clean = subprocess.run(
         [sys.executable, str(RUNNER), "--judge", "mock",
-         "--skills", "artifact-host-integration,ui-design"],
+         "--skills", "ui-design"],
         cwd=ROOT, capture_output=True, text=True,
     )
     check("e2e --judge mock (oracle) exits 0", clean.returncode == 0)

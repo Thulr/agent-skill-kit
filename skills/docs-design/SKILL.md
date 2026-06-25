@@ -1,6 +1,6 @@
 ---
 name: docs-design
-description: Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, README/quickstart/reference structure, examples, API/tool-contract docs, error copy, versioning, accessibility), or define the telemetry, CI gates, retrieval evals, feedback loops, and metrics that keep docs true. Triggers on "design our docs IA", "how should we structure the quickstart/reference", "what should our API contract docs look like", "how do we measure docs quality", "set up docs CI gates / freshness checks". Emits a design doc with a proposed structure and acceptance criteria, or a measurement plan with signals, thresholds, owners, and actions. Do NOT use to AUDIT or debug existing docs (use docs-audit), to design a code package's developer experience — API/SDK/CLI shape, errors, first-run flow (use dx-design), for end-user visual UI design (use ux-audit), or repo agent hardening (use harden-repo-for-coding-agents), or agent-native docs — AGENTS.md, llms.txt (use agent-docs).
+description: "Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, structure, examples, error copy, versioning, accessibility), or define telemetry, CI gates, retrieval evals, and feedback loops. Triggers on 'design our docs IA', 'how should we structure the quickstart/reference', 'set up docs CI gates / freshness checks'."
 license: MIT
 ---
 
@@ -16,6 +16,10 @@ runtime routing only.
 truth, renderings, IA, audience paths, acceptance criteria) — or a
 `measurement-plan.md` — signals, thresholds, owners, actions, and release gates.
 
+## Boundaries
+
+Do NOT use to AUDIT or debug existing docs (use docs-audit), to design a code package's developer experience — API/SDK/CLI shape, errors, first-run flow (use dx-design), for end-user visual UI design (use ux-audit), or repo agent hardening (use harden-repo-for-coding-agents), or agent-native docs — AGENTS.md, llms.txt (use agent-docs).
+
 ## Core principle
 
 **Decide the source of truth and the audience's job before you write.** The
@@ -25,13 +29,9 @@ concretely rather than describing principles abstractly.
 
 ## Activation
 
-- **Bare invocation** (`"use docs-design"`, `"design our docs"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
-  then show the intent menu with named starter scenarios on top and offer the
-  mode choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** ("use docs-design", "design our docs", "start"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and surface inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or surface; do not inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you designing a new docs surface or defining measurement/telemetry?"* or *"Is this for developer docs, end-user help, or agent-readable surfaces?"*
 
 ## Workflow
 
@@ -58,6 +58,8 @@ concretely rather than describing principles abstractly.
    structure, audience paths, acceptance criteria, risks and trade-offs.
    Measure → `templates/measurement-plan.md`: metrics table, gates and evals,
    baseline plan, caveats, reporting cadence.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

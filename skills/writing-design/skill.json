@@ -1,6 +1,6 @@
 {
   "name": "writing-design",
-  "description": "Use to DESIGN or shape a NEW piece of writing before or while drafting \u2014 structure an argument or memo (PRD, RFC, recommendation, strategy), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post, or narrative a persuasive arc. Routes by intent (structure / draft / persuade) \u00d7 genre (argument-memo / technical-doc / talk-pitch / narrative / general-prose). Triggers on \"help me outline this RFC\", \"draft this announcement\", \"make this pitch land\", \"give this post an arc\", \"structure this doc before I write it\". Do NOT use to revise, copyedit, or diagnose an EXISTING draft (use writing-audit), to design a documentation system's IA, retrieval, or telemetry (use docs-design), or to gather and validate source material (use research).",
+  "description": "Use to DESIGN or shape a NEW piece of writing before or while drafting \u2014 structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -32,7 +32,10 @@
       "kind": "book",
       "year": 1987,
       "contribution": "Lead with the answer (top-down); the Situation-Complication-Question-Answer intro; group support mutually-exclusive and collectively-exhaustive.",
-      "playbooks": ["argument-memo", "technical-doc"]
+      "playbooks": [
+        "argument-memo",
+        "technical-doc"
+      ]
     },
     {
       "name": "Writing Software Documentation: A Task-Oriented Approach",
@@ -40,7 +43,9 @@
       "kind": "book",
       "year": 1998,
       "contribution": "Organize by what the user is trying to accomplish, not by features; audience and task analysis; decompose into ordered one-action steps; write minimally.",
-      "playbooks": ["technical-doc"]
+      "playbooks": [
+        "technical-doc"
+      ]
     },
     {
       "name": "Bird by Bird",
@@ -48,7 +53,9 @@
       "kind": "book",
       "year": 1994,
       "contribution": "Permission to write a deliberately rough first pass; shrink the task to the next small unit; separate generating from editing.",
-      "playbooks": ["draft-intent"]
+      "playbooks": [
+        "draft-intent"
+      ]
     },
     {
       "name": "On Writing Well",
@@ -56,7 +63,9 @@
       "kind": "book",
       "year": 1976,
       "contribution": "Strip clutter; plain words over inflated ones; clarity is manufactured in revision.",
-      "playbooks": ["general-prose"]
+      "playbooks": [
+        "general-prose"
+      ]
     },
     {
       "name": "The Sense of Style",
@@ -64,7 +73,10 @@
       "kind": "book",
       "year": 2014,
       "contribution": "Direct concrete style; the expert blind spot; order given-information before new.",
-      "playbooks": ["general-prose", "technical-doc"]
+      "playbooks": [
+        "general-prose",
+        "technical-doc"
+      ]
     },
     {
       "name": "Made to Stick",
@@ -72,7 +84,10 @@
       "kind": "book",
       "year": 2007,
       "contribution": "The six-part stickiness checklist (simple, unexpected, concrete, credible, emotional, story).",
-      "playbooks": ["talk-pitch", "narrative"]
+      "playbooks": [
+        "talk-pitch",
+        "narrative"
+      ]
     },
     {
       "name": "Resonate",
@@ -80,7 +95,9 @@
       "kind": "book",
       "year": 2010,
       "contribution": "Oscillate between what-is and what-could-be; plant one memorable peak; cast the audience as hero.",
-      "playbooks": ["talk-pitch"]
+      "playbooks": [
+        "talk-pitch"
+      ]
     },
     {
       "name": "Building a StoryBrand",
@@ -88,7 +105,9 @@
       "kind": "book",
       "year": 2017,
       "contribution": "The audience is the hero and you are the guide; compress to a one-liner; the few-second stranger test.",
-      "playbooks": ["talk-pitch"]
+      "playbooks": [
+        "talk-pitch"
+      ]
     },
     {
       "name": "Story",
@@ -96,7 +115,9 @@
       "kind": "book",
       "year": 1997,
       "contribution": "The gap between expectation and result; the turning point where a value flips as the spine of a section.",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     },
     {
       "name": "The Anatomy of Story",
@@ -104,7 +125,9 @@
       "kind": "book",
       "year": 2007,
       "contribution": "The throughline: the visible goal versus the deeper need it actually addresses.",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     },
     {
       "name": "Wired for Story",
@@ -112,7 +135,9 @@
       "kind": "book",
       "year": 2012,
       "contribution": "Open on a concrete problem and a goal in a worsening situation (cognitive framing, used as a lens not as evidence).",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     },
     {
       "name": "The Hero with a Thousand Faces",
@@ -120,7 +145,9 @@
       "kind": "book",
       "year": 1949,
       "contribution": "The departure-initiation-return arc for a transformation narrative (generic arc only; the staged template carries known bias).",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     },
     {
       "name": "Poetics",
@@ -128,15 +155,20 @@
       "kind": "book",
       "year": null,
       "contribution": "Causal necessity over episodic listing; reversal and recognition; unity of action (public domain).",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     },
     {
       "name": "Save the Cat!",
       "author": "Blake Snyder",
       "kind": "book",
       "year": 2005,
-      "contribution": "Pacing and sequencing logic — setup, catalyst, escalation, low point, resolution (principle only, not the named beat sheet).",
-      "playbooks": ["narrative", "talk-pitch"]
+      "contribution": "Pacing and sequencing logic \u2014 setup, catalyst, escalation, low point, resolution (principle only, not the named beat sheet).",
+      "playbooks": [
+        "narrative",
+        "talk-pitch"
+      ]
     },
     {
       "name": "And, But, Therefore (ABT)",
@@ -144,7 +176,11 @@
       "kind": "framework",
       "year": 2015,
       "contribution": "Compress any pitch to one sentence: context AND context, BUT tension, THEREFORE action.",
-      "playbooks": ["talk-pitch", "argument-memo", "narrative"]
+      "playbooks": [
+        "talk-pitch",
+        "argument-memo",
+        "narrative"
+      ]
     },
     {
       "name": "The Story Spine",
@@ -152,12 +188,14 @@
       "kind": "framework",
       "year": 1991,
       "contribution": "A five-line setup-disruption-because-of-that-resolution skeleton for a narrative or change story.",
-      "playbooks": ["narrative"]
+      "playbooks": [
+        "narrative"
+      ]
     }
   ],
   "metadata": {
     "family": "heuristics",
     "function": "design",
-    "catalog_summary": "Structure, draft, or add a persuasive arc to a new piece of writing — argument/memo, technical doc, talk/pitch, narrative, or general prose — routed by intent (structure/draft/persuade) × genre."
+    "catalog_summary": "Structure, draft, or add a persuasive arc to a new piece of writing \u2014 argument/memo, technical doc, talk/pitch, narrative, or general prose \u2014 routed by intent (structure/draft/persuade) \u00d7 genre."
   }
 }

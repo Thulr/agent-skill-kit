@@ -1,6 +1,6 @@
 {
   "name": "agent-test",
-  "description": "Use for AGENT TEST — designing the measurement an AI agent or skill is judged by. DO — write the smallest eval, judge, trajectory test, benchmark, or activation eval that gates a change. REVIEW — audit an agent's eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it. DESIGN — shape a failure-mode-first eval suite, calibrate an LLM-as-judge, build a held-out benchmark, or design activation/trigger evals, or explain a principle. Triggers on 'design our agent evals', 'is our LLM judge trustworthy', 'are these trajectory tests real', 'build a held-out benchmark for a model swap', 'test whether our skill activates correctly'. Do NOT use to operate or watch the loop these evals feed (use agent-ops), design the SDK/tool surface (use agent-dx), write agent-native docs (use agent-docs), or scaffold repo CI gates (use harden-repo-for-coding-agents), or to operate the eval/optimization loop, autonomy, and reliability (use agent-ops).",
+  "description": "Use for AGENT TEST \u2014 designing the measurement an AI agent or skill is judged by. DO \u2014 write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW \u2014 audit eval suite trustworthiness. DESIGN \u2014 shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -36,21 +36,26 @@
       "author": "Lianmin Zheng",
       "kind": "paper",
       "year": 2023,
-      "contribution": "Documents LLM-judge biases (position, verbosity/length, self-preference) and the need to calibrate a judge against human preference before trusting it — the basis for the judge-calibration discipline and the Vague Judge anti-pattern.",
-      "playbooks": ["judge-calibration"]
+      "contribution": "Documents LLM-judge biases (position, verbosity/length, self-preference) and the need to calibrate a judge against human preference before trusting it \u2014 the basis for the judge-calibration discipline and the Vague Judge anti-pattern.",
+      "playbooks": [
+        "judge-calibration"
+      ]
     },
     {
       "name": "Improving Ratings: Audit in the British University System (Goodhart's Law)",
       "author": "Marilyn Strathern",
       "kind": "paper",
       "year": 1997,
-      "contribution": "When a measure becomes a target it ceases to be a good measure — the metric-gaming risk that benchmark and eval design must resist by rewarding behavior, not a proxy.",
-      "playbooks": ["benchmark-design", "eval-design"]
+      "contribution": "When a measure becomes a target it ceases to be a good measure \u2014 the metric-gaming risk that benchmark and eval design must resist by rewarding behavior, not a proxy.",
+      "playbooks": [
+        "benchmark-design",
+        "eval-design"
+      ]
     }
   ],
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-subject: design the measurement an AI agent or skill is judged by — evals, LLM-as-judge, trajectory tests, benchmarks, activation tests. Write the smallest gating eval, audit an existing suite or judge for trustworthiness, or design a failure-mode-first suite or held-out benchmark."
+    "catalog_summary": "Agent-as-subject-under-measurement: design the measurement an AI agent or skill is judged by \u2014 DO (write the smallest gating eval/judge/test), REVIEW (audit an eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it), DESIGN (shape a failure-mode-first suite, calibrate a judge, build a held-out benchmark, design activation evals). Designs what agent-ops then operates."
   }
 }

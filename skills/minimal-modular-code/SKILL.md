@@ -1,6 +1,6 @@
 ---
 name: minimal-modular-code
-description: Use to keep code MINIMAL and right-sized for AI coding agents. DO — keep an in-progress change minimal (reuse before adding, subtract, avoid the wrong abstraction, check blast radius). REVIEW — audit existing code or a repo for slop (duplication, dead code, over-engineering) and parallel-readiness (coupling, boundaries, gate coverage), then score it. DESIGN — shape right-sized boundaries and work-partitioning so many agents work in parallel, sequence a safe refactor, or explain a principle. Triggers on 'is this over-engineered', 'reduce the slop', 'audit our coupling/boundaries', 'structure this repo for parallel agents'. Do NOT use to wire enforcement gates/hooks/AGENTS.md (use harden-repo-for-coding-agents), for developer API/SDK/CLI surfaces (use dx-audit / dx-design), for product UX (use ux-audit / ui-design), or to tighten prose (use writing-audit).
+description: "Keep code minimal and right-sized for AI agents: DO (keep changes minimal), REVIEW (audit slop, coupling, boundaries), DESIGN (shape boundaries, partition work). Triggers: 'is this over-engineered', 'reduce the slop'."
 license: MIT
 ---
 
@@ -13,6 +13,10 @@ boundaries in the large. Provenance lives in `skill.json`; this file is runtime 
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
 `explanation.md` (DESIGN).
 
+## Boundaries
+
+Do NOT use to wire enforcement gates/hooks/AGENTS.md (use harden-repo-for-coding-agents), for developer API/SDK/CLI surfaces (use dx-audit / dx-design), for product UX (use ux-audit / ui-design), or to tighten prose (use writing-audit).
+
 ## Core principle
 
 **Invest in interfaces, not implementations; enforce with gates, not prose; delete
@@ -24,12 +28,9 @@ to a reader with a finite context window.
 
 ## Activation
 
-- **Bare invocation** (`"use minimal-modular-code"`, `"is this over-engineered"`, `"start"`):
-  load `references/intent-router.csv`, show the intent menu, offer the mode. Wait. No file
-  inspection, network calls, or writes.
+- **Bare invocation** (`"use minimal-modular-code"`, `"is this over-engineered"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
-- **Ambiguous scope**: ask one blocker question naming the candidate intent or surface; do
-  not inspect private systems first.
+- **Ambiguous scope**: ask one — e.g., *"Are you DO-ing (keeping a change minimal), REVIEW-ing (auditing for slop), or DESIGN-ing (shaping boundaries)?"* or *"Is the concern minimalism, legibility, boundaries, or parallel-readiness?"*
 
 ## Workflow
 
@@ -62,6 +63,8 @@ to a reader with a finite context window.
    `docs/audits/minimal-modular-code-workflow-state-<YYYY-MM-DD>-<scope-slug>.json` (fall
    back to `audit-artifacts/minimal-modular-code-...` if `docs/audits/` is unwritable). Report
    both paths; keep roadmaps, issues, and non-tracking edits opt-in.
+
+> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

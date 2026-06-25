@@ -1,6 +1,6 @@
 {
   "name": "agent-ux",
-  "description": "Use for AGENT UX — the interaction surface an AI agent acts THROUGH as an end user (a UI, app, or computer-use target), often on a human's behalf. DO — make a surface an agent can perceive, target, and act on safely. REVIEW — audit a surface for machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it. DESIGN — shape the machine-readable state, the stable action handles, the approval/authority gate, or the human/agent dual path, or explain a principle. Triggers on 'can our agent actually use this UI', 'make our app agent-operable', 'should the agent confirm this action', 'our agent clicks the wrong control', 'expose our app state for computer-use'. Do NOT use for human-only product UX or visual design (use ux-audit / ui-design), docs an agent reads (use agent-docs), the SDK/tool schema or token-exchange mechanism (use agent-dx), or operating the agent loop (use agent-ops).",
+  "description": "Use for AGENT UX \u2014 the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO \u2014 make surfaces agent-perceivable/targetable/actionable. REVIEW \u2014 audit for machine-readable state, deterministic actions, agency/approval. DESIGN \u2014 shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -35,21 +35,27 @@
       "author": "W3C",
       "kind": "spec",
       "year": 2023,
-      "contribution": "The accessibility tree — roles, accessible names, and states — is the structured surface assistive tech and agents read instead of pixels, grounding machine-readable state and stable semantic handles for targeting controls.",
-      "playbooks": ["machine-readable-state", "deterministic-actions"]
+      "contribution": "The accessibility tree \u2014 roles, accessible names, and states \u2014 is the structured surface assistive tech and agents read instead of pixels, grounding machine-readable state and stable semantic handles for targeting controls.",
+      "playbooks": [
+        "machine-readable-state",
+        "deterministic-actions"
+      ]
     },
     {
       "name": "Web Content Accessibility Guidelines (WCAG)",
       "author": "W3C",
       "kind": "spec",
       "year": 2023,
-      "contribution": "Information conveyed through presentation must be programmatically determinable and not by color or sensory characteristics alone — the perceivability floor for an agent actor and the basis for the visible-plus-machine-readable dual path.",
-      "playbooks": ["machine-readable-state", "audience-conflicts"]
+      "contribution": "Information conveyed through presentation must be programmatically determinable and not by color or sensory characteristics alone \u2014 the perceivability floor for an agent actor and the basis for the visible-plus-machine-readable dual path.",
+      "playbooks": [
+        "machine-readable-state",
+        "audience-conflicts"
+      ]
     }
   ],
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-end-user: the surface an AI agent acts through (a UI, app, or computer-use target), often for a human. Make it perceivable and safe to act on, audit it for machine-readable state and approval gates, or design the state, action handles, and human/agent dual path. The agent-actor analog of human UX."
+    "catalog_summary": "Agent-as-end-user: the interaction surface an AI agent acts through (a UI, app, or computer-use target), often on a human's behalf \u2014 DO (make it perceivable, targetable, safe to act on), REVIEW (audit machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it), DESIGN (shape the state, action handles, approval gate, or dual path). Net-new; the agent-actor analog of human UX."
   }
 }

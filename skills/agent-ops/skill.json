@@ -1,6 +1,6 @@
 {
   "name": "agent-ops",
-  "description": "Use for AGENT OPS — operating a running AI agent system, and the front-door for the agent skill family. DO — wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW — audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN — shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'. Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx), design evals/judges/benchmarks (use agent-test), write agent-native docs (use agent-docs), scaffold repo gates/hooks (use harden-repo-for-coding-agents), or promote failures into rules (use rules-from-coding-agent-failures).",
+  "description": "Use for AGENT OPS \u2014 operating a running AI agent system. DO \u2014 wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW \u2014 audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN \u2014 shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -39,7 +39,9 @@
       "kind": "spec",
       "year": 2025,
       "contribution": "A named span/attribute convention (gen_ai.* operation names, usage tokens, finish reasons, conversation id) for observing agent loops, so a trace carries the prompt/completion/tool I/O an operator needs to reconstruct a run rather than just command-level attributes.",
-      "playbooks": ["observability"]
+      "playbooks": [
+        "observability"
+      ]
     },
     {
       "name": "OpenInference Tracing Conventions",
@@ -47,12 +49,14 @@
       "kind": "spec",
       "year": 2024,
       "contribution": "Span kinds (chain, agent, tool, retriever, guardrail, evaluator) that let an operator reassemble spans into a graded trajectory and grade the path, not just per-span content.",
-      "playbooks": ["observability"]
+      "playbooks": [
+        "observability"
+      ]
     }
   ],
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-operator, and the front door to the agent family. Operate a running agent system: observability, trace-and-eval loops, autonomy, budgets, gates. Wire them up, audit them and score maturity, or design the loop and route work to the right sibling skill. Start here when you're not sure which agent skill you need."
+    "catalog_summary": "Agent-as-operator and the agent-family front-door: operate a running agent system \u2014 DO (wire observability/loop/autonomy/budgets/gates), REVIEW (audit observability, optimization loop, autonomy controls, reliability/cost, and maturity, then score it), DESIGN (shape the loop, gate autonomy, decompose the release gate, place maturity and route work to siblings). Operates what agent-dx instruments; routes building out to the family."
   }
 }

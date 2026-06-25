@@ -1,6 +1,6 @@
 {
   "name": "research",
-  "description": "Use for source-grounded research in one of two decision-frames. REPORT \u2014 open-ended research on a topic with no decision attached (primer, literature review, state of the art), e.g. 'research X for me', 'what's known about X', 'deep dive on X'. OPPORTUNITY \u2014 validate a named product, business, market, or feature opportunity across 14 areas (market, customer, competitive, technical, financial, legal, and more) ending in a Facts/Assumptions/Decisions/Risks go, no-go, or pivot memo. Triggers on 'research X', 'give me a primer on X', 'validate whether building X is a good opportunity', 'should we build X'. Do NOT use to review an existing artifact like a prompt, plan, or spec (use a dedicated red-team or review skill), to compare a fixed set of already-named options, or to ideate candidates from scratch.",
+  "description": "Use for source-grounded research \u2014 REPORT (open-ended topic primer/lit review) or OPPORTUNITY (validate named product/business/market/feature with FADR memo). Triggers: 'research X', 'primer on X', 'validate whether building X is a good opportunity', 'should we build X'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

@@ -68,7 +68,7 @@ fi
 if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter name' "^name:[[:space:]]*$SKILL_NAME$" "$skill_md"
   check_pattern 'frontmatter license' '^license:' "$skill_md"
-  check_pattern 'bare activation menu' 'show the intent menu' "$skill_md"
+  check_pattern 'bare activation menu' 'show a compact menu' "$skill_md"
   check_pattern 'router routing' 'intent-router\.csv' "$skill_md"
   check_pattern 'mode support' '^## Modes' "$skill_md"
   check_pattern 'portability invariant' 'portab' "$skill_md"

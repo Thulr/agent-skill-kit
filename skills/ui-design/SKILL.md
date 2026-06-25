@@ -1,6 +1,6 @@
 ---
 name: ui-design
-description: Use to PRODUCE or polish user-facing visual UI — design a product screen or dashboard, author a design system with tokens and components, build an interactive prototype, make a slide deck, add motion or atmospheric effects, prepare a design for handoff, or run an anti-slop visual self-review. Triggers on "make this UI look better", "design a dashboard", "build a frontend mockup", "prototype this flow", "author a design system", "make a deck", "add motion", "prepare handoff", "review visual craft". Emits a runnable or viewable visual artifact plus a design brief. Do NOT use to AUDIT an existing interface's usability or accessibility with no new visual design (use ux-audit); do NOT use for developer-facing API/SDK/CLI surfaces (use dx-design); do NOT use for the artifact-host integration contract (use artifact-host-integration).
+description: "Use to PRODUCE or polish user-facing visual UI — design a product screen or dashboard, author a design system with tokens and components, build an interactive prototype, make a slide deck, add motion or atmospheric effects, prepare a design for handoff, or run an anti-slop visual self-review. Triggers on make this UI look better, design a dashboard, build a frontend mockup, prototype this flow, author a design system, make a deck, add motion, prepare handoff, review visual craft. Do NOT use for UX/accessibility audit (use ux-audit) or developer-facing surfaces (use dx-design)."
 license: MIT
 ---
 
@@ -10,9 +10,9 @@ Generative visual UI design: produce and polish interface artifacts that feel
 grounded, specific, usable, and visibly intentional. Provenance lives in
 `skill.json`; this file is runtime routing only.
 
-**Produces:** a runnable / viewable visual artifact (product screen, prototype,
-design-system page, deck, motion scene, or handoff bundle) plus a design brief.
-Long runs persist `templates/workflow-state.json` (mode, format, viewport set,
+**Produces:** a runnable/viewable visual artifact (product screen, prototype,
+design-system page, deck, or handoff bundle plus a design brief.
+Long runs persist `templates/workflow-state.json` (mode, format, viewport,
 design-system choices).
 
 ## Core principle
@@ -24,10 +24,9 @@ in front of the user as soon as it can communicate direction.
 ## Activation
 
 - **Bare invocation** (`"use ui-design"`, `"UI designer"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
-  then show the intent menu with the named starter scenarios on top (each
-  pre-routes intent + mode) and offer the full mode choice. Wait. No file
-  inspection, network calls, or writes.
+  show a compact menu: mode choice (guided / autopilot / grill me?) and
+  numbered intents from the router. Wait. No file inspection, network
+  calls, or writes.
 - **Concrete invocation** with intent inferable: proceed in Guided Draft unless
   the user requests Autopilot or Grill Me.
 - **Ambiguous concrete invocation**: ask one blocker question about audience,
@@ -52,7 +51,7 @@ depth-vs-speed up front. Canonical contract in
 
 1. **Route.** Load `references/intent-router.csv`; pick one or more of:
    `product-ui`, `design-system`, `prototype`, `deck`, `motion-scene`,
-   `host-handoff`, `quality-review`.
+   `host-handoff`, `host-integration`, `quality-review`.
 2. **Load details.** Load only the router row's `detail_files` and mapped
    templates. If multiple rows apply, prefer the smallest set that covers the
    deliverable.
@@ -69,9 +68,12 @@ depth-vs-speed up front. Canonical contract in
 7. **Build.** Compose layout, typography, color, content, components, motion,
    and host protocol support in that order. Avoid silent design-system
    invention.
-8. **Verify (self-polish).** Check load, console, responsive viewports,
-   hover/focus/press, overflow, reduced motion, editability, export needs, and
-   the anti-slop pass; the `quality-review` intent runs this as its own route.
+8. **Verify (self-polish).** Load `references/browser-verification.md` and
+   follow its concrete browser-tool checks: navigate to the rendered artifact,
+   visually inspect it with `browser_vision`, check the console for errors,
+   verify responsive viewports, interaction states, and reduced motion. Also
+   check editability, export needs, and the anti-slop pass. The `quality-review`
+   intent runs this as its own route.
 9. **Hand off.** Summarize files changed, decisions, verification, remaining
    risks, and any prepared host/export instructions.
 
@@ -86,21 +88,25 @@ store private user facts or identity data.
 ## Subagent dispatch
 
 Use subagents only when the host/session permits and independent critique helps:
-one visual-craft reviewer, one user-task reviewer, one implementation/handoff
-reviewer. If subagents are unavailable, run the same three lenses sequentially
+One visual-craft reviewer, one user-task reviewer, one implementation/handoff
+reviewer. If subagents unavailable, run the three lenses sequentially
 using `references/subagent-dispatch.md`.
 
 ## Output requirements
 
-Every output names the user/audience, chosen format, design-system binding or
-from-scratch commitments, files/artifacts produced, verification performed, and
-the anti-slop checks applied. Visual artifacts must be runnable or viewable, not
-merely described.
+Every output names the user/audience, format, design-system binding, files
+produced, verification performed, and anti-slop checks. Visual artifacts must
+be runnable or viewable, not merely described.
 
 ## Reference map
 
-- `references/intent-router.csv` — one-layer intent router (`intent` →
-  `detail_files` + `templates`).
+- `references/intent-router.csv` — intent router (`intent` →
+  `detail_files` + `templates`). Routes: `product-ui`, `design-system`,
+  `prototype`, `deck`, `motion-scene`, `host-handoff`, `host-integration`,
+  and `quality-review`.
+- `references/host-integration/*.md` — postMessage handshake, EDITMODE
+  persistence, fixed-canvas scaling, speaker-notes sync, comment anchors,
+  direct-edit markup, bundling/export.
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
 - `references/*.md` — routed craft, workflow, host, and review playbooks.

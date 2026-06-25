@@ -1,161 +1,243 @@
 ---
 name: claude-code-cli
-description: Use when an agent should invoke the Claude Code CLI (`claude -p`) as an external reviewer or analysis agent — get a second opinion, review working-tree/staged/branch changes another agent made, run read-only repo analysis, ask Claude Code for cross-project self-reflection about recurring agent mistakes and user workflow patterns, kick off a hosted `claude ultrareview`, or prepare a delegated prompt without running it. Triggers on 'ask Claude Code to review my changes', 'get a second opinion from Claude', 'have Claude review what Cursor did', 'run an ultrareview'. Do NOT use to invoke Codex (use codex-cli) or Cursor (use cursor-cli) as the external agent, to harden a repo's own agent config (use harden-repo-for-coding-agents), or to run this kit's own heuristic review skills like dx-audit/ux-audit — claude-code-cli shells out to the external Claude Code CLI as an independent reviewer rather than auditing a surface itself.
+description: "Invoke Claude Code CLI as an external reviewer. Covers print mode (-p) for one-shot review and interactive PTY mode for multi-turn sessions."
 license: MIT
 ---
 
 # Claude Code CLI
 
 Invoke Claude Code as an external reviewer, analysis agent, or cross-project
-reflection source. Default to read-only delegation unless the user explicitly
-asks for Claude Code to edit files.
+reflection source. Default to read-only delegation (`--permission-mode plan`)
+unless the user explicitly asks for Claude Code to edit files.
+
+## Boundaries
+
+Do NOT use to invoke Codex (use codex-cli) or Cursor (use cursor-cli) as the
+external agent, to harden a repo's own agent config (use
+harden-repo-for-coding-agents), or to run this kit's own heuristic review
+skills like dx-audit/ux-audit — claude-code-cli shells out to the external
+Claude Code CLI as an independent reviewer rather than auditing a surface itself.
+
+## Prerequisites
+
+Before invoking Claude Code, verify the setup:
+
+```bash
+# Check installation
+command -v claude || echo "NOT INSTALLED"
+
+# Check auth status (JSON output)
+claude auth status 2>/dev/null || echo "NOT AUTHED"
+
+# Full health check
+claude doctor 2>/dev/null || echo "NEEDS ATTENTION"
+```
+
+**Install if missing:** `npm install -g @anthropic-ai/claude-code`
+**Auth for CI/scripting:** set `ANTHROPIC_API_KEY` env var (bypasses OAuth)
+**Auth for interactive use:** run `claude` once for browser OAuth, or
+`claude auth login --console` for API key billing
+
+**Error if missing:** Report the exact install/auth command that needs to run.
+Do not proceed with invoking Claude Code if the CLI is unavailable.
+
+## Core Invocation Modes
+
+### Mode 1: Print Mode (`-p`) — PREFERRED for reviews
+
+One-shot, non-interactive. No PTY needed. No dialog handling. Cleanest path.
+
+```bash
+# Review git diff against a branch
+claude -p --permission-mode plan --output-format text \
+  "Review this diff for bugs, security issues, and style problems." \
+  --max-turns 1
+
+# Pipe a diff directly
+git diff main...feature | claude -p --permission-mode plan \
+  "Review this diff" --max-turns 1
+
+# Ask a custom question with file context
+cat src/auth.py | claude -p --permission-mode plan \
+  "Review this file for security vulnerabilities" --max-turns 3
+```
+
+### Mode 2: Interactive PTY via tmux — Multi-turn sessions
+
+Requires tmux orchestration for dialog handling. Use when the review needs
+back-and-forth or the user wants to see Claude's thinking:
+
+```bash
+# Start session
+terminal(command="tmux new-session -d -s claude-review -x 140 -y 40", workdir="/repo")
+terminal(command="tmux send-keys -t claude-review 'cd /repo && claude' Enter")
+
+# Handle workspace trust dialog (Enter = default "Yes")
+terminal(command="sleep 5 && tmux send-keys -t claude-review Enter")
+
+# Send the review task
+terminal(command="tmux send-keys -t claude-review 'Review changes vs main. Check for bugs, race conditions, and missing tests.' Enter")
+
+# Capture output periodically
+terminal(command="sleep 30 && tmux capture-pane -t claude-review -p -S -50")
+```
+
+**Bare mode (fastest startup, CI/scripting):**
+`claude --bare -p "task" --allowedTools 'Read,Bash' --max-turns 10`
+Skips hooks, plugins, MCP discovery, CLAUDE.md, and OAuth. Requires
+`ANTHROPIC_API_KEY`.
+
+## Use Cases
+
+### Review working tree changes (PRIMARY USE CASE)
+
+```bash
+# All changes (staged + unstaged)
+terminal(command="git diff | claude -p --permission-mode plan --output-format text 'Review these changes for bugs, security issues, and style problems. Be thorough.' --max-turns 3", workdir="/path/to/repo", timeout=120)
+
+# Branch diff vs main
+terminal(command="git diff main...HEAD | claude -p --permission-mode plan --output-format text 'Review this branch diff for bugs, design issues, and test coverage gaps.' --max-turns 3", workdir="/path/to/repo", timeout=120)
+
+# Staged changes only (pre-commit)
+terminal(command="git diff --cached | claude -p --permission-mode plan --output-format text 'Review these staged changes before commit. Flag any issues.' --max-turns 2", workdir="/path/to/repo", timeout=60)
+```
+
+### Second opinion on a design or plan
+
+```bash
+# Pass context via stdin
+terminal(command="printf '%s\n' 'Here is the architecture plan...' | claude -p --permission-mode plan --output-format text 'Review this plan for risks, missing constraints, and failure modes.' --effort high --max-turns 5", timeout=120)
+
+# With file context
+terminal(command="cat docs/architecture.md | claude -p --permission-mode plan --output-format text 'Review the proposed architecture. What are the failure modes?' --effort high --max-turns 5", timeout=120)
+```
+
+### Cross-project reflection
+
+For recurring agent mistakes and workflow patterns, must run from a neutral
+directory such as `$HOME` — not from the current repository:
+
+```bash
+terminal(command="claude -p --permission-mode plan --output-format text 'Review my agent workflows across all projects in the last 30 days. What recurring mistakes do you see? What patterns should I adopt?' --effort high --max-turns 10 --max-budget-usd 1.00", workdir="$HOME", timeout=180)
+```
+
+### Session continuation
+
+```bash
+# Continue most recent session in current directory
+terminal(command="claude -p --continue 'Continue the review. What did you find?' --max-turns 3", workdir="/repo", timeout=60)
+
+# Resume a specific session by ID
+terminal(command="claude -p --resume <session-id> 'Continue and also check for performance issues.' --max-turns 3", timeout=60)
+```
 
 ## Activation Contract
 
-1. Read `references/use-case-registry.csv`.
-2. If the user gave a concrete task, match it to the closest use case and load
-   only that row's detail files and templates.
-3. If the user only invokes this skill, asks what it can do, or says "start",
-   present a short menu of use cases and modes, then wait. Do not run `claude`.
-4. If the task would send secrets, private data, production credentials, or
-   unreviewed sensitive files to Claude Code, stop and ask for scope.
-5. Never use `--dangerously-skip-permissions` or
-   `--allow-dangerously-skip-permissions` unless the user explicitly requests it
-   for a trusted sandbox.
+1. **Check prerequisites.** Run `command -v claude` and `claude auth status`
+   before any delegation. If missing, report the exact fix.
+
+2. **Read `references/use-case-registry.csv`** for the full use-case catalog.
+
+3. **Bare invocation** (`"use claude-code-cli"`, `"start"`): show a compact menu
+   with mode choice (guided / autopilot / grill me?) and numbered use cases.
+   Wait. No file inspection, no network calls, no writes.
+
+4. **Concrete invocation**: match the user's request to a use case above and
+   run the corresponding `claude -p` inline command.
+
+5. **Ambiguous invocation**: ask one — e.g., *"Are you reviewing working-tree
+   changes, a branch diff, or do you want a second opinion on a design?"* or
+   *"Is this a code review or a cross-project reflection?"*
+
+6. **Safety check**: If the task would send secrets, private data, production
+   credentials, or unreviewed sensitive files to Claude Code, stop and ask for
+   scope. Never use `--dangerously-skip-permissions` or
+   `--allow-dangerously-skip-permissions` unless the user explicitly requests
+   it for a trusted sandbox.
+
+7. **Present results.** Claude's output is input from an external reviewer,
+   not final truth. Reconcile disagreements against local evidence. Summarize
+   what Claude found and any caveats about scope or reliability.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> step 1 — do not patch in the wrong direction. Restate the corrected
+> understanding and re-plan.
 
 ## Modes
 
-- **Autopilot**: For concrete requests like "ask Claude to review Cursor's
-  changes" or "ask Claude what mistakes it keeps making", run the appropriate
-  script with read-only defaults, then summarize findings and caveats.
-- **Guided Draft**: For ambiguous review or delegation requests, ask one
-  question about scope: working tree, staged changes, branch diff, cross-project
-  reflection window, or a custom prompt.
-- **Grill Me**: For designing a recurring review workflow, ask one question at
-  a time about trigger point, review scope, output format, and failure handling
-  before preparing commands or prompts.
+- **Autopilot**: For concrete requests like "ask Claude to review my changes",
+  match the use case and run the inline command with defaults. Summarize
+  findings and caveats.
+- **Guided Draft**: For ambiguous requests, ask one question about scope before
+  running Claude.
+- **Grill Me**: For designing a recurring review workflow, ask about trigger
+  point, scope, output format, and failure handling before running commands.
 
-## Default Use Cases
+## Safety Rules
 
-- **Review working tree changes**: Use when Cursor or another agent has edited
-  files and the user wants Claude Code to review the result.
-- **Second opinion**: Use when the current agent wants Claude Code to reason
-  about a technical decision, bug, design, or plan.
-- **Cross-project reflection**: Use when a reflection workflow wants Claude Code
-  to report recurring mistakes, user feedback patterns, and improvement ideas
-  across projects. This must run from a neutral/global directory such as
-  `$HOME`, not from the current repository as the implied scope.
-- **Prompt preparation**: Use when the user wants the prompt and command but
-  not the live Claude Code call.
-- **Claude ultrareview**: Use only for branch or PR-level review when the user
-  accepts the hosted multi-agent review behavior and any auth/cost implications.
+1. **Read-only by default.** Use `--permission-mode plan` (read-only analysis)
+   unless the user explicitly asks Claude to make edits.
+2. **No `--dangerously-skip-permissions`** without explicit user approval.
+3. **Check for secrets** before piping diffs. If the diff might contain
+   credentials, tokens, or customer data, stop and ask for scope.
+4. **Set `--max-turns`** (3–10 for reviews) to prevent runaway loops.
+5. **Set a reasonable timeout** in `terminal()` — 60s for small diffs, 120s+
+   for branch reviews, 180s+ for cross-project reflection.
+6. **Cross-project reflection must run from `$HOME`** — not from the current
+   repo, to avoid repo-scope bias.
+7. **If `claude` is unavailable**, report the exact install command. Do not
+   try alternate CLIs or fabricate output.
 
-## Quick Commands
+## Scripts (optional, when scripts are findable)
 
-From the repository being reviewed:
+The skill ships helper scripts under `scripts/` for advanced use cases:
 
 ```bash
-bash path/to/claude-code-cli/scripts/claude-review-changes.sh
+# Review changes (all, staged, unstaged, or branch scope)
+bash /path/to/this/skill-dir/scripts/claude-review-changes.sh --scope branch --base main
+
+# Ask a custom question with context files
+bash /path/to/this/skill-dir/scripts/claude-ask.sh "Review this migration plan" --effort high
+
+# Cross-project reflection
+bash /path/to/this/skill-dir/scripts/claude-cross-project-reflect.sh --since "last 30 days"
 ```
 
-To ask a custom read-only question:
-
-```bash
-printf '%s\n' "Review the API boundary in this repository." \
-  | bash path/to/claude-code-cli/scripts/claude-ask.sh
-```
-
-Use `--dry-run` on either script to print the prompt without invoking Claude
-Code.
-
-To ask Claude Code for global/cross-project reflection:
-
-```bash
-bash path/to/claude-code-cli/scripts/claude-cross-project-reflect.sh \
-  --since "last 30 days"
-```
-
-## Workflow Classification
-
-This is a **workflow + interop** skill. It invokes another coding agent, can
-produce review artifacts, and can prepare handoffs for agents such as Cursor,
-Codex, or Claude Code. It does not auto-chain other skills.
-
-## Workflow
-
-1. Select the use case from the registry.
-2. Confirm the repository is trusted and that `claude` is available.
-3. Prefer `claude -p --permission-mode plan --output-format text` for
-   read-only delegation.
-4. Use `scripts/claude-review-changes.sh` for code review of git changes.
-5. Use `scripts/claude-ask.sh` for custom questions or second opinions.
-6. Use `scripts/claude-cross-project-reflect.sh` for global/cross-project
-   reflection. Its prompt must explicitly say not to treat the invocation
-   repository as the audit scope.
-7. Present Claude's output as input from an external reviewer, not as final
-   truth. Reconcile disagreements against local evidence.
-
-## Operational Memory
-
-Do not store user identity facts or secrets. Safe repeat-use defaults can come
-from environment variables:
-
-- `CLAUDE_CODE_CLI_MODEL`
-- `CLAUDE_CODE_CLI_EFFORT`
-- `CLAUDE_CODE_CLI_MAX_BUDGET_USD`
-- `CLAUDE_CODE_CLI_MAX_DIFF_BYTES`
-- `CLAUDE_CODE_CLI_PERMISSION_MODE`
-
-If persistent workflow state is needed, use the operational templates in
-`templates/` and keep only artifact paths, run ids, scope, and non-secret
-assumptions.
-
-## Subagent Suitability
-
-Claude Code is the independent reviewer for this skill. Use additional
-subagents only for high-risk reviews where separate lenses are useful, such as
-security, data migration, or UX regressions. If subagents are unavailable,
-perform the lenses sequentially using `references/output-rubric.md`.
+These scripts handle diff collection, prompt assembly, and template rendering.
+Use them when the skill directory is known and the task is complex. For simple
+reviews, prefer the inline `claude -p` commands above.
 
 ## Edge-Case Pass
 
 Before invoking Claude Code, check:
 
-- **Scope**: Is the intended diff staged, unstaged, all working tree changes,
-  a branch diff, a repo question, or a global/cross-project reflection?
-- **Trust**: Is the current directory trusted for non-interactive Claude Code
-  execution?
-- **Current-repo bias**: For cross-project reflection, is the command running
-  from a neutral directory and does the prompt prohibit treating the current
-  repository as the audit target?
-- **Secrets**: Could the diff include credentials, tokens, customer data, or
-  local-only files?
-- **Size**: Will the diff exceed the prompt budget and need truncation?
-- **Authority**: Is Claude reviewing, or has the user explicitly asked it to
-  make edits?
+- **Scope**: Is the intended diff staged, unstaged, branch, or a repo question?
+- **Trust**: Is the current directory trusted for non-interactive execution?
+- **Current-repo bias**: For cross-project reflection, run from a neutral dir
+  and ensure the prompt prohibits treating the current repo as the audit target.
+- **Secrets**: Could the diff include credentials, tokens, or customer data?
+- **Size**: Will the diff exceed the prompt budget? Truncate or narrow scope.
+- **Authority**: Is Claude reviewing (read-only) or editing (explicit request)?
 - **Failure**: If auth, model, budget, or CLI availability fails, report the
-  exact command and blocker.
+  exact command and blocker. Do not fabricate results.
+
+## Subagent Suitability
+
+Claude Code is the independent reviewer for this skill. Use additional
+subagents only for high-risk reviews where separate lenses are useful
+(security, data migration, UX regressions). If subagents are unavailable,
+perform the lenses sequentially.
 
 ## Reference Map
 
 - `references/use-case-registry.csv`: Use-case routing.
-- `references/cli-contract.md`: Claude Code CLI command contract and safety
-  rules.
-- `references/review-changes-playbook.md`: Review workflow for Cursor or agent
-  changes.
+- `references/cli-contract.md`: Claude Code CLI command contract and safety rules.
+- `references/review-changes-playbook.md`: Review workflow for agent changes.
 - `references/delegation-playbook.md`: Second-opinion and prompt-prep patterns.
 - `references/ultrareview-playbook.md`: Hosted multi-agent review guidance.
 - `references/output-rubric.md`: Review quality and reconciliation rubric.
-- `templates/review-prompt.md`: Prompt template used by
-  `scripts/claude-review-changes.sh`.
-- `templates/delegation-prompt.md`: Prompt template used by
-  `scripts/claude-ask.sh`.
-- `templates/cross-project-reflection-prompt.md`: Prompt template used by
-  `scripts/claude-cross-project-reflect.sh`.
-- `templates/review-report.md`: Optional report shape for presenting findings.
-- `templates/capability-manifest.json`: Capability declaration for other
-  skills or agents.
-- `templates/handoff.json`: Prepared handoff shape.
-- `templates/workflow-state.json`: Optional resumable workflow state.
-- `evals/trigger-evals.json`: Canonical activation/routing eval cases (schema-validated).
-- `evals/activation-cases.md`: Natural-language activation + scenario fixtures.
+- `scripts/claude-review-changes.sh`: Helper script for git diff reviews.
+- `scripts/claude-ask.sh`: Helper script for custom questions with context.
+- `scripts/claude-cross-project-reflect.sh`: Cross-project reflection script.
+- `templates/*.md`: Prompt templates used by the helper scripts.
+- `evals/`: Activation cases, static checks, trigger evals.

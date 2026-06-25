@@ -1,6 +1,6 @@
 ---
 name: writing-design
-description: Use to DESIGN or shape a NEW piece of writing before or while drafting — structure an argument or memo (PRD, RFC, recommendation, strategy), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post, or narrative a persuasive arc. Routes by intent (structure / draft / persuade) × genre (argument-memo / technical-doc / talk-pitch / narrative / general-prose). Triggers on "help me outline this RFC", "draft this announcement", "make this pitch land", "give this post an arc", "structure this doc before I write it". Do NOT use to revise, copyedit, or diagnose an EXISTING draft (use writing-audit), to design a documentation system's IA, retrieval, or telemetry (use docs-design), or to gather and validate source material (use research).
+description: "Use to DESIGN or shape a NEW piece of writing before or while drafting — structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'."
 license: MIT
 ---
 
@@ -15,6 +15,10 @@ in `skill.json`; this file is runtime routing only.
 target reader, the heuristics applied, the guards honored, and the grounding
 sources.
 
+## Boundaries
+
+Do NOT use to revise, copyedit, or diagnose an EXISTING draft (use writing-audit), to design a documentation system's IA, retrieval, or telemetry (use docs-design), or to gather and validate source material (use research).
+
 ## Core principle
 
 **Decide what the reader needs before you polish how it reads.** Most weak
@@ -23,14 +27,9 @@ name the governing point and the target reader first, then draft.
 
 ## Activation
 
-- **Bare invocation** (`"use writing-design"`, `"help me write this"`,
-  `"start"`): load `references/starter-scenarios.csv` and
-  `references/intent-router.csv`, then show the intent menu with named starter
-  scenarios on top and offer the mode choice. Wait. No file inspection, no
-  network calls, no writes.
+- **Bare invocation** ("use writing-design", "help me write this", "start"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and genre inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question naming
-  the candidate intent or genre; do not inspect private material first.
+- **Ambiguous invocation**: ask one — e.g., *"Do you need structure (outline), a first draft, or a persuasive arc?"* or *"What genre — argument memo, technical doc, talk pitch, narrative, or general prose?"*
 
 ## Workflow
 
@@ -58,6 +57,8 @@ name the governing point and the target reader first, then draft.
    is real. When it tightens prose, keep the writer's voice.
 7. **Emit output.** Write the intent's template: `templates/outline-plan.md`,
    `templates/draft-scaffold.md`, or `templates/persuasion-plan.md`.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

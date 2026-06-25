@@ -24,7 +24,7 @@ None.
 1. Create a starter:
 
    - Preferred: `npx skills init <skill-name>`
-   - Alternative: copy `skills/example-minimal/` (template contract) and edit
+   - Alternative: copy `docs/templates/example-minimal/` (template contract) and edit
      from there.
 
 2. Move/ensure the directory lives under one lane:

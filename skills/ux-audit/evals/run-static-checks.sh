@@ -78,7 +78,7 @@ if [[ -f "$skill_md" ]]; then
   check_pattern 'frontmatter name' "^name:[[:space:]]*$SKILL_NAME$" "$skill_md"
   check_pattern 'frontmatter license' '^license:' "$skill_md"
   check_pattern 'intent-router routing' 'intent-router\.csv' "$skill_md"
-  check_pattern 'bare activation' 'intent menu' "$skill_md"
+  check_pattern 'bare activation' 'show a compact menu' "$skill_md"
   check_pattern 'trackable findings reference' 'trackable-findings\.md' "$skill_md"
 fi
 

@@ -1,6 +1,6 @@
 ---
 name: harden-repo-for-coding-agents
-description: Use to ASSESS, HARDEN, SCAFFOLD, or DIAGNOSE a repository's agent-readiness for coding-agent harnesses such as Claude Code, Cursor, Codex, Copilot, Windsurf, and Aider. Covers AGENTS.md, SKILL.md, and MCP scaffolding, PreToolUse and other hooks, CI gates, sandbox and approval design, and repo-level agent failure modes; harness-agnostic and portable-first (AGENTS.md, MCP, OpenTelemetry); ships an opinionated checklist grounded in published research. Triggers on 'make this repo work with Claude Code / Cursor / Codex', 'scaffold our AGENTS.md', 'add an agent hook or gate', 'why did the agent trip on our repo', 'score our agent-readiness'. Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx) or agent-native docs like llms.txt/AGENTS.md (use agent-docs), to promote recurring failures into rules from a feedback signal (use rules-from-coding-agent-failures), or to design or operate an AI product's eval loops (use agent-test / agent-ops).
+description: "Assess, harden, scaffold, or diagnose a repo's agent-readiness. Triggers: 'make this repo work with Claude Code', 'score our agent-readiness'."
 license: MIT
 ---
 
@@ -11,6 +11,13 @@ harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnost
 portable-first (AGENTS.md, SKILL.md, MCP, OpenTelemetry). Grounding lives in `skill.json`;
 this file is runtime routing only. This is the **repo-hardening arm** of the agent-mirror family; `agent-ops`
 (the family front-door) routes here to harden a repo.
+
+## Boundaries
+
+Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx) or
+agent-native docs like llms.txt/AGENTS.md (use agent-docs), to promote recurring
+failures into rules from a feedback signal (use rules-from-coding-agent-failures),
+or to design or operate an AI product's eval loops (use agent-test / agent-ops).
 
 **Produces:** an intent-specific report — `assess-report.md`, `harden-recommendation.md`,
 `scaffold-bundle.md`, or `diagnose-runbook.md`. Tracked assessments also emit
@@ -50,11 +57,13 @@ this skill fits, and when to pair it with `rules-from-coding-agent-failures` —
 ## Activation
 
 - **Bare invocation** (`"agentify this repo"`, `"agent-readiness audit"`, `"use
-  harden-repo-for-coding-agents"`): load `references/intent-router.csv`, show the intent menu, wait. No
-  file inspection, network calls, or writes.
+  harden-repo-for-coding-agents"`): show a compact menu: mode choice (guided /
+  autopilot / grill me?) and numbered intents from the router. Wait. No file
+  inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to Workflow step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question to fix the intent
-  or surface; do not inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you assessing, hardening,
+  scaffolding from scratch, or diagnosing a specific failure?"* or *"Is this a
+  full legibility pass or a focused surface like gates or instruction-surface?"*
 
 ## Workflow
 
@@ -111,6 +120,10 @@ this skill fits, and when to pair it with `rules-from-coding-agent-failures` —
    if `docs/audits/` is unwritable). Report both paths; check a box only after its
    verification rule passes. Never create roadmaps, external issues, or non-tracking edits
    without confirmation.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> Understand (step 1) — do not patch in the wrong direction. Restate the
+> corrected understanding and re-plan.
 
 ## Modes
 

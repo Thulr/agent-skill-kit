@@ -1,6 +1,6 @@
 ---
 name: research
-description: Use for source-grounded research in one of two decision-frames. REPORT — open-ended research on a topic with no decision attached (primer, literature review, state of the art), e.g. 'research X for me', 'what's known about X', 'deep dive on X'. OPPORTUNITY — validate a named product, business, market, or feature opportunity across 14 areas (market, customer, competitive, technical, financial, legal, and more) ending in a Facts/Assumptions/Decisions/Risks go, no-go, or pivot memo. Triggers on 'research X', 'give me a primer on X', 'validate whether building X is a good opportunity', 'should we build X'. Do NOT use to review an existing artifact like a prompt, plan, or spec (use a dedicated red-team or review skill), to compare a fixed set of already-named options, or to ideate candidates from scratch.
+description: "Use for source-grounded research — REPORT (open-ended topic primer/lit review) or OPPORTUNITY (validate named product/business/market/feature with FADR memo). Triggers: 'research X', 'primer on X', 'validate whether building X is a good opportunity', 'should we build X'"
 license: MIT
 ---
 
@@ -25,16 +25,10 @@ without a citation or a next test — is a content brief, not research.
 
 ## Activation
 
-- **Bare invocation** (`"research"`, `"start"`): ask which frame fits in one
-  question — open-ended topic report, or validating a named opportunity toward
-  a decision — then offer the mode choice. Wait. No file inspection, no network
-  calls, no writes.
+- **Bare invocation** (`"research"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with the frame inferable from the prompt: skip to
   step 2.
-- **Object missing** (`"research this"` / `"do research"` with no topic or
-  opportunity stated): ask for the one-sentence topic or opportunity statement
-  before routing. A topic too broad returns noise; an opportunity with no scope
-  fans out into disconnected dumps — both are named failure modes.
+- **Ambiguous invocation**: ask one — e.g., *"Is this an open-ended topic report or a named opportunity to validate?"* or *"What is the one-sentence topic or opportunity statement?"*
 
 ## Workflow
 
@@ -48,6 +42,8 @@ without a citation or a next test — is a content brief, not research.
    it carries that frame's depth/intent routing, search or fan-out strategy,
    output template, confidence/severity rubrics, and tracking rules. Load only
    the chosen frame's files.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

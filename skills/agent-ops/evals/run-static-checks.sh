@@ -38,10 +38,10 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --tracking-intent review \
   --calibration-report templates/audit-report.md \
   --require-pattern 'intent-router routing::SKILL.md::intent-router\.csv' \
-  --require-pattern 'bare activation::SKILL.md::show the intent menu' \
+  --require-pattern 'bare activation::SKILL.md::show a compact menu' \
   --require-pattern 'subagent dispatch section::SKILL.md::^## Subagent dispatch' \
   --require-pattern 'three lenses::SKILL.md::three lenses' \
-  --require-pattern 'front-door section::SKILL.md::^## Front-door' \
+  --require-pattern 'front-door section::SKILL.md::^## Routing out' \
   --require-pattern 'trackable findings reference::SKILL.md::trackable-findings\.md' \
   --require-pattern 'audit report forbids mere offer::templates/audit-report.md::offer or inline tracking' \
   --require-pattern 'audit report preserves fallback path::templates/audit-report.md::audit-artifacts/agent-ops-' \

@@ -31,8 +31,8 @@ Trust and follow these instructions; don't re-explore repo layout/commands if th
 
 ## Layout
 
-See [README.md §Layout](./README.md#layout) for the canonical table. The three
-install lanes that any path-based gate **must** enumerate:
+See [CONTRIBUTING.md §Repository layout](./CONTRIBUTING.md#repository-layout) for the
+canonical table. The three install lanes that any path-based gate **must** enumerate:
 
 - `skills/<name>/` — published skills
 - `skills/.experimental/<name>/` — reserved lane; keep empty unless a future
@@ -67,12 +67,12 @@ install lanes that any path-based gate **must** enumerate:
 - `python3 scripts/validate-against-schema.py <schema> <data>` — validates JSON
   against the canonical schema files under `schemas/`.
 - `python3 scripts/build-catalog.py [--check|--write]` — regenerates the README
-  §Pick a skill / §Catalog blocks from `skill.json` metadata + `catalog/catalog.json`.
-  `--check` (CI / `just check` default) fails if the committed README is stale;
-  `--write` rewrites it. **Do not hand-edit the content between the
-  `<!-- BEGIN/END GENERATED -->` markers in README.md** — change the source
-  (`metadata.catalog_summary` in the relevant `skill.json`, or family prose /
-  matrix rows in `catalog/catalog.json`) and run `--write`.
+  §Pick a skill block and the `CATALOG.md` file from `skill.json` metadata +
+  `catalog/catalog.json`. `--check` (CI / `just check` default) fails if either is
+  stale; `--write` rewrites them. **Do not hand-edit the README §Pick a skill block
+  (between the `<!-- BEGIN/END GENERATED -->` markers) or `CATALOG.md` at all** —
+  change the source (`metadata.catalog_summary` in the relevant `skill.json`, or
+  family prose / matrix rows in `catalog/catalog.json`) and run `--write`.
 
 CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
@@ -304,15 +304,18 @@ ruleset, extended via [`.gitleaks.toml`](./.gitleaks.toml).
 
 ## Ownership and review
 
-- [`.github/CODEOWNERS`](./.github/CODEOWNERS) — required reviewers on
-  `skills/**`, `.agents/**`, `.github/**`, `Justfile`, `README.md`.
-- Branch protection on `main` requires the `static-checks` CI status check
-  plus at least one approving review from a code owner. Self-merges are
-  blocked at the GitHub layer; confirmed by an attempted `gh pr merge` on
-  PR #5 returning `the base branch policy prohibits the merge`. To merge a
-  PR you authored, use the GitHub web UI after a code-owner approval —
-  `gh pr merge --admin` overrides the policy and should not be used unless
-  the change is genuinely a hotfix.
+- [`.github/CODEOWNERS`](./.github/CODEOWNERS) — records the owner of each
+  agent-surface path (`skills/**`, `.agents/**`, `.github/**`, `Justfile`,
+  `README.md`) for review routing.
+- A branch-protection ruleset on `main` (`main protection`) requires the
+  `static-checks` CI check to pass and routes every change through a pull
+  request; direct pushes, force-pushes, and branch deletion are blocked at the
+  GitHub layer. The repo is single-maintainer, so the ruleset does **not**
+  require a separate approving review — GitHub won't let you approve your own
+  PR, so requiring one would lock the sole maintainer out of merging. Land work
+  by opening a PR and merging it (squash or rebase; merge commits are disabled)
+  once `static-checks` is green. If a second maintainer joins, add a
+  required-review rule so CODEOWNERS approval becomes enforceable.
 
 ## Security
 

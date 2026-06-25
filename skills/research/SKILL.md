@@ -1,6 +1,6 @@
 ---
 name: research
-description: "Use for source-grounded research — REPORT (open-ended topic primer/lit review) or OPPORTUNITY (validate named product/business/market/feature with FADR memo). Triggers: 'research X', 'primer on X', 'validate whether building X is a good opportunity', 'should we build X"
+description: "Use for source-grounded research — REPORT (open-ended topic primer/lit review) or OPPORTUNITY (validate named product/business/market/feature with FADR memo). Triggers: 'research X', 'primer on X', 'validate whether building X is a good opportunity', 'should we build X'"
 license: MIT
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: agent-ux
-description: "Use for AGENT UX — the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO — make surfaces agent-perceivable/targetable/actionable. REVIEW — audit for machine-readable state, deterministic actions, agency/approval. DESIGN — shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action"
+description: "Use for AGENT UX — the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO — make surfaces agent-perceivable/targetable/actionable. REVIEW — audit for machine-readable state, deterministic actions, agency/approval. DESIGN — shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action'"
 license: MIT
 ---
 

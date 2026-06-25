@@ -1,6 +1,6 @@
 {
   "name": "agent-dx",
-  "description": "Use for AGENT DX \u2014 the surface an AI agent consumes as a developer. DO \u2014 keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW \u2014 audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN \u2014 shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII",
+  "description": "Use for AGENT DX \u2014 the surface an AI agent consumes as a developer. DO \u2014 keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW \u2014 audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN \u2014 shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

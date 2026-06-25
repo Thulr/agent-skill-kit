@@ -1,6 +1,6 @@
 {
   "name": "agent-test",
-  "description": "Use for AGENT TEST \u2014 designing the measurement an AI agent or skill is judged by. DO \u2014 write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW \u2014 audit eval suite trustworthiness. DESIGN \u2014 shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real",
+  "description": "Use for AGENT TEST \u2014 designing the measurement an AI agent or skill is judged by. DO \u2014 write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW \u2014 audit eval suite trustworthiness. DESIGN \u2014 shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

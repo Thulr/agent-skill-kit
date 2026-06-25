@@ -1,6 +1,6 @@
 {
   "name": "agent-ux",
-  "description": "Use for AGENT UX \u2014 the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO \u2014 make surfaces agent-perceivable/targetable/actionable. REVIEW \u2014 audit for machine-readable state, deterministic actions, agency/approval. DESIGN \u2014 shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action",
+  "description": "Use for AGENT UX \u2014 the interaction surface an AI agent acts THROUGH as end user (UI, app, computer-use target). DO \u2014 make surfaces agent-perceivable/targetable/actionable. REVIEW \u2014 audit for machine-readable state, deterministic actions, agency/approval. DESIGN \u2014 shape state, handles, gates, dual paths. Triggers: 'can agent use this UI', 'make app agent-operable', 'should agent confirm action'",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

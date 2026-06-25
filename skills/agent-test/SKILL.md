@@ -1,6 +1,6 @@
 ---
 name: agent-test
-description: "Use for AGENT TEST — designing the measurement an AI agent or skill is judged by. DO — write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW — audit eval suite trustworthiness. DESIGN — shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real"
+description: "Use for AGENT TEST — designing the measurement an AI agent or skill is judged by. DO — write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW — audit eval suite trustworthiness. DESIGN — shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real'"
 license: MIT
 ---
 

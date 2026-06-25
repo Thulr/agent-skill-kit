@@ -1,6 +1,6 @@
 ---
 name: codex-cli
-description: Use when an agent should invoke the Codex CLI as an external reviewer or analysis agent — get a second opinion from another LLM provider, review uncommitted/branch/commit changes with `codex review`, run read-only repo analysis via `codex exec`, ask Codex for cross-project self-reflection about recurring agent mistakes and user workflow patterns, diagnose Codex setup, or prepare a delegated Codex prompt without running it. Triggers on 'ask Codex to review my changes', 'get a second opinion from Codex', 'what would the other model say about this', 'review this with Codex before I push'. Do NOT use to harden a repo's own agent config (use harden-repo-for-coding-agents), to promote observed failures into AGENTS.md rules (use rules-from-coding-agent-failures), or to run this kit's own heuristic review skills like dx-audit/ux-audit — codex-cli shells out to the external Codex CLI as an independent reviewer rather than auditing a surface itself.
+description: "Invoke Codex CLI as an external reviewer. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'review this before I push'."
 license: MIT
 ---
 
@@ -10,16 +10,30 @@ Invoke Codex as an external reviewer, analysis agent, or cross-project
 reflection source. Default to read-only delegation for general analysis, and
 use Codex's native `review` command for code review.
 
+## Boundaries
+
+Do NOT use to harden a repo's own agent config (use
+harden-repo-for-coding-agents), to promote observed failures into AGENTS.md
+rules (use rules-from-coding-agent-failures), or to run this kit's own
+heuristic review skills like dx-audit/ux-audit — codex-cli shells out to the
+external Codex CLI as an independent reviewer rather than auditing a surface
+itself.
+
 ## Activation Contract
 
 1. Read `references/use-case-registry.csv`.
 2. If the user gave a concrete task, match it to the closest use case and load
    only that row's detail files and templates.
-3. If the user only invokes this skill, asks what it can do, or says "start",
-   present a short menu of use cases and modes, then wait. Do not run `codex`.
-4. If the task would expose secrets, private data, production credentials, or
+3. **Bare invocation** (`"use codex-cli"`, `"start"`): show a compact menu:
+   mode choice (guided / autopilot / grill me?) and numbered intents from the
+   router. Wait. No file inspection, no network calls, no writes.
+4. **Ambiguous invocation**: ask one — e.g., *"Are you reviewing uncommitted
+   changes, a branch/commit diff, or do you want a second opinion on a design
+   decision?"* or *"Is this a code review, cross-project reflection, or setup
+   diagnostics?"*
+5. If the task would expose secrets, private data, production credentials, or
    sensitive local files to Codex, stop and ask for scope.
-5. Never use `--dangerously-bypass-approvals-and-sandbox` or
+6. Never use `--dangerously-bypass-approvals-and-sandbox` or
    `--dangerously-bypass-hook-trust` unless the user explicitly requests it for
    a trusted external sandbox.
 
@@ -95,6 +109,10 @@ as Cursor, Claude Code, or Codex. It does not auto-chain other skills.
 6. Use `scripts/codex-doctor-check.sh` when setup or auth is the blocker.
 7. Present Codex output as input from an external reviewer, not as final truth.
    Reconcile disagreements against local evidence.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> Understand (step 1) — do not patch in the wrong direction. Restate the
+> corrected understanding and re-plan.
 
 ## Operational Memory
 

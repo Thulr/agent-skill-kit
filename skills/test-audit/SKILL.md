@@ -1,6 +1,6 @@
 ---
 name: test-audit
-description: Use to AUDIT an existing test suite — review tests for smells, redundancy, false-pass risk, brittleness, and flakiness and score them, or triage one specific test that is failing, flaky, or unacceptably slow. Covers unit, integration, e2e/UI, exploratory, property-based, contract, snapshot, mutation, and performance tests. Triggers on "review these tests", "are these tests any good", "this test is flaky", "why does CI fail intermittently", "triage this failing test", "do our tests actually catch bugs". Do NOT use to AUTHOR new tests, shape suite strategy, or pick tests to delete (use test-design), or for production-system performance/SLOs (use perf-audit).
+description: "Audit an existing test suite for smells, redundancy, false-pass risk, brittleness, and flakiness. Triage failing, flaky, or slow tests. Triggers: 'review these tests', 'this test is flaky', 'do our tests actually catch bugs'."
 license: MIT
 ---
 
@@ -14,6 +14,10 @@ Provenance lives in `skill.json`; this file is runtime routing only.
 tracked audits also emit `test-audit-findings-ledger-<date>-<slug>.md` +
 `test-audit-workflow-state-<date>-<slug>.json`.
 
+## Boundaries
+
+Do NOT use to AUTHOR new tests, shape suite strategy, or pick tests to delete (use test-design).
+
 ## Core principle
 
 **A test earns its place by failing when behavior breaks and only then.** If a
@@ -22,13 +26,9 @@ nobody can tell what behavior it pins, that is a finding worth recording.
 
 ## Activation
 
-- **Bare invocation** (`"use test-audit"`, `"test audit"`, `"start"`): load
-  `references/starter-scenarios.csv` and `references/intent-router.csv`, then
-  show the intent menu with named starter scenarios on top and offer the mode
-  choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** (`"use test-audit"`, `"test audit"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and layer inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or layer; do not inspect private systems first.
+- **Concrete invocation with ambiguous scope**: ask one — e.g., *"Are you auditing unit tests, integration tests, or e2e/UI tests?"* or *"Is this a full-suite review or a single flaky-test triage?"*
 
 ## Workflow
 
@@ -73,6 +73,8 @@ nobody can tell what behavior it pins, that is a finding worth recording.
    Fall back to `audit-artifacts/test-audit-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and non-tracking edits opt-in.
+
+> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

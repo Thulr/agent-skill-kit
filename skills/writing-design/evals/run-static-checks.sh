@@ -30,7 +30,7 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --require-file templates/draft-scaffold.md \
   --require-file templates/persuasion-plan.md \
   --require-pattern 'intent-router routing::SKILL.md::intent-router\.csv' \
-  --require-pattern 'bare activation::SKILL.md::show the intent menu' \
+  --require-pattern 'bare activation::SKILL.md::show a compact menu' \
   --require-pattern 'routes critique to sibling::SKILL.md::writing-audit' \
   --require-pattern 'outline-plan has outline section::templates/outline-plan.md::^## Outline' \
   --require-pattern 'draft-scaffold has rough first pass::templates/draft-scaffold.md::^## Rough first pass' \

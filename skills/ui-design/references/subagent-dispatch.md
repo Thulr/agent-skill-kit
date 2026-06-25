@@ -24,7 +24,9 @@ meaning is unclear. Separate usability risk from personal taste.
 Prompt: Inspect whether the artifact can run, reload, be edited, export, and
 handoff cleanly. Check direct-edit readiness, host protocol markers, static
 markup, component states, responsive behavior, reduced motion, console errors,
-and packaging notes.
+and packaging notes. **Use browser tools to inspect the live rendered page
+(browser_navigate, browser_vision, browser_console) — do not rely on code
+review alone for visual correctness.**
 
 ## Preamble Before Dispatch
 

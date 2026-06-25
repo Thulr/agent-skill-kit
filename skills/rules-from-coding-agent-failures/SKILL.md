@@ -1,6 +1,6 @@
 ---
 name: rules-from-coding-agent-failures
-description: Use when you operate coding-agent infrastructure with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test — and want to capture observed agent failures in a per-file reflection log, promote recurring patterns into AGENTS.md rules, hooks, or CI gates via the three-entry floor, and score Level 4-5 (Specification Architecture, Sovereign Engineering) maturity. Triggers on 'reflection log', 'agent failure log', 'promote this pattern into a rule', 'post-incident eval case', 'harness maturity Level 4 or 5', 'set up a feedback loop for agent failures'. Do NOT use for first-pass agent-readiness scaffolding when no feedback signal exists yet (use harden-repo-for-coding-agents), or to design or operate an AI product's eval and optimization loops (use agent-test / agent-ops).
+description: "Capture agent failures, promote patterns into rules, and score Level 4-5 maturity. Triggers: 'reflection log', 'set up a feedback loop'."
 license: MIT
 ---
 
@@ -11,6 +11,12 @@ advanced (Level 4–5) agent-readiness. For repos with a *feedback signal*: eval
 run-level telemetry, A/B baselines, or a skill catalog under test. No signal yet — no
 benchmark, no telemetry baseline, no "we watched the agent do X" stream? Use
 `harden-repo-for-coding-agents` alone; promotion here needs evidence to drive it.
+
+## Boundaries
+
+Do NOT use for first-pass agent-readiness scaffolding when no feedback signal
+exists yet (use harden-repo-for-coding-agents), or to design or operate an AI
+product's eval and optimization loops (use agent-test / agent-ops).
 
 **Produces:** `capture` writes the reflection-log scaffold (`docs/reflection-log/README.md`,
 `_template.md`, and a repo-root `README.md §Agents` pointer); `promote` proposes the
@@ -52,13 +58,13 @@ re-run:
 
 ## Activation
 
-- **Bare invocation** (`"set up reflection log"`, `"use rules-from-coding-agent-failures"`): show the intent
-  menu (`capture` / `promote` / `assess-l4l5`) inline and wait. No file inspection, network
-  calls, or writes. This skill's scope is narrow enough that the SKILL.md body is the
-  router — no separate CSV.
+- **Bare invocation** (`"set up reflection log"`, `"use rules-from-coding-agent-failures"`):
+  show a compact menu: mode choice (guided / autopilot / grill me?) and numbered
+  intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent inferable: skip to Workflow step 2.
-- **Concrete invocation with ambiguous scope**: ask one blocker question to fix the intent
-  first; do not inspect private systems before then.
+- **Ambiguous invocation**: ask one — e.g., *"Are you capturing a new failure entry,
+  promoting an existing pattern into a rule, or scoring Level 4-5 maturity?"* or
+  *"Is this for a single incident post-mortem or a recurring feedback loop?"*
 
 ## Workflow
 
@@ -94,6 +100,10 @@ re-run:
    back to `audit-artifacts/rules-from-coding-agent-failures-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
    if `docs/audits/` is unwritable). Report both paths. Roadmaps, issues, and promotion
    changes still need confirmation.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> Understand (step 1) — do not patch in the wrong direction. Restate the
+> corrected understanding and re-plan.
 
 ## Modes
 

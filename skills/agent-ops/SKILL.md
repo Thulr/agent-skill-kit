@@ -1,14 +1,14 @@
 ---
 name: agent-ops
-description: Use for AGENT OPS — operating a running AI agent system, and the front-door for the agent skill family. DO — wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW — audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN — shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'. Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx), design evals/judges/benchmarks (use agent-test), write agent-native docs (use agent-docs), scaffold repo gates/hooks (use harden-repo-for-coding-agents), or promote failures into rules (use rules-from-coding-agent-failures).
+description: "Use for AGENT OPS — operating a running AI agent system. DO — wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW — audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN — shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'."
 license: MIT
 ---
 
 # Agent Ops
 
 Operating a running AI agent system — observing it, closing its improvement loop, governing its
-autonomy, keeping it reliable and bounded in cost — and the **front-door** for the agent skill
-family. Provenance lives in `skill.json`; this file is runtime routing only.
+autonomy, keeping it reliable and bounded in cost. Provenance lives in `skill.json`; this file is
+runtime routing only.
 
 **Produces:** a `change-plan.md` (DO), an `audit-report.md` plus a findings-ledger +
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
@@ -23,12 +23,10 @@ to the siblings below.
 
 ## Activation
 
-- **Bare invocation** (`"use agent-ops"`, `"make our agent production-ready"`, `"start"`): load
-  `references/intent-router.csv`, show the intent menu, offer the mode. Wait. No file
-  inspection, network calls, or writes.
+- **Bare invocation** (`"use agent-ops"`, `"make our agent production-ready"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, network calls, or writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
 - **Ambiguous scope**: ask one blocker question naming the candidate intent or surface, or
-  whether the work should route to a sibling (see Front-door). Do not inspect private systems first.
+  whether the work should route to a sibling (see Routing out below). Do not inspect private systems first.
 
 ## Workflow
 
@@ -62,7 +60,7 @@ to the siblings below.
    back to `audit-artifacts/agent-ops-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
 
-## Front-door — routing out
+## Routing out
 
 agent-ops operates; it does not build. Hand off when the work is building: **`agent-dx`**
 (SDK/tool/error/telemetry surface), **`agent-docs`** (AGENTS.md, llms.txt, MCP discovery),

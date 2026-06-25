@@ -1,6 +1,6 @@
 ---
 name: ux-audit
-description: Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on "UX audit", "heuristic evaluation", "users are confused", "signup/checkout drop-off", "IA review", "accessibility/WCAG review", "is this form usable". Do NOT use to AUDIT developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-audit), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for agent-operable UI/app interaction surfaces (use agent-ux), or agent-native docs like AGENTS.md/llms.txt (use agent-docs).
+description: "Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on 'UX audit', 'heuristic evaluation', 'users are confused', 'signup/checkout drop-off', 'accessibility/WCAG review'."
 license: MIT
 ---
 
@@ -16,6 +16,10 @@ navigation / error-recovery); tracked reviews also emit
 `ux-audit-findings-ledger-<date>-<slug>.md` +
 `ux-audit-workflow-state-<date>-<slug>.json`.
 
+## Boundaries
+
+Do NOT use to AUDIT developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-audit), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for agent-operable UI/app interaction surfaces (use agent-ux), or agent-native docs like AGENTS.md/llms.txt (use agent-docs).
+
 ## Core principle
 
 **A usable interface makes the user's next correct action visible, reversible,
@@ -24,14 +28,9 @@ reach for a pointing device to recover, that is a UX problem worth a finding.
 
 ## Activation
 
-- **Bare invocation** (`"use ux-audit"`, `"UX audit"`, `"accessibility
-  review"`): load `references/starter-scenarios.csv` and
-  `references/intent-router.csv`, then show the intent menu with the named
-  starter scenarios on top (each pre-routes intent + persona) and offer the mode
-  choice. Wait. No file inspection, network calls, or writes.
+- **Bare invocation** ("use ux-audit", "UX audit", "accessibility review"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with an intent inferable: skip to step 3.
-- **Ambiguous concrete invocation**: ask one blocker question identifying the
-  intent or the target user/task before inspecting private systems.
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing a usability flow, accessibility/WCAG, a form, navigation/IA, or error recovery?"* or *"Is this for an end-user product surface or a developer tool?"*
 
 ## Workflow
 
@@ -71,6 +70,8 @@ reach for a pointing device to recover, that is a UX problem worth a finding.
    `audit-artifacts/ux-audit-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and product-file edits opt-in.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

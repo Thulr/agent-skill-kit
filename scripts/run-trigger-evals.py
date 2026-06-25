@@ -18,7 +18,7 @@ judgment doesn't fail the build.
 
 Usage:
   python3 scripts/run-trigger-evals.py                      # full catalog, pi judge
-  python3 scripts/run-trigger-evals.py --skills artifact-host-integration,ui-design
+  python3 scripts/run-trigger-evals.py --skills ui-design,ux-audit
   python3 scripts/run-trigger-evals.py --judge mock         # offline pipeline smoke
   python3 scripts/run-trigger-evals.py --json /tmp/out.json # also write full results
 

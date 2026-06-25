@@ -1,6 +1,6 @@
 ---
 name: writing-audit
-description: Use to AUDIT an EXISTING piece of writing — tighten wordy prose at the line and paragraph level (revise), fix mechanics, grammar, and consistency while preserving voice (copyedit), or diagnose why a draft drags, buries the point, or fails to land (diagnose). Routes by intent (revise / copyedit / diagnose) × genre (argument-memo / technical-doc / talk-pitch / narrative / general-prose). Emits a scored findings report with severity-rated findings and concrete fixes. Triggers on "tighten this", "make this clearer", "copyedit this", "why does this drag", "review my draft", "this memo buries the point". Do NOT use to write or structure something NEW (use writing-design), to audit a documentation system's IA, retrieval, or telemetry (use docs-audit), or to review product UI copy as a usability surface (use ux-audit).
+description: "Use to AUDIT an EXISTING piece of writing — tighten wordy prose at the line and paragraph level (revise), fix mechanics, grammar, and consistency while preserving voice (copyedit), or diagnose why a draft drags, buries the point, or fails to land (diagnose). Triggers on 'tighten this', 'copyedit this', 'why does this drag', 'review my draft', 'this memo buries the point'."
 license: MIT
 ---
 
@@ -14,6 +14,10 @@ runtime routing only.
 `copyedit-report.md` (copyedit), or `diagnosis-report.md` (diagnose) — with
 severity-rated findings, concrete fixes, and the reader the finding costs.
 
+## Boundaries
+
+Do NOT use to write or structure something NEW (use writing-design), to audit a documentation system's IA, retrieval, or telemetry (use docs-audit), or to review product UI copy as a usability surface (use ux-audit).
+
 ## Core principle
 
 **Name the reader's cost, not your taste.** Every finding ties to a concrete
@@ -22,13 +26,9 @@ and proposes a fix. A change that only reflects preference is a 0 — say so.
 
 ## Activation
 
-- **Bare invocation** (`"use writing-audit"`, `"review my writing"`, `"start"`):
-  load `references/starter-scenarios.csv` and `references/intent-router.csv`,
-  then show the intent menu with named starter scenarios on top and offer the
-  mode choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** ("use writing-audit", "review my writing", "start"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and genre inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question naming
-  the candidate intent or genre; do not inspect private material first.
+- **Ambiguous invocation**: ask one — e.g., *"Do you need revision (tighten lines), copyedit (mechanics/grammar), or diagnosis (why it doesn't land)?"* or *"What genre — memo, technical doc, talk pitch, narrative, or general prose?"*
 
 ## Workflow
 
@@ -59,6 +59,8 @@ and proposes a fix. A change that only reflects preference is a 0 — say so.
    or persuasion findings, apply `references/core/narrative-honesty-guard.md`.
 8. **Emit output.** Write the intent's template: `templates/revision-report.md`,
    `templates/copyedit-report.md`, or `templates/diagnosis-report.md`.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

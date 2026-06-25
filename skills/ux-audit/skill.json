@@ -1,6 +1,6 @@
 {
   "name": "ux-audit",
-  "description": "Use to AUDIT an existing end-user product UX or accessibility surface \u2014 audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on \"UX audit\", \"heuristic evaluation\", \"users are confused\", \"signup/checkout drop-off\", \"IA review\", \"accessibility/WCAG review\", \"is this form usable\". Do NOT use to AUDIT developer-facing surfaces such as APIs, SDKs, CLIs, or dev docs (use dx-audit), to BUILD or visually polish UI, design systems, or prototypes (use ui-design), or for agent-operable UI/app interaction surfaces (use agent-ux), or agent-native docs like AGENTS.md/llms.txt (use agent-docs).",
+  "description": "Use to AUDIT an existing end-user product UX or accessibility surface \u2014 audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on 'UX audit', 'heuristic evaluation', 'users are confused', 'signup/checkout drop-off', 'accessibility/WCAG review'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -31,7 +31,11 @@
       "kind": "book",
       "year": 1988,
       "contribution": "Affordances, signifiers, feedback, constraints, and slips-vs-mistakes as the baseline for interface diagnosis.",
-      "playbooks": ["usability-audit", "form-review", "error-recovery"]
+      "playbooks": [
+        "usability-audit",
+        "form-review",
+        "error-recovery"
+      ]
     },
     {
       "name": "10 Usability Heuristics for User Interface Design",
@@ -39,7 +43,11 @@
       "kind": "article",
       "year": 1994,
       "contribution": "Heuristic-evaluation structure and severity framing: visibility, match to real world, user control, consistency, error prevention, recognition, flexibility, minimalist design, recovery, help.",
-      "playbooks": ["usability-audit", "navigation-review", "error-recovery"]
+      "playbooks": [
+        "usability-audit",
+        "navigation-review",
+        "error-recovery"
+      ]
     },
     {
       "name": "Web Content Accessibility Guidelines (WCAG) 2.2",
@@ -48,7 +56,11 @@
       "year": 2023,
       "url": "https://www.w3.org/TR/WCAG22/",
       "contribution": "Shared accessibility baseline for perceivable, operable, understandable, and robust web content; used for accessibility findings and verification.",
-      "playbooks": ["accessibility-audit", "form-review", "navigation-review"]
+      "playbooks": [
+        "accessibility-audit",
+        "form-review",
+        "navigation-review"
+      ]
     },
     {
       "name": "WCAG 2.2 is a Web Standard W3C Recommendation",
@@ -57,7 +69,9 @@
       "year": 2023,
       "url": "https://www.w3.org/WAI/news/2023-10-05/wcag22rec/",
       "contribution": "Confirms WCAG 2.2 Recommendation status and frames it as the current stable WCAG 2 standard family baseline.",
-      "playbooks": ["accessibility-audit"]
+      "playbooks": [
+        "accessibility-audit"
+      ]
     },
     {
       "name": "A Web for Everyone",
@@ -65,7 +79,10 @@
       "kind": "book",
       "year": 2014,
       "contribution": "Inclusive design patterns and personas that keep accessibility tied to real tasks instead of a checklist-only review.",
-      "playbooks": ["accessibility-audit", "usability-audit"]
+      "playbooks": [
+        "accessibility-audit",
+        "usability-audit"
+      ]
     },
     {
       "name": "Forms that Work",
@@ -73,7 +90,9 @@
       "kind": "book",
       "year": 2008,
       "contribution": "Form design principles: ask only what is needed, make labels and examples clear, reduce mode errors, and support correction.",
-      "playbooks": ["form-review"]
+      "playbooks": [
+        "form-review"
+      ]
     },
     {
       "name": "Don't Make Me Think",
@@ -81,12 +100,15 @@
       "kind": "book",
       "year": 2000,
       "contribution": "Scanning, recognition, clear navigation, and fast user confidence as practical usability criteria.",
-      "playbooks": ["usability-audit", "navigation-review"]
+      "playbooks": [
+        "usability-audit",
+        "navigation-review"
+      ]
     }
   ],
   "metadata": {
     "family": "heuristics",
     "function": "audit",
-    "catalog_summary": "Audit an end-user product UX or accessibility surface — usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks — and score it."
+    "catalog_summary": "Audit an end-user product UX or accessibility surface \u2014 usability flows, form friction, navigation/IA, error/recovery copy, and WCAG/keyboard checks \u2014 and score it."
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "claude-code-cli",
-  "description": "Use when an agent should invoke the Claude Code CLI (`claude -p`) as an external reviewer or analysis agent — get a second opinion, review working-tree/staged/branch changes another agent made, run read-only repo analysis, ask Claude Code for cross-project self-reflection about recurring agent mistakes and user workflow patterns, kick off a hosted `claude ultrareview`, or prepare a delegated prompt without running it. Triggers on 'ask Claude Code to review my changes', 'get a second opinion from Claude', 'have Claude review what Cursor did', 'run an ultrareview'. Do NOT use to invoke Codex (use codex-cli) or Cursor (use cursor-cli) as the external agent, to harden a repo's own agent config (use harden-repo-for-coding-agents), or to run this kit's own heuristic review skills like dx-audit/ux-audit — claude-code-cli shells out to the external Claude Code CLI as an independent reviewer rather than auditing a surface itself.",
+  "description": "Invoke Claude Code CLI as an external reviewer. Covers print mode (-p) for one-shot review and interactive PTY mode for multi-turn sessions.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -34,6 +34,6 @@
   "metadata": {
     "family": "interop",
     "function": "singleton",
-    "catalog_summary": "Drive the external **Claude Code CLI** (`claude -p`) as an independent second-opinion reviewer and analysis agent — review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--permission-mode plan`), get a second opinion on a decision/bug/plan, run cross-project reflection, or hand off to a hosted `claude ultrareview`. Routes through a use-case registry, defaults to read-only, never bypasses permissions without an explicit ask, and presents output as an external opinion to reconcile against local evidence. Provenance in [`skills/claude-code-cli/skill.json`](./skills/claude-code-cli/skill.json)."
+    "catalog_summary": "Drive the external **Claude Code CLI** (`claude -p`) as an independent second-opinion reviewer and analysis agent \u2014 review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--permission-mode plan`), get a second opinion on a decision/bug/plan, run cross-project reflection, or hand off to a hosted `claude ultrareview`. Routes through a use-case registry, defaults to read-only, never bypasses permissions without an explicit ask, and presents output as an external opinion to reconcile against local evidence. Provenance in [`skills/claude-code-cli/skill.json`](./skills/claude-code-cli/skill.json)."
   }
 }

@@ -41,7 +41,7 @@ if [[ -f "$skill_md" ]]; then
   grep -Eq '^description:' "$skill_md" || fail "SKILL.md frontmatter must include: description:"
   grep -Eq '^license:' "$skill_md" || fail "SKILL.md frontmatter must include: license:"
   wc=$(wc -w < "$skill_md")
-  (( wc < 1200 )) || fail "SKILL.md word count $wc exceeds 1200 (runtime-only bound)"
+  (( wc < 1500 )) || fail "SKILL.md word count $wc exceeds 1500 (raised: CLI reference + inline examples)"
 fi
 
 # ----- Every registry script/detail/template path resolves on disk -----

@@ -1,6 +1,6 @@
 ---
 name: docs-audit
-description: Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure (support tickets, confused onboarding, stale examples, zero-result search). Covers README/quickstart/reference/examples, in-product help/onboarding/microcopy, RAG/retrieval structure, and API/tool-contract descriptions. Triggers on "docs review", "audit our docs/README/help", "why can't users find this", "our quickstart fails". Do NOT use to DESIGN or measure new docs from scratch (use docs-design), to judge a code package's developer onboarding — install-to-first-success, errors, packaging (use dx-audit), to only tighten line-level prose of a single piece (use writing-audit), for end-user product UX/accessibility outside help (use ux-audit), or for repo agent hardening, hooks, or gates (use harden-repo-for-coding-agents), or for agent-native docs — AGENTS.md, llms.txt, agent tool-description clarity (use agent-docs).
+description: "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Triggers on 'docs review', 'audit our docs/README/help', 'why can't users find this', 'our quickstart fails'."
 license: MIT
 ---
 
@@ -15,6 +15,10 @@ routing only.
 score, audience conflicts) or `debug-runbook.md` (ranked hypotheses, fix path,
 prevention).
 
+## Boundaries
+
+Do NOT use to DESIGN new docs (use docs-design), to judge code package onboarding — install-to-first-success, errors, packaging (use dx-audit), for line-level prose tightening (use writing-audit), for end-user product UX outside help (use ux-audit), for repo agent hardening (use harden-repo-for-coding-agents), or for agent-native docs — AGENTS.md, llms.txt, tool descriptions (use agent-docs).
+
 ## Core principle
 
 **Match the page to the audience's job and keep it true.** If a competent
@@ -24,13 +28,9 @@ finding.
 
 ## Activation
 
-- **Bare invocation** (`"use docs-audit"`, `"docs review"`, `"start"`): load
-  `references/starter-scenarios.csv` and `references/intent-router.csv`, then
-  show the intent menu with named starter scenarios on top and offer the mode
-  choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** ("use docs-audit", "docs review", "start"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and surface inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or surface; do not inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing developer docs, end-user help, or agent-readable surfaces?"* or *"Is this a friction audit or a debug run for a specific failure?"*
 
 ## Workflow
 
@@ -65,6 +65,8 @@ finding.
 8. **Emit output.** Audit → `templates/audit-report.md`. Debug →
    `templates/debug-runbook.md`. Name the playbook(s) applied, the target
    audience, and the grounding sources.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

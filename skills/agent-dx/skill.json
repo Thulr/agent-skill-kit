@@ -1,6 +1,6 @@
 {
   "name": "agent-dx",
-  "description": "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep an in-progress AI/Agent SDK, tool, structured-output, error, or telemetry change minimal and agent-consumable. REVIEW — audit an agent-facing SDK/tool/error/telemetry surface for stable contracts, agent recovery, and trust-boundary safety, then score it. DESIGN — shape a new agent-facing surface (loop, tools, MCP, structured output, error envelope, SDK telemetry) or explain a principle. Triggers on 'design our Agent SDK', 'are our tool schemas agent-safe', 'review our MCP tool surface', 'shape retry-able tool errors for the model', 'is our agent telemetry leaking PII'. Do NOT use for human developer API/SDK/CLI surfaces (use dx-audit / dx-design), agent-readable docs/AGENTS.md/llms.txt (use agent-docs), repo agent-hardening gates/hooks (use harden-repo-for-coding-agents), or operating eval/observability loops (use agent-ops).",
+  "description": "Use for AGENT DX \u2014 the surface an AI agent consumes as a developer. DO \u2014 keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW \u2014 audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN \u2014 shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -38,7 +38,10 @@
       "kind": "spec",
       "year": 2024,
       "contribution": "A uniform protocol for exposing tools, resources, and prompts to agents; the model-visible tool name/description/schema is part of the contract and reaches the model before any human, which frames tool metadata as an untrusted-input and injection surface.",
-      "playbooks": ["tools-and-mcp", "sdk-design"]
+      "playbooks": [
+        "tools-and-mcp",
+        "sdk-design"
+      ]
     },
     {
       "name": "OpenTelemetry Semantic Conventions for Generative AI",
@@ -46,20 +49,25 @@
       "kind": "spec",
       "year": 2025,
       "contribution": "A named span/attribute convention for agent loops (gen_ai.operation.name, usage tokens, finish reasons, conversation id) so per-step telemetry is portable; emitting structural spans on one convention separates structural from content telemetry.",
-      "playbooks": ["sdk-telemetry", "sdk-design"]
+      "playbooks": [
+        "sdk-telemetry",
+        "sdk-design"
+      ]
     },
     {
       "name": "OAuth 2.0 Token Exchange (RFC 8693)",
       "author": "IETF",
       "kind": "spec",
       "year": 2020,
-      "contribution": "A broker exchanges a credential for a token constrained by resource, audience, scope, and short TTL — the enforcement primitive behind delegated auth, so an agent acts on a user's behalf without holding the durable secret.",
-      "playbooks": ["tools-and-mcp"]
+      "contribution": "A broker exchanges a credential for a token constrained by resource, audience, scope, and short TTL \u2014 the enforcement primitive behind delegated auth, so an agent acts on a user's behalf without holding the durable secret.",
+      "playbooks": [
+        "tools-and-mcp"
+      ]
     }
   ],
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe — DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). Sits atop the human HTTP-client floor in dx-audit / dx-design."
+    "catalog_summary": "Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe \u2014 DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). Sits atop the human HTTP-client floor in dx-audit / dx-design."
   }
 }

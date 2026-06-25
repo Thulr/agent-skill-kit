@@ -1,6 +1,6 @@
 ---
 name: cursor-cli
-description: Use when an agent should invoke the Cursor CLI (`cursor-agent -p`) as an external reviewer or analysis agent — get a second opinion (optionally from a different model like gpt-5 or sonnet-4), review working-tree/staged/branch changes another agent made, run read-only repo analysis, diagnose cursor-agent setup, or prepare a delegated prompt without running it. Triggers on 'ask Cursor to review my changes', 'get a second opinion from Cursor', 'have gpt-5 review this via Cursor', 'review this with a different model'. Do NOT use to invoke Codex (use codex-cli) or Claude Code (use claude-code-cli) as the external agent, to harden a repo's own agent config (use harden-repo-for-coding-agents), or to run this kit's own heuristic review skills like dx-audit/ux-audit — cursor-cli shells out to the external Cursor CLI as an independent reviewer rather than auditing a surface itself.
+description: "Invoke Cursor CLI as an external reviewer. Triggers: 'ask Cursor to review my changes', 'get a second opinion from Cursor'."
 license: MIT
 ---
 
@@ -13,16 +13,28 @@ interop skills is **model diversity**: cursor-agent can run many providers'
 models, so you can get a review from a *different* model than the one that wrote
 the code.
 
+## Boundaries
+
+Do NOT use to invoke Codex (use codex-cli) or Claude Code (use claude-code-cli)
+as the external agent, to harden a repo's own agent config (use
+harden-repo-for-coding-agents), or to run this kit's own heuristic review
+skills like dx-audit/ux-audit — cursor-cli shells out to the external Cursor
+CLI as an independent reviewer rather than auditing a surface itself.
+
 ## Activation Contract
 
 1. Read `references/use-case-registry.csv`.
 2. If the user gave a concrete task, match it to the closest use case and load
    only that row's detail files and templates.
-3. If the user only invokes this skill, asks what it can do, or says "start",
-   present a short menu of use cases and modes, then wait. Do not run cursor-agent.
-4. If the task would send secrets, private data, production credentials, or
+3. **Bare invocation** (`"use cursor-cli"`, `"start"`): show a compact menu:
+   mode choice (guided / autopilot / grill me?) and numbered intents from the
+   router. Wait. No file inspection, no network calls, no writes.
+4. **Ambiguous invocation**: ask one — e.g., *"Are you reviewing working-tree
+   changes, a branch diff, or do you want a second opinion on a design?"* or
+   *"Is this a code review, setup diagnostics, or prompt preparation?"*
+5. If the task would send secrets, private data, production credentials, or
    unreviewed sensitive files to cursor-agent, stop and ask for scope.
-5. Never pass `-f` / `--force` / `--yolo` (or `--sandbox disabled`) unless the
+6. Never pass `-f` / `--force` / `--yolo` (or `--sandbox disabled`) unless the
    user explicitly requests it for a trusted sandbox; those drop the read-only
    guard.
 
@@ -86,6 +98,10 @@ does not auto-chain other skills.
 6. Use `scripts/cursor-doctor-check.sh` when setup, auth, or trust is the blocker.
 7. Present cursor-agent's output as input from an external reviewer, not as final
    truth. Reconcile disagreements against local evidence.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> Understand (step 1) — do not patch in the wrong direction. Restate the
+> corrected understanding and re-plan.
 
 ## Operational Memory
 

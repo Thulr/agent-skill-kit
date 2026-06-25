@@ -1,6 +1,6 @@
 {
   "name": "harden-repo-for-coding-agents",
-  "description": "Use to ASSESS, HARDEN, SCAFFOLD, or DIAGNOSE a repository's agent-readiness for coding-agent harnesses such as Claude Code, Cursor, Codex, Copilot, Windsurf, and Aider. Covers AGENTS.md, SKILL.md, and MCP scaffolding, PreToolUse and other hooks, CI gates, sandbox and approval design, and repo-level agent failure modes; harness-agnostic and portable-first (AGENTS.md, MCP, OpenTelemetry); ships an opinionated checklist grounded in published research. Triggers on 'make this repo work with Claude Code / Cursor / Codex', 'scaffold our AGENTS.md', 'add an agent hook or gate', 'why did the agent trip on our repo', 'score our agent-readiness'. Do NOT use to design the SDK/tool surface an agent consumes (use agent-dx) or agent-native docs like llms.txt/AGENTS.md (use agent-docs), to promote recurring failures into rules from a feedback signal (use rules-from-coding-agent-failures), or to design or operate an AI product's eval loops (use agent-test / agent-ops).",
+  "description": "Assess, harden, scaffold, or diagnose a repo's agent-readiness. Triggers: 'make this repo work with Claude Code', 'score our agent-readiness'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

@@ -1,6 +1,6 @@
 ---
 name: agent-test
-description: Use for AGENT TEST — designing the measurement an AI agent or skill is judged by. DO — write the smallest eval, judge, trajectory test, benchmark, or activation eval that gates a change. REVIEW — audit an agent's eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it. DESIGN — shape a failure-mode-first eval suite, calibrate an LLM-as-judge, build a held-out benchmark, or design activation/trigger evals, or explain a principle. Triggers on 'design our agent evals', 'is our LLM judge trustworthy', 'are these trajectory tests real', 'build a held-out benchmark for a model swap', 'test whether our skill activates correctly'. Do NOT use to operate or watch the loop these evals feed (use agent-ops), design the SDK/tool surface (use agent-dx), write agent-native docs (use agent-docs), or scaffold repo CI gates (use harden-repo-for-coding-agents), or to operate the eval/optimization loop, autonomy, and reliability (use agent-ops).
+description: "Use for AGENT TEST — designing the measurement an AI agent or skill is judged by. DO — write evals, judges, trajectory tests, benchmarks, activation evals. REVIEW — audit eval suite trustworthiness. DESIGN — shape failure-mode-first eval suites. Triggers: 'design our agent evals', 'is our LLM judge trustworthy', 'are trajectory tests real"
 license: MIT
 ---
 
@@ -14,6 +14,10 @@ test design. Provenance lives in `skill.json`; this file is runtime routing only
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
 `explanation.md` (DESIGN).
 
+## Boundaries
+
+Do NOT use to operate or watch the loop these evals feed (use agent-ops), design the SDK/tool surface (use agent-dx), write agent-native docs (use agent-docs), or scaffold repo CI gates (use harden-repo-for-coding-agents), or to operate the eval/optimization loop, autonomy, and reliability (use agent-ops).
+
 ## Core principle
 
 **A trusted-but-wrong instrument is worse than none — name the failure mode before the
@@ -23,12 +27,9 @@ watches drift). Prefer a deterministic check to a judge whenever the property is
 
 ## Activation
 
-- **Bare invocation** (`"use agent-test"`, `"is our LLM judge trustworthy"`, `"start"`): load
-  `references/intent-router.csv`, show the intent menu, offer the mode. Wait. No file
-  inspection, network calls, or writes.
+- **Bare invocation** (`"use agent-test"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with intent and surface inferable: skip to step 3.
-- **Ambiguous scope**: ask one blocker question naming the candidate intent or surface; do not
-  inspect private systems first.
+- **Ambiguous invocation**: ask one — e.g., *"Are you writing an eval, calibrating a judge, building trajectory tests, or designing benchmarks?"* or *"Is this a new eval suite or an audit of existing tests?"*
 
 ## Workflow
 
@@ -61,6 +62,8 @@ watches drift). Prefer a deterministic check to a judge whenever the property is
    workflow state at `docs/audits/agent-test-workflow-state-<YYYY-MM-DD>-<scope-slug>.json` (fall
    back to `audit-artifacts/agent-test-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

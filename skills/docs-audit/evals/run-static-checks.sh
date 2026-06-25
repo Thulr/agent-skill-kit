@@ -27,7 +27,7 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --forbid-file templates/workflow-state.json \
   --calibration-report templates/audit-report.md \
   --require-pattern 'intent-router routing::SKILL.md::intent-router\.csv' \
-  --require-pattern 'bare activation::SKILL.md::show the intent menu' \
+  --require-pattern 'bare activation::SKILL.md::show a compact menu' \
   --require-pattern 'subagent dispatch section::SKILL.md::^## Subagent dispatch' \
   --require-pattern 'four lenses::SKILL.md::four lenses' \
   --require-pattern 'routes design elsewhere::SKILL.md::docs-design' \

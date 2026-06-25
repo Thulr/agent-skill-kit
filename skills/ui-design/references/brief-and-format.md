@@ -18,6 +18,44 @@ Ask only when the answer changes the design. Cover:
 Provide options plus "decide for me" for most questions. If the user says
 decide for me, decide and move on.
 
+## Variation Exploration
+
+When the brief asks for options or the direction is uncertain, default to
+three variants that explore different dimensions:
+
+- **Conservative** — closest to existing patterns, lowest risk. Honours the
+  existing design system or product conventions. Use when fidelity to what
+  exists is the priority.
+- **Strong-fit** — best interpretation of the brief. The most direct answer
+  to the user's stated needs. Use when the goal is "make it right."
+- **Divergent** — more novel, useful for discovering taste boundaries and
+  hidden preferences. Changes a load-bearing assumption (layout, density,
+  color posture, interaction model). Use when the user says "surprise me"
+  or the first direction feels generic.
+
+Variants can explore different dimensions on each axis:
+
+| Axis | What changes |
+|---|---|
+| Layout | Single column vs multi-panel, sidebar vs top nav, card vs list |
+| Hierarchy | What gets primary visual weight, what gets collapsed |
+| Type scale | Display-driven vs body-driven, serif vs sans vs mono voice |
+| Density | Dense tool UI vs comfortable consumer vs airy narrative |
+| Color posture | Light vs dark, saturated vs muted, warm vs cool accent |
+| Surface treatment | Flat vs subtle elevation, border vs fill, sharp vs soft radius |
+| Motion | Static vs animated, utilitarian vs expressive |
+| Interaction model | Click-through vs inline edit, stepped vs freeform |
+| Copy structure | Short headline + detail vs narrative lead vs data-first |
+| Component shape | Pill buttons vs square, outlined cards vs filled |
+
+Do not create variants that differ only by color swap unless color is the
+actual question being decided. Each variant should test a meaningful
+hypothesis about the design direction.
+
+When the user picks a direction, **consolidate.** Do not leave the project
+as a pile of options. Merge the strongest ideas from each direction into
+one coherent artifact, then polish.
+
 ## Format Picker
 
 - **HTML mockup:** static in-browser visual review. Use when layout, type,

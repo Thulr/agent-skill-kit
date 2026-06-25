@@ -1,6 +1,6 @@
 ---
 name: dx-audit
-description: Use to AUDIT an existing developer-experience surface — audit it for friction and score it, debug a reported developer-facing issue, or run a pre-ship edge-case risk pass. Covers APIs, SDKs, CLIs, developer docs, examples, errors, setup, local inner-loop, migrations, package contracts, contributor flows, auth, IDE, plugins, perf, telemetry, README/first-impressions, logging, config, and changelogs. Triggers on "DX review", "audit our API/SDK/CLI", "is this error message OK", "why do users hit this", "pre-1.0 risk pass". Do NOT use to DESIGN a new surface from scratch (use dx-design), to audit documentation as a reading surface (use docs-audit), to only tighten one piece's prose (use writing-audit), for end-user product UX/accessibility (use ux-audit), for AI/Agent SDK/tool/error/telemetry surfaces an agent consumes (use agent-dx), or for AGENTS.md (use agent-docs).
+description: "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK."
 license: MIT
 ---
 
@@ -14,6 +14,10 @@ file is runtime routing only.
 `audit-report-multi.md` for `all`) / `debug-runbook.md` / `edge-checklist.md`;
 tracked audits also emit a findings-ledger + workflow-state file.
 
+## Boundaries
+
+Do NOT use to DESIGN a new surface from scratch (use dx-design), to audit documentation as a reading surface (use docs-audit), to only tighten one piece prose (use writing-audit), for end-user product UX/accessibility (use ux-audit), for AI/Agent SDK/tool/error/telemetry surfaces an agent consumes (use agent-dx), or for AGENTS.md (use agent-docs).
+
 ## Core principle
 
 **Make the paved path obvious and failure states actionable.** If a competent
@@ -22,13 +26,9 @@ avoidable setup, that is a DX problem worth a finding.
 
 ## Activation
 
-- **Bare invocation** (`"use dx-audit"`, `"DX review"`, `"start"`): load
-  `references/starter-scenarios.csv` and `references/intent-router.csv`, then
-  show the intent menu with named starter scenarios on top and offer the mode
-  choice. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** (`"use dx-audit"`, `"DX review"`, `"start"`): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and surface inferable: skip to step 3.
-- **Concrete invocation with ambiguous scope**: ask one blocker question
-  identifying intent or surface; do not inspect private systems first.
+- **Concrete invocation with ambiguous scope**: ask one — e.g., *"Are you auditing an API, CLI, SDK, or setup flow?"* or *"Is this a usability review or an accessibility pass?"*
 
 ## Workflow
 
@@ -70,6 +70,8 @@ avoidable setup, that is a DX problem worth a finding.
    Fall back to `audit-artifacts/dx-audit-{findings-ledger|workflow-state}-<YYYY-MM-DD>-<scope-slug>.{md|json}`
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and non-tracking edits opt-in.
+
+> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

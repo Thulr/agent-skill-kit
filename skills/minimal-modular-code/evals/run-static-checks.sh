@@ -36,7 +36,7 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --tracking-intent review \
   --calibration-report templates/audit-report.md \
   --require-pattern 'intent-router routing::SKILL.md::intent-router\.csv' \
-  --require-pattern 'bare activation::SKILL.md::show the intent menu' \
+  --require-pattern 'bare activation::SKILL.md::show a compact menu' \
   --require-pattern 'subagent dispatch section::SKILL.md::^## Subagent dispatch' \
   --require-pattern 'three lenses::SKILL.md::three lenses' \
   --require-pattern 'trackable findings reference::SKILL.md::trackable-findings\.md' \

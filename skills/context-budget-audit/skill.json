@@ -1,6 +1,6 @@
 {
   "name": "context-budget-audit",
-  "description": "Use when the user wants to find and remove per-session context/token waste across their local agent setup — unused or idle MCP servers, disabled or unused plugins, unused skills, slash commands, and subagents — to reclaim context. Also covers the narrower \"audit unused or duplicate skills and move keepers into this repo\" task. Triggers on \"what's eating my context\", \"token/context waste\", \"audit my MCP servers / plugins / skills\", \"what am I not using\", \"trim my agent setup\", \"find unused skills\", \"move skills into this repo\". Do NOT use to harden a repo's agent config, hooks, or gates (use harden-repo-for-coding-agents), or for runtime agent observability and trace/eval loops (use agent-ops) — this skill measures and prunes what loads into your agent's per-session context.",
+  "description": "Audit and prune per-session context waste \u2014 MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -25,6 +25,6 @@
   "metadata": {
     "family": "context",
     "function": "singleton",
-    "catalog_summary": "Audit per-session **context/token budget** across your local agent setup — idle MCP servers, disabled/unused plugins, unused skills, slash commands, and subagents. A read-only stdlib Python engine (`scripts/audit_context_budget.py`) inventories each surface, estimates its always-on token cost, scans recent transcripts for genuine usage evidence, and shows a prune-decision view sorted by reclaimable context (idle MCP servers surfaced first as the usual biggest win) alongside the aggregate context footprint by kind. Removal is gated: skills are copy-validate-removed into a repo, command/subagent files deleted on confirmation, and MCP/plugin config edits handed back as commands rather than executed. Provenance in [`skills/context-budget-audit/skill.json`](./skills/context-budget-audit/skill.json)."
+    "catalog_summary": "Audit per-session **context/token budget** across your local agent setup \u2014 idle MCP servers, disabled/unused plugins, unused skills, slash commands, and subagents. A read-only stdlib Python engine (`scripts/audit_context_budget.py`) inventories each surface, estimates its always-on token cost, scans recent transcripts for genuine usage evidence, and shows a prune-decision view sorted by reclaimable context (idle MCP servers surfaced first as the usual biggest win) alongside the aggregate context footprint by kind. Removal is gated: skills are copy-validate-removed into a repo, command/subagent files deleted on confirmation, and MCP/plugin config edits handed back as commands rather than executed. Provenance in [`skills/context-budget-audit/skill.json`](./skills/context-budget-audit/skill.json)."
   }
 }

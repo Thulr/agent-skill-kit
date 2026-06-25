@@ -1,6 +1,6 @@
 ---
 name: context-budget-audit
-description: Use when the user wants to find and remove per-session context/token waste across their local agent setup — unused or idle MCP servers, disabled or unused plugins, unused skills, slash commands, and subagents — to reclaim context. Also covers the narrower "audit unused or duplicate skills and move keepers into this repo" task. Triggers on "what's eating my context", "token/context waste", "audit my MCP servers / plugins / skills", "what am I not using", "trim my agent setup", "find unused skills", "move skills into this repo". Do NOT use to harden a repo's agent config, hooks, or gates (use harden-repo-for-coding-agents), or for runtime agent observability and trace/eval loops (use agent-ops) — this skill measures and prunes what loads into your agent's per-session context.
+description: "Audit and prune per-session context waste — MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'."
 license: MIT
 ---
 
@@ -16,14 +16,28 @@ removal list.
 Context sources audited (`kinds`): `mcp` (MCP servers), `skill`, `command`
 (slash commands), `subagent`, `plugin`.
 
+## Boundaries
+
+Do NOT use to harden a repo's agent config, hooks, or gates (use
+harden-repo-for-coding-agents), or for runtime agent observability and
+trace/eval loops (use agent-ops) — this skill measures and prunes what loads
+into your agent's per-session context.
+
 The normal loop:
 
 1. Run the audit.
 2. The user names items to remove, disable, or move into this repo.
 3. Act per kind (see Act On Named Items), validating before any deletion.
 
-Do not turn bare activation into a menu. If the user invokes this skill or asks
-what they are not using, run the default audit.
+## Activation
+
+- **Bare invocation** (`"use context-budget-audit"`, `"start"`): show a compact
+  menu: mode choice (guided / autopilot / grill me?) and numbered intents from
+  the router. Wait. No file inspection, no network calls, no writes.
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing MCP servers,
+  plugins, skills, or all sources?"* or *"Is this a full context audit or a
+  narrower 'find unused skills and move keepers into this repo' pass?"*
+- **Concrete invocation**: run the default audit.
 
 ## Operating Contract
 
@@ -126,6 +140,10 @@ prefer disabling over deleting cache. Surface the action: disable via the
 removes it from `installed_plugins.json`. Do not hand-delete plugin cache dirs.
 
 Report acted, already-done, recommended-to-user, skipped, and blocked items.
+
+> **Wrong direction?** If the user says this isn't what they meant, go back to
+> Understand (step 1) — do not patch in the wrong direction. Restate the
+> corrected understanding and re-plan.
 
 ## Stop Conditions
 

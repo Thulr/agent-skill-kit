@@ -4,17 +4,82 @@
 
 # agent-skill-kit
 
-**The [Agent Skills](https://agentskills.io) I actually use.** A personal kit for coding-agent work — most grounded in cited sources (so you can check the work), all earned in real use. Skills worth using that I didn't write I link to rather than re-author (see **Skills I also use**, below). Installable with the open ecosystem CLI ([skills.sh](https://skills.sh)).
+**[Agent Skills](https://agentskills.io) I actually use.** Source-grounded, failure-driven, earned in real coding-agent work. Installable with the open ecosystem CLI.
 
 ```bash
 npx skills add justinramos101/agent-skill-kit
 ```
 
-[skills.sh](https://skills.sh) prompts you to pick which skills to install — see [Install](#install) for options.
+## Quickstart
 
-**First use.** Skills activate from natural-language prompts — no command to run. Once installed, ask your agent *"audit my CLI's developer experience"* and `dx-audit` kicks in with a severity-scored findings report; *"design our API's error envelope"* routes to `dx-design`; *"is our llms.txt agent-ready?"* to `agent-docs`. Each skill names the cited sources it applied.
+```bash
+# 1. Install (picks skills interactively)
+npx skills add justinramos101/agent-skill-kit
 
-The kit currently covers software-engineering and coding-agent work — developer and documentation experience, test quality, minimal/modular code, performance and observability, product UX and accessibility, UI craft, and agent experience. More skills I rely on get added as I go.
+# 2. Start using — skills activate from natural language
+# "audit my CLI's developer experience"    → dx-audit
+# "design our API error envelope"           → dx-design
+# "review this UI for anti-slop"            → ui-design
+# "make our repo work with Claude Code"     → harden-repo-for-coding-agents
+```
+
+No commands to memorize. Each skill routes by intent, names its cited sources, and produces a scored, traceable result.
+
+## Install
+
+Pick what you need:
+
+```bash
+# Interactive — browse and choose skills
+npx skills add justinramos101/agent-skill-kit
+
+# Specific skills
+npx skills add justinramos101/agent-skill-kit --skill dx-audit --skill ui-design
+
+# An audit + design pair
+npx skills add justinramos101/agent-skill-kit --skill dx-audit --skill dx-design
+```
+
+Per-agent installs (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider):
+
+```bash
+npx skills add justinramos101/agent-skill-kit -a claude-code -a cursor
+```
+
+See `npx skills --help` for global vs. project scope.
+
+## Why these skills exist
+
+Four problems agent skills solve, and which skill to reach for:
+
+### 1. "This surface feels wrong but I can't name why"
+
+Your API has friction, your docs bury the answer, your tests pass but don't catch bugs.
+
+→ **`dx-audit`**, **`docs-audit`**, **`test-audit`**, **`ux-audit`**, **`writing-audit`**
+Severity-scored findings, playbook-driven, cited sources. Each audit tells you *exactly* what's wrong and how to fix it.
+
+### 2. "I need to design something new — where do I start?"
+
+Blank canvas, no guardrails, easy to build something generic.
+
+→ **`dx-design`**, **`docs-design`**, **`test-design`**, **`ui-design`**, **`writing-design`**
+Each design skill names the good-shaped pattern, produces a concrete artifact, and carries cited heuristics so you're not guessing.
+
+### 3. "My agent keeps making the same mistakes"
+
+Recurring failures in CI, in PRs, in generated code — no feedback loop to capture them.
+
+→ **`rules-from-coding-agent-failures`** (promote patterns into rules/gates)
+→ **`harden-repo-for-coding-agents`** (scaffold AGENTS.md, hooks, CI gates — no eval prereq needed)
+→ **`context-budget-audit`** (prune idle MCP servers, unused skills eating context tokens)
+
+### 4. "I want a second opinion before I ship"
+
+You trust your agent but want independent review from a different model or provider.
+
+→ **`claude-code-cli`**, **`codex-cli`**, **`cursor-cli`**
+Drive an external CLI as an independent second-opinion reviewer. Read-only by default. Reconcile findings against local evidence.
 
 <!-- BEGIN GENERATED: pick-a-skill (scripts/build-catalog.py) -->
 ## Pick a skill
@@ -28,8 +93,8 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 | **Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose | `writing-audit` | `writing-design` |
 | **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
-| **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ux-audit` | `ui-design` |
-| **Artifact ↔ host integration** — embeddable HTML artifacts: the postMessage / persistence-marker / comment-anchor / fixed-canvas / export contract between an artifact and its editing host | → `ui-design` | `artifact-host-integration` |
+| **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ui-design` quality-review | `ui-design` |
+| **Artifact ↔ host integration** — embeddable HTML artifacts: postMessage / persistence / fixed-canvas / direct-edit / export contract with an editing shell | → `ui-design` | `ui-design` (host-integration route) |
 | **Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel | `minimal-modular-code` | `minimal-modular-code` |
 
 For research and agent-facing work:
@@ -40,7 +105,7 @@ For research and agent-facing work:
 | **Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes | `agent-dx` |
 | **Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents | `agent-docs` |
 | **Agent as end-user** — an agent-operable UI / app / computer-use surface | `agent-ux` |
-| **Agent as operator** — observability, trace-and-eval loops, autonomy, reliability (the agent-family front-door) | `agent-ops` |
+| **Agent as operator** — observability, trace-and-eval loops, autonomy, reliability | `agent-ops` |
 | **Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests | `agent-test` |
 | ↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox) | `harden-repo-for-coding-agents` |
 | ↳ promote observed agent failures into rules / gates | `rules-from-coding-agent-failures` |
@@ -66,7 +131,6 @@ Source-grounded heuristics for software surfaces, split so the name says what it
 
 Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout, Parnas, and many more (per-skill provenance in each `skill.json`). The `-audit`/`-design` pairs replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md). `minimal-modular-code` is the family's one singleton — a single skill spanning review and design for code minimality and parallel-readiness; it replaced the former clean-architecture pair (see [`docs/adr/0009`](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md)).
 
-- **`artifact-host-integration`** — Implement the contract between a portable HTML artifact and its editing host — postMessage tweak-panel handshake, on-disk persistence markers, fixed-canvas scaling, speaker-notes sync, comment/scene anchors, direct-edit-ready markup, and standalone bundling/export.
 - **`docs-audit`** *(audit)* — Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure.
 - **`docs-design`** *(design)* — Plan or reshape a docs surface before implementation — information architecture, mode taxonomy, README/quickstart/reference structure, examples strategy, and API/tool-contract docs.
 - **`dx-audit`** *(audit)* — Audit a developer-experience surface (APIs, SDKs, CLIs, errors, setup, auth, packaging, IDE, plugins, telemetry) for friction and score it, or run a pre-ship edge-case risk pass.
@@ -85,7 +149,7 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 
 ### Agent experience (AX)
 
-The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator + the family front-door), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md).
+The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md).
 
 - **`harden-repo-for-coding-agents`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/harden-repo-for-coding-agents/skill.json`](./skills/harden-repo-for-coding-agents/skill.json).
 - **`rules-from-coding-agent-failures`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json).
@@ -110,101 +174,25 @@ Audit and reclaim the per-session context an agent's *local setup* costs — the
 - **`context-budget-audit`** — Audit per-session **context/token budget** across your local agent setup — idle MCP servers, disabled/unused plugins, unused skills, slash commands, and subagents. A read-only stdlib Python engine (`scripts/audit_context_budget.py`) inventories each surface, estimates its always-on token cost, scans recent transcripts for genuine usage evidence, and shows a prune-decision view sorted by reclaimable context (idle MCP servers surfaced first as the usual biggest win) alongside the aggregate context footprint by kind. Removal is gated: skills are copy-validate-removed into a repo, command/subagent files deleted on confirmation, and MCP/plugin config edits handed back as commands rather than executed. Provenance in [`skills/context-budget-audit/skill.json`](./skills/context-budget-audit/skill.json).
 <!-- END GENERATED: catalog -->
 
-## Skills I also use
-
-Good skills I rely on but didn't write — installed from their own homes, linked here rather than re-authored.
-
-<!-- Add entries as you adopt them, e.g.:
-- [`owner/skill-name`](https://github.com/owner/skill-name) — what it's for and when you reach for it.
--->
-
-## Install
-
-From GitHub:
-
-```bash
-npx skills add justinramos101/agent-skill-kit
-```
-
-Target specific skills or agents:
-
-```bash
-npx skills add justinramos101/agent-skill-kit --list
-npx skills add justinramos101/agent-skill-kit --skill dx-audit
-npx skills add justinramos101/agent-skill-kit -a claude-code -a cursor -y
-```
-
-Common bundles:
-
-```bash
-# a domain's audit + design pair
-npx skills add justinramos101/agent-skill-kit --skill dx-audit --skill dx-design
-
-# the agent-mirror family (agent as developer / reader / end-user / operator / subject) + arms
-npx skills add justinramos101/agent-skill-kit --skill agent-dx --skill agent-docs --skill agent-ux \
-  --skill agent-ops --skill agent-test \
-  --skill harden-repo-for-coding-agents --skill rules-from-coding-agent-failures
-
-# research only
-npx skills add justinramos101/agent-skill-kit --skill research
-```
-
-> **Agent skills reorganized by actor (2026-06-19).** The agent half of the catalog is now
-> organized by *actor* (an agent is an actor, not a peer audience): the `design-for-agent-users`
-> umbrella and `agent-evals` retired, decomposing into five role mirrors — `agent-dx`,
-> `agent-docs`, `agent-ux`, `agent-ops`, `agent-test` — alongside the standalone arms
-> `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` that `agent-ops` routes
-> out to. The old `--skill design-for-agent-users` / `--skill agent-evals` commands no longer
-> resolve. See [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md) and [`CHANGELOG.md`](./CHANGELOG.md).
-
-From a subdirectory URL (single skill):
-
-```bash
-npx skills add https://github.com/justinramos101/agent-skill-kit/tree/main/skills/dx-audit
-```
-
-Local checkout:
-
-```bash
-git clone https://github.com/justinramos101/agent-skill-kit.git
-cd agent-skill-kit
-npx skills add . --list
-npx skills add .
-```
-
-Use `-g` / `--global` for user-wide installs; default is project scope. See `npx skills --help`.
-
 ## Layout
 
 | Path | Purpose |
 |------|---------|
-| `constitution.md` | Repo charter: purpose, non-goals, and invariants |
-| `AGENTS.md` | Hand-curated agent instructions for this repo (also surfaced via `CLAUDE.md` + `.github/copilot-instructions.md` symlinks) |
-| `docs/reflection-log/` | One file per observed agent failure; source-of-truth for future rules/gates |
-| `docs/specs/` | Specs/plans for significant work (new skills, schema changes, new gates) |
-| `docs/adr/` | Architectural Decision Records (durable “why”) |
-| `docs/runbooks/` | Maintainer procedures (durable “how”) |
-| `docs/architecture/` | Repo structure reference docs / repo maps |
-| `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
-| `skills/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete |
-| `skills/_shared/` | Cross-skill primitives (e.g. `lenses.md`, `empirical-warnings.md` W2–W10). Each consuming skill symlinks the relevant files; `npx skills` dereferences at install time, shipping self-contained skills. Enforced by `scripts/check-shared-content.sh` |
-| `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
-| `catalog/catalog.json` | Family-level prose + routing matrix for the generated README §Pick a skill / §Catalog. Per-skill summaries live in each `skill.json` (`metadata.catalog_summary`). Rendered by `scripts/build-catalog.py`; the generated blocks are CI-checked, never hand-edited |
-| `scripts/` | Repo-wide scripts: instruction-surface symlink check, schema validator |
-| `skills/.experimental/<name>/` | Reserved lane kept empty for now; current product skills live in `skills/<name>/`, and prerelease maturity is communicated by repository release tags such as `0.0.1-alpha` |
-| `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |
-| `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |
-
-Skills marked internal in frontmatter (`metadata.internal: true`) are hidden unless `INSTALL_INTERNAL_SKILLS=1` is set when using the CLI.
+| `skills/<name>/` | Published skills — each ships `SKILL.md` + `skill.json` + `evals/` |
+| `skills/_shared/` | Cross-skill playbooks, rubrics, lenses. Symlinked by consumers. |
+| `catalog/catalog.json` | Family prose + routing matrix → rendered into the sections above |
+| `docs/adr/` | Architectural Decision Records |
+| `docs/reflection-log/` | One file per observed agent failure |
+| `docs/runbooks/` | Maintainer procedures |
+| `docs/templates/example-minimal/` | Template contract: minimum artifacts every skill must ship |
+| `schemas/` | JSON Schemas for `skill.json` and `trigger-evals.json` |
+| `scripts/` | Build, check, and validation scripts |
+| `AGENTS.md` | Hand-curated agent instructions (also surfaced via `CLAUDE.md` symlink) |
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for adding or changing a skill, the
-`just check` gate that must pass before every commit and PR, the reflection-log
-workflow, and how to install a local checkout while developing. Work in this repo
-starts from [`AGENTS.md`](./AGENTS.md), and changes are tracked in
-[`CHANGELOG.md`](./CHANGELOG.md).
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for adding or changing a skill, the `just check` gate, and how to install a local checkout while developing. Work starts from [`AGENTS.md`](./AGENTS.md). Changes tracked in [`CHANGELOG.md`](./CHANGELOG.md).
 
 ## License
 
-See [LICENSE](./LICENSE). Individual skills may declare different terms; third-party notices live in [THIRD_PARTY.md](./THIRD_PARTY.md).
+[LICENSE](./LICENSE). Individual skills may declare different terms; third-party notices live in [THIRD_PARTY.md](./THIRD_PARTY.md).

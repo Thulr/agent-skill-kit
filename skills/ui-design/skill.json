@@ -1,13 +1,23 @@
 {
   "name": "ui-design",
-  "description": "Use to PRODUCE or polish user-facing visual UI \u2014 design a product screen or dashboard, author a design system with tokens and components, build an interactive prototype, make a slide deck, add motion or atmospheric effects, prepare a design for handoff, or run an anti-slop visual self-review. Triggers on \"make this UI look better\", \"design a dashboard\", \"build a frontend mockup\", \"prototype this flow\", \"author a design system\", \"make a deck\", \"add motion\", \"prepare handoff\", \"review visual craft\". Emits a runnable or viewable visual artifact plus a design brief. Do NOT use to AUDIT an existing interface's usability or accessibility with no new visual design (use ux-audit); do NOT use for developer-facing API/SDK/CLI surfaces (use dx-design); do NOT use for the artifact-host integration contract (use artifact-host-integration).",
+  "description": "Use to PRODUCE or polish user-facing visual UI \u2014 design a product screen or dashboard, author a design system with tokens and components, build an interactive prototype, make a slide deck, add motion or atmospheric effects, prepare a design for handoff, or run an anti-slop visual self-review. Triggers on make this UI look better, design a dashboard, build a frontend mockup, prototype this flow, author a design system, make a deck, add motion, prepare handoff, review visual craft. Do NOT use for UX/accessibility audit (use ux-audit) or developer-facing surfaces (use dx-design).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
-  "maintainers": ["@justinramos101"],
+  "maintainers": [
+    "@justinramos101"
+  ],
   "tags": [
-    "ui", "visual-design", "product-design", "frontend", "prototype",
-    "design-system", "motion", "decks", "handoff", "artifact-host"
+    "ui",
+    "visual-design",
+    "product-design",
+    "frontend",
+    "prototype",
+    "design-system",
+    "motion",
+    "decks",
+    "handoff",
+    "artifact-host"
   ],
   "inspired_by": [
     {
@@ -16,7 +26,14 @@
       "kind": "notes",
       "year": 2026,
       "contribution": "Seven-stage design workflow, focused question rounds, visual craft rules, component conventions, output-format choices, motion patterns, and anti-slop review heuristics.",
-      "playbooks": ["product-ui", "design-system", "prototype", "deck", "motion-scene", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "prototype",
+        "deck",
+        "motion-scene",
+        "quality-review"
+      ]
     },
     {
       "name": "Claude design host integration source pack",
@@ -24,7 +41,11 @@
       "kind": "notes",
       "year": 2026,
       "contribution": "Artifact-host protocols for tweak panels, fixed-canvas scaling, speaker notes, direct edit, mentioned elements, bundling, export, and handoff.",
-      "playbooks": ["prototype", "deck", "host-handoff"]
+      "playbooks": [
+        "prototype",
+        "deck",
+        "host-handoff"
+      ]
     },
     {
       "name": "10 Usability Heuristics for User Interface Design",
@@ -33,7 +54,11 @@
       "year": 1994,
       "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
       "contribution": "Heuristic framing for system status, real-world language, user control, consistency, error prevention, recognition, flexibility, minimalist design, recovery, and help.",
-      "playbooks": ["product-ui", "prototype", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "prototype",
+        "quality-review"
+      ]
     },
     {
       "name": "The Design of Everyday Things",
@@ -41,7 +66,11 @@
       "kind": "book",
       "year": 1988,
       "contribution": "Affordances, signifiers, feedback, constraints, and mental-model alignment for interface decisions.",
-      "playbooks": ["product-ui", "prototype", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "prototype",
+        "quality-review"
+      ]
     },
     {
       "name": "Web Content Accessibility Guidelines (WCAG) 2.2",
@@ -50,7 +79,12 @@
       "year": 2023,
       "url": "https://www.w3.org/TR/WCAG22/",
       "contribution": "Accessibility baseline for perceivable, operable, understandable, and robust UI; informs focus, contrast, motion, and verification boundaries.",
-      "playbooks": ["product-ui", "prototype", "motion-scene", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "prototype",
+        "motion-scene",
+        "quality-review"
+      ]
     },
     {
       "name": "GOV.UK Design System",
@@ -59,7 +93,11 @@
       "year": null,
       "url": "https://design-system.service.gov.uk/",
       "contribution": "Component and pattern guidance with coded examples; reinforces system-first composition and task-specific patterns.",
-      "playbooks": ["product-ui", "design-system", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "quality-review"
+      ]
     },
     {
       "name": "Human Interface Guidelines",
@@ -68,7 +106,11 @@
       "year": null,
       "url": "https://developer.apple.com/design/human-interface-guidelines/",
       "contribution": "Visual hierarchy, platform consistency, layout adaptation, and motion guidance for polished interface behavior.",
-      "playbooks": ["product-ui", "motion-scene", "quality-review"]
+      "playbooks": [
+        "product-ui",
+        "motion-scene",
+        "quality-review"
+      ]
     },
     {
       "name": "Material Design 3 Foundations",
@@ -77,13 +119,17 @@
       "year": null,
       "url": "https://m3.material.io/foundations",
       "contribution": "Foundational vocabulary for color, typography, motion, interaction states, and component-system consistency.",
-      "playbooks": ["product-ui", "design-system", "motion-scene"]
+      "playbooks": [
+        "product-ui",
+        "design-system",
+        "motion-scene"
+      ]
     }
   ],
   "metadata": {
     "family": "heuristics",
     "function": "design",
-    "catalog_summary": "Produce or polish user-facing visual UI — product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.",
+    "catalog_summary": "Produce or polish user-facing visual UI \u2014 product screens and dashboards, design systems with tokens, interactive prototypes, motion, slide decks, and artifact handoff.",
     "shape": "single-layer",
     "classification": "workflow-aware",
     "source_paths": [

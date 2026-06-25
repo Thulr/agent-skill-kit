@@ -79,7 +79,7 @@ CI runs `just check` equivalents on every PR; see [`.github/workflows/ci.yml`](.
 ## Maintainer workflows
 
 - Adding a skill: follow [`docs/runbooks/adding-a-skill.md`](./docs/runbooks/adding-a-skill.md);
-  start with `npx skills init <skill-name>` or `skills/example-minimal/`, update
+  start with `npx skills init <skill-name>` or `docs/templates/example-minimal/`, update
   discovery docs when needed, then run `just check`.
 - Changing shared schemas: follow [`docs/runbooks/changing-shared-schemas.md`](./docs/runbooks/changing-shared-schemas.md);
   edit `schemas/`, migrate affected skill files in the same PR, update this file only
@@ -106,7 +106,7 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
 - `evals/trigger-evals.json` — canonical schema below.
 - `evals/activation-cases.md` — natural-language behavioral cases (positive, negative, boundary).
 
-`skills/example-minimal/` is the **template contract**: anything required of
+`docs/templates/example-minimal/` is the **template contract**: anything required of
 published skills must exist there too, even as a minimal placeholder.
 
 ## Canonical `trigger-evals.json` schema
@@ -173,10 +173,10 @@ checked (caught in PR #5 review), and the maintainer-handle validator was
 copy-pasted across four `run-static-checks.sh` scripts (caught in PR #7
 review). The second occurrence triggered the extraction to `schemas/`.
 
-### Rule 3 — `example-minimal` is the template contract (`docs/reflection-log/2026-05-15-example-minimal-missing-evals-dir.md`)
-Whatever published skills are required to have, `example-minimal` must
+### Rule 3 — `docs/templates/example-minimal/` is the template contract (`docs/reflection-log/2026-05-15-example-minimal-missing-evals-dir.md`)
+Whatever published skills are required to have, `docs/templates/example-minimal/` must
 have too — even as an empty placeholder. New contributors copy from
-`example-minimal`; if it skips a gate, every skill templated from it skips
+`docs/templates/example-minimal/`; if it skips a gate, every skill templated from it skips
 that gate.
 
 ### Rule 4 — Identity fields are resolvable handles (`docs/reflection-log/2026-05-15-codeowners-opaque-maintainer-handle.md`)

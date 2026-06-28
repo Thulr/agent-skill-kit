@@ -1,6 +1,6 @@
 {
   "name": "rules-from-coding-agent-failures",
-  "description": "Capture agent failures, promote patterns into rules, and score Level 4-5 maturity. Triggers: 'reflection log', 'set up a feedback loop'.",
+  "description": "Capture agent failures, triage logs into closure work, promote patterns into durable fixes, and verify closeout. Triggers: 'reflection log'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -86,6 +86,6 @@
     "family": "ax",
     "function": "singleton",
     "catalog_order": 3,
-    "catalog_summary": "Capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test."
+    "catalog_summary": "Capture observed agent failures in a per-file reflection log, triage accumulated entries into failure-mode clusters, promote recurring patterns into durable fixes, and verify closeout. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test."
   }
 }

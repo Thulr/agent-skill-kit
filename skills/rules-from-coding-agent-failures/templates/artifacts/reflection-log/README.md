@@ -101,15 +101,39 @@ related: []                   # list of other entry filenames (without .md), or 
 ---
 ```
 
-## Promotion path
+## Promotion and closeout path
 
-- **≥3 entries describing the same gap** → open an issue tagged `agent-surface`.
-- **Resolved by an instruction** → add the sentence to `AGENTS.md` (or a
-  relevant `SKILL.md`); set `status: resolved` and fill `## Closed by` with
-  the PR / commit SHA.
-- **Resolved by a gate** → add the hook / CI check; set `status: resolved`.
-- **Resolved by removing the ambiguity** → fix the underlying code, doc, or
-  path; set `status: resolved`.
+- **≥3 entries describing the same gap** → triage the cluster and open an issue
+  tagged `agent-surface` or draft a closure plan.
+- **Promoted into an instruction** → add the sentence to `AGENTS.md` (or a
+  relevant `SKILL.md`) and record the verification rule; leave cited entries
+  open until closeout verifies the change.
+- **Promoted into a gate** → add the hook / CI check and regression fixture;
+  leave cited entries open until the gate passes in closeout.
+- **Promoted by removing ambiguity** → fix the underlying code, doc, or path;
+  leave cited entries open until closeout inspects evidence.
+
+## Closing the loop
+
+A reflection log is not a feedback loop until it changes a future agent run.
+When this directory has accumulated several entries, run a triage pass before
+adding more process:
+
+1. Cluster entries by `sub-surface:` and root cause (missing context, missing
+   verification, unsafe action, skill failure, tool limitation, etc.).
+2. For each cluster, name the closure surface: `AGENTS.md`, `SKILL.md`, a
+   playbook, eval/trigger case, test fixture, hook, CI gate, source-doc fix, or
+   roadmap package.
+3. Attach a verification rule before implementing: command output, static check,
+   regression fixture, browser/tool run, review evidence, or trace comparison.
+4. Mark entries `status: resolved` only during closeout, after the verification rule passes; a
+   merged issue or PR is evidence to inspect, not proof by itself.
+
+Use the templates in this skill for batch work:
+
+- `triage-report.md` — failure-mode clusters and closure queue.
+- `closure-plan.md` — one cluster's durable change and verification rule.
+- `closeout-report.md` — verification evidence and entries that can be resolved.
 
 ## Index
 

@@ -69,6 +69,15 @@ Default flow:
 
 `audit report -> findings ledger + workflow state -> roadmap -> selected GitHub issues -> closeout pass`
 
+Loop-closure flow:
+
+`signal artifact -> cluster failure modes -> work packages -> artifact changes -> verification closeout -> scoreboard`
+
+A tracking artifact is useful only if it can change the next run. If the
+workflow stops at a ledger, report, dashboard, or reflection log, call that out
+as **open loop** and propose the smallest closure path before adding more
+findings.
+
 Use the smallest artifact set the user needs:
 
 - `templates/findings-ledger.md` is the source of truth for all findings.
@@ -98,6 +107,47 @@ For 7+ findings, offer the ledger + workflow-state pair first unless the
 consuming skill explicitly says to create them by default. For 15+ findings,
 group before making issues. Avoid one issue per finding unless the user
 explicitly wants that.
+
+## Loop Closure Contract
+
+Every skill that emits a durable signal artifact should be able to answer five
+questions before it claims the loop is closed:
+
+1. **Signal artifact** - where observations accumulate: a findings ledger,
+   workflow-state JSON, reflection log, trace export, design state, eval report,
+   or issue list.
+2. **Interpretation method** - how observations become categories: severity,
+   surface, failure-mode ontology, repeated deferral, user-journey step, trace
+   span, or root cause.
+3. **Closure surface** - what durable artifact can change the next run: tests,
+   eval cases, `AGENTS.md`, `SKILL.md`, playbooks, hooks, CI, docs, tool schema,
+   prompt, product workflow, or roadmap package.
+4. **Verification rule** - what evidence proves the change worked: command
+   output, static check, browser/tool run, eval rerun, human review, diff link,
+   or trace comparison.
+5. **Progress view** - how the user sees momentum: the since-last-run
+   scoreboard plus the remaining open clusters or findings.
+
+When a user asks "now what?", "close the loop", "what do we do with these?",
+or references a pile of existing observations, do not emit another flat report.
+Resume from the signal artifact, cluster recurring failure modes, create
+reviewable work packages, and attach one verification rule to each package.
+
+## Closure Surfaces
+
+Pick the lowest-maintenance artifact that changes future behavior:
+
+| Signal says... | Prefer closing with... | Verification example |
+|---|---|---|
+| Same defect recurs in code or tests | Regression test, eval case, or fixture | The formerly failing case fails before and passes after. |
+| Agent repeats an instruction miss | `AGENTS.md`, `SKILL.md`, or playbook patch | Static checks pass; cited failure entries justify the wording. |
+| Agent skips a must-run step | Hook, CI gate, script, or deterministic check | Regression fixture exercises the skipped-step path. |
+| Users hit unclear product behavior | Product requirement, UX issue, or roadmap package | Browser/user-journey verification or accepted design review. |
+| A finding needs external prioritization | Roadmap work package or GitHub issue | Issue links the finding IDs and done-when evidence. |
+
+Avoid closing a loop by adding only more prose. If prose is the right surface,
+keep it minimal, cite the signal artifacts that justify it, and include a
+future verification path.
 
 ## Work Packages
 

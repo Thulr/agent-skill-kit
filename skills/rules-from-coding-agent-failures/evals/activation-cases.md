@@ -18,7 +18,24 @@ wired).
    - Proposes the smallest closing change for each, preferring hook > CI gate > AGENTS.md rule (W3).
    - Refuses to act on groups < 3 (W1 floor).
 
-3. **"Score our repo against Level 4 / Level 5 of the Engineering Agents maturity rubric."** → `assess-l4l5`
+3. **"We have 30 reflection-log entries; what do we do with them?"** → `triage`
+   - Loads the whole reflection log and `references/trackable-findings.md`.
+   - Clusters entries into failure modes, not only `sub-surface:` counts.
+   - Emits a closure queue with closure surface + verification rule per cluster.
+   - Does not write AGENTS.md, hooks, skills, or issues during triage unless asked.
+
+4. **"Turn our agent-failure reflections into skill, eval, or rule changes."** → `promote`
+   - Requires a chosen cluster or performs triage first if no cluster is named.
+   - Routes the closure to the smallest durable artifact: AGENTS.md, SKILL.md,
+     playbook, eval/trigger case, test, hook, CI gate, docs fix, or roadmap item.
+   - Cites the three-plus entries that justify any durable rule/gate/skill change.
+
+5. **"Close out the reflection-log entries fixed by this PR."** → `closeout`
+   - Reads the referenced entries, PR/diff, and any closure plan.
+   - Re-runs the narrow verification rule before changing entry status.
+   - Marks only verified entries `resolved`; leaves others open as `needs_evidence` or `blocked`.
+
+6. **"Score our repo against Level 4 / Level 5 of the Engineering Agents maturity rubric."** → `assess-l4l5`
    - Requires user to confirm current Level 1–3 score (from `harden-repo-for-coding-agents`).
    - Refuses if Level 1–3 < 3 (fix lower-level gaps first).
    - Otherwise scores Levels 4–5 against `references/core/maturity-rubric.md`.
@@ -27,15 +44,15 @@ wired).
      and `rules-from-coding-agent-failures-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
      under `docs/audits/`, or the matching `audit-artifacts/` fallback.
 
-4. **"Find any sub-surfaces with 3+ entries and propose a rule that closes the gap."** → `promote`
+7. **"Find any sub-surfaces with 3+ entries and propose a rule that closes the gap."** → `promote`
    - Explicit invocation of the promote workflow; no ambiguity.
 
-5. **"Promote these hook bypass entries into a gate."** → `promote`
+8. **"Promote these hook bypass entries into a gate."** → `promote`
    - Loads `references/playbooks/gate-hardening.md`.
    - Requires a variant matrix, regression fixture, and CI binding before
      calling the gate complete.
 
-6. **"Are we at Sovereign Engineering level yet?"** → `assess-l4l5`
+9. **"Are we at Sovereign Engineering level yet?"** → `assess-l4l5`
    - Maps to Level 5 specifically; same workflow as `assess-l4l5`.
    - Reports both saved tracking paths when artifact thresholds are met; does
      not merely offer to create them.
@@ -63,3 +80,8 @@ wired).
    then run this skill's `promote` workflow to layer in rules derived
    from the reflection log. State this explicitly rather than picking
    one.
+
+3. **"Set up agent logging from scratch."** — ambiguous wording. If the user means
+   a reflection log for human-recorded agent failures, use `capture`; if they mean
+   runtime telemetry, traces, dashboards, or product observability, route to
+   `agent-test` / `agent-ops` instead.

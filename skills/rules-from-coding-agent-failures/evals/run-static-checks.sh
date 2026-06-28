@@ -108,6 +108,13 @@ if grep -q "A log is not a loop" SKILL.md &&
 else
   err "SKILL.md must cover triage/promote/closeout loop closure"
 fi
+if grep -q "Closeout owns status changes" references/playbooks/reflection-log.md &&
+   grep -q 'do \*\*not\*\* set `status: resolved`' references/playbooks/reflection-log.md &&
+   grep -q 'Mark cited entries `status: resolved`' references/playbooks/reflection-log.md; then
+  ok "reflection-log playbook keeps promote from resolving entries before closeout"
+else
+  err "reflection-log playbook must keep promote from resolving entries before closeout"
+fi
 
 # 8b. Tracking artifacts for assess-l4l5 findings
 for f in templates/findings-ledger.md templates/workflow-state.json; do

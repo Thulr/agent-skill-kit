@@ -89,10 +89,10 @@ naming.
   entries that justify it (by filename, in the commit message and
   optionally in the AGENTS.md rule itself). Reviewers verify W1
   compliance by reading those citations.
-- **H4.** Set every cited entry's `status:` to `resolved` and fill
-  `## Closed by` in the same commit. Open entries that contributed
-  to a resolved pattern create false signal for the next `promote`
-  pass.
+- **H4.** Closeout owns status changes. During `promote`, emit the durable
+  change plus a closure plan that names the verification rule and cited entries;
+  do **not** set `status: resolved` or fill `## Closed by`. An implemented PR,
+  issue, or rule is evidence for `closeout` to inspect, not proof by itself.
 - **H5.** If the recurring gap is *architectural boundary violations*
   (layer-skipping, wrong-direction dependencies, forbidden imports,
   cycles), prefer structural fixes: architecture lints/tests as
@@ -106,6 +106,18 @@ naming.
   gate, citing the absence of recent entries. Promotion is monotonic
   only if you never prune — and monotonic addition is how an `AGENTS.md`
   accretes contradictory, stale rules.
+
+### closeout
+
+- **H1.** Re-run the verification rule from the closure plan before changing
+  any reflection-log entry. Accept concrete evidence: command output, static
+  check, regression fixture, browser/tool run, review evidence, or trace
+  comparison.
+- **H2.** Mark cited entries `status: resolved` and fill `## Closed by` only
+  after verification passes. If the implementation landed but evidence is
+  missing, leave entries open and label the cluster `needs_evidence`.
+- **H3.** Emit a closeout report: entries resolved, entries left open, blockers,
+  and the since-last-run scoreboard when prior state exists.
 
 ### assess-l4l5
 

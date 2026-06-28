@@ -88,13 +88,26 @@ else
 fi
 
 # 8. Artifact templates for the reflection-log directory
-for f in templates/artifacts/reflection-log/README.md templates/artifacts/reflection-log/_template.md; do
+for f in \
+  templates/artifacts/reflection-log/README.md \
+  templates/artifacts/reflection-log/_template.md \
+  templates/artifacts/reflection-log/triage-report.md \
+  templates/artifacts/reflection-log/closure-plan.md \
+  templates/artifacts/reflection-log/closeout-report.md; do
   if [ -f "$f" ]; then
     ok "artifact template present: $f"
   else
     err "artifact template missing: $f"
   fi
 done
+if grep -q "A log is not a loop" SKILL.md &&
+   grep -q "triage" SKILL.md &&
+   grep -q "closeout" SKILL.md &&
+   grep -q "verification rule" SKILL.md; then
+  ok "SKILL.md covers triage/promote/closeout loop closure"
+else
+  err "SKILL.md must cover triage/promote/closeout loop closure"
+fi
 
 # 8b. Tracking artifacts for assess-l4l5 findings
 for f in templates/findings-ledger.md templates/workflow-state.json; do

@@ -111,6 +111,28 @@ related: []                   # list of other entry filenames (without .md), or 
 - **Resolved by removing the ambiguity** → fix the underlying code, doc, or
   path; set `status: resolved`.
 
+## Closing the loop
+
+A reflection log is not a feedback loop until it changes a future agent run.
+When this directory has accumulated several entries, run a triage pass before
+adding more process:
+
+1. Cluster entries by `sub-surface:` and root cause (missing context, missing
+   verification, unsafe action, skill failure, tool limitation, etc.).
+2. For each cluster, name the closure surface: `AGENTS.md`, `SKILL.md`, a
+   playbook, eval/trigger case, test fixture, hook, CI gate, source-doc fix, or
+   roadmap package.
+3. Attach a verification rule before implementing: command output, static check,
+   regression fixture, browser/tool run, review evidence, or trace comparison.
+4. Mark entries `status: resolved` only after the verification rule passes; a
+   merged issue or PR is evidence to inspect, not proof by itself.
+
+Use the templates in this skill for batch work:
+
+- `triage-report.md` — failure-mode clusters and closure queue.
+- `closure-plan.md` — one cluster's durable change and verification rule.
+- `closeout-report.md` — verification evidence and entries that can be resolved.
+
 ## Index
 
 Filename order = chronological order. To get a table view: `ls -1 [0-9]*.md`.

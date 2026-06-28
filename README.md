@@ -70,7 +70,7 @@ Each design skill names the good-shaped pattern, produces a concrete artifact, a
 
 Recurring failures in CI, in PRs, in generated code — no feedback loop to capture them.
 
-→ **`rules-from-coding-agent-failures`** (promote patterns into rules/gates)
+→ **`rules-from-coding-agent-failures`** (triage reflections into closure work, then promote/verify fixes)
 → **`harden-repo-for-coding-agents`** (scaffold AGENTS.md, hooks, CI gates — no eval prereq needed)
 → **`context-budget-audit`** (prune idle MCP servers, unused skills eating context tokens)
 
@@ -108,7 +108,7 @@ For research and agent-facing work:
 | **Agent as operator** — observability, trace-and-eval loops, autonomy, reliability | `agent-ops` |
 | **Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests | `agent-test` |
 | ↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox) | `harden-repo-for-coding-agents` |
-| ↳ promote observed agent failures into rules / gates | `rules-from-coding-agent-failures` |
+| ↳ turn observed agent failures into closure work, rules, gates, or skill/eval fixes | `rules-from-coding-agent-failures` |
 | **Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects | `codex-cli` |
 | **Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview | `claude-code-cli` |
 | **Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent` | `cursor-cli` |
@@ -152,7 +152,7 @@ Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE
 The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md).
 
 - **`harden-repo-for-coding-agents`** — assess, harden, scaffold, and diagnose a repository's agent-readiness for AI coding harnesses (Claude Code, Cursor, Codex, Copilot, Windsurf, Aider). Harness-agnostic and portable-first; no eval/telemetry prerequisite — it scaffolds from project knowledge (stack, layout, commands, invariants). Start here for first-pass scaffolding. Provenance in [`skills/harden-repo-for-coding-agents/skill.json`](./skills/harden-repo-for-coding-agents/skill.json).
-- **`rules-from-coding-agent-failures`** — capture observed agent failures in a per-file reflection log and promote recurring patterns into AGENTS.md rules / hooks / CI gates via the W1 ≥3-entry floor. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json).
+- **`rules-from-coding-agent-failures`** — capture observed agent failures in a per-file reflection log, triage accumulated entries into failure-mode clusters, promote recurring patterns into durable fixes, and verify closeout. For teams with a feedback signal — eval suites, run-level telemetry, A/B baselines, or a skill catalog under test. Provenance in [`skills/rules-from-coding-agent-failures/skill.json`](./skills/rules-from-coding-agent-failures/skill.json).
 - **`agent-docs`** — Agent-as-reader: the agent-native documentation an AI agent reads and acts on — DO (write/fix an AGENTS.md, llms.txt, tool description, machine-readable reference, or context budget), REVIEW (audit findability, chunk survivability, trigger clarity, and budget, then score it), DESIGN (shape the AGENTS.md contract, curated index, tool descriptions, reference, or budget tiers). Narrowed to agent-native artifacts; human/dual-audience docs stay in docs-audit / docs-design.
 - **`agent-dx`** — Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe — DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). Sits atop the human HTTP-client floor in dx-audit / dx-design.
 - **`agent-ops`** — Agent-as-operator and the agent-family front-door: operate a running agent system — DO (wire observability/loop/autonomy/budgets/gates), REVIEW (audit observability, optimization loop, autonomy controls, reliability/cost, and maturity, then score it), DESIGN (shape the loop, gate autonomy, decompose the release gate, place maturity and route work to siblings). Operates what agent-dx instruments; routes building out to the family.

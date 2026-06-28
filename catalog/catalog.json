@@ -26,7 +26,7 @@
         {"need": "**Agent as operator** — observability, trace-and-eval loops, autonomy, reliability", "skill": "`agent-ops`"},
         {"need": "**Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests", "skill": "`agent-test`"},
         {"need": "↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox)", "skill": "`harden-repo-for-coding-agents`"},
-        {"need": "↳ promote observed agent failures into rules / gates", "skill": "`rules-from-coding-agent-failures`"},
+        {"need": "↳ turn observed agent failures into closure work, rules, gates, or skill/eval fixes", "skill": "`rules-from-coding-agent-failures`"},
         {"need": "**Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects", "skill": "`codex-cli`"},
         {"need": "**Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview", "skill": "`claude-code-cli`"},
         {"need": "**Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent`", "skill": "`cursor-cli`"},

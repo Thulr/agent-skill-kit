@@ -51,6 +51,8 @@ the deletion guardrail.
   located and reused; the duplication is of *intent*, not just text.
 - **Reckless deletion** — "dead-looking" code removed without finding why it was added;
   the guard clause was load-bearing.
+- **False subtraction** — tests, validation, error paths, or guards removed to make the
+  diff shorter even though they still protect a contract or production invariant.
 
 ## Heuristics
 
@@ -74,7 +76,9 @@ the deletion guardrail.
 - **(do, review) Concise is not terse.** "No wasted elements" is the bar; do not trade
   clarity for a clever one-liner or a shorter character count (see `legibility.md`).
 - **(do) Gate deletion on understanding.** Before removing code, find why it exists (blame,
-  tests, linked issue); remove only once the reason is understood or proven obsolete.
+  tests, linked issue); remove only once the reason is understood and proven obsolete or
+  preserved by an equivalent invariant. "Not part of this change" is not enough evidence
+  to delete a guard, test, validation, error path, or boundary.
 - **(design) Do not oversell simplicity.** Minimalism removes accidental complexity; the
   problem's essential difficulty remains and is the real work.
 

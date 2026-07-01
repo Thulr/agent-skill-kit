@@ -32,6 +32,8 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --require-file templates/explanation.md \
   --require-file templates/findings-ledger.md \
   --require-file templates/workflow-state.json \
+  --require-file evals/behavior-cases.json \
+  --require-file evals/behavior-eval.md \
   --tracking-report templates/audit-report.md \
   --tracking-intent review \
   --calibration-report templates/audit-report.md \
@@ -44,3 +46,6 @@ python3 "$repo_root/scripts/check-skill-static.py" \
   --require-pattern 'audit report preserves fallback path::templates/audit-report.md::audit-artifacts/minimal-modular-code-' \
   --require-pattern 'report has Later/as-it-grows bucket::templates/audit-report.md::as it grows' \
   --require-pattern 'minimalism playbook H1::references/playbooks/minimalism.md::^# Minimalism Playbook'
+
+python3 "$repo_root/scripts/check-minimal-modular-behavior-evals.py" \
+  "$skill_dir/evals/behavior-cases.json"

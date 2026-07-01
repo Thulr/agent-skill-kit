@@ -67,6 +67,11 @@ a present need forces rather than a prescribed target architecture.
   them travel inward. A foreign type surviving more than one boundary inward is a leak.
 - **(design) Place an interface in the layer that owns the abstraction**, not the one that
   implements it; the implementation depends on the interface, not the reverse.
+- **(do) Keep patch snippets complete at the boundary they introduce.** If the answer shows
+  a port or adapter in code, include the imports for newly referenced local types. With
+  partial context, prefer concise guidance over invented multi-file snippets; keep uncertain
+  adapter details conceptual and say their import paths depend on the repo. An incomplete
+  snippet is not a safe minimal patch.
 - **(do, design) Hide the likely-to-change decision.** Choose the boundary by what should
   be hidden behind it, so callers are insulated from the volatile part.
 - **(design) Keep one concept per unit.** If a module is hard to name, it is probably

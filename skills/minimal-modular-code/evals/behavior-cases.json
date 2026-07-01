@@ -1,0 +1,96 @@
+{
+  "skill": "minimal-modular-code",
+  "version": "0.1.0",
+  "description": "Behavior eval cases for the distinction that minimal code is concise, reused, modular, and safe rather than shortcut-driven.",
+  "criteria": {
+    "reuse_first": "The answer searches for or uses existing code before proposing new code, and does not praise duplicate local helpers just because they are small.",
+    "shortcut_resistance": "The answer rejects unsafe shortcuts such as deleting tests, dropping error handling, hiding behavior, or optimizing for raw line count.",
+    "deletion_safety": "The answer requires understanding why code exists before removing it, and preserves or replaces load-bearing behavior.",
+    "legibility": "The answer treats concise as no wasted semantic elements, not terse code golf, cryptic names, or hidden control flow.",
+    "scope_control": "The answer makes the smallest safe change that fixes the requested behavior and preserves unrelated semantics, names, control flow, and interfaces.",
+    "boundary_discipline": "The answer protects present-need modular boundaries, dependency direction, and information hiding instead of collapsing modules to reduce files or lines.",
+    "right_sizing": "The answer avoids speculative ceremony while keeping malleability, tests, gates, and seams that the present requirement actually needs."
+  },
+  "cases": [
+    {
+      "id": "reuse-before-local-helper",
+      "expected_route": "review/minimalism",
+      "prompt": "A patch adds a new parse_int_list helper. The repo already has parsing.parse_comma_separated_ints with the same behavior. Give concise code review guidance for this patch.",
+      "expected_behavior": "Recommend reusing or composing the existing parsing helper, or explain the search that proved it does not fit. Do not approve a duplicate helper only because it is tiny.",
+      "failure_modes": ["clone-and-tweak", "missed-reuse", "false-minimalism"],
+      "criteria": ["reuse_first", "shortcut_resistance", "right_sizing"],
+      "example_pass": "Reuse parsing.parse_comma_separated_ints or wrap it only if the caller needs a clearer name. The new helper duplicates an existing decision, so the minimal patch deletes it and adds only the call-site wiring.",
+      "example_fail": "Keep the new helper because it is only three lines and local code is easier than searching the repo."
+    },
+    {
+      "id": "no-code-golf",
+      "expected_route": "do/legibility",
+      "prompt": "Make this validation function as short as possible, even if the shorter version is harder to read. What should the code review advise?",
+      "expected_behavior": "Reject code golf. Preserve precise names and visible control flow; remove wasted elements without making the code cryptic.",
+      "failure_modes": ["terse-not-concise", "hidden-control-flow", "confusion"],
+      "criteria": ["legibility", "shortcut_resistance"],
+      "example_pass": "Do not compress it into a clever one-liner. Remove duplicated branches and keep the validation phases named, because concise means fewer semantic elements, not fewer characters.",
+      "example_fail": "Use nested ternaries and one-letter variables so the function fits on one line."
+    },
+    {
+      "id": "do-not-delete-safety-net",
+      "expected_route": "do/minimalism",
+      "prompt": "The guard clause for an empty customer id and its tests make the diff larger. Can we delete them so the change stays minimal?",
+      "expected_behavior": "Do not delete safety behavior for line count. First identify why the guard exists; keep it, replace it with an equivalent invariant, or remove it only after proving it obsolete.",
+      "failure_modes": ["reckless-deletion", "dropped-error-path", "false-minimalism"],
+      "criteria": ["deletion_safety", "shortcut_resistance", "right_sizing"],
+      "example_pass": "Keep the guard unless blame, tests, or the current contract prove the empty-id case is impossible. If a stronger upstream invariant exists, move the check there and keep a test for the contract.",
+      "example_fail": "Delete the guard and tests; fewer branches is more minimal."
+    },
+    {
+      "id": "yagni-vs-malleability",
+      "expected_route": "design/boundaries",
+      "prompt": "Use YAGNI to avoid adding the interface that keeps our domain code from importing ORM types. Is that the minimal choice?",
+      "expected_behavior": "Distinguish speculative feature work from a present-need boundary. If ORM types would leak into stable domain code, add the smallest stable-side interface or adapter; avoid broader architecture ceremony.",
+      "failure_modes": ["wrong-direction-dependency", "misapplied-yagni", "leaky-boundary"],
+      "criteria": ["boundary_discipline", "right_sizing"],
+      "example_pass": "YAGNI cuts speculative features, not the seam that prevents domain code from depending on ORM volatility. Add the minimal stable-side interface and skip unrelated ports or layers.",
+      "example_fail": "Skip the interface because all abstractions are over-engineering."
+    },
+    {
+      "id": "preserve-modular-concepts",
+      "expected_route": "design/boundaries",
+      "prompt": "Can we reduce files by merging the billing adapter, domain pricing policy, and API handler into one module?",
+      "expected_behavior": "Do not collapse independent concepts for file count. Keep adapters at the edge, domain policy separate, and API wiring thin; remove only shallow pass-through structure that has no present purpose.",
+      "failure_modes": ["braided-module", "line-count-optimization", "leaky-adapter"],
+      "criteria": ["boundary_discipline", "legibility", "right_sizing"],
+      "example_pass": "Keep the adapter, policy, and handler separate because they change for different reasons. If any layer only passes values through, fold that one in, but do not braid domain policy with HTTP or vendor concerns.",
+      "example_fail": "Merge them into one file because fewer files are easier for agents to read."
+    },
+    {
+      "id": "internal-does-not-mean-unsafe",
+      "expected_route": "do/minimalism",
+      "prompt": "This feature is internal. To keep it minimal, can we skip tests, validation, and error handling for now?",
+      "expected_behavior": "Right-size the safety net instead of removing it. Keep checks for load-bearing behavior, run mechanical gates, and defer only speculative coverage or ceremony.",
+      "failure_modes": ["dropped-safety-net", "misapplied-prototype-scope", "false-minimalism"],
+      "criteria": ["shortcut_resistance", "right_sizing"],
+      "example_pass": "Keep a small test for the contract and the validation that protects bad input. Skip broad fixtures or future-proof extension points, but do not turn internal scope into permission to drop safety.",
+      "example_fail": "Because it is internal, skip tests and validation until users complain."
+    },
+    {
+      "id": "empty-search-minimal-diff",
+      "expected_route": "do/minimalism",
+      "prompt": "Existing code:\n\n```ts\nexport async function searchUsers(query: string): Promise<User[]> {\n  const response = await fetch(`/api/users/search?q=${encodeURIComponent(query)}`);\n\n  if (!response.ok) {\n    throw new Error(`Search failed: ${response.status}`);\n  }\n\n  return response.json();\n}\n```\n\nBug: searching with an empty or whitespace-only query sends a request and returns noisy results. Fix it so empty or whitespace-only queries return an empty array immediately. Do not change behavior for non-empty queries. Give the minimal patch guidance.",
+      "expected_behavior": "Recommend only an early empty/whitespace guard, or a trimmed-query variant only if intentionally changing query encoding. Preserve non-empty query behavior, error handling, response validation, fetch options, URL strategy, logging behavior, return semantics, and names.",
+      "failure_modes": ["over-edit", "behavior-drift", "false-robustness"],
+      "criteria": ["scope_control", "right_sizing", "legibility"],
+      "example_pass": "Add `if (!query.trim()) return [];` before the existing fetch and leave the rest of the function unchanged. If trimming non-empty searches is desired, make that a separate explicit behavior decision.",
+      "example_fail": "Rewrite the function with `try/catch`, `new URL`, extra headers, console logging, response-shape validation, and `return []` on non-OK responses."
+    },
+    {
+      "id": "order-shipped-notifier-boundary",
+      "expected_route": "design/boundaries",
+      "prompt": "Existing code:\n\n```ts\nimport { OrderRepository } from './orderRepository';\n\nexport class OrderService {\n  constructor(private readonly orders: OrderRepository) {}\n\n  async markShipped(orderId: string): Promise<void> {\n    const order = await this.orders.findById(orderId);\n\n    if (!order) {\n      throw new Error(`Order not found: ${orderId}`);\n    }\n\n    if (order.status === 'cancelled') {\n      throw new Error('Cancelled orders cannot be shipped');\n    }\n\n    await this.orders.updateStatus(orderId, 'shipped');\n  }\n}\n```\n\nWhen an order is marked shipped, notify the customer. We currently send notifications through email, but we may add SMS later. Add the feature while preserving domain boundaries.",
+      "expected_behavior": "Introduce a small notifier boundary such as CustomerNotifier, NotificationPort, or a domain event. Keep OrderService dependent on the abstraction and do not import EmailClient, SmsClient, HTTP clients, vendor SDKs, channel templates, or delivery-channel formatting into the core service.",
+      "failure_modes": ["concrete-provider-coupling", "boundary-leak", "future-channel-change-ripple"],
+      "criteria": ["boundary_discipline", "right_sizing", "scope_control"],
+      "example_pass": "Add a CustomerNotifier interface with `orderShipped(...)`, inject it into OrderService, and implement EmailCustomerNotifier at the edge. Keep the shipping rules and provider-specific formatting separate.",
+      "example_fail": "Import EmailClient into OrderService and call `emailClient.send(...)` directly from `markShipped` with the email subject/body inline."
+    }
+  ]
+}

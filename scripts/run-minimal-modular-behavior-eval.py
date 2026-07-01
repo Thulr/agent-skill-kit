@@ -198,6 +198,9 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--timeout", type=int, default=300)
     args = parser.parse_args(argv)
 
+    if args.case_input and not args.case_id:
+        parser.error("--case-input requires --case-id")
+
     data = load_cases(args.cases)
     cases = select_cases(data, args.case_id)
     spans: list[dict[str, Any]] = []

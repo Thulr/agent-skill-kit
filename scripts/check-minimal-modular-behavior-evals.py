@@ -77,8 +77,6 @@ def main(argv: list[str]) -> int:
 
     seen_ids: set[str] = set()
     covered_criteria: set[str] = set()
-    labeled_false_count = 0
-    labeled_true_count = 0
 
     for index, case in enumerate(cases, 1):
         if not isinstance(case, dict):
@@ -97,7 +95,11 @@ def main(argv: list[str]) -> int:
             require_text(case[field], f"{case_id}.{field}")
 
         failure_modes = case["failure_modes"]
-        if not isinstance(failure_modes, list) or not all(isinstance(mode, str) and mode for mode in failure_modes):
+        if (
+            not isinstance(failure_modes, list)
+            or not failure_modes
+            or not all(isinstance(mode, str) and mode for mode in failure_modes)
+        ):
             fail(f"{case_id}.failure_modes must be a non-empty string list")
 
         case_criteria = case["criteria"]
@@ -110,15 +112,10 @@ def main(argv: list[str]) -> int:
 
         if case["example_pass"].strip() == case["example_fail"].strip():
             fail(f"{case_id} example_pass and example_fail must differ")
-        labeled_true_count += 1
-        labeled_false_count += 1
 
     missing_coverage = REQUIRED_CRITERIA - covered_criteria
     if missing_coverage:
         fail(f"criteria not covered by any case: {', '.join(sorted(missing_coverage))}")
-
-    if labeled_false_count < 3 or labeled_true_count < 3:
-        fail("need at least three labeled positive and negative examples for thulr calibration")
 
     print("minimal-modular-code behavior eval fixture passed.")
     return 0

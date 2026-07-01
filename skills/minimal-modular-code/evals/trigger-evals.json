@@ -73,6 +73,60 @@
       "should_activate": true,
       "expected_route": "do/minimalism",
       "category": "edge"
+    },
+    {
+      "query": "Make this helper as short as possible, even if the shorter version is harder to read.",
+      "should_activate": true,
+      "expected_route": "do/legibility",
+      "category": "edge"
+    },
+    {
+      "query": "Compress this validation flow into a clever one-liner so the code looks minimal.",
+      "should_activate": true,
+      "expected_route": "do/legibility",
+      "category": "edge"
+    },
+    {
+      "query": "Delete the guard clause and its tests so this change stays minimal.",
+      "should_activate": true,
+      "expected_route": "do/minimalism",
+      "category": "edge"
+    },
+    {
+      "query": "Can we skip error handling and tests because this is internal and the minimal version is smaller?",
+      "should_activate": true,
+      "expected_route": "do/minimalism",
+      "category": "edge"
+    },
+    {
+      "query": "Use YAGNI to avoid the interface that keeps our domain code from importing ORM types.",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "edge"
+    },
+    {
+      "query": "Collapse the billing adapter, domain policy, and API handler into one file to reduce line count.",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "edge"
+    },
+    {
+      "query": "Add keyboard shortcuts to the dashboard toolbar.",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "Make the smallest safe change to searchUsers so empty or whitespace-only queries return [] immediately. Do not refactor or change non-empty query behavior.",
+      "should_activate": true,
+      "expected_route": "do/minimalism",
+      "category": "edge"
+    },
+    {
+      "query": "Preserve domain boundaries while adding order-shipped customer notifications; support email now and SMS later without OrderService depending on a concrete provider.",
+      "should_activate": true,
+      "expected_route": "design/boundaries",
+      "category": "positive"
     }
   ]
 }

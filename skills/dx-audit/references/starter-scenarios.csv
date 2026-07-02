@@ -4,4 +4,3 @@ S1,"CLI that customers complain is confusing — flags inconsistent, errors uncl
 S2,SDK pre-release — want to catch the things first-time integrators will hit before launch,audit,sdk,integrator,Pre-launch readiness check on an SDK or client library
 S3,Customer reported a confusing error message that wasted hours; want to know if the class of problem is widespread,debug,errors,maintainer,A specific error-message incident triggered the request; you want the surface-wide pattern
 S5,"Pre-launch hardening pass across docs, errors, CLI, examples — broad scan for the things that look fine but won't survive contact",edge-pass,all,maintainer,Final pre-ship sweep across every DX surface
-S6,README is mostly badges and marketing — evaluators bounce before they reach the install command,audit,readme,evaluator,You suspect the first 60 seconds of the project is losing potential users

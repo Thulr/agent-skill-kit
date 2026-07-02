@@ -10,12 +10,12 @@
       ],
       "rows": [
         {
-          "surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry",
+          "surface": "**Developer experience** — APIs, SDKs, CLIs, setup, errors, auth, packaging, IDE, plugins, telemetry",
           "critique": "`dx-audit`",
           "design": "`dx-design`"
         },
         {
-          "surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts",
+          "surface": "**Documentation** — READMEs, CHANGELOGs, quickstarts, API refs, contributor onboarding, samples, help centers, OpenAPI/MCP tool contracts",
           "critique": "`docs-audit`",
           "design": "`docs-design`"
         },

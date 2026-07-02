@@ -1,20 +1,38 @@
-# Docs Playbook
+# Developer Docs Playbook
 
 ## Scope
 
-Developer documentation: quickstart guides, reference docs, tutorials,
-troubleshooting, and migration guides. Routes to `setup.md` for
-install-specific friction, `errors.md` for error-message-searchable
-troubleshooting overlap, and `migration.md` for upgrade guide patterns.
+Developer documentation as a reading surface: quickstart guides, reference
+docs, tutorials, troubleshooting, and the doc-site information architecture.
+Use this when the primary audience is a developer reading docs to build,
+debug, or upgrade.
+
+- In: time-to-first-success, quickstarts, reference completeness, tutorials,
+  troubleshooting, doc-site IA, search labels and findability, developer doc
+  telemetry.
+- Out: install/API/error friction experienced while *running* the product
+  (the `dx-audit` / `dx-design` skills), end-user product help
+  (`ux-help.md`), schema/tool description quality (`api-contracts.md`), and
+  front-door/release surfaces with their own playbooks here (`readme.md`,
+  `changelog.md`, `examples.md`, `contributor.md`).
+- Intents this surface answers: audit, debug, design, measure.
 
 ## Grounding
 
-- **Daniele Procida — Diátaxis framework** — four orthogonal documentation
-  modes (tutorials, how-to guides, reference, explanation) that serve
-  different user needs and should never be mixed on one page.
+- **Daniele Procida — Diátaxis framework / The Documentation System** — four
+  orthogonal documentation modes (tutorials, how-to guides, reference,
+  explanation) that serve different user needs and should never be mixed on
+  one page.
 - **Steve Krug — *Don't Make Me Think*** — users scan, not read; F-pattern
   scanning means the first words of headings and bullets carry most of the
   weight; minimize cognitive load by signposting next actions visually.
+- Research Report — Effective Documentation Patterns and Practices for DX,
+  AX, and UX (Informed Skills research synthesis, 2026) — collects README,
+  quickstart, example, reference, error, changelog, and search patterns.
+- Improving API Usability (Myers and Stylos, 2016) — grounds examples as the
+  primary developer learning surface.
+- How to Design a Good API and Why It Matters (Bloch, 2006) — frames APIs
+  and type surfaces as documentation.
 
 ## Good signals
 
@@ -58,13 +76,18 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
   with a visible "it worked" signal the user can check. Bad: ends at
   "you're all set." Good: shows expected terminal output.
 - **Per-method reference completeness** *(audit)* — every public method or
-  endpoint has a reference entry. "See source for details" is a
-  documentation gap.
+  endpoint has a reference entry covering parameters, defaults, examples,
+  errors, and version notes. "See source for details" is a documentation gap.
 - **Error-message-searchable troubleshooting** *(audit, design)* —
   troubleshooting pages are indexed by the exact error string the user
   sees, not organized by theoretical cause categories.
-- **Tested examples** *(audit)* — every code example in docs is run in CI;
-  stale snippets fail the build before they reach users.
+- **Copy-paste proof** *(audit, debug)* — run the first example from a clean
+  machine or container; every unstated prerequisite is a finding. Every code
+  example in docs runs in CI; stale snippets fail the build before they
+  reach users.
+- **Example ecosystem** *(audit, design)* — inline snippets show local
+  context; sample repos or sandboxes show complete apps. Do not ask one
+  artifact to do both jobs (see `examples.md`).
 - **Signposted scannability** *(design, audit)* — headings are meaningful
   (not "Overview"), paragraphs are short, and the next action is visually
   distinct. Pages pass a 30-second scan test.
@@ -83,6 +106,14 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
   ("Configuring retry backoff" beats "Configuration") so chunks retrieved
   by search or by agents make sense on their own. Wide nav with shallow
   pages beats deep pages with everything dumped in.
+- **Search-query replay** *(debug)* — reproduce the developer's likely
+  search terms; if the right page ranks low or uses internal vocabulary,
+  fix labels and synonyms before writing more prose.
+- **TTFHW metric** *(measure)* — measure time from landing on docs to a
+  verified result, not page views. Segment by language and environment.
+- **Sample freshness gate** *(measure)* — examples should build or execute
+  in CI, or the docs must mark them illustrative rather than
+  copy-pasteable.
 - **Edit-on-GitHub footer** *(design, audit)* — every page links to its
   source for direct contribution; small fixes flow back as PRs without the
   contributor learning the docs build first.
@@ -97,13 +128,22 @@ troubleshooting overlap, and `migration.md` for upgrade guide patterns.
 | Can users search troubleshooting by error message text? | Cause-organized only | Re-index troubleshooting by error string |
 | Is every public method or endpoint documented? | Reference gaps | Generate reference from source annotations |
 | Are pages scannable in 30 seconds? | Wall-of-text syndrome | Add headings, bullets, and visual hierarchy |
+| Does a likely search query land on the right page? | Findability gap | Fix labels and synonyms before writing more prose |
 
 ## Cross-references
 
-- → `setup.md` for install-specific documentation friction.
-- → `errors.md` for troubleshooting-doc and error-message UX overlap.
-- → `migration.md` for upgrade guide patterns.
-- → `readme.md` for the README that funnels evaluators into the docs site.
-- → `examples.md` for the runnable samples docs link out to.
-- → the `agent-docs` skill for retrieval-friendly structuring optimized for AI agents.
-- → the `docs` domain for cross-audience docs spanning DX, UX, and AX.
+- → `readme.md` for the front-door README that funnels evaluators into the
+  docs site.
+- → `examples.md` for the runnable samples the docs link out to.
+- → `changelog.md` for release notes and upgrade communication.
+- → `contributor.md` for contributor onboarding documentation.
+- → `foundations.md` for shared IA, versioning, and feedback loops.
+- → `api-contracts.md` for schema descriptions, tool contracts, errors,
+  retries, and examples-as-contract.
+- → `audience-conflicts.md` for when developer terminology and
+  plain-language or agent-readable needs conflict.
+- → the `dx-audit` / `dx-design` skills for install, error-message, and
+  upgrade friction experienced while running the product (their `setup`,
+  `errors`, and `migration` playbooks).
+- → the `agent-docs` skill for retrieval-friendly structuring optimized for
+  AI agents.

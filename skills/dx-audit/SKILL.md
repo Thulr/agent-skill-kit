@@ -1,6 +1,6 @@
 ---
 name: dx-audit
-description: "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface (docs-audit), or end-user UX (ux-audit)."
+description: "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface — READMEs, CHANGELOGs, quickstarts, contributor docs, samples (docs-audit), or end-user UX (ux-audit)."
 license: MIT
 ---
 
@@ -15,7 +15,7 @@ tracked audits also emit a findings-ledger + workflow-state file.
 
 ## Boundaries
 
-Do NOT use to DESIGN a new surface from scratch (use dx-design), to audit documentation as a reading surface (use docs-audit), to only tighten one piece prose (use writing-audit), for end-user product UX/accessibility (use ux-audit), for AI/Agent SDK/tool/error/telemetry surfaces an agent consumes (use agent-dx), or for AGENTS.md (use agent-docs).
+Do NOT use to only tighten one piece of prose (use writing-audit), for AI/Agent SDK/tool/error/telemetry surfaces an agent consumes (use agent-dx), or for AGENTS.md (use agent-docs).
 
 ## Core principle
 

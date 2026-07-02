@@ -1,1 +1,0 @@
-../../../_shared/dx/playbooks/examples.md

@@ -124,8 +124,8 @@ and `docs.md` for changelog placement in the doc IA.
 
 ## Cross-references
 
-- → `migration.md` for the in-depth upgrade procedure linked from
-  breaking-change entries.
-- → `package.md` for the semver discipline the changelog substantiates.
-- → `docs.md` for where the changelog lives in the doc-site IA.
+- → `dev-docs.md` for where the changelog lives in the doc-site IA.
 - → `readme.md` for the link that surfaces the changelog to evaluators.
+- → the `dx-audit` / `dx-design` skills for the in-depth upgrade procedure
+  linked from breaking-change entries (`migration`) and the semver
+  discipline the changelog substantiates (`package`).

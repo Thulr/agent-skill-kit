@@ -132,8 +132,8 @@ contributor uses, and `docs.md` for first-PR doc patterns.
 
 ## Cross-references
 
-- → `setup.md` for fresh-fork install and environment bootstrap.
-- → `inner-loop.md` for the local dev loop a contributor uses day-to-day.
-- → `docs.md` for first-PR doc patterns.
-- → `migration.md` for the deprecation and backward-compatibility mechanics
-  the API-change review gate refers to.
+- → `dev-docs.md` for first-PR doc patterns.
+- → the `dx-audit` / `dx-design` skills for fresh-fork install and
+  environment bootstrap (`setup`), the day-to-day local dev loop
+  (`inner-loop`), and the deprecation mechanics the API-change review gate
+  refers to (`migration`).

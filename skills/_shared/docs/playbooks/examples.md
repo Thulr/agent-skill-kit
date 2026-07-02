@@ -127,10 +127,9 @@ get here, `sdk.md` for the language-specific shape examples must match, and
 
 ## Cross-references
 
-- → `docs.md` for the tutorial and reference content the samples support.
+- → `dev-docs.md` for the tutorial and reference content the samples
+  support.
 - → `readme.md` for the README link that points evaluators at the samples.
-- → `sdk.md` for the SDK shape examples must match.
-- → `migration.md` for breaking changes that require sample updates.
-- → `ide.md` for snippet packs sourced from the same curated examples.
-- → the `docs` domain when examples are part of a broader docs
-  system for developers, end users, and agents.
+- → the `dx-audit` / `dx-design` skills for the SDK shape examples must
+  match (`sdk`), breaking changes that require sample updates
+  (`migration`), and snippet packs sourced from the same examples (`ide`).

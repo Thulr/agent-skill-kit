@@ -6,6 +6,16 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 
 ## [Unreleased]
 
+### Changed
+- **The docs family now owns documentation as a reading surface — including developer
+  docs (ADR-0014).** The `readme`, `changelog`, `contributor`, and `examples` playbooks
+  moved from `skills/_shared/dx/` to `skills/_shared/docs/`; `docs.md` merged with the
+  retired flat `dx-docs.md` into `dev-docs.md`. `docs-audit`/`docs-design` route the five
+  as first-class surfaces (the `dx-docs` surface id is retired); `dx-audit`/`dx-design`
+  drop those intent rows but keep cross-domain references for the first-impressions and
+  contributor-path edge sweeps. Decision grounded in a scoped `just eval` run where 4/4
+  ambiguous developer-doc queries routed to `docs-*` against expectations.
+
 ### Removed
 - **`test-audit` / `test-design` removed from the catalog** (history preserves them):
   never adopted by the maintainer — the README's inclusion bar is "skills the

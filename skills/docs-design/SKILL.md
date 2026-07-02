@@ -1,6 +1,6 @@
 ---
 name: docs-design
-description: "Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, structure, examples, error copy, versioning, accessibility), or define telemetry, CI gates, retrieval evals, and feedback loops. Triggers on 'design our docs IA', 'how should we structure the quickstart/reference', 'set up docs CI gates / freshness checks'. Do NOT use to AUDIT or debug existing docs (use docs-audit)."
+description: "Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, structure, examples, error copy, versioning, accessibility), or define telemetry, CI gates, retrieval evals, and feedback loops. Triggers on 'design our docs IA', 'how should we structure the quickstart/reference', 'set up docs CI gates / freshness checks'. Owns designing every doc a human reads — README, changelog, quickstart, onboarding, samples. Do NOT use to AUDIT or debug existing docs (docs-audit) or to design the API/SDK/CLI surface itself (dx-design)."
 license: MIT
 ---
 

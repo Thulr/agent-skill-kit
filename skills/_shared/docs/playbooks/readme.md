@@ -109,11 +109,11 @@ registry-page metadata that mirrors the README.
 
 ## Cross-references
 
-- → `setup.md` for the actual install steps after the user commits.
-- → `docs.md` for the deeper reference site the README links out to.
+- → `dev-docs.md` for the deeper reference site the README links out to.
 - → `examples.md` for runnable sample apps the README points at.
-- → `package.md` for the registry-page (npm, PyPI, crates) metadata that
-  mirrors the README.
 - → `changelog.md` for the release-notes surface linked from the README.
-- → the `docs` domain when README work is part of a cross-audience
-  documentation system or agent-readable docs strategy.
+- → the `dx-audit` / `dx-design` skills for the actual install steps after
+  the user commits (`setup`) and the registry-page metadata that mirrors
+  the README (`package`).
+- → the `agent-docs` skill when the README is also an agent-readable
+  surface.

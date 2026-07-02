@@ -88,8 +88,8 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 
 | Surface | Review it → `-audit` | Build it → `-design` |
 |---|---|---|
-| **Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
-| **Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
+| **Developer experience** — APIs, SDKs, CLIs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
+| **Documentation** — READMEs, CHANGELOGs, quickstarts, API refs, contributor onboarding, samples, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
 | **Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose | `writing-audit` | `writing-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ui-design` quality-review | `ui-design` |

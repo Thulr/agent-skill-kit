@@ -1,6 +1,6 @@
 ---
 name: docs-audit
-description: "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Triggers on 'docs review', 'audit our docs/README/help', 'why can't users find this', 'our quickstart fails'."
+description: "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Owns every doc a human reads: README, CHANGELOG, quickstart, onboarding, samples. Triggers on 'docs review', 'audit our docs/README/help', 'our README loses people', 'our quickstart fails'. Do NOT use for API/SDK/CLI friction beyond the docs (dx-audit) or agent-native docs (agent-docs)."
 license: MIT
 ---
 
@@ -17,7 +17,7 @@ prevention).
 
 ## Boundaries
 
-Do NOT use to DESIGN new docs (use docs-design), to judge code package onboarding — install-to-first-success, errors, packaging (use dx-audit), for line-level prose tightening (use writing-audit), for end-user product UX outside help (use ux-audit), for repo agent hardening (use harden-repo-for-coding-agents), or for agent-native docs — AGENTS.md, llms.txt, tool descriptions (use agent-docs).
+Do NOT use to DESIGN new docs (use docs-design), for line-level prose tightening (use writing-audit), for end-user product UX outside help (use ux-audit), or for repo agent hardening (use harden-repo-for-coding-agents).
 
 ## Core principle
 

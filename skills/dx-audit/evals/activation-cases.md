@@ -76,6 +76,11 @@ playbook; names a target developer persona; emits the intent's template shape.
 **Expected:** recognizes this is **design**, not critique; defers to `dx-design`.
 **Fail if:** runs an audit / produces severity findings for a surface that does not exist yet.
 
+## N1b — Documentation as a reading surface
+**Prompt:** `Our README is all badges and marketing — review it.`
+**Expected:** defers to `docs-audit` — READMEs, CHANGELOGs, quickstarts, contributor docs, and samples are docs-family surfaces; dx-audit keeps only doc friction inside install/API/error flows (the first-impressions edge-pass).
+**Fail if:** audits the README content itself under a dx playbook.
+
 ## N2 — End-user product UX
 **Prompt:** `Our consumer signup form has a 60% drop-off. Help me reduce friction.`
 **Expected:** recognizes end-user audience; defers to `ux-audit`.

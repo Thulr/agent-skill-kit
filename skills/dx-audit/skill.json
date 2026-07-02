@@ -1,6 +1,6 @@
 {
   "name": "dx-audit",
-  "description": "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface (docs-audit), or end-user UX (ux-audit).",
+  "description": "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface — READMEs, CHANGELOGs, quickstarts, contributor docs, samples (docs-audit), or end-user UX (ux-audit).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -90,7 +90,7 @@
       "author": "Adam Wiggins",
       "kind": "guide",
       "year": 2011,
-      "contribution": "Config in env, dev/prod parity, logs as event streams \u2014 operational DX baseline.",
+      "contribution": "Config in env, dev/prod parity, logs as event streams — operational DX baseline.",
       "playbooks": [
         "setup",
         "inner-loop",
@@ -104,8 +104,7 @@
       "year": 2022,
       "contribution": "Concrete CLI conventions: help, flags, output, exit codes, TTY detection.",
       "playbooks": [
-        "cli",
-        "contributor"
+        "cli"
       ]
     },
     {
@@ -125,10 +124,9 @@
       "author": "Nicole Forsgren, Jez Humble, Gene Kim",
       "kind": "book",
       "year": 2018,
-      "contribution": "DORA metrics: lead time, deployment frequency, MTTR, change failure rate \u2014 make inner-loop quality measurable.",
+      "contribution": "DORA metrics: lead time, deployment frequency, MTTR, change failure rate — make inner-loop quality measurable.",
       "playbooks": [
-        "inner-loop",
-        "contributor"
+        "inner-loop"
       ]
     },
     {
@@ -143,11 +141,11 @@
       ]
     },
     {
-      "name": "Builders' Library \u2014 Timeouts, Retries, and Backoff with Jitter",
+      "name": "Builders' Library — Timeouts, Retries, and Backoff with Jitter",
       "author": "AWS",
       "kind": "guide",
       "year": null,
-      "contribution": "Canonical retry design: exponential backoff with full jitter, per-client token-bucket retry budgets, server-directed retry timing \u2014 the load-bearing primitive behind any SDK that retries safely under load.",
+      "contribution": "Canonical retry design: exponential backoff with full jitter, per-client token-bucket retry budgets, server-directed retry timing — the load-bearing primitive behind any SDK that retries safely under load.",
       "playbooks": [
         "sdk"
       ]
@@ -210,7 +208,7 @@
       "author": "International Journal of Computer contributors",
       "kind": "paper",
       "year": 2026,
-      "contribution": "Empirical finding that AI-system observability pipelines account for 25\u201340% of all discovered PII exposure in post-incident reviews because traces and error reports retain raw prompts and responses longer than the inference path and are read by more people. Motivates SDK-layer content-capture toggles (record_content) and pluggable redactors over downstream-collector-only redaction, and quantifies the trade-offs of co-located NER vs dedicated redaction tiers.",
+      "contribution": "Empirical finding that AI-system observability pipelines account for 25–40% of all discovered PII exposure in post-incident reviews because traces and error reports retain raw prompts and responses longer than the inference path and are read by more people. Motivates SDK-layer content-capture toggles (record_content) and pluggable redactors over downstream-collector-only redaction, and quantifies the trade-offs of co-located NER vs dedicated redaction tiers.",
       "playbooks": [
         "telemetry"
       ]
@@ -292,39 +290,19 @@
       "author": "Ann Cavoukian",
       "kind": "essay",
       "year": 2009,
-      "contribution": "Privacy by default; user control and visibility; embed privacy into design \u2014 operational frame for telemetry consent.",
+      "contribution": "Privacy by default; user control and visibility; embed privacy into design — operational frame for telemetry consent.",
       "playbooks": [
         "telemetry"
       ]
     },
     {
-      "name": "GDPR Article 7 \u2014 Conditions for Consent",
+      "name": "GDPR Article 7 — Conditions for Consent",
       "author": "European Parliament and Council",
       "kind": "guide",
       "year": 2016,
       "contribution": "Consent must be freely given, specific, informed, and unambiguous; withdrawable. Frames telemetry opt-in requirements.",
       "playbooks": [
         "telemetry"
-      ]
-    },
-    {
-      "name": "Di\u00e1taxis Documentation Framework",
-      "author": "Daniele Procida",
-      "kind": "guide",
-      "year": null,
-      "contribution": "Four orthogonal documentation modes (tutorials, how-to guides, reference, explanation) that should never be mixed in one page.",
-      "playbooks": [
-        "docs"
-      ]
-    },
-    {
-      "name": "Don't Make Me Think",
-      "author": "Steve Krug",
-      "kind": "book",
-      "year": 2000,
-      "contribution": "Users scan, don't read; F-pattern scanning; signposting; minimize cognitive load \u2014 applied to docs IA.",
-      "playbooks": [
-        "docs"
       ]
     },
     {
@@ -378,28 +356,6 @@
       ]
     },
     {
-      "name": "Producing Open Source Software",
-      "author": "Karl Fogel",
-      "kind": "book",
-      "year": 2005,
-      "contribution": "The README as the project's front door: name, value, install, first use, link out. Welcoming patterns for evaluators and contributors alike.",
-      "playbooks": [
-        "readme",
-        "contributor"
-      ]
-    },
-    {
-      "name": "Open Source Guides",
-      "author": "GitHub",
-      "kind": "guide",
-      "year": null,
-      "contribution": "Operational patterns for README, CONTRIBUTING, CODEOWNERS, issue and PR templates as surfaces that surface the right context at the right time.",
-      "playbooks": [
-        "readme",
-        "contributor"
-      ]
-    },
-    {
       "name": "Semantic Versioning 2.0.0",
       "author": "Tom Preston-Werner",
       "kind": "guide",
@@ -407,7 +363,6 @@
       "contribution": "MAJOR.MINOR.PATCH contract: breaking changes bump MAJOR, additions bump MINOR, fixes bump PATCH. The version is a contract integrators rely on.",
       "playbooks": [
         "package",
-        "changelog",
         "migration"
       ]
     },
@@ -419,26 +374,6 @@
       "contribution": "Provenance, signed releases, two-factor publish, immutable version tags, reproducible builds as the baseline for any package other people install.",
       "playbooks": [
         "package"
-      ]
-    },
-    {
-      "name": "Stripe Samples",
-      "author": "Stripe",
-      "kind": "guide",
-      "year": null,
-      "contribution": "Operational pattern for a samples surface: one repo per language, CI'd against the current SDK, runnable in five minutes, curated rather than community-dumped.",
-      "playbooks": [
-        "examples"
-      ]
-    },
-    {
-      "name": "Keep a Changelog",
-      "author": "Olivier Lacan",
-      "kind": "guide",
-      "year": 2014,
-      "contribution": "Chronological changelog with stable categories (Added/Changed/Deprecated/Removed/Fixed/Security), Unreleased section at the top, version-and-date heading per release.",
-      "playbooks": [
-        "changelog"
       ]
     }
   ],

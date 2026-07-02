@@ -2,20 +2,95 @@
   "skill": "dx-design",
   "version": "0.1.0",
   "queries": [
-    {"query": "we're shipping a 1.0 of a public SDK for our payments API in python and node next quarter. what api contracts / surface decisions should i pin down before 1.0 so we don't end up with a hyrum's-law nightmare a year in?", "should_activate": true, "expected_route": "design/sdk", "category": "positive"},
-    {"query": "i want to design the error envelope for our REST API from scratch. what shape should it take if i want clients to handle retries and idempotency cleanly?", "should_activate": true, "expected_route": "design/errors", "category": "positive"},
-    {"query": "design how our cli reads config — file vs env vs flag precedence, where the config file lives on linux/mac/windows, and how we validate. what should we get right up front?", "should_activate": true, "expected_route": "design/config", "category": "positive"},
-    {"query": "we're designing a new HTTP API for billing events. what should we get right up front so the contract holds up?", "should_activate": true, "expected_route": "design/api", "category": "positive"},
-    {"query": "design the plugin api for our cli so third parties can register subcommands without forking the binary. similar to how kubectl plugins or npx scripts get wired", "should_activate": true, "expected_route": "design/plugin", "category": "positive"},
-    {"query": "we don't have a samples directory and our docs only have inline snippets. before launch, what should a proper examples surface look like for an SDK shipping in 3 languages?", "should_activate": true, "expected_route": "design/examples", "category": "positive"},
-    {"query": "designing the first-run setup for a new dev tool — what should the install path and first-run experience be so a new developer is productive in minutes?", "should_activate": true, "expected_route": "design/setup", "category": "positive"},
-    {"query": "we're planning the deprecation lifecycle and upgrade path for a breaking v2 — how should we design the migration so existing integrators aren't stranded?", "should_activate": true, "expected_route": "design/migration", "category": "positive"},
-    {"query": "ok our cli's --help output is dense and new joiners can't tell --region from --zone. take a pass at the existing help layout and tell me what to tighten", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "customer keeps hitting `auth failed` after rotating api keys. they swear they're using the new key. what should we look at?", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "do a 30-second basics pass on this repo — does it have a working README install snippet, a LICENSE, --help and --version working", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "design a new homepage hero section for our marketing site — clear value prop for general buyers, not devs", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "our consumer signup form has a 60% drop-off. help me design a lower-friction 3-step flow", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "design the agent loop and tool-call contract for a python AI/Agent SDK with stopWhen-style predicates and pre-tool approval hooks", "should_activate": false, "expected_route": null, "category": "negative"},
-    {"query": "refactor this typescript function to use early returns instead of nested if statements", "should_activate": false, "expected_route": null, "category": "negative"}
+    {
+      "query": "we're shipping a 1.0 of a public SDK for our payments API in python and node next quarter. what api contracts / surface decisions should i pin down before 1.0 so we don't end up with a hyrum's-law nightmare a year in?",
+      "should_activate": true,
+      "expected_route": "design/sdk",
+      "category": "positive"
+    },
+    {
+      "query": "i want to design the error envelope for our REST API from scratch. what shape should it take if i want clients to handle retries and idempotency cleanly?",
+      "should_activate": true,
+      "expected_route": "design/errors",
+      "category": "positive"
+    },
+    {
+      "query": "design how our cli reads config — file vs env vs flag precedence, where the config file lives on linux/mac/windows, and how we validate. what should we get right up front?",
+      "should_activate": true,
+      "expected_route": "design/config",
+      "category": "positive"
+    },
+    {
+      "query": "we're designing a new HTTP API for billing events. what should we get right up front so the contract holds up?",
+      "should_activate": true,
+      "expected_route": "design/api",
+      "category": "positive"
+    },
+    {
+      "query": "design the plugin api for our cli so third parties can register subcommands without forking the binary. similar to how kubectl plugins or npx scripts get wired",
+      "should_activate": true,
+      "expected_route": "design/plugin",
+      "category": "positive"
+    },
+    {
+      "query": "we don't have a samples directory and our docs only have inline snippets. before launch, what should a proper examples surface look like for an SDK shipping in 3 languages?",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "designing the first-run setup for a new dev tool — what should the install path and first-run experience be so a new developer is productive in minutes?",
+      "should_activate": true,
+      "expected_route": "design/setup",
+      "category": "positive"
+    },
+    {
+      "query": "we're planning the deprecation lifecycle and upgrade path for a breaking v2 — how should we design the migration so existing integrators aren't stranded?",
+      "should_activate": true,
+      "expected_route": "design/migration",
+      "category": "positive"
+    },
+    {
+      "query": "ok our cli's --help output is dense and new joiners can't tell --region from --zone. take a pass at the existing help layout and tell me what to tighten",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "customer keeps hitting `auth failed` after rotating api keys. they swear they're using the new key. what should we look at?",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "do a 30-second basics pass on this repo — does it have a working README install snippet, a LICENSE, --help and --version working",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "design a new homepage hero section for our marketing site — clear value prop for general buyers, not devs",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "our consumer signup form has a 60% drop-off. help me design a lower-friction 3-step flow",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "design the agent loop and tool-call contract for a python AI/Agent SDK with stopWhen-style predicates and pre-tool approval hooks",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    },
+    {
+      "query": "refactor this typescript function to use early returns instead of nested if statements",
+      "should_activate": false,
+      "expected_route": null,
+      "category": "negative"
+    }
   ]
 }

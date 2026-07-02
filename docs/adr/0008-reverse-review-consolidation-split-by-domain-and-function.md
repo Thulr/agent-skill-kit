@@ -122,3 +122,7 @@ mega-skill.
   `_shared/<domain>/` anti-drift mechanism is reused as `_shared/agent/<domain>/`, and
   the canonical docs `audience-matrix.md` is rewritten to the actor-axis framing while
   staying canonical in the review family.
+
+> **Update (2026-07-02):** `test-audit` / `test-design` were removed from the
+> catalog — never adopted by the maintainer (the README's inclusion bar).
+> See CHANGELOG. The rest of the split stands.

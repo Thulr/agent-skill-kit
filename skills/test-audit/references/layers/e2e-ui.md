@@ -1,1 +1,0 @@
-../../../_shared/test/layers/e2e-ui.md

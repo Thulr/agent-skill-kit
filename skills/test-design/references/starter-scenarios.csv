@@ -1,4 +1,0 @@
-id,scenario,activity,layer,persona,when_to_pick
-S3,Authoring tests for a new payment-flow feature — want to know which layer(s) to cover and what oracle to use,author,all,feature-eng,Pre-write authoring guidance for a new feature
-S4,E2E suite takes 45 minutes and the team avoids running it — want to know what to delete and what to keep,prune,e2e,maintainer,"You have a slow suite and want a deletion list with rationale, not just blanket cuts"
-S5,"Quarterly review of the test pyramid/trophy — where to invest next quarter, where to disinvest",strategize,all,team-lead,"Cross-layer investment recommendation, not a per-test review"

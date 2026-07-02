@@ -3,34 +3,104 @@
   "pick_a_skill": {
     "intro": "Two questions get you there: **which surface**, and are you **reviewing it** or **building it**?",
     "primary": {
-      "columns": ["Surface", "Review it → `-audit`", "Build it → `-design`"],
+      "columns": [
+        "Surface",
+        "Review it → `-audit`",
+        "Build it → `-design`"
+      ],
       "rows": [
-        {"surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry", "critique": "`dx-audit`", "design": "`dx-design`"},
-        {"surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts", "critique": "`docs-audit`", "design": "`docs-design`"},
-        {"surface": "**Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose", "critique": "`writing-audit`", "design": "`writing-design`"},
-        {"surface": "**Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning", "critique": "`test-audit`", "design": "`test-design`"},
-        {"surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG", "critique": "`ux-audit`", "design": "→ `ui-design`"},
-        {"surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff", "critique": "→ `ui-design` quality-review", "design": "`ui-design`"},
-        {"surface": "**Artifact ↔ host integration** — embeddable HTML artifacts: postMessage / persistence / fixed-canvas / direct-edit / export contract with an editing shell", "critique": "→ `ui-design`", "design": "`ui-design` (host-integration route)"},
-        {"surface": "**Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel", "critique": "`minimal-modular-code`", "design": "`minimal-modular-code`"}
+        {
+          "surface": "**Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry",
+          "critique": "`dx-audit`",
+          "design": "`dx-design`"
+        },
+        {
+          "surface": "**Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts",
+          "critique": "`docs-audit`",
+          "design": "`docs-design`"
+        },
+        {
+          "surface": "**Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose",
+          "critique": "`writing-audit`",
+          "design": "`writing-design`"
+        },
+        {
+          "surface": "**Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG",
+          "critique": "`ux-audit`",
+          "design": "→ `ui-design`"
+        },
+        {
+          "surface": "**Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff",
+          "critique": "→ `ui-design` quality-review",
+          "design": "`ui-design`"
+        },
+        {
+          "surface": "**Artifact ↔ host integration** — embeddable HTML artifacts: postMessage / persistence / fixed-canvas / direct-edit / export contract with an editing shell",
+          "critique": "→ `ui-design`",
+          "design": "`ui-design` (host-integration route)"
+        },
+        {
+          "surface": "**Minimal, modular code** — slop, duplication, over-engineering; dependency direction, deep modules; right-sizing structure so many agents can work in parallel",
+          "critique": "`minimal-modular-code`",
+          "design": "`minimal-modular-code`"
+        }
       ]
     },
     "secondary": {
       "lead": "For research and agent-facing work:",
-      "columns": ["Need", "Skill"],
+      "columns": [
+        "Need",
+        "Skill"
+      ],
       "rows": [
-        {"need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision", "skill": "`research`"},
-        {"need": "**Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes", "skill": "`agent-dx`"},
-        {"need": "**Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents", "skill": "`agent-docs`"},
-        {"need": "**Agent as end-user** — an agent-operable UI / app / computer-use surface", "skill": "`agent-ux`"},
-        {"need": "**Agent as operator** — observability, trace-and-eval loops, autonomy, reliability", "skill": "`agent-ops`"},
-        {"need": "**Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests", "skill": "`agent-test`"},
-        {"need": "↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox)", "skill": "`harden-repo-for-coding-agents`"},
-        {"need": "↳ turn observed agent failures into closure work, rules, gates, or skill/eval fixes", "skill": "`rules-from-coding-agent-failures`"},
-        {"need": "**Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects", "skill": "`codex-cli`"},
-        {"need": "**Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview", "skill": "`claude-code-cli`"},
-        {"need": "**Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent`", "skill": "`cursor-cli`"},
-        {"need": "**Trim your agent's context budget** — audit idle MCP servers and unused plugins/skills/commands/subagents by per-session token cost, then prune safely", "skill": "`context-budget-audit`"}
+        {
+          "need": "**Source-cited research** — an open-ended topic report, or validating a named opportunity to a go/no-go decision",
+          "skill": "`research`"
+        },
+        {
+          "need": "**Agent as developer** — the SDK / tool / error / telemetry surface an AI agent consumes",
+          "skill": "`agent-dx`"
+        },
+        {
+          "need": "**Agent as reader** — AGENTS.md, llms.txt, tool descriptions, machine-readable reference for agents",
+          "skill": "`agent-docs`"
+        },
+        {
+          "need": "**Agent as end-user** — an agent-operable UI / app / computer-use surface",
+          "skill": "`agent-ux`"
+        },
+        {
+          "need": "**Agent as operator** — observability, trace-and-eval loops, autonomy, reliability",
+          "skill": "`agent-ops`"
+        },
+        {
+          "need": "**Agent as subject** — evals, LLM-as-judge, benchmarks, activation tests",
+          "skill": "`agent-test`"
+        },
+        {
+          "need": "↳ harden a repo for coding agents (AGENTS.md, hooks, gates, sandbox)",
+          "skill": "`harden-repo-for-coding-agents`"
+        },
+        {
+          "need": "↳ turn observed agent failures into closure work, rules, gates, or skill/eval fixes",
+          "skill": "`rules-from-coding-agent-failures`"
+        },
+        {
+          "need": "**Second opinion from Codex** — drive the Codex CLI to review code/docs, give an independent take, or reflect across projects",
+          "skill": "`codex-cli`"
+        },
+        {
+          "need": "**Second opinion from Claude Code** — review working-tree/branch changes, a second opinion, cross-project reflection, or a hosted ultrareview",
+          "skill": "`claude-code-cli`"
+        },
+        {
+          "need": "**Second opinion from Cursor** — review or analyze under a *different* model (gpt-5, sonnet-4, …) via `cursor-agent`",
+          "skill": "`cursor-cli`"
+        },
+        {
+          "need": "**Trim your agent's context budget** — audit idle MCP servers and unused plugins/skills/commands/subagents by per-session token cost, then prune safely",
+          "skill": "`context-budget-audit`"
+        }
       ]
     },
     "unsure": [

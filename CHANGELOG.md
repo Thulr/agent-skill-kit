@@ -7,6 +7,14 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 ## [Unreleased]
 
 ### Removed
+- **`test-audit` / `test-design` removed from the catalog** (history preserves them):
+  never adopted by the maintainer — the README's inclusion bar is "skills the
+  maintainer actually uses" — despite clean routing (21/21 and 18/18 in the scoped
+  `just eval` run that informed the decision). Their shared substrate
+  `skills/_shared/test/` had no other consumers and was removed with them. The
+  `Test suites` routing-matrix row is gone; `agent-test` (agent-behavior
+  measurement) is unaffected. Downstream installers' `--skill test-audit` /
+  `--skill test-design` commands stop resolving at the next release.
 - **Five skills moved out of the catalog** (to a local junk drawer; not deleted from
   history): `customer-interviewing`, `journey-storymapping`, `product-discovery` (the
   entire `discovery` family), and the `perf-audit` / `perf-design` pair (plus their

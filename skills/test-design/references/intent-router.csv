@@ -1,4 +1,0 @@
-intent,name,when_to_use,registry_file,default_template
-author,Test authoring,"Design a new test or test plan for a new feature",references/intents/author.csv,templates/author-design.md
-strategize,Test strategy,"Decide what to test at which layer; shape the suite as a portfolio",references/intents/strategize.csv,templates/strategy-doc.md
-prune,Test pruning,"Decide which tests to delete (low value, redundant, characterizing dead code)",references/intents/prune.csv,templates/prune-plan.md

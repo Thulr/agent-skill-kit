@@ -1,6 +1,6 @@
 {
   "name": "docs-audit",
-  "description": "Use to AUDIT existing documentation \u2014 score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Triggers on 'docs review', 'audit our docs/README/help', 'why can't users find this', 'our quickstart fails'.",
+  "description": "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Owns every doc a human reads: README, CHANGELOG, quickstart, onboarding, samples. Triggers on 'docs review', 'audit our docs/README/help', 'our quickstart fails'. Do NOT use for API/SDK/CLI friction beyond the docs (dx-audit) or standalone agent-native docs (agent-docs) — cross-audience conflicts spanning llms.txt stay here.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -14,7 +14,7 @@
     "docs",
     "documentation",
     "documentation-experience",
-    "dx-docs",
+    "dev-docs",
     "ux-help",
     "ax-docs",
     "agent-docs",
@@ -38,7 +38,7 @@
   ],
   "inspired_by": [
     {
-      "name": "Research Report \u2014 Effective Documentation Patterns and Practices for DX, AX, and UX",
+      "name": "Research Report — Effective Documentation Patterns and Practices for DX, AX, and UX",
       "author": "Informed Skills research synthesis",
       "kind": "research report",
       "year": 2026,
@@ -46,7 +46,7 @@
       "playbooks": [
         "all",
         "foundations",
-        "dx-docs",
+        "dev-docs",
         "ux-help",
         "api-contracts",
         "audience-conflicts"
@@ -59,7 +59,7 @@
       "contribution": "Four-mode documentation taxonomy and the anti-mixing rule for tutorials, how-to guides, reference, and explanation.",
       "playbooks": [
         "foundations",
-        "dx-docs",
+        "dev-docs",
         "ux-help"
       ]
     },
@@ -103,7 +103,7 @@
       "year": 2016,
       "contribution": "Empirical grounding for treating examples as primary developer documentation rather than decorative supplements.",
       "playbooks": [
-        "dx-docs",
+        "dev-docs",
         "api-contracts"
       ]
     },
@@ -114,7 +114,7 @@
       "year": 2006,
       "contribution": "API design as documentation: self-documenting interfaces, least astonishment, and easy-to-use/hard-to-misuse contracts.",
       "playbooks": [
-        "dx-docs",
+        "dev-docs",
         "api-contracts"
       ]
     },
@@ -175,7 +175,7 @@
       "contribution": "Structured error envelope pattern: machine-readable code, user-facing message, offending parameter, and doc link.",
       "playbooks": [
         "api-contracts",
-        "dx-docs"
+        "dev-docs"
       ]
     },
     {
@@ -188,11 +188,93 @@
         "audience-conflicts",
         "foundations"
       ]
+    },
+    {
+      "name": "Command Line Interface Guidelines",
+      "author": "clig.dev contributors",
+      "kind": "guide",
+      "year": 2022,
+      "contribution": "Concrete CLI conventions: help, flags, output, exit codes, TTY detection.",
+      "playbooks": [
+        "contributor"
+      ]
+    },
+    {
+      "name": "Accelerate",
+      "author": "Nicole Forsgren, Jez Humble, Gene Kim",
+      "kind": "book",
+      "year": 2018,
+      "contribution": "DORA metrics: lead time, deployment frequency, MTTR, change failure rate — make inner-loop quality measurable.",
+      "playbooks": [
+        "contributor"
+      ]
+    },
+    {
+      "name": "Don't Make Me Think",
+      "author": "Steve Krug",
+      "kind": "book",
+      "year": 2000,
+      "contribution": "Users scan, don't read; F-pattern scanning; signposting; minimize cognitive load — applied to docs IA.",
+      "playbooks": [
+        "dev-docs"
+      ]
+    },
+    {
+      "name": "Producing Open Source Software",
+      "author": "Karl Fogel",
+      "kind": "book",
+      "year": 2005,
+      "contribution": "The README as the project's front door: name, value, install, first use, link out. Welcoming patterns for evaluators and contributors alike.",
+      "playbooks": [
+        "contributor",
+        "readme"
+      ]
+    },
+    {
+      "name": "Open Source Guides",
+      "author": "GitHub",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational patterns for README, CONTRIBUTING, CODEOWNERS, issue and PR templates as surfaces that surface the right context at the right time.",
+      "playbooks": [
+        "contributor",
+        "readme"
+      ]
+    },
+    {
+      "name": "Semantic Versioning 2.0.0",
+      "author": "Tom Preston-Werner",
+      "kind": "guide",
+      "year": 2013,
+      "contribution": "MAJOR.MINOR.PATCH contract: breaking changes bump MAJOR, additions bump MINOR, fixes bump PATCH. The version is a contract integrators rely on.",
+      "playbooks": [
+        "changelog"
+      ]
+    },
+    {
+      "name": "Stripe Samples",
+      "author": "Stripe",
+      "kind": "guide",
+      "year": null,
+      "contribution": "Operational pattern for a samples surface: one repo per language, CI'd against the current SDK, runnable in five minutes, curated rather than community-dumped.",
+      "playbooks": [
+        "examples"
+      ]
+    },
+    {
+      "name": "Keep a Changelog",
+      "author": "Olivier Lacan",
+      "kind": "guide",
+      "year": 2014,
+      "contribution": "Chronological changelog with stable categories (Added/Changed/Deprecated/Removed/Fixed/Security), Unreleased section at the top, version-and-date heading per release.",
+      "playbooks": [
+        "changelog"
+      ]
     }
   ],
   "metadata": {
     "family": "heuristics",
     "function": "audit",
-    "catalog_summary": "Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it \u2014 or debug a concrete docs failure."
+    "catalog_summary": "Audit a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict and score it — or debug a concrete docs failure."
   }
 }

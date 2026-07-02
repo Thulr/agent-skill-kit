@@ -1,1 +1,0 @@
-../../../_shared/test/core/personas.md

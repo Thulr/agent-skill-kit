@@ -1,1 +1,0 @@
-../../../_shared/test/layers/property-based.md

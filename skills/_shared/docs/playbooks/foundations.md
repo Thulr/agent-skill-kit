@@ -91,7 +91,7 @@ Use it before specializing into a single audience.
 
 ## Cross-references
 
-- `references/playbooks/dx-docs.md` — developer-facing page and example shape.
+- `references/playbooks/dev-docs.md` — developer-facing page and example shape.
 - `references/playbooks/ux-help.md` — in-product and help-center surfaces.
 - the `agent-docs` skill — retrieval and agent-readable rendering.
 - `references/playbooks/audience-conflicts.md` — when shared foundations pull in

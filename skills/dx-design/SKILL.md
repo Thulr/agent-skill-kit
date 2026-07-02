@@ -1,6 +1,6 @@
 ---
 name: dx-design
-description: "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'. Do NOT use to audit or debug an existing surface — use dx-audit."
+description: "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'. Do NOT use to audit or debug an existing surface (dx-audit), or to design READMEs, changelogs, or developer docs (docs-design)."
 license: MIT
 ---
 

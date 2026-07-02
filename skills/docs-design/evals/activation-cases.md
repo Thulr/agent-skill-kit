@@ -44,7 +44,7 @@ or write from a vague invocation; routes `intent-router.csv` →
 
 ## Case 4 — Docs measurement plan
 **Prompt:** `Define how we measure docs quality — TTFHW, sample freshness, zero-result search — with thresholds and owners.`
-**Expected:** routes (measure, dx-docs or foundations); emits `measurement-plan.md` — metrics table with signal/threshold/owner/action, gates and evals, baseline plan.
+**Expected:** routes (measure, dev-docs or foundations); emits `measurement-plan.md` — metrics table with signal/threshold/owner/action, gates and evals, baseline plan.
 **Fail if:** lists dashboards with no threshold, owner, or triggered action.
 
 ## Case 5 — Surface ambiguity

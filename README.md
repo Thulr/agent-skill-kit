@@ -56,14 +56,14 @@ Four problems agent skills solve, and which skill to reach for:
 
 Your API has friction, your docs bury the answer, your tests pass but don't catch bugs.
 
-→ **`dx-audit`**, **`docs-audit`**, **`test-audit`**, **`ux-audit`**, **`writing-audit`**
+→ **`dx-audit`**, **`docs-audit`**, **`ux-audit`**, **`writing-audit`**
 Severity-scored findings, playbook-driven, cited sources. Each audit tells you *exactly* what's wrong and how to fix it.
 
 ### 2. "I need to design something new — where do I start?"
 
 Blank canvas, no guardrails, easy to build something generic.
 
-→ **`dx-design`**, **`docs-design`**, **`test-design`**, **`ui-design`**, **`writing-design`**
+→ **`dx-design`**, **`docs-design`**, **`ui-design`**, **`writing-design`**
 Each design skill names the good-shaped pattern, produces a concrete artifact, and carries cited heuristics so you're not guessing.
 
 ### 3. "My agent keeps making the same mistakes"
@@ -88,10 +88,9 @@ Two questions get you there: **which surface**, and are you **reviewing it** or 
 
 | Surface | Review it → `-audit` | Build it → `-design` |
 |---|---|---|
-| **Developer experience** — APIs, SDKs, CLIs, dev docs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
-| **Documentation** — READMEs, quickstarts, API refs, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
+| **Developer experience** — APIs, SDKs, CLIs, setup, errors, auth, packaging, IDE, plugins, telemetry | `dx-audit` | `dx-design` |
+| **Documentation** — READMEs, CHANGELOGs, quickstarts, API refs, contributor onboarding, samples, help centers, OpenAPI/MCP tool contracts | `docs-audit` | `docs-design` |
 | **Writing** — memos/PRDs/RFCs, technical & task docs, talks/pitches, narratives, general prose | `writing-audit` | `writing-design` |
-| **Test suites** — unit/integration/e2e/property/contract/snapshot/mutation, flakiness, pruning | `test-audit` | `test-design` |
 | **Product UX & accessibility** — usability, forms, navigation/IA, error/recovery, WCAG | `ux-audit` | → `ui-design` |
 | **Visual UI craft** — dashboards, design systems/tokens, prototypes, motion, decks, handoff | → `ui-design` quality-review | `ui-design` |
 | **Artifact ↔ host integration** — embeddable HTML artifacts: postMessage / persistence / fixed-canvas / direct-edit / export contract with an editing shell | → `ui-design` | `ui-design` (host-integration route) |

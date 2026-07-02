@@ -33,12 +33,12 @@ playbook; names the target audience; emits the intent's template shape.
 
 ## Case 2 — Concrete dev-docs audit
 **Prompt:** a README/quickstart block + "where do new devs get stuck?"
-**Expected:** routes (audit, dx-docs); loads `playbooks/dx-docs.md` + core_refs; names target audience; scores 0–10; findings table with severity 0–4, evidence, recommendation, verification; `audit-report.md` shape.
+**Expected:** routes (audit, dev-docs); loads `playbooks/dev-docs.md` + core_refs; names target audience; scores 0–10; findings table with severity 0–4, evidence, recommendation, verification; `audit-report.md` shape.
 **Fail if:** loads multiple playbooks; rewrites copy without severity; omits verification.
 
 ## Case 3 — Stale-example debug
 **Prompt:** `Our refund example in the docs throws a 400 — the snippet is from the old API. Why does this keep happening?`
-**Expected:** routes (debug, dx-docs); ranks hypotheses by mechanism (staleness vs absence vs ambiguity) before fixes; names a source-of-truth/freshness-gate prevention; `debug-runbook.md` shape.
+**Expected:** routes (debug, dev-docs); ranks hypotheses by mechanism (staleness vs absence vs ambiguity) before fixes; names a source-of-truth/freshness-gate prevention; `debug-runbook.md` shape.
 **Fail if:** jumps to a one-off snippet fix without naming the drift mechanism or a prevention gate.
 
 ## Case 4 — API contract-completeness debug
@@ -70,6 +70,11 @@ playbook; names the target audience; emits the intent's template shape.
 **Fail if:** recommends roughly one doc per code file, runs the full multi-surface fan-out, or files one equal-weight finding per missing artifact.
 
 ---
+
+## Case 8 — README front door
+**Prompt:** `Our README is mostly badges and marketing copy — evaluators bounce before the install command.`
+**Expected:** routes (audit, readme); loads `playbooks/readme.md` + core_refs; scores the first-success ladder; findings with severity and verification.
+**Fail if:** defers to dx-audit (README-as-reading-surface is docs-audit's row) or audits install friction instead of the document.
 
 # Negative cases — should not trigger (or should defer)
 

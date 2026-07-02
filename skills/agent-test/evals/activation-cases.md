@@ -59,8 +59,8 @@ designing the measurement).
 
 ### N5 — Human test suite
 **Prompt:** `Review our human test suite for flaky unit and integration tests.`
-**Expected:** does not activate; defers to `test-audit` (human-authored test suites, not agent
-measurement design).
+**Expected:** does not activate; human-authored test-suite review is out of
+this catalog's scope (agent-test measures agent behavior, not code tests).
 
 ### N6 — Promote a failure to a rule
 **Prompt:** `Promote this recurring agent failure into an AGENTS.md rule.`

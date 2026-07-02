@@ -6,7 +6,25 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
 
 ## [Unreleased]
 
+### Changed
+- **The docs family now owns documentation as a reading surface — including developer
+  docs (ADR-0014).** The `readme`, `changelog`, `contributor`, and `examples` playbooks
+  moved from `skills/_shared/dx/` to `skills/_shared/docs/`; `docs.md` merged with the
+  retired flat `dx-docs.md` into `dev-docs.md`. `docs-audit`/`docs-design` route the five
+  as first-class surfaces (the `dx-docs` surface id is retired); `dx-audit`/`dx-design`
+  drop those intent rows but keep cross-domain references for the first-impressions and
+  contributor-path edge sweeps. Decision grounded in a scoped `just eval` run where 4/4
+  ambiguous developer-doc queries routed to `docs-*` against expectations.
+
 ### Removed
+- **`test-audit` / `test-design` removed from the catalog** (history preserves them):
+  never adopted by the maintainer — the README's inclusion bar is "skills the
+  maintainer actually uses" — despite clean routing (21/21 and 18/18 in the scoped
+  `just eval` run that informed the decision). Their shared substrate
+  `skills/_shared/test/` had no other consumers and was removed with them. The
+  `Test suites` routing-matrix row is gone; `agent-test` (agent-behavior
+  measurement) is unaffected. Downstream installers' `--skill test-audit` /
+  `--skill test-design` commands stop resolving at the next release.
 - **Five skills moved out of the catalog** (to a local junk drawer; not deleted from
   history): `customer-interviewing`, `journey-storymapping`, `product-discovery` (the
   entire `discovery` family), and the `perf-audit` / `perf-design` pair (plus their

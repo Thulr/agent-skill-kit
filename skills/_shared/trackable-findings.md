@@ -33,7 +33,6 @@ Examples:
 - `MM-MIN-004` for minimal-modular-code slop findings.
 - `AG-GATES-003` for agent-readiness gate findings.
 - `DX-CLI-002` for dx-audit CLI findings.
-- `TEST-UNIT-004` for test-audit unit-test findings.
 - `SR-SOURCE-001` for skill-reviewer source-safety findings.
 - `ED-L4L5-001` for agent-rules maturity gaps.
 

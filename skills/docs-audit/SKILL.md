@@ -1,6 +1,6 @@
 ---
 name: docs-audit
-description: "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Triggers on 'docs review', 'audit our docs/README/help', 'why can't users find this', 'our quickstart fails'."
+description: "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Owns every doc a human reads: README, CHANGELOG, quickstart, onboarding, samples. Triggers on 'docs review', 'audit our docs/README/help', 'our quickstart fails'. Do NOT use for API/SDK/CLI friction beyond the docs (dx-audit) or standalone agent-native docs (agent-docs) — cross-audience conflicts spanning llms.txt stay here."
 license: MIT
 ---
 
@@ -17,7 +17,7 @@ prevention).
 
 ## Boundaries
 
-Do NOT use to DESIGN new docs (use docs-design), to judge code package onboarding — install-to-first-success, errors, packaging (use dx-audit), for line-level prose tightening (use writing-audit), for end-user product UX outside help (use ux-audit), for repo agent hardening (use harden-repo-for-coding-agents), or for agent-native docs — AGENTS.md, llms.txt, tool descriptions (use agent-docs).
+Do NOT use to DESIGN new docs (use docs-design), for line-level prose tightening (use writing-audit), for end-user product UX outside help (use ux-audit), for repo agent hardening (use harden-repo-for-coding-agents), for API/SDK/CLI friction beyond the docs (use dx-audit), or for standalone agent-native docs (use agent-docs).
 
 ## Core principle
 
@@ -30,7 +30,7 @@ finding.
 
 - **Bare invocation** ("use docs-audit", "docs review", "start"): show a compact menu: mode choice (guided / autopilot / grill me?) and numbered intents from the router. Wait. No file inspection, no network calls, no writes.
 - **Concrete invocation** with both intent and surface inferable: skip to step 3.
-- **Ambiguous invocation**: ask one — e.g., *"Are you auditing developer docs, end-user help, or agent-readable surfaces?"* or *"Is this a friction audit or a debug run for a specific failure?"*
+- **Ambiguous invocation**: ask one — e.g., *"Are you auditing developer docs, end-user help, or agent-readable surfaces?"*
 
 ## Workflow
 
@@ -59,8 +59,8 @@ finding.
 6. **Apply the playbook.** Use the heuristics tagged for this intent. For
    `audit`, score the surface 0–10 using `references/core/score-rubric.md`; for
    `debug`, rank hypotheses by mechanism (absence, findability, ambiguity,
-   staleness, conflict) before naming fixes. If sub-agents ran, synthesize their
-   findings here and preserve audience disagreements.
+   staleness, conflict) before naming fixes. If sub-agents ran, synthesize and
+   preserve audience disagreements.
 7. **Apply severity and IDs** from `references/core/severity-rubric.md` to every
    audit finding. Use stable IDs like `DOC-<surface>-NNN`.
 8. **Emit output.** Audit → `templates/audit-report.md`. Debug →
@@ -72,8 +72,8 @@ finding.
 ## Modes
 
 Guided Draft (default), Autopilot, Grill Me — see
-[`references/modes.md`](./references/modes.md). Offer the mode at bare
-invocation; default to Guided Draft on concrete invocations.
+[`references/modes.md`](./references/modes.md). Offer at bare invocation;
+concrete invocations default to Guided Draft.
 
 ## Output requirements
 

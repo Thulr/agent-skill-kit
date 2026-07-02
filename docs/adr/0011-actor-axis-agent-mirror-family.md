@@ -242,3 +242,6 @@ Phased so each PR is independently green under `just check`:
   catalog around actor (human vs agent) after the human-DX de-scoping (PR #56) parked the
   agent-error/telemetry heuristics for an `agent-dx` mirror. Recommended cut produced by
   the `agent-mirror-family-design` workflow and the blueprint it formalizes.
+
+> **Update (2026-07-02):** the human `test-audit` / `test-design` pair was
+> removed from the catalog; `agent-test` remains. See CHANGELOG.

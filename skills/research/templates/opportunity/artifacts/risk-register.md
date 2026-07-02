@@ -1,7 +1,7 @@
 # Risk Register — <opportunity-slug>
 
 > Filled by `investigate` on `risk` surface, using
-> `references/playbooks/risk.md`. **Categorize by source. Score
+> `references/opportunity/playbooks/risk.md`. **Categorize by source. Score
 > severity × likelihood × confidence. Mitigations have success
 > thresholds. Severity-4 risks become kill criteria or have mitigations
 > with thresholds.**

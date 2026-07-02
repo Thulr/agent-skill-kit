@@ -118,15 +118,15 @@ narratives (stories about data) and forces a timing call: now / wait
 
 ## Cross-references
 
-- → `references/playbooks/market.md` — for the market state today
+- → `references/opportunity/playbooks/market.md` — for the market state today
   on which the timing call rides.
-- → `references/playbooks/competitive.md` — for trend-driven
+- → `references/opportunity/playbooks/competitive.md` — for trend-driven
   incumbent shifts and new entrants.
-- → `references/playbooks/legal.md` — for regulatory trends.
-- → `references/playbooks/risk.md` — where trend-reversal becomes
+- → `references/opportunity/playbooks/legal.md` — for regulatory trends.
+- → `references/opportunity/playbooks/risk.md` — where trend-reversal becomes
   a tracked risk.
-- → `references/core/confidence-rubric.md` — for the
+- → `references/opportunity/core/confidence-rubric.md` — for the
   signal-vs-narrative confidence rule.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/trend-horizon.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/trend-horizon.md` — the artifact this
   playbook produces under `investigate`.

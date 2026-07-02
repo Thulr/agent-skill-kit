@@ -1,6 +1,6 @@
 {
   "name": "context-budget-audit",
-  "description": "Audit and prune per-session context waste \u2014 MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'.",
+  "description": "Audit and prune per-session context waste — MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'. Do NOT use to harden a repo's agent config (use harden-repo-for-coding-agents) or for runtime trace/eval observability (use agent-ops).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

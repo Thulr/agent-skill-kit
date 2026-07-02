@@ -1,7 +1,7 @@
 # Technical Feasibility — <opportunity-slug>
 
 > Filled by `investigate` on `technical` surface, using
-> `references/playbooks/technical.md`. **Three architecture options
+> `references/opportunity/playbooks/technical.md`. **Three architecture options
 > with named tradeoffs minimum.**
 
 ## Opportunity statement

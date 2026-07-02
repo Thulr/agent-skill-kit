@@ -19,9 +19,8 @@ explicit criteria).
 
 ## Picking a model
 
-The value of cursor-cli for a second opinion is model diversity: run the question
-past a *different* model (`--model gpt-5`, `--model sonnet-4`, ...) than the agent
-that produced the work. `cursor-agent --list-models` lists options.
+Model diversity is the value: run the question past a *different* model than
+the agent that produced the work — see the `--model` bullet in `cli-contract.md`.
 
 ## Prompt Preparation Mode
 

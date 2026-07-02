@@ -119,15 +119,15 @@ and with what risk. This playbook strips wishful thinking — most
 
 ## Cross-references
 
-- → `references/playbooks/data.md` — for data side of feasibility
+- → `references/opportunity/playbooks/data.md` — for data side of feasibility
   (sources, access, quality).
-- → `references/playbooks/operational.md` — for the run-it side
+- → `references/opportunity/playbooks/operational.md` — for the run-it side
   (delivery, support, recovery).
-- → `references/playbooks/financial.md` — for the cost side of
+- → `references/opportunity/playbooks/financial.md` — for the cost side of
   build-vs-buy (infra + labor).
-- → `references/playbooks/risk.md` — where technical severity-4
+- → `references/opportunity/playbooks/risk.md` — where technical severity-4
   risks become kill criteria.
-- → `references/core/severity-rubric.md` — for risk scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/technical-feasibility.md` — the artifact
+- → `references/opportunity/core/severity-rubric.md` — for risk scoring.
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/technical-feasibility.md` — the artifact
   this playbook produces under `investigate`.

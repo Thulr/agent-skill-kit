@@ -1,7 +1,7 @@
 # Trend / Horizon Scan — <opportunity-slug>
 
 > Filled by `investigate` on `trend` surface, using
-> `references/playbooks/trend.md`. **Signals not narratives.
+> `references/opportunity/playbooks/trend.md`. **Signals not narratives.
 > Trend ⇒ implication ⇒ decision.**
 
 ## Opportunity statement

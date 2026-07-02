@@ -1,7 +1,7 @@
 # Market Sizing — <opportunity-slug>
 
 > Filled by `investigate` intent on `market` surface, using
-> `references/playbooks/market.md`. Real-world artifact you'd hand to
+> `references/opportunity/playbooks/market.md`. Real-world artifact you'd hand to
 > a board / investor / team. **Cite all numbers.**
 
 ## Opportunity statement

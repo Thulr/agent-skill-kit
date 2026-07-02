@@ -1,6 +1,6 @@
 {
   "name": "writing-design",
-  "description": "Use to DESIGN or shape a NEW piece of writing before or while drafting \u2014 structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'.",
+  "description": "Use to DESIGN or shape a NEW piece of writing before or while drafting — structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, shape a narrative, essay, or case study, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

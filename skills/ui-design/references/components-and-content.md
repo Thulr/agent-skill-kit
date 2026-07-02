@@ -52,11 +52,9 @@ Default voice when no system exists:
 
 ## Content Tropes to Cut
 
-Avoid product chrome that says "Let's get started", "Awesome", "AI assistant
-is ready", "Click here", "Discover", "Unlock", "Supercharge", or vague labels
-like "Insights", "Growth", "Scale", "Optimize" without real content. Replace
-generic actions with the action itself: "Open", "Save", "Connect runtime",
-"Create note".
+Banned copy tropes and their replacements: see `anti-slop-review.md` §Copy
+Tropes to Avoid — that file keeps the canonical list. Replace generic actions
+with the action itself: "Open", "Save", "Connect runtime", "Create note".
 
 ## Honest Placeholders
 

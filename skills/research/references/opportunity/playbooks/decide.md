@@ -109,17 +109,17 @@ would have to be true for the call to change.
 
 ## Cross-references
 
-- → `references/playbooks/synthesize.md` — the prior step.
+- → `references/opportunity/playbooks/synthesize.md` — the prior step.
 - → All area playbooks — the evidence sources.
-- → `references/core/fadr-framework.md` — the fold each area
+- → `references/opportunity/core/fadr-framework.md` — the fold each area
   artifact ends in.
-- → `references/core/decision-gates.md` — Go-conditions, No-Go-
+- → `references/opportunity/core/decision-gates.md` — Go-conditions, No-Go-
   triggers, kill criteria mechanics.
-- → `references/core/severity-rubric.md` — for severity-4 → kill
+- → `references/opportunity/core/severity-rubric.md` — for severity-4 → kill
   criterion routing.
-- → `references/intents/decide.csv` row `go-no-go` / `kill-criteria`
+- → `references/opportunity/intents/decide.csv` row `go-no-go` / `kill-criteria`
   / `pivot` — the entry point.
-- → `templates/fadr-memo.md` — the artifact this playbook produces.
+- → `templates/opportunity/fadr-memo.md` — the artifact this playbook produces.
 - → Sibling skills: `premortem` for backwards-from-failure depth;
   `proposal-red-team` for adversarial pitch review;
   `plan-red-team` for execution-plan stress-testing. Use them

@@ -1,6 +1,6 @@
 ---
 name: docs-design
-description: "Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, structure, examples, error copy, versioning, accessibility), or define telemetry, CI gates, retrieval evals, and feedback loops. Triggers on 'design our docs IA', 'how should we structure the quickstart/reference', 'set up docs CI gates / freshness checks'."
+description: "Use to DESIGN or MEASURE documentation — plan or reshape a docs/help/agent-readable surface before implementation (IA, structure, examples, error copy, versioning, accessibility), or define telemetry, CI gates, retrieval evals, and feedback loops. Triggers on 'design our docs IA', 'how should we structure the quickstart/reference', 'set up docs CI gates / freshness checks'. Do NOT use to AUDIT or debug existing docs (use docs-audit)."
 license: MIT
 ---
 
@@ -18,7 +18,7 @@ truth, renderings, IA, audience paths, acceptance criteria) — or a
 
 ## Boundaries
 
-Do NOT use to AUDIT or debug existing docs (use docs-audit), to design a code package's developer experience — API/SDK/CLI shape, errors, first-run flow (use dx-design), for end-user visual UI design (use ux-audit), or repo agent hardening (use harden-repo-for-coding-agents), or agent-native docs — AGENTS.md, llms.txt (use agent-docs).
+Do NOT use to AUDIT or debug existing docs (use docs-audit), to design a code package's developer experience — API/SDK/CLI shape, errors, first-run flow (use dx-design), for end-user visual UI design (use ui-design), or repo agent hardening (use harden-repo-for-coding-agents), or agent-native docs — AGENTS.md, llms.txt (use agent-docs).
 
 ## Core principle
 
@@ -59,7 +59,7 @@ concretely rather than describing principles abstractly.
    Measure → `templates/measurement-plan.md`: metrics table, gates and evals,
    baseline plan, caveats, reporting cadence.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

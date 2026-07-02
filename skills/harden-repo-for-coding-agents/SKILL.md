@@ -1,6 +1,6 @@
 ---
 name: harden-repo-for-coding-agents
-description: "Assess, harden, scaffold, or diagnose a repo's agent-readiness. Triggers: 'make this repo work with Claude Code', 'score our agent-readiness'."
+description: "Assess, harden, scaffold, or diagnose a repo's agent-readiness. Triggers: 'make this repo work with Claude Code', 'score our agent-readiness'. Do NOT use to promote observed agent failures into rules (use rules-from-coding-agent-failures) or to design an AI product's evals (use agent-test)."
 license: MIT
 ---
 

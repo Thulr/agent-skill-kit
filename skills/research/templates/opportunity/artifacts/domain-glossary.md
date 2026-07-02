@@ -1,7 +1,7 @@
 # Domain Glossary & Workflow Map — <opportunity-slug>
 
 > Filled by `investigate` on `domain` surface, using
-> `references/playbooks/domain.md`. **The artifact's hardest test:
+> `references/opportunity/playbooks/domain.md`. **The artifact's hardest test:
 > have it reviewed by both an insider and an outsider before
 > shipping.**
 

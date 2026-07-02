@@ -49,6 +49,15 @@ done
 artifact_count=$(find "$skill_dir/templates/opportunity/artifacts" -maxdepth 1 -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 (( artifact_count == 14 )) || fail "expected 14 opportunity area artifacts, found $artifact_count"
 
+# ----- Stale sibling-path tokens in opportunity markdown -----
+# The opportunity tree must reference its own namespaced paths; bare
+# `references/playbooks|core|intents/...` or `templates/artifacts/...`
+# tokens are pre-relocation leftovers.
+if grep -rnE '`(references/(playbooks|core|intents)/|references/(intent-router|starter-scenarios)\.csv|references/subagent-dispatch\.md|templates/(artifacts/|fadr-memo\.md))' \
+    "$skill_dir/references/opportunity" "$skill_dir/templates/opportunity" >/dev/null 2>&1; then
+  fail "stale pre-relocation path token in opportunity tree (must use references/opportunity/... or templates/opportunity/...)"
+fi
+
 # ----- Opportunity routing integrity (every CSV path token must resolve) -----
 # The opportunity sub-tree was relocated under references/opportunity/ +
 # templates/opportunity/ during the research merge; its router/intents CSVs

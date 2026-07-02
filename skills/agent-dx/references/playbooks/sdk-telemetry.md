@@ -88,7 +88,9 @@ structural telemetry, and the inline-vs-reference content decision.
 - **(design, review) Trace per step on one named convention.** Emit a span per
   loop step and pick one convention (OTel GenAI or OpenInference); use its
   attribute names accurately and model spans it lacks (e.g. `handoff`) as custom
-  spans rather than mislabelling them.
+  spans rather than mislabelling them. Verify attribute names and span types
+  against the current semconv release — the GenAI conventions are pre-stable
+  and rename attributes.
 - **(review) Don't put the redactor on the hot path's GPU.** Co-locating heavy
   NER on the inference accelerator trades privacy for latency; run it where it
   does not steal inference cycles.

@@ -1,6 +1,6 @@
 ---
 name: codex-cli
-description: "Invoke Codex CLI as an external reviewer. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'review this before I push'."
+description: "Invoke Codex CLI as an external reviewer, second-opinion analyst, cross-project reflection source, or Codex setup diagnostic. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'ask Codex what mistakes it keeps making across projects', 'Codex auth/setup is failing'. Do NOT use for bare 'review my changes' with no Codex or different-model signal."
 license: MIT
 ---
 
@@ -163,8 +163,9 @@ Before invoking Codex, check:
 - `references/delegation-playbook.md`: Second-opinion and prompt-prep patterns.
 - `references/doctor-playbook.md`: Setup diagnostics workflow.
 - `references/output-rubric.md`: Review quality and reconciliation rubric.
-- `templates/review-prompt.md`: Prompt template used by
-  `scripts/codex-review-changes.sh`.
+- `templates/review-prompt.md`: custom review rubric — NOT deliverable to
+  `codex review` (it takes no prompt); deliver via `scripts/codex-ask.sh
+  --template` for steered reviews.
 - `templates/delegation-prompt.md`: Prompt template used by
   `scripts/codex-ask.sh`.
 - `templates/cross-project-reflection-prompt.md`: Prompt template used by

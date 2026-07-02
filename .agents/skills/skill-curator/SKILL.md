@@ -41,6 +41,11 @@ prevent.
   grounding reference only when source-to-heuristic mapping will materially
   help future agents apply the skill.
 - Prefer source-inspired behavior over source summaries.
+- Hold generated content to `docs/skill-authoring-principles.md`:
+  descriptions written for the routing decision (triggers plus anti-triggers
+  naming sibling skills), gotchas and opinions rather than pasted external
+  docs, and explicit stop conditions plus iteration caps for any looping
+  workflow.
 - Do not reproduce long copyrighted passages, chapter summaries, scripts,
   dialogue, lyrics, or distinctive text. Paraphrase concepts into
   operational methods.
@@ -220,22 +225,9 @@ communication, attention, reflection, or planning. Packs travel in
 `skill.json.tags` — they are not directory layers in this repo. Never use
 a source title as a pack tag.
 
-Add a new pack tag when:
-
-- the name describes a capability domain, not a source
-- the domain would still make sense if the source disappeared
-- the pack can accept future sources from books, movies, notes, talks, or
-  articles
-
-Use an existing pack tag when:
-
-- a current pack already describes the user need
-- the candidate extends an existing skill's references, rubric, or
-  templates
-- a new pack would differ only by wording
-
-See `references/pack-placement-rubric.md` for the full candidate-shape
-rubric and decision recording format.
+When to mint a new pack tag versus reuse an existing one is decided by
+`references/pack-placement-rubric.md` (the full candidate-shape rubric and
+decision recording format) — do not duplicate its criteria here.
 
 ## Public File Rules
 

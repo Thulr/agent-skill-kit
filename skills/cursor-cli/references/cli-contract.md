@@ -18,6 +18,8 @@ wrappers default to `--mode plan`.
   review/second-opinion default. `--mode ask` is the read-only Q&A stance.
 - `--output-format text`: plain output another agent can summarize (also `json`,
   `stream-json`).
+- If any flag here errors, trust `cursor-agent --help` over this file — the
+  vendor surface moves; update this contract when it drifts.
 - `--model <model>`: optional; cursor-agent can run many providers' models (e.g.
   `gpt-5`, `sonnet-4`, `sonnet-4-thinking`). `cursor-agent --list-models` lists
   what your account can use. This is the main reason to reach for cursor-cli over

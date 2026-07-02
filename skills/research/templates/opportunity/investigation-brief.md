@@ -33,7 +33,7 @@ empty, explain why in Open Questions.)
 
 ## Heuristics applied
 
-From `references/playbooks/<area>.md` — list which heuristics were
+From `references/opportunity/playbooks/<area>.md` — list which heuristics were
 applied and what each surfaced.
 
 - **<heuristic from playbook>** — finding (severity / confidence)

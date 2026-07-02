@@ -14,6 +14,7 @@ rubric for definitions and report format).
 ## Required artifacts
 
 - [ ] **blocking** — `SKILL.md` with frontmatter, one H1, both-registry-consulting workflow
+- [ ] **blocking** — must-not-miss invariants (safety boundaries, hard never-do-X, scoring invariants) are inline in `SKILL.md`, not only in routed references
 - [ ] **blocking** — `skill.json` with `status: "published"`, object-array `inspired_by` with per-source `playbooks[]`, resolvable `maintainers`
 - [ ] **blocking** — `references/intent-router.csv` with columns `intent,name,when_to_use,registry_file,default_template`
 - [ ] **blocking** — `references/intents/<intent>.csv` per intent with columns `surface,name,when_to_use,playbook,core_refs`
@@ -22,7 +23,7 @@ rubric for definitions and report format).
 - [ ] **warning** — `references/subagent-dispatch.md` if any intent benefits from multi-lens review (audits, edge-passes)
 - [ ] **blocking** — `templates/<intent>.md` per intent
 - [ ] **blocking** — `evals/activation-cases.md`, `evals/run-static-checks.sh`
-- [ ] **warning** — `evals/trigger-evals.json`
+- [ ] **blocking** — `evals/trigger-evals.json`
 
 ## Dimension orthogonality (the load-bearing anti-pattern check)
 

@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: "Produce test-suite artifacts - author tests for a feature, shape cross-layer strategy, or plan deletions. Triggers: 'write tests for this feature', 'design our test strategy', 'which tests should we delete'."
+description: "Produce test-suite artifacts - author tests for a feature, shape cross-layer strategy, or plan deletions. Triggers: 'write tests for this feature', 'design our test strategy', 'which tests should we delete'. Do NOT use to review or triage existing tests for smells, flakiness, or false-pass — use test-audit."
 license: MIT
 ---
 
@@ -55,7 +55,7 @@ the most familiar layer.
 6. **Emit output.** Author → `templates/author-design.md`. Strategize →
    `templates/strategy-doc.md`. Prune → `templates/prune-plan.md`.
 
-> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this is not what they meant, go back to step 1 (Pick intent) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

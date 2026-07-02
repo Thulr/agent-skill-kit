@@ -1,6 +1,6 @@
 ---
 name: writing-audit
-description: "Use to AUDIT an EXISTING piece of writing — tighten wordy prose at the line and paragraph level (revise), fix mechanics, grammar, and consistency while preserving voice (copyedit), or diagnose why a draft drags, buries the point, or fails to land (diagnose). Triggers on 'tighten this', 'copyedit this', 'why does this drag', 'review my draft', 'this memo buries the point'."
+description: "Use to AUDIT an EXISTING piece of writing — tighten wordy prose at the line and paragraph level (revise), fix mechanics, grammar, and consistency while preserving voice (copyedit), or diagnose why a draft drags, buries the point, or fails to land (diagnose). Triggers on 'tighten this', 'copyedit this', 'why does this drag', 'review my draft', 'this memo buries the point'. Do NOT use to structure or draft something NEW (use writing-design) or to audit a docs system's IA or retrieval (use docs-audit)."
 license: MIT
 ---
 
@@ -45,8 +45,9 @@ and proposes a fix. A change that only reflects preference is a 0 — say so.
    the genre — the finding is a cost to a specific reader.
    Then **calibrate to project scale** per `references/calibration.md`: infer the
    tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
-   Load-bearing, narrow scope and collapse same-mechanism nits into one systemic
-   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   Load-bearing, narrow scope and collapse same-mechanism nits (severity ≤ 3 only) into one systemic
+   finding at max severity, and split fixes Now vs Later — a severity-4 finding
+   is never collapsed or deferred; tier reshapes emission,
    not the severity rubric.
 5. **Spawn reader-lens sub-agents (default for `diagnose`).** Each reads the
    draft from one lens and returns findings — see "Subagent dispatch"; fall back
@@ -60,7 +61,7 @@ and proposes a fix. A change that only reflects preference is a 0 — say so.
 8. **Emit output.** Write the intent's template: `templates/revision-report.md`,
    `templates/copyedit-report.md`, or `templates/diagnosis-report.md`.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

@@ -1,14 +1,13 @@
 ---
 name: dx-audit
-description: "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK."
+description: "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface (docs-audit), or end-user UX (ux-audit)."
 license: MIT
 ---
 
 # DX Audit
 
 Developer-experience audit, debugging, and edge-case risk-scan for any surface
-a developer installs, calls, or extends. Provenance lives in `skill.json`; this
-file is runtime routing only.
+a developer installs, calls, or extends.
 
 **Produces:** an intent-specific report — `audit-report.md` (or
 `audit-report-multi.md` for `all`) / `debug-runbook.md` / `edge-checklist.md`;
@@ -46,7 +45,7 @@ avoidable setup, that is a DX problem worth a finding.
    Then **calibrate to project scale** per `references/calibration.md` —
    tier-gate scope, collapse same-mechanism gaps, split fixes Now vs Later.
 5. **Spawn sub-agents in parallel (default for `audit` and `edge-pass`).**
-   Single-surface: one lens per agent; audit + `all`: one surface per agent
+   Single-surface: one lens per agent; audit/edge-pass + `all`: one surface per agent
    running the three lenses sequentially. See "Subagent dispatch"; fall back to
    sequential only if the host lacks a delegation primitive.
 6. **Apply the playbook.** Use the heuristics tagged for this intent. For
@@ -71,7 +70,7 @@ avoidable setup, that is a DX problem worth a finding.
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this is not what they meant, go back to step 1 (Pick intent) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 
@@ -106,4 +105,3 @@ deterministic or secret-bound work. Spawn three lenses in parallel —
 - `references/core/personas.md` — target developer persona list.
 - `templates/*.md` — audit / debug / edge-pass outputs plus tracking artifacts.
 - `evals/` — activation cases, static checks, trigger evals.
-- `skill.json` — provenance, grounding sources, version, status.

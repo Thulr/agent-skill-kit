@@ -1,6 +1,6 @@
 {
   "name": "test-design",
-  "description": "Produce test-suite artifacts - author tests for a feature, shape cross-layer strategy, or plan deletions. Triggers: 'write tests for this feature', 'design our test strategy', 'which tests should we delete'.",
+  "description": "Produce test-suite artifacts - author tests for a feature, shape cross-layer strategy, or plan deletions. Triggers: 'write tests for this feature', 'design our test strategy', 'which tests should we delete'. Do NOT use to review or triage existing tests for smells, flakiness, or false-pass — use test-audit.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

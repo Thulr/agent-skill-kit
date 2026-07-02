@@ -70,7 +70,7 @@ depth-vs-speed up front. Canonical contract in
    invention.
 8. **Verify (self-polish).** Load `references/browser-verification.md` and
    follow its concrete browser-tool checks: navigate to the rendered artifact,
-   visually inspect it with `browser_vision`, check the console for errors,
+   visually inspect it with the session's vision/screenshot tool, check the console for errors,
    verify responsive viewports, interaction states, and reduced motion. Also
    check editability, export needs, and the anti-slop pass. The `quality-review`
    intent runs this as its own route.

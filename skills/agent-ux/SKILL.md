@@ -63,7 +63,7 @@ target by stable handle, not coordinates; gate the irreversible action in-path.
    back to `audit-artifacts/agent-ux-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

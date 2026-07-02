@@ -28,7 +28,7 @@ For each area in scope, name the rationale and the depth.
 | 2 | … |  |  |  |
 | 3 | … |  |  |  |
 
-Default first-pass at each stage (from `references/subagent-dispatch.md`):
+Default first-pass at each stage (from `references/opportunity/subagent-dispatch.md`):
 
 - **Pre-idea:** customer, domain, trend
 - **Idea:** customer, market, competitive, domain

@@ -1,6 +1,6 @@
 ---
 name: context-budget-audit
-description: "Audit and prune per-session context waste — MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'."
+description: "Audit and prune per-session context waste — MCP servers, plugins, skills, subagents. Triggers: 'what's eating my context', 'trim my agent setup'. Do NOT use to harden a repo's agent config (use harden-repo-for-coding-agents) or for runtime trace/eval observability (use agent-ops)."
 license: MIT
 ---
 
@@ -31,9 +31,9 @@ The normal loop:
 
 ## Activation
 
-- **Bare invocation** (`"use context-budget-audit"`, `"start"`): show a compact
-  menu: mode choice (guided / autopilot / grill me?) and numbered intents from
-  the router. Wait. No file inspection, no network calls, no writes.
+- **Bare invocation** (`"use context-budget-audit"`, `"start"`, `"what am I not
+  using?"`): run the default audit immediately — it is read-only; do not turn
+  bare activation into a menu. No writes.
 - **Ambiguous invocation**: ask one — e.g., *"Are you auditing MCP servers,
   plugins, skills, or all sources?"* or *"Is this a full context audit or a
   narrower 'find unused skills and move keepers into this repo' pass?"*
@@ -131,7 +131,7 @@ Show the exact path, confirm it is the named item, then delete only that file.
 do not edit `~/.claude.json`, `~/.codex/config.toml`, or settings yourself.
 Surface the precise action and let the user run it:
 
-- Claude global/project: `claude mcp remove <name>` (or `claude mcp remove -s user <name>`).
+- Claude global/project: `claude mcp remove <name>` (or `claude mcp remove -s user <name>`); if unsure the syntax is current, check `claude mcp remove --help` first.
 - Codex: remove the `[mcp_servers.<name>]` block from `~/.codex/config.toml`.
 
 **Plugin — recommend disable/uninstall (config edit = stop-and-confirm)**:
@@ -142,7 +142,7 @@ removes it from `installed_plugins.json`. Do not hand-delete plugin cache dirs.
 Report acted, already-done, recommended-to-user, skipped, and blocked items.
 
 > **Wrong direction?** If the user says this isn't what they meant, go back to
-> Understand (step 1) — do not patch in the wrong direction. Restate the
+> the Audit (step 1) — do not patch in the wrong direction. Restate the
 > corrected understanding and re-plan.
 
 ## Stop Conditions

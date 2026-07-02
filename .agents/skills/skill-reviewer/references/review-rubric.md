@@ -27,13 +27,28 @@ Score each category as pass, fix, or block.
 - Bare activation is interactive and non-side-effectful.
 - Workflows are specific enough for another agent to run.
 - Heavy knowledge lives in references, not only in `SKILL.md`.
+- Must-not-miss rules (safety boundaries, non-skippable steps, hard
+  "never do X", scoring invariants) appear in `SKILL.md` itself, not only in
+  routed references — agents skip reference loads.
 - Router rows load only the detail files and templates needed for the matched
   intent; rows should not point to the whole knowledge base by default.
 - The skill can be useful to a user who has not read or watched the source.
+- Volatile external facts (vendor CLI flags, API surfaces, version numbers)
+  are not pasted as static prose; the skill points at the live source of
+  truth and says to verify against it.
+- Content survives the deletion test: no duplication (the same rule stated
+  twice inside the skill), no sediment (references or branch instructions
+  for workflows that no longer exist), no no-op instructions that change no
+  behavior.
+- Any looping workflow (iterate/retry/review-until-clean) states an explicit
+  stop condition, an iteration cap, and an escalation rule for conflicting
+  signals.
+- Full checklist with sources: `docs/skill-authoring-principles.md`.
 
 ## Grounding And Provenance
 
-- `skill.json.inspired_by` carries concise user-facing provenance.
+- When present, `skill.json.inspired_by` is concise and user-facing; absence
+  is acceptable for skills that are not literature-derived (repo policy).
 - `SKILL.md` does not contain author biographies, further-reading sections,
   source marketing, long bibliographies, or source summaries.
 - Public grounding references, when present, are concise operational maps:

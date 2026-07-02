@@ -1,6 +1,6 @@
 ---
 name: writing-design
-description: "Use to DESIGN or shape a NEW piece of writing before or while drafting — structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'."
+description: "Use to DESIGN or shape a NEW piece of writing before or while drafting — structure an argument or memo (PRD, RFC, recommendation), organize a task-oriented technical doc or explainer, get a first pass down without stalling, shape a narrative, essay, or case study, or give a talk, pitch, launch post a persuasive arc. Triggers on 'help me outline this RFC', 'draft this announcement', 'make this pitch land', 'structure this doc before I write it'."
 license: MIT
 ---
 
@@ -58,7 +58,7 @@ name the governing point and the target reader first, then draft.
 7. **Emit output.** Write the intent's template: `templates/outline-plan.md`,
    `templates/draft-scaffold.md`, or `templates/persuasion-plan.md`.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

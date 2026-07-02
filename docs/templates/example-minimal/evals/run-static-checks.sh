@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$script_dir/../../../scripts/static-check-lib.sh"
+source "$script_dir/../../../../scripts/static-check-lib.sh"
 repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"

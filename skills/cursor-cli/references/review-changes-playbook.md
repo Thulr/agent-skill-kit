@@ -19,9 +19,8 @@ assembled locally and passed as prompt context.
 
 ## Picking a model
 
-`--model` is optional but is the point of this skill: get the review from a
-*different* model than the one that wrote the code — e.g. `--model gpt-5` or
-`--model sonnet-4`. `cursor-agent --list-models` shows what's available.
+Review with a *different* model than the one that wrote the code — see the
+`--model` bullet in `cli-contract.md`.
 
 ## Review Standard
 

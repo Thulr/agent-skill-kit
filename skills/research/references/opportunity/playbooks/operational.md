@@ -114,15 +114,15 @@ still be a terrible business because it's painful to operate.
 
 ## Cross-references
 
-- → `references/playbooks/technical.md` — for system architecture
+- → `references/opportunity/playbooks/technical.md` — for system architecture
   side of operational concerns.
-- → `references/playbooks/financial.md` — for the cost side of
+- → `references/opportunity/playbooks/financial.md` — for the cost side of
   staffing and ops.
-- → `references/playbooks/legal.md` — for contracts, employment,
+- → `references/opportunity/playbooks/legal.md` — for contracts, employment,
   vendor agreements.
-- → `references/playbooks/risk.md` — where operational
+- → `references/opportunity/playbooks/risk.md` — where operational
   severity-4 risks become kill criteria.
-- → `references/core/severity-rubric.md` — for failure-mode scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/operating-model.md` — the artifact this
+- → `references/opportunity/core/severity-rubric.md` — for failure-mode scoring.
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/operating-model.md` — the artifact this
   playbook produces under `investigate`.

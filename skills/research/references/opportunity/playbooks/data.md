@@ -110,16 +110,16 @@ data-availability problems wearing AI clothing.
 
 ## Cross-references
 
-- → `references/playbooks/technical.md` — for data-system
+- → `references/opportunity/playbooks/technical.md` — for data-system
   architecture and feasibility.
-- → `references/playbooks/legal.md` — for privacy / consent /
+- → `references/opportunity/playbooks/legal.md` — for privacy / consent /
   retention / compliance.
-- → `references/playbooks/operational.md` — for ongoing data
+- → `references/opportunity/playbooks/operational.md` — for ongoing data
   monitoring and quality.
-- → `references/playbooks/risk.md` — where data concentration
+- → `references/opportunity/playbooks/risk.md` — where data concentration
   becomes a tracked risk.
-- → `references/core/confidence-rubric.md` — for labeling claim
+- → `references/opportunity/core/confidence-rubric.md` — for labeling claim
   confidence (and the auto-promotion of L).
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/data-inventory.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/data-inventory.md` — the artifact this
   playbook produces under `investigate`.

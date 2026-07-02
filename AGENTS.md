@@ -109,6 +109,11 @@ Every skill under `skills/` or `skills/.experimental/` must ship:
 `docs/templates/example-minimal/` is the **template contract**: anything required of
 published skills must exist there too, even as a minimal placeholder.
 
+Skill **content** — descriptions, `SKILL.md` body, references, loops — is held
+to [`docs/skill-authoring-principles.md`](./docs/skill-authoring-principles.md)
+(routing-first descriptions, inlined invariants, gotchas over manuals, deletion
+tests, stop conditions); `skill-reviewer` gates on it.
+
 ## Canonical `trigger-evals.json` schema
 
 The authoritative shape lives in [`schemas/trigger-evals.schema.json`](./schemas/trigger-evals.schema.json);
@@ -329,5 +334,6 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/adr/`](./docs/adr/) — architectural decisions (the "why")
 - [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
+- [`docs/skill-authoring-principles.md`](./docs/skill-authoring-principles.md) — skill-content quality bar (sourced field results)
 - [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
 - [`skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md`](./skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `rules-from-coding-agent-failures`)

@@ -1,5 +1,5 @@
 scenario,intent,surface,prompt
 cross-audience-docs-audit,audit,all,"Audit our docs site for developer, end-user, and agent experience problems."
 help-center-deflection,debug,ux-help,Users read the help article and still open support tickets; diagnose the help failure.
-api-tool-contracts,audit,api-contracts,Review our OpenAPI and MCP tool descriptions for agent-callability.
+api-tool-contracts,audit,api-contracts,Review our OpenAPI descriptions and error docs — could an integrator or agent call these endpoints correctly?
 audience-conflict-resolution,debug,audience-conflicts,Our tooltips help users but agents miss the instructions; recommend a resolution.

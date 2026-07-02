@@ -1,6 +1,6 @@
 ---
 name: agent-docs
-description: "Use for AGENT DOCS — agent-native docs an AI agent reads and acts on (no humans). DO: write/fix AGENTS.md, llms.txt, tool descs, refs, context-budget. REVIEW: audit for findability, chunk survivability, trigger clarity, budget. DESIGN: shape doc contracts. Triggers: audit AGENTS.md, curate llms.txt, wrong tool call, will doc survive chunking."
+description: "Use for AGENT DOCS — agent-native docs an AI agent reads and acts on (no humans). DO: write/fix AGENTS.md, llms.txt, tool descs, refs, context-budget. REVIEW: audit for findability, chunk survivability, trigger clarity, budget. DESIGN: shape doc contracts. Triggers: audit AGENTS.md, curate llms.txt, wrong tool call, will doc survive chunking. Do NOT use for human/dual-audience docs — use docs-audit/docs-design."
 license: MIT
 ---
 
@@ -63,7 +63,7 @@ invariants belong in gates (route to `harden-repo-for-coding-agents`), not ignor
    back to `audit-artifacts/agent-docs-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 
@@ -93,4 +93,3 @@ single-source/drift, invariants-in-gates, persona/ops boundary) — per
 - `references/core/{severity-rubric,score-rubric,personas,glossary}.md` — scales, audience, terms.
 - `references/{calibration,trackable-findings,modes}.md` — shared (symlinks).
 - `templates/*.md` — change-plan, audit-report, design-doc, refactor-runbook, explanation.
-- `evals/`, `skill.json` — gates and provenance.

@@ -148,8 +148,9 @@ AGENTS.md prose for capability-specific workflows.
 Concrete starting points for `scaffold` skill metadata. Copy from
 `templates/artifacts/skills/`, fill `<placeholder>` markers:
 
-- `skill.json` — required-fields shape (`name`, `version`, `status`, `license`, `maintainers`,
-  `inspired_by`); enforces AGENTS.md Rule 4 (resolvable handles) in comments.
+- `skill.json` — required-fields shape (`name`, `description`, `version`, `status`, `license`,
+  `maintainers`) plus optional-but-encouraged `inspired_by`; enforces AGENTS.md Rule 4
+  (resolvable handles) in comments.
 - `trigger-evals.json` — canonical schema (`skill`, `version`, `queries[]`) per AGENTS.md
   Rule 2; every documented field is required (`version` was the gap Copilot caught in PR #5).
 

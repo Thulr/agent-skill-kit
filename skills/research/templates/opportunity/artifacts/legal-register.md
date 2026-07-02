@@ -1,7 +1,7 @@
 # Legal Register — <opportunity-slug>
 
 > Filled by `investigate` on `legal` surface, using
-> `references/playbooks/legal.md`. **This is an inventory of legal
+> `references/opportunity/playbooks/legal.md`. **This is an inventory of legal
 > questions to escalate to counsel. It is NOT legal advice.
 > Jurisdiction-dependent. Counsel review required before commitments.**
 

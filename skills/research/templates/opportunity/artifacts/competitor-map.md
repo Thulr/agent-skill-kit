@@ -1,7 +1,7 @@
 # Competitor Map — <opportunity-slug>
 
 > Filled by `investigate` on `competitive` surface, using
-> `references/playbooks/competitive.md`. **Three classes mandatory:
+> `references/opportunity/playbooks/competitive.md`. **Three classes mandatory:
 > direct, substitute, do-nothing.**
 
 ## Opportunity statement

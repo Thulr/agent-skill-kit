@@ -1,6 +1,6 @@
 ---
 name: claude-code-cli
-description: "Invoke Claude Code CLI as an external reviewer. Covers print mode (-p) for one-shot review and interactive PTY mode for multi-turn sessions."
+description: "Invoke Claude Code CLI as an external reviewer. Triggers: 'ask Claude Code to review my changes', 'get a second opinion from Claude', 'claude ultrareview', 'cross-project reflection'. Do NOT use for Codex (use codex-cli) or Cursor (use cursor-cli)."
 license: MIT
 ---
 
@@ -50,7 +50,7 @@ One-shot, non-interactive. No PTY needed. No dialog handling. Cleanest path.
 ```bash
 # Review git diff against a branch
 claude -p --permission-mode plan --output-format text \
-  "Review this diff for bugs, security issues, and style problems." \
+  "Review this diff for bugs, security issues, and broken build/test behavior." \
   --max-turns 1
 
 # Pipe a diff directly
@@ -78,8 +78,11 @@ terminal(command="sleep 5 && tmux send-keys -t claude-review Enter")
 # Send the review task
 terminal(command="tmux send-keys -t claude-review 'Review changes vs main. Check for bugs, race conditions, and missing tests.' Enter")
 
-# Capture output periodically
+# Capture output; poll at most ~10 times, then stop
 terminal(command="sleep 30 && tmux capture-pane -t claude-review -p -S -50")
+
+# Always clean up when done or stalled
+terminal(command="tmux kill-session -t claude-review")
 ```
 
 **Bare mode (fastest startup, CI/scripting):**
@@ -93,7 +96,7 @@ Skips hooks, plugins, MCP discovery, CLAUDE.md, and OAuth. Requires
 
 ```bash
 # All changes (staged + unstaged)
-terminal(command="git diff | claude -p --permission-mode plan --output-format text 'Review these changes for bugs, security issues, and style problems. Be thorough.' --max-turns 3", workdir="/path/to/repo", timeout=120)
+terminal(command="git diff | claude -p --permission-mode plan --output-format text 'Review these changes for bugs, security issues, and broken build/test behavior.' --max-turns 3", workdir="/path/to/repo", timeout=120)
 
 # Branch diff vs main
 terminal(command="git diff main...HEAD | claude -p --permission-mode plan --output-format text 'Review this branch diff for bugs, design issues, and test coverage gaps.' --max-turns 3", workdir="/path/to/repo", timeout=120)
@@ -175,6 +178,8 @@ terminal(command="claude -p --resume <session-id> 'Continue and also check for p
 
 ## Safety Rules
 
+1. **`claude ultrareview` is hosted and billed — never auto-run it.** Surface
+   the command and cost and let the user trigger it.
 1. **Read-only by default.** Use `--permission-mode plan` (read-only analysis)
    unless the user explicitly asks Claude to make edits.
 2. **No `--dangerously-skip-permissions`** without explicit user approval.
@@ -213,9 +218,6 @@ Before invoking Claude Code, check:
 
 - **Scope**: Is the intended diff staged, unstaged, branch, or a repo question?
 - **Trust**: Is the current directory trusted for non-interactive execution?
-- **Current-repo bias**: For cross-project reflection, run from a neutral dir
-  and ensure the prompt prohibits treating the current repo as the audit target.
-- **Secrets**: Could the diff include credentials, tokens, or customer data?
 - **Size**: Will the diff exceed the prompt budget? Truncate or narrow scope.
 - **Authority**: Is Claude reviewing (read-only) or editing (explicit request)?
 - **Failure**: If auth, model, budget, or CLI availability fails, report the
@@ -240,4 +242,7 @@ perform the lenses sequentially.
 - `scripts/claude-ask.sh`: Helper script for custom questions with context.
 - `scripts/claude-cross-project-reflect.sh`: Cross-project reflection script.
 - `templates/*.md`: Prompt templates used by the helper scripts.
+- `templates/capability-manifest.json`: Capability declaration.
+- `templates/handoff.json`: Prepared handoff shape.
+- `templates/workflow-state.json`: Optional resumable workflow state.
 - `evals/`: Activation cases, static checks, trigger evals.

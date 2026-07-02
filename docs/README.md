@@ -13,6 +13,7 @@ Diataxis mapping (roughly):
 Other docs in this repo:
 
 - `docs/reflection-log/` — per-failure entries; the evidence base that governs new rules/gates (see its `README.md` for the recording-bar vs. promotion-bar distinction)
+- [`docs/skill-authoring-principles.md`](./skill-authoring-principles.md) — how to write and maintain skill content (routing descriptions, progressive disclosure, inlined invariants, pruning, stop conditions, measurement); sourced from published field results
 
 **Dated docs** (reflection-log entries, older `docs/specs/`) use
 the skill names current at their date; see [`CHANGELOG.md`](../CHANGELOG.md) for

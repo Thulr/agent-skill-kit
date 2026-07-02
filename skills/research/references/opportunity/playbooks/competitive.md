@@ -111,15 +111,15 @@ comparison, not a feature checklist.
 
 ## Cross-references
 
-- → `references/playbooks/market.md` — for market structure that
+- → `references/opportunity/playbooks/market.md` — for market structure that
   determines competitive dynamics.
-- → `references/playbooks/customer.md` — for the workaround as
+- → `references/opportunity/playbooks/customer.md` — for the workaround as
   competitor and the JTBD frame.
-- → `references/playbooks/gtm.md` — for positioning execution at
+- → `references/opportunity/playbooks/gtm.md` — for positioning execution at
   launch.
-- → `references/playbooks/trend.md` — for incumbent shifts that
+- → `references/opportunity/playbooks/trend.md` — for incumbent shifts that
   change the competitive set.
-- → `references/core/severity-rubric.md` — for moat-strength scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/competitor-map.md` — the artifact this
+- → `references/opportunity/core/severity-rubric.md` — for moat-strength scoring.
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/competitor-map.md` — the artifact this
   playbook produces under `investigate`.

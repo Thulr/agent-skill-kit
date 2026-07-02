@@ -129,6 +129,8 @@ and README's agent-facing role shrinks to "see AGENTS.md."
   `docs/reflection-log/` with the recording-bar / promotion-bar callout. The pointer is optional
   here; it's required by `rules-from-coding-agent-failures` for projects that opt into that workflow.
 
+### diagnose
+
 - **H1.** Agent ignores a rule from the instruction file → rank hypotheses: (1) file exceeds 200
   lines and the rule is in the middle (W2: "lost in the middle" decay); (2) Cursor rule has wrong
   activation mode — `description`-matched rule not triggered because agent didn't request it;

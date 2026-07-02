@@ -1,6 +1,6 @@
 ---
 name: skill-reviewer
-description: Use when reviewing or editing proposed or existing public skills for structure, metadata, source safety, usefulness, validation, and release readiness. Do not use for building a new skill from source material; use `skill-curator` for that.
+description: Use when reviewing or editing proposed or existing skills in this catalog (public or repo-local) for structure, metadata, source safety, usefulness, validation, and release readiness. Do not use for building a new skill from source material; use `skill-curator` for that.
 metadata:
   internal: true
 ---
@@ -30,15 +30,13 @@ safety, usefulness, progressive disclosure, templates, evals, and validation.
 - Reject source summaries disguised as skills.
 - Enforce registry-based progressive disclosure: `SKILL.md` should route, not
   carry the full knowledge base. Detailed files and templates must be mapped
-  through the skill's router shape: `references/intent-router.csv` alone
-  (single-axis), `references/intent-router.csv` plus
-  `references/intents/*.csv` (two-axis intent × surface), or
-  `references/surface-router.csv` (harden-repo-for-coding-agents's level-2 picker).
+  through one of the accepted router shapes (canonical list:
+  `references/review-rubric.md` §Structure) — with one exception:
+  must-not-miss invariants stay inline in `SKILL.md`, never only behind a
+  router row.
 - Check that provenance is concise and user-facing in `skill.json`, while any
   public grounding references are short, paraphrased, registry-mapped, and
   useful for execution rather than source explanation.
-- Check source safety, usefulness, progressive disclosure, templates, evals, and
-  validation.
 - For contract-drift reviews, use `references/contract-drift-review.md` to
   trace runtime text through registries, templates, evals, static checks, and
   CI gates.
@@ -99,6 +97,13 @@ Block or fix a proposed skill change when:
   biographies, or substitute summaries instead of concise operational maps
 - artifact-producing workflows lack templates
 - risky workflows lack evals or safety boundaries
+- a must-not-miss rule (safety boundary, scoring invariant, hard never-do-X)
+  lives only behind a router row instead of in `SKILL.md`
+- volatile external facts (vendor flags, API surfaces, versions) are pasted
+  as static prose instead of pointing at the live source of truth
+- a looping workflow lacks an explicit stop condition and iteration cap
+- content fails the deletion test — duplication, sediment, or no-op
+  instructions (see `docs/skill-authoring-principles.md`)
 - sensitive domains overclaim expertise or omit escalation boundaries
 - copyrighted source material is reproduced or closely paraphrased
 - workflow, registries, templates, or load-bearing markers have drifted out

@@ -11,6 +11,7 @@ rubric for definitions and report format).
 ## Required artifacts
 
 - [ ] **blocking** — `SKILL.md` with frontmatter, one H1, registry-consulting workflow
+- [ ] **blocking** — must-not-miss invariants (safety boundaries, hard never-do-X, scoring invariants) are inline in `SKILL.md`, not only in routed references
 - [ ] **blocking** — `skill.json` with `status: "published"`, object-array `inspired_by`, resolvable `maintainers`
 - [ ] **blocking** — `references/intent-router.csv` exists with the canonical columns (`intent,trigger_examples,detail_file,templates,notes`)
 - [ ] **blocking** — `evals/activation-cases.md`, `evals/trigger-evals.json`, `evals/run-static-checks.sh`

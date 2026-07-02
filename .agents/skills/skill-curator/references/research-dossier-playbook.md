@@ -42,7 +42,7 @@ only expose what helps the future agent execute the skill.
 Use:
 
 - `skill.json.inspired_by` for concise source attribution
-- `skill.json.source_note` for the non-substitution boundary
+- the relevant `skill.json.inspired_by[].contribution` line for the non-substitution boundary
 - a short registry-mapped grounding reference when the source mapping matters,
   such as source family, derived heuristic, caveat, and intent
 

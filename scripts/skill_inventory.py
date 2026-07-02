@@ -98,12 +98,23 @@ class SkillInventory:
         return sorted(self._without_gitignored(entries))
 
     def static_check_scripts(self) -> list[Path]:
-        """Existing per-skill static-check scripts across all install lanes."""
+        """Existing per-skill static-check scripts across all install lanes.
+
+        Also includes the template contract's script (AGENTS.md Rule 3):
+        the template must satisfy every gate published skills satisfy, so
+        its static check runs in the same sweep instead of silently rotting
+        outside the install lanes.
+        """
         scripts: list[Path] = []
         for skill_dir in self.all_skill_dirs():
             script = skill_dir / "evals" / "run-static-checks.sh"
             if script.exists():
                 scripts.append(script)
+        template_script = (
+            self.root / "docs" / "templates" / "example-minimal" / "evals" / "run-static-checks.sh"
+        )
+        if template_script.exists():
+            scripts.append(template_script)
         return sorted(scripts)
 
     def routing_csv_files(self) -> list[Path]:

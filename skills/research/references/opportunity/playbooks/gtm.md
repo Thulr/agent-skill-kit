@@ -137,16 +137,16 @@ deliberate version is the position you choose to fight for.
 
 ## Cross-references
 
-- → `references/playbooks/channel.md` — for where the messaging is
+- → `references/opportunity/playbooks/channel.md` — for where the messaging is
   delivered.
-- → `references/playbooks/customer.md` — for the JTBD that
+- → `references/opportunity/playbooks/customer.md` — for the JTBD that
   positioning targets.
-- → `references/playbooks/competitive.md` — for the reference frame
+- → `references/opportunity/playbooks/competitive.md` — for the reference frame
   positioning fights for.
-- → `references/playbooks/financial.md` — for pricing's value
+- → `references/opportunity/playbooks/financial.md` — for pricing's value
   anchor.
-- → `references/playbooks/stakeholder.md` — for B2B buyer vs user
+- → `references/opportunity/playbooks/stakeholder.md` — for B2B buyer vs user
   in messaging.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/gtm-plan.md` — the artifact this playbook
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/gtm-plan.md` — the artifact this playbook
   produces under `investigate`.

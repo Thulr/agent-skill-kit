@@ -15,7 +15,7 @@ evidence, not sequentially-anchored evidence.
 ### A. Per-surface fan-out (areas)
 
 Used when `surface = all` (scope or investigate). Spawn one sub-agent
-per row of `references/intents/investigate.csv` (excluding the `all`
+per row of `references/opportunity/intents/investigate.csv` (excluding the `all`
 row itself). Each sub-agent loads only its own playbook + artifact
 template + the user's opportunity context; the orchestrator does NOT
 pre-load all 14 playbooks.
@@ -24,7 +24,7 @@ pre-load all 14 playbooks.
 
 Used for a single-surface investigation when the user wants a
 multi-lens read. Spawn one sub-agent per persona — founder, operator,
-investor, skeptic (see `references/core/personas.md`). All four read
+investor, skeptic (see `references/opportunity/core/personas.md`). All four read
 the *same* playbook + artifact template but write *different*
 perspectives. The synthesizing pass preserves disagreement.
 
@@ -79,15 +79,15 @@ delegation from the word "dispatch" alone.
 > **Opportunity:** [one-line opportunity statement]
 > **Context:** [paste the intake brief / prior artifacts as needed]
 >
-> Apply the heuristics in `references/playbooks/[surface].md` tagged
+> Apply the heuristics in `references/opportunity/playbooks/[surface].md` tagged
 > for `investigate`. Use the confidence rubric in
-> `references/core/confidence-rubric.md` on every load-bearing claim
+> `references/opportunity/core/confidence-rubric.md` on every load-bearing claim
 > (H / M / L). Use the severity rubric in
-> `references/core/severity-rubric.md` for any risks.
+> `references/opportunity/core/severity-rubric.md` for any risks.
 >
-> Fill `templates/artifacts/[surface-artifact].md` end-to-end. End
+> Fill `templates/opportunity/artifacts/[surface-artifact].md` end-to-end. End
 > the artifact with the F/A/D/R fold per
-> `references/core/fadr-framework.md`. Name the next falsifiable
+> `references/opportunity/core/fadr-framework.md`. Name the next falsifiable
 > test (a <1-week experiment) that closes the highest-leverage
 > assumption.
 >
@@ -102,7 +102,7 @@ delegation from the word "dispatch" alone.
 > **Opportunity:** [one-line opportunity statement]
 > **Lens bias:** [paste the persona block from `core/personas.md`]
 >
-> Apply only the heuristics in `references/playbooks/[surface].md`
+> Apply only the heuristics in `references/opportunity/playbooks/[surface].md`
 > that this lens cares about. Surface what this lens uniquely
 > catches — do not try to balance the bull/bear; that's the
 > synthesizer's job.

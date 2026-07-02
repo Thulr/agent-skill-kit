@@ -1,6 +1,6 @@
 ---
 name: test-audit
-description: "Audit an existing test suite for smells, redundancy, false-pass risk, brittleness, and flakiness. Triage failing, flaky, or slow tests. Triggers: 'review these tests', 'this test is flaky', 'do our tests actually catch bugs'."
+description: "Audit an existing test suite for smells, redundancy, false-pass risk, brittleness, and flakiness. Triage failing, flaky, or slow tests. Triggers: 'review these tests', 'this test is flaky', 'do our tests actually catch bugs'. Do NOT use to author tests, shape suite strategy, or pick tests to delete (use test-design)."
 license: MIT
 ---
 
@@ -13,10 +13,6 @@ Provenance lives in `skill.json`; this file is runtime routing only.
 `audit-report-multi.md` for a cross-layer audit) / `triage-runbook.md`;
 tracked audits also emit `test-audit-findings-ledger-<date>-<slug>.md` +
 `test-audit-workflow-state-<date>-<slug>.json`.
-
-## Boundaries
-
-Do NOT use to AUTHOR new tests, shape suite strategy, or pick tests to delete (use test-design).
 
 ## Core principle
 
@@ -38,7 +34,8 @@ nobody can tell what behavior it pins, that is a finding worth recording.
 2. **Pick layer.** Load the intent's CSV from `references/intents/<intent>.csv`.
    Match to one layer (unit, integration, e2e-ui, exploratory, property-based,
    contract, snapshot, mutation, performance). Ambiguous → ask once with the
-   CSV menu.
+   CSV menu. Whole-suite request → route `all`: fan out per §Subagent
+   dispatch and emit `templates/audit-report-multi.md`.
 3. **Load grounded context.** Load only the chosen CSV row's files: one layer
    reference from `references/layers/<layer>.md` plus its `core_refs`. Do not
    load other layer references.
@@ -74,7 +71,7 @@ nobody can tell what behavior it pins, that is a finding worth recording.
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this is not what they meant, go back to step 1 (Pick intent) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

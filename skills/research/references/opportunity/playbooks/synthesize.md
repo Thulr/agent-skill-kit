@@ -109,13 +109,13 @@ treats as fact that another flags as risky.
 ## Cross-references
 
 - → All area playbooks — the synthesis inputs.
-- → `references/playbooks/decide.md` — the next intent after
+- → `references/opportunity/playbooks/decide.md` — the next intent after
   synthesis.
-- → `references/core/fadr-framework.md` — synthesis output ends
+- → `references/opportunity/core/fadr-framework.md` — synthesis output ends
   in the F/A/D/R fold.
-- → `references/core/personas.md` — synthesis preserves lens
+- → `references/opportunity/core/personas.md` — synthesis preserves lens
   disagreements rather than collapsing them.
-- → `references/intents/synthesize.csv` row `bundle` / `by-stage`
+- → `references/opportunity/intents/synthesize.csv` row `bundle` / `by-stage`
   / `investor-brief` — the entry point.
-- → `templates/cross-area-brief.md` — the artifact this playbook
+- → `templates/opportunity/cross-area-brief.md` — the artifact this playbook
   produces.

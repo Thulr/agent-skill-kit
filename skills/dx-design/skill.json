@@ -1,6 +1,6 @@
 {
   "name": "dx-design",
-  "description": "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'.",
+  "description": "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'. Do NOT use to audit or debug an existing surface — use dx-audit.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -194,7 +194,7 @@
       "author": "OpenTelemetry",
       "kind": "guide",
       "year": null,
-      "contribution": "HTTP and GenAI span-attribute conventions: http.request.method, http.response.status_code; gen_ai.operation.name (create_agent / invoke_agent / invoke_workflow), gen_ai.usage.{input,output}_tokens, gen_ai.response.finish_reasons, gen_ai.conversation.id for session correlation, and aggregated chat-history attributes (gen_ai.system_instructions, gen_ai.input.messages, gen_ai.output.messages) introduced in v1.37. SDKs depend on the OTel API (not the SDK) so downstream applications pick the exporter; experimental-status attributes are dual-emitted via OTEL_SEMCONV_STABILITY_OPT_IN during migrations.",
+      "contribution": "HTTP and GenAI span-attribute conventions for operations, token usage, finish reasons, and session correlation — verify attribute names against the live semconv registry; the GenAI conventions are pre-stable and rename attributes. SDKs depend on the OTel API (not the SDK) so downstream applications pick the exporter; experimental-status attributes are dual-emitted via OTEL_SEMCONV_STABILITY_OPT_IN during migrations.",
       "playbooks": [
         "logging",
         "telemetry"

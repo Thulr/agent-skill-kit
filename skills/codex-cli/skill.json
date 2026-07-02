@@ -1,6 +1,6 @@
 {
   "name": "codex-cli",
-  "description": "Invoke Codex CLI as an external reviewer. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'review this before I push'.",
+  "description": "Invoke Codex CLI as an external reviewer, second-opinion analyst, cross-project reflection source, or Codex setup diagnostic. Triggers: 'ask Codex to review my changes', 'get a second opinion from Codex', 'ask Codex what mistakes it keeps making across projects', 'Codex auth/setup is failing'. Do NOT use for bare 'review my changes' with no Codex or different-model signal.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

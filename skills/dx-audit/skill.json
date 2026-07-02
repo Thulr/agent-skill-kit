@@ -1,6 +1,6 @@
 {
   "name": "dx-audit",
-  "description": "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK.",
+  "description": "Audit an existing developer-experience surface: friction scoring, bug debugging, or pre-ship edge-case risk pass. Triggers: DX review, audit our API/SDK/CLI, is this error message OK. Do NOT use to design a new surface (dx-design), audit docs as a reading surface (docs-audit), or end-user UX (ux-audit).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

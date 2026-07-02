@@ -2,7 +2,7 @@ surface,name,when_to_use,playbook,core_refs
 api,API design,"Designing a new HTTP/RPC API or major version","references/playbooks/api.md","references/core/personas.md"
 sdk,SDK design,"Designing a new client library or binding","references/playbooks/sdk.md","references/core/personas.md"
 cli,CLI design,"Designing a new CLI or major subcommand","references/playbooks/cli.md","references/core/personas.md"
-docs,Docs design,"Designing the docs IA for a new product, surface, or section","references/playbooks/docs.md","references/core/personas.md"
+docs,Docs design,"Designing the developer docs for a new surface — quickstart, reference, tutorials, troubleshooting","references/playbooks/docs.md","references/core/personas.md"
 errors,Error design,"Designing the error response shape and recovery copy","references/playbooks/errors.md","references/core/personas.md"
 setup,Setup design,"Designing install path and first-run experience","references/playbooks/setup.md","references/core/personas.md"
 inner-loop,Inner-loop design,"Designing the local dev experience for a new project","references/playbooks/inner-loop.md","references/core/personas.md"

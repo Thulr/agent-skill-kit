@@ -14,7 +14,7 @@ OR-<surface>-NNN
 ```
 
 - `OR` for the research opportunity frame.
-- `<surface>` matches a row in `references/intents/investigate.csv`
+- `<surface>` matches a row in `references/opportunity/intents/investigate.csv`
   (market, customer, ..., trend) or one of `scope`, `synthesize`,
   `decide` for cross-cutting findings.
 - `NNN` is a zero-padded counter, monotonic per (skill, scope).
@@ -48,40 +48,10 @@ Path:
 Fallback:
 `audit-artifacts/research-workflow-state-<YYYY-MM-DD>-<scope-slug>.json`
 
-Schema (machine-parseable for resumption / closeout):
-
-```json
-{
-  "skill": "research",
-  "opportunity_slug": "<short-slug>",
-  "opportunity_statement": "<one-line>",
-  "stage": "pre-idea | idea | validation | build | launch | scale",
-  "areas_in_scope": ["market", "customer", ...],
-  "areas_completed": ["market", "customer"],
-  "artifacts": [
-    {"area": "market", "path": "...", "completed_at": "<ISO>"}
-  ],
-  "findings": [
-    {
-      "id": "OR-market-001",
-      "severity": 3,
-      "confidence": "M",
-      "fadr": "risk",
-      "status": "open",
-      "owner": "@founder",
-      "last_review": "<ISO>"
-    }
-  ],
-  "decision_gate": {
-    "status": "pending | go | no-go | pivot | conditional",
-    "kill_criteria": ["..."],
-    "review_trigger": "..."
-  },
-  "next_tests": [
-    {"assumption_id": "OR-customer-002", "test": "...", "deadline": "<ISO>", "owner": "..."}
-  ]
-}
-```
+Schema (machine-parseable for resumption / closeout): fill
+`templates/opportunity/workflow-state.json` — the canonical shape, including
+the `decision_gate.status` vocabulary (`pending | Go | Conditional-Go |
+No-Go | Pivot | Defer`). Do not restate the schema here.
 
 ## Resumption rules
 

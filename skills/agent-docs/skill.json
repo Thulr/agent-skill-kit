@@ -1,6 +1,6 @@
 {
   "name": "agent-docs",
-  "description": "Use for AGENT DOCS \u2014 agent-native docs an AI agent reads and acts on (no humans). DO: write/fix AGENTS.md, llms.txt, tool descs, refs, context-budget. REVIEW: audit for findability, chunk survivability, trigger clarity, budget. DESIGN: shape doc contracts. Triggers: audit AGENTS.md, curate llms.txt, wrong tool call, will doc survive chunking.",
+  "description": "Use for AGENT DOCS — agent-native docs an AI agent reads and acts on (no humans). DO: write/fix AGENTS.md, llms.txt, tool descs, refs, context-budget. REVIEW: audit for findability, chunk survivability, trigger clarity, budget. DESIGN: shape doc contracts. Triggers: audit AGENTS.md, curate llms.txt, wrong tool call, will doc survive chunking. Do NOT use for human/dual-audience docs — use docs-audit/docs-design.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

@@ -4,7 +4,7 @@
 
 - **Intent:** audit
 - **Project tier:** <Prototype | Growing | Load-bearing> (per references/calibration.md)
-- **Surface(s):** <foundations | dx-docs | ux-help | ax-docs | api-contracts | audience-conflicts | all>
+- **Surface(s):** <foundations | dx-docs | ux-help | api-contracts | audience-conflicts | all>
 - **Primary audience:** <persona>
 - **Secondary / harmed audiences:** <personas or none>
 - **Score:** <0-10, if requested>

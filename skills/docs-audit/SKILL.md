@@ -49,8 +49,9 @@ finding.
    shared `references/core/audience-matrix.md` — developer, end user, or agent.
    Then **calibrate to project scale** per `references/calibration.md`: infer the
    tier (Prototype / Growing / Load-bearing) — ask once only if unclear. Below
-   Load-bearing, narrow scope and collapse same-mechanism gaps into one systemic
-   finding at max severity, and split fixes Now vs Later; tier reshapes emission,
+   Load-bearing, narrow scope and collapse same-mechanism gaps of severity ≤ 3
+   into one systemic finding (severity 4: explicit, never deferred), and split
+   fixes Now vs Later; tier reshapes emission,
    not the severity rubric.
 5. **Spawn sub-agents in parallel (default for broad audits).** One lens per
    agent — see "Subagent dispatch" below for the four. Fall back to sequential
@@ -66,7 +67,7 @@ finding.
    `templates/debug-runbook.md`. Name the playbook(s) applied, the target
    audience, and the grounding sources.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

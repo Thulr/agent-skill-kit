@@ -1,7 +1,7 @@
 # Data Inventory — <opportunity-slug>
 
 > Filled by `investigate` on `data` surface, using
-> `references/playbooks/data.md`. **9-axis inventory required: source
+> `references/opportunity/playbooks/data.md`. **9-axis inventory required: source
 > / access / ownership / quality / coverage / freshness / labels /
 > governance / instrumentation gaps.**
 

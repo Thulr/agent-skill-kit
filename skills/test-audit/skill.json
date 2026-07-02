@@ -1,6 +1,6 @@
 {
   "name": "test-audit",
-  "description": "Audit an existing test suite for smells, redundancy, false-pass risk, brittleness, and flakiness. Triage failing, flaky, or slow tests. Triggers: 'review these tests', 'this test is flaky', 'do our tests actually catch bugs'.",
+  "description": "Audit an existing test suite for smells, redundancy, false-pass risk, brittleness, and flakiness. Triage failing, flaky, or slow tests. Triggers: 'review these tests', 'this test is flaky', 'do our tests actually catch bugs'. Do NOT use to author tests, shape suite strategy, or pick tests to delete (use test-design).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

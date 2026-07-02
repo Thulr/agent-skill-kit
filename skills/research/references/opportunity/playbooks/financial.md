@@ -130,16 +130,16 @@ figures. It is **not** investment advice.
 
 ## Cross-references
 
-- → `references/playbooks/market.md` — for the SAM / SOM the
+- → `references/opportunity/playbooks/market.md` — for the SAM / SOM the
   revenue model is sized against.
-- → `references/playbooks/channel.md` — for CAC by channel and
+- → `references/opportunity/playbooks/channel.md` — for CAC by channel and
   channel / model fit.
-- → `references/playbooks/operational.md` — for the labor side of
+- → `references/opportunity/playbooks/operational.md` — for the labor side of
   COGS.
-- → `references/playbooks/risk.md` — where financial severity-4
+- → `references/opportunity/playbooks/risk.md` — where financial severity-4
   risks (runway, concentration) become kill criteria.
-- → `references/core/severity-rubric.md` — for risk scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/unit-economics.md` — the artifact this
+- → `references/opportunity/core/severity-rubric.md` — for risk scoring.
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/unit-economics.md` — the artifact this
   playbook produces under `investigate`. **Note:** the artifact
   carries the "not investment advice / not audited figures" marker.

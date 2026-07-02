@@ -1,7 +1,7 @@
 # Stakeholder Map — <opportunity-slug>
 
 > Filled by `investigate` on `stakeholder` surface, using
-> `references/playbooks/stakeholder.md`. **B2B / enterprise / internal
+> `references/opportunity/playbooks/stakeholder.md`. **B2B / enterprise / internal
 > tools.** Collapse to "user = buyer = approver" for consumer / SMB.
 
 ## Opportunity statement

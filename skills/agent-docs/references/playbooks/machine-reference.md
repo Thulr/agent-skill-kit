@@ -108,11 +108,11 @@ bottom.
 
 | Question | If no | Action |
 | --- | --- | --- |
-| Does each section name its own subject in the heading and first line? | Rewrite headings and opening lines subject-first; emit AGENT-DOC-REF finding. |
-| Can a single retrieved section be understood without the section before it? | Inline the referent, define local terms, kill cross-chunk anaphora. |
-| Do deep links use durable, versioned, canonical anchors? | Adopt the stable-anchor contract; add redirects for changed anchors. |
-| Does a user-word query retrieve the right chunk? | Add a glossary bridge mapping user vocabulary to product terms. |
-| Is there a token-budget-aware markdown twin of the reference page? | Generate the markdown rendering; size sections to the retrieval unit. |
+| Does each section name its own subject in the heading and first line? | Retrieved chunk is unidentifiable out of context | Rewrite headings and opening lines subject-first; emit AGENT-DOC-REF finding. |
+| Can a single retrieved section be understood without the section before it? | Chunk amnesia — the agent acts on half a contract | Inline the referent, define local terms, kill cross-chunk anaphora. |
+| Do deep links use durable, versioned, canonical anchors? | Anchor rot breaks agent citations and retrieval | Adopt the stable-anchor contract; add redirects for changed anchors. |
+| Does a user-word query retrieve the right chunk? | Vocabulary mismatch returns the wrong section | Add a glossary bridge mapping user vocabulary to product terms. |
+| Is there a token-budget-aware markdown twin of the reference page? | Agents burn budget parsing HTML boilerplate | Generate the markdown rendering; size sections to the retrieval unit. |
 | Is a lost fact citation rot or compaction amnesia? | Classify first: fix the anchor contract, or hand the in-session loss to `context-budget`. |
 
 ## Cross-references

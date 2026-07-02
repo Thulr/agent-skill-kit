@@ -221,7 +221,8 @@ rejects, with non-zero exit:
 
 - `git push` to `main` / `master` with **any** force form: `--force` / `-f`
   / `--force-with-lease[=…]` / `--force-if-includes`, **or** a `+`-prefixed
-  refspec (`+main`, `+HEAD:main`, `+refs/heads/main`). Force-push commands
+  refspec (`+main`, `+HEAD:main`, `+refs/heads/main`), including one smuggled
+  in via `-c remote.<name>.push=+…` config. Force-push commands
   with omitted/ambiguous refspecs are blocked too because Git can default to
   the current protected upstream branch.
 - `git branch -D main` / `git branch -D master`.
@@ -237,13 +238,12 @@ rejects, with non-zero exit:
 The hook parses commands argv-by-argv via `shlex` (not regex on the raw
 string), splits pipelines and grouped commands on `;` / `&&` / `||` / `|` /
 `&` / `(` / `)` / `{` / `}`, and unwraps common prefixes (`sudo`, `time`,
-`env`, `command`, env-var assignments, `git -C path`). Test coverage lives at
-[`.claude/hooks/test_block_destructive_bash.py`](./.claude/hooks/test_block_destructive_bash.py)
-and [`.codex/hooks/test_block_destructive_bash.py`](./.codex/hooks/test_block_destructive_bash.py)
-(115 unit + 6 subprocess cases each) and runs in `just check` and CI. When
-a new bypass is observed, log it in `docs/reflection-log/` (one file per
-bypass), add the fixture to both test files, then update the hook so the
-new case passes.
+`env`, `command`, env-var assignments, `git -C path`). Test coverage lives in the shared fixture suite at
+[`scripts/hooks/destructive_bash_test_suite.py`](./scripts/hooks/destructive_bash_test_suite.py),
+run through the `.claude` / `.codex` / `.cursor` adapters in `just check`
+and CI. When a new bypass is observed, log it in `docs/reflection-log/`
+(one file per bypass), add the fixture to the shared suite, then update
+the hook so the new case passes.
 
 **Harness coverage.** The shared policy at
 [`scripts/hooks/destructive_bash_policy.py`](./scripts/hooks/destructive_bash_policy.py)

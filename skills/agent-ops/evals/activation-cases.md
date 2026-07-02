@@ -58,7 +58,7 @@ but hands judge/benchmark design to agent-test).
 
 ### N5 — Human-system perf/observability
 **Prompt:** `Audit our production web service for p99 latency and SLO gaps.`
-**Expected:** does not activate; human/runtime service observability, not agent-loop ops.
+**Expected:** does not activate; this is human/runtime service observability, not agent-loop ops.
 
 ### N6 — Promoting failures to rules
 **Prompt:** `Promote this recurring agent failure into an AGENTS.md rule from our log.`

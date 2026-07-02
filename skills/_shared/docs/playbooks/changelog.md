@@ -4,12 +4,14 @@
 
 The release-notes surface: `CHANGELOG.md`, GitHub release pages, registry
 release notes, and the per-version "what changed" content developers consult
-before upgrading. Distinct from `migration.md` (the procedural upgrade guide
-between specific versions) and `package.md` (the act of installing a single
+before upgrading. Distinct from the dx skills' `migration` playbook (the procedural upgrade
+guide between specific versions) and their `package` playbook (the act of
+installing a single
 version): this playbook covers the *human-readable record of change* that
-makes versions reviewable and decisions traceable. Routes to `migration.md`
-for in-depth upgrade procedures, `package.md` for version-number discipline,
-and `docs.md` for changelog placement in the doc IA.
+makes versions reviewable and decisions traceable. Routes to `dev-docs.md`
+for changelog placement in the doc IA, and to the `dx-audit` / `dx-design`
+skills for in-depth upgrade procedures (`migration`) and version-number
+discipline (`package`).
 
 ## Grounding
 

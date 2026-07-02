@@ -4,11 +4,12 @@
 
 The README and project-root surface — what a developer sees in the first 60
 seconds after landing on the repo, package page, or doc site index. Distinct
-from `docs.md` (the doc site and reference content) and `setup.md` (the actual
-install procedure): the README is the *advertisement and signpost*, not the
-manual. Routes to `setup.md` for install detail, `docs.md` for deeper
-reference, `examples.md` for runnable samples, and `package.md` for
-registry-page metadata that mirrors the README.
+from `dev-docs.md` (the doc site and reference content) and the install
+procedure itself (the dx skills' `setup` playbook): the README is the
+*advertisement and signpost*, not the manual. Routes to `dev-docs.md` for
+deeper reference, `examples.md` for runnable samples, and the `dx-audit` /
+`dx-design` skills for install detail (`setup`) and registry-page metadata
+(`package`).
 
 ## Grounding
 

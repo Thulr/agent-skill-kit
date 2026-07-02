@@ -4,12 +4,13 @@
 
 Runnable sample apps, snippet packs, demo repos, and quickstart projects — the
 artifacts that let a developer go from "I want to try this" to "it's running
-locally" in minutes. Distinct from `docs.md` (where reference and tutorial
+locally" in minutes. Distinct from `dev-docs.md` (where reference and tutorial
 content lives) and `readme.md` (the front door): examples are the *paste-and-run
 proof* that the product works, not the narrative explaining it. Routes to
-`docs.md` for tutorial framing, `readme.md` for the link the user followed to
-get here, `sdk.md` for the language-specific shape examples must match, and
-`migration.md` for examples that must be updated alongside breaking changes.
+`dev-docs.md` for tutorial framing, `readme.md` for the link the user followed
+to get here, and to the `dx-audit` / `dx-design` skills for the
+language-specific shape examples must match (`sdk`) and breaking changes that
+require sample updates (`migration`).
 
 ## Grounding
 

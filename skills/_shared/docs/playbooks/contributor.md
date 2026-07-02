@@ -3,9 +3,9 @@
 ## Scope
 
 Repo onboarding, local setup signposting, test expectations, PR template,
-code review loop, release steps, ownership boundaries. Routes to `setup.md`
-for fresh-fork install, `inner-loop.md` for the edit-run-test cycle a
-contributor uses, and `docs.md` for first-PR doc patterns.
+code review loop, release steps, ownership boundaries. Routes to `dev-docs.md`
+for first-PR doc patterns, and to the `dx-audit` / `dx-design` skills for
+fresh-fork install (`setup`) and the edit-run-test cycle (`inner-loop`).
 
 ## Grounding
 
@@ -109,7 +109,7 @@ contributor uses, and `docs.md` for first-PR doc patterns.
   explicit backward-compatibility review (does this break callers? does it
   need a SemVer major or a deprecation path?). This is the PR-time enforcement
   counterpart to a versioning policy — a SemVer rule no reviewer checks is not
-  enforced. Pairs with `migration.md` for the deprecation mechanics.
+  enforced. Pairs with the dx skills' `migration` playbook for the deprecation mechanics.
 - **Proposal before non-trivial work** *(design)* — for anything beyond a
   small fix, contributors open a proposal issue and get scope aligned with a
   maintainer before writing code. This trades a short up-front exchange for not

@@ -12,7 +12,7 @@ rubric for definitions and report format).
 
 - [ ] **blocking** — `SKILL.md` with frontmatter, one H1, registry-consulting workflow
 - [ ] **blocking** — must-not-miss invariants (safety boundaries, hard never-do-X, scoring invariants) are inline in `SKILL.md`, not only in routed references
-- [ ] **blocking** — `skill.json` with `status: "published"`, object-array `inspired_by`, resolvable `maintainers`
+- [ ] **blocking** — `skill.json` with `status: "published"` and resolvable `maintainers`; `inspired_by` expected for curator-built source-derived skills but optional per repo schema
 - [ ] **blocking** — `references/intent-router.csv` exists with the canonical columns (`intent,trigger_examples,detail_file,templates,notes`)
 - [ ] **blocking** — `evals/activation-cases.md`, `evals/trigger-evals.json`, `evals/run-static-checks.sh`
 - [ ] **warning** — `templates/` directory exists only if there are repeatable artifacts (no orphan templates)
@@ -50,7 +50,7 @@ rubric for definitions and report format).
 
 ## Grounding
 
-- [ ] **blocking** — `inspired_by[]` is object array with non-empty `playbooks[]` arrays
+- [ ] **blocking** — when present, `inspired_by[]` is object array with non-empty `playbooks[]` arrays
 - [ ] **blocking** — Every `playbooks[]` value is a real intent/playbook slug in this skill
 - [ ] **warning** — ≥2 distinct sources; if fewer, dossier explains why
 - [ ] **warning** — Critical / dissenting take is at least mentioned where the source is opinionated

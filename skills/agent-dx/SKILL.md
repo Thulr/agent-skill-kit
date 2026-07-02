@@ -1,6 +1,6 @@
 ---
 name: agent-dx
-description: "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW — audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN — shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII' Do NOT use for human developer surfaces (use dx-audit / dx-design), agent-readable docs (use agent-docs), or repo agent-hardening (use harden-repo-for-coding-agents)."
+description: "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW — audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN — shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII'. Do NOT use for human developer surfaces (use dx-audit / dx-design), agent-readable docs (use agent-docs), or repo agent-hardening (use harden-repo-for-coding-agents)."
 license: MIT
 ---
 

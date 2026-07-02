@@ -1,6 +1,6 @@
 {
   "name": "docs-audit",
-  "description": "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Owns every doc a human reads: README, CHANGELOG, quickstart, onboarding, samples. Triggers on 'docs review', 'audit our docs/README/help', 'our README loses people', 'our quickstart fails'. Do NOT use for API/SDK/CLI friction beyond the docs (dx-audit) or agent-native docs (agent-docs).",
+  "description": "Use to AUDIT existing documentation — score a docs/help/agent-readable surface for friction, drift, accessibility, retrieval, or audience conflict, or debug a docs failure. Owns every doc a human reads: README, CHANGELOG, quickstart, onboarding, samples. Triggers on 'docs review', 'audit our docs/README/help', 'our quickstart fails'. Do NOT use for API/SDK/CLI friction beyond the docs (dx-audit) or standalone agent-native docs (agent-docs) — cross-audience conflicts spanning llms.txt stay here.",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",
@@ -14,7 +14,7 @@
     "docs",
     "documentation",
     "documentation-experience",
-    "dx-docs",
+    "dev-docs",
     "ux-help",
     "ax-docs",
     "agent-docs",

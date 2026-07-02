@@ -92,6 +92,6 @@ not integrate an API.
   loops.
 - `references/playbooks/audience-conflicts.md` — when helpful human UI hides
   load-bearing text from agents.
-- `references/playbooks/dx-docs.md` — developer docs; do not route end-user help
+- `references/playbooks/dev-docs.md` — developer docs; do not route end-user help
   through developer-facing patterns.
 - `references/core/personas.md` — end-user recovery and exploratory personas.

@@ -56,14 +56,14 @@ Four problems agent skills solve, and which skill to reach for:
 
 Your API has friction, your docs bury the answer, your tests pass but don't catch bugs.
 
-→ **`dx-audit`**, **`docs-audit`**, **`test-audit`**, **`ux-audit`**, **`writing-audit`**
+→ **`dx-audit`**, **`docs-audit`**, **`ux-audit`**, **`writing-audit`**
 Severity-scored findings, playbook-driven, cited sources. Each audit tells you *exactly* what's wrong and how to fix it.
 
 ### 2. "I need to design something new — where do I start?"
 
 Blank canvas, no guardrails, easy to build something generic.
 
-→ **`dx-design`**, **`docs-design`**, **`test-design`**, **`ui-design`**, **`writing-design`**
+→ **`dx-design`**, **`docs-design`**, **`ui-design`**, **`writing-design`**
 Each design skill names the good-shaped pattern, produces a concrete artifact, and carries cited heuristics so you're not guessing.
 
 ### 3. "My agent keeps making the same mistakes"

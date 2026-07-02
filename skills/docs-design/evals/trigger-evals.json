@@ -45,10 +45,10 @@
       "category": "positive"
     },
     {
-      "query": "we want a retrieval eval and a tool-call success metric for our agent-facing docs — design how to measure schema-description quality and error-code coverage",
-      "should_activate": false,
-      "expected_route": null,
-      "category": "negative"
+      "query": "define how we measure our OpenAPI schema-description quality and error-code doc coverage — retrieval evals and docs CI gates",
+      "should_activate": true,
+      "expected_route": "measure/api-contracts",
+      "category": "positive"
     },
     {
       "query": "measure help-center deflection and onboarding activation, and tie article-helpfulness signals to an owner and an action — define the metric contract",

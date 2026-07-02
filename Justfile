@@ -26,7 +26,7 @@ test: check
 # — it makes live judge calls (default provider openai-codex, i.e. Codex via pi) and is
 # non-deterministic. `just check` covers the runner's logic offline via the mock backend.
 #   just eval                                          # full catalog
-#   just eval --skills artifact-host-integration,ui-design
+#   just eval --skills ui-design,dx-audit
 eval *args:
     python3 scripts/run-trigger-evals.py {{args}}
 

@@ -9,8 +9,8 @@ the load-bearing rules. It's the single source of truth for working in this repo
 
 ## Add or change a skill
 
-- **New skill:** `npx skills init <name>` (or copy `skills/example-minimal/`, the
-  template contract), move it under `skills/`, then follow
+- **New skill:** `npx skills init <name>` (or copy `docs/templates/example-minimal/`,
+  the template contract), move it under `skills/`, then follow
   [`docs/runbooks/adding-a-skill.md`](./docs/runbooks/adding-a-skill.md).
 - **Required artifacts** (per skill): `SKILL.md` with YAML frontmatter (`name`,
   `description`, `license`), a `skill.json` with `status: "published"` for
@@ -62,7 +62,7 @@ npx --yes skills add . --skill <skill-name> --agent cline --global --copy -y
 | `docs/runbooks/` | Maintainer procedures (durable "how") |
 | `docs/architecture/` | Repo structure reference docs / repo maps |
 | `skills/<name>/` | Shareable skills (`SKILL.md` + optional assets) |
-| `skills/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Hidden from `npx skills add . --list` by `metadata.internal: true`. Do not delete |
+| `docs/templates/example-minimal/` | Template contract (AGENTS.md Rule 3): the minimum artifacts every skill must ship. Do not delete |
 | `skills/_shared/` | Cross-skill primitives (e.g. `lenses.md`, `empirical-warnings.md` W2–W10). Each consuming skill symlinks the relevant files; `npx skills` dereferences at install time, shipping self-contained skills. Enforced by `scripts/check-shared-content.sh` |
 | `schemas/` | JSON Schemas for `skill.json` and `evals/trigger-evals.json` (single source of truth, validated by every `run-static-checks.sh`) |
 | `catalog/catalog.json` | Family-level prose + routing matrix for the generated README §Pick a skill and `CATALOG.md`. Per-skill summaries live in each `skill.json` (`metadata.catalog_summary`). Rendered by `scripts/build-catalog.py`; the generated output is CI-checked, never hand-edited |
@@ -71,10 +71,9 @@ npx --yes skills add . --skill <skill-name> --agent cline --global --copy -y
 | `.agents/skills/<name>/` | Repo-local skills used for authoring and review workflows |
 | `THIRD_PARTY.md` | Attribution and licenses for skills not authored here |
 
-Skills marked internal in frontmatter (`metadata.internal: true`) are hidden from `npx skills add . --list` unless `INSTALL_INTERNAL_SKILLS=1` is set.
-
 ## Ownership
 
-Required reviewers and branch protection live in
-[`.github/CODEOWNERS`](./.github/CODEOWNERS); `main` requires the `static-checks`
-status check plus a code-owner approval.
+Review routing lives in [`.github/CODEOWNERS`](./.github/CODEOWNERS). A branch-
+protection ruleset on `main` requires the `static-checks` CI check and routes
+every change through a pull request; it does **not** require a separate
+approving review (single-maintainer repo — see AGENTS.md §Ownership and review).

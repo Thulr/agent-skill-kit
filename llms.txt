@@ -7,7 +7,7 @@
 # - Downstream users install via: `npx skills add justinramos101/agent-skill-kit`
 #
 # Where to look first
-# - `README.md` (human overview, install, layout)
+# - `README.md` (human overview, install; full skill catalog in `CATALOG.md`)
 # - `constitution.md` (repo charter: purpose + invariants)
 # - `AGENTS.md` (agent instructions; symlinked from `CLAUDE.md` and `.github/copilot-instructions.md`)
 # - `docs/reflection-log/` (per-failure entries; evidence base for changes to AGENTS/hard gates)

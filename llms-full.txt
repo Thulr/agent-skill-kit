@@ -18,7 +18,7 @@
 # - `AGENTS.md` is hand-curated from `docs/reflection-log/`; do not autogenerate.
 #
 # Primary entrypoints
-# - `README.md`: overview + install instructions + layout
+# - `README.md`: overview + install instructions; full skill catalog in `CATALOG.md`
 # - `constitution.md`: repo charter (purpose + invariants)
 # - `AGENTS.md`: agent instructions for working in this repo
 # - `docs/reflection-log/`: per-failure entries; source-of-truth for future rules/gates
@@ -34,22 +34,24 @@
 # - `.claude/settings.json`, `.claude/hooks/*`: Claude Code hooks and tests
 #
 # Skills (the product)
-# - `skills/{dx,docs,perf,test,writing}-{audit,design}/` + `skills/ux-audit/` + `skills/ui-design/` + `skills/artifact-host-integration/` + `skills/minimal-modular-code/`: the heuristic audit/design family — an `-audit` skill audits/debugs/risk-scans an existing surface, a `-design` skill shapes a new one; `minimal-modular-code` and `artifact-host-integration` are the family's singletons (`minimal-modular-code` replaced the clean-architecture pair, ADR 0009; `artifact-host-integration` implements the portable-artifact ↔ editing-host contract — postMessage/markers/anchors/scaling/export — the engineering sibling to `ui-design`, both grounded in the same design-workflows source pack). Replaced the merged review-heuristics skill (ADR 0008); each domain's pair shares playbooks/lenses/rubrics via skills/_shared/<domain>/
+# - `skills/{dx,docs,test,writing}-{audit,design}/` + `skills/ux-audit/` + `skills/ui-design/` + `skills/minimal-modular-code/`: the heuristic audit/design family — an `-audit` skill audits/debugs/risk-scans an existing surface, a `-design` skill shapes a new one. `ux-audit`/`ui-design` are single-function; `minimal-modular-code` is the family singleton spanning review and design; `ui-design` also owns the artifact ↔ editing-host integration route. The paired domains (docs/dx/test/writing) share playbooks/lenses/rubrics via `skills/_shared/<domain>/`
 # - `skills/research/`: published skill; source-cited research in two decision-frames — `report` (open-ended topic: primer/survey/deep-dive) and `opportunity` (validate a named opportunity across 14 areas -> F/A/D/R go/no-go)
 # - `skills/agent-{dx,docs,ux,ops,test}/`: the agent-mirror family (ADR 0011) — each the agent-actor analog of a human-experience domain (agent as developer/reader/end-user/operator/subject), routing do/review/design; agent-ops is the family front-door, routing out to the two arms below
 # - `skills/harden-repo-for-coding-agents/`: published skill; repo-hardening arm — assess/harden/scaffold/diagnose a repo's agent-readiness (agent-ops routes here)
 # - `skills/rules-from-coding-agent-failures/`: published skill; evidence/feedback arm — promote observed agent failures into AGENTS.md rules/gates via the >=3-entry floor
+# - `skills/{codex,claude-code,cursor}-cli/`: the interop family (ADR 0012) — drive another coding agent's CLI as a read-only second-opinion reviewer / analysis pass
+# - `skills/context-budget-audit/`: the context family (ADR 0013) — audit the per-session token cost of the local agent setup (MCP servers, plugins, skills, commands, subagents) and gate safe pruning
 # - `skills/.experimental/`: reserved and currently empty
 # - `skills/_shared/`: cross-skill primitives (lenses.md, empirical-warnings.md W2–W10, modes.md, trackable-findings.md, routing-contract.md, templates/); not a standalone skill; consumers symlink in their references/
-# - `skills/example-minimal/`: internal template contract (hidden unless
-#   `INSTALL_INTERNAL_SKILLS=1`); kept so new contributors can't template a skill
-#   that bypasses required gates.
+# - `docs/templates/example-minimal/`: template contract — the minimum artifacts
+#   every published skill must ship; kept so new contributors can't template a
+#   skill that bypasses required gates.
 #
 # Skill contract (every skill directory)
 # - `SKILL.md` (YAML frontmatter; thin runtime router, word-capped per skill in its run-static-checks.sh)
 # - `skill.json` (`status: "published"` for installable skills, maintainers, inspired_by, etc.)
 # - `evals/run-static-checks.sh` (schema + structure gates)
-# - `evals/trigger-evals.json` (canonical schema; validated, not executed yet)
+# - `evals/trigger-evals.json` (canonical schema; shape validated in `just check`; activation graded by the opt-in `just eval` runner)
 # - `evals/activation-cases.md` (behavioral examples)
 #
 # Repo-local authoring skills (not published)

@@ -14,7 +14,7 @@ skills/<skill-name>/
 
 There is no pack subdirectory — capability pack is recorded in
 `skill.json.tags`, not as a folder. The repo's existing skills
-(`skills/dx-audit/`, `skills/example-minimal/`) all follow this
+(`skills/dx-audit/`, `docs/templates/example-minimal/`) all follow this
 convention.
 
 ## SKILL.md Rules

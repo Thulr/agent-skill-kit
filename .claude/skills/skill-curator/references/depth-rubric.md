@@ -115,7 +115,7 @@ better).
 
 ## Canonical examples
 
-- **Flat:** `skills/example-minimal/` (or any single-file skill).
+- **Flat:** `docs/templates/example-minimal/` (or any single-file skill).
 - **Single-layer:** most user-facing skills with one intent registry.
 - **Two-level:** `skills/dx-audit/` (intent: audit/debug/edge-pass
   × surface: api/sdk/cli/docs/errors/...).

@@ -2,7 +2,18 @@
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$script_dir/../../../../scripts/static-check-lib.sh"
+# Walk upward to the repo root (mirrors static-check-lib.sh repo_root_from,
+# which is unavailable until sourced) so this script keeps working when the
+# template is copied into any lane (skills/<name>/, .agents/skills/<name>/).
+lib_root="$script_dir"
+while [[ "$lib_root" != "/" && ! -f "$lib_root/scripts/static-check-lib.sh" ]]; do
+  lib_root="$(dirname "$lib_root")"
+done
+if [[ ! -f "$lib_root/scripts/static-check-lib.sh" ]]; then
+  echo "FAIL: scripts/static-check-lib.sh not found in any parent of $script_dir — run this from a checkout of agent-skill-kit." >&2
+  exit 1
+fi
+source "$lib_root/scripts/static-check-lib.sh"
 repo_root="$(repo_root_from "$script_dir")"
 skill_dir="${1:-$(cd "$script_dir/.." && pwd)}"
 skill_md="$skill_dir/SKILL.md"

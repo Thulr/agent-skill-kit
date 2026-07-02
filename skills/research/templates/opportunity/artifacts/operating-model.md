@@ -76,8 +76,8 @@ End-to-end, with handoffs and queues.
 | Refund rate | <…> | <…> | <…> |
 | Time-to-activation | <…> | <…> | <…> |
 
-(System monitoring — uptime, latency, errors — route to
-`perf-audit` / `perf-design`.)
+(System monitoring — uptime, latency, errors — is out of scope for this
+artifact.)
 
 ## Failure modes (≥5 pre-mortemed)
 

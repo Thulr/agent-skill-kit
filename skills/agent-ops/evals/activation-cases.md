@@ -58,8 +58,7 @@ but hands judge/benchmark design to agent-test).
 
 ### N5 — Human-system perf/observability
 **Prompt:** `Audit our production web service for p99 latency and SLO gaps.`
-**Expected:** does not activate; defers to `perf-audit` (human/runtime system observability, not
-agent-loop ops).
+**Expected:** does not activate; human/runtime service observability, not agent-loop ops.
 
 ### N6 — Promoting failures to rules
 **Prompt:** `Promote this recurring agent failure into an AGENTS.md rule from our log.`
@@ -71,7 +70,7 @@ out to it once a signal exists).
 ### E1 — Agent-loop observability vs human-service observability
 **Prompt:** `We want to watch agent loop quality drift, not generic service latency.`
 **Expected:** activates on the *agent-loop* framing; intent `review`, surface `observability`;
-explicitly distinguishes itself from `perf-audit` (human/runtime tier).
+explicitly distinguishes agent-loop observability from the human/runtime service tier.
 
 ### E2 — Ready to hand to a controller
 **Prompt:** `We have a trace-to-eval step — are we ready to hand it to an autonomous controller?`

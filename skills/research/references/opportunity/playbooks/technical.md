@@ -14,8 +14,7 @@ and with what risk. This playbook strips wishful thinking — most
 - Out: pure code-architecture audit of an existing system
   (`minimal-modular-code`), DX of the resulting API
   (`dx-audit` / `dx-design`), data quality and instrumentation (`data.md`),
-  ops / SRE runbooks (`operational.md`), perf observability
-  (`perf-audit` / `perf-design`).
+  ops / SRE runbooks (`operational.md`), perf observability.
 - Intents this surface answers: scope, investigate, synthesize, decide.
 
 ## Grounding

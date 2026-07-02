@@ -38,7 +38,7 @@ Near-miss prompts that share keywords but should route elsewhere. Each names the
 - "Tighten the wording of this announcement post." -> use `writing-audit` — prose, not code.
 - "Reorganize our docs site's information architecture." -> use `docs-audit` — documentation surface, not code.
 - "Our test suite is flaky and redundant; review it." -> use `test-audit` — test-suite quality, not source minimality.
-- "Profile and optimize this service's p99 latency." -> use `perf-audit` — runtime performance, not code structure.
+- "Profile and optimize this service's p99 latency." -> does not activate — runtime performance, not code structure.
 - "Add keyboard shortcuts to the dashboard toolbar." -> use `ui-design` / product code directly — "shortcut" here is an interaction feature, not code minimality.
 
 ## Boundary / edge

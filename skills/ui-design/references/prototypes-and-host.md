@@ -68,5 +68,5 @@ before capture/export.
 This page is the designer's slice — enough to emit a host-cooperative artifact.
 For the complete integration *contract* (exact `postMessage` types, the EDITMODE
 persistence block, fixed-canvas scaling, speaker-notes sync, comment/scene
-anchor resolution, direct-edit overrides, and bundling/export), use the
-`artifact-host-integration` skill.
+anchor resolution, direct-edit overrides, and bundling/export), use this
+skill's host-integration route (`references/host-integration/`).

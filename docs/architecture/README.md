@@ -2,12 +2,12 @@
 
 Durable reference for **how the catalog is organized and where things live** —
 the "what" in the [`docs/` Diátaxis map](../README.md). For path-level detail see
-`AGENTS.md` §Layout and the repo `README.md` §Layout; this doc is the conceptual
-map those tables don't give you.
+[CONTRIBUTING.md §Repository layout](../../CONTRIBUTING.md#repository-layout); this
+doc is the conceptual map that table doesn't give you.
 
 ## Skill taxonomy
 
-Published skills fall into five shapes:
+Published skills fall into six shapes:
 
 - **Per-domain audit/design pairs** — a `<domain>-audit` skill audits/debugs
   an existing surface (lenses → severity-scored findings + optional ledger); a
@@ -24,8 +24,9 @@ Published skills fall into five shapes:
   actor, not a peer audience): `agent-dx` / `agent-docs` / `agent-ux` / `agent-ops` /
   `agent-test`, with `agent-ops` the front-door routing to the standalone arms
   `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures`
-  (see [ADR 0011](../adr/0011-actor-axis-agent-mirror-family.md));
-  `research` is one skill routed by decision-frame (`report` | `opportunity`).
+  (see [ADR 0011](../adr/0011-actor-axis-agent-mirror-family.md)).
+- **Research** — `research` is one skill routed by decision-frame
+  (`report` | `opportunity`).
 - **Cross-agent interop** — skills that drive *another* coding agent or CLI as
   part of your own workflow (an independent second-opinion reviewer, an external
   analysis pass) rather than auditing or designing a surface themselves.

@@ -1,6 +1,6 @@
 # Artifact–host integration checklist
 
-> Output artifact for `artifact-host-integration`. Record which host contracts
+> Output artifact for the `ui-design` host-integration route. Record which host contracts
 > were wired, the exact protocol surface touched, and the portability opt-out
 > preserved. Copy into the target repo or paste into the handoff message.
 

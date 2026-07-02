@@ -68,6 +68,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe \u2014 DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). Sits atop the human HTTP-client floor in dx-audit / dx-design."
+    "catalog_summary": "Agent-as-developer: keep the SDK/tool/error/telemetry surface an AI agent consumes minimal and safe \u2014 DO (keep an agent-facing change agent-consumable), REVIEW (audit a surface for stable contracts, agent recovery, and trust-boundary safety, then score it), DESIGN (shape a new SDK/tool/MCP/structured-output/error/telemetry surface). For the human developer surface underneath it, use dx-audit / dx-design."
   }
 }

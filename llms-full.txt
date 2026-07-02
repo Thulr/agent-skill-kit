@@ -58,7 +58,6 @@
 #
 # Docs
 # - `docs/reflection-log/`: per-failure entries (evidence-first workflow); see its `README.md` for the recording-bar vs. promotion-bar distinction
-# - `docs/agent-readiness-2026-05-15.md`: historical assessment (may be stale)
 # - `docs/specs/`: specs for significant work (new skills, schema changes, new gates)
 # - `docs/adr/`: ADRs (durable decisions)
 # - `docs/runbooks/`: runbooks (durable procedures)

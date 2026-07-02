@@ -342,6 +342,6 @@
   "metadata": {
     "family": "heuristics",
     "function": "singleton",
-    "catalog_summary": "Keep code minimal and right-sized for AI coding agents: DO (keep a change minimal \u2014 reuse, subtract, avoid the wrong abstraction, check blast radius), REVIEW (audit existing code or a repo for slop and parallel-readiness, then score it), DESIGN (shape right-sized module boundaries and work-partitioning, sequence a safe refactor, or explain a principle). Replaces the clean-architecture audit/design pair under a minimalism thesis."
+    "catalog_summary": "Keep code minimal and right-sized for AI coding agents: DO (keep a change minimal \u2014 reuse, subtract, avoid the wrong abstraction, check blast radius), REVIEW (audit existing code or a repo for slop and parallel-readiness, then score it), DESIGN (shape right-sized module boundaries and work-partitioning, sequence a safe refactor, or explain a principle)."
   }
 }

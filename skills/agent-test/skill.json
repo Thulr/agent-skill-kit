@@ -56,6 +56,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-subject-under-measurement: design the measurement an AI agent or skill is judged by \u2014 DO (write the smallest gating eval/judge/test), REVIEW (audit an eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it), DESIGN (shape a failure-mode-first suite, calibrate a judge, build a held-out benchmark, design activation evals). Designs what agent-ops then operates."
+    "catalog_summary": "Agent-as-subject-under-measurement: design the measurement an AI agent or skill is judged by \u2014 DO (write the smallest gating eval/judge/test), REVIEW (audit an eval suite, judge calibration, trajectory tests, benchmarks, or activation evals for trustworthiness, then score it), DESIGN (shape a failure-mode-first suite, calibrate a judge, build a held-out benchmark, design activation evals)."
   }
 }

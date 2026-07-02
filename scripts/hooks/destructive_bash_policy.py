@@ -27,7 +27,8 @@ Implementation shape:
 
 Blocked patterns (see AGENTS.md §Forbidden actions):
   - `git push` with `--force` / `-f` / `--force-with-lease[=…]` /
-    `--force-if-includes`, OR a `+refspec`, targeting `main` / `master`.
+    `--force-if-includes`, OR a `+refspec` (on the command line or smuggled
+    in via `-c remote.<name>.push=+...` config), targeting `main` / `master`.
     Force pushes with omitted/ambiguous refspecs are also blocked because
     Git may default to the current protected upstream branch.
   - `git branch -D main` / `git branch -D master`.
@@ -778,8 +779,22 @@ def check_git_branch_force_delete(branch_argv):
     return None
 
 
+def _forced_push_config_refspecs(config_values):
+    """`+`-prefixed refspecs smuggled in via `-c remote.<name>.push=+...`."""
+    refspecs = []
+    for pair in config_values:
+        key, sep, value = pair.partition("=")
+        if not sep or not value.startswith("+"):
+            continue
+        parts = key.lower().split(".")
+        if len(parts) >= 3 and parts[0] == "remote" and parts[-1] == "push":
+            refspecs.append(value)
+    return refspecs
+
+
 def check_git(git_rest):
     """Skip git-level options (including value-taking ones) and dispatch."""
+    config_values = []
     i = 0
     while i < len(git_rest):
         a = git_rest[i]
@@ -789,12 +804,24 @@ def check_git(git_rest):
         i += 1
         if flag in GIT_VALUE_FLAGS and sep != "=":
             if i < len(git_rest):
+                if flag == "-c":
+                    config_values.append(git_rest[i])
                 i += 1
+        elif sep == "=" and a.startswith("-c") and not a.startswith("--"):
+            # Packed form: -cremote.origin.push=+refs/heads/main
+            config_values.append(a[2:])
     sub = git_rest[i:]
     if not sub:
         return None
     if sub[0] == "push":
-        return check_git_push(sub)
+        violation = check_git_push(sub)
+        if violation:
+            return violation
+        for refspec in _forced_push_config_refspecs(config_values):
+            matched, _plus = _ref_targets_protected_branch(refspec)
+            if matched:
+                return f"force-update of {refspec} via remote.<name>.push config"
+        return None
     if sub[0] == "branch":
         return check_git_branch_force_delete(sub)
     return None

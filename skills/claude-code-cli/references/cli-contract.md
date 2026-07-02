@@ -40,6 +40,9 @@ responsible for deciding whether to apply fixes.
 
 ## Auth and Environment Failure Modes
 
+Flag sets drift between Claude Code releases — on any unknown-option error,
+run `claude --help` and trust the live output over this file.
+
 If invocation fails, report the blocker directly:
 
 - `claude` is not installed or not on `PATH`.

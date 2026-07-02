@@ -14,7 +14,8 @@ rubric for definitions and report format).
 ## Required artifacts
 
 - [ ] **blocking** — `SKILL.md` with frontmatter, one H1, both-registry-consulting workflow
-- [ ] **blocking** — `skill.json` with `status: "published"`, object-array `inspired_by` with per-source `playbooks[]`, resolvable `maintainers`
+- [ ] **blocking** — must-not-miss invariants (safety boundaries, hard never-do-X, scoring invariants) are inline in `SKILL.md`, not only in routed references
+- [ ] **blocking** — `skill.json` with `status: "published"` and resolvable `maintainers`; `inspired_by` (with per-source `playbooks[]`) expected for curator-built source-derived skills but optional per repo schema
 - [ ] **blocking** — `references/intent-router.csv` with columns `intent,name,when_to_use,registry_file,default_template`
 - [ ] **blocking** — `references/intents/<intent>.csv` per intent with columns `surface,name,when_to_use,playbook,core_refs`
 - [ ] **blocking** — `references/playbooks/<surface>.md` per surface
@@ -22,7 +23,7 @@ rubric for definitions and report format).
 - [ ] **warning** — `references/subagent-dispatch.md` if any intent benefits from multi-lens review (audits, edge-passes)
 - [ ] **blocking** — `templates/<intent>.md` per intent
 - [ ] **blocking** — `evals/activation-cases.md`, `evals/run-static-checks.sh`
-- [ ] **warning** — `evals/trigger-evals.json`
+- [ ] **blocking** — `evals/trigger-evals.json`
 
 ## Dimension orthogonality (the load-bearing anti-pattern check)
 
@@ -65,7 +66,7 @@ rubric for definitions and report format).
 
 ## Grounding
 
-- [ ] **blocking** — `inspired_by[]` is object array; each entry has non-empty `playbooks[]`
+- [ ] **blocking** — when present, `inspired_by[]` is object array; each entry has non-empty `playbooks[]`
 - [ ] **blocking** — Every `playbooks[]` value matches a `<surface>` slug in this skill's `references/playbooks/`
 - [ ] **warning** — ≥3 distinct sources covering at least 3 different surfaces
 - [ ] **warning** — At least one source is `critical` / dissenting (per `research-dossier-playbook.md`)
@@ -75,7 +76,7 @@ rubric for definitions and report format).
 - [ ] **blocking** — No dimension has only 1–2 values
 - [ ] **blocking** — Every playbook follows the uniform section structure
 - [ ] **blocking** — No detail in SKILL.md that belongs in a playbook
-- [ ] **blocking** — `inspired_by` is not a list of strings
+- [ ] **blocking** — when present, `inspired_by` is not a list of strings
 - [ ] **warning** — No hardcoded surface lists in `run-static-checks.sh`
 
 ## Static check

@@ -41,10 +41,10 @@ playbook; names the target audience; emits the intent's template shape.
 **Expected:** routes (debug, dx-docs); ranks hypotheses by mechanism (staleness vs absence vs ambiguity) before fixes; names a source-of-truth/freshness-gate prevention; `debug-runbook.md` shape.
 **Fail if:** jumps to a one-off snippet fix without naming the drift mechanism or a prevention gate.
 
-## Case 4 — Agent tool-call debug
-**Prompt:** `Our agent keeps calling the wrong MCP tool — two descriptions are nearly identical. Why?`
-**Expected:** routes (debug, api-contracts); loads `playbooks/api-contracts.md`; traces the description ambiguity; recommends targeted (not maximalist) description fixes with a verification.
-**Fail if:** suggests adding more prose indiscriminately; omits verification.
+## Case 4 — API contract-completeness debug
+**Prompt:** `Agents retry our charge endpoint unsafely — idempotency and error semantics aren't documented.`
+**Expected:** routes (debug, api-contracts); loads `playbooks/api-contracts.md`; traces the missing idempotency/error-semantics documentation; recommends targeted contract additions with a verification.
+**Fail if:** suggests adding more prose indiscriminately; omits verification; treats it as MCP tool-description work (that is agent-docs).
 
 ## Case 5 — Multi-surface audit with conflict
 **Prompt:** `Audit our dev docs, help center, and llms.txt — I think the agent fix is hurting human readers.`

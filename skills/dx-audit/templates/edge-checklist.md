@@ -60,6 +60,12 @@ One block per risk. Repeat the shape for the categories below.
 ### Contributor path
 - Local setup, tests, PR evidence, release notes.
 
+### Install and dependency skew
+- Peer-dep mismatches, transitive bloat, registry-vs-tag drift, lockfile policy.
+
+### Logging and secret hygiene
+- Secrets in verbose logs, TTY-only output leaking to pipes, missing trace IDs.
+
 ## Blockers (severity 3-4)
 
 - <Numbered list with fix + verification>

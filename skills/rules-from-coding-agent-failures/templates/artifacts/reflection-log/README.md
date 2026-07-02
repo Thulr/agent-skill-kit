@@ -19,8 +19,8 @@ Per-entry records of observed agent failures on this repo. **This is the
 source-of-truth for any future hand-curated `AGENTS.md`, hook, or new skill
 rule.**
 
-> **W1 meta-note.** The `harden-repo-for-coding-agents` skill normally refuses to
-> scaffold files without ≥3 observed failures stated. This directory and its
+> **W1 meta-note.** The `rules-from-coding-agent-failures` `promote` workflow refuses to
+> write rules, hooks, or gates without ≥3 same-gap entries. This directory and its
 > entries are exempt because they do not *contain* agent instructions —
 > they *capture the observations* that future instructions will be
 > hand-curated from. The structure (frontmatter shape, headings) is the
@@ -95,7 +95,7 @@ in AGENTS.md, a CI gate) that would have closed it.
 date: YYYY-MM-DD              # ISO date, absolute
 harness: claude-code          # claude-code | cursor | codex | copilot | aider | windsurf | <other>
 sub-surface: instruction-surface  # instruction-surface | gates | scaffold | skills | docs-index | specs | governance | sandbox | telemetry | evals | tools | other
-severity: 3                   # 0–4 per references/core/severity-rubric.md
+severity: 3                   # 0 nit … 4 destructive/unsafe action
 status: open                  # open | resolved
 related: []                   # list of other entry filenames (without .md), or [] if standalone
 ---

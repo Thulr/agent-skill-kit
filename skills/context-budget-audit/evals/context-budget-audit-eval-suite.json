@@ -79,7 +79,7 @@
         "Resolves exact named skill directories in active stores only.",
         "Copies missing preserved copies into skills/<name>/ or confirms existing identical repo copies.",
         "Stops if the repo copy differs from the source or duplicate store copies differ.",
-        "Runs ./scripts/validate-skills.sh and npx skills add . --list before removal.",
+        "Runs npx skills add . --list plus the repo's own gate (just check here, or ./scripts/validate-skills.sh in repos that ship it) before removal.",
         "Removes only store directories that were preserved and validated, and verifies they are gone."
       ],
       "required_references": [

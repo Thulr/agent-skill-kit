@@ -74,7 +74,7 @@ or write from a vague invocation; routes `intent-router.csv` →
 
 ## N4 — Repo agent hardening
 **Prompt:** `Make our repo agent-ready — wrong test commands, stale AGENTS.md.`
-**Expected:** defers to `agent-docs`; does not route through a docs playbook.
+**Expected:** defers to `harden-repo-for-coding-agents` (routing the stale-AGENTS.md content work to `agent-docs`); does not route through a docs playbook.
 
 ## N5 — Internal refactor
 **Prompt:** `Refactor this function to use early returns.`

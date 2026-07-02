@@ -1,6 +1,6 @@
 ---
 name: rules-from-coding-agent-failures
-description: "Capture agent failures, triage logs into closure work, promote patterns into durable fixes, and verify closeout. Triggers: 'reflection log'."
+description: "Capture agent failures, triage logs into closure work, promote patterns into durable fixes, verify closeout, and score Level 4-5 maturity. Triggers: 'reflection log', 'promote failures into rules', 'are we at Level 4/5'. Not for first-pass agent-readiness scaffolding (use harden-repo-for-coding-agents)."
 license: MIT
 ---
 

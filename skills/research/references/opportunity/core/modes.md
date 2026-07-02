@@ -69,5 +69,5 @@ has explicitly asked to be challenged.
 
 When the user invokes the skill without an intent or opportunity
 ("opportunity research", "validate this idea"), load
-`references/starter-scenarios.csv` + `references/intent-router.csv`
+`references/opportunity/starter-scenarios.csv` + `references/opportunity/intent-router.csv`
 and offer the mode choice **before** any other elicitation.

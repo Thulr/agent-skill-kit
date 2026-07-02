@@ -1,4 +1,4 @@
-# UX Accessibility Review - <use-case>
+# UX Audit Report - <use-case>
 
 **Target user:** <persona or user group>
 **Task:** <task the user is trying to complete>

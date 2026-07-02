@@ -21,7 +21,7 @@ convention.
 
 `SKILL.md` is agent-facing runtime behavior. It should include:
 
-- frontmatter with `name` and `description`
+- frontmatter with `name`, `description`, and `license`
 - activation handshake
 - mode behavior when useful
 - workflow
@@ -114,6 +114,11 @@ disclosure:
   case.
 - Detailed frameworks, rubrics, examples, source grounding, edge cases,
   and caveats live in one-hop `references/` files.
+- **Exception — invariants stay inline.** Must-not-miss rules (safety
+  boundaries, hard "never do X", scoring invariants, copyright limits)
+  stay in `SKILL.md` at every depth; agents skip reference loads, so a
+  routed file must never carry the only copy. Only branch detail routes.
+  See `docs/skill-authoring-principles.md` §3.
 - Templates are mapped only to the intents that produce those
   artifacts.
 - No public reference file should be orphaned, and no registry row
@@ -130,8 +135,9 @@ The eval set depends on the shape:
   cannot bypass gates.
 - **Single-layer** — required in this repo: `evals/activation-cases.md`,
   `evals/trigger-evals.json`, and `evals/run-static-checks.sh`.
-- **Two-level** — both required. Also include `evals/trigger-evals.json`
-  for the description-optimization loop.
+- **Two-level** — all required in this repo: `evals/activation-cases.md`,
+  `evals/trigger-evals.json`, and `evals/run-static-checks.sh`
+  (trigger-evals also feeds the description-optimization loop).
 
 Activation cases should include both **positive** cases (correct trigger
 + correct routing) and **negative** cases (near-miss prompts that share

@@ -13,6 +13,7 @@
 # - `docs/reflection-log/` (per-failure entries; evidence base for changes to AGENTS/hard gates)
 # - `docs/adr/` (architectural decisions: the "why")
 # - `docs/runbooks/` (maintainer procedures: the "how")
+# - `docs/skill-authoring-principles.md` (skill-content quality bar: routing, invariants, pruning, loops, measurement)
 #
 # Key commands
 # - `just check` (must pass before commit/PR; runs all skill static checks across lanes)

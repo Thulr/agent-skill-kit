@@ -2,6 +2,12 @@
 
 **Do not skip this step.** Reading source code is not the same as seeing the rendered page. Automate a visual check using your browser tools before declaring the artifact done.
 
+The `browser_*` signatures below are one example suite; map each capability
+(navigate, screenshot+vision, console read, execute JS, click/type) to whatever
+browser tool the session exposes. If no browser tool is available, state
+explicitly that visual verification was not performed and list the unchecked
+items in the handoff.
+
 ## Required Checks
 
 ### 1. Load the artifact
@@ -71,6 +77,9 @@ If any of the following are found during browser verification, **do not hand off
 - Anti-slop tropes that are obvious in the rendered page but weren't caught by code review
 - Responsive breakpoint failures
 - Missing or broken interaction states
+
+If the same finding survives two rebuild attempts, stop iterating and surface
+it to the user with the failed check and what was tried.
 
 ## Tool Reference
 

@@ -18,7 +18,8 @@ local `claude -p` review is not enough for the risk level.
 
 ## Stop Conditions
 
-Stop before running ultrareview if:
+Ultrareview is user-initiated — do not auto-run. Stop before running
+ultrareview if:
 
 - the current branch or target is unclear
 - the repository contains sensitive changes the user has not approved sending

@@ -2,8 +2,8 @@
 
 Natural-language scenarios the skill should handle. Cross-references the
 `evals/trigger-evals.json` queries with the expected behavior; mostly
-relevant when running activation against a model (Stage 1.5 — not yet
-wired).
+relevant when running activation against a model (Stage 1.5 — the opt-in
+`just eval` runner).
 
 ## Positive — should activate
 

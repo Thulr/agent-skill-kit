@@ -29,6 +29,9 @@ For hosts that support designer-mode panels:
 - Persist changes by posting `__edit_mode_set_keys` with partial edits.
 - Store defaults in exactly one valid JSON block between
   `/*EDITMODE-BEGIN*/` and `/*EDITMODE-END*/` inside an inline script.
+- Pin the host origin: check `event.origin` on inbound messages and post to
+  an explicit targetOrigin, never `"*"` (see `host-integration/architecture.md`
+  §Origin security).
 
 If the panel has a close button, post `__edit_mode_dismissed` so host chrome
 stays synchronized.

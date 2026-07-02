@@ -1,6 +1,6 @@
 {
   "name": "cursor-cli",
-  "description": "Invoke Cursor CLI as an external reviewer. Triggers: 'ask Cursor to review my changes', 'get a second opinion from Cursor'.",
+  "description": "Invoke Cursor CLI as an external reviewer — its edge is model diversity: get a review or second opinion from a different provider's model (gpt-5, sonnet-4). Triggers: 'ask Cursor to review my changes', 'get a second opinion from Cursor', 'have gpt-5 review this'. Do NOT use to invoke Codex (codex-cli) or Claude Code (claude-code-cli).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

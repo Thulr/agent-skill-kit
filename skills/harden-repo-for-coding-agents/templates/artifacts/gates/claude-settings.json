@@ -8,7 +8,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/<hook-filename>.py"
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/<hook-filename>.py\"",
+            "//command": "The $CLAUDE_PROJECT_DIR prefix is load-bearing — hook commands run with the persisted shell CWD, so a relative path breaks after the agent cd-s into a subdir."
           }
         ]
       }

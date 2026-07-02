@@ -1,7 +1,7 @@
 # Unit Economics — <opportunity-slug>
 
 > Filled by `investigate` on `financial` surface, using
-> `references/playbooks/financial.md`. **Not investment advice. Not
+> `references/opportunity/playbooks/financial.md`. **Not investment advice. Not
 > audited figures. Best / base / worst-case modeling only.**
 
 ## Opportunity statement

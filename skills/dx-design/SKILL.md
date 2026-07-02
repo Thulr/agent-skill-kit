@@ -1,6 +1,6 @@
 ---
 name: dx-design
-description: "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'."
+description: "Design a new developer-experience surface - API, SDK, CLI, error envelope, setup flow, auth model, or plugin contract. Triggers: 'design a new API/SDK/CLI', 'what should we get right up front', 'shape the public surface'. Do NOT use to audit or debug an existing surface — use dx-audit."
 license: MIT
 ---
 
@@ -53,7 +53,7 @@ than describing principles abstractly.
    the good-shaped pattern, heuristics applied, anti-patterns avoided, testable
    acceptance criteria, edge cases handled, open trade-offs, out-of-scope.
 
-> **Wrong direction?** If the user says this is not what they meant, go back to Understand (step 1) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this is not what they meant, go back to step 1 (Confirm intent) - do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 
@@ -74,7 +74,8 @@ artifact or running a command.
 - `references/intents/design.csv` — surface router for design.
 - `references/playbooks/<surface>.md` — surface playbooks (shared with dx-audit).
 - `references/core/personas.md` — target developer persona list.
-- `references/first-impressions-checklist.md` — first-impressions items (README design).
+- `references/first-impressions-checklist.md` — use its 10 items as README design
+  acceptance criteria; its audit-report scoring contract applies only in dx-audit.
 - `references/modes.md` — Guided Draft / Autopilot / Grill Me (shared).
 - `references/starter-scenarios.csv` — named worked examples for bare invocation.
 - `templates/design-doc.md` — the design output shape.

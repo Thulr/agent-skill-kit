@@ -125,15 +125,15 @@ contexts.
 
 ## Cross-references
 
-- → `references/playbooks/domain.md` — for the underlying actor
+- → `references/opportunity/playbooks/domain.md` — for the underlying actor
   map (often shared structure).
-- → `references/playbooks/gtm.md` — for buyer-vs-user message
+- → `references/opportunity/playbooks/gtm.md` — for buyer-vs-user message
   segmentation.
-- → `references/playbooks/channel.md` — for where each actor
+- → `references/opportunity/playbooks/channel.md` — for where each actor
   lives.
-- → `references/playbooks/legal.md` — for contracts, MSAs, DPAs.
-- → `references/playbooks/risk.md` — where stakeholder
+- → `references/opportunity/playbooks/legal.md` — for contracts, MSAs, DPAs.
+- → `references/opportunity/playbooks/risk.md` — where stakeholder
   concentration becomes a tracked risk.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/stakeholder-map.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/stakeholder-map.md` — the artifact this
   playbook produces under `investigate`.

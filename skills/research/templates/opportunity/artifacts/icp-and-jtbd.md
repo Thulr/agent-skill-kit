@@ -1,7 +1,7 @@
 # ICP and Jobs-to-be-Done — <opportunity-slug>
 
 > Filled by `investigate` on `customer` surface, using
-> `references/playbooks/customer.md`. The customer-research deliverable.
+> `references/opportunity/playbooks/customer.md`. The customer-research deliverable.
 > **Triangulate stated vs revealed evidence.**
 
 ## Opportunity statement

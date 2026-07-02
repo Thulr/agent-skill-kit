@@ -113,14 +113,14 @@ there a real market that pulls a product into fit.
 
 ## Cross-references
 
-- → `references/playbooks/customer.md` — for pain severity and
+- → `references/opportunity/playbooks/customer.md` — for pain severity and
   willingness to pay (the demand-quality axis).
-- → `references/playbooks/competitive.md` — for substitutes,
+- → `references/opportunity/playbooks/competitive.md` — for substitutes,
   do-nothing, and moats (the structural-defensibility axis).
-- → `references/playbooks/trend.md` — for timing-window analysis.
-- → `references/core/decision-gates.md` — for the market-quality
+- → `references/opportunity/playbooks/trend.md` — for timing-window analysis.
+- → `references/opportunity/core/decision-gates.md` — for the market-quality
   threshold the `go` outcome requires.
-- → `references/intents/investigate.csv` row `market` — the entry
+- → `references/opportunity/intents/investigate.csv` row `market` — the entry
   point for this playbook.
-- → `templates/artifacts/market-sizing.md` — the artifact this
+- → `templates/opportunity/artifacts/market-sizing.md` — the artifact this
   playbook produces under `investigate`.

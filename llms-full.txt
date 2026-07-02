@@ -59,6 +59,7 @@
 # - `.agents/skills/skill-reviewer/`
 #
 # Docs
+# - `docs/skill-authoring-principles.md`: skill-content quality bar (routing descriptions, inlined invariants, pruning, loop stop conditions, measurement)
 # - `docs/reflection-log/`: per-failure entries (evidence-first workflow); see its `README.md` for the recording-bar vs. promotion-bar distinction
 # - `docs/specs/`: specs for significant work (new skills, schema changes, new gates)
 # - `docs/adr/`: ADRs (durable decisions)

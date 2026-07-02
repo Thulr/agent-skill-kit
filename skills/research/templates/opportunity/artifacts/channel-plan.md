@@ -1,7 +1,7 @@
 # Channel Plan — <opportunity-slug>
 
 > Filled by `investigate` on `channel` surface, using
-> `references/playbooks/channel.md`. **3–5 channels evaluated
+> `references/opportunity/playbooks/channel.md`. **3–5 channels evaluated
 > explicitly. CPA paired with LTV every time. Platform concentration
 > modeled.**
 

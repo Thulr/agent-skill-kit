@@ -46,14 +46,8 @@ patches; ask one focused question, restate the new understanding, and re-plan.
 ## Verification Floor
 
 **For code-backed artifacts, you MUST visually inspect the rendered page — reading
-source code is not sufficient.** Load `references/browser-verification.md` and
-use concrete browser tools:
-
-- `browser_navigate(url)` — open the running artifact.
-- `browser_vision(question="...")` — see what it actually looks like rendered.
-- `browser_console()` — read JS errors and asset-load failures.
-- `browser_console(expression="window.resizeTo(w, h)")` — test responsive viewports.
-- `browser_click(ref)` / `browser_type(ref, text)` — verify interaction states.
+source code is not sufficient.** Load `references/browser-verification.md` and use the session's browser tools
+(example names there — map to whatever the session exposes).
 
 For non-code artifacts, verify dimensions, export format, editability, and that
 the deliverable can be opened by the intended recipient.

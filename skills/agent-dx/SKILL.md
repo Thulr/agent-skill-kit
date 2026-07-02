@@ -1,6 +1,6 @@
 ---
 name: agent-dx
-description: "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW — audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN — shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII'"
+description: "Use for AGENT DX — the surface an AI agent consumes as a developer. DO — keep SDK/tool/structured-output/error/telemetry changes agent-consumable. REVIEW — audit agent-facing surfaces for stable contracts, recovery, trust-boundary safety. DESIGN — shape new agent-facing surfaces. Triggers: 'design our Agent SDK', 'are our tool schemas agent-safe', 'review MCP surface', 'is telemetry leaking PII'. Do NOT use for human developer surfaces (use dx-audit / dx-design), agent-readable docs (use agent-docs), or repo agent-hardening (use harden-repo-for-coding-agents)."
 license: MIT
 ---
 
@@ -13,10 +13,6 @@ through. Provenance lives in `skill.json`; this file is runtime routing only.
 **Produces:** a `change-plan.md` (DO), an `audit-report.md` plus a findings-ledger +
 workflow-state when tracked (REVIEW), or a `design-doc.md` / `refactor-runbook.md` /
 `explanation.md` (DESIGN).
-
-## Boundaries
-
-Do NOT use for human developer surfaces (use dx-audit / dx-design), agent-readable docs (use agent-docs), or repo agent-hardening (use harden-repo-for-coding-agents).
 
 ## Core principle
 
@@ -65,7 +61,7 @@ not hoped for; the trust boundary closed by default. It sits *atop* the HTTP-cli
    `audit-artifacts/agent-dx-...` if `docs/audits/` is unwritable). Report both paths; keep
    roadmaps, issues, and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

@@ -26,9 +26,12 @@ None.
 
 1. `git mv skills/<old> skills/<new>` (preserves history).
 2. **Sweep the hyphenated identifier** `<old>` → `<new>` across **live** files
-   only — `skills/`, `README.md`, `llms-full.txt`, `AGENTS.md`, `docs/adr/`,
-   `docs/runbooks/`, `skills/_shared/`, `.agents/skills/`, `.claude/skills/`,
-   `scripts/`. **Do not** rewrite dated historical records
+   only — `skills/`, `catalog/catalog.json`, `llms-full.txt`, `AGENTS.md`,
+   `docs/adr/`, `docs/runbooks/`, `skills/_shared/`, `.agents/skills/`,
+   `.claude/skills/`, `scripts/` — then run
+   `python3 scripts/build-catalog.py --write` (regenerates the README
+   §Pick a skill block and `CATALOG.md`; never hand-edit those).
+   **Do not** rewrite dated historical records
    (`docs/reflection-log/[0-9]*.md`, prior
    dated `docs/specs/`, `.agents/state/`) — they are point-in-time records and
    rewriting them falsifies history.
@@ -46,14 +49,20 @@ None.
 6. If `<old>` is named in an ADR's decision, add a one-line rename note to that
    ADR — do not rewrite the decision narrative.
 7. `just check` (includes the doc-link gate, which catches orphaned links from
-   the rename) → green. Open a PR; merge after CI + a code-owner approval.
+   the rename) → green. Open a PR; merge once the `static-checks` CI check is
+   green (no approving review required — single-maintainer ruleset; see
+   AGENTS.md §Ownership and review).
 
 ## Procedure — remove `<old>`
 
 1. `git rm -r skills/<old>`.
-2. Remove cross-references: the `README.md` "Which skill?" row + skill section,
-   `llms-full.txt`, `AGENTS.md`, other skills' "use `<old>`" pointers, and
-   `skills/_shared/` mentions. `.github/CODEOWNERS` is glob-based — no change.
+2. Remove the skill's routing-matrix row (and its family entry, if it was the
+   family's last skill — empty families fail validation) from
+   `catalog/catalog.json`, run `python3 scripts/build-catalog.py --write`
+   (regenerates the README §Pick a skill block and `CATALOG.md` — never
+   hand-edit them), then remove remaining cross-references: `llms-full.txt`,
+   `AGENTS.md`, other skills' "use `<old>`" pointers, and `skills/_shared/`
+   mentions. `.github/CODEOWNERS` is glob-based — no change.
 3. Record a `Removed` entry in `CHANGELOG.md` with the dropped `--skill <old>`.
 4. If the removal is structural (e.g. a consolidation/split), supersede the
    relevant ADR with a new one that links back — do not delete the old ADR.

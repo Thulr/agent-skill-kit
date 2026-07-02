@@ -63,7 +63,7 @@ watches drift). Prefer a deterministic check to a judge whenever the property is
    back to `audit-artifacts/agent-test-...` if `docs/audits/` is unwritable). Report both paths;
    keep roadmaps, issues, and non-tracking edits opt-in.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 

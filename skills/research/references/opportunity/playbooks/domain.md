@@ -115,14 +115,14 @@ glossary plus a stakeholder map.
 
 ## Cross-references
 
-- → `references/playbooks/stakeholder.md` — for B2B power dynamics
+- → `references/opportunity/playbooks/stakeholder.md` — for B2B power dynamics
   built on top of the actor map.
-- → `references/playbooks/technical.md` — for translating workflow +
+- → `references/opportunity/playbooks/technical.md` — for translating workflow +
   edge cases into architectural constraints.
-- → `references/playbooks/legal.md` — when formal regulations
+- → `references/opportunity/playbooks/legal.md` — when formal regulations
   formalize domain constraints.
-- → `references/playbooks/customer.md` — for the user-pain side of
+- → `references/opportunity/playbooks/customer.md` — for the user-pain side of
   the domain workflow.
-- → `references/core/fadr-framework.md` — the F/A/D/R fold.
-- → `templates/artifacts/domain-glossary.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — the F/A/D/R fold.
+- → `templates/opportunity/artifacts/domain-glossary.md` — the artifact this
   playbook produces under `investigate`.

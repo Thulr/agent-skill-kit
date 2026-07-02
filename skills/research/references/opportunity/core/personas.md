@@ -1,6 +1,6 @@
 # Personas (lenses for sub-agent dispatch)
 
-Four lenses used by `references/subagent-dispatch.md` when fanning out
+Four lenses used by `references/opportunity/subagent-dispatch.md` when fanning out
 per-persona on a single surface, or as the default audience choice for
 a single-lens run.
 

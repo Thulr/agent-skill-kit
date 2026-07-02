@@ -1,7 +1,7 @@
 # Operating Model — <opportunity-slug>
 
 > Filled by `investigate` on `operational` surface, using
-> `references/playbooks/operational.md`. **Delivery flow, support
+> `references/opportunity/playbooks/operational.md`. **Delivery flow, support
 > model, runbooks, staffing, vendor handoffs, monitoring, failure
 > modes.**
 

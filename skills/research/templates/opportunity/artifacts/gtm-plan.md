@@ -1,7 +1,7 @@
 # GTM Plan — <opportunity-slug>
 
 > Filled by `investigate` on `gtm` surface, using
-> `references/playbooks/gtm.md`. **Positioning with Dunford's three
+> `references/opportunity/playbooks/gtm.md`. **Positioning with Dunford's three
 > components. Launch as 30 / 60 day sequence, not an event.**
 
 ## Opportunity statement

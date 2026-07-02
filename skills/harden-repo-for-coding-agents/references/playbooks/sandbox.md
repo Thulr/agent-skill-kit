@@ -24,10 +24,10 @@ weaker advice than "use rootless containers." The same image should lift unchang
 to orchestration (K8s pods) for zero environment-dependent drift.
 
 Codex modes map to this ladder: `workspace-write` (write to workspace, network restricted) and
-`--ask-for-approval` (destructive/network actions require human confirmation). Claude Code surfaces
-permission modes (default, plan, auto) and sandbox env vars (`CODEX_SANDBOX_ENV_VAR`,
-`CODEX_SANDBOX_NETWORK_DISABLED_ENV_VAR`) that agents must never modify — `openai/codex` AGENTS.md
-encodes this as a hard rule.
+`--ask-for-approval` (destructive/network actions require human confirmation), plus sandbox env
+vars (`CODEX_SANDBOX_ENV_VAR`, `CODEX_SANDBOX_NETWORK_DISABLED_ENV_VAR`) that agents must never
+modify — `openai/codex` AGENTS.md encodes this as a hard rule. Claude Code surfaces permission
+modes (default / plan / acceptEdits / bypassPermissions — verify against current Claude Code docs).
 
 The sandbox is the second-to-last line of defense (W5 — AGENTS.md is first; hard CI/hook gates are
 last). Secrets must be environment-bound, never mounted in the agent's writable workspace (W10 — the
@@ -68,7 +68,8 @@ so validation is comparable across CI, laptops, and evals.
   ignores proxy vars or opens raw sockets bypasses it, so enforce with network namespaces / egress
   policy and smoke-test it, including allowed-domain abuse (agents exfiltrate through a permitted host),
   not just one blocked domain. (severity cap: 4; lens: adversarial)
-- **H5.** Confirm `CODEX_SANDBOX_NETWORK_DISABLED_ENV_VAR` and `CODEX_SANDBOX_ENV_VAR` are
+- **H5.** When Codex is in the harness inventory, confirm
+  `CODEX_SANDBOX_NETWORK_DISABLED_ENV_VAR` and `CODEX_SANDBOX_ENV_VAR` are
   declared read-only invariants in AGENTS.md — absence lets the agent disable its own network
   controls. (severity cap: 4; lens: cold-agent)
 - **H6.** Verify sandbox Dockerfile/IaC is version-controlled and reviewed on the same path as
@@ -119,8 +120,9 @@ so validation is comparable across CI, laptops, and evals.
   not declared invariant in AGENTS.md; (2) PreToolUse hook absent — no hard gate; (3)
   `--ask-for-approval` not set — model executed network calls without confirmation.
 - **H4.** Secrets leak into logs or traces → rank: (1) secret injected as build arg — baked into
-  image layer history; (2) env var printed by agent debug output — add `ANTHROPIC_REDACT_SECRETS=1`
-  or equivalent; (3) approval log captures the full env — audit trace retention and redaction.
+  image layer history; (2) env var printed by agent debug output — enable the trace exporter's
+  redaction/scrubbing option for the harness in use (verify the exact setting against current
+  harness docs); (3) approval log captures the full env — audit trace retention and redaction.
 
 ## Empirical warnings
 

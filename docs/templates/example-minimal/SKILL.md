@@ -30,5 +30,5 @@ as the source you copy when starting a new skill (see step 1 below).
 
 ## Steps
 
-1. Copy this directory to `skills/my-real-skill/` and edit `SKILL.md` (or run `npx skills init my-real-skill` and move the result under `skills/`).
+1. Copy this directory to `skills/my-real-skill/` and edit `SKILL.md` — rewrite the frontmatter `description` for the routing decision: intent triggers plus "Do NOT use for X — use `<sibling>`" anti-triggers (see `docs/skill-authoring-principles.md`) — or run `npx skills init my-real-skill` and move the result under `skills/`.
 2. Do not delete `docs/templates/example-minimal/` — per AGENTS.md Rule 3, it is the template contract and must continue to exist so future skills can be templated from it. Living under `docs/` keeps it out of the install lanes.

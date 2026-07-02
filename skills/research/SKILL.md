@@ -15,6 +15,13 @@ runtime routing only.
 `investigation-brief` / `cross-area-brief` / `fadr-memo`) plus area artifacts,
 with optional tracking ledger + workflow-state.
 
+## Boundaries
+
+Do NOT use to review an existing artifact like a prompt, plan, or spec (use
+the matching red-team or review skill), to compare a fixed set of
+already-named options (use tradeoff-analysis), or to ideate candidates from
+scratch.
+
 ## Core principle
 
 **Keep the line between what is known and what is asserted visible.** In the
@@ -43,14 +50,15 @@ without a citation or a next test — is a content brief, not research.
    output template, confidence/severity rubrics, and tracking rules. Load only
    the chosen frame's files.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick frame) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 
 Guided Draft (default), Autopilot, Grill Me — see the frame's `modes.md`
 ([`references/report/modes.md`](./references/report/modes.md) /
 [`references/opportunity/core/modes.md`](./references/opportunity/core/modes.md),
-both sourced from `skills/_shared/modes.md`). Offer the mode at bare
+report's symlinked from `skills/_shared/modes.md`; the opportunity frame
+carries a frame-specialized fork). Offer the mode at bare
 invocation; default to Guided Draft on concrete invocations.
 
 ## Reference map

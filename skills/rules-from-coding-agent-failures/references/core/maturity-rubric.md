@@ -21,7 +21,7 @@ repo at Level 2.
 
 ### Level 5 — Sovereign Engineering
 - Reusable plugin/skill catalog across teams; versioned, owned, reviewed.
-- Cost tracking per agent session; model-routing policies (Haiku for exploration, Sonnet for daily, Opus for hard reasoning).
+- Cost tracking per agent session; model-routing policies (e.g. cheap/fast model for exploration, frontier model for hard reasoning — per the team's current routing policy).
 - Organisational governance: audit log for hook overrides, write-protection on AGENTS.md and skills with mandatory review.
 - Provenance: SLSA-style attestations for release artifacts.
 - Scaffold deletion is practiced: promoted rules, hooks, and tests carry expiry conditions and are removed when the model or task no longer needs them — the harness is pruned, not only grown.

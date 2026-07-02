@@ -1,6 +1,6 @@
 {
   "name": "claude-code-cli",
-  "description": "Invoke Claude Code CLI as an external reviewer. Covers print mode (-p) for one-shot review and interactive PTY mode for multi-turn sessions.",
+  "description": "Invoke Claude Code CLI as an external reviewer. Triggers: 'ask Claude Code to review my changes', 'get a second opinion from Claude', 'claude ultrareview', 'cross-project reflection'. Do NOT use for Codex (use codex-cli) or Cursor (use cursor-cli).",
   "version": "0.1.0",
   "license": "MIT",
   "status": "published",

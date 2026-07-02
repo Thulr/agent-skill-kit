@@ -2,6 +2,7 @@
   "//": "TEMPLATE — skill.json shape. Prescribed by skills playbook + AGENTS.md Rule 2 (cross-skill schema parity). Fields below are required unless marked optional. Validator: each skill's evals/run-static-checks.sh enforces this shape — every field a skill ships must be checked there, not just the fields the writer remembered.",
 
   "name": "<skill-name-must-match-directory>",
+  "description": "<one-line description used by catalogs and routing>",
   "version": "0.1.0",
   "status": "published",
   "//status": "Installable skills in agent-skill-kit use published status; prerelease maturity is communicated by the repository release tag.",
@@ -18,13 +19,13 @@
     {
       "name": "<source title>",
       "author": "<author or organization>",
-      "kind": "book | paper | talk | article | blog | repo",
+      "kind": "<kind — e.g. book, paper, talk, article, blog, repo>",
       "url": "<URL or DOI>",
       "contribution": "<one-line: what this source contributed to the skill>",
       "playbooks": ["<surface-1>", "<surface-2-or-marker>"]
     }
   ],
-  "//inspired_by": "Required, non-empty. The 'kind' is one of: book, paper, talk, article, blog, repo. 'contribution' must be a single line; 'playbooks' references either a routed value (intent from references/intent-router.csv, surface from a per-intent CSV under references/intents/, or surface from references/surface-router.csv) or an 'all'/'<intent>-intent' marker depending on skill structure.",
+  "//inspired_by": "Optional; encouraged when the skill draws on cited sources — the schema accepts an absent or empty list. The 'kind' is free-form — e.g. book, paper, talk, article, blog, repo. 'contribution' must be a single line; 'playbooks' references either a routed value (intent from references/intent-router.csv, surface from a per-intent CSV under references/intents/, or surface from references/surface-router.csv) or an 'all'/'<intent>-intent' marker depending on skill structure.",
 
   "//SKILL.md-pairing": "This file pairs with SKILL.md (frontmatter: name, description, license). The name here MUST match SKILL.md's frontmatter name AND the directory name. trigger-evals.json's 'skill' field MUST also match."
 }

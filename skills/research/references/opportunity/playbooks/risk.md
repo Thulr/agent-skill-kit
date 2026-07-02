@@ -122,15 +122,15 @@ produces a structured register, not a worry list.
 ## Cross-references
 
 - → All other playbooks — each surfaces risks; `risk.md` collects.
-- → `references/playbooks/financial.md` — for the cash / runway
+- → `references/opportunity/playbooks/financial.md` — for the cash / runway
   risk class.
-- → `references/playbooks/channel.md` — for platform concentration.
-- → `references/playbooks/legal.md` — for regulatory exposure.
-- → `references/core/severity-rubric.md` — the canonical 0–4 scale.
-- → `references/core/decision-gates.md` — where severity-4 risks
+- → `references/opportunity/playbooks/channel.md` — for platform concentration.
+- → `references/opportunity/playbooks/legal.md` — for regulatory exposure.
+- → `references/opportunity/core/severity-rubric.md` — the canonical 0–4 scale.
+- → `references/opportunity/core/decision-gates.md` — where severity-4 risks
   feed kill criteria.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/risk-register.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/risk-register.md` — the artifact this
   playbook produces under `investigate`.
 - → Sibling skill `premortem` — for the full backwards-from-failure
   interview, when the user wants that depth specifically.

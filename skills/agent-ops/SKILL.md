@@ -1,6 +1,6 @@
 ---
 name: agent-ops
-description: "Use for AGENT OPS — operating a running AI agent system. DO — wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW — audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN — shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'."
+description: "Use for AGENT OPS — operating a running AI agent system. DO — wire observability, a trace-and-eval loop, an autonomy controller, a budget, or a release gate for a running agent. REVIEW — audit an agent system's observability, optimization loop, autonomy controls, reliability/cost, or maturity, then score it. DESIGN — shape an operating loop, gate autonomy, decompose a release gate, assess maturity and route the work to the right sibling, or explain a principle. Triggers on 'set up a trace-and-eval loop', 'is our agent autonomy safe to enable', 'where are we on the agent maturity ladder', 'make our agent system production-ready'. Do NOT use to build the SDK/telemetry (use agent-dx), design evals/judges (use agent-test), or write agent-native docs (use agent-docs) — agent-ops operates a running system; siblings build it."
 license: MIT
 ---
 

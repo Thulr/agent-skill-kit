@@ -129,17 +129,17 @@ landmines are. Legal research is the discipline that prevents
 
 ## Cross-references
 
-- → `references/playbooks/technical.md` — for security threat model
+- → `references/opportunity/playbooks/technical.md` — for security threat model
   feeding compliance requirements.
-- → `references/playbooks/data.md` — for the data-side of privacy
+- → `references/opportunity/playbooks/data.md` — for the data-side of privacy
   / consent / retention.
-- → `references/playbooks/operational.md` — for the ongoing
+- → `references/opportunity/playbooks/operational.md` — for the ongoing
   compliance operations.
-- → `references/playbooks/gtm.md` — for marketing claims review.
-- → `references/playbooks/risk.md` — where legal severity-4
+- → `references/opportunity/playbooks/gtm.md` — for marketing claims review.
+- → `references/opportunity/playbooks/risk.md` — where legal severity-4
   risks become kill criteria.
-- → `references/core/severity-rubric.md` — for legal-risk scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/legal-register.md` — the artifact this
+- → `references/opportunity/core/severity-rubric.md` — for legal-risk scoring.
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/legal-register.md` — the artifact this
   playbook produces under `investigate`. **Carries the "not legal
   advice" marker.**

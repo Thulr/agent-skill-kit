@@ -122,16 +122,16 @@ A product without a believable distribution path is a hobby.
 
 ## Cross-references
 
-- → `references/playbooks/gtm.md` — for the message / packaging
+- → `references/opportunity/playbooks/gtm.md` — for the message / packaging
   side of the same buyers.
-- → `references/playbooks/financial.md` — for CAC / LTV math.
-- → `references/playbooks/customer.md` — for where the customer
+- → `references/opportunity/playbooks/financial.md` — for CAC / LTV math.
+- → `references/opportunity/playbooks/customer.md` — for where the customer
   segment actually lives.
-- → `references/playbooks/risk.md` — where channel concentration
+- → `references/opportunity/playbooks/risk.md` — where channel concentration
   becomes a kill criterion.
-- → `references/playbooks/data.md` — for funnel instrumentation.
-- → `references/core/severity-rubric.md` — for platform-risk
+- → `references/opportunity/playbooks/data.md` — for funnel instrumentation.
+- → `references/opportunity/core/severity-rubric.md` — for platform-risk
   scoring.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold.
-- → `templates/artifacts/channel-plan.md` — the artifact this
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold.
+- → `templates/opportunity/artifacts/channel-plan.md` — the artifact this
   playbook produces under `investigate`.

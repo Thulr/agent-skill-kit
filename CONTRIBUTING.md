@@ -17,6 +17,10 @@ the load-bearing rules. It's the single source of truth for working in this repo
   installable skills, and `evals/` — `run-static-checks.sh`, `trigger-evals.json`,
   `activation-cases.md`. The full contract is in `AGENTS.md` §Per-skill required
   artifacts.
+- **Content quality bar:** before writing or reworking skill content, read
+  [`docs/skill-authoring-principles.md`](./docs/skill-authoring-principles.md)
+  — routing-first descriptions, inlined invariants, gotchas over manuals,
+  deletion tests, stop conditions for loops. `skill-reviewer` gates on these.
 - **Shared schemas / references:** see the runbooks in
   [`docs/runbooks/`](./docs/runbooks/). Keep `skills/.experimental/` empty unless
   a release explicitly reopens experimental distribution.

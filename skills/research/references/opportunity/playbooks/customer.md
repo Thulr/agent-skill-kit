@@ -113,17 +113,17 @@ revealed preference (analytics, prior purchase, observed behavior).
 
 ## Cross-references
 
-- → `references/playbooks/market.md` — for sizing the customer pain at the
+- → `references/opportunity/playbooks/market.md` — for sizing the customer pain at the
   segment / market level.
-- → `references/playbooks/competitive.md` — for the workaround / do-nothing
+- → `references/opportunity/playbooks/competitive.md` — for the workaround / do-nothing
   alternative as competition.
-- → `references/playbooks/stakeholder.md` — when user ≠ buyer
+- → `references/opportunity/playbooks/stakeholder.md` — when user ≠ buyer
   (B2B / enterprise).
-- → `references/playbooks/channel.md` — for where these customers
+- → `references/opportunity/playbooks/channel.md` — for where these customers
   actually live and how to reach them.
-- → `references/core/confidence-rubric.md` — for the
+- → `references/opportunity/core/confidence-rubric.md` — for the
   stated-vs-revealed evidence rules.
-- → `references/core/fadr-framework.md` — for the F/A/D/R fold at
+- → `references/opportunity/core/fadr-framework.md` — for the F/A/D/R fold at
   artifact end.
-- → `templates/artifacts/icp-and-jtbd.md` — the artifact this
+- → `templates/opportunity/artifacts/icp-and-jtbd.md` — the artifact this
   playbook produces under `investigate`.

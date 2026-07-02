@@ -25,11 +25,9 @@ one question only when it is genuinely unclear.
 - `branch`: `codex review --base <branch>` before PRs or merges.
 - `commit`: `codex review --commit <sha>` for a single commit.
 
-**`codex review` accepts no custom prompt with any scope flag** (every scope
-errors `the argument '--<scope>' cannot be used with '[PROMPT]'`; verified on
-codex-cli 0.141.0). So the severity rubric below and `--extra` are **not**
-injected into `codex review` — it uses its own built-in review standard for all
-scopes. The rubric still governs how you *reconcile and relay* Codex's output.
+`codex review` takes no custom prompt with any scope flag — see
+`cli-contract.md`; the rubric below governs how you *reconcile and relay*
+Codex's output, not what Codex is told.
 
 ## Custom focus
 

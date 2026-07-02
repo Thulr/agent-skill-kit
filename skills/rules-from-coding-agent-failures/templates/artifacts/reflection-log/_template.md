@@ -3,9 +3,9 @@
      Drop into target repo at `docs/reflection-log/_template.md`. Contributors
      copy this to `YYYY-MM-DD-<slug>.md` per failure.
 
-     Required fills marked with <placeholder>. Leaving placeholders in a
-     committed entry is a static-check failure — the writer has to fill
-     them. -->
+     Required fills marked with <placeholder>. Fill every <placeholder>
+     before committing — an entry with unfilled placeholders is not
+     usable evidence. -->
 
 ---
 date: YYYY-MM-DD
@@ -25,8 +25,9 @@ without asking you.>
 
 ## What to do differently
 
-<The smallest hook, rule, or gate that closes this gap. Cite W1–W10 from
-`skills/harden-repo-for-coding-agents/references/empirical-warnings.md`
+<The smallest hook, rule, or gate that closes this gap. Cite W1 from the `rules-from-coding-agent-failures` skill's
+`references/empirical-warnings-w1.md`, and W2–W10 from the installed
+`harden-repo-for-coding-agents` skill's `references/empirical-warnings.md`,
 where applicable. If this points to a skill-level fix (template, playbook
 heuristic), name the file + heuristic ID.>
 

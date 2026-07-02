@@ -1,6 +1,6 @@
 ---
 name: ux-audit
-description: "Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on 'UX audit', 'heuristic evaluation', 'users are confused', 'signup/checkout drop-off', 'accessibility/WCAG review'."
+description: "Use to AUDIT an existing end-user product UX or accessibility surface — audit a usability flow for confusion, review a form for friction, inspect navigation / information architecture, sweep error and recovery copy, or run a WCAG / keyboard / screen-reader / contrast / focus accessibility pass. Triggers on 'UX audit', 'heuristic evaluation', 'users are confused', 'signup/checkout drop-off', 'accessibility/WCAG review'. Do NOT use to build or polish UI (use ui-design) or for developer-facing APIs/SDKs/CLIs (use dx-audit)."
 license: MIT
 ---
 
@@ -71,13 +71,13 @@ reach for a pointing device to recover, that is a UX problem worth a finding.
    if `docs/audits/` is unwritable. Report both paths; keep roadmaps, issues,
    and product-file edits opt-in.
 
-> **Wrong direction?** If the user says this isn't what they meant, go back to Understand (step 1) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
+> **Wrong direction?** If the user says this isn't what they meant, go back to step 1 (Pick intent) — do not patch in the wrong direction. Restate the corrected understanding and re-plan.
 
 ## Modes
 
 Guided Draft (default), Autopilot, Grill Me — see
 [`references/modes.md`](./references/modes.md). Offer the mode at bare
-invocation, before loading the intent router; default to Guided Draft on
+invocation, alongside the intent menu; default to Guided Draft on
 concrete invocations.
 
 ## Output requirements

@@ -35,6 +35,7 @@ def build_repo(root: Path) -> None:
     write(root / "skills/_shared/modes.md", "# shared\n")
     skill(root, ".agents/skills/reviewer")
     skill(root, ".agents/skills/local-clutter")
+    skill(root, "docs/templates/example-minimal", internal=True)
 
 
 def names(paths: list[Path]) -> list[str]:
@@ -92,6 +93,7 @@ def main() -> int:
                 sorted(str(path.relative_to(root)) for path in inventory.static_check_scripts()),
                 [
                     ".agents/skills/reviewer/evals/run-static-checks.sh",
+                    "docs/templates/example-minimal/evals/run-static-checks.sh",
                     "skills/.experimental/exp/evals/run-static-checks.sh",
                     "skills/alpha/evals/run-static-checks.sh",
                     "skills/example-minimal/evals/run-static-checks.sh",

@@ -43,7 +43,7 @@ skills/<skill-name>/
   evals/
     activation-cases.md         # behavioral cases (positive + negative)
     run-static-checks.sh        # REQUIRED at this depth
-    trigger-evals.json          # optional, for description optimization
+    trigger-evals.json          # required repo gate; feeds description optimization
 ```
 
 ## The two registries

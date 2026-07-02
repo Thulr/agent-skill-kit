@@ -10,10 +10,9 @@ still be a terrible business because it's painful to operate.
 - In: delivery / fulfillment flow, support model and escalation
   paths, runbooks / SOPs, QA and review steps, staffing assumptions,
   training requirements, vendor ops and handoffs, monitoring and
-  observability of the *business* (not the system — see
-  `perf-audit` / `perf-design`), failure-mode analysis.
+  observability of the *business* (not the system), failure-mode analysis.
 - Out: technical architecture (`technical.md`), unit economics
-  (`financial.md`), production / SRE perf (`perf-audit` / `perf-design`),
+  (`financial.md`), production / SRE perf,
   legal contracts (`legal.md`).
 - Intents this surface answers: scope, investigate, synthesize, decide.
 

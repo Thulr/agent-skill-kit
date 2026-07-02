@@ -86,7 +86,7 @@ playbook; names a target developer persona; emits the intent's template shape.
 
 ## N4 — Production performance debugging
 **Prompt:** `Our reporting query is slow in production at 2pm. Trace what's causing it.`
-**Expected:** recognizes operational/runtime perf, not developer-perceived perf; defers (perf-audit).
+**Expected:** recognizes operational/runtime perf, not developer-perceived perf; does not activate.
 
 ## N5 — AI-agent surface
 **Prompt:** `Claude Code keeps tripping on our repo — wrong test commands, blocked pushes, bad AGENTS.md. Make it agent-friendly.`

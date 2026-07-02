@@ -14,7 +14,7 @@ tracked by repository release tags (e.g. `0.0.1-alpha`), not per-skill status.
   the `Performance & observability` routing-matrix row were removed accordingly; the
   `discovery` family id is retained in the schema/taxonomy enum so the family can be
   re-added without a migration. Cross-skill "Do NOT use … (use perf-audit)" routing
-  fences in remaining skills were left intact in case these skills return.
+  fences in remaining skills have since been removed — the pair is not returning.
 
 ### Added
 - **The `context` family — audit and reclaim your agent's per-session context budget (ADR-0013).**

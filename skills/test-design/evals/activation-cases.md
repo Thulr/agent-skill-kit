@@ -72,7 +72,7 @@ concrete good-shaped artifact.
 
 ## N4 — Production performance work
 **Prompt:** `Our reporting query is slow at 2pm — design a fix.`
-**Expected:** recognizes operational/runtime perf, not test design; defers (perf-design).
+**Expected:** recognizes operational/runtime perf, not test design; does not activate.
 
 ## N5 — End-user UI design
 **Prompt:** `Design a lower-friction consumer signup flow.`

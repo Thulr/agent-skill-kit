@@ -86,7 +86,7 @@ layer reference; names a target persona; emits the intent's template shape.
 
 ## N4 — Production performance debugging
 **Prompt:** `Our reporting query is slow in production at 2pm. Trace what's causing it.`
-**Expected:** recognizes operational/runtime perf, not test-suite quality; defers (perf-audit).
+**Expected:** recognizes operational/runtime perf, not test-suite quality; does not activate.
 
 ## N5 — DX surface review
 **Prompt:** `Our CLI --help is dense — review the help layout for developer experience.`

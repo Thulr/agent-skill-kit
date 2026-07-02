@@ -34,6 +34,6 @@
   "metadata": {
     "family": "interop",
     "function": "singleton",
-    "catalog_summary": "Drive the external **Claude Code CLI** (`claude -p`) as an independent second-opinion reviewer and analysis agent \u2014 review working-tree/staged/branch diffs (the wrapper builds the diff and feeds it read-only via `--permission-mode plan`), get a second opinion on a decision/bug/plan, run cross-project reflection, or hand off to a hosted `claude ultrareview`. Routes through a use-case registry, defaults to read-only, never bypasses permissions without an explicit ask, and presents output as an external opinion to reconcile against local evidence. Provenance in [`skills/claude-code-cli/skill.json`](./skills/claude-code-cli/skill.json)."
+    "catalog_summary": "Drive the Claude Code CLI (`claude -p`) as a second-opinion reviewer \u2014 review working-tree, staged, or branch diffs read-only, get a second opinion on a decision, bug, or plan, run cross-project reflection, or hand off to a hosted `claude ultrareview`. Defaults to read-only and never bypasses permissions without an explicit ask."
   }
 }

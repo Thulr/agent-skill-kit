@@ -41,41 +41,39 @@
     ]
   },
   "catalog": {
-    "lead_in": "What each skill is and what it's grounded in. To route by task use [Pick a skill](#pick-a-skill); to install see [Install](#install).",
+    "lead_in": "Every skill, grouped by family: what it does and what it's grounded in. To route by task, see [Pick a skill](./README.md#pick-a-skill); to install, see [Install](./README.md#install).",
     "families": [
       {
         "id": "heuristics",
         "title": "Heuristic audit & design pairs",
         "intro": [
-          "Source-grounded heuristics for software surfaces, split so the name says what it does. A **`-audit`** skill audits, debugs, or risk-scans an *existing* surface (expert lenses → severity-scored findings report, with an optional tracking ledger); a **`-design`** skill shapes a *new* one (names the good-shaped pattern → design doc / plan / runbook). A domain's pair shares its playbooks, lenses, personas, and rubrics via `skills/_shared/<domain>/`, so the two stay in lockstep without drift.",
-          "",
-          "Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout, Parnas, and many more (per-skill provenance in each `skill.json`). The `-audit`/`-design` pairs replaced the merged `review-heuristics` skill — see [`docs/adr/0008`](./docs/adr/0008-reverse-review-consolidation-split-by-domain-and-function.md). `minimal-modular-code` is the family's one singleton — a single skill spanning review and design for code minimality and parallel-readiness; it replaced the former clean-architecture pair (see [`docs/adr/0009`](./docs/adr/0009-replace-architecture-pair-with-minimal-modular-code.md))."
+          "One pair per surface: **`-audit`** reviews an existing surface and produces a severity-scored findings report; **`-design`** shapes a new one and produces a design doc, plan, or runbook. Grounded in 120+ cited sources — Norman, Nielsen, Bloch, Gregg, the Google SRE book, Kleppmann, WCAG 2.2, Ousterhout — with per-skill provenance in each skill's `skill.json`."
         ]
       },
       {
         "id": "research",
-        "title": "research",
+        "title": "Research",
         "intro": []
       },
       {
         "id": "ax",
         "title": "Agent experience (AX)",
         "intro": [
-          "The agent-mirror family: an **AI agent is an actor** (not a peer audience), so each human-experience domain gets an agent mirror — `agent-dx` (agent as developer), `agent-docs` (reader), `agent-ux` (end-user), `agent-ops` (operator), and `agent-test` (subject under measurement) — plus the standalone arms `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures` they route out to. Each mirror routes do/review/design like the heuristic singletons. Organized by actor per [`docs/adr/0011`](./docs/adr/0011-actor-axis-agent-mirror-family.md)."
+          "Each human-experience domain gets an agent-facing counterpart, organized by the role the agent plays: `agent-dx` (agent as developer), `agent-docs` (agent as reader), `agent-ux` (agent as end-user), `agent-ops` (agent as operator), and `agent-test` (agent as the thing being measured) — plus the two hands-on skills they route to, `harden-repo-for-coding-agents` and `rules-from-coding-agent-failures`."
         ]
       },
       {
         "id": "interop",
         "title": "Cross-agent interop & tooling",
         "intro": [
-          "Skills that drive *another* coding agent or CLI as part of your own workflow — an independent second-opinion reviewer, an external analysis pass, a cross-project reflection — rather than auditing or designing a surface themselves. The pragmatic \"tools the maintainer actually reaches for\" corner of the kit, grouped by what you *do with them* (grouping nod to [`mattpocock/skills`](https://github.com/mattpocock/skills)); distinct from the source-grounded audit/design pairs and from the agent-experience family, which shape surfaces *for* agents rather than *using* one as an instrument. See [`docs/adr/0012`](./docs/adr/0012-interop-family-for-cross-agent-tooling.md)."
+          "Drive *another* coding agent's CLI as an independent second-opinion reviewer or analysis pass. All three default to read-only and present their output as an external opinion to reconcile against local evidence — useful when you want a different model or provider to check work before you ship it."
         ]
       },
       {
         "id": "context",
         "title": "Context budget & agent-setup hygiene",
         "intro": [
-          "Audit and reclaim the per-session context an agent's *local setup* costs — the MCP servers, plugins, skills, slash commands, and subagents that load into every session whether or not you use them. Distinct from the agent-experience family (which shapes surfaces *for* agents) and from `harden-repo-for-coding-agents` (which hardens a repo's agent config): this family measures what is loaded, estimates its always-on token cost from real usage evidence, and gates safe pruning. One skill today; introduced per [`docs/adr/0013`](./docs/adr/0013-context-budget-family.md)."
+          "Measure and reclaim the context tokens your agent setup burns every session — the MCP servers, plugins, skills, slash commands, and subagents that load whether or not you use them."
         ]
       }
     ]

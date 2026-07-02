@@ -12,7 +12,7 @@ the architecture domain's singleton resolution
 the agent family.
 
 Working design doc + evidence base:
-[`docs/research/agent-mirror-family-blueprint-2026-06-18.md`](../research/agent-mirror-family-blueprint-2026-06-18.md)
+`docs/research/agent-mirror-family-blueprint-2026-06-18.md` (since removed in a docs cleanup; see git history)
 and the `agent-mirror-family-design` workflow (21 agents: map → 4 competing designs →
 score → adversarial verify → synthesize). The recommended cut here is the synthesis that
 survived every fatal attack that sank the alternatives.

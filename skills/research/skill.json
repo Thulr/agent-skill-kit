@@ -334,6 +334,6 @@
   "metadata": {
     "family": "research",
     "function": "singleton",
-    "catalog_summary": "Source-grounded research in **two decision-frames**. `report` — open-ended research on a topic, with citations and no decision attached (primer, literature review, state-of-the-art; depth modes `brief` / `survey` / `deep-dive`). `opportunity` — validate a named product/business/market/feature opportunity across 14 areas (market, customer, competitive, domain, technical, data, operational, financial, legal, channel, GTM, stakeholder, risk, trend), ending in an F/A/D/R go/no-go/pivot decision with sub-agent fan-out per area. Every load-bearing claim is cited or marked as inference (report frame); every branch ends in a decision (opportunity frame)."
+    "catalog_summary": "Source-grounded research in two modes. `report` — an open-ended, cited topic report (primer, literature review, state of the art) at `brief` / `survey` / `deep-dive` depth. `opportunity` — validate a named product, business, or feature idea across 14 areas (market, customer, competitive, technical, financial, legal, and more), ending in a go / no-go / pivot decision. Every load-bearing claim is cited or marked as inference."
   }
 }

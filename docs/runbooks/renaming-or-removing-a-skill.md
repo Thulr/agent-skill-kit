@@ -29,7 +29,7 @@ None.
    only — `skills/`, `README.md`, `llms-full.txt`, `AGENTS.md`, `docs/adr/`,
    `docs/runbooks/`, `skills/_shared/`, `.agents/skills/`, `.claude/skills/`,
    `scripts/`. **Do not** rewrite dated historical records
-   (`docs/reflection-log/[0-9]*.md`, `docs/audits/`, `docs/research/`, prior
+   (`docs/reflection-log/[0-9]*.md`, prior
    dated `docs/specs/`, `.agents/state/`) — they are point-in-time records and
    rewriting them falsifies history.
 3. The sweep updates, inside `skills/<new>/`: `SKILL.md` `name:`, `skill.json`

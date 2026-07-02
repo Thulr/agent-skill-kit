@@ -329,6 +329,5 @@ downstream agent sessions; treat skill PRs at production-code review depth
 - [`docs/adr/`](./docs/adr/) — architectural decisions (the "why")
 - [`docs/runbooks/`](./docs/runbooks/) — maintainer procedures (the "how")
 - [`docs/reflection-log/`](./docs/reflection-log/) — per-failure entries; evidence base for new rules/gates
-- [`docs/agent-readiness-2026-05-15.md`](./docs/agent-readiness-2026-05-15.md) — historical assessment
 - [`skills/_shared/empirical-warnings.md`](./skills/_shared/empirical-warnings.md) — W2–W10 cross-cutting guardrails
 - [`skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md`](./skills/rules-from-coding-agent-failures/references/empirical-warnings-w1.md) — W1 ≥3 promotion floor (owned by `rules-from-coding-agent-failures`)

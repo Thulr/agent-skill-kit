@@ -56,6 +56,6 @@
   "metadata": {
     "family": "ax",
     "function": "singleton",
-    "catalog_summary": "Agent-as-end-user: the interaction surface an AI agent acts through (a UI, app, or computer-use target), often on a human's behalf \u2014 DO (make it perceivable, targetable, safe to act on), REVIEW (audit machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it), DESIGN (shape the state, action handles, approval gate, or dual path). Net-new; the agent-actor analog of human UX."
+    "catalog_summary": "Agent-as-end-user: the interaction surface an AI agent acts through (a UI, app, or computer-use target), often on a human's behalf \u2014 DO (make it perceivable, targetable, safe to act on), REVIEW (audit machine-readable state, deterministic actions, agent agency/approval, and human-vs-agent conflict, then score it), DESIGN (shape the state, action handles, approval gate, or dual path)."
   }
 }

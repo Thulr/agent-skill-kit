@@ -9,7 +9,7 @@ ADR 0008 split the clean-architecture domain into `architecture-audit` (critique
 1. **Philosophical conflict.** Classic clean-architecture and DDD, applied as a target, push *toward* more structure — layers, ports/adapters, aggregates, value objects, bounded contexts. That is precisely the speculative structure coding agents already over-produce. The architecture pair had no subtraction or right-sizing lens; shipped next to a minimalism skill, the catalog would give push-pull advice on the same code.
 2. **The evidenced, valuable part lived elsewhere.** The agent-parallelism backbone (Conway's Law, the mirroring hypothesis, Baldwin & Clark design rules, Wong & Cai same-layer parallelism, Herbsleb & Grinter integration) was split between `harden-repo-for-coding-agents`'s `inspired_by` and a pointer to the architecture pair. No skill owned the reconciliation between staying minimal and investing in modular boundaries.
 
-A source-grounded research pass ([`docs/research/research-report-2026-06-17-minimal-code-and-agent-slop.md`](../research/research-report-2026-06-17-minimal-code-and-agent-slop.md)) established a unifying thesis: **invest in interfaces, not implementations; enforce with gates, not prose; the scarce resource is accountable review, not code generation.** That thesis spans review *and* design — so the audit/design split is the wrong cut for this domain.
+A source-grounded research pass (`docs/research/research-report-2026-06-17-minimal-code-and-agent-slop.md`, since removed in a docs cleanup; see git history) established a unifying thesis: **invest in interfaces, not implementations; enforce with gates, not prose; the scarce resource is accountable review, not code generation.** That thesis spans review *and* design — so the audit/design split is the wrong cut for this domain.
 
 ## Decision
 
@@ -33,4 +33,4 @@ The principle, stated to compete with 0008's per-domain × per-function rule: **
 
 ## History
 
-- **2026-06-18:** Original decision (this ADR). Triggered by maintainer review while scoping a minimalism/anti-slop skill: the clean-architecture pair conflicted with the minimalism thesis and the evidenced parallelism material had no home. Grounded in [`docs/research/research-report-2026-06-17-minimal-code-and-agent-slop.md`](../research/research-report-2026-06-17-minimal-code-and-agent-slop.md).
+- **2026-06-18:** Original decision (this ADR). Triggered by maintainer review while scoping a minimalism/anti-slop skill: the clean-architecture pair conflicted with the minimalism thesis and the evidenced parallelism material had no home. Grounded in `docs/research/research-report-2026-06-17-minimal-code-and-agent-slop.md` (since removed; see git history).
